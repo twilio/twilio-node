@@ -165,7 +165,7 @@ export interface QueryListInstance {
   create(
     params: InsightsQueryRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: QueryInstance) => any,
+    callback?: (error: Error | null, item?: QueryInstance) => any
   ): Promise<QueryInstance>;
 
   /**
@@ -180,7 +180,7 @@ export interface QueryListInstance {
   createWithHttpInfo(
     params: InsightsQueryRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any
   ): Promise<ApiResponse<QueryInstance>>;
 
   /**
@@ -193,7 +193,7 @@ export interface QueryListInstance {
    */
   fetch(
     params: QueryListInstanceFetchOptions,
-    callback?: (error: Error | null, item?: QueryInstance) => any,
+    callback?: (error: Error | null, item?: QueryInstance) => any
   ): Promise<QueryInstance>;
 
   /**
@@ -206,7 +206,7 @@ export interface QueryListInstance {
    */
   fetchWithHttpInfo(
     params: QueryListInstanceFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any
   ): Promise<ApiResponse<QueryInstance>>;
 
   /**
@@ -226,7 +226,7 @@ export function QueryListInstance(version: V3): QueryListInstance {
   instance.create = function create(
     params: InsightsQueryRequest,
     headers?: any,
-    callback?: (error: Error | null, items: QueryInstance) => any,
+    callback?: (error: Error | null, items: QueryInstance) => any
   ): Promise<QueryInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -254,12 +254,12 @@ export function QueryListInstance(version: V3): QueryListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new QueryInstance(operationVersion, payload),
+      (payload) => new QueryInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -267,7 +267,7 @@ export function QueryListInstance(version: V3): QueryListInstance {
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: InsightsQueryRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<QueryInstance>) => any,
+    callback?: (error: Error | null, items: ApiResponse<QueryInstance>) => any
   ): Promise<ApiResponse<QueryInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -302,14 +302,14 @@ export function QueryListInstance(version: V3): QueryListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
 
   instance.fetch = function fetch(
     params: QueryListInstanceFetchOptions,
-    callback?: (error: Error | null, items: QueryInstance) => any,
+    callback?: (error: Error | null, items: QueryInstance) => any
   ): Promise<QueryInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -335,19 +335,19 @@ export function QueryListInstance(version: V3): QueryListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new QueryInstance(operationVersion, payload),
+      (payload) => new QueryInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
 
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
     params: QueryListInstanceFetchOptions,
-    callback?: (error: Error | null, items: ApiResponse<QueryInstance>) => any,
+    callback?: (error: Error | null, items: ApiResponse<QueryInstance>) => any
   ): Promise<ApiResponse<QueryInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -380,7 +380,7 @@ export function QueryListInstance(version: V3): QueryListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -391,7 +391,7 @@ export function QueryListInstance(version: V3): QueryListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -408,7 +408,7 @@ interface QueryResource {
 export class QueryInstance {
   constructor(
     protected _version: V3,
-    _payload: QueryResource,
+    _payload: QueryResource
   ) {
     const payload = _payload;
     this.domain = payload.domain;

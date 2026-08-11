@@ -52,7 +52,7 @@ export interface ComplianceInquiriesContext {
    */
   update(
     params: ComplianceInquiriesContextUpdateOptions,
-    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any,
+    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any
   ): Promise<ComplianceInquiriesInstance>;
 
   /**
@@ -67,8 +67,8 @@ export interface ComplianceInquiriesContext {
     params: ComplianceInquiriesContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceInquiriesInstance>>;
 
   /**
@@ -88,7 +88,7 @@ export class ComplianceInquiriesContextImpl implements ComplianceInquiriesContex
 
   constructor(
     protected _version: V1,
-    customerId: string,
+    customerId: string
   ) {
     if (!isValidPathParam(customerId)) {
       throw new Error("Parameter 'customerId' is not valid.");
@@ -100,7 +100,7 @@ export class ComplianceInquiriesContextImpl implements ComplianceInquiriesContex
 
   update(
     params: ComplianceInquiriesContextUpdateOptions,
-    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any,
+    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any
   ): Promise<ComplianceInquiriesInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -111,7 +111,7 @@ export class ComplianceInquiriesContextImpl implements ComplianceInquiriesContex
       params["primaryProfileSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['primaryProfileSid']\" missing.",
+        "Required parameter \"params['primaryProfileSid']\" missing."
       );
     }
 
@@ -139,13 +139,13 @@ export class ComplianceInquiriesContextImpl implements ComplianceInquiriesContex
         new ComplianceInquiriesInstance(
           operationVersion,
           payload,
-          instance._solution.customerId,
-        ),
+          instance._solution.customerId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -154,8 +154,8 @@ export class ComplianceInquiriesContextImpl implements ComplianceInquiriesContex
     params: ComplianceInquiriesContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceInquiriesInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -166,7 +166,7 @@ export class ComplianceInquiriesContextImpl implements ComplianceInquiriesContex
       params["primaryProfileSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['primaryProfileSid']\" missing.",
+        "Required parameter \"params['primaryProfileSid']\" missing."
       );
     }
 
@@ -195,13 +195,13 @@ export class ComplianceInquiriesContextImpl implements ComplianceInquiriesContex
         body: new ComplianceInquiriesInstance(
           operationVersion,
           response.body,
-          instance._solution.customerId,
+          instance._solution.customerId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -236,7 +236,7 @@ export class ComplianceInquiriesInstance {
   constructor(
     protected _version: V1,
     payload: ComplianceInquiriesResource,
-    customerId?: string,
+    customerId?: string
   ) {
     this.inquiryId = payload.inquiry_id;
     this.inquirySessionToken = payload.inquiry_session_token;
@@ -268,7 +268,7 @@ export class ComplianceInquiriesInstance {
       this._context ||
       new ComplianceInquiriesContextImpl(
         this._version,
-        this._solution.customerId,
+        this._solution.customerId
       );
     return this._context;
   }
@@ -283,12 +283,12 @@ export class ComplianceInquiriesInstance {
    */
   update(
     params: ComplianceInquiriesContextUpdateOptions,
-    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any,
+    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any
   ): Promise<ComplianceInquiriesInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any,
+    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any
   ): Promise<ComplianceInquiriesInstance> {
     return this._proxy.update(params, callback);
   }
@@ -305,16 +305,16 @@ export class ComplianceInquiriesInstance {
     params: ComplianceInquiriesContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceInquiriesInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceInquiriesInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -356,7 +356,7 @@ export interface ComplianceInquiriesListInstance {
    * @returns Resolves to processed ComplianceInquiriesInstance
    */
   create(
-    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any,
+    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any
   ): Promise<ComplianceInquiriesInstance>;
   /**
    * Create a ComplianceInquiriesInstance
@@ -368,7 +368,7 @@ export interface ComplianceInquiriesListInstance {
    */
   create(
     params: ComplianceInquiriesListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any,
+    callback?: (error: Error | null, item?: ComplianceInquiriesInstance) => any
   ): Promise<ComplianceInquiriesInstance>;
 
   /**
@@ -381,8 +381,8 @@ export interface ComplianceInquiriesListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceInquiriesInstance>>;
   /**
    * Create a ComplianceInquiriesInstance and return HTTP info
@@ -396,8 +396,8 @@ export interface ComplianceInquiriesListInstance {
     params: ComplianceInquiriesListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceInquiriesInstance>>;
 
   /**
@@ -408,7 +408,7 @@ export interface ComplianceInquiriesListInstance {
 }
 
 export function ComplianceInquiriesListInstance(
-  version: V1,
+  version: V1
 ): ComplianceInquiriesListInstance {
   const instance = ((customerId) =>
     instance.get(customerId)) as ComplianceInquiriesListInstance;
@@ -425,7 +425,7 @@ export function ComplianceInquiriesListInstance(
     params?:
       | ComplianceInquiriesListInstanceCreateOptions
       | ((error: Error | null, items: ComplianceInquiriesInstance) => any),
-    callback?: (error: Error | null, items: ComplianceInquiriesInstance) => any,
+    callback?: (error: Error | null, items: ComplianceInquiriesInstance) => any
   ): Promise<ComplianceInquiriesInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -456,12 +456,12 @@ export function ComplianceInquiriesListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ComplianceInquiriesInstance(operationVersion, payload),
+      (payload) => new ComplianceInquiriesInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -471,12 +471,12 @@ export function ComplianceInquiriesListInstance(
       | ComplianceInquiriesListInstanceCreateOptions
       | ((
           error: Error | null,
-          items: ApiResponse<ComplianceInquiriesInstance>,
+          items: ApiResponse<ComplianceInquiriesInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ComplianceInquiriesInstance>,
-    ) => any,
+      items: ApiResponse<ComplianceInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceInquiriesInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -514,7 +514,7 @@ export function ComplianceInquiriesListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -525,7 +525,7 @@ export function ComplianceInquiriesListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

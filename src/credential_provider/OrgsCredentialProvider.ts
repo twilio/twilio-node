@@ -44,14 +44,14 @@ namespace OrgsCredentialProvider {
     }
 
     public setClientSecret(
-      clientSecret: string,
+      clientSecret: string
     ): OrgsCredentialProviderBuilder {
       this.instance.clientSecret = clientSecret;
       return this;
     }
 
     public setTokenManager(
-      tokenManager: TokenManager,
+      tokenManager: TokenManager
     ): OrgsCredentialProviderBuilder {
       this.instance.tokenManager = tokenManager;
       return this;

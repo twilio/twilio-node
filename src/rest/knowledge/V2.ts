@@ -47,7 +47,7 @@ export default class V2 extends Version {
   /** Implementation */
   knowledge(
     kbId: string,
-    knowledgeId?: string,
+    knowledgeId?: string
   ): KnowledgeListInstance | KnowledgeContext {
     const listInstance = KnowledgeListInstance(this, kbId);
     if (knowledgeId !== undefined) {

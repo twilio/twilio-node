@@ -31,7 +31,7 @@ export interface RolePermissionListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: RolePermissionInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -88,15 +88,15 @@ export interface RolePermissionListInstance {
   each(
     callback?: (
       item: RolePermissionInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: RolePermissionListInstanceEachOptions,
     callback?: (
       item: RolePermissionInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams RolePermissionInstance records from the API with HTTP metadata captured per page.
@@ -116,15 +116,15 @@ export interface RolePermissionListInstance {
   eachWithHttpInfo(
     callback?: (
       item: RolePermissionInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: RolePermissionListInstanceEachOptions,
     callback?: (
       item: RolePermissionInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of RolePermissionInstance records from the API.
@@ -136,7 +136,7 @@ export interface RolePermissionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: RolePermissionPage) => any,
+    callback?: (error: Error | null, items: RolePermissionPage) => any
   ): Promise<RolePermissionPage>;
   /**
    * Retrieve a single target page of RolePermissionInstance records from the API with HTTP metadata.
@@ -150,8 +150,8 @@ export interface RolePermissionListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<RolePermissionPage>,
-    ) => any,
+      items: ApiResponse<RolePermissionPage>
+    ) => any
   ): Promise<ApiResponse<RolePermissionPage>>;
   /**
    * Lists RolePermissionInstance records from the API as a list.
@@ -163,11 +163,11 @@ export interface RolePermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: RolePermissionInstance[]) => any,
+    callback?: (error: Error | null, items: RolePermissionInstance[]) => any
   ): Promise<RolePermissionInstance[]>;
   list(
     params: RolePermissionListInstanceOptions,
-    callback?: (error: Error | null, items: RolePermissionInstance[]) => any,
+    callback?: (error: Error | null, items: RolePermissionInstance[]) => any
   ): Promise<RolePermissionInstance[]>;
   /**
    * Lists RolePermissionInstance records from the API as a list with HTTP metadata.
@@ -183,15 +183,15 @@ export interface RolePermissionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<RolePermissionInstance[]>,
-    ) => any,
+      items: ApiResponse<RolePermissionInstance[]>
+    ) => any
   ): Promise<ApiResponse<RolePermissionInstance[]>>;
   listWithHttpInfo(
     params: RolePermissionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<RolePermissionInstance[]>,
-    ) => any,
+      items: ApiResponse<RolePermissionInstance[]>
+    ) => any
   ): Promise<ApiResponse<RolePermissionInstance[]>>;
   /**
    * Retrieve a single page of RolePermissionInstance records from the API.
@@ -205,11 +205,11 @@ export interface RolePermissionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: RolePermissionPage) => any,
+    callback?: (error: Error | null, items: RolePermissionPage) => any
   ): Promise<RolePermissionPage>;
   page(
     params: RolePermissionListInstancePageOptions,
-    callback?: (error: Error | null, items: RolePermissionPage) => any,
+    callback?: (error: Error | null, items: RolePermissionPage) => any
   ): Promise<RolePermissionPage>;
   /**
    * Retrieve a single page of RolePermissionInstance records from the API with HTTP metadata.
@@ -225,15 +225,15 @@ export interface RolePermissionListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<RolePermissionPage>,
-    ) => any,
+      items: ApiResponse<RolePermissionPage>
+    ) => any
   ): Promise<ApiResponse<RolePermissionPage>>;
   pageWithHttpInfo(
     params: RolePermissionListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<RolePermissionPage>,
-    ) => any,
+      items: ApiResponse<RolePermissionPage>
+    ) => any
   ): Promise<ApiResponse<RolePermissionPage>>;
 
   /**
@@ -245,7 +245,7 @@ export interface RolePermissionListInstance {
 
 export function RolePermissionListInstance(
   version: V1,
-  roleSid: string,
+  roleSid: string
 ): RolePermissionListInstance {
   if (!isValidPathParam(roleSid)) {
     throw new Error("Parameter 'roleSid' is not valid.");
@@ -261,7 +261,7 @@ export function RolePermissionListInstance(
     params?:
       | RolePermissionListInstancePageOptions
       | ((error: Error | null, items: RolePermissionPage) => any),
-    callback?: (error: Error | null, items: RolePermissionPage) => any,
+    callback?: (error: Error | null, items: RolePermissionPage) => any
   ): Promise<RolePermissionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -290,12 +290,12 @@ export function RolePermissionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RolePermissionPage(operationVersion, payload, instance._solution),
+        new RolePermissionPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -305,7 +305,7 @@ export function RolePermissionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: RolePermissionPage) => any,
+    callback?: (error: Error | null, items: RolePermissionPage) => any
   ): Promise<RolePermissionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -313,7 +313,7 @@ export function RolePermissionListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new RolePermissionPage(instance._version, payload, instance._solution),
+        new RolePermissionPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -325,8 +325,8 @@ export function RolePermissionListInstance(
       | ((error: Error | null, items: ApiResponse<RolePermissionPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<RolePermissionPage>,
-    ) => any,
+      items: ApiResponse<RolePermissionPage>
+    ) => any
   ): Promise<ApiResponse<RolePermissionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -357,13 +357,13 @@ export function RolePermissionListInstance(
         body: new RolePermissionPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -377,8 +377,8 @@ export function RolePermissionListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<RolePermissionPage>,
-    ) => any,
+      items?: ApiResponse<RolePermissionPage>
+    ) => any
   ): Promise<ApiResponse<RolePermissionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -393,9 +393,9 @@ export function RolePermissionListInstance(
         body: new RolePermissionPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -407,7 +407,7 @@ export function RolePermissionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -432,7 +432,7 @@ export class RolePermissionInstance {
   constructor(
     protected _version: V1,
     payload: RolePermissionResource,
-    roleSid?: string,
+    roleSid?: string
   ) {
     this.sid = payload.sid;
     this.namespace = payload.namespace;
@@ -504,7 +504,7 @@ export class RolePermissionPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: RolePermissionSolution,
+    solution: RolePermissionSolution
   ) {
     super(version, response, solution);
   }
@@ -518,7 +518,7 @@ export class RolePermissionPage extends Page<
     return new RolePermissionInstance(
       this._version,
       payload,
-      this._solution.roleSid,
+      this._solution.roleSid
     );
   }
 

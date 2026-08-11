@@ -67,7 +67,7 @@ export interface RuleExecutionListInstance {
   create(
     params: CreateRuleExecutionRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: void) => any,
+    callback?: (error: Error | null, item?: void) => any
   ): Promise<void>;
 
   /**
@@ -82,7 +82,7 @@ export interface RuleExecutionListInstance {
   createWithHttpInfo(
     params: CreateRuleExecutionRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
   ): Promise<ApiResponse<void>>;
 
   /**
@@ -93,7 +93,7 @@ export interface RuleExecutionListInstance {
 }
 
 export function RuleExecutionListInstance(
-  version: V3,
+  version: V3
 ): RuleExecutionListInstance {
   const instance = {} as RuleExecutionListInstance;
 
@@ -104,7 +104,7 @@ export function RuleExecutionListInstance(
   instance.create = function create(
     params: CreateRuleExecutionRequest,
     headers?: any,
-    callback?: (error: Error | null, items: void) => any,
+    callback?: (error: Error | null, items: void) => any
   ): Promise<void> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -131,7 +131,7 @@ export function RuleExecutionListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -139,7 +139,7 @@ export function RuleExecutionListInstance(
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: CreateRuleExecutionRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<void>) => any,
+    callback?: (error: Error | null, items: ApiResponse<void>) => any
   ): Promise<ApiResponse<void>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -172,7 +172,7 @@ export function RuleExecutionListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -183,7 +183,7 @@ export function RuleExecutionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

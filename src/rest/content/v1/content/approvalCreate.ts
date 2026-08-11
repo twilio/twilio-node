@@ -67,7 +67,7 @@ export interface ApprovalCreateListInstance {
   create(
     params: ContentApprovalRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApprovalCreateInstance) => any,
+    callback?: (error: Error | null, item?: ApprovalCreateInstance) => any
   ): Promise<ApprovalCreateInstance>;
 
   /**
@@ -84,8 +84,8 @@ export interface ApprovalCreateListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApprovalCreateInstance>,
-    ) => any,
+      item?: ApiResponse<ApprovalCreateInstance>
+    ) => any
   ): Promise<ApiResponse<ApprovalCreateInstance>>;
 
   /**
@@ -97,7 +97,7 @@ export interface ApprovalCreateListInstance {
 
 export function ApprovalCreateListInstance(
   version: V1,
-  contentSid: string,
+  contentSid: string
 ): ApprovalCreateListInstance {
   if (!isValidPathParam(contentSid)) {
     throw new Error("Parameter 'contentSid' is not valid.");
@@ -112,7 +112,7 @@ export function ApprovalCreateListInstance(
   instance.create = function create(
     params: ContentApprovalRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ApprovalCreateInstance) => any,
+    callback?: (error: Error | null, items: ApprovalCreateInstance) => any
   ): Promise<ApprovalCreateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -142,13 +142,13 @@ export function ApprovalCreateListInstance(
         new ApprovalCreateInstance(
           operationVersion,
           payload,
-          instance._solution.contentSid,
-        ),
+          instance._solution.contentSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -158,8 +158,8 @@ export function ApprovalCreateListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ApprovalCreateInstance>,
-    ) => any,
+      items: ApiResponse<ApprovalCreateInstance>
+    ) => any
   ): Promise<ApiResponse<ApprovalCreateInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -190,13 +190,13 @@ export function ApprovalCreateListInstance(
         body: new ApprovalCreateInstance(
           operationVersion,
           response.body,
-          instance._solution.contentSid,
+          instance._solution.contentSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -207,7 +207,7 @@ export function ApprovalCreateListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -230,7 +230,7 @@ export class ApprovalCreateInstance {
   constructor(
     protected _version: V1,
     payload: ApprovalCreateResource,
-    contentSid: string,
+    contentSid: string
   ) {
     this.name = payload.name;
     this.category = payload.category;

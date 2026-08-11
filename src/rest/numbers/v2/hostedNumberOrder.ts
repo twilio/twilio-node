@@ -112,7 +112,7 @@ export interface HostedNumberOrderListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: HostedNumberOrderInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -171,7 +171,7 @@ export interface HostedNumberOrderContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -182,7 +182,7 @@ export interface HostedNumberOrderContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -193,7 +193,7 @@ export interface HostedNumberOrderContext {
    * @returns Resolves to processed HostedNumberOrderInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance>;
 
   /**
@@ -206,8 +206,8 @@ export interface HostedNumberOrderContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<HostedNumberOrderInstance>,
-    ) => any,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance>>;
 
   /**
@@ -220,7 +220,7 @@ export interface HostedNumberOrderContext {
    */
   update(
     params: HostedNumberOrderContextUpdateOptions,
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance>;
 
   /**
@@ -235,8 +235,8 @@ export interface HostedNumberOrderContext {
     params: HostedNumberOrderContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<HostedNumberOrderInstance>,
-    ) => any,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance>>;
 
   /**
@@ -256,7 +256,7 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
 
   constructor(
     protected _version: V2,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -267,7 +267,7 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -281,13 +281,13 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -303,13 +303,13 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -327,13 +327,13 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
         new HostedNumberOrderInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -341,8 +341,8 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<HostedNumberOrderInstance>,
-    ) => any,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -361,20 +361,20 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
         body: new HostedNumberOrderInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   update(
     params: HostedNumberOrderContextUpdateOptions,
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -410,13 +410,13 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
         new HostedNumberOrderInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -425,8 +425,8 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     params: HostedNumberOrderContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<HostedNumberOrderInstance>,
-    ) => any,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -463,13 +463,13 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
         body: new HostedNumberOrderInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -527,7 +527,7 @@ export class HostedNumberOrderInstance {
   constructor(
     protected _version: V2,
     payload: HostedNumberOrderResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -549,11 +549,11 @@ export class HostedNumberOrderInstance {
     this.bulkHostingRequestSid = payload.bulk_hosting_request_sid;
     this.nextStep = payload.next_step;
     this.verificationAttempts = deserialize.integer(
-      payload.verification_attempts,
+      payload.verification_attempts
     );
     this.verificationCallSids = payload.verification_call_sids;
     this.verificationCallDelay = deserialize.integer(
-      payload.verification_call_delay,
+      payload.verification_call_delay
     );
     this.verificationCallExtension = payload.verification_call_extension;
     this.verificationCode = payload.verification_code;
@@ -669,7 +669,7 @@ export class HostedNumberOrderInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -682,7 +682,7 @@ export class HostedNumberOrderInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -695,7 +695,7 @@ export class HostedNumberOrderInstance {
    * @returns Resolves to processed HostedNumberOrderInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     return this._proxy.fetch(callback);
   }
@@ -710,8 +710,8 @@ export class HostedNumberOrderInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<HostedNumberOrderInstance>,
-    ) => any,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -726,12 +726,12 @@ export class HostedNumberOrderInstance {
    */
   update(
     params: HostedNumberOrderContextUpdateOptions,
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     return this._proxy.update(params, callback);
   }
@@ -748,16 +748,16 @@ export class HostedNumberOrderInstance {
     params: HostedNumberOrderContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<HostedNumberOrderInstance>,
-    ) => any,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<HostedNumberOrderInstance>,
-    ) => any,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -822,7 +822,7 @@ export interface HostedNumberOrderListInstance {
    */
   create(
     params: HostedNumberOrderListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance>;
 
   /**
@@ -837,8 +837,8 @@ export interface HostedNumberOrderListInstance {
     params: HostedNumberOrderListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<HostedNumberOrderInstance>,
-    ) => any,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance>>;
 
   /**
@@ -859,15 +859,15 @@ export interface HostedNumberOrderListInstance {
   each(
     callback?: (
       item: HostedNumberOrderInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: HostedNumberOrderListInstanceEachOptions,
     callback?: (
       item: HostedNumberOrderInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams HostedNumberOrderInstance records from the API with HTTP metadata captured per page.
@@ -887,15 +887,15 @@ export interface HostedNumberOrderListInstance {
   eachWithHttpInfo(
     callback?: (
       item: HostedNumberOrderInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: HostedNumberOrderListInstanceEachOptions,
     callback?: (
       item: HostedNumberOrderInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of HostedNumberOrderInstance records from the API.
@@ -907,7 +907,7 @@ export interface HostedNumberOrderListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: HostedNumberOrderPage) => any,
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage>;
   /**
    * Retrieve a single target page of HostedNumberOrderInstance records from the API with HTTP metadata.
@@ -921,8 +921,8 @@ export interface HostedNumberOrderListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<HostedNumberOrderPage>,
-    ) => any,
+      items: ApiResponse<HostedNumberOrderPage>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderPage>>;
   /**
    * Lists HostedNumberOrderInstance records from the API as a list.
@@ -934,11 +934,11 @@ export interface HostedNumberOrderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any,
+    callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any
   ): Promise<HostedNumberOrderInstance[]>;
   list(
     params: HostedNumberOrderListInstanceOptions,
-    callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any,
+    callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any
   ): Promise<HostedNumberOrderInstance[]>;
   /**
    * Lists HostedNumberOrderInstance records from the API as a list with HTTP metadata.
@@ -954,15 +954,15 @@ export interface HostedNumberOrderListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<HostedNumberOrderInstance[]>,
-    ) => any,
+      items: ApiResponse<HostedNumberOrderInstance[]>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance[]>>;
   listWithHttpInfo(
     params: HostedNumberOrderListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<HostedNumberOrderInstance[]>,
-    ) => any,
+      items: ApiResponse<HostedNumberOrderInstance[]>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance[]>>;
   /**
    * Retrieve a single page of HostedNumberOrderInstance records from the API.
@@ -976,11 +976,11 @@ export interface HostedNumberOrderListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: HostedNumberOrderPage) => any,
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage>;
   page(
     params: HostedNumberOrderListInstancePageOptions,
-    callback?: (error: Error | null, items: HostedNumberOrderPage) => any,
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage>;
   /**
    * Retrieve a single page of HostedNumberOrderInstance records from the API with HTTP metadata.
@@ -996,15 +996,15 @@ export interface HostedNumberOrderListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<HostedNumberOrderPage>,
-    ) => any,
+      items: ApiResponse<HostedNumberOrderPage>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderPage>>;
   pageWithHttpInfo(
     params: HostedNumberOrderListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<HostedNumberOrderPage>,
-    ) => any,
+      items: ApiResponse<HostedNumberOrderPage>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderPage>>;
 
   /**
@@ -1015,7 +1015,7 @@ export interface HostedNumberOrderListInstance {
 }
 
 export function HostedNumberOrderListInstance(
-  version: V2,
+  version: V2
 ): HostedNumberOrderListInstance {
   const instance = ((sid) =>
     instance.get(sid)) as HostedNumberOrderListInstance;
@@ -1030,7 +1030,7 @@ export function HostedNumberOrderListInstance(
 
   instance.create = function create(
     params: HostedNumberOrderListInstanceCreateOptions,
-    callback?: (error: Error | null, items: HostedNumberOrderInstance) => any,
+    callback?: (error: Error | null, items: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1045,7 +1045,7 @@ export function HostedNumberOrderListInstance(
       params["contactPhoneNumber"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['contactPhoneNumber']\" missing.",
+        "Required parameter \"params['contactPhoneNumber']\" missing."
       );
     }
 
@@ -1103,12 +1103,12 @@ export function HostedNumberOrderListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new HostedNumberOrderInstance(operationVersion, payload),
+      (payload) => new HostedNumberOrderInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1117,8 +1117,8 @@ export function HostedNumberOrderListInstance(
     params: HostedNumberOrderListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<HostedNumberOrderInstance>,
-    ) => any,
+      items: ApiResponse<HostedNumberOrderInstance>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1133,7 +1133,7 @@ export function HostedNumberOrderListInstance(
       params["contactPhoneNumber"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['contactPhoneNumber']\" missing.",
+        "Required parameter \"params['contactPhoneNumber']\" missing."
       );
     }
 
@@ -1198,7 +1198,7 @@ export function HostedNumberOrderListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1207,7 +1207,7 @@ export function HostedNumberOrderListInstance(
     params?:
       | HostedNumberOrderListInstancePageOptions
       | ((error: Error | null, items: HostedNumberOrderPage) => any),
-    callback?: (error: Error | null, items: HostedNumberOrderPage) => any,
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1245,16 +1245,12 @@ export function HostedNumberOrderListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new HostedNumberOrderPage(
-          operationVersion,
-          payload,
-          instance._solution,
-        ),
+        new HostedNumberOrderPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1264,7 +1260,7 @@ export function HostedNumberOrderListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: HostedNumberOrderPage) => any,
+    callback?: (error: Error | null, items: HostedNumberOrderPage) => any
   ): Promise<HostedNumberOrderPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1275,8 +1271,8 @@ export function HostedNumberOrderListInstance(
         new HostedNumberOrderPage(
           instance._version,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1287,12 +1283,12 @@ export function HostedNumberOrderListInstance(
       | HostedNumberOrderListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<HostedNumberOrderPage>,
+          items: ApiResponse<HostedNumberOrderPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<HostedNumberOrderPage>,
-    ) => any,
+      items: ApiResponse<HostedNumberOrderPage>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1332,13 +1328,13 @@ export function HostedNumberOrderListInstance(
         body: new HostedNumberOrderPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1352,8 +1348,8 @@ export function HostedNumberOrderListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<HostedNumberOrderPage>,
-    ) => any,
+      items?: ApiResponse<HostedNumberOrderPage>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1368,9 +1364,9 @@ export function HostedNumberOrderListInstance(
         body: new HostedNumberOrderPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1382,7 +1378,7 @@ export function HostedNumberOrderListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1406,7 +1402,7 @@ export class HostedNumberOrderPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: HostedNumberOrderSolution,
+    solution: HostedNumberOrderSolution
   ) {
     super(version, response, solution);
   }

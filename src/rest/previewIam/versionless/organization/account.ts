@@ -67,7 +67,7 @@ export interface AccountContext {
    * @returns Resolves to processed AccountInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance>;
 
   /**
@@ -78,10 +78,7 @@ export interface AccountContext {
    * @returns Resolves to processed AccountInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>>;
 
   /**
@@ -103,7 +100,7 @@ export class AccountContextImpl implements AccountContext {
   constructor(
     protected _version: Versionless,
     organizationSid: string,
-    accountSid: string,
+    accountSid: string
   ) {
     if (!isValidPathParam(organizationSid)) {
       throw new Error("Parameter 'organizationSid' is not valid.");
@@ -118,7 +115,7 @@ export class AccountContextImpl implements AccountContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -137,22 +134,19 @@ export class AccountContextImpl implements AccountContext {
           operationVersion,
           payload,
           instance._solution.organizationSid,
-          instance._solution.accountSid,
-        ),
+          instance._solution.accountSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -172,13 +166,13 @@ export class AccountContextImpl implements AccountContext {
           operationVersion,
           response.body,
           instance._solution.organizationSid,
-          instance._solution.accountSid,
+          instance._solution.accountSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -220,7 +214,7 @@ export class AccountInstance {
     protected _version: Versionless,
     payload: AccountResource,
     organizationSid: string,
-    accountSid?: string,
+    accountSid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -258,7 +252,7 @@ export class AccountInstance {
       new AccountContextImpl(
         this._version,
         this._solution.organizationSid,
-        this._solution.accountSid,
+        this._solution.accountSid
       );
     return this._context;
   }
@@ -271,7 +265,7 @@ export class AccountInstance {
    * @returns Resolves to processed AccountInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance> {
     return this._proxy.fetch(callback);
   }
@@ -284,10 +278,7 @@ export class AccountInstance {
    * @returns Resolves to processed AccountInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -340,11 +331,11 @@ export interface AccountListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: AccountInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: AccountListInstanceEachOptions,
-    callback?: (item: AccountInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams AccountInstance records from the API with HTTP metadata captured per page.
@@ -362,11 +353,11 @@ export interface AccountListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: AccountInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: AccountListInstanceEachOptions,
-    callback?: (item: AccountInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of AccountInstance records from the API.
@@ -378,7 +369,7 @@ export interface AccountListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AccountPage) => any,
+    callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage>;
   /**
    * Retrieve a single target page of AccountInstance records from the API with HTTP metadata.
@@ -390,7 +381,7 @@ export interface AccountListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
   ): Promise<ApiResponse<AccountPage>>;
   /**
    * Lists AccountInstance records from the API as a list.
@@ -402,11 +393,11 @@ export interface AccountListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: AccountInstance[]) => any,
+    callback?: (error: Error | null, items: AccountInstance[]) => any
   ): Promise<AccountInstance[]>;
   list(
     params: AccountListInstanceOptions,
-    callback?: (error: Error | null, items: AccountInstance[]) => any,
+    callback?: (error: Error | null, items: AccountInstance[]) => any
   ): Promise<AccountInstance[]>;
   /**
    * Lists AccountInstance records from the API as a list with HTTP metadata.
@@ -422,15 +413,15 @@ export interface AccountListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AccountInstance[]>,
-    ) => any,
+      items: ApiResponse<AccountInstance[]>
+    ) => any
   ): Promise<ApiResponse<AccountInstance[]>>;
   listWithHttpInfo(
     params: AccountListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AccountInstance[]>,
-    ) => any,
+      items: ApiResponse<AccountInstance[]>
+    ) => any
   ): Promise<ApiResponse<AccountInstance[]>>;
   /**
    * Retrieve a single page of AccountInstance records from the API.
@@ -444,11 +435,11 @@ export interface AccountListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AccountPage) => any,
+    callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage>;
   page(
     params: AccountListInstancePageOptions,
-    callback?: (error: Error | null, items: AccountPage) => any,
+    callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage>;
   /**
    * Retrieve a single page of AccountInstance records from the API with HTTP metadata.
@@ -462,11 +453,11 @@ export interface AccountListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
   ): Promise<ApiResponse<AccountPage>>;
   pageWithHttpInfo(
     params: AccountListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
   ): Promise<ApiResponse<AccountPage>>;
 
   /**
@@ -478,7 +469,7 @@ export interface AccountListInstance {
 
 export function AccountListInstance(
   version: Versionless,
-  organizationSid: string,
+  organizationSid: string
 ): AccountListInstance {
   if (!isValidPathParam(organizationSid)) {
     throw new Error("Parameter 'organizationSid' is not valid.");
@@ -499,7 +490,7 @@ export function AccountListInstance(
     params?:
       | AccountListInstancePageOptions
       | ((error: Error | null, items: AccountPage) => any),
-    callback?: (error: Error | null, items: AccountPage) => any,
+    callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage> {
     if (params instanceof Function) {
       callback = params;
@@ -528,12 +519,12 @@ export function AccountListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AccountPage(operationVersion, payload, instance._solution),
+        new AccountPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -543,7 +534,7 @@ export function AccountListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AccountPage) => any,
+    callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -551,7 +542,7 @@ export function AccountListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new AccountPage(instance._version, payload, instance._solution),
+        new AccountPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -561,7 +552,7 @@ export function AccountListInstance(
     params?:
       | AccountListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<AccountPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
   ): Promise<ApiResponse<AccountPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -594,7 +585,7 @@ export function AccountListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -606,7 +597,7 @@ export function AccountListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<AccountPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<AccountPage>) => any
   ): Promise<ApiResponse<AccountPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -619,7 +610,7 @@ export function AccountListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new AccountPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -631,7 +622,7 @@ export function AccountListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -655,7 +646,7 @@ export class AccountPage extends Page<
   constructor(
     version: Versionless,
     response: Response<string>,
-    solution: AccountSolution,
+    solution: AccountSolution
   ) {
     super(version, response, solution);
   }
@@ -669,7 +660,7 @@ export class AccountPage extends Page<
     return new AccountInstance(
       this._version,
       payload,
-      this._solution.organizationSid,
+      this._solution.organizationSid
     );
   }
 

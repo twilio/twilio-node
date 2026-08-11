@@ -84,7 +84,7 @@ export interface EnvironmentContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -95,7 +95,7 @@ export interface EnvironmentContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -106,7 +106,7 @@ export interface EnvironmentContext {
    * @returns Resolves to processed EnvironmentInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EnvironmentInstance) => any,
+    callback?: (error: Error | null, item?: EnvironmentInstance) => any
   ): Promise<EnvironmentInstance>;
 
   /**
@@ -119,8 +119,8 @@ export interface EnvironmentContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EnvironmentInstance>,
-    ) => any,
+      item?: ApiResponse<EnvironmentInstance>
+    ) => any
   ): Promise<ApiResponse<EnvironmentInstance>>;
 
   /**
@@ -146,7 +146,7 @@ export class EnvironmentContextImpl implements EnvironmentContext {
   constructor(
     protected _version: V1,
     serviceSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -166,7 +166,7 @@ export class EnvironmentContextImpl implements EnvironmentContext {
       DeploymentListInstance(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._deployments;
   }
@@ -177,7 +177,7 @@ export class EnvironmentContextImpl implements EnvironmentContext {
       LogListInstance(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._logs;
   }
@@ -188,13 +188,13 @@ export class EnvironmentContextImpl implements EnvironmentContext {
       VariableListInstance(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._variables;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -208,13 +208,13 @@ export class EnvironmentContextImpl implements EnvironmentContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -230,13 +230,13 @@ export class EnvironmentContextImpl implements EnvironmentContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: EnvironmentInstance) => any,
+    callback?: (error: Error | null, item?: EnvironmentInstance) => any
   ): Promise<EnvironmentInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -255,13 +255,13 @@ export class EnvironmentContextImpl implements EnvironmentContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -269,8 +269,8 @@ export class EnvironmentContextImpl implements EnvironmentContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EnvironmentInstance>,
-    ) => any,
+      item?: ApiResponse<EnvironmentInstance>
+    ) => any
   ): Promise<ApiResponse<EnvironmentInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -290,13 +290,13 @@ export class EnvironmentContextImpl implements EnvironmentContext {
           operationVersion,
           response.body,
           instance._solution.serviceSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -341,7 +341,7 @@ export class EnvironmentInstance {
     protected _version: V1,
     payload: EnvironmentResource,
     serviceSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -409,7 +409,7 @@ export class EnvironmentInstance {
       new EnvironmentContextImpl(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -422,7 +422,7 @@ export class EnvironmentInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -435,7 +435,7 @@ export class EnvironmentInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -448,7 +448,7 @@ export class EnvironmentInstance {
    * @returns Resolves to processed EnvironmentInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EnvironmentInstance) => any,
+    callback?: (error: Error | null, item?: EnvironmentInstance) => any
   ): Promise<EnvironmentInstance> {
     return this._proxy.fetch(callback);
   }
@@ -463,8 +463,8 @@ export class EnvironmentInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EnvironmentInstance>,
-    ) => any,
+      item?: ApiResponse<EnvironmentInstance>
+    ) => any
   ): Promise<ApiResponse<EnvironmentInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -538,7 +538,7 @@ export interface EnvironmentListInstance {
    */
   create(
     params: EnvironmentListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: EnvironmentInstance) => any,
+    callback?: (error: Error | null, item?: EnvironmentInstance) => any
   ): Promise<EnvironmentInstance>;
 
   /**
@@ -553,8 +553,8 @@ export interface EnvironmentListInstance {
     params: EnvironmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EnvironmentInstance>,
-    ) => any,
+      item?: ApiResponse<EnvironmentInstance>
+    ) => any
   ): Promise<ApiResponse<EnvironmentInstance>>;
 
   /**
@@ -573,11 +573,11 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void,
+    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: EnvironmentListInstanceEachOptions,
-    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void,
+    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams EnvironmentInstance records from the API with HTTP metadata captured per page.
@@ -595,11 +595,11 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void,
+    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: EnvironmentListInstanceEachOptions,
-    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void,
+    callback?: (item: EnvironmentInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of EnvironmentInstance records from the API.
@@ -611,7 +611,7 @@ export interface EnvironmentListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EnvironmentPage) => any,
+    callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage>;
   /**
    * Retrieve a single target page of EnvironmentInstance records from the API with HTTP metadata.
@@ -623,10 +623,7 @@ export interface EnvironmentListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<EnvironmentPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<EnvironmentPage>) => any
   ): Promise<ApiResponse<EnvironmentPage>>;
   /**
    * Lists EnvironmentInstance records from the API as a list.
@@ -638,11 +635,11 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: EnvironmentInstance[]) => any,
+    callback?: (error: Error | null, items: EnvironmentInstance[]) => any
   ): Promise<EnvironmentInstance[]>;
   list(
     params: EnvironmentListInstanceOptions,
-    callback?: (error: Error | null, items: EnvironmentInstance[]) => any,
+    callback?: (error: Error | null, items: EnvironmentInstance[]) => any
   ): Promise<EnvironmentInstance[]>;
   /**
    * Lists EnvironmentInstance records from the API as a list with HTTP metadata.
@@ -658,15 +655,15 @@ export interface EnvironmentListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<EnvironmentInstance[]>,
-    ) => any,
+      items: ApiResponse<EnvironmentInstance[]>
+    ) => any
   ): Promise<ApiResponse<EnvironmentInstance[]>>;
   listWithHttpInfo(
     params: EnvironmentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EnvironmentInstance[]>,
-    ) => any,
+      items: ApiResponse<EnvironmentInstance[]>
+    ) => any
   ): Promise<ApiResponse<EnvironmentInstance[]>>;
   /**
    * Retrieve a single page of EnvironmentInstance records from the API.
@@ -680,11 +677,11 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: EnvironmentPage) => any,
+    callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage>;
   page(
     params: EnvironmentListInstancePageOptions,
-    callback?: (error: Error | null, items: EnvironmentPage) => any,
+    callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage>;
   /**
    * Retrieve a single page of EnvironmentInstance records from the API with HTTP metadata.
@@ -698,17 +695,11 @@ export interface EnvironmentListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<EnvironmentPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<EnvironmentPage>) => any
   ): Promise<ApiResponse<EnvironmentPage>>;
   pageWithHttpInfo(
     params: EnvironmentListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<EnvironmentPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<EnvironmentPage>) => any
   ): Promise<ApiResponse<EnvironmentPage>>;
 
   /**
@@ -720,7 +711,7 @@ export interface EnvironmentListInstance {
 
 export function EnvironmentListInstance(
   version: V1,
-  serviceSid: string,
+  serviceSid: string
 ): EnvironmentListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -738,7 +729,7 @@ export function EnvironmentListInstance(
 
   instance.create = function create(
     params: EnvironmentListInstanceCreateOptions,
-    callback?: (error: Error | null, items: EnvironmentInstance) => any,
+    callback?: (error: Error | null, items: EnvironmentInstance) => any
   ): Promise<EnvironmentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -771,13 +762,13 @@ export function EnvironmentListInstance(
         new EnvironmentInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid,
-        ),
+          instance._solution.serviceSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -786,8 +777,8 @@ export function EnvironmentListInstance(
     params: EnvironmentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EnvironmentInstance>,
-    ) => any,
+      items: ApiResponse<EnvironmentInstance>
+    ) => any
   ): Promise<ApiResponse<EnvironmentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -821,13 +812,13 @@ export function EnvironmentListInstance(
         body: new EnvironmentInstance(
           operationVersion,
           response.body,
-          instance._solution.serviceSid,
+          instance._solution.serviceSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -836,7 +827,7 @@ export function EnvironmentListInstance(
     params?:
       | EnvironmentListInstancePageOptions
       | ((error: Error | null, items: EnvironmentPage) => any),
-    callback?: (error: Error | null, items: EnvironmentPage) => any,
+    callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage> {
     if (params instanceof Function) {
       callback = params;
@@ -865,12 +856,12 @@ export function EnvironmentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EnvironmentPage(operationVersion, payload, instance._solution),
+        new EnvironmentPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -880,7 +871,7 @@ export function EnvironmentListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EnvironmentPage) => any,
+    callback?: (error: Error | null, items: EnvironmentPage) => any
   ): Promise<EnvironmentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -888,7 +879,7 @@ export function EnvironmentListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new EnvironmentPage(instance._version, payload, instance._solution),
+        new EnvironmentPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -898,10 +889,7 @@ export function EnvironmentListInstance(
     params?:
       | EnvironmentListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<EnvironmentPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<EnvironmentPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<EnvironmentPage>) => any
   ): Promise<ApiResponse<EnvironmentPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -932,13 +920,13 @@ export function EnvironmentListInstance(
         body: new EnvironmentPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -952,8 +940,8 @@ export function EnvironmentListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<EnvironmentPage>,
-    ) => any,
+      items?: ApiResponse<EnvironmentPage>
+    ) => any
   ): Promise<ApiResponse<EnvironmentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -968,9 +956,9 @@ export function EnvironmentListInstance(
         body: new EnvironmentPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -982,7 +970,7 @@ export function EnvironmentListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1006,7 +994,7 @@ export class EnvironmentPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: EnvironmentSolution,
+    solution: EnvironmentSolution
   ) {
     super(version, response, solution);
   }
@@ -1020,7 +1008,7 @@ export class EnvironmentPage extends Page<
     return new EnvironmentInstance(
       this._version,
       payload,
-      this._solution.serviceSid,
+      this._solution.serviceSid
     );
   }
 

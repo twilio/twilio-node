@@ -30,8 +30,8 @@ export interface TrustProductsProvisionalCopyContext {
   create(
     callback?: (
       error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance,
-    ) => any,
+      item?: TrustProductsProvisionalCopyInstance
+    ) => any
   ): Promise<TrustProductsProvisionalCopyInstance>;
 
   /**
@@ -44,8 +44,8 @@ export interface TrustProductsProvisionalCopyContext {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>>;
 
   /**
@@ -58,8 +58,8 @@ export interface TrustProductsProvisionalCopyContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance,
-    ) => any,
+      item?: TrustProductsProvisionalCopyInstance
+    ) => any
   ): Promise<TrustProductsProvisionalCopyInstance>;
 
   /**
@@ -72,8 +72,8 @@ export interface TrustProductsProvisionalCopyContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>>;
 
   /**
@@ -93,7 +93,7 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
 
   constructor(
     protected _version: V1,
-    trustProductSid: string,
+    trustProductSid: string
   ) {
     if (!isValidPathParam(trustProductSid)) {
       throw new Error("Parameter 'trustProductSid' is not valid.");
@@ -106,8 +106,8 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
   create(
     callback?: (
       error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance,
-    ) => any,
+      item?: TrustProductsProvisionalCopyInstance
+    ) => any
   ): Promise<TrustProductsProvisionalCopyInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -125,13 +125,13 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
         new TrustProductsProvisionalCopyInstance(
           operationVersion,
           payload,
-          instance._solution.trustProductSid,
-        ),
+          instance._solution.trustProductSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -139,8 +139,8 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -159,13 +159,13 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
         body: new TrustProductsProvisionalCopyInstance(
           operationVersion,
           response.body,
-          instance._solution.trustProductSid,
+          instance._solution.trustProductSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -173,8 +173,8 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
   fetch(
     callback?: (
       error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance,
-    ) => any,
+      item?: TrustProductsProvisionalCopyInstance
+    ) => any
   ): Promise<TrustProductsProvisionalCopyInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -192,13 +192,13 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
         new TrustProductsProvisionalCopyInstance(
           operationVersion,
           payload,
-          instance._solution.trustProductSid,
-        ),
+          instance._solution.trustProductSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -206,8 +206,8 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -226,13 +226,13 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
         body: new TrustProductsProvisionalCopyInstance(
           operationVersion,
           response.body,
-          instance._solution.trustProductSid,
+          instance._solution.trustProductSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -274,7 +274,7 @@ export class TrustProductsProvisionalCopyInstance {
   constructor(
     protected _version: V1,
     payload: TrustProductsProvisionalCopyResource,
-    trustProductSid?: string,
+    trustProductSid?: string
   ) {
     this.trustProductSid = payload.trust_product_sid;
     this.accountSid = payload.account_sid;
@@ -341,7 +341,7 @@ export class TrustProductsProvisionalCopyInstance {
       this._context ||
       new TrustProductsProvisionalCopyContextImpl(
         this._version,
-        this._solution.trustProductSid,
+        this._solution.trustProductSid
       );
     return this._context;
   }
@@ -356,8 +356,8 @@ export class TrustProductsProvisionalCopyInstance {
   create(
     callback?: (
       error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance,
-    ) => any,
+      item?: TrustProductsProvisionalCopyInstance
+    ) => any
   ): Promise<TrustProductsProvisionalCopyInstance> {
     return this._proxy.create(callback);
   }
@@ -372,8 +372,8 @@ export class TrustProductsProvisionalCopyInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>> {
     return this._proxy.createWithHttpInfo(callback);
   }
@@ -388,8 +388,8 @@ export class TrustProductsProvisionalCopyInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance,
-    ) => any,
+      item?: TrustProductsProvisionalCopyInstance
+    ) => any
   ): Promise<TrustProductsProvisionalCopyInstance> {
     return this._proxy.fetch(callback);
   }
@@ -404,8 +404,8 @@ export class TrustProductsProvisionalCopyInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -454,17 +454,17 @@ export interface TrustProductsProvisionalCopyListInstance {
 }
 
 export function TrustProductsProvisionalCopyListInstance(
-  version: V1,
+  version: V1
 ): TrustProductsProvisionalCopyListInstance {
   const instance = ((trustProductSid) =>
     instance.get(trustProductSid)) as TrustProductsProvisionalCopyListInstance;
 
   instance.get = function get(
-    trustProductSid,
+    trustProductSid
   ): TrustProductsProvisionalCopyContext {
     return new TrustProductsProvisionalCopyContextImpl(
       version,
-      trustProductSid,
+      trustProductSid
     );
   };
 
@@ -478,7 +478,7 @@ export function TrustProductsProvisionalCopyListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

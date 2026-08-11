@@ -49,7 +49,7 @@ export interface ExportCustomJobListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: ExportCustomJobInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -98,7 +98,7 @@ export interface ExportCustomJobListInstance {
    */
   create(
     params: ExportCustomJobListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ExportCustomJobInstance) => any,
+    callback?: (error: Error | null, item?: ExportCustomJobInstance) => any
   ): Promise<ExportCustomJobInstance>;
 
   /**
@@ -113,8 +113,8 @@ export interface ExportCustomJobListInstance {
     params: ExportCustomJobListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExportCustomJobInstance>,
-    ) => any,
+      item?: ApiResponse<ExportCustomJobInstance>
+    ) => any
   ): Promise<ApiResponse<ExportCustomJobInstance>>;
 
   /**
@@ -135,15 +135,15 @@ export interface ExportCustomJobListInstance {
   each(
     callback?: (
       item: ExportCustomJobInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: ExportCustomJobListInstanceEachOptions,
     callback?: (
       item: ExportCustomJobInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams ExportCustomJobInstance records from the API with HTTP metadata captured per page.
@@ -163,15 +163,15 @@ export interface ExportCustomJobListInstance {
   eachWithHttpInfo(
     callback?: (
       item: ExportCustomJobInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: ExportCustomJobListInstanceEachOptions,
     callback?: (
       item: ExportCustomJobInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of ExportCustomJobInstance records from the API.
@@ -183,7 +183,7 @@ export interface ExportCustomJobListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ExportCustomJobPage) => any,
+    callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage>;
   /**
    * Retrieve a single target page of ExportCustomJobInstance records from the API with HTTP metadata.
@@ -197,8 +197,8 @@ export interface ExportCustomJobListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExportCustomJobPage>,
-    ) => any,
+      items: ApiResponse<ExportCustomJobPage>
+    ) => any
   ): Promise<ApiResponse<ExportCustomJobPage>>;
   /**
    * Lists ExportCustomJobInstance records from the API as a list.
@@ -210,11 +210,11 @@ export interface ExportCustomJobListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ExportCustomJobInstance[]) => any,
+    callback?: (error: Error | null, items: ExportCustomJobInstance[]) => any
   ): Promise<ExportCustomJobInstance[]>;
   list(
     params: ExportCustomJobListInstanceOptions,
-    callback?: (error: Error | null, items: ExportCustomJobInstance[]) => any,
+    callback?: (error: Error | null, items: ExportCustomJobInstance[]) => any
   ): Promise<ExportCustomJobInstance[]>;
   /**
    * Lists ExportCustomJobInstance records from the API as a list with HTTP metadata.
@@ -230,15 +230,15 @@ export interface ExportCustomJobListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExportCustomJobInstance[]>,
-    ) => any,
+      items: ApiResponse<ExportCustomJobInstance[]>
+    ) => any
   ): Promise<ApiResponse<ExportCustomJobInstance[]>>;
   listWithHttpInfo(
     params: ExportCustomJobListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExportCustomJobInstance[]>,
-    ) => any,
+      items: ApiResponse<ExportCustomJobInstance[]>
+    ) => any
   ): Promise<ApiResponse<ExportCustomJobInstance[]>>;
   /**
    * Retrieve a single page of ExportCustomJobInstance records from the API.
@@ -252,11 +252,11 @@ export interface ExportCustomJobListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ExportCustomJobPage) => any,
+    callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage>;
   page(
     params: ExportCustomJobListInstancePageOptions,
-    callback?: (error: Error | null, items: ExportCustomJobPage) => any,
+    callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage>;
   /**
    * Retrieve a single page of ExportCustomJobInstance records from the API with HTTP metadata.
@@ -272,15 +272,15 @@ export interface ExportCustomJobListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExportCustomJobPage>,
-    ) => any,
+      items: ApiResponse<ExportCustomJobPage>
+    ) => any
   ): Promise<ApiResponse<ExportCustomJobPage>>;
   pageWithHttpInfo(
     params: ExportCustomJobListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExportCustomJobPage>,
-    ) => any,
+      items: ApiResponse<ExportCustomJobPage>
+    ) => any
   ): Promise<ApiResponse<ExportCustomJobPage>>;
 
   /**
@@ -292,7 +292,7 @@ export interface ExportCustomJobListInstance {
 
 export function ExportCustomJobListInstance(
   version: V1,
-  resourceType: string,
+  resourceType: string
 ): ExportCustomJobListInstance {
   if (!isValidPathParam(resourceType)) {
     throw new Error("Parameter 'resourceType' is not valid.");
@@ -306,7 +306,7 @@ export function ExportCustomJobListInstance(
 
   instance.create = function create(
     params: ExportCustomJobListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ExportCustomJobInstance) => any,
+    callback?: (error: Error | null, items: ExportCustomJobInstance) => any
   ): Promise<ExportCustomJobInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -357,13 +357,13 @@ export function ExportCustomJobListInstance(
         new ExportCustomJobInstance(
           operationVersion,
           payload,
-          instance._solution.resourceType,
-        ),
+          instance._solution.resourceType
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -372,8 +372,8 @@ export function ExportCustomJobListInstance(
     params: ExportCustomJobListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExportCustomJobInstance>,
-    ) => any,
+      items: ApiResponse<ExportCustomJobInstance>
+    ) => any
   ): Promise<ApiResponse<ExportCustomJobInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -425,13 +425,13 @@ export function ExportCustomJobListInstance(
         body: new ExportCustomJobInstance(
           operationVersion,
           response.body,
-          instance._solution.resourceType,
+          instance._solution.resourceType
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -440,7 +440,7 @@ export function ExportCustomJobListInstance(
     params?:
       | ExportCustomJobListInstancePageOptions
       | ((error: Error | null, items: ExportCustomJobPage) => any),
-    callback?: (error: Error | null, items: ExportCustomJobPage) => any,
+    callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage> {
     if (params instanceof Function) {
       callback = params;
@@ -469,12 +469,12 @@ export function ExportCustomJobListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ExportCustomJobPage(operationVersion, payload, instance._solution),
+        new ExportCustomJobPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -484,7 +484,7 @@ export function ExportCustomJobListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ExportCustomJobPage) => any,
+    callback?: (error: Error | null, items: ExportCustomJobPage) => any
   ): Promise<ExportCustomJobPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -492,7 +492,7 @@ export function ExportCustomJobListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ExportCustomJobPage(instance._version, payload, instance._solution),
+        new ExportCustomJobPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -504,8 +504,8 @@ export function ExportCustomJobListInstance(
       | ((error: Error | null, items: ApiResponse<ExportCustomJobPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExportCustomJobPage>,
-    ) => any,
+      items: ApiResponse<ExportCustomJobPage>
+    ) => any
   ): Promise<ApiResponse<ExportCustomJobPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -536,13 +536,13 @@ export function ExportCustomJobListInstance(
         body: new ExportCustomJobPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -556,8 +556,8 @@ export function ExportCustomJobListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ExportCustomJobPage>,
-    ) => any,
+      items?: ApiResponse<ExportCustomJobPage>
+    ) => any
   ): Promise<ApiResponse<ExportCustomJobPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -572,9 +572,9 @@ export function ExportCustomJobListInstance(
         body: new ExportCustomJobPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -586,7 +586,7 @@ export function ExportCustomJobListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -616,7 +616,7 @@ export class ExportCustomJobInstance {
   constructor(
     protected _version: V1,
     payload: ExportCustomJobResource,
-    resourceType: string,
+    resourceType: string
   ) {
     this.friendlyName = payload.friendly_name;
     this.resourceType = payload.resource_type;
@@ -718,7 +718,7 @@ export class ExportCustomJobPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ExportCustomJobSolution,
+    solution: ExportCustomJobSolution
   ) {
     super(version, response, solution);
   }
@@ -732,7 +732,7 @@ export class ExportCustomJobPage extends Page<
     return new ExportCustomJobInstance(
       this._version,
       payload,
-      this._solution.resourceType,
+      this._solution.resourceType
     );
   }
 

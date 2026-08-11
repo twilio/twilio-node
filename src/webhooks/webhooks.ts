@@ -126,7 +126,7 @@ function withLegacyQuerystring(url: string): string {
  */
 function toFormUrlEncodedParam(
   paramName: string,
-  paramValue: string | Array<string>,
+  paramValue: string | Array<string>
 ): string {
   if (paramValue instanceof Array) {
     return Array.from(new Set(paramValue))
@@ -149,7 +149,7 @@ function toFormUrlEncodedParam(
 export function getExpectedTwilioSignature(
   authToken: string,
   url: string,
-  params: Record<string, any>,
+  params: Record<string, any>
 ): string {
   if (url.indexOf("bodySHA256") !== -1 && params === null) {
     params = {};
@@ -190,7 +190,7 @@ export function validateRequest(
   authToken: string,
   twilioHeader: string,
   url: string,
-  params: Record<string, any>,
+  params: Record<string, any>
 ): boolean {
   twilioHeader = twilioHeader || "";
   const urlObject = new URL(url);
@@ -204,7 +204,7 @@ export function validateRequest(
     authToken,
     twilioHeader,
     removePort(urlObject),
-    params,
+    params
   );
 
   if (isValidSignatureWithoutPort) {
@@ -215,7 +215,7 @@ export function validateRequest(
     authToken,
     twilioHeader,
     addPort(urlObject),
-    params,
+    params
   );
 
   if (isValidSignatureWithPort) {
@@ -227,7 +227,7 @@ export function validateRequest(
       authToken,
       twilioHeader,
       withLegacyQuerystring(removePort(urlObject)),
-      params,
+      params
     );
 
   if (isValidSignatureWithLegacyQuerystringWithoutPort) {
@@ -239,7 +239,7 @@ export function validateRequest(
       authToken,
       twilioHeader,
       withLegacyQuerystring(addPort(urlObject)),
-      params,
+      params
     );
 
   return isValidSignatureWithLegacyQuerystringWithPort;
@@ -249,12 +249,12 @@ function validateSignatureWithUrl(
   authToken: string,
   twilioHeader: string,
   url: string,
-  params: Record<string, any>,
+  params: Record<string, any>
 ): boolean {
   const signatureWithoutPort = getExpectedTwilioSignature(
     authToken,
     url,
-    params,
+    params
   );
 
   return scmp(Buffer.from(twilioHeader), Buffer.from(signatureWithoutPort));
@@ -262,7 +262,7 @@ function validateSignatureWithUrl(
 
 export function validateBody(
   body: string,
-  bodyHash: any[] | string | Buffer,
+  bodyHash: any[] | string | Buffer
 ): boolean {
   var expectedHash = getExpectedBodyHash(body);
   return scmp(Buffer.from(bodyHash), Buffer.from(expectedHash));
@@ -282,7 +282,7 @@ export function validateRequestWithBody(
   authToken: string,
   twilioHeader: string,
   url: string,
-  body: string,
+  body: string
 ): boolean {
   const urlObject = new URL(url);
   return (
@@ -305,7 +305,7 @@ export function validateRequestWithBody(
 export function validateIncomingRequest(
   request: Request,
   authToken: string,
-  opts?: RequestValidatorOptions,
+  opts?: RequestValidatorOptions
 ): boolean {
   var options = opts || {};
   var webhookUrl;
@@ -333,14 +333,14 @@ export function validateIncomingRequest(
       authToken,
       request.header("X-Twilio-Signature") || "",
       webhookUrl,
-      request.rawBody || "{}",
+      request.rawBody || "{}"
     );
   } else {
     return validateRequest(
       authToken,
       request.header("X-Twilio-Signature") || "",
       webhookUrl,
-      request.body || {},
+      request.body || {}
     );
   }
 }
@@ -348,7 +348,7 @@ export function validateIncomingRequest(
 export function validateExpressRequest(
   request: Request,
   authToken: string,
-  opts?: RequestValidatorOptions,
+  opts?: RequestValidatorOptions
 ): boolean {
   return validateIncomingRequest(request, authToken, opts);
 }
@@ -384,7 +384,7 @@ var webhookMiddleware = twilio.webhook({
  */
 export function webhook(
   opts?: string | WebhookOptions,
-  authToken?: string | WebhookOptions,
+  authToken?: string | WebhookOptions
 ): (req: any, res: any, next: any) => void {
   let token: string;
   let options: WebhookOptions | undefined = undefined;
@@ -437,19 +437,19 @@ export function webhook(
           .type("text/plain")
           .status(400)
           .send(
-            "No signature header error - X-Twilio-Signature header does not exist, maybe this request is not coming from Twilio.",
+            "No signature header error - X-Twilio-Signature header does not exist, maybe this request is not coming from Twilio."
           );
       }
       // Check for a valid auth token
       if (!options?.authToken) {
         console.error(
-          "[Twilio]: Error - Twilio auth token is required for webhook request validation.",
+          "[Twilio]: Error - Twilio auth token is required for webhook request validation."
         );
         response
           .type("text/plain")
           .status(500)
           .send(
-            "Webhook Error - we attempted to validate this request without first configuring our auth token.",
+            "Webhook Error - we attempted to validate this request without first configuring our auth token."
           );
       } else {
         // Check that the request originated from Twilio

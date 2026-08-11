@@ -63,7 +63,7 @@ export interface DependentHostedNumberOrderListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: DependentHostedNumberOrderInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -140,15 +140,15 @@ export interface DependentHostedNumberOrderListInstance {
   each(
     callback?: (
       item: DependentHostedNumberOrderInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: DependentHostedNumberOrderListInstanceEachOptions,
     callback?: (
       item: DependentHostedNumberOrderInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams DependentHostedNumberOrderInstance records from the API with HTTP metadata captured per page.
@@ -168,15 +168,15 @@ export interface DependentHostedNumberOrderListInstance {
   eachWithHttpInfo(
     callback?: (
       item: DependentHostedNumberOrderInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: DependentHostedNumberOrderListInstanceEachOptions,
     callback?: (
       item: DependentHostedNumberOrderInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of DependentHostedNumberOrderInstance records from the API.
@@ -190,8 +190,8 @@ export interface DependentHostedNumberOrderListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: DependentHostedNumberOrderPage,
-    ) => any,
+      items: DependentHostedNumberOrderPage
+    ) => any
   ): Promise<DependentHostedNumberOrderPage>;
   /**
    * Retrieve a single target page of DependentHostedNumberOrderInstance records from the API with HTTP metadata.
@@ -205,8 +205,8 @@ export interface DependentHostedNumberOrderListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentHostedNumberOrderPage>,
-    ) => any,
+      items: ApiResponse<DependentHostedNumberOrderPage>
+    ) => any
   ): Promise<ApiResponse<DependentHostedNumberOrderPage>>;
   /**
    * Lists DependentHostedNumberOrderInstance records from the API as a list.
@@ -220,15 +220,15 @@ export interface DependentHostedNumberOrderListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: DependentHostedNumberOrderInstance[],
-    ) => any,
+      items: DependentHostedNumberOrderInstance[]
+    ) => any
   ): Promise<DependentHostedNumberOrderInstance[]>;
   list(
     params: DependentHostedNumberOrderListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: DependentHostedNumberOrderInstance[],
-    ) => any,
+      items: DependentHostedNumberOrderInstance[]
+    ) => any
   ): Promise<DependentHostedNumberOrderInstance[]>;
   /**
    * Lists DependentHostedNumberOrderInstance records from the API as a list with HTTP metadata.
@@ -244,15 +244,15 @@ export interface DependentHostedNumberOrderListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentHostedNumberOrderInstance[]>,
-    ) => any,
+      items: ApiResponse<DependentHostedNumberOrderInstance[]>
+    ) => any
   ): Promise<ApiResponse<DependentHostedNumberOrderInstance[]>>;
   listWithHttpInfo(
     params: DependentHostedNumberOrderListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentHostedNumberOrderInstance[]>,
-    ) => any,
+      items: ApiResponse<DependentHostedNumberOrderInstance[]>
+    ) => any
   ): Promise<ApiResponse<DependentHostedNumberOrderInstance[]>>;
   /**
    * Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
@@ -268,15 +268,15 @@ export interface DependentHostedNumberOrderListInstance {
   page(
     callback?: (
       error: Error | null,
-      items: DependentHostedNumberOrderPage,
-    ) => any,
+      items: DependentHostedNumberOrderPage
+    ) => any
   ): Promise<DependentHostedNumberOrderPage>;
   page(
     params: DependentHostedNumberOrderListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: DependentHostedNumberOrderPage,
-    ) => any,
+      items: DependentHostedNumberOrderPage
+    ) => any
   ): Promise<DependentHostedNumberOrderPage>;
   /**
    * Retrieve a single page of DependentHostedNumberOrderInstance records from the API with HTTP metadata.
@@ -292,15 +292,15 @@ export interface DependentHostedNumberOrderListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentHostedNumberOrderPage>,
-    ) => any,
+      items: ApiResponse<DependentHostedNumberOrderPage>
+    ) => any
   ): Promise<ApiResponse<DependentHostedNumberOrderPage>>;
   pageWithHttpInfo(
     params: DependentHostedNumberOrderListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentHostedNumberOrderPage>,
-    ) => any,
+      items: ApiResponse<DependentHostedNumberOrderPage>
+    ) => any
   ): Promise<ApiResponse<DependentHostedNumberOrderPage>>;
 
   /**
@@ -312,7 +312,7 @@ export interface DependentHostedNumberOrderListInstance {
 
 export function DependentHostedNumberOrderListInstance(
   version: HostedNumbers,
-  signingDocumentSid: string,
+  signingDocumentSid: string
 ): DependentHostedNumberOrderListInstance {
   if (!isValidPathParam(signingDocumentSid)) {
     throw new Error("Parameter 'signingDocumentSid' is not valid.");
@@ -330,8 +330,8 @@ export function DependentHostedNumberOrderListInstance(
       | ((error: Error | null, items: DependentHostedNumberOrderPage) => any),
     callback?: (
       error: Error | null,
-      items: DependentHostedNumberOrderPage,
-    ) => any,
+      items: DependentHostedNumberOrderPage
+    ) => any
   ): Promise<DependentHostedNumberOrderPage> {
     if (params instanceof Function) {
       callback = params;
@@ -372,13 +372,13 @@ export function DependentHostedNumberOrderListInstance(
         new DependentHostedNumberOrderPage(
           operationVersion,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -390,8 +390,8 @@ export function DependentHostedNumberOrderListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: DependentHostedNumberOrderPage,
-    ) => any,
+      items: DependentHostedNumberOrderPage
+    ) => any
   ): Promise<DependentHostedNumberOrderPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -402,8 +402,8 @@ export function DependentHostedNumberOrderListInstance(
         new DependentHostedNumberOrderPage(
           instance._version,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -414,12 +414,12 @@ export function DependentHostedNumberOrderListInstance(
       | DependentHostedNumberOrderListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<DependentHostedNumberOrderPage>,
+          items: ApiResponse<DependentHostedNumberOrderPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentHostedNumberOrderPage>,
-    ) => any,
+      items: ApiResponse<DependentHostedNumberOrderPage>
+    ) => any
   ): Promise<ApiResponse<DependentHostedNumberOrderPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -459,13 +459,13 @@ export function DependentHostedNumberOrderListInstance(
         body: new DependentHostedNumberOrderPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -479,8 +479,8 @@ export function DependentHostedNumberOrderListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<DependentHostedNumberOrderPage>,
-    ) => any,
+      items?: ApiResponse<DependentHostedNumberOrderPage>
+    ) => any
   ): Promise<ApiResponse<DependentHostedNumberOrderPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -495,9 +495,9 @@ export function DependentHostedNumberOrderListInstance(
         body: new DependentHostedNumberOrderPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -509,7 +509,7 @@ export function DependentHostedNumberOrderListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -550,7 +550,7 @@ export class DependentHostedNumberOrderInstance {
   constructor(
     protected _version: HostedNumbers,
     payload: DependentHostedNumberOrderResource,
-    signingDocumentSid: string,
+    signingDocumentSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -566,7 +566,7 @@ export class DependentHostedNumberOrderInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.verificationAttempts = deserialize.integer(
-      payload.verification_attempts,
+      payload.verification_attempts
     );
     this.email = payload.email;
     this.ccEmails = payload.cc_emails;
@@ -711,7 +711,7 @@ export class DependentHostedNumberOrderPage extends Page<
   constructor(
     version: HostedNumbers,
     response: Response<string>,
-    solution: DependentHostedNumberOrderSolution,
+    solution: DependentHostedNumberOrderSolution
   ) {
     super(version, response, solution);
   }
@@ -722,12 +722,12 @@ export class DependentHostedNumberOrderPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: DependentHostedNumberOrderResource,
+    payload: DependentHostedNumberOrderResource
   ): DependentHostedNumberOrderInstance {
     return new DependentHostedNumberOrderInstance(
       this._version,
       payload,
-      this._solution.signingDocumentSid,
+      this._solution.signingDocumentSid
     );
   }
 

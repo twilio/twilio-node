@@ -37,7 +37,7 @@ export interface DataContext {
    * @returns Resolves to processed void with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
   ): Promise<ApiResponse<void>>;
 
   /**
@@ -63,7 +63,7 @@ export class DataContextImpl implements DataContext {
     accountSid: string,
     referenceSid: string,
     addOnResultSid: string,
-    payloadSid: string,
+    payloadSid: string
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -99,13 +99,13 @@ export class DataContextImpl implements DataContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
   ): Promise<ApiResponse<void>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -122,7 +122,7 @@ export class DataContextImpl implements DataContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -157,7 +157,7 @@ export class DataInstance {
     accountSid: string,
     referenceSid: string,
     addOnResultSid: string,
-    payloadSid: string,
+    payloadSid: string
   ) {
     this.redirectTo = payload.redirect_to;
 
@@ -177,7 +177,7 @@ export class DataInstance {
         this._solution.accountSid,
         this._solution.referenceSid,
         this._solution.addOnResultSid,
-        this._solution.payloadSid,
+        this._solution.payloadSid
       );
     return this._context;
   }
@@ -201,7 +201,7 @@ export class DataInstance {
    * @returns Resolves to processed void with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
   ): Promise<ApiResponse<void>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -249,7 +249,7 @@ export function DataListInstance(
   accountSid: string,
   referenceSid: string,
   addOnResultSid: string,
-  payloadSid: string,
+  payloadSid: string
 ): DataListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -275,7 +275,7 @@ export function DataListInstance(
       accountSid,
       referenceSid,
       addOnResultSid,
-      payloadSid,
+      payloadSid
     );
   };
 
@@ -289,7 +289,7 @@ export function DataListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

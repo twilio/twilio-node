@@ -72,7 +72,7 @@ export interface AssetVersionContext {
    * @returns Resolves to processed AssetVersionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AssetVersionInstance) => any,
+    callback?: (error: Error | null, item?: AssetVersionInstance) => any
   ): Promise<AssetVersionInstance>;
 
   /**
@@ -85,8 +85,8 @@ export interface AssetVersionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssetVersionInstance>,
-    ) => any,
+      item?: ApiResponse<AssetVersionInstance>
+    ) => any
   ): Promise<ApiResponse<AssetVersionInstance>>;
 
   /**
@@ -110,7 +110,7 @@ export class AssetVersionContextImpl implements AssetVersionContext {
     protected _version: V1,
     serviceSid: string,
     assetSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -129,7 +129,7 @@ export class AssetVersionContextImpl implements AssetVersionContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: AssetVersionInstance) => any,
+    callback?: (error: Error | null, item?: AssetVersionInstance) => any
   ): Promise<AssetVersionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -149,13 +149,13 @@ export class AssetVersionContextImpl implements AssetVersionContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.assetSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -163,8 +163,8 @@ export class AssetVersionContextImpl implements AssetVersionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssetVersionInstance>,
-    ) => any,
+      item?: ApiResponse<AssetVersionInstance>
+    ) => any
   ): Promise<ApiResponse<AssetVersionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -185,13 +185,13 @@ export class AssetVersionContextImpl implements AssetVersionContext {
           response.body,
           instance._solution.serviceSid,
           instance._solution.assetSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -234,7 +234,7 @@ export class AssetVersionInstance {
     payload: AssetVersionResource,
     serviceSid: string,
     assetSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -285,7 +285,7 @@ export class AssetVersionInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.assetSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -298,7 +298,7 @@ export class AssetVersionInstance {
    * @returns Resolves to processed AssetVersionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AssetVersionInstance) => any,
+    callback?: (error: Error | null, item?: AssetVersionInstance) => any
   ): Promise<AssetVersionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -313,8 +313,8 @@ export class AssetVersionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssetVersionInstance>,
-    ) => any,
+      item?: ApiResponse<AssetVersionInstance>
+    ) => any
   ): Promise<ApiResponse<AssetVersionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -371,17 +371,11 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (
-      item: AssetVersionInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: AssetVersionListInstanceEachOptions,
-    callback?: (
-      item: AssetVersionInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams AssetVersionInstance records from the API with HTTP metadata captured per page.
@@ -399,17 +393,11 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (
-      item: AssetVersionInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: AssetVersionListInstanceEachOptions,
-    callback?: (
-      item: AssetVersionInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: AssetVersionInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of AssetVersionInstance records from the API.
@@ -421,7 +409,7 @@ export interface AssetVersionListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AssetVersionPage) => any,
+    callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage>;
   /**
    * Retrieve a single target page of AssetVersionInstance records from the API with HTTP metadata.
@@ -435,8 +423,8 @@ export interface AssetVersionListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssetVersionPage>,
-    ) => any,
+      items: ApiResponse<AssetVersionPage>
+    ) => any
   ): Promise<ApiResponse<AssetVersionPage>>;
   /**
    * Lists AssetVersionInstance records from the API as a list.
@@ -448,11 +436,11 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: AssetVersionInstance[]) => any,
+    callback?: (error: Error | null, items: AssetVersionInstance[]) => any
   ): Promise<AssetVersionInstance[]>;
   list(
     params: AssetVersionListInstanceOptions,
-    callback?: (error: Error | null, items: AssetVersionInstance[]) => any,
+    callback?: (error: Error | null, items: AssetVersionInstance[]) => any
   ): Promise<AssetVersionInstance[]>;
   /**
    * Lists AssetVersionInstance records from the API as a list with HTTP metadata.
@@ -468,15 +456,15 @@ export interface AssetVersionListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssetVersionInstance[]>,
-    ) => any,
+      items: ApiResponse<AssetVersionInstance[]>
+    ) => any
   ): Promise<ApiResponse<AssetVersionInstance[]>>;
   listWithHttpInfo(
     params: AssetVersionListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssetVersionInstance[]>,
-    ) => any,
+      items: ApiResponse<AssetVersionInstance[]>
+    ) => any
   ): Promise<ApiResponse<AssetVersionInstance[]>>;
   /**
    * Retrieve a single page of AssetVersionInstance records from the API.
@@ -490,11 +478,11 @@ export interface AssetVersionListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AssetVersionPage) => any,
+    callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage>;
   page(
     params: AssetVersionListInstancePageOptions,
-    callback?: (error: Error | null, items: AssetVersionPage) => any,
+    callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage>;
   /**
    * Retrieve a single page of AssetVersionInstance records from the API with HTTP metadata.
@@ -510,15 +498,15 @@ export interface AssetVersionListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssetVersionPage>,
-    ) => any,
+      items: ApiResponse<AssetVersionPage>
+    ) => any
   ): Promise<ApiResponse<AssetVersionPage>>;
   pageWithHttpInfo(
     params: AssetVersionListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssetVersionPage>,
-    ) => any,
+      items: ApiResponse<AssetVersionPage>
+    ) => any
   ): Promise<ApiResponse<AssetVersionPage>>;
 
   /**
@@ -531,7 +519,7 @@ export interface AssetVersionListInstance {
 export function AssetVersionListInstance(
   version: V1,
   serviceSid: string,
-  assetSid: string,
+  assetSid: string
 ): AssetVersionListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -555,7 +543,7 @@ export function AssetVersionListInstance(
     params?:
       | AssetVersionListInstancePageOptions
       | ((error: Error | null, items: AssetVersionPage) => any),
-    callback?: (error: Error | null, items: AssetVersionPage) => any,
+    callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage> {
     if (params instanceof Function) {
       callback = params;
@@ -584,12 +572,12 @@ export function AssetVersionListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssetVersionPage(operationVersion, payload, instance._solution),
+        new AssetVersionPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -599,7 +587,7 @@ export function AssetVersionListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AssetVersionPage) => any,
+    callback?: (error: Error | null, items: AssetVersionPage) => any
   ): Promise<AssetVersionPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -607,7 +595,7 @@ export function AssetVersionListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new AssetVersionPage(instance._version, payload, instance._solution),
+        new AssetVersionPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -619,8 +607,8 @@ export function AssetVersionListInstance(
       | ((error: Error | null, items: ApiResponse<AssetVersionPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssetVersionPage>,
-    ) => any,
+      items: ApiResponse<AssetVersionPage>
+    ) => any
   ): Promise<ApiResponse<AssetVersionPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -651,13 +639,13 @@ export function AssetVersionListInstance(
         body: new AssetVersionPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -671,8 +659,8 @@ export function AssetVersionListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<AssetVersionPage>,
-    ) => any,
+      items?: ApiResponse<AssetVersionPage>
+    ) => any
   ): Promise<ApiResponse<AssetVersionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -687,9 +675,9 @@ export function AssetVersionListInstance(
         body: new AssetVersionPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -701,7 +689,7 @@ export function AssetVersionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -725,7 +713,7 @@ export class AssetVersionPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: AssetVersionSolution,
+    solution: AssetVersionSolution
   ) {
     super(version, response, solution);
   }
@@ -740,7 +728,7 @@ export class AssetVersionPage extends Page<
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.assetSid,
+      this._solution.assetSid
     );
   }
 

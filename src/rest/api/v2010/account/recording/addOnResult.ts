@@ -83,7 +83,7 @@ export interface AddOnResultContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -94,7 +94,7 @@ export interface AddOnResultContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -105,7 +105,7 @@ export interface AddOnResultContext {
    * @returns Resolves to processed AddOnResultInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AddOnResultInstance) => any,
+    callback?: (error: Error | null, item?: AddOnResultInstance) => any
   ): Promise<AddOnResultInstance>;
 
   /**
@@ -118,8 +118,8 @@ export interface AddOnResultContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddOnResultInstance>,
-    ) => any,
+      item?: ApiResponse<AddOnResultInstance>
+    ) => any
   ): Promise<ApiResponse<AddOnResultInstance>>;
 
   /**
@@ -145,7 +145,7 @@ export class AddOnResultContextImpl implements AddOnResultContext {
     protected _version: V2010,
     accountSid: string,
     referenceSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -170,13 +170,13 @@ export class AddOnResultContextImpl implements AddOnResultContext {
         this._version,
         this._solution.accountSid,
         this._solution.referenceSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._payloads;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -190,13 +190,13 @@ export class AddOnResultContextImpl implements AddOnResultContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -212,13 +212,13 @@ export class AddOnResultContextImpl implements AddOnResultContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: AddOnResultInstance) => any,
+    callback?: (error: Error | null, item?: AddOnResultInstance) => any
   ): Promise<AddOnResultInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -238,13 +238,13 @@ export class AddOnResultContextImpl implements AddOnResultContext {
           payload,
           instance._solution.accountSid,
           instance._solution.referenceSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -252,8 +252,8 @@ export class AddOnResultContextImpl implements AddOnResultContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddOnResultInstance>,
-    ) => any,
+      item?: ApiResponse<AddOnResultInstance>
+    ) => any
   ): Promise<ApiResponse<AddOnResultInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -274,13 +274,13 @@ export class AddOnResultContextImpl implements AddOnResultContext {
           response.body,
           instance._solution.accountSid,
           instance._solution.referenceSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -325,7 +325,7 @@ export class AddOnResultInstance {
     payload: AddOnResultResource,
     accountSid: string,
     referenceSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -386,7 +386,7 @@ export class AddOnResultInstance {
         this._version,
         this._solution.accountSid,
         this._solution.referenceSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -399,7 +399,7 @@ export class AddOnResultInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -412,7 +412,7 @@ export class AddOnResultInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -425,7 +425,7 @@ export class AddOnResultInstance {
    * @returns Resolves to processed AddOnResultInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AddOnResultInstance) => any,
+    callback?: (error: Error | null, item?: AddOnResultInstance) => any
   ): Promise<AddOnResultInstance> {
     return this._proxy.fetch(callback);
   }
@@ -440,8 +440,8 @@ export class AddOnResultInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddOnResultInstance>,
-    ) => any,
+      item?: ApiResponse<AddOnResultInstance>
+    ) => any
   ): Promise<ApiResponse<AddOnResultInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -507,11 +507,11 @@ export interface AddOnResultListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: AddOnResultListInstanceEachOptions,
-    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams AddOnResultInstance records from the API with HTTP metadata captured per page.
@@ -529,11 +529,11 @@ export interface AddOnResultListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: AddOnResultListInstanceEachOptions,
-    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of AddOnResultInstance records from the API.
@@ -545,7 +545,7 @@ export interface AddOnResultListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AddOnResultPage) => any,
+    callback?: (error: Error | null, items: AddOnResultPage) => any
   ): Promise<AddOnResultPage>;
   /**
    * Retrieve a single target page of AddOnResultInstance records from the API with HTTP metadata.
@@ -557,10 +557,7 @@ export interface AddOnResultListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<AddOnResultPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<AddOnResultPage>) => any
   ): Promise<ApiResponse<AddOnResultPage>>;
   /**
    * Lists AddOnResultInstance records from the API as a list.
@@ -572,11 +569,11 @@ export interface AddOnResultListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: AddOnResultInstance[]) => any,
+    callback?: (error: Error | null, items: AddOnResultInstance[]) => any
   ): Promise<AddOnResultInstance[]>;
   list(
     params: AddOnResultListInstanceOptions,
-    callback?: (error: Error | null, items: AddOnResultInstance[]) => any,
+    callback?: (error: Error | null, items: AddOnResultInstance[]) => any
   ): Promise<AddOnResultInstance[]>;
   /**
    * Lists AddOnResultInstance records from the API as a list with HTTP metadata.
@@ -592,15 +589,15 @@ export interface AddOnResultListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AddOnResultInstance[]>,
-    ) => any,
+      items: ApiResponse<AddOnResultInstance[]>
+    ) => any
   ): Promise<ApiResponse<AddOnResultInstance[]>>;
   listWithHttpInfo(
     params: AddOnResultListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AddOnResultInstance[]>,
-    ) => any,
+      items: ApiResponse<AddOnResultInstance[]>
+    ) => any
   ): Promise<ApiResponse<AddOnResultInstance[]>>;
   /**
    * Retrieve a single page of AddOnResultInstance records from the API.
@@ -614,11 +611,11 @@ export interface AddOnResultListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AddOnResultPage) => any,
+    callback?: (error: Error | null, items: AddOnResultPage) => any
   ): Promise<AddOnResultPage>;
   page(
     params: AddOnResultListInstancePageOptions,
-    callback?: (error: Error | null, items: AddOnResultPage) => any,
+    callback?: (error: Error | null, items: AddOnResultPage) => any
   ): Promise<AddOnResultPage>;
   /**
    * Retrieve a single page of AddOnResultInstance records from the API with HTTP metadata.
@@ -632,17 +629,11 @@ export interface AddOnResultListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<AddOnResultPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<AddOnResultPage>) => any
   ): Promise<ApiResponse<AddOnResultPage>>;
   pageWithHttpInfo(
     params: AddOnResultListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<AddOnResultPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<AddOnResultPage>) => any
   ): Promise<ApiResponse<AddOnResultPage>>;
 
   /**
@@ -655,7 +646,7 @@ export interface AddOnResultListInstance {
 export function AddOnResultListInstance(
   version: V2010,
   accountSid: string,
-  referenceSid: string,
+  referenceSid: string
 ): AddOnResultListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -679,7 +670,7 @@ export function AddOnResultListInstance(
     params?:
       | AddOnResultListInstancePageOptions
       | ((error: Error | null, items: AddOnResultPage) => any),
-    callback?: (error: Error | null, items: AddOnResultPage) => any,
+    callback?: (error: Error | null, items: AddOnResultPage) => any
   ): Promise<AddOnResultPage> {
     if (params instanceof Function) {
       callback = params;
@@ -708,12 +699,12 @@ export function AddOnResultListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AddOnResultPage(operationVersion, payload, instance._solution),
+        new AddOnResultPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -723,7 +714,7 @@ export function AddOnResultListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AddOnResultPage) => any,
+    callback?: (error: Error | null, items: AddOnResultPage) => any
   ): Promise<AddOnResultPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -731,7 +722,7 @@ export function AddOnResultListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new AddOnResultPage(instance._version, payload, instance._solution),
+        new AddOnResultPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -741,10 +732,7 @@ export function AddOnResultListInstance(
     params?:
       | AddOnResultListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<AddOnResultPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<AddOnResultPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<AddOnResultPage>) => any
   ): Promise<ApiResponse<AddOnResultPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -775,13 +763,13 @@ export function AddOnResultListInstance(
         body: new AddOnResultPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -795,8 +783,8 @@ export function AddOnResultListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<AddOnResultPage>,
-    ) => any,
+      items?: ApiResponse<AddOnResultPage>
+    ) => any
   ): Promise<ApiResponse<AddOnResultPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -811,9 +799,9 @@ export function AddOnResultListInstance(
         body: new AddOnResultPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -825,7 +813,7 @@ export function AddOnResultListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -849,7 +837,7 @@ export class AddOnResultPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: AddOnResultSolution,
+    solution: AddOnResultSolution
   ) {
     super(version, response, solution);
   }
@@ -864,7 +852,7 @@ export class AddOnResultPage extends Page<
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.referenceSid,
+      this._solution.referenceSid
     );
   }
 

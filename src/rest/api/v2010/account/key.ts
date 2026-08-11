@@ -75,7 +75,7 @@ export interface KeyContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -86,7 +86,7 @@ export interface KeyContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -97,7 +97,7 @@ export interface KeyContext {
    * @returns Resolves to processed KeyInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: KeyInstance) => any,
+    callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance>;
 
   /**
@@ -108,7 +108,7 @@ export interface KeyContext {
    * @returns Resolves to processed KeyInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any
   ): Promise<ApiResponse<KeyInstance>>;
 
   /**
@@ -119,7 +119,7 @@ export interface KeyContext {
    * @returns Resolves to processed KeyInstance
    */
   update(
-    callback?: (error: Error | null, item?: KeyInstance) => any,
+    callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance>;
   /**
    * Update a KeyInstance
@@ -131,7 +131,7 @@ export interface KeyContext {
    */
   update(
     params: KeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: KeyInstance) => any,
+    callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance>;
 
   /**
@@ -142,7 +142,7 @@ export interface KeyContext {
    * @returns Resolves to processed KeyInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any
   ): Promise<ApiResponse<KeyInstance>>;
   /**
    * Update a KeyInstance and return HTTP info
@@ -154,7 +154,7 @@ export interface KeyContext {
    */
   updateWithHttpInfo(
     params: KeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any
   ): Promise<ApiResponse<KeyInstance>>;
 
   /**
@@ -176,7 +176,7 @@ export class KeyContextImpl implements KeyContext {
   constructor(
     protected _version: V2010,
     accountSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -191,7 +191,7 @@ export class KeyContextImpl implements KeyContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -205,13 +205,13 @@ export class KeyContextImpl implements KeyContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -227,13 +227,13 @@ export class KeyContextImpl implements KeyContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: KeyInstance) => any,
+    callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -252,19 +252,19 @@ export class KeyContextImpl implements KeyContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any
   ): Promise<ApiResponse<KeyInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -284,13 +284,13 @@ export class KeyContextImpl implements KeyContext {
           operationVersion,
           response.body,
           instance._solution.accountSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -299,7 +299,7 @@ export class KeyContextImpl implements KeyContext {
     params?:
       | KeyContextUpdateOptions
       | ((error: Error | null, item?: KeyInstance) => any),
-    callback?: (error: Error | null, item?: KeyInstance) => any,
+    callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -332,13 +332,13 @@ export class KeyContextImpl implements KeyContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -347,7 +347,7 @@ export class KeyContextImpl implements KeyContext {
     params?:
       | KeyContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<KeyInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any
   ): Promise<ApiResponse<KeyInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -381,13 +381,13 @@ export class KeyContextImpl implements KeyContext {
           operationVersion,
           response.body,
           instance._solution.accountSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -425,7 +425,7 @@ export class KeyInstance {
     protected _version: V2010,
     payload: KeyResource,
     accountSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -458,7 +458,7 @@ export class KeyInstance {
       new KeyContextImpl(
         this._version,
         this._solution.accountSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -471,7 +471,7 @@ export class KeyInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -484,7 +484,7 @@ export class KeyInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -497,7 +497,7 @@ export class KeyInstance {
    * @returns Resolves to processed KeyInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: KeyInstance) => any,
+    callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance> {
     return this._proxy.fetch(callback);
   }
@@ -510,7 +510,7 @@ export class KeyInstance {
    * @returns Resolves to processed KeyInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any
   ): Promise<ApiResponse<KeyInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -523,7 +523,7 @@ export class KeyInstance {
    * @returns Resolves to processed KeyInstance
    */
   update(
-    callback?: (error: Error | null, item?: KeyInstance) => any,
+    callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance>;
   /**
    * Update a KeyInstance
@@ -535,12 +535,12 @@ export class KeyInstance {
    */
   update(
     params: KeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: KeyInstance) => any,
+    callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: KeyInstance) => any,
+    callback?: (error: Error | null, item?: KeyInstance) => any
   ): Promise<KeyInstance> {
     return this._proxy.update(params, callback);
   }
@@ -553,7 +553,7 @@ export class KeyInstance {
    * @returns Resolves to processed KeyInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any
   ): Promise<ApiResponse<KeyInstance>>;
   /**
    * Update a KeyInstance and return HTTP info
@@ -565,12 +565,12 @@ export class KeyInstance {
    */
   updateWithHttpInfo(
     params: KeyContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any
   ): Promise<ApiResponse<KeyInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<KeyInstance>) => any
   ): Promise<ApiResponse<KeyInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -622,11 +622,11 @@ export interface KeyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: KeyInstance, done: (err?: Error) => void) => void,
+    callback?: (item: KeyInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: KeyListInstanceEachOptions,
-    callback?: (item: KeyInstance, done: (err?: Error) => void) => void,
+    callback?: (item: KeyInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams KeyInstance records from the API with HTTP metadata captured per page.
@@ -644,11 +644,11 @@ export interface KeyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: KeyInstance, done: (err?: Error) => void) => void,
+    callback?: (item: KeyInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: KeyListInstanceEachOptions,
-    callback?: (item: KeyInstance, done: (err?: Error) => void) => void,
+    callback?: (item: KeyInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of KeyInstance records from the API.
@@ -660,7 +660,7 @@ export interface KeyListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: KeyPage) => any,
+    callback?: (error: Error | null, items: KeyPage) => any
   ): Promise<KeyPage>;
   /**
    * Retrieve a single target page of KeyInstance records from the API with HTTP metadata.
@@ -672,7 +672,7 @@ export interface KeyListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<KeyPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<KeyPage>) => any
   ): Promise<ApiResponse<KeyPage>>;
   /**
    * Lists KeyInstance records from the API as a list.
@@ -684,11 +684,11 @@ export interface KeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: KeyInstance[]) => any,
+    callback?: (error: Error | null, items: KeyInstance[]) => any
   ): Promise<KeyInstance[]>;
   list(
     params: KeyListInstanceOptions,
-    callback?: (error: Error | null, items: KeyInstance[]) => any,
+    callback?: (error: Error | null, items: KeyInstance[]) => any
   ): Promise<KeyInstance[]>;
   /**
    * Lists KeyInstance records from the API as a list with HTTP metadata.
@@ -702,11 +702,11 @@ export interface KeyListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<KeyInstance[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<KeyInstance[]>) => any
   ): Promise<ApiResponse<KeyInstance[]>>;
   listWithHttpInfo(
     params: KeyListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<KeyInstance[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<KeyInstance[]>) => any
   ): Promise<ApiResponse<KeyInstance[]>>;
   /**
    * Retrieve a single page of KeyInstance records from the API.
@@ -720,11 +720,11 @@ export interface KeyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: KeyPage) => any,
+    callback?: (error: Error | null, items: KeyPage) => any
   ): Promise<KeyPage>;
   page(
     params: KeyListInstancePageOptions,
-    callback?: (error: Error | null, items: KeyPage) => any,
+    callback?: (error: Error | null, items: KeyPage) => any
   ): Promise<KeyPage>;
   /**
    * Retrieve a single page of KeyInstance records from the API with HTTP metadata.
@@ -738,11 +738,11 @@ export interface KeyListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<KeyPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<KeyPage>) => any
   ): Promise<ApiResponse<KeyPage>>;
   pageWithHttpInfo(
     params: KeyListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<KeyPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<KeyPage>) => any
   ): Promise<ApiResponse<KeyPage>>;
 
   /**
@@ -754,7 +754,7 @@ export interface KeyListInstance {
 
 export function KeyListInstance(
   version: V2010,
-  accountSid: string,
+  accountSid: string
 ): KeyListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -774,7 +774,7 @@ export function KeyListInstance(
     params?:
       | KeyListInstancePageOptions
       | ((error: Error | null, items: KeyPage) => any),
-    callback?: (error: Error | null, items: KeyPage) => any,
+    callback?: (error: Error | null, items: KeyPage) => any
   ): Promise<KeyPage> {
     if (params instanceof Function) {
       callback = params;
@@ -802,12 +802,12 @@ export function KeyListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new KeyPage(operationVersion, payload, instance._solution),
+      (payload) => new KeyPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -817,14 +817,14 @@ export function KeyListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: KeyPage) => any,
+    callback?: (error: Error | null, items: KeyPage) => any
   ): Promise<KeyPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new KeyPage(instance._version, payload, instance._solution),
+      (payload) => new KeyPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -834,7 +834,7 @@ export function KeyListInstance(
     params?:
       | KeyListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<KeyPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<KeyPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<KeyPage>) => any
   ): Promise<ApiResponse<KeyPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -867,7 +867,7 @@ export function KeyListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -879,7 +879,7 @@ export function KeyListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<KeyPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<KeyPage>) => any
   ): Promise<ApiResponse<KeyPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -892,7 +892,7 @@ export function KeyListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new KeyPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -904,7 +904,7 @@ export function KeyListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -923,7 +923,7 @@ export class KeyPage extends Page<V2010, KeyPayload, KeyResource, KeyInstance> {
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: KeySolution,
+    solution: KeySolution
   ) {
     super(version, response, solution);
   }

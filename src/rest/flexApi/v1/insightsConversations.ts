@@ -35,7 +35,7 @@ export interface InsightsConversationsListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: InsightsConversationsInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -98,15 +98,15 @@ export interface InsightsConversationsListInstance {
   each(
     callback?: (
       item: InsightsConversationsInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: InsightsConversationsListInstanceEachOptions,
     callback?: (
       item: InsightsConversationsInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams InsightsConversationsInstance records from the API with HTTP metadata captured per page.
@@ -126,15 +126,15 @@ export interface InsightsConversationsListInstance {
   eachWithHttpInfo(
     callback?: (
       item: InsightsConversationsInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: InsightsConversationsListInstanceEachOptions,
     callback?: (
       item: InsightsConversationsInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of InsightsConversationsInstance records from the API.
@@ -146,7 +146,7 @@ export interface InsightsConversationsListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: InsightsConversationsPage) => any,
+    callback?: (error: Error | null, items: InsightsConversationsPage) => any
   ): Promise<InsightsConversationsPage>;
   /**
    * Retrieve a single target page of InsightsConversationsInstance records from the API with HTTP metadata.
@@ -160,8 +160,8 @@ export interface InsightsConversationsListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsConversationsPage>,
-    ) => any,
+      items: ApiResponse<InsightsConversationsPage>
+    ) => any
   ): Promise<ApiResponse<InsightsConversationsPage>>;
   /**
    * Lists InsightsConversationsInstance records from the API as a list.
@@ -175,15 +175,15 @@ export interface InsightsConversationsListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: InsightsConversationsInstance[],
-    ) => any,
+      items: InsightsConversationsInstance[]
+    ) => any
   ): Promise<InsightsConversationsInstance[]>;
   list(
     params: InsightsConversationsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: InsightsConversationsInstance[],
-    ) => any,
+      items: InsightsConversationsInstance[]
+    ) => any
   ): Promise<InsightsConversationsInstance[]>;
   /**
    * Lists InsightsConversationsInstance records from the API as a list with HTTP metadata.
@@ -199,15 +199,15 @@ export interface InsightsConversationsListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsConversationsInstance[]>,
-    ) => any,
+      items: ApiResponse<InsightsConversationsInstance[]>
+    ) => any
   ): Promise<ApiResponse<InsightsConversationsInstance[]>>;
   listWithHttpInfo(
     params: InsightsConversationsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsConversationsInstance[]>,
-    ) => any,
+      items: ApiResponse<InsightsConversationsInstance[]>
+    ) => any
   ): Promise<ApiResponse<InsightsConversationsInstance[]>>;
   /**
    * Retrieve a single page of InsightsConversationsInstance records from the API.
@@ -221,11 +221,11 @@ export interface InsightsConversationsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: InsightsConversationsPage) => any,
+    callback?: (error: Error | null, items: InsightsConversationsPage) => any
   ): Promise<InsightsConversationsPage>;
   page(
     params: InsightsConversationsListInstancePageOptions,
-    callback?: (error: Error | null, items: InsightsConversationsPage) => any,
+    callback?: (error: Error | null, items: InsightsConversationsPage) => any
   ): Promise<InsightsConversationsPage>;
   /**
    * Retrieve a single page of InsightsConversationsInstance records from the API with HTTP metadata.
@@ -241,15 +241,15 @@ export interface InsightsConversationsListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsConversationsPage>,
-    ) => any,
+      items: ApiResponse<InsightsConversationsPage>
+    ) => any
   ): Promise<ApiResponse<InsightsConversationsPage>>;
   pageWithHttpInfo(
     params: InsightsConversationsListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsConversationsPage>,
-    ) => any,
+      items: ApiResponse<InsightsConversationsPage>
+    ) => any
   ): Promise<ApiResponse<InsightsConversationsPage>>;
 
   /**
@@ -260,7 +260,7 @@ export interface InsightsConversationsListInstance {
 }
 
 export function InsightsConversationsListInstance(
-  version: V1,
+  version: V1
 ): InsightsConversationsListInstance {
   const instance = {} as InsightsConversationsListInstance;
 
@@ -272,7 +272,7 @@ export function InsightsConversationsListInstance(
     params?:
       | InsightsConversationsListInstancePageOptions
       | ((error: Error | null, items: InsightsConversationsPage) => any),
-    callback?: (error: Error | null, items: InsightsConversationsPage) => any,
+    callback?: (error: Error | null, items: InsightsConversationsPage) => any
   ): Promise<InsightsConversationsPage> {
     if (params instanceof Function) {
       callback = params;
@@ -308,13 +308,13 @@ export function InsightsConversationsListInstance(
         new InsightsConversationsPage(
           operationVersion,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -324,7 +324,7 @@ export function InsightsConversationsListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: InsightsConversationsPage) => any,
+    callback?: (error: Error | null, items: InsightsConversationsPage) => any
   ): Promise<InsightsConversationsPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -335,8 +335,8 @@ export function InsightsConversationsListInstance(
         new InsightsConversationsPage(
           instance._version,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -347,12 +347,12 @@ export function InsightsConversationsListInstance(
       | InsightsConversationsListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<InsightsConversationsPage>,
+          items: ApiResponse<InsightsConversationsPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsConversationsPage>,
-    ) => any,
+      items: ApiResponse<InsightsConversationsPage>
+    ) => any
   ): Promise<ApiResponse<InsightsConversationsPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -387,13 +387,13 @@ export function InsightsConversationsListInstance(
         body: new InsightsConversationsPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -407,8 +407,8 @@ export function InsightsConversationsListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<InsightsConversationsPage>,
-    ) => any,
+      items?: ApiResponse<InsightsConversationsPage>
+    ) => any
   ): Promise<ApiResponse<InsightsConversationsPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -423,9 +423,9 @@ export function InsightsConversationsListInstance(
         body: new InsightsConversationsPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -437,7 +437,7 @@ export function InsightsConversationsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -459,7 +459,7 @@ interface InsightsConversationsResource {
 export class InsightsConversationsInstance {
   constructor(
     protected _version: V1,
-    payload: InsightsConversationsResource,
+    payload: InsightsConversationsResource
   ) {
     this.accountId = payload.account_id;
     this.conversationId = payload.conversation_id;
@@ -519,7 +519,7 @@ export class InsightsConversationsPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: InsightsConversationsSolution,
+    solution: InsightsConversationsSolution
   ) {
     super(version, response, solution);
   }
@@ -530,7 +530,7 @@ export class InsightsConversationsPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: InsightsConversationsResource,
+    payload: InsightsConversationsResource
   ): InsightsConversationsInstance {
     return new InsightsConversationsInstance(this._version, payload);
   }

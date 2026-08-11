@@ -88,7 +88,7 @@ export interface SyncStreamContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -99,7 +99,7 @@ export interface SyncStreamContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -110,7 +110,7 @@ export interface SyncStreamContext {
    * @returns Resolves to processed SyncStreamInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
 
   /**
@@ -123,8 +123,8 @@ export interface SyncStreamContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      item?: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>>;
 
   /**
@@ -135,7 +135,7 @@ export interface SyncStreamContext {
    * @returns Resolves to processed SyncStreamInstance
    */
   update(
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
   /**
    * Update a SyncStreamInstance
@@ -147,7 +147,7 @@ export interface SyncStreamContext {
    */
   update(
     params: SyncStreamContextUpdateOptions,
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
 
   /**
@@ -160,8 +160,8 @@ export interface SyncStreamContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      item?: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>>;
   /**
    * Update a SyncStreamInstance and return HTTP info
@@ -175,8 +175,8 @@ export interface SyncStreamContext {
     params: SyncStreamContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      item?: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>>;
 
   /**
@@ -200,7 +200,7 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   constructor(
     protected _version: V1,
     serviceSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -220,13 +220,13 @@ export class SyncStreamContextImpl implements SyncStreamContext {
       StreamMessageListInstance(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._streamMessages;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -240,13 +240,13 @@ export class SyncStreamContextImpl implements SyncStreamContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -262,13 +262,13 @@ export class SyncStreamContextImpl implements SyncStreamContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -287,13 +287,13 @@ export class SyncStreamContextImpl implements SyncStreamContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -301,8 +301,8 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      item?: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -322,13 +322,13 @@ export class SyncStreamContextImpl implements SyncStreamContext {
           operationVersion,
           response.body,
           instance._solution.serviceSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -337,7 +337,7 @@ export class SyncStreamContextImpl implements SyncStreamContext {
     params?:
       | SyncStreamContextUpdateOptions
       | ((error: Error | null, item?: SyncStreamInstance) => any),
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -369,13 +369,13 @@ export class SyncStreamContextImpl implements SyncStreamContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -386,8 +386,8 @@ export class SyncStreamContextImpl implements SyncStreamContext {
       | ((error: Error | null, item?: ApiResponse<SyncStreamInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      item?: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -420,13 +420,13 @@ export class SyncStreamContextImpl implements SyncStreamContext {
           operationVersion,
           response.body,
           instance._solution.serviceSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -470,7 +470,7 @@ export class SyncStreamInstance {
     protected _version: V1,
     payload: SyncStreamResource,
     serviceSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
@@ -533,7 +533,7 @@ export class SyncStreamInstance {
       new SyncStreamContextImpl(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -546,7 +546,7 @@ export class SyncStreamInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -559,7 +559,7 @@ export class SyncStreamInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -572,7 +572,7 @@ export class SyncStreamInstance {
    * @returns Resolves to processed SyncStreamInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
     return this._proxy.fetch(callback);
   }
@@ -587,8 +587,8 @@ export class SyncStreamInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      item?: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -601,7 +601,7 @@ export class SyncStreamInstance {
    * @returns Resolves to processed SyncStreamInstance
    */
   update(
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
   /**
    * Update a SyncStreamInstance
@@ -613,12 +613,12 @@ export class SyncStreamInstance {
    */
   update(
     params: SyncStreamContextUpdateOptions,
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
     return this._proxy.update(params, callback);
   }
@@ -633,8 +633,8 @@ export class SyncStreamInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      item?: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>>;
   /**
    * Update a SyncStreamInstance and return HTTP info
@@ -648,16 +648,16 @@ export class SyncStreamInstance {
     params: SyncStreamContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      item?: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      item?: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -714,7 +714,7 @@ export interface SyncStreamListInstance {
    * @returns Resolves to processed SyncStreamInstance
    */
   create(
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
   /**
    * Create a SyncStreamInstance
@@ -726,7 +726,7 @@ export interface SyncStreamListInstance {
    */
   create(
     params: SyncStreamListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SyncStreamInstance) => any,
+    callback?: (error: Error | null, item?: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance>;
 
   /**
@@ -739,8 +739,8 @@ export interface SyncStreamListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      item?: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>>;
   /**
    * Create a SyncStreamInstance and return HTTP info
@@ -754,8 +754,8 @@ export interface SyncStreamListInstance {
     params: SyncStreamListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      item?: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>>;
 
   /**
@@ -774,11 +774,11 @@ export interface SyncStreamListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void,
+    callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: SyncStreamListInstanceEachOptions,
-    callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void,
+    callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams SyncStreamInstance records from the API with HTTP metadata captured per page.
@@ -796,11 +796,11 @@ export interface SyncStreamListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void,
+    callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: SyncStreamListInstanceEachOptions,
-    callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void,
+    callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of SyncStreamInstance records from the API.
@@ -812,7 +812,7 @@ export interface SyncStreamListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SyncStreamPage) => any,
+    callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage>;
   /**
    * Retrieve a single target page of SyncStreamInstance records from the API with HTTP metadata.
@@ -824,7 +824,7 @@ export interface SyncStreamListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<SyncStreamPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<SyncStreamPage>) => any
   ): Promise<ApiResponse<SyncStreamPage>>;
   /**
    * Lists SyncStreamInstance records from the API as a list.
@@ -836,11 +836,11 @@ export interface SyncStreamListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SyncStreamInstance[]) => any,
+    callback?: (error: Error | null, items: SyncStreamInstance[]) => any
   ): Promise<SyncStreamInstance[]>;
   list(
     params: SyncStreamListInstanceOptions,
-    callback?: (error: Error | null, items: SyncStreamInstance[]) => any,
+    callback?: (error: Error | null, items: SyncStreamInstance[]) => any
   ): Promise<SyncStreamInstance[]>;
   /**
    * Lists SyncStreamInstance records from the API as a list with HTTP metadata.
@@ -856,15 +856,15 @@ export interface SyncStreamListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncStreamInstance[]>,
-    ) => any,
+      items: ApiResponse<SyncStreamInstance[]>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance[]>>;
   listWithHttpInfo(
     params: SyncStreamListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncStreamInstance[]>,
-    ) => any,
+      items: ApiResponse<SyncStreamInstance[]>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance[]>>;
   /**
    * Retrieve a single page of SyncStreamInstance records from the API.
@@ -878,11 +878,11 @@ export interface SyncStreamListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SyncStreamPage) => any,
+    callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage>;
   page(
     params: SyncStreamListInstancePageOptions,
-    callback?: (error: Error | null, items: SyncStreamPage) => any,
+    callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage>;
   /**
    * Retrieve a single page of SyncStreamInstance records from the API with HTTP metadata.
@@ -896,11 +896,11 @@ export interface SyncStreamListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<SyncStreamPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<SyncStreamPage>) => any
   ): Promise<ApiResponse<SyncStreamPage>>;
   pageWithHttpInfo(
     params: SyncStreamListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<SyncStreamPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<SyncStreamPage>) => any
   ): Promise<ApiResponse<SyncStreamPage>>;
 
   /**
@@ -912,7 +912,7 @@ export interface SyncStreamListInstance {
 
 export function SyncStreamListInstance(
   version: V1,
-  serviceSid: string,
+  serviceSid: string
 ): SyncStreamListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -932,7 +932,7 @@ export function SyncStreamListInstance(
     params?:
       | SyncStreamListInstanceCreateOptions
       | ((error: Error | null, items: SyncStreamInstance) => any),
-    callback?: (error: Error | null, items: SyncStreamInstance) => any,
+    callback?: (error: Error | null, items: SyncStreamInstance) => any
   ): Promise<SyncStreamInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -964,13 +964,13 @@ export function SyncStreamListInstance(
         new SyncStreamInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid,
-        ),
+          instance._solution.serviceSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -981,8 +981,8 @@ export function SyncStreamListInstance(
       | ((error: Error | null, items: ApiResponse<SyncStreamInstance>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncStreamInstance>,
-    ) => any,
+      items: ApiResponse<SyncStreamInstance>
+    ) => any
   ): Promise<ApiResponse<SyncStreamInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -1015,13 +1015,13 @@ export function SyncStreamListInstance(
         body: new SyncStreamInstance(
           operationVersion,
           response.body,
-          instance._solution.serviceSid,
+          instance._solution.serviceSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1030,7 +1030,7 @@ export function SyncStreamListInstance(
     params?:
       | SyncStreamListInstancePageOptions
       | ((error: Error | null, items: SyncStreamPage) => any),
-    callback?: (error: Error | null, items: SyncStreamPage) => any,
+    callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1059,12 +1059,12 @@ export function SyncStreamListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SyncStreamPage(operationVersion, payload, instance._solution),
+        new SyncStreamPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1074,7 +1074,7 @@ export function SyncStreamListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SyncStreamPage) => any,
+    callback?: (error: Error | null, items: SyncStreamPage) => any
   ): Promise<SyncStreamPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1082,7 +1082,7 @@ export function SyncStreamListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new SyncStreamPage(instance._version, payload, instance._solution),
+        new SyncStreamPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1092,7 +1092,7 @@ export function SyncStreamListInstance(
     params?:
       | SyncStreamListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<SyncStreamPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<SyncStreamPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<SyncStreamPage>) => any
   ): Promise<ApiResponse<SyncStreamPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1123,13 +1123,13 @@ export function SyncStreamListInstance(
         body: new SyncStreamPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1141,10 +1141,7 @@ export function SyncStreamListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<SyncStreamPage>,
-    ) => any,
+    callback?: (error: Error | null, items?: ApiResponse<SyncStreamPage>) => any
   ): Promise<ApiResponse<SyncStreamPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1159,9 +1156,9 @@ export function SyncStreamListInstance(
         body: new SyncStreamPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1173,7 +1170,7 @@ export function SyncStreamListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1197,7 +1194,7 @@ export class SyncStreamPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: SyncStreamSolution,
+    solution: SyncStreamSolution
   ) {
     super(version, response, solution);
   }
@@ -1211,7 +1208,7 @@ export class SyncStreamPage extends Page<
     return new SyncStreamInstance(
       this._version,
       payload,
-      this._solution.serviceSid,
+      this._solution.serviceSid
     );
   }
 

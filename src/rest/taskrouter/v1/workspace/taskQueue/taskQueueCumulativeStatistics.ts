@@ -46,8 +46,8 @@ export interface TaskQueueCumulativeStatisticsContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: TaskQueueCumulativeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance>;
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance
@@ -61,8 +61,8 @@ export interface TaskQueueCumulativeStatisticsContext {
     params: TaskQueueCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: TaskQueueCumulativeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance>;
 
   /**
@@ -75,8 +75,8 @@ export interface TaskQueueCumulativeStatisticsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>>;
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance and return HTTP info
@@ -90,8 +90,8 @@ export interface TaskQueueCumulativeStatisticsContext {
     params: TaskQueueCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>>;
 
   /**
@@ -113,7 +113,7 @@ export class TaskQueueCumulativeStatisticsContextImpl implements TaskQueueCumula
   constructor(
     protected _version: V1,
     workspaceSid: string,
-    taskQueueSid: string,
+    taskQueueSid: string
   ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -132,12 +132,12 @@ export class TaskQueueCumulativeStatisticsContextImpl implements TaskQueueCumula
       | TaskQueueCumulativeStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: TaskQueueCumulativeStatisticsInstance,
+          item?: TaskQueueCumulativeStatisticsInstance
         ) => any),
     callback?: (
       error: Error | null,
-      item?: TaskQueueCumulativeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -176,13 +176,13 @@ export class TaskQueueCumulativeStatisticsContextImpl implements TaskQueueCumula
           operationVersion,
           payload,
           instance._solution.workspaceSid,
-          instance._solution.taskQueueSid,
-        ),
+          instance._solution.taskQueueSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -192,12 +192,12 @@ export class TaskQueueCumulativeStatisticsContextImpl implements TaskQueueCumula
       | TaskQueueCumulativeStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>,
+          item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -237,13 +237,13 @@ export class TaskQueueCumulativeStatisticsContextImpl implements TaskQueueCumula
           operationVersion,
           response.body,
           instance._solution.workspaceSid,
-          instance._solution.taskQueueSid,
+          instance._solution.taskQueueSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -297,31 +297,31 @@ export class TaskQueueCumulativeStatisticsInstance {
     protected _version: V1,
     payload: TaskQueueCumulativeStatisticsResource,
     workspaceSid: string,
-    taskQueueSid: string,
+    taskQueueSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.avgTaskAcceptanceTime = deserialize.integer(
-      payload.avg_task_acceptance_time,
+      payload.avg_task_acceptance_time
     );
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.reservationsCreated = deserialize.integer(
-      payload.reservations_created,
+      payload.reservations_created
     );
     this.reservationsAccepted = deserialize.integer(
-      payload.reservations_accepted,
+      payload.reservations_accepted
     );
     this.reservationsRejected = deserialize.integer(
-      payload.reservations_rejected,
+      payload.reservations_rejected
     );
     this.reservationsTimedOut = deserialize.integer(
-      payload.reservations_timed_out,
+      payload.reservations_timed_out
     );
     this.reservationsCanceled = deserialize.integer(
-      payload.reservations_canceled,
+      payload.reservations_canceled
     );
     this.reservationsRescinded = deserialize.integer(
-      payload.reservations_rescinded,
+      payload.reservations_rescinded
     );
     this.splitByWaitTime = payload.split_by_wait_time;
     this.taskQueueSid = payload.task_queue_sid;
@@ -435,7 +435,7 @@ export class TaskQueueCumulativeStatisticsInstance {
       new TaskQueueCumulativeStatisticsContextImpl(
         this._version,
         this._solution.workspaceSid,
-        this._solution.taskQueueSid,
+        this._solution.taskQueueSid
       );
     return this._context;
   }
@@ -450,8 +450,8 @@ export class TaskQueueCumulativeStatisticsInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: TaskQueueCumulativeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance>;
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance
@@ -465,16 +465,16 @@ export class TaskQueueCumulativeStatisticsInstance {
     params: TaskQueueCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: TaskQueueCumulativeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance>;
 
   fetch(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: TaskQueueCumulativeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueCumulativeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueCumulativeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -489,8 +489,8 @@ export class TaskQueueCumulativeStatisticsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>>;
   /**
    * Fetch a TaskQueueCumulativeStatisticsInstance and return HTTP info
@@ -504,16 +504,16 @@ export class TaskQueueCumulativeStatisticsInstance {
     params: TaskQueueCumulativeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueCumulativeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -578,7 +578,7 @@ export interface TaskQueueCumulativeStatisticsListInstance {
 export function TaskQueueCumulativeStatisticsListInstance(
   version: V1,
   workspaceSid: string,
-  taskQueueSid: string,
+  taskQueueSid: string
 ): TaskQueueCumulativeStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -595,7 +595,7 @@ export function TaskQueueCumulativeStatisticsListInstance(
     return new TaskQueueCumulativeStatisticsContextImpl(
       version,
       workspaceSid,
-      taskQueueSid,
+      taskQueueSid
     );
   };
 
@@ -609,7 +609,7 @@ export function TaskQueueCumulativeStatisticsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

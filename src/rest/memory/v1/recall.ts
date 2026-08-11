@@ -343,7 +343,7 @@ export interface RecallListInstance {
   create(
     params: MemoryRetrievalRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: RecallInstance) => any,
+    callback?: (error: Error | null, item?: RecallInstance) => any
   ): Promise<RecallInstance>;
 
   /**
@@ -358,7 +358,7 @@ export interface RecallListInstance {
   createWithHttpInfo(
     params: MemoryRetrievalRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<RecallInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<RecallInstance>) => any
   ): Promise<ApiResponse<RecallInstance>>;
 
   /**
@@ -371,7 +371,7 @@ export interface RecallListInstance {
 export function RecallListInstance(
   version: V1,
   storeId: string,
-  profileId: string,
+  profileId: string
 ): RecallListInstance {
   if (!isValidPathParam(storeId)) {
     throw new Error("Parameter 'storeId' is not valid.");
@@ -390,7 +390,7 @@ export function RecallListInstance(
   instance.create = function create(
     params: MemoryRetrievalRequest,
     headers?: any,
-    callback?: (error: Error | null, items: RecallInstance) => any,
+    callback?: (error: Error | null, items: RecallInstance) => any
   ): Promise<RecallInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -421,13 +421,13 @@ export function RecallListInstance(
           operationVersion,
           payload,
           instance._solution.storeId,
-          instance._solution.profileId,
-        ),
+          instance._solution.profileId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -435,7 +435,7 @@ export function RecallListInstance(
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: MemoryRetrievalRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<RecallInstance>) => any,
+    callback?: (error: Error | null, items: ApiResponse<RecallInstance>) => any
   ): Promise<ApiResponse<RecallInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -467,13 +467,13 @@ export function RecallListInstance(
           operationVersion,
           response.body,
           instance._solution.storeId,
-          instance._solution.profileId,
+          instance._solution.profileId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -484,7 +484,7 @@ export function RecallListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -507,25 +507,25 @@ export class RecallInstance {
     protected _version: V1,
     _payload: RecallResource,
     storeId: string,
-    profileId: string,
+    profileId: string
   ) {
     const payload = _payload;
     this.observations =
       payload.observations !== null && payload.observations !== undefined
         ? payload.observations.map(
-            (payload: any) => new RecallObservationInfo(payload),
+            (payload: any) => new RecallObservationInfo(payload)
           )
         : null;
     this.summaries =
       payload.summaries !== null && payload.summaries !== undefined
         ? payload.summaries.map(
-            (payload: any) => new RecallSummaryInfo(payload),
+            (payload: any) => new RecallSummaryInfo(payload)
           )
         : null;
     this.communications =
       payload.communications !== null && payload.communications !== undefined
         ? payload.communications.map(
-            (payload: any) => new Communication(payload),
+            (payload: any) => new Communication(payload)
           )
         : null;
     this.meta =

@@ -243,7 +243,7 @@ export interface TranscriptionContext {
    * @returns Resolves to processed TranscriptionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance>;
 
   /**
@@ -256,8 +256,8 @@ export interface TranscriptionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>>;
 
   /**
@@ -277,7 +277,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
 
   constructor(
     protected _version: V3,
-    transcriptionId: string,
+    transcriptionId: string
   ) {
     if (!isValidPathParam(transcriptionId)) {
       throw new Error("Parameter 'transcriptionId' is not valid.");
@@ -288,7 +288,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -306,13 +306,13 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         new TranscriptionInstance(
           operationVersion,
           payload,
-          instance._solution.transcriptionId,
-        ),
+          instance._solution.transcriptionId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -320,8 +320,8 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -340,13 +340,13 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         body: new TranscriptionInstance(
           operationVersion,
           response.body,
-          instance._solution.transcriptionId,
+          instance._solution.transcriptionId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -471,7 +471,7 @@ export class TranscriptionInstance {
   constructor(
     protected _version: V3,
     _payload: TranscriptionResource,
-    transcriptionId?: string,
+    transcriptionId?: string
   ) {
     const payload: any = _payload;
     this.status = payload.status;
@@ -504,7 +504,7 @@ export class TranscriptionInstance {
       this._context ||
       new TranscriptionContextImpl(
         this._version,
-        this._solution.transcriptionId,
+        this._solution.transcriptionId
       );
     return this._context;
   }
@@ -517,7 +517,7 @@ export class TranscriptionInstance {
    * @returns Resolves to processed TranscriptionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -532,8 +532,8 @@ export class TranscriptionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -579,7 +579,7 @@ export interface TranscriptionListInstance {
   create(
     params: CreateV3TranscriptionsRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance>;
 
   /**
@@ -596,8 +596,8 @@ export interface TranscriptionListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>>;
 
   /**
@@ -608,7 +608,7 @@ export interface TranscriptionListInstance {
 }
 
 export function TranscriptionListInstance(
-  version: V3,
+  version: V3
 ): TranscriptionListInstance {
   const instance = ((transcriptionId) =>
     instance.get(transcriptionId)) as TranscriptionListInstance;
@@ -624,7 +624,7 @@ export function TranscriptionListInstance(
   instance.create = function create(
     params: CreateV3TranscriptionsRequest,
     headers?: any,
-    callback?: (error: Error | null, items: TranscriptionInstance) => any,
+    callback?: (error: Error | null, items: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -650,12 +650,12 @@ export function TranscriptionListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TranscriptionInstance(operationVersion, payload),
+      (payload) => new TranscriptionInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -665,8 +665,8 @@ export function TranscriptionListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      items: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -699,7 +699,7 @@ export function TranscriptionListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -710,7 +710,7 @@ export function TranscriptionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

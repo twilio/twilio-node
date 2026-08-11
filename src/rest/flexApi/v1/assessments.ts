@@ -123,7 +123,7 @@ export interface AssessmentsContext {
    */
   update(
     params: AssessmentsContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssessmentsInstance) => any,
+    callback?: (error: Error | null, item?: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance>;
 
   /**
@@ -138,8 +138,8 @@ export interface AssessmentsContext {
     params: AssessmentsContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssessmentsInstance>,
-    ) => any,
+      item?: ApiResponse<AssessmentsInstance>
+    ) => any
   ): Promise<ApiResponse<AssessmentsInstance>>;
 
   /**
@@ -159,7 +159,7 @@ export class AssessmentsContextImpl implements AssessmentsContext {
 
   constructor(
     protected _version: V1,
-    assessmentSid: string,
+    assessmentSid: string
   ) {
     if (!isValidPathParam(assessmentSid)) {
       throw new Error("Parameter 'assessmentSid' is not valid.");
@@ -171,7 +171,7 @@ export class AssessmentsContextImpl implements AssessmentsContext {
 
   update(
     params: AssessmentsContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssessmentsInstance) => any,
+    callback?: (error: Error | null, item?: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -217,13 +217,13 @@ export class AssessmentsContextImpl implements AssessmentsContext {
         new AssessmentsInstance(
           operationVersion,
           payload,
-          instance._solution.assessmentSid,
-        ),
+          instance._solution.assessmentSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -232,8 +232,8 @@ export class AssessmentsContextImpl implements AssessmentsContext {
     params: AssessmentsContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssessmentsInstance>,
-    ) => any,
+      item?: ApiResponse<AssessmentsInstance>
+    ) => any
   ): Promise<ApiResponse<AssessmentsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -280,13 +280,13 @@ export class AssessmentsContextImpl implements AssessmentsContext {
         body: new AssessmentsInstance(
           operationVersion,
           response.body,
-          instance._solution.assessmentSid,
+          instance._solution.assessmentSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -333,7 +333,7 @@ export class AssessmentsInstance {
   constructor(
     protected _version: V1,
     payload: AssessmentsResource,
-    assessmentSid?: string,
+    assessmentSid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.assessmentSid = payload.assessment_sid;
@@ -421,12 +421,12 @@ export class AssessmentsInstance {
    */
   update(
     params: AssessmentsContextUpdateOptions,
-    callback?: (error: Error | null, item?: AssessmentsInstance) => any,
+    callback?: (error: Error | null, item?: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: AssessmentsInstance) => any,
+    callback?: (error: Error | null, item?: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance> {
     return this._proxy.update(params, callback);
   }
@@ -443,16 +443,16 @@ export class AssessmentsInstance {
     params: AssessmentsContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssessmentsInstance>,
-    ) => any,
+      item?: ApiResponse<AssessmentsInstance>
+    ) => any
   ): Promise<ApiResponse<AssessmentsInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssessmentsInstance>,
-    ) => any,
+      item?: ApiResponse<AssessmentsInstance>
+    ) => any
   ): Promise<ApiResponse<AssessmentsInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -506,7 +506,7 @@ export interface AssessmentsListInstance {
    */
   create(
     params: AssessmentsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AssessmentsInstance) => any,
+    callback?: (error: Error | null, item?: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance>;
 
   /**
@@ -521,8 +521,8 @@ export interface AssessmentsListInstance {
     params: AssessmentsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AssessmentsInstance>,
-    ) => any,
+      item?: ApiResponse<AssessmentsInstance>
+    ) => any
   ): Promise<ApiResponse<AssessmentsInstance>>;
 
   /**
@@ -541,11 +541,11 @@ export interface AssessmentsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: AssessmentsListInstanceEachOptions,
-    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams AssessmentsInstance records from the API with HTTP metadata captured per page.
@@ -563,11 +563,11 @@ export interface AssessmentsListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: AssessmentsListInstanceEachOptions,
-    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AssessmentsInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of AssessmentsInstance records from the API.
@@ -579,7 +579,7 @@ export interface AssessmentsListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AssessmentsPage) => any,
+    callback?: (error: Error | null, items: AssessmentsPage) => any
   ): Promise<AssessmentsPage>;
   /**
    * Retrieve a single target page of AssessmentsInstance records from the API with HTTP metadata.
@@ -591,10 +591,7 @@ export interface AssessmentsListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<AssessmentsPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<AssessmentsPage>) => any
   ): Promise<ApiResponse<AssessmentsPage>>;
   /**
    * Lists AssessmentsInstance records from the API as a list.
@@ -606,11 +603,11 @@ export interface AssessmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: AssessmentsInstance[]) => any,
+    callback?: (error: Error | null, items: AssessmentsInstance[]) => any
   ): Promise<AssessmentsInstance[]>;
   list(
     params: AssessmentsListInstanceOptions,
-    callback?: (error: Error | null, items: AssessmentsInstance[]) => any,
+    callback?: (error: Error | null, items: AssessmentsInstance[]) => any
   ): Promise<AssessmentsInstance[]>;
   /**
    * Lists AssessmentsInstance records from the API as a list with HTTP metadata.
@@ -626,15 +623,15 @@ export interface AssessmentsListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssessmentsInstance[]>,
-    ) => any,
+      items: ApiResponse<AssessmentsInstance[]>
+    ) => any
   ): Promise<ApiResponse<AssessmentsInstance[]>>;
   listWithHttpInfo(
     params: AssessmentsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssessmentsInstance[]>,
-    ) => any,
+      items: ApiResponse<AssessmentsInstance[]>
+    ) => any
   ): Promise<ApiResponse<AssessmentsInstance[]>>;
   /**
    * Retrieve a single page of AssessmentsInstance records from the API.
@@ -648,11 +645,11 @@ export interface AssessmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AssessmentsPage) => any,
+    callback?: (error: Error | null, items: AssessmentsPage) => any
   ): Promise<AssessmentsPage>;
   page(
     params: AssessmentsListInstancePageOptions,
-    callback?: (error: Error | null, items: AssessmentsPage) => any,
+    callback?: (error: Error | null, items: AssessmentsPage) => any
   ): Promise<AssessmentsPage>;
   /**
    * Retrieve a single page of AssessmentsInstance records from the API with HTTP metadata.
@@ -666,17 +663,11 @@ export interface AssessmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<AssessmentsPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<AssessmentsPage>) => any
   ): Promise<ApiResponse<AssessmentsPage>>;
   pageWithHttpInfo(
     params: AssessmentsListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<AssessmentsPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<AssessmentsPage>) => any
   ): Promise<ApiResponse<AssessmentsPage>>;
 
   /**
@@ -700,7 +691,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
 
   instance.create = function create(
     params: AssessmentsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: AssessmentsInstance) => any,
+    callback?: (error: Error | null, items: AssessmentsInstance) => any
   ): Promise<AssessmentsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -750,7 +741,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
       params["questionnaireSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['questionnaireSid']\" missing.",
+        "Required parameter \"params['questionnaireSid']\" missing."
       );
     }
 
@@ -791,12 +782,12 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AssessmentsInstance(operationVersion, payload),
+      (payload) => new AssessmentsInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -805,8 +796,8 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     params: AssessmentsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AssessmentsInstance>,
-    ) => any,
+      items: ApiResponse<AssessmentsInstance>
+    ) => any
   ): Promise<ApiResponse<AssessmentsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -856,7 +847,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
       params["questionnaireSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['questionnaireSid']\" missing.",
+        "Required parameter \"params['questionnaireSid']\" missing."
       );
     }
 
@@ -904,7 +895,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -913,7 +904,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     params?:
       | AssessmentsListInstancePageOptions
       | ((error: Error | null, items: AssessmentsPage) => any),
-    callback?: (error: Error | null, items: AssessmentsPage) => any,
+    callback?: (error: Error | null, items: AssessmentsPage) => any
   ): Promise<AssessmentsPage> {
     if (params instanceof Function) {
       callback = params;
@@ -946,12 +937,12 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AssessmentsPage(operationVersion, payload, instance._solution),
+        new AssessmentsPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -961,7 +952,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AssessmentsPage) => any,
+    callback?: (error: Error | null, items: AssessmentsPage) => any
   ): Promise<AssessmentsPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -969,7 +960,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new AssessmentsPage(instance._version, payload, instance._solution),
+        new AssessmentsPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -979,10 +970,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     params?:
       | AssessmentsListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<AssessmentsPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<AssessmentsPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<AssessmentsPage>) => any
   ): Promise<ApiResponse<AssessmentsPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1017,13 +1005,13 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
         body: new AssessmentsPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1037,8 +1025,8 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<AssessmentsPage>,
-    ) => any,
+      items?: ApiResponse<AssessmentsPage>
+    ) => any
   ): Promise<ApiResponse<AssessmentsPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1053,9 +1041,9 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
         body: new AssessmentsPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1067,7 +1055,7 @@ export function AssessmentsListInstance(version: V1): AssessmentsListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1091,7 +1079,7 @@ export class AssessmentsPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: AssessmentsSolution,
+    solution: AssessmentsSolution
   ) {
     super(version, response, solution);
   }

@@ -49,7 +49,7 @@ export interface SubscribedEventListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: SubscribedEventInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -88,7 +88,7 @@ export interface SubscribedEventContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -99,7 +99,7 @@ export interface SubscribedEventContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -110,7 +110,7 @@ export interface SubscribedEventContext {
    * @returns Resolves to processed SubscribedEventInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any,
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance>;
 
   /**
@@ -123,8 +123,8 @@ export interface SubscribedEventContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribedEventInstance>,
-    ) => any,
+      item?: ApiResponse<SubscribedEventInstance>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance>>;
 
   /**
@@ -135,7 +135,7 @@ export interface SubscribedEventContext {
    * @returns Resolves to processed SubscribedEventInstance
    */
   update(
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any,
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance>;
   /**
    * Update a SubscribedEventInstance
@@ -147,7 +147,7 @@ export interface SubscribedEventContext {
    */
   update(
     params: SubscribedEventContextUpdateOptions,
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any,
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance>;
 
   /**
@@ -160,8 +160,8 @@ export interface SubscribedEventContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribedEventInstance>,
-    ) => any,
+      item?: ApiResponse<SubscribedEventInstance>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance>>;
   /**
    * Update a SubscribedEventInstance and return HTTP info
@@ -175,8 +175,8 @@ export interface SubscribedEventContext {
     params: SubscribedEventContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribedEventInstance>,
-    ) => any,
+      item?: ApiResponse<SubscribedEventInstance>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance>>;
 
   /**
@@ -198,7 +198,7 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   constructor(
     protected _version: V1,
     subscriptionSid: string,
-    type: string,
+    type: string
   ) {
     if (!isValidPathParam(subscriptionSid)) {
       throw new Error("Parameter 'subscriptionSid' is not valid.");
@@ -213,7 +213,7 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -227,13 +227,13 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -249,13 +249,13 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any,
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -274,13 +274,13 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
           operationVersion,
           payload,
           instance._solution.subscriptionSid,
-          instance._solution.type,
-        ),
+          instance._solution.type
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -288,8 +288,8 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribedEventInstance>,
-    ) => any,
+      item?: ApiResponse<SubscribedEventInstance>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -309,13 +309,13 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
           operationVersion,
           response.body,
           instance._solution.subscriptionSid,
-          instance._solution.type,
+          instance._solution.type
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -324,7 +324,7 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     params?:
       | SubscribedEventContextUpdateOptions
       | ((error: Error | null, item?: SubscribedEventInstance) => any),
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any,
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -357,13 +357,13 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
           operationVersion,
           payload,
           instance._solution.subscriptionSid,
-          instance._solution.type,
-        ),
+          instance._solution.type
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -373,12 +373,12 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
       | SubscribedEventContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<SubscribedEventInstance>,
+          item?: ApiResponse<SubscribedEventInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribedEventInstance>,
-    ) => any,
+      item?: ApiResponse<SubscribedEventInstance>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -412,13 +412,13 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
           operationVersion,
           response.body,
           instance._solution.subscriptionSid,
-          instance._solution.type,
+          instance._solution.type
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -457,7 +457,7 @@ export class SubscribedEventInstance {
     protected _version: V1,
     payload: SubscribedEventResource,
     subscriptionSid: string,
-    type?: string,
+    type?: string
   ) {
     this.accountSid = payload.account_sid;
     this.type = payload.type;
@@ -495,7 +495,7 @@ export class SubscribedEventInstance {
       new SubscribedEventContextImpl(
         this._version,
         this._solution.subscriptionSid,
-        this._solution.type,
+        this._solution.type
       );
     return this._context;
   }
@@ -508,7 +508,7 @@ export class SubscribedEventInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -521,7 +521,7 @@ export class SubscribedEventInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -534,7 +534,7 @@ export class SubscribedEventInstance {
    * @returns Resolves to processed SubscribedEventInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any,
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance> {
     return this._proxy.fetch(callback);
   }
@@ -549,8 +549,8 @@ export class SubscribedEventInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribedEventInstance>,
-    ) => any,
+      item?: ApiResponse<SubscribedEventInstance>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -563,7 +563,7 @@ export class SubscribedEventInstance {
    * @returns Resolves to processed SubscribedEventInstance
    */
   update(
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any,
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance>;
   /**
    * Update a SubscribedEventInstance
@@ -575,12 +575,12 @@ export class SubscribedEventInstance {
    */
   update(
     params: SubscribedEventContextUpdateOptions,
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any,
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any,
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance> {
     return this._proxy.update(params, callback);
   }
@@ -595,8 +595,8 @@ export class SubscribedEventInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribedEventInstance>,
-    ) => any,
+      item?: ApiResponse<SubscribedEventInstance>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance>>;
   /**
    * Update a SubscribedEventInstance and return HTTP info
@@ -610,16 +610,16 @@ export class SubscribedEventInstance {
     params: SubscribedEventContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribedEventInstance>,
-    ) => any,
+      item?: ApiResponse<SubscribedEventInstance>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribedEventInstance>,
-    ) => any,
+      item?: ApiResponse<SubscribedEventInstance>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -666,7 +666,7 @@ export interface SubscribedEventListInstance {
    */
   create(
     params: SubscribedEventListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SubscribedEventInstance) => any,
+    callback?: (error: Error | null, item?: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance>;
 
   /**
@@ -681,8 +681,8 @@ export interface SubscribedEventListInstance {
     params: SubscribedEventListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SubscribedEventInstance>,
-    ) => any,
+      item?: ApiResponse<SubscribedEventInstance>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance>>;
 
   /**
@@ -703,15 +703,15 @@ export interface SubscribedEventListInstance {
   each(
     callback?: (
       item: SubscribedEventInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: SubscribedEventListInstanceEachOptions,
     callback?: (
       item: SubscribedEventInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams SubscribedEventInstance records from the API with HTTP metadata captured per page.
@@ -731,15 +731,15 @@ export interface SubscribedEventListInstance {
   eachWithHttpInfo(
     callback?: (
       item: SubscribedEventInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: SubscribedEventListInstanceEachOptions,
     callback?: (
       item: SubscribedEventInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of SubscribedEventInstance records from the API.
@@ -751,7 +751,7 @@ export interface SubscribedEventListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SubscribedEventPage) => any,
+    callback?: (error: Error | null, items: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage>;
   /**
    * Retrieve a single target page of SubscribedEventInstance records from the API with HTTP metadata.
@@ -765,8 +765,8 @@ export interface SubscribedEventListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SubscribedEventPage>,
-    ) => any,
+      items: ApiResponse<SubscribedEventPage>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventPage>>;
   /**
    * Lists SubscribedEventInstance records from the API as a list.
@@ -778,11 +778,11 @@ export interface SubscribedEventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SubscribedEventInstance[]) => any,
+    callback?: (error: Error | null, items: SubscribedEventInstance[]) => any
   ): Promise<SubscribedEventInstance[]>;
   list(
     params: SubscribedEventListInstanceOptions,
-    callback?: (error: Error | null, items: SubscribedEventInstance[]) => any,
+    callback?: (error: Error | null, items: SubscribedEventInstance[]) => any
   ): Promise<SubscribedEventInstance[]>;
   /**
    * Lists SubscribedEventInstance records from the API as a list with HTTP metadata.
@@ -798,15 +798,15 @@ export interface SubscribedEventListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SubscribedEventInstance[]>,
-    ) => any,
+      items: ApiResponse<SubscribedEventInstance[]>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance[]>>;
   listWithHttpInfo(
     params: SubscribedEventListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SubscribedEventInstance[]>,
-    ) => any,
+      items: ApiResponse<SubscribedEventInstance[]>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance[]>>;
   /**
    * Retrieve a single page of SubscribedEventInstance records from the API.
@@ -820,11 +820,11 @@ export interface SubscribedEventListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SubscribedEventPage) => any,
+    callback?: (error: Error | null, items: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage>;
   page(
     params: SubscribedEventListInstancePageOptions,
-    callback?: (error: Error | null, items: SubscribedEventPage) => any,
+    callback?: (error: Error | null, items: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage>;
   /**
    * Retrieve a single page of SubscribedEventInstance records from the API with HTTP metadata.
@@ -840,15 +840,15 @@ export interface SubscribedEventListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SubscribedEventPage>,
-    ) => any,
+      items: ApiResponse<SubscribedEventPage>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventPage>>;
   pageWithHttpInfo(
     params: SubscribedEventListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SubscribedEventPage>,
-    ) => any,
+      items: ApiResponse<SubscribedEventPage>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventPage>>;
 
   /**
@@ -860,7 +860,7 @@ export interface SubscribedEventListInstance {
 
 export function SubscribedEventListInstance(
   version: V1,
-  subscriptionSid: string,
+  subscriptionSid: string
 ): SubscribedEventListInstance {
   if (!isValidPathParam(subscriptionSid)) {
     throw new Error("Parameter 'subscriptionSid' is not valid.");
@@ -879,7 +879,7 @@ export function SubscribedEventListInstance(
 
   instance.create = function create(
     params: SubscribedEventListInstanceCreateOptions,
-    callback?: (error: Error | null, items: SubscribedEventInstance) => any,
+    callback?: (error: Error | null, items: SubscribedEventInstance) => any
   ): Promise<SubscribedEventInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -912,13 +912,13 @@ export function SubscribedEventListInstance(
         new SubscribedEventInstance(
           operationVersion,
           payload,
-          instance._solution.subscriptionSid,
-        ),
+          instance._solution.subscriptionSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -927,8 +927,8 @@ export function SubscribedEventListInstance(
     params: SubscribedEventListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SubscribedEventInstance>,
-    ) => any,
+      items: ApiResponse<SubscribedEventInstance>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -962,13 +962,13 @@ export function SubscribedEventListInstance(
         body: new SubscribedEventInstance(
           operationVersion,
           response.body,
-          instance._solution.subscriptionSid,
+          instance._solution.subscriptionSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -977,7 +977,7 @@ export function SubscribedEventListInstance(
     params?:
       | SubscribedEventListInstancePageOptions
       | ((error: Error | null, items: SubscribedEventPage) => any),
-    callback?: (error: Error | null, items: SubscribedEventPage) => any,
+    callback?: (error: Error | null, items: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1006,12 +1006,12 @@ export function SubscribedEventListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SubscribedEventPage(operationVersion, payload, instance._solution),
+        new SubscribedEventPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1021,7 +1021,7 @@ export function SubscribedEventListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SubscribedEventPage) => any,
+    callback?: (error: Error | null, items: SubscribedEventPage) => any
   ): Promise<SubscribedEventPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1029,7 +1029,7 @@ export function SubscribedEventListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new SubscribedEventPage(instance._version, payload, instance._solution),
+        new SubscribedEventPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1041,8 +1041,8 @@ export function SubscribedEventListInstance(
       | ((error: Error | null, items: ApiResponse<SubscribedEventPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<SubscribedEventPage>,
-    ) => any,
+      items: ApiResponse<SubscribedEventPage>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1073,13 +1073,13 @@ export function SubscribedEventListInstance(
         body: new SubscribedEventPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1093,8 +1093,8 @@ export function SubscribedEventListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<SubscribedEventPage>,
-    ) => any,
+      items?: ApiResponse<SubscribedEventPage>
+    ) => any
   ): Promise<ApiResponse<SubscribedEventPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1109,9 +1109,9 @@ export function SubscribedEventListInstance(
         body: new SubscribedEventPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1123,7 +1123,7 @@ export function SubscribedEventListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1147,7 +1147,7 @@ export class SubscribedEventPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: SubscribedEventSolution,
+    solution: SubscribedEventSolution
   ) {
     super(version, response, solution);
   }
@@ -1161,7 +1161,7 @@ export class SubscribedEventPage extends Page<
     return new SubscribedEventInstance(
       this._version,
       payload,
-      this._solution.subscriptionSid,
+      this._solution.subscriptionSid
     );
   }
 

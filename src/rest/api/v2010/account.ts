@@ -156,7 +156,7 @@ export interface AccountContext {
    * @returns Resolves to processed AccountInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance>;
 
   /**
@@ -167,10 +167,7 @@ export interface AccountContext {
    * @returns Resolves to processed AccountInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>>;
 
   /**
@@ -181,7 +178,7 @@ export interface AccountContext {
    * @returns Resolves to processed AccountInstance
    */
   update(
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance>;
   /**
    * Update a AccountInstance
@@ -193,7 +190,7 @@ export interface AccountContext {
    */
   update(
     params: AccountContextUpdateOptions,
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance>;
 
   /**
@@ -204,10 +201,7 @@ export interface AccountContext {
    * @returns Resolves to processed AccountInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>>;
   /**
    * Update a AccountInstance and return HTTP info
@@ -219,10 +213,7 @@ export interface AccountContext {
    */
   updateWithHttpInfo(
     params: AccountContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>>;
 
   /**
@@ -267,7 +258,7 @@ export class AccountContextImpl implements AccountContext {
 
   constructor(
     protected _version: V2010,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -302,7 +293,7 @@ export class AccountContextImpl implements AccountContext {
       this._availablePhoneNumbers ||
       AvailablePhoneNumberCountryListInstance(
         this._version,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._availablePhoneNumbers;
   }
@@ -438,7 +429,7 @@ export class AccountContextImpl implements AccountContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -453,21 +444,18 @@ export class AccountContextImpl implements AccountContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AccountInstance(operationVersion, payload, instance._solution.sid),
+        new AccountInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -486,13 +474,13 @@ export class AccountContextImpl implements AccountContext {
         body: new AccountInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -501,7 +489,7 @@ export class AccountContextImpl implements AccountContext {
     params?:
       | AccountContextUpdateOptions
       | ((error: Error | null, item?: AccountInstance) => any),
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -531,12 +519,12 @@ export class AccountContextImpl implements AccountContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AccountInstance(operationVersion, payload, instance._solution.sid),
+        new AccountInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -545,10 +533,7 @@ export class AccountContextImpl implements AccountContext {
     params?:
       | AccountContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<AccountInstance>) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -582,13 +567,13 @@ export class AccountContextImpl implements AccountContext {
         body: new AccountInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -631,7 +616,7 @@ export class AccountInstance {
   constructor(
     protected _version: V2010,
     payload: AccountResource,
-    sid?: string,
+    sid?: string
   ) {
     this.authToken = payload.auth_token;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
@@ -697,7 +682,7 @@ export class AccountInstance {
    * @returns Resolves to processed AccountInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance> {
     return this._proxy.fetch(callback);
   }
@@ -710,10 +695,7 @@ export class AccountInstance {
    * @returns Resolves to processed AccountInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -726,7 +708,7 @@ export class AccountInstance {
    * @returns Resolves to processed AccountInstance
    */
   update(
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance>;
   /**
    * Update a AccountInstance
@@ -738,12 +720,12 @@ export class AccountInstance {
    */
   update(
     params: AccountContextUpdateOptions,
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance> {
     return this._proxy.update(params, callback);
   }
@@ -756,10 +738,7 @@ export class AccountInstance {
    * @returns Resolves to processed AccountInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>>;
   /**
    * Update a AccountInstance and return HTTP info
@@ -771,18 +750,12 @@ export class AccountInstance {
    */
   updateWithHttpInfo(
     params: AccountContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -998,7 +971,7 @@ export interface AccountListInstance {
    * @returns Resolves to processed AccountInstance
    */
   create(
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance>;
   /**
    * Create a AccountInstance
@@ -1010,7 +983,7 @@ export interface AccountListInstance {
    */
   create(
     params: AccountListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AccountInstance) => any,
+    callback?: (error: Error | null, item?: AccountInstance) => any
   ): Promise<AccountInstance>;
 
   /**
@@ -1021,10 +994,7 @@ export interface AccountListInstance {
    * @returns Resolves to processed AccountInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>>;
   /**
    * Create a AccountInstance and return HTTP info
@@ -1036,10 +1006,7 @@ export interface AccountListInstance {
    */
   createWithHttpInfo(
     params: AccountListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>>;
 
   /**
@@ -1058,11 +1025,11 @@ export interface AccountListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: AccountInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: AccountListInstanceEachOptions,
-    callback?: (item: AccountInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams AccountInstance records from the API with HTTP metadata captured per page.
@@ -1080,11 +1047,11 @@ export interface AccountListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: AccountInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: AccountListInstanceEachOptions,
-    callback?: (item: AccountInstance, done: (err?: Error) => void) => void,
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of AccountInstance records from the API.
@@ -1096,7 +1063,7 @@ export interface AccountListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AccountPage) => any,
+    callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage>;
   /**
    * Retrieve a single target page of AccountInstance records from the API with HTTP metadata.
@@ -1108,7 +1075,7 @@ export interface AccountListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
   ): Promise<ApiResponse<AccountPage>>;
   /**
    * Lists AccountInstance records from the API as a list.
@@ -1120,11 +1087,11 @@ export interface AccountListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: AccountInstance[]) => any,
+    callback?: (error: Error | null, items: AccountInstance[]) => any
   ): Promise<AccountInstance[]>;
   list(
     params: AccountListInstanceOptions,
-    callback?: (error: Error | null, items: AccountInstance[]) => any,
+    callback?: (error: Error | null, items: AccountInstance[]) => any
   ): Promise<AccountInstance[]>;
   /**
    * Lists AccountInstance records from the API as a list with HTTP metadata.
@@ -1140,15 +1107,15 @@ export interface AccountListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AccountInstance[]>,
-    ) => any,
+      items: ApiResponse<AccountInstance[]>
+    ) => any
   ): Promise<ApiResponse<AccountInstance[]>>;
   listWithHttpInfo(
     params: AccountListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AccountInstance[]>,
-    ) => any,
+      items: ApiResponse<AccountInstance[]>
+    ) => any
   ): Promise<ApiResponse<AccountInstance[]>>;
   /**
    * Retrieve a single page of AccountInstance records from the API.
@@ -1162,11 +1129,11 @@ export interface AccountListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AccountPage) => any,
+    callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage>;
   page(
     params: AccountListInstancePageOptions,
-    callback?: (error: Error | null, items: AccountPage) => any,
+    callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage>;
   /**
    * Retrieve a single page of AccountInstance records from the API with HTTP metadata.
@@ -1180,11 +1147,11 @@ export interface AccountListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
   ): Promise<ApiResponse<AccountPage>>;
   pageWithHttpInfo(
     params: AccountListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
   ): Promise<ApiResponse<AccountPage>>;
 
   /**
@@ -1209,7 +1176,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     params?:
       | AccountListInstanceCreateOptions
       | ((error: Error | null, items: AccountInstance) => any),
-    callback?: (error: Error | null, items: AccountInstance) => any,
+    callback?: (error: Error | null, items: AccountInstance) => any
   ): Promise<AccountInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -1236,12 +1203,12 @@ export function AccountListInstance(version: V2010): AccountListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AccountInstance(operationVersion, payload),
+      (payload) => new AccountInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1250,10 +1217,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     params?:
       | AccountListInstanceCreateOptions
       | ((error: Error | null, items: ApiResponse<AccountInstance>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<AccountInstance>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<AccountInstance>) => any
   ): Promise<ApiResponse<AccountInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -1287,7 +1251,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1296,7 +1260,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     params?:
       | AccountListInstancePageOptions
       | ((error: Error | null, items: AccountPage) => any),
-    callback?: (error: Error | null, items: AccountPage) => any,
+    callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1328,12 +1292,12 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new AccountPage(operationVersion, payload, instance._solution),
+        new AccountPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1343,7 +1307,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AccountPage) => any,
+    callback?: (error: Error | null, items: AccountPage) => any
   ): Promise<AccountPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1351,7 +1315,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new AccountPage(instance._version, payload, instance._solution),
+        new AccountPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1361,7 +1325,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     params?:
       | AccountListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<AccountPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
   ): Promise<ApiResponse<AccountPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1397,7 +1361,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1409,7 +1373,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<AccountPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<AccountPage>) => any
   ): Promise<ApiResponse<AccountPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1422,7 +1386,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new AccountPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1434,7 +1398,7 @@ export function AccountListInstance(version: V2010): AccountListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1458,7 +1422,7 @@ export class AccountPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: AccountSolution,
+    solution: AccountSolution
   ) {
     super(version, response, solution);
   }

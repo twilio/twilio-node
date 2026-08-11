@@ -107,7 +107,7 @@ export interface MetadataListInstance {
    * @returns Resolves to processed MetadataInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: MetadataInstance) => any,
+    callback?: (error: Error | null, item?: MetadataInstance) => any
   ): Promise<MetadataInstance>;
 
   /**
@@ -120,8 +120,8 @@ export interface MetadataListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<MetadataInstance>,
-    ) => any,
+      item?: ApiResponse<MetadataInstance>
+    ) => any
   ): Promise<ApiResponse<MetadataInstance>>;
 
   /**
@@ -139,7 +139,7 @@ export function MetadataListInstance(version: V3): MetadataListInstance {
   instance._uri = `/InsightsDomains/Conversations/Metadata`;
 
   instance.fetch = function fetch(
-    callback?: (error: Error | null, items: MetadataInstance) => any,
+    callback?: (error: Error | null, items: MetadataInstance) => any
   ): Promise<MetadataInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -152,12 +152,12 @@ export function MetadataListInstance(version: V3): MetadataListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new MetadataInstance(operationVersion, payload),
+      (payload) => new MetadataInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -165,8 +165,8 @@ export function MetadataListInstance(version: V3): MetadataListInstance {
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<MetadataInstance>,
-    ) => any,
+      items: ApiResponse<MetadataInstance>
+    ) => any
   ): Promise<ApiResponse<MetadataInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -186,7 +186,7 @@ export function MetadataListInstance(version: V3): MetadataListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -197,7 +197,7 @@ export function MetadataListInstance(version: V3): MetadataListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -216,14 +216,14 @@ interface MetadataResource {
 export class MetadataInstance {
   constructor(
     protected _version: V3,
-    _payload: MetadataResource,
+    _payload: MetadataResource
   ) {
     const payload = _payload;
     this.domain = payload.domain;
     this.cubes =
       payload.cubes !== null && payload.cubes !== undefined
         ? payload.cubes.map(
-            (payload: any) => new InsightsMetadataResponseCubes(payload),
+            (payload: any) => new InsightsMetadataResponseCubes(payload)
           )
         : null;
   }

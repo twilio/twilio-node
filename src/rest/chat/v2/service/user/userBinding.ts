@@ -78,7 +78,7 @@ export interface UserBindingContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -89,7 +89,7 @@ export interface UserBindingContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -100,7 +100,7 @@ export interface UserBindingContext {
    * @returns Resolves to processed UserBindingInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: UserBindingInstance) => any,
+    callback?: (error: Error | null, item?: UserBindingInstance) => any
   ): Promise<UserBindingInstance>;
 
   /**
@@ -113,8 +113,8 @@ export interface UserBindingContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UserBindingInstance>,
-    ) => any,
+      item?: ApiResponse<UserBindingInstance>
+    ) => any
   ): Promise<ApiResponse<UserBindingInstance>>;
 
   /**
@@ -138,7 +138,7 @@ export class UserBindingContextImpl implements UserBindingContext {
     protected _version: V2,
     serviceSid: string,
     userSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -157,7 +157,7 @@ export class UserBindingContextImpl implements UserBindingContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -171,13 +171,13 @@ export class UserBindingContextImpl implements UserBindingContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -193,13 +193,13 @@ export class UserBindingContextImpl implements UserBindingContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: UserBindingInstance) => any,
+    callback?: (error: Error | null, item?: UserBindingInstance) => any
   ): Promise<UserBindingInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -219,13 +219,13 @@ export class UserBindingContextImpl implements UserBindingContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.userSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -233,8 +233,8 @@ export class UserBindingContextImpl implements UserBindingContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UserBindingInstance>,
-    ) => any,
+      item?: ApiResponse<UserBindingInstance>
+    ) => any
   ): Promise<ApiResponse<UserBindingInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -255,13 +255,13 @@ export class UserBindingContextImpl implements UserBindingContext {
           response.body,
           instance._solution.serviceSid,
           instance._solution.userSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -308,7 +308,7 @@ export class UserBindingInstance {
     payload: UserBindingResource,
     serviceSid: string,
     userSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -379,7 +379,7 @@ export class UserBindingInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.userSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -392,7 +392,7 @@ export class UserBindingInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -405,7 +405,7 @@ export class UserBindingInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -418,7 +418,7 @@ export class UserBindingInstance {
    * @returns Resolves to processed UserBindingInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: UserBindingInstance) => any,
+    callback?: (error: Error | null, item?: UserBindingInstance) => any
   ): Promise<UserBindingInstance> {
     return this._proxy.fetch(callback);
   }
@@ -433,8 +433,8 @@ export class UserBindingInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UserBindingInstance>,
-    ) => any,
+      item?: ApiResponse<UserBindingInstance>
+    ) => any
   ): Promise<ApiResponse<UserBindingInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -495,11 +495,11 @@ export interface UserBindingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void,
+    callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: UserBindingListInstanceEachOptions,
-    callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void,
+    callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams UserBindingInstance records from the API with HTTP metadata captured per page.
@@ -517,11 +517,11 @@ export interface UserBindingListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void,
+    callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: UserBindingListInstanceEachOptions,
-    callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void,
+    callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of UserBindingInstance records from the API.
@@ -533,7 +533,7 @@ export interface UserBindingListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: UserBindingPage) => any,
+    callback?: (error: Error | null, items: UserBindingPage) => any
   ): Promise<UserBindingPage>;
   /**
    * Retrieve a single target page of UserBindingInstance records from the API with HTTP metadata.
@@ -545,10 +545,7 @@ export interface UserBindingListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<UserBindingPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<UserBindingPage>) => any
   ): Promise<ApiResponse<UserBindingPage>>;
   /**
    * Lists UserBindingInstance records from the API as a list.
@@ -560,11 +557,11 @@ export interface UserBindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: UserBindingInstance[]) => any,
+    callback?: (error: Error | null, items: UserBindingInstance[]) => any
   ): Promise<UserBindingInstance[]>;
   list(
     params: UserBindingListInstanceOptions,
-    callback?: (error: Error | null, items: UserBindingInstance[]) => any,
+    callback?: (error: Error | null, items: UserBindingInstance[]) => any
   ): Promise<UserBindingInstance[]>;
   /**
    * Lists UserBindingInstance records from the API as a list with HTTP metadata.
@@ -580,15 +577,15 @@ export interface UserBindingListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<UserBindingInstance[]>,
-    ) => any,
+      items: ApiResponse<UserBindingInstance[]>
+    ) => any
   ): Promise<ApiResponse<UserBindingInstance[]>>;
   listWithHttpInfo(
     params: UserBindingListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<UserBindingInstance[]>,
-    ) => any,
+      items: ApiResponse<UserBindingInstance[]>
+    ) => any
   ): Promise<ApiResponse<UserBindingInstance[]>>;
   /**
    * Retrieve a single page of UserBindingInstance records from the API.
@@ -602,11 +599,11 @@ export interface UserBindingListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: UserBindingPage) => any,
+    callback?: (error: Error | null, items: UserBindingPage) => any
   ): Promise<UserBindingPage>;
   page(
     params: UserBindingListInstancePageOptions,
-    callback?: (error: Error | null, items: UserBindingPage) => any,
+    callback?: (error: Error | null, items: UserBindingPage) => any
   ): Promise<UserBindingPage>;
   /**
    * Retrieve a single page of UserBindingInstance records from the API with HTTP metadata.
@@ -620,17 +617,11 @@ export interface UserBindingListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<UserBindingPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<UserBindingPage>) => any
   ): Promise<ApiResponse<UserBindingPage>>;
   pageWithHttpInfo(
     params: UserBindingListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<UserBindingPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<UserBindingPage>) => any
   ): Promise<ApiResponse<UserBindingPage>>;
 
   /**
@@ -643,7 +634,7 @@ export interface UserBindingListInstance {
 export function UserBindingListInstance(
   version: V2,
   serviceSid: string,
-  userSid: string,
+  userSid: string
 ): UserBindingListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -667,7 +658,7 @@ export function UserBindingListInstance(
     params?:
       | UserBindingListInstancePageOptions
       | ((error: Error | null, items: UserBindingPage) => any),
-    callback?: (error: Error | null, items: UserBindingPage) => any,
+    callback?: (error: Error | null, items: UserBindingPage) => any
   ): Promise<UserBindingPage> {
     if (params instanceof Function) {
       callback = params;
@@ -681,7 +672,7 @@ export function UserBindingListInstance(
     if (params["bindingType"] !== undefined)
       data["BindingType"] = serialize.map(
         params["bindingType"],
-        (e: UserBindingBindingType) => e,
+        (e: UserBindingBindingType) => e
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
@@ -701,12 +692,12 @@ export function UserBindingListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new UserBindingPage(operationVersion, payload, instance._solution),
+        new UserBindingPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -716,7 +707,7 @@ export function UserBindingListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: UserBindingPage) => any,
+    callback?: (error: Error | null, items: UserBindingPage) => any
   ): Promise<UserBindingPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -724,7 +715,7 @@ export function UserBindingListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new UserBindingPage(instance._version, payload, instance._solution),
+        new UserBindingPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -734,10 +725,7 @@ export function UserBindingListInstance(
     params?:
       | UserBindingListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<UserBindingPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<UserBindingPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<UserBindingPage>) => any
   ): Promise<ApiResponse<UserBindingPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -751,7 +739,7 @@ export function UserBindingListInstance(
     if (params["bindingType"] !== undefined)
       data["BindingType"] = serialize.map(
         params["bindingType"],
-        (e: UserBindingBindingType) => e,
+        (e: UserBindingBindingType) => e
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
@@ -773,13 +761,13 @@ export function UserBindingListInstance(
         body: new UserBindingPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -793,8 +781,8 @@ export function UserBindingListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<UserBindingPage>,
-    ) => any,
+      items?: ApiResponse<UserBindingPage>
+    ) => any
   ): Promise<ApiResponse<UserBindingPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -809,9 +797,9 @@ export function UserBindingListInstance(
         body: new UserBindingPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -823,7 +811,7 @@ export function UserBindingListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -847,7 +835,7 @@ export class UserBindingPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: UserBindingSolution,
+    solution: UserBindingSolution
   ) {
     super(version, response, solution);
   }
@@ -862,7 +850,7 @@ export class UserBindingPage extends Page<
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.userSid,
+      this._solution.userSid
     );
   }
 

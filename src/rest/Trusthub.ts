@@ -13,7 +13,7 @@ class Trusthub extends TrusthubBase {
    */
   get customerProfiles(): CustomerProfilesListInstance {
     console.warn(
-      "customerProfiles is deprecated. Use v1.customerProfiles instead.",
+      "customerProfiles is deprecated. Use v1.customerProfiles instead."
     );
     return this.v1.customerProfiles;
   }
@@ -47,7 +47,7 @@ class Trusthub extends TrusthubBase {
    */
   get supportingDocuments(): SupportingDocumentListInstance {
     console.warn(
-      "supportingDocuments is deprecated. Use v1.supportingDocuments instead.",
+      "supportingDocuments is deprecated. Use v1.supportingDocuments instead."
     );
     return this.v1.supportingDocuments;
   }
@@ -57,7 +57,7 @@ class Trusthub extends TrusthubBase {
    */
   get supportingDocumentTypes(): SupportingDocumentTypeListInstance {
     console.warn(
-      "supportingDocumentTypes is deprecated. Use v1.supportingDocumentTypes instead.",
+      "supportingDocumentTypes is deprecated. Use v1.supportingDocumentTypes instead."
     );
     return this.v1.supportingDocumentTypes;
   }

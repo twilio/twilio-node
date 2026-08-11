@@ -44,8 +44,8 @@ export interface InsightsSettingsCommentListInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: InsightsSettingsCommentInstance,
-    ) => any,
+      item?: InsightsSettingsCommentInstance
+    ) => any
   ): Promise<InsightsSettingsCommentInstance>;
   /**
    * Fetch a InsightsSettingsCommentInstance
@@ -59,8 +59,8 @@ export interface InsightsSettingsCommentListInstance {
     params: InsightsSettingsCommentListInstanceFetchOptions,
     callback?: (
       error: Error | null,
-      item?: InsightsSettingsCommentInstance,
-    ) => any,
+      item?: InsightsSettingsCommentInstance
+    ) => any
   ): Promise<InsightsSettingsCommentInstance>;
 
   /**
@@ -73,8 +73,8 @@ export interface InsightsSettingsCommentListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsSettingsCommentInstance>,
-    ) => any,
+      item?: ApiResponse<InsightsSettingsCommentInstance>
+    ) => any
   ): Promise<ApiResponse<InsightsSettingsCommentInstance>>;
   /**
    * Fetch a InsightsSettingsCommentInstance and return HTTP info
@@ -88,8 +88,8 @@ export interface InsightsSettingsCommentListInstance {
     params: InsightsSettingsCommentListInstanceFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsSettingsCommentInstance>,
-    ) => any,
+      item?: ApiResponse<InsightsSettingsCommentInstance>
+    ) => any
   ): Promise<ApiResponse<InsightsSettingsCommentInstance>>;
 
   /**
@@ -100,7 +100,7 @@ export interface InsightsSettingsCommentListInstance {
 }
 
 export function InsightsSettingsCommentListInstance(
-  version: V1,
+  version: V1
 ): InsightsSettingsCommentListInstance {
   const instance = {} as InsightsSettingsCommentListInstance;
 
@@ -114,8 +114,8 @@ export function InsightsSettingsCommentListInstance(
       | ((error: Error | null, items: InsightsSettingsCommentInstance) => any),
     callback?: (
       error: Error | null,
-      items: InsightsSettingsCommentInstance,
-    ) => any,
+      items: InsightsSettingsCommentInstance
+    ) => any
   ): Promise<InsightsSettingsCommentInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -141,12 +141,12 @@ export function InsightsSettingsCommentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new InsightsSettingsCommentInstance(operationVersion, payload),
+        new InsightsSettingsCommentInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -156,12 +156,12 @@ export function InsightsSettingsCommentListInstance(
       | InsightsSettingsCommentListInstanceFetchOptions
       | ((
           error: Error | null,
-          items: ApiResponse<InsightsSettingsCommentInstance>,
+          items: ApiResponse<InsightsSettingsCommentInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsSettingsCommentInstance>,
-    ) => any,
+      items: ApiResponse<InsightsSettingsCommentInstance>
+    ) => any
   ): Promise<ApiResponse<InsightsSettingsCommentInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -190,13 +190,13 @@ export function InsightsSettingsCommentListInstance(
         ...response,
         body: new InsightsSettingsCommentInstance(
           operationVersion,
-          response.body,
+          response.body
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -207,7 +207,7 @@ export function InsightsSettingsCommentListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -226,7 +226,7 @@ interface InsightsSettingsCommentResource {
 export class InsightsSettingsCommentInstance {
   constructor(
     protected _version: V1,
-    payload: InsightsSettingsCommentResource,
+    payload: InsightsSettingsCommentResource
   ) {
     this.accountSid = payload.account_sid;
     this.comments = payload.comments;

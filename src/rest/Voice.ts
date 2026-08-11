@@ -28,7 +28,7 @@ class Voice extends VoiceBase {
    */
   get connectionPolicies(): ConnectionPolicyListInstance {
     console.warn(
-      "connectionPolicies is deprecated. Use v1.connectionPolicies instead.",
+      "connectionPolicies is deprecated. Use v1.connectionPolicies instead."
     );
     return this.v1.connectionPolicies;
   }
@@ -38,7 +38,7 @@ class Voice extends VoiceBase {
    */
   get dialingPermissions(): DialingPermissionsListInstance {
     console.warn(
-      "dialingPermissions is deprecated. Use v1.dialingPermissions instead.",
+      "dialingPermissions is deprecated. Use v1.dialingPermissions instead."
     );
     return this.v1.dialingPermissions;
   }
@@ -56,7 +56,7 @@ class Voice extends VoiceBase {
    */
   get sourceIpMappings(): SourceIpMappingListInstance {
     console.warn(
-      "sourceIpMappings is deprecated. Use v1.sourceIpMappings instead.",
+      "sourceIpMappings is deprecated. Use v1.sourceIpMappings instead."
     );
     return this.v1.sourceIpMappings;
   }

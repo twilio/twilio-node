@@ -49,7 +49,7 @@ export interface UserDefinedMessageListInstance {
    */
   create(
     params: UserDefinedMessageListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: UserDefinedMessageInstance) => any,
+    callback?: (error: Error | null, item?: UserDefinedMessageInstance) => any
   ): Promise<UserDefinedMessageInstance>;
 
   /**
@@ -64,8 +64,8 @@ export interface UserDefinedMessageListInstance {
     params: UserDefinedMessageListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UserDefinedMessageInstance>,
-    ) => any,
+      item?: ApiResponse<UserDefinedMessageInstance>
+    ) => any
   ): Promise<ApiResponse<UserDefinedMessageInstance>>;
 
   /**
@@ -78,7 +78,7 @@ export interface UserDefinedMessageListInstance {
 export function UserDefinedMessageListInstance(
   version: V2010,
   accountSid: string,
-  callSid: string,
+  callSid: string
 ): UserDefinedMessageListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -96,7 +96,7 @@ export function UserDefinedMessageListInstance(
 
   instance.create = function create(
     params: UserDefinedMessageListInstanceCreateOptions,
-    callback?: (error: Error | null, items: UserDefinedMessageInstance) => any,
+    callback?: (error: Error | null, items: UserDefinedMessageInstance) => any
   ): Promise<UserDefinedMessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -130,13 +130,13 @@ export function UserDefinedMessageListInstance(
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.callSid,
-        ),
+          instance._solution.callSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -145,8 +145,8 @@ export function UserDefinedMessageListInstance(
     params: UserDefinedMessageListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<UserDefinedMessageInstance>,
-    ) => any,
+      items: ApiResponse<UserDefinedMessageInstance>
+    ) => any
   ): Promise<ApiResponse<UserDefinedMessageInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -181,13 +181,13 @@ export function UserDefinedMessageListInstance(
           operationVersion,
           response.body,
           instance._solution.accountSid,
-          instance._solution.callSid,
+          instance._solution.callSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -198,7 +198,7 @@ export function UserDefinedMessageListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -220,7 +220,7 @@ export class UserDefinedMessageInstance {
     protected _version: V2010,
     payload: UserDefinedMessageResource,
     accountSid: string,
-    callSid: string,
+    callSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;

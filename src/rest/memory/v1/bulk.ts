@@ -70,7 +70,7 @@ export interface BulkListInstance {
   update(
     params: UpdateProfilesBulkRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: BulkInstance) => any,
+    callback?: (error: Error | null, item?: BulkInstance) => any
   ): Promise<BulkInstance>;
 
   /**
@@ -85,7 +85,7 @@ export interface BulkListInstance {
   updateWithHttpInfo(
     params: UpdateProfilesBulkRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<BulkInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<BulkInstance>) => any
   ): Promise<ApiResponse<BulkInstance>>;
 
   /**
@@ -97,7 +97,7 @@ export interface BulkListInstance {
 
 export function BulkListInstance(
   version: V1,
-  storeId: string,
+  storeId: string
 ): BulkListInstance {
   if (!isValidPathParam(storeId)) {
     throw new Error("Parameter 'storeId' is not valid.");
@@ -112,7 +112,7 @@ export function BulkListInstance(
   instance.update = function update(
     params: UpdateProfilesBulkRequest,
     headers?: any,
-    callback?: (error: Error | null, items: BulkInstance) => any,
+    callback?: (error: Error | null, items: BulkInstance) => any
   ): Promise<BulkInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -139,12 +139,12 @@ export function BulkListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BulkInstance(operationVersion, payload, instance._solution.storeId),
+        new BulkInstance(operationVersion, payload, instance._solution.storeId)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -152,7 +152,7 @@ export function BulkListInstance(
   instance.updateWithHttpInfo = function updateWithHttpInfo(
     params: UpdateProfilesBulkRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<BulkInstance>) => any,
+    callback?: (error: Error | null, items: ApiResponse<BulkInstance>) => any
   ): Promise<ApiResponse<BulkInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -183,13 +183,13 @@ export function BulkListInstance(
         body: new BulkInstance(
           operationVersion,
           response.body,
-          instance._solution.storeId,
+          instance._solution.storeId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -200,7 +200,7 @@ export function BulkListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -216,7 +216,7 @@ export class BulkInstance {
   constructor(
     protected _version: V1,
     _payload: BulkResource,
-    storeId: string,
+    storeId: string
   ) {
     const payload = _payload;
     this.message = payload.message;

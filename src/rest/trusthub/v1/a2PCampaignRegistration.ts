@@ -179,8 +179,8 @@ export interface A2PCampaignRegistrationListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: A2PCampaignRegistrationInstance,
-    ) => any,
+      item?: A2PCampaignRegistrationInstance
+    ) => any
   ): Promise<A2PCampaignRegistrationInstance>;
 
   /**
@@ -197,8 +197,8 @@ export interface A2PCampaignRegistrationListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<A2PCampaignRegistrationInstance>,
-    ) => any,
+      item?: ApiResponse<A2PCampaignRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<A2PCampaignRegistrationInstance>>;
 
   /**
@@ -209,7 +209,7 @@ export interface A2PCampaignRegistrationListInstance {
 }
 
 export function A2PCampaignRegistrationListInstance(
-  version: V1,
+  version: V1
 ): A2PCampaignRegistrationListInstance {
   const instance = {} as A2PCampaignRegistrationListInstance;
 
@@ -222,8 +222,8 @@ export function A2PCampaignRegistrationListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: A2PCampaignRegistrationInstance,
-    ) => any,
+      items: A2PCampaignRegistrationInstance
+    ) => any
   ): Promise<A2PCampaignRegistrationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -250,12 +250,12 @@ export function A2PCampaignRegistrationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new A2PCampaignRegistrationInstance(operationVersion, payload),
+        new A2PCampaignRegistrationInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -265,8 +265,8 @@ export function A2PCampaignRegistrationListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<A2PCampaignRegistrationInstance>,
-    ) => any,
+      items: ApiResponse<A2PCampaignRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<A2PCampaignRegistrationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -296,13 +296,13 @@ export function A2PCampaignRegistrationListInstance(
         ...response,
         body: new A2PCampaignRegistrationInstance(
           operationVersion,
-          response.body,
+          response.body
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -313,7 +313,7 @@ export function A2PCampaignRegistrationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -332,7 +332,7 @@ interface A2PCampaignRegistrationResource {
 export class A2PCampaignRegistrationInstance {
   constructor(
     protected _version: V1,
-    payload: A2PCampaignRegistrationResource,
+    payload: A2PCampaignRegistrationResource
   ) {
     this.id = payload.id;
     this.sessionId = payload.sessionId;

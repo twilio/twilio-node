@@ -54,7 +54,7 @@ export interface WebChannelsListInstance {
    */
   create(
     params: WebChannelsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: WebChannelsInstance) => any,
+    callback?: (error: Error | null, item?: WebChannelsInstance) => any
   ): Promise<WebChannelsInstance>;
 
   /**
@@ -69,8 +69,8 @@ export interface WebChannelsListInstance {
     params: WebChannelsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WebChannelsInstance>,
-    ) => any,
+      item?: ApiResponse<WebChannelsInstance>
+    ) => any
   ): Promise<ApiResponse<WebChannelsInstance>>;
 
   /**
@@ -89,7 +89,7 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
 
   instance.create = function create(
     params: WebChannelsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: WebChannelsInstance) => any,
+    callback?: (error: Error | null, items: WebChannelsInstance) => any
   ): Promise<WebChannelsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -125,12 +125,12 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new WebChannelsInstance(operationVersion, payload),
+      (payload) => new WebChannelsInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -139,8 +139,8 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
     params: WebChannelsListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<WebChannelsInstance>,
-    ) => any,
+      items: ApiResponse<WebChannelsInstance>
+    ) => any
   ): Promise<ApiResponse<WebChannelsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -183,7 +183,7 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -194,7 +194,7 @@ export function WebChannelsListInstance(version: V2): WebChannelsListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -212,7 +212,7 @@ interface WebChannelsResource {
 export class WebChannelsInstance {
   constructor(
     protected _version: V2,
-    payload: WebChannelsResource,
+    payload: WebChannelsResource
   ) {
     this.conversationSid = payload.conversation_sid;
     this.identity = payload.identity;

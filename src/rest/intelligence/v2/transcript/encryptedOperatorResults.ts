@@ -38,8 +38,8 @@ export interface EncryptedOperatorResultsContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: EncryptedOperatorResultsInstance,
-    ) => any,
+      item?: EncryptedOperatorResultsInstance
+    ) => any
   ): Promise<EncryptedOperatorResultsInstance>;
   /**
    * Fetch a EncryptedOperatorResultsInstance
@@ -53,8 +53,8 @@ export interface EncryptedOperatorResultsContext {
     params: EncryptedOperatorResultsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: EncryptedOperatorResultsInstance,
-    ) => any,
+      item?: EncryptedOperatorResultsInstance
+    ) => any
   ): Promise<EncryptedOperatorResultsInstance>;
 
   /**
@@ -67,8 +67,8 @@ export interface EncryptedOperatorResultsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EncryptedOperatorResultsInstance>,
-    ) => any,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
   ): Promise<ApiResponse<EncryptedOperatorResultsInstance>>;
   /**
    * Fetch a EncryptedOperatorResultsInstance and return HTTP info
@@ -82,8 +82,8 @@ export interface EncryptedOperatorResultsContext {
     params: EncryptedOperatorResultsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EncryptedOperatorResultsInstance>,
-    ) => any,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
   ): Promise<ApiResponse<EncryptedOperatorResultsInstance>>;
 
   /**
@@ -103,7 +103,7 @@ export class EncryptedOperatorResultsContextImpl implements EncryptedOperatorRes
 
   constructor(
     protected _version: V2,
-    transcriptSid: string,
+    transcriptSid: string
   ) {
     if (!isValidPathParam(transcriptSid)) {
       throw new Error("Parameter 'transcriptSid' is not valid.");
@@ -119,8 +119,8 @@ export class EncryptedOperatorResultsContextImpl implements EncryptedOperatorRes
       | ((error: Error | null, item?: EncryptedOperatorResultsInstance) => any),
     callback?: (
       error: Error | null,
-      item?: EncryptedOperatorResultsInstance,
-    ) => any,
+      item?: EncryptedOperatorResultsInstance
+    ) => any
   ): Promise<EncryptedOperatorResultsInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -151,13 +151,13 @@ export class EncryptedOperatorResultsContextImpl implements EncryptedOperatorRes
         new EncryptedOperatorResultsInstance(
           operationVersion,
           payload,
-          instance._solution.transcriptSid,
-        ),
+          instance._solution.transcriptSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -167,12 +167,12 @@ export class EncryptedOperatorResultsContextImpl implements EncryptedOperatorRes
       | EncryptedOperatorResultsContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<EncryptedOperatorResultsInstance>,
+          item?: ApiResponse<EncryptedOperatorResultsInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EncryptedOperatorResultsInstance>,
-    ) => any,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
   ): Promise<ApiResponse<EncryptedOperatorResultsInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -204,13 +204,13 @@ export class EncryptedOperatorResultsContextImpl implements EncryptedOperatorRes
         body: new EncryptedOperatorResultsInstance(
           operationVersion,
           response.body,
-          instance._solution.transcriptSid,
+          instance._solution.transcriptSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -244,7 +244,7 @@ export class EncryptedOperatorResultsInstance {
   constructor(
     protected _version: V2,
     payload: EncryptedOperatorResultsResource,
-    transcriptSid: string,
+    transcriptSid: string
   ) {
     this.locations = payload.locations;
     this.transcriptSid = payload.transcript_sid;
@@ -265,7 +265,7 @@ export class EncryptedOperatorResultsInstance {
       this._context ||
       new EncryptedOperatorResultsContextImpl(
         this._version,
-        this._solution.transcriptSid,
+        this._solution.transcriptSid
       );
     return this._context;
   }
@@ -280,8 +280,8 @@ export class EncryptedOperatorResultsInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: EncryptedOperatorResultsInstance,
-    ) => any,
+      item?: EncryptedOperatorResultsInstance
+    ) => any
   ): Promise<EncryptedOperatorResultsInstance>;
   /**
    * Fetch a EncryptedOperatorResultsInstance
@@ -295,16 +295,16 @@ export class EncryptedOperatorResultsInstance {
     params: EncryptedOperatorResultsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: EncryptedOperatorResultsInstance,
-    ) => any,
+      item?: EncryptedOperatorResultsInstance
+    ) => any
   ): Promise<EncryptedOperatorResultsInstance>;
 
   fetch(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: EncryptedOperatorResultsInstance,
-    ) => any,
+      item?: EncryptedOperatorResultsInstance
+    ) => any
   ): Promise<EncryptedOperatorResultsInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -319,8 +319,8 @@ export class EncryptedOperatorResultsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EncryptedOperatorResultsInstance>,
-    ) => any,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
   ): Promise<ApiResponse<EncryptedOperatorResultsInstance>>;
   /**
    * Fetch a EncryptedOperatorResultsInstance and return HTTP info
@@ -334,16 +334,16 @@ export class EncryptedOperatorResultsInstance {
     params: EncryptedOperatorResultsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EncryptedOperatorResultsInstance>,
-    ) => any,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
   ): Promise<ApiResponse<EncryptedOperatorResultsInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EncryptedOperatorResultsInstance>,
-    ) => any,
+      item?: ApiResponse<EncryptedOperatorResultsInstance>
+    ) => any
   ): Promise<ApiResponse<EncryptedOperatorResultsInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -387,7 +387,7 @@ export interface EncryptedOperatorResultsListInstance {
 
 export function EncryptedOperatorResultsListInstance(
   version: V2,
-  transcriptSid: string,
+  transcriptSid: string
 ): EncryptedOperatorResultsListInstance {
   if (!isValidPathParam(transcriptSid)) {
     throw new Error("Parameter 'transcriptSid' is not valid.");
@@ -410,7 +410,7 @@ export function EncryptedOperatorResultsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

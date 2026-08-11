@@ -108,10 +108,7 @@ export interface SenderIdRegistrationListInstance {
   create(
     params: NumbersV1CreateEmbeddedRegistrationRequest,
     headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: SenderIdRegistrationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: SenderIdRegistrationInstance) => any
   ): Promise<SenderIdRegistrationInstance>;
 
   /**
@@ -128,8 +125,8 @@ export interface SenderIdRegistrationListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SenderIdRegistrationInstance>,
-    ) => any,
+      item?: ApiResponse<SenderIdRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<SenderIdRegistrationInstance>>;
 
   /**
@@ -140,7 +137,7 @@ export interface SenderIdRegistrationListInstance {
 }
 
 export function SenderIdRegistrationListInstance(
-  version: V1,
+  version: V1
 ): SenderIdRegistrationListInstance {
   const instance = {} as SenderIdRegistrationListInstance;
 
@@ -151,10 +148,7 @@ export function SenderIdRegistrationListInstance(
   instance.create = function create(
     params: NumbersV1CreateEmbeddedRegistrationRequest,
     headers?: any,
-    callback?: (
-      error: Error | null,
-      items: SenderIdRegistrationInstance,
-    ) => any,
+    callback?: (error: Error | null, items: SenderIdRegistrationInstance) => any
   ): Promise<SenderIdRegistrationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -180,12 +174,12 @@ export function SenderIdRegistrationListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SenderIdRegistrationInstance(operationVersion, payload),
+      (payload) => new SenderIdRegistrationInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -195,8 +189,8 @@ export function SenderIdRegistrationListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SenderIdRegistrationInstance>,
-    ) => any,
+      items: ApiResponse<SenderIdRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<SenderIdRegistrationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -229,7 +223,7 @@ export function SenderIdRegistrationListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -240,7 +234,7 @@ export function SenderIdRegistrationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -268,7 +262,7 @@ interface SenderIdRegistrationResource {
 export class SenderIdRegistrationInstance {
   constructor(
     protected _version: V1,
-    payload: SenderIdRegistrationResource,
+    payload: SenderIdRegistrationResource
   ) {
     this.id = payload.id;
     this.regulationId = payload.regulationId;

@@ -57,7 +57,7 @@ export interface ConfigurationContext {
    * @returns Resolves to processed ConfigurationInstance
    */
   create(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
   /**
    * Create a ConfigurationInstance
@@ -71,7 +71,7 @@ export interface ConfigurationContext {
   create(
     params: VoiceV2ConfigurationRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
 
   /**
@@ -84,8 +84,8 @@ export interface ConfigurationContext {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Create a ConfigurationInstance and return HTTP info
@@ -101,8 +101,8 @@ export interface ConfigurationContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
 
   /**
@@ -124,7 +124,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
   constructor(
     protected _version: V2,
-    type: string,
+    type: string
   ) {
     if (!isValidPathParam(type)) {
       throw new Error("Parameter 'type' is not valid.");
@@ -145,7 +145,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       | VoiceV2ConfigurationRequest
       | ((error: Error | null, item?: ConfigurationInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -182,13 +182,13 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         new ConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.type,
-        ),
+          instance._solution.type
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -198,13 +198,13 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       | VoiceV2ConfigurationRequest
       | ((
           error: Error | null,
-          item?: ApiResponse<ConfigurationInstance>,
+          item?: ApiResponse<ConfigurationInstance>
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -242,13 +242,13 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         body: new ConfigurationInstance(
           operationVersion,
           response.body,
-          instance._solution.type,
+          instance._solution.type
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -286,7 +286,7 @@ export class ConfigurationInstance {
   constructor(
     protected _version: V2,
     payload: ConfigurationResource,
-    type?: string,
+    type?: string
   ) {
     this.id = payload.id;
     this.accountSid = payload.account_sid;
@@ -334,7 +334,7 @@ export class ConfigurationInstance {
    * @returns Resolves to processed ConfigurationInstance
    */
   create(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
   /**
    * Create a ConfigurationInstance
@@ -348,12 +348,12 @@ export class ConfigurationInstance {
   create(
     params: VoiceV2ConfigurationRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
 
   create(
     params?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     return this._proxy.create(params, callback);
   }
@@ -368,8 +368,8 @@ export class ConfigurationInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Create a ConfigurationInstance and return HTTP info
@@ -385,16 +385,16 @@ export class ConfigurationInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
 
   createWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
@@ -446,7 +446,7 @@ export interface ConfigurationListInstance {
 }
 
 export function ConfigurationListInstance(
-  version: V2,
+  version: V2
 ): ConfigurationListInstance {
   const instance = ((type) => instance.get(type)) as ConfigurationListInstance;
 
@@ -464,7 +464,7 @@ export function ConfigurationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

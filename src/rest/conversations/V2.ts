@@ -53,7 +53,7 @@ export default class V2 extends Version {
   /** Implementation */
   communications(
     ConversationId: string,
-    id?: string,
+    id?: string
   ): CommunicationListInstance | CommunicationContext {
     const listInstance = CommunicationListInstance(this, ConversationId);
     if (id !== undefined) {
@@ -88,7 +88,7 @@ export default class V2 extends Version {
   /** Implementation */
   participants(
     ConversationId: string,
-    id?: string,
+    id?: string
   ): ParticipantListInstance | ParticipantContext {
     const listInstance = ParticipantListInstance(this, ConversationId);
     if (id !== undefined) {

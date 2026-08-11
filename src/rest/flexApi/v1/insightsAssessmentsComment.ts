@@ -57,7 +57,7 @@ export interface InsightsAssessmentsCommentListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: InsightsAssessmentsCommentInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -118,8 +118,8 @@ export interface InsightsAssessmentsCommentListInstance {
     params: InsightsAssessmentsCommentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: InsightsAssessmentsCommentInstance,
-    ) => any,
+      item?: InsightsAssessmentsCommentInstance
+    ) => any
   ): Promise<InsightsAssessmentsCommentInstance>;
 
   /**
@@ -134,8 +134,8 @@ export interface InsightsAssessmentsCommentListInstance {
     params: InsightsAssessmentsCommentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsAssessmentsCommentInstance>,
-    ) => any,
+      item?: ApiResponse<InsightsAssessmentsCommentInstance>
+    ) => any
   ): Promise<ApiResponse<InsightsAssessmentsCommentInstance>>;
 
   /**
@@ -156,15 +156,15 @@ export interface InsightsAssessmentsCommentListInstance {
   each(
     callback?: (
       item: InsightsAssessmentsCommentInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: InsightsAssessmentsCommentListInstanceEachOptions,
     callback?: (
       item: InsightsAssessmentsCommentInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams InsightsAssessmentsCommentInstance records from the API with HTTP metadata captured per page.
@@ -184,15 +184,15 @@ export interface InsightsAssessmentsCommentListInstance {
   eachWithHttpInfo(
     callback?: (
       item: InsightsAssessmentsCommentInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: InsightsAssessmentsCommentListInstanceEachOptions,
     callback?: (
       item: InsightsAssessmentsCommentInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of InsightsAssessmentsCommentInstance records from the API.
@@ -206,8 +206,8 @@ export interface InsightsAssessmentsCommentListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: InsightsAssessmentsCommentPage,
-    ) => any,
+      items: InsightsAssessmentsCommentPage
+    ) => any
   ): Promise<InsightsAssessmentsCommentPage>;
   /**
    * Retrieve a single target page of InsightsAssessmentsCommentInstance records from the API with HTTP metadata.
@@ -221,8 +221,8 @@ export interface InsightsAssessmentsCommentListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentPage>,
-    ) => any,
+      items: ApiResponse<InsightsAssessmentsCommentPage>
+    ) => any
   ): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
   /**
    * Lists InsightsAssessmentsCommentInstance records from the API as a list.
@@ -236,15 +236,15 @@ export interface InsightsAssessmentsCommentListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: InsightsAssessmentsCommentInstance[],
-    ) => any,
+      items: InsightsAssessmentsCommentInstance[]
+    ) => any
   ): Promise<InsightsAssessmentsCommentInstance[]>;
   list(
     params: InsightsAssessmentsCommentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: InsightsAssessmentsCommentInstance[],
-    ) => any,
+      items: InsightsAssessmentsCommentInstance[]
+    ) => any
   ): Promise<InsightsAssessmentsCommentInstance[]>;
   /**
    * Lists InsightsAssessmentsCommentInstance records from the API as a list with HTTP metadata.
@@ -260,15 +260,15 @@ export interface InsightsAssessmentsCommentListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentInstance[]>,
-    ) => any,
+      items: ApiResponse<InsightsAssessmentsCommentInstance[]>
+    ) => any
   ): Promise<ApiResponse<InsightsAssessmentsCommentInstance[]>>;
   listWithHttpInfo(
     params: InsightsAssessmentsCommentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentInstance[]>,
-    ) => any,
+      items: ApiResponse<InsightsAssessmentsCommentInstance[]>
+    ) => any
   ): Promise<ApiResponse<InsightsAssessmentsCommentInstance[]>>;
   /**
    * Retrieve a single page of InsightsAssessmentsCommentInstance records from the API.
@@ -284,15 +284,15 @@ export interface InsightsAssessmentsCommentListInstance {
   page(
     callback?: (
       error: Error | null,
-      items: InsightsAssessmentsCommentPage,
-    ) => any,
+      items: InsightsAssessmentsCommentPage
+    ) => any
   ): Promise<InsightsAssessmentsCommentPage>;
   page(
     params: InsightsAssessmentsCommentListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: InsightsAssessmentsCommentPage,
-    ) => any,
+      items: InsightsAssessmentsCommentPage
+    ) => any
   ): Promise<InsightsAssessmentsCommentPage>;
   /**
    * Retrieve a single page of InsightsAssessmentsCommentInstance records from the API with HTTP metadata.
@@ -308,15 +308,15 @@ export interface InsightsAssessmentsCommentListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentPage>,
-    ) => any,
+      items: ApiResponse<InsightsAssessmentsCommentPage>
+    ) => any
   ): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
   pageWithHttpInfo(
     params: InsightsAssessmentsCommentListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentPage>,
-    ) => any,
+      items: ApiResponse<InsightsAssessmentsCommentPage>
+    ) => any
   ): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
 
   /**
@@ -327,7 +327,7 @@ export interface InsightsAssessmentsCommentListInstance {
 }
 
 export function InsightsAssessmentsCommentListInstance(
-  version: V1,
+  version: V1
 ): InsightsAssessmentsCommentListInstance {
   const instance = {} as InsightsAssessmentsCommentListInstance;
 
@@ -339,8 +339,8 @@ export function InsightsAssessmentsCommentListInstance(
     params: InsightsAssessmentsCommentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: InsightsAssessmentsCommentInstance,
-    ) => any,
+      items: InsightsAssessmentsCommentInstance
+    ) => any
   ): Promise<InsightsAssessmentsCommentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -403,12 +403,12 @@ export function InsightsAssessmentsCommentListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new InsightsAssessmentsCommentInstance(operationVersion, payload),
+        new InsightsAssessmentsCommentInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -417,8 +417,8 @@ export function InsightsAssessmentsCommentListInstance(
     params: InsightsAssessmentsCommentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentInstance>,
-    ) => any,
+      items: ApiResponse<InsightsAssessmentsCommentInstance>
+    ) => any
   ): Promise<ApiResponse<InsightsAssessmentsCommentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -484,13 +484,13 @@ export function InsightsAssessmentsCommentListInstance(
         ...response,
         body: new InsightsAssessmentsCommentInstance(
           operationVersion,
-          response.body,
+          response.body
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -501,8 +501,8 @@ export function InsightsAssessmentsCommentListInstance(
       | ((error: Error | null, items: InsightsAssessmentsCommentPage) => any),
     callback?: (
       error: Error | null,
-      items: InsightsAssessmentsCommentPage,
-    ) => any,
+      items: InsightsAssessmentsCommentPage
+    ) => any
   ): Promise<InsightsAssessmentsCommentPage> {
     if (params instanceof Function) {
       callback = params;
@@ -539,13 +539,13 @@ export function InsightsAssessmentsCommentListInstance(
         new InsightsAssessmentsCommentPage(
           operationVersion,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -557,8 +557,8 @@ export function InsightsAssessmentsCommentListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: InsightsAssessmentsCommentPage,
-    ) => any,
+      items: InsightsAssessmentsCommentPage
+    ) => any
   ): Promise<InsightsAssessmentsCommentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -569,8 +569,8 @@ export function InsightsAssessmentsCommentListInstance(
         new InsightsAssessmentsCommentPage(
           instance._version,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -581,12 +581,12 @@ export function InsightsAssessmentsCommentListInstance(
       | InsightsAssessmentsCommentListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<InsightsAssessmentsCommentPage>,
+          items: ApiResponse<InsightsAssessmentsCommentPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentPage>,
-    ) => any,
+      items: ApiResponse<InsightsAssessmentsCommentPage>
+    ) => any
   ): Promise<ApiResponse<InsightsAssessmentsCommentPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -622,13 +622,13 @@ export function InsightsAssessmentsCommentListInstance(
         body: new InsightsAssessmentsCommentPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -642,8 +642,8 @@ export function InsightsAssessmentsCommentListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<InsightsAssessmentsCommentPage>,
-    ) => any,
+      items?: ApiResponse<InsightsAssessmentsCommentPage>
+    ) => any
   ): Promise<ApiResponse<InsightsAssessmentsCommentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -658,9 +658,9 @@ export function InsightsAssessmentsCommentListInstance(
         body: new InsightsAssessmentsCommentPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -672,7 +672,7 @@ export function InsightsAssessmentsCommentListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -702,7 +702,7 @@ interface InsightsAssessmentsCommentResource {
 export class InsightsAssessmentsCommentInstance {
   constructor(
     protected _version: V1,
-    payload: InsightsAssessmentsCommentResource,
+    payload: InsightsAssessmentsCommentResource
   ) {
     this.accountSid = payload.account_sid;
     this.assessmentSid = payload.assessment_sid;
@@ -807,7 +807,7 @@ export class InsightsAssessmentsCommentPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: InsightsAssessmentsCommentSolution,
+    solution: InsightsAssessmentsCommentSolution
   ) {
     super(version, response, solution);
   }
@@ -818,7 +818,7 @@ export class InsightsAssessmentsCommentPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: InsightsAssessmentsCommentResource,
+    payload: InsightsAssessmentsCommentResource
   ): InsightsAssessmentsCommentInstance {
     return new InsightsAssessmentsCommentInstance(this._version, payload);
   }

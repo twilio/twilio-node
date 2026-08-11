@@ -44,10 +44,7 @@ export interface UsAppToPersonUsecaseListInstance {
    * @returns Resolves to processed UsAppToPersonUsecaseInstance
    */
   fetch(
-    callback?: (
-      error: Error | null,
-      item?: UsAppToPersonUsecaseInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any
   ): Promise<UsAppToPersonUsecaseInstance>;
   /**
    * Fetch a UsAppToPersonUsecaseInstance
@@ -59,10 +56,7 @@ export interface UsAppToPersonUsecaseListInstance {
    */
   fetch(
     params: UsAppToPersonUsecaseListInstanceFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: UsAppToPersonUsecaseInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: UsAppToPersonUsecaseInstance) => any
   ): Promise<UsAppToPersonUsecaseInstance>;
 
   /**
@@ -75,8 +69,8 @@ export interface UsAppToPersonUsecaseListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonUsecaseInstance>,
-    ) => any,
+      item?: ApiResponse<UsAppToPersonUsecaseInstance>
+    ) => any
   ): Promise<ApiResponse<UsAppToPersonUsecaseInstance>>;
   /**
    * Fetch a UsAppToPersonUsecaseInstance and return HTTP info
@@ -90,8 +84,8 @@ export interface UsAppToPersonUsecaseListInstance {
     params: UsAppToPersonUsecaseListInstanceFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UsAppToPersonUsecaseInstance>,
-    ) => any,
+      item?: ApiResponse<UsAppToPersonUsecaseInstance>
+    ) => any
   ): Promise<ApiResponse<UsAppToPersonUsecaseInstance>>;
 
   /**
@@ -103,7 +97,7 @@ export interface UsAppToPersonUsecaseListInstance {
 
 export function UsAppToPersonUsecaseListInstance(
   version: V1,
-  messagingServiceSid: string,
+  messagingServiceSid: string
 ): UsAppToPersonUsecaseListInstance {
   if (!isValidPathParam(messagingServiceSid)) {
     throw new Error("Parameter 'messagingServiceSid' is not valid.");
@@ -119,10 +113,7 @@ export function UsAppToPersonUsecaseListInstance(
     params?:
       | UsAppToPersonUsecaseListInstanceFetchOptions
       | ((error: Error | null, items: UsAppToPersonUsecaseInstance) => any),
-    callback?: (
-      error: Error | null,
-      items: UsAppToPersonUsecaseInstance,
-    ) => any,
+    callback?: (error: Error | null, items: UsAppToPersonUsecaseInstance) => any
   ): Promise<UsAppToPersonUsecaseInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -152,13 +143,13 @@ export function UsAppToPersonUsecaseListInstance(
         new UsAppToPersonUsecaseInstance(
           operationVersion,
           payload,
-          instance._solution.messagingServiceSid,
-        ),
+          instance._solution.messagingServiceSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -168,12 +159,12 @@ export function UsAppToPersonUsecaseListInstance(
       | UsAppToPersonUsecaseListInstanceFetchOptions
       | ((
           error: Error | null,
-          items: ApiResponse<UsAppToPersonUsecaseInstance>,
+          items: ApiResponse<UsAppToPersonUsecaseInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<UsAppToPersonUsecaseInstance>,
-    ) => any,
+      items: ApiResponse<UsAppToPersonUsecaseInstance>
+    ) => any
   ): Promise<ApiResponse<UsAppToPersonUsecaseInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -204,13 +195,13 @@ export function UsAppToPersonUsecaseListInstance(
         body: new UsAppToPersonUsecaseInstance(
           operationVersion,
           response.body,
-          instance._solution.messagingServiceSid,
+          instance._solution.messagingServiceSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -221,7 +212,7 @@ export function UsAppToPersonUsecaseListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -239,7 +230,7 @@ export class UsAppToPersonUsecaseInstance {
   constructor(
     protected _version: V1,
     payload: UsAppToPersonUsecaseResource,
-    messagingServiceSid: string,
+    messagingServiceSid: string
   ) {
     this.usAppToPersonUsecases = payload.us_app_to_person_usecases;
   }

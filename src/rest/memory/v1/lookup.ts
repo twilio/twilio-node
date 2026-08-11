@@ -67,7 +67,7 @@ export interface LookupListInstance {
   create(
     params: Identifier,
     headers?: any,
-    callback?: (error: Error | null, item?: LookupInstance) => any,
+    callback?: (error: Error | null, item?: LookupInstance) => any
   ): Promise<LookupInstance>;
 
   /**
@@ -82,7 +82,7 @@ export interface LookupListInstance {
   createWithHttpInfo(
     params: Identifier,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<LookupInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<LookupInstance>) => any
   ): Promise<ApiResponse<LookupInstance>>;
 
   /**
@@ -94,7 +94,7 @@ export interface LookupListInstance {
 
 export function LookupListInstance(
   version: V1,
-  storeId: string,
+  storeId: string
 ): LookupListInstance {
   if (!isValidPathParam(storeId)) {
     throw new Error("Parameter 'storeId' is not valid.");
@@ -109,7 +109,7 @@ export function LookupListInstance(
   instance.create = function create(
     params: Identifier,
     headers?: any,
-    callback?: (error: Error | null, items: LookupInstance) => any,
+    callback?: (error: Error | null, items: LookupInstance) => any
   ): Promise<LookupInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -139,13 +139,13 @@ export function LookupListInstance(
         new LookupInstance(
           operationVersion,
           payload,
-          instance._solution.storeId,
-        ),
+          instance._solution.storeId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -153,7 +153,7 @@ export function LookupListInstance(
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: Identifier,
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<LookupInstance>) => any,
+    callback?: (error: Error | null, items: ApiResponse<LookupInstance>) => any
   ): Promise<ApiResponse<LookupInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -184,13 +184,13 @@ export function LookupListInstance(
         body: new LookupInstance(
           operationVersion,
           response.body,
-          instance._solution.storeId,
+          instance._solution.storeId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -201,7 +201,7 @@ export function LookupListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -218,7 +218,7 @@ export class LookupInstance {
   constructor(
     protected _version: V1,
     _payload: LookupResource,
-    storeId: string,
+    storeId: string
   ) {
     const payload = _payload;
     this.normalizedValue = payload.normalizedValue;

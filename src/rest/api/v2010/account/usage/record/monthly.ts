@@ -107,11 +107,11 @@ export interface MonthlyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: MonthlyInstance, done: (err?: Error) => void) => void,
+    callback?: (item: MonthlyInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: MonthlyListInstanceEachOptions,
-    callback?: (item: MonthlyInstance, done: (err?: Error) => void) => void,
+    callback?: (item: MonthlyInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams MonthlyInstance records from the API with HTTP metadata captured per page.
@@ -129,11 +129,11 @@ export interface MonthlyListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: MonthlyInstance, done: (err?: Error) => void) => void,
+    callback?: (item: MonthlyInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: MonthlyListInstanceEachOptions,
-    callback?: (item: MonthlyInstance, done: (err?: Error) => void) => void,
+    callback?: (item: MonthlyInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of MonthlyInstance records from the API.
@@ -145,7 +145,7 @@ export interface MonthlyListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MonthlyPage) => any,
+    callback?: (error: Error | null, items: MonthlyPage) => any
   ): Promise<MonthlyPage>;
   /**
    * Retrieve a single target page of MonthlyInstance records from the API with HTTP metadata.
@@ -157,7 +157,7 @@ export interface MonthlyListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<MonthlyPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<MonthlyPage>) => any
   ): Promise<ApiResponse<MonthlyPage>>;
   /**
    * Lists MonthlyInstance records from the API as a list.
@@ -169,11 +169,11 @@ export interface MonthlyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: MonthlyInstance[]) => any,
+    callback?: (error: Error | null, items: MonthlyInstance[]) => any
   ): Promise<MonthlyInstance[]>;
   list(
     params: MonthlyListInstanceOptions,
-    callback?: (error: Error | null, items: MonthlyInstance[]) => any,
+    callback?: (error: Error | null, items: MonthlyInstance[]) => any
   ): Promise<MonthlyInstance[]>;
   /**
    * Lists MonthlyInstance records from the API as a list with HTTP metadata.
@@ -189,15 +189,15 @@ export interface MonthlyListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<MonthlyInstance[]>,
-    ) => any,
+      items: ApiResponse<MonthlyInstance[]>
+    ) => any
   ): Promise<ApiResponse<MonthlyInstance[]>>;
   listWithHttpInfo(
     params: MonthlyListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<MonthlyInstance[]>,
-    ) => any,
+      items: ApiResponse<MonthlyInstance[]>
+    ) => any
   ): Promise<ApiResponse<MonthlyInstance[]>>;
   /**
    * Retrieve a single page of MonthlyInstance records from the API.
@@ -211,11 +211,11 @@ export interface MonthlyListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: MonthlyPage) => any,
+    callback?: (error: Error | null, items: MonthlyPage) => any
   ): Promise<MonthlyPage>;
   page(
     params: MonthlyListInstancePageOptions,
-    callback?: (error: Error | null, items: MonthlyPage) => any,
+    callback?: (error: Error | null, items: MonthlyPage) => any
   ): Promise<MonthlyPage>;
   /**
    * Retrieve a single page of MonthlyInstance records from the API with HTTP metadata.
@@ -229,11 +229,11 @@ export interface MonthlyListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<MonthlyPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<MonthlyPage>) => any
   ): Promise<ApiResponse<MonthlyPage>>;
   pageWithHttpInfo(
     params: MonthlyListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<MonthlyPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<MonthlyPage>) => any
   ): Promise<ApiResponse<MonthlyPage>>;
 
   /**
@@ -245,7 +245,7 @@ export interface MonthlyListInstance {
 
 export function MonthlyListInstance(
   version: V2010,
-  accountSid: string,
+  accountSid: string
 ): MonthlyListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -261,7 +261,7 @@ export function MonthlyListInstance(
     params?:
       | MonthlyListInstancePageOptions
       | ((error: Error | null, items: MonthlyPage) => any),
-    callback?: (error: Error | null, items: MonthlyPage) => any,
+    callback?: (error: Error | null, items: MonthlyPage) => any
   ): Promise<MonthlyPage> {
     if (params instanceof Function) {
       callback = params;
@@ -297,12 +297,12 @@ export function MonthlyListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MonthlyPage(operationVersion, payload, instance._solution),
+        new MonthlyPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -312,7 +312,7 @@ export function MonthlyListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MonthlyPage) => any,
+    callback?: (error: Error | null, items: MonthlyPage) => any
   ): Promise<MonthlyPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -320,7 +320,7 @@ export function MonthlyListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new MonthlyPage(instance._version, payload, instance._solution),
+        new MonthlyPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -330,7 +330,7 @@ export function MonthlyListInstance(
     params?:
       | MonthlyListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<MonthlyPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<MonthlyPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<MonthlyPage>) => any
   ): Promise<ApiResponse<MonthlyPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -370,7 +370,7 @@ export function MonthlyListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -382,7 +382,7 @@ export function MonthlyListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<MonthlyPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<MonthlyPage>) => any
   ): Promise<ApiResponse<MonthlyPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -395,7 +395,7 @@ export function MonthlyListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new MonthlyPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -407,7 +407,7 @@ export function MonthlyListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -441,7 +441,7 @@ export class MonthlyInstance {
   constructor(
     protected _version: V2010,
     payload: MonthlyResource,
-    accountSid: string,
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -567,7 +567,7 @@ export class MonthlyPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: MonthlySolution,
+    solution: MonthlySolution
   ) {
     super(version, response, solution);
   }
@@ -581,7 +581,7 @@ export class MonthlyPage extends Page<
     return new MonthlyInstance(
       this._version,
       payload,
-      this._solution.accountSid,
+      this._solution.accountSid
     );
   }
 

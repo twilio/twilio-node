@@ -136,8 +136,8 @@ export interface ComplianceTollfreeInquiriesListInstance {
     params: ComplianceTollfreeInquiriesListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ComplianceTollfreeInquiriesInstance,
-    ) => any,
+      item?: ComplianceTollfreeInquiriesInstance
+    ) => any
   ): Promise<ComplianceTollfreeInquiriesInstance>;
 
   /**
@@ -152,8 +152,8 @@ export interface ComplianceTollfreeInquiriesListInstance {
     params: ComplianceTollfreeInquiriesListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceTollfreeInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceTollfreeInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceTollfreeInquiriesInstance>>;
 
   /**
@@ -164,7 +164,7 @@ export interface ComplianceTollfreeInquiriesListInstance {
 }
 
 export function ComplianceTollfreeInquiriesListInstance(
-  version: V1,
+  version: V1
 ): ComplianceTollfreeInquiriesListInstance {
   const instance = {} as ComplianceTollfreeInquiriesListInstance;
 
@@ -176,8 +176,8 @@ export function ComplianceTollfreeInquiriesListInstance(
     params: ComplianceTollfreeInquiriesListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ComplianceTollfreeInquiriesInstance,
-    ) => any,
+      items: ComplianceTollfreeInquiriesInstance
+    ) => any
   ): Promise<ComplianceTollfreeInquiriesInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -188,7 +188,7 @@ export function ComplianceTollfreeInquiriesListInstance(
       params["tollfreePhoneNumber"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['tollfreePhoneNumber']\" missing.",
+        "Required parameter \"params['tollfreePhoneNumber']\" missing."
       );
     }
 
@@ -197,7 +197,7 @@ export function ComplianceTollfreeInquiriesListInstance(
       params["notificationEmail"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['notificationEmail']\" missing.",
+        "Required parameter \"params['notificationEmail']\" missing."
       );
     }
 
@@ -215,7 +215,7 @@ export function ComplianceTollfreeInquiriesListInstance(
     if (params["useCaseCategories"] !== undefined)
       data["UseCaseCategories"] = serialize.map(
         params["useCaseCategories"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["useCaseSummary"] !== undefined)
       data["UseCaseSummary"] = params["useCaseSummary"];
@@ -224,7 +224,7 @@ export function ComplianceTollfreeInquiriesListInstance(
     if (params["optInImageUrls"] !== undefined)
       data["OptInImageUrls"] = serialize.map(
         params["optInImageUrls"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["optInType"] !== undefined)
       data["OptInType"] = params["optInType"];
@@ -257,7 +257,7 @@ export function ComplianceTollfreeInquiriesListInstance(
       data["ThemeSetId"] = params["themeSetId"];
     if (params["skipMessagingUseCase"] !== undefined)
       data["SkipMessagingUseCase"] = serialize.bool(
-        params["skipMessagingUseCase"],
+        params["skipMessagingUseCase"]
       );
     if (params["businessRegistrationNumber"] !== undefined)
       data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
@@ -286,7 +286,7 @@ export function ComplianceTollfreeInquiriesListInstance(
     if (params["optInKeywords"] !== undefined)
       data["OptInKeywords"] = serialize.map(
         params["optInKeywords"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["vettingId"] !== undefined)
       data["VettingId"] = params["vettingId"];
@@ -307,12 +307,12 @@ export function ComplianceTollfreeInquiriesListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ComplianceTollfreeInquiriesInstance(operationVersion, payload),
+        new ComplianceTollfreeInquiriesInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -321,8 +321,8 @@ export function ComplianceTollfreeInquiriesListInstance(
     params: ComplianceTollfreeInquiriesListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ComplianceTollfreeInquiriesInstance>,
-    ) => any,
+      items: ApiResponse<ComplianceTollfreeInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceTollfreeInquiriesInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -333,7 +333,7 @@ export function ComplianceTollfreeInquiriesListInstance(
       params["tollfreePhoneNumber"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['tollfreePhoneNumber']\" missing.",
+        "Required parameter \"params['tollfreePhoneNumber']\" missing."
       );
     }
 
@@ -342,7 +342,7 @@ export function ComplianceTollfreeInquiriesListInstance(
       params["notificationEmail"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['notificationEmail']\" missing.",
+        "Required parameter \"params['notificationEmail']\" missing."
       );
     }
 
@@ -360,7 +360,7 @@ export function ComplianceTollfreeInquiriesListInstance(
     if (params["useCaseCategories"] !== undefined)
       data["UseCaseCategories"] = serialize.map(
         params["useCaseCategories"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["useCaseSummary"] !== undefined)
       data["UseCaseSummary"] = params["useCaseSummary"];
@@ -369,7 +369,7 @@ export function ComplianceTollfreeInquiriesListInstance(
     if (params["optInImageUrls"] !== undefined)
       data["OptInImageUrls"] = serialize.map(
         params["optInImageUrls"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["optInType"] !== undefined)
       data["OptInType"] = params["optInType"];
@@ -402,7 +402,7 @@ export function ComplianceTollfreeInquiriesListInstance(
       data["ThemeSetId"] = params["themeSetId"];
     if (params["skipMessagingUseCase"] !== undefined)
       data["SkipMessagingUseCase"] = serialize.bool(
-        params["skipMessagingUseCase"],
+        params["skipMessagingUseCase"]
       );
     if (params["businessRegistrationNumber"] !== undefined)
       data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
@@ -431,7 +431,7 @@ export function ComplianceTollfreeInquiriesListInstance(
     if (params["optInKeywords"] !== undefined)
       data["OptInKeywords"] = serialize.map(
         params["optInKeywords"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["vettingId"] !== undefined)
       data["VettingId"] = params["vettingId"];
@@ -455,13 +455,13 @@ export function ComplianceTollfreeInquiriesListInstance(
         ...response,
         body: new ComplianceTollfreeInquiriesInstance(
           operationVersion,
-          response.body,
+          response.body
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -472,7 +472,7 @@ export function ComplianceTollfreeInquiriesListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -492,7 +492,7 @@ interface ComplianceTollfreeInquiriesResource {
 export class ComplianceTollfreeInquiriesInstance {
   constructor(
     protected _version: V1,
-    payload: ComplianceTollfreeInquiriesResource,
+    payload: ComplianceTollfreeInquiriesResource
   ) {
     this.inquiryId = payload.inquiry_id;
     this.inquirySessionToken = payload.inquiry_session_token;

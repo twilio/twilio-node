@@ -40,7 +40,7 @@ export interface UserDefinedMessageSubscriptionContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -51,7 +51,7 @@ export interface UserDefinedMessageSubscriptionContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -75,7 +75,7 @@ export class UserDefinedMessageSubscriptionContextImpl implements UserDefinedMes
     protected _version: V2010,
     accountSid: string,
     callSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -94,7 +94,7 @@ export class UserDefinedMessageSubscriptionContextImpl implements UserDefinedMes
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -108,13 +108,13 @@ export class UserDefinedMessageSubscriptionContextImpl implements UserDefinedMes
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -130,7 +130,7 @@ export class UserDefinedMessageSubscriptionContextImpl implements UserDefinedMes
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -168,7 +168,7 @@ export class UserDefinedMessageSubscriptionInstance {
     payload: UserDefinedMessageSubscriptionResource,
     accountSid: string,
     callSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
@@ -207,7 +207,7 @@ export class UserDefinedMessageSubscriptionInstance {
         this._version,
         this._solution.accountSid,
         this._solution.callSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -220,7 +220,7 @@ export class UserDefinedMessageSubscriptionInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -233,7 +233,7 @@ export class UserDefinedMessageSubscriptionInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -283,8 +283,8 @@ export interface UserDefinedMessageSubscriptionListInstance {
     params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: UserDefinedMessageSubscriptionInstance,
-    ) => any,
+      item?: UserDefinedMessageSubscriptionInstance
+    ) => any
   ): Promise<UserDefinedMessageSubscriptionInstance>;
 
   /**
@@ -299,8 +299,8 @@ export interface UserDefinedMessageSubscriptionListInstance {
     params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<UserDefinedMessageSubscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<UserDefinedMessageSubscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<UserDefinedMessageSubscriptionInstance>>;
 
   /**
@@ -313,7 +313,7 @@ export interface UserDefinedMessageSubscriptionListInstance {
 export function UserDefinedMessageSubscriptionListInstance(
   version: V2010,
   accountSid: string,
-  callSid: string,
+  callSid: string
 ): UserDefinedMessageSubscriptionListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -331,7 +331,7 @@ export function UserDefinedMessageSubscriptionListInstance(
       version,
       accountSid,
       callSid,
-      sid,
+      sid
     );
   };
 
@@ -343,8 +343,8 @@ export function UserDefinedMessageSubscriptionListInstance(
     params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: UserDefinedMessageSubscriptionInstance,
-    ) => any,
+      items: UserDefinedMessageSubscriptionInstance
+    ) => any
   ): Promise<UserDefinedMessageSubscriptionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -379,13 +379,13 @@ export function UserDefinedMessageSubscriptionListInstance(
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.callSid,
-        ),
+          instance._solution.callSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -394,8 +394,8 @@ export function UserDefinedMessageSubscriptionListInstance(
     params: UserDefinedMessageSubscriptionListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<UserDefinedMessageSubscriptionInstance>,
-    ) => any,
+      items: ApiResponse<UserDefinedMessageSubscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<UserDefinedMessageSubscriptionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -432,14 +432,14 @@ export function UserDefinedMessageSubscriptionListInstance(
             operationVersion,
             response.body,
             instance._solution.accountSid,
-            instance._solution.callSid,
+            instance._solution.callSid
           ),
-        }),
+        })
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -450,7 +450,7 @@ export function UserDefinedMessageSubscriptionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

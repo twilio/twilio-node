@@ -61,7 +61,7 @@ export interface InsightsQuestionnairesCategoryListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: InsightsQuestionnairesCategoryInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -104,7 +104,7 @@ export interface InsightsQuestionnairesCategoryContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
   /**
    * Remove a InsightsQuestionnairesCategoryInstance
@@ -116,7 +116,7 @@ export interface InsightsQuestionnairesCategoryContext {
    */
   remove(
     params: InsightsQuestionnairesCategoryContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -127,7 +127,7 @@ export interface InsightsQuestionnairesCategoryContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
   /**
    * Remove a InsightsQuestionnairesCategoryInstance and return HTTP info
@@ -139,7 +139,7 @@ export interface InsightsQuestionnairesCategoryContext {
    */
   removeWithHttpInfo(
     params: InsightsQuestionnairesCategoryContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -154,8 +154,8 @@ export interface InsightsQuestionnairesCategoryContext {
     params: InsightsQuestionnairesCategoryContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: InsightsQuestionnairesCategoryInstance,
-    ) => any,
+      item?: InsightsQuestionnairesCategoryInstance
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryInstance>;
 
   /**
@@ -170,8 +170,8 @@ export interface InsightsQuestionnairesCategoryContext {
     params: InsightsQuestionnairesCategoryContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>,
-    ) => any,
+      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>>;
 
   /**
@@ -191,7 +191,7 @@ export class InsightsQuestionnairesCategoryContextImpl implements InsightsQuesti
 
   constructor(
     protected _version: V1,
-    categorySid: string,
+    categorySid: string
   ) {
     if (!isValidPathParam(categorySid)) {
       throw new Error("Parameter 'categorySid' is not valid.");
@@ -205,7 +205,7 @@ export class InsightsQuestionnairesCategoryContextImpl implements InsightsQuesti
     params?:
       | InsightsQuestionnairesCategoryContextRemoveOptions
       | ((error: Error | null, item?: boolean) => any),
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
@@ -231,7 +231,7 @@ export class InsightsQuestionnairesCategoryContextImpl implements InsightsQuesti
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -240,7 +240,7 @@ export class InsightsQuestionnairesCategoryContextImpl implements InsightsQuesti
     params?:
       | InsightsQuestionnairesCategoryContextRemoveOptions
       | ((error: Error | null, item?: ApiResponse<boolean>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
@@ -272,7 +272,7 @@ export class InsightsQuestionnairesCategoryContextImpl implements InsightsQuesti
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -281,8 +281,8 @@ export class InsightsQuestionnairesCategoryContextImpl implements InsightsQuesti
     params: InsightsQuestionnairesCategoryContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: InsightsQuestionnairesCategoryInstance,
-    ) => any,
+      item?: InsightsQuestionnairesCategoryInstance
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -316,13 +316,13 @@ export class InsightsQuestionnairesCategoryContextImpl implements InsightsQuesti
         new InsightsQuestionnairesCategoryInstance(
           operationVersion,
           payload,
-          instance._solution.categorySid,
-        ),
+          instance._solution.categorySid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -331,8 +331,8 @@ export class InsightsQuestionnairesCategoryContextImpl implements InsightsQuesti
     params: InsightsQuestionnairesCategoryContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>,
-    ) => any,
+      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -368,14 +368,14 @@ export class InsightsQuestionnairesCategoryContextImpl implements InsightsQuesti
           body: new InsightsQuestionnairesCategoryInstance(
             operationVersion,
             response.body,
-            instance._solution.categorySid,
+            instance._solution.categorySid
           ),
-        }),
+        })
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -412,7 +412,7 @@ export class InsightsQuestionnairesCategoryInstance {
   constructor(
     protected _version: V1,
     payload: InsightsQuestionnairesCategoryResource,
-    categorySid?: string,
+    categorySid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.categorySid = payload.category_sid;
@@ -441,7 +441,7 @@ export class InsightsQuestionnairesCategoryInstance {
       this._context ||
       new InsightsQuestionnairesCategoryContextImpl(
         this._version,
-        this._solution.categorySid,
+        this._solution.categorySid
       );
     return this._context;
   }
@@ -454,7 +454,7 @@ export class InsightsQuestionnairesCategoryInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
   /**
    * Remove a InsightsQuestionnairesCategoryInstance
@@ -466,12 +466,12 @@ export class InsightsQuestionnairesCategoryInstance {
    */
   remove(
     params: InsightsQuestionnairesCategoryContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   remove(
     params?: any,
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
@@ -484,7 +484,7 @@ export class InsightsQuestionnairesCategoryInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
   /**
    * Remove a InsightsQuestionnairesCategoryInstance and return HTTP info
@@ -496,12 +496,12 @@ export class InsightsQuestionnairesCategoryInstance {
    */
   removeWithHttpInfo(
     params: InsightsQuestionnairesCategoryContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   removeWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(params, callback);
   }
@@ -518,16 +518,16 @@ export class InsightsQuestionnairesCategoryInstance {
     params: InsightsQuestionnairesCategoryContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: InsightsQuestionnairesCategoryInstance,
-    ) => any,
+      item?: InsightsQuestionnairesCategoryInstance
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryInstance>;
 
   update(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: InsightsQuestionnairesCategoryInstance,
-    ) => any,
+      item?: InsightsQuestionnairesCategoryInstance
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryInstance> {
     return this._proxy.update(params, callback);
   }
@@ -544,16 +544,16 @@ export class InsightsQuestionnairesCategoryInstance {
     params: InsightsQuestionnairesCategoryContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>,
-    ) => any,
+      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>,
-    ) => any,
+      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -599,8 +599,8 @@ export interface InsightsQuestionnairesCategoryListInstance {
     params: InsightsQuestionnairesCategoryListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: InsightsQuestionnairesCategoryInstance,
-    ) => any,
+      item?: InsightsQuestionnairesCategoryInstance
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryInstance>;
 
   /**
@@ -615,8 +615,8 @@ export interface InsightsQuestionnairesCategoryListInstance {
     params: InsightsQuestionnairesCategoryListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>,
-    ) => any,
+      item?: ApiResponse<InsightsQuestionnairesCategoryInstance>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>>;
 
   /**
@@ -637,15 +637,15 @@ export interface InsightsQuestionnairesCategoryListInstance {
   each(
     callback?: (
       item: InsightsQuestionnairesCategoryInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: InsightsQuestionnairesCategoryListInstanceEachOptions,
     callback?: (
       item: InsightsQuestionnairesCategoryInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams InsightsQuestionnairesCategoryInstance records from the API with HTTP metadata captured per page.
@@ -665,15 +665,15 @@ export interface InsightsQuestionnairesCategoryListInstance {
   eachWithHttpInfo(
     callback?: (
       item: InsightsQuestionnairesCategoryInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: InsightsQuestionnairesCategoryListInstanceEachOptions,
     callback?: (
       item: InsightsQuestionnairesCategoryInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of InsightsQuestionnairesCategoryInstance records from the API.
@@ -687,8 +687,8 @@ export interface InsightsQuestionnairesCategoryListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: InsightsQuestionnairesCategoryPage,
-    ) => any,
+      items: InsightsQuestionnairesCategoryPage
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryPage>;
   /**
    * Retrieve a single target page of InsightsQuestionnairesCategoryInstance records from the API with HTTP metadata.
@@ -702,8 +702,8 @@ export interface InsightsQuestionnairesCategoryListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryPage>,
-    ) => any,
+      items: ApiResponse<InsightsQuestionnairesCategoryPage>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>>;
   /**
    * Lists InsightsQuestionnairesCategoryInstance records from the API as a list.
@@ -717,15 +717,15 @@ export interface InsightsQuestionnairesCategoryListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: InsightsQuestionnairesCategoryInstance[],
-    ) => any,
+      items: InsightsQuestionnairesCategoryInstance[]
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryInstance[]>;
   list(
     params: InsightsQuestionnairesCategoryListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: InsightsQuestionnairesCategoryInstance[],
-    ) => any,
+      items: InsightsQuestionnairesCategoryInstance[]
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryInstance[]>;
   /**
    * Lists InsightsQuestionnairesCategoryInstance records from the API as a list with HTTP metadata.
@@ -741,15 +741,15 @@ export interface InsightsQuestionnairesCategoryListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryInstance[]>,
-    ) => any,
+      items: ApiResponse<InsightsQuestionnairesCategoryInstance[]>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance[]>>;
   listWithHttpInfo(
     params: InsightsQuestionnairesCategoryListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryInstance[]>,
-    ) => any,
+      items: ApiResponse<InsightsQuestionnairesCategoryInstance[]>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance[]>>;
   /**
    * Retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
@@ -765,15 +765,15 @@ export interface InsightsQuestionnairesCategoryListInstance {
   page(
     callback?: (
       error: Error | null,
-      items: InsightsQuestionnairesCategoryPage,
-    ) => any,
+      items: InsightsQuestionnairesCategoryPage
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryPage>;
   page(
     params: InsightsQuestionnairesCategoryListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: InsightsQuestionnairesCategoryPage,
-    ) => any,
+      items: InsightsQuestionnairesCategoryPage
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryPage>;
   /**
    * Retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API with HTTP metadata.
@@ -789,15 +789,15 @@ export interface InsightsQuestionnairesCategoryListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryPage>,
-    ) => any,
+      items: ApiResponse<InsightsQuestionnairesCategoryPage>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>>;
   pageWithHttpInfo(
     params: InsightsQuestionnairesCategoryListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryPage>,
-    ) => any,
+      items: ApiResponse<InsightsQuestionnairesCategoryPage>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>>;
 
   /**
@@ -808,13 +808,13 @@ export interface InsightsQuestionnairesCategoryListInstance {
 }
 
 export function InsightsQuestionnairesCategoryListInstance(
-  version: V1,
+  version: V1
 ): InsightsQuestionnairesCategoryListInstance {
   const instance = ((categorySid) =>
     instance.get(categorySid)) as InsightsQuestionnairesCategoryListInstance;
 
   instance.get = function get(
-    categorySid,
+    categorySid
   ): InsightsQuestionnairesCategoryContext {
     return new InsightsQuestionnairesCategoryContextImpl(version, categorySid);
   };
@@ -827,8 +827,8 @@ export function InsightsQuestionnairesCategoryListInstance(
     params: InsightsQuestionnairesCategoryListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: InsightsQuestionnairesCategoryInstance,
-    ) => any,
+      items: InsightsQuestionnairesCategoryInstance
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -858,12 +858,12 @@ export function InsightsQuestionnairesCategoryListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new InsightsQuestionnairesCategoryInstance(operationVersion, payload),
+        new InsightsQuestionnairesCategoryInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -872,8 +872,8 @@ export function InsightsQuestionnairesCategoryListInstance(
     params: InsightsQuestionnairesCategoryListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryInstance>,
-    ) => any,
+      items: ApiResponse<InsightsQuestionnairesCategoryInstance>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -907,14 +907,14 @@ export function InsightsQuestionnairesCategoryListInstance(
           ...response,
           body: new InsightsQuestionnairesCategoryInstance(
             operationVersion,
-            response.body,
+            response.body
           ),
-        }),
+        })
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -924,12 +924,12 @@ export function InsightsQuestionnairesCategoryListInstance(
       | InsightsQuestionnairesCategoryListInstancePageOptions
       | ((
           error: Error | null,
-          items: InsightsQuestionnairesCategoryPage,
+          items: InsightsQuestionnairesCategoryPage
         ) => any),
     callback?: (
       error: Error | null,
-      items: InsightsQuestionnairesCategoryPage,
-    ) => any,
+      items: InsightsQuestionnairesCategoryPage
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryPage> {
     if (params instanceof Function) {
       callback = params;
@@ -963,13 +963,13 @@ export function InsightsQuestionnairesCategoryListInstance(
         new InsightsQuestionnairesCategoryPage(
           operationVersion,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -981,8 +981,8 @@ export function InsightsQuestionnairesCategoryListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: InsightsQuestionnairesCategoryPage,
-    ) => any,
+      items: InsightsQuestionnairesCategoryPage
+    ) => any
   ): Promise<InsightsQuestionnairesCategoryPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -993,8 +993,8 @@ export function InsightsQuestionnairesCategoryListInstance(
         new InsightsQuestionnairesCategoryPage(
           instance._version,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1005,12 +1005,12 @@ export function InsightsQuestionnairesCategoryListInstance(
       | InsightsQuestionnairesCategoryListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<InsightsQuestionnairesCategoryPage>,
+          items: ApiResponse<InsightsQuestionnairesCategoryPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsQuestionnairesCategoryPage>,
-    ) => any,
+      items: ApiResponse<InsightsQuestionnairesCategoryPage>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1043,13 +1043,13 @@ export function InsightsQuestionnairesCategoryListInstance(
         body: new InsightsQuestionnairesCategoryPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1063,8 +1063,8 @@ export function InsightsQuestionnairesCategoryListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<InsightsQuestionnairesCategoryPage>,
-    ) => any,
+      items?: ApiResponse<InsightsQuestionnairesCategoryPage>
+    ) => any
   ): Promise<ApiResponse<InsightsQuestionnairesCategoryPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1079,9 +1079,9 @@ export function InsightsQuestionnairesCategoryListInstance(
         body: new InsightsQuestionnairesCategoryPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1093,7 +1093,7 @@ export function InsightsQuestionnairesCategoryListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1117,7 +1117,7 @@ export class InsightsQuestionnairesCategoryPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: InsightsQuestionnairesCategorySolution,
+    solution: InsightsQuestionnairesCategorySolution
   ) {
     super(version, response, solution);
   }
@@ -1128,7 +1128,7 @@ export class InsightsQuestionnairesCategoryPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: InsightsQuestionnairesCategoryResource,
+    payload: InsightsQuestionnairesCategoryResource
   ): InsightsQuestionnairesCategoryInstance {
     return new InsightsQuestionnairesCategoryInstance(this._version, payload);
   }

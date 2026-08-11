@@ -46,7 +46,7 @@ export interface TypingIndicatorListInstance {
    */
   create(
     params: TypingIndicatorListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TypingIndicatorInstance) => any,
+    callback?: (error: Error | null, item?: TypingIndicatorInstance) => any
   ): Promise<TypingIndicatorInstance>;
 
   /**
@@ -61,8 +61,8 @@ export interface TypingIndicatorListInstance {
     params: TypingIndicatorListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TypingIndicatorInstance>,
-    ) => any,
+      item?: ApiResponse<TypingIndicatorInstance>
+    ) => any
   ): Promise<ApiResponse<TypingIndicatorInstance>>;
 
   /**
@@ -73,7 +73,7 @@ export interface TypingIndicatorListInstance {
 }
 
 export function TypingIndicatorListInstance(
-  version: V2,
+  version: V2
 ): TypingIndicatorListInstance {
   const instance = {} as TypingIndicatorListInstance;
 
@@ -83,7 +83,7 @@ export function TypingIndicatorListInstance(
 
   instance.create = function create(
     params: TypingIndicatorListInstanceCreateOptions,
-    callback?: (error: Error | null, items: TypingIndicatorInstance) => any,
+    callback?: (error: Error | null, items: TypingIndicatorInstance) => any
   ): Promise<TypingIndicatorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -116,12 +116,12 @@ export function TypingIndicatorListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TypingIndicatorInstance(operationVersion, payload),
+      (payload) => new TypingIndicatorInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -130,8 +130,8 @@ export function TypingIndicatorListInstance(
     params: TypingIndicatorListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TypingIndicatorInstance>,
-    ) => any,
+      items: ApiResponse<TypingIndicatorInstance>
+    ) => any
   ): Promise<ApiResponse<TypingIndicatorInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -171,7 +171,7 @@ export function TypingIndicatorListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -182,7 +182,7 @@ export function TypingIndicatorListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -199,7 +199,7 @@ interface TypingIndicatorResource {
 export class TypingIndicatorInstance {
   constructor(
     protected _version: V2,
-    payload: TypingIndicatorResource,
+    payload: TypingIndicatorResource
   ) {
     this.success = payload.success;
   }

@@ -42,7 +42,7 @@ export interface DependentPhoneNumberListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: DependentPhoneNumberInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -100,15 +100,15 @@ export interface DependentPhoneNumberListInstance {
   each(
     callback?: (
       item: DependentPhoneNumberInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: DependentPhoneNumberListInstanceEachOptions,
     callback?: (
       item: DependentPhoneNumberInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams DependentPhoneNumberInstance records from the API with HTTP metadata captured per page.
@@ -128,15 +128,15 @@ export interface DependentPhoneNumberListInstance {
   eachWithHttpInfo(
     callback?: (
       item: DependentPhoneNumberInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: DependentPhoneNumberListInstanceEachOptions,
     callback?: (
       item: DependentPhoneNumberInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of DependentPhoneNumberInstance records from the API.
@@ -148,7 +148,7 @@ export interface DependentPhoneNumberListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any,
+    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any
   ): Promise<DependentPhoneNumberPage>;
   /**
    * Retrieve a single target page of DependentPhoneNumberInstance records from the API with HTTP metadata.
@@ -162,8 +162,8 @@ export interface DependentPhoneNumberListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentPhoneNumberPage>,
-    ) => any,
+      items: ApiResponse<DependentPhoneNumberPage>
+    ) => any
   ): Promise<ApiResponse<DependentPhoneNumberPage>>;
   /**
    * Lists DependentPhoneNumberInstance records from the API as a list.
@@ -177,15 +177,15 @@ export interface DependentPhoneNumberListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: DependentPhoneNumberInstance[],
-    ) => any,
+      items: DependentPhoneNumberInstance[]
+    ) => any
   ): Promise<DependentPhoneNumberInstance[]>;
   list(
     params: DependentPhoneNumberListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: DependentPhoneNumberInstance[],
-    ) => any,
+      items: DependentPhoneNumberInstance[]
+    ) => any
   ): Promise<DependentPhoneNumberInstance[]>;
   /**
    * Lists DependentPhoneNumberInstance records from the API as a list with HTTP metadata.
@@ -201,15 +201,15 @@ export interface DependentPhoneNumberListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentPhoneNumberInstance[]>,
-    ) => any,
+      items: ApiResponse<DependentPhoneNumberInstance[]>
+    ) => any
   ): Promise<ApiResponse<DependentPhoneNumberInstance[]>>;
   listWithHttpInfo(
     params: DependentPhoneNumberListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentPhoneNumberInstance[]>,
-    ) => any,
+      items: ApiResponse<DependentPhoneNumberInstance[]>
+    ) => any
   ): Promise<ApiResponse<DependentPhoneNumberInstance[]>>;
   /**
    * Retrieve a single page of DependentPhoneNumberInstance records from the API.
@@ -223,11 +223,11 @@ export interface DependentPhoneNumberListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any,
+    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any
   ): Promise<DependentPhoneNumberPage>;
   page(
     params: DependentPhoneNumberListInstancePageOptions,
-    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any,
+    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any
   ): Promise<DependentPhoneNumberPage>;
   /**
    * Retrieve a single page of DependentPhoneNumberInstance records from the API with HTTP metadata.
@@ -243,15 +243,15 @@ export interface DependentPhoneNumberListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentPhoneNumberPage>,
-    ) => any,
+      items: ApiResponse<DependentPhoneNumberPage>
+    ) => any
   ): Promise<ApiResponse<DependentPhoneNumberPage>>;
   pageWithHttpInfo(
     params: DependentPhoneNumberListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentPhoneNumberPage>,
-    ) => any,
+      items: ApiResponse<DependentPhoneNumberPage>
+    ) => any
   ): Promise<ApiResponse<DependentPhoneNumberPage>>;
 
   /**
@@ -264,7 +264,7 @@ export interface DependentPhoneNumberListInstance {
 export function DependentPhoneNumberListInstance(
   version: V2010,
   accountSid: string,
-  addressSid: string,
+  addressSid: string
 ): DependentPhoneNumberListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -284,7 +284,7 @@ export function DependentPhoneNumberListInstance(
     params?:
       | DependentPhoneNumberListInstancePageOptions
       | ((error: Error | null, items: DependentPhoneNumberPage) => any),
-    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any,
+    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any
   ): Promise<DependentPhoneNumberPage> {
     if (params instanceof Function) {
       callback = params;
@@ -316,13 +316,13 @@ export function DependentPhoneNumberListInstance(
         new DependentPhoneNumberPage(
           operationVersion,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -332,7 +332,7 @@ export function DependentPhoneNumberListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any,
+    callback?: (error: Error | null, items: DependentPhoneNumberPage) => any
   ): Promise<DependentPhoneNumberPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -343,8 +343,8 @@ export function DependentPhoneNumberListInstance(
         new DependentPhoneNumberPage(
           instance._version,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -355,12 +355,12 @@ export function DependentPhoneNumberListInstance(
       | DependentPhoneNumberListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<DependentPhoneNumberPage>,
+          items: ApiResponse<DependentPhoneNumberPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<DependentPhoneNumberPage>,
-    ) => any,
+      items: ApiResponse<DependentPhoneNumberPage>
+    ) => any
   ): Promise<ApiResponse<DependentPhoneNumberPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -391,13 +391,13 @@ export function DependentPhoneNumberListInstance(
         body: new DependentPhoneNumberPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -411,8 +411,8 @@ export function DependentPhoneNumberListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<DependentPhoneNumberPage>,
-    ) => any,
+      items?: ApiResponse<DependentPhoneNumberPage>
+    ) => any
   ): Promise<ApiResponse<DependentPhoneNumberPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -427,9 +427,9 @@ export function DependentPhoneNumberListInstance(
         body: new DependentPhoneNumberPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -441,7 +441,7 @@ export function DependentPhoneNumberListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -487,7 +487,7 @@ export class DependentPhoneNumberInstance {
     protected _version: V2010,
     payload: DependentPhoneNumberResource,
     accountSid: string,
-    addressSid: string,
+    addressSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -673,7 +673,7 @@ export class DependentPhoneNumberPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: DependentPhoneNumberSolution,
+    solution: DependentPhoneNumberSolution
   ) {
     super(version, response, solution);
   }
@@ -684,13 +684,13 @@ export class DependentPhoneNumberPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: DependentPhoneNumberResource,
+    payload: DependentPhoneNumberResource
   ): DependentPhoneNumberInstance {
     return new DependentPhoneNumberInstance(
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.addressSid,
+      this._solution.addressSid
     );
   }
 

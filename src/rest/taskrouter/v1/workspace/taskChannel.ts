@@ -89,7 +89,7 @@ export interface TaskChannelContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -100,7 +100,7 @@ export interface TaskChannelContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -111,7 +111,7 @@ export interface TaskChannelContext {
    * @returns Resolves to processed TaskChannelInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance>;
 
   /**
@@ -124,8 +124,8 @@ export interface TaskChannelContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskChannelInstance>,
-    ) => any,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance>>;
 
   /**
@@ -136,7 +136,7 @@ export interface TaskChannelContext {
    * @returns Resolves to processed TaskChannelInstance
    */
   update(
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance>;
   /**
    * Update a TaskChannelInstance
@@ -148,7 +148,7 @@ export interface TaskChannelContext {
    */
   update(
     params: TaskChannelContextUpdateOptions,
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance>;
 
   /**
@@ -161,8 +161,8 @@ export interface TaskChannelContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskChannelInstance>,
-    ) => any,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance>>;
   /**
    * Update a TaskChannelInstance and return HTTP info
@@ -176,8 +176,8 @@ export interface TaskChannelContext {
     params: TaskChannelContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskChannelInstance>,
-    ) => any,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance>>;
 
   /**
@@ -199,7 +199,7 @@ export class TaskChannelContextImpl implements TaskChannelContext {
   constructor(
     protected _version: V1,
     workspaceSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -214,7 +214,7 @@ export class TaskChannelContextImpl implements TaskChannelContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -228,13 +228,13 @@ export class TaskChannelContextImpl implements TaskChannelContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -250,13 +250,13 @@ export class TaskChannelContextImpl implements TaskChannelContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -275,13 +275,13 @@ export class TaskChannelContextImpl implements TaskChannelContext {
           operationVersion,
           payload,
           instance._solution.workspaceSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -289,8 +289,8 @@ export class TaskChannelContextImpl implements TaskChannelContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskChannelInstance>,
-    ) => any,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -310,13 +310,13 @@ export class TaskChannelContextImpl implements TaskChannelContext {
           operationVersion,
           response.body,
           instance._solution.workspaceSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -325,7 +325,7 @@ export class TaskChannelContextImpl implements TaskChannelContext {
     params?:
       | TaskChannelContextUpdateOptions
       | ((error: Error | null, item?: TaskChannelInstance) => any),
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -340,7 +340,7 @@ export class TaskChannelContextImpl implements TaskChannelContext {
       data["FriendlyName"] = params["friendlyName"];
     if (params["channelOptimizedRouting"] !== undefined)
       data["ChannelOptimizedRouting"] = serialize.bool(
-        params["channelOptimizedRouting"],
+        params["channelOptimizedRouting"]
       );
 
     const headers: any = {};
@@ -362,13 +362,13 @@ export class TaskChannelContextImpl implements TaskChannelContext {
           operationVersion,
           payload,
           instance._solution.workspaceSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -379,8 +379,8 @@ export class TaskChannelContextImpl implements TaskChannelContext {
       | ((error: Error | null, item?: ApiResponse<TaskChannelInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskChannelInstance>,
-    ) => any,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -395,7 +395,7 @@ export class TaskChannelContextImpl implements TaskChannelContext {
       data["FriendlyName"] = params["friendlyName"];
     if (params["channelOptimizedRouting"] !== undefined)
       data["ChannelOptimizedRouting"] = serialize.bool(
-        params["channelOptimizedRouting"],
+        params["channelOptimizedRouting"]
       );
 
     const headers: any = {};
@@ -418,13 +418,13 @@ export class TaskChannelContextImpl implements TaskChannelContext {
           operationVersion,
           response.body,
           instance._solution.workspaceSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -468,7 +468,7 @@ export class TaskChannelInstance {
     protected _version: V1,
     payload: TaskChannelResource,
     workspaceSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -531,7 +531,7 @@ export class TaskChannelInstance {
       new TaskChannelContextImpl(
         this._version,
         this._solution.workspaceSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -544,7 +544,7 @@ export class TaskChannelInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -557,7 +557,7 @@ export class TaskChannelInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -570,7 +570,7 @@ export class TaskChannelInstance {
    * @returns Resolves to processed TaskChannelInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
     return this._proxy.fetch(callback);
   }
@@ -585,8 +585,8 @@ export class TaskChannelInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskChannelInstance>,
-    ) => any,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -599,7 +599,7 @@ export class TaskChannelInstance {
    * @returns Resolves to processed TaskChannelInstance
    */
   update(
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance>;
   /**
    * Update a TaskChannelInstance
@@ -611,12 +611,12 @@ export class TaskChannelInstance {
    */
   update(
     params: TaskChannelContextUpdateOptions,
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
     return this._proxy.update(params, callback);
   }
@@ -631,8 +631,8 @@ export class TaskChannelInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskChannelInstance>,
-    ) => any,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance>>;
   /**
    * Update a TaskChannelInstance and return HTTP info
@@ -646,16 +646,16 @@ export class TaskChannelInstance {
     params: TaskChannelContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskChannelInstance>,
-    ) => any,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskChannelInstance>,
-    ) => any,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -707,7 +707,7 @@ export interface TaskChannelListInstance {
    */
   create(
     params: TaskChannelListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TaskChannelInstance) => any,
+    callback?: (error: Error | null, item?: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance>;
 
   /**
@@ -722,8 +722,8 @@ export interface TaskChannelListInstance {
     params: TaskChannelListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskChannelInstance>,
-    ) => any,
+      item?: ApiResponse<TaskChannelInstance>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance>>;
 
   /**
@@ -742,11 +742,11 @@ export interface TaskChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: TaskChannelListInstanceEachOptions,
-    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams TaskChannelInstance records from the API with HTTP metadata captured per page.
@@ -764,11 +764,11 @@ export interface TaskChannelListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: TaskChannelListInstanceEachOptions,
-    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of TaskChannelInstance records from the API.
@@ -780,7 +780,7 @@ export interface TaskChannelListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TaskChannelPage) => any,
+    callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage>;
   /**
    * Retrieve a single target page of TaskChannelInstance records from the API with HTTP metadata.
@@ -792,10 +792,7 @@ export interface TaskChannelListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TaskChannelPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<TaskChannelPage>) => any
   ): Promise<ApiResponse<TaskChannelPage>>;
   /**
    * Lists TaskChannelInstance records from the API as a list.
@@ -807,11 +804,11 @@ export interface TaskChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: TaskChannelInstance[]) => any,
+    callback?: (error: Error | null, items: TaskChannelInstance[]) => any
   ): Promise<TaskChannelInstance[]>;
   list(
     params: TaskChannelListInstanceOptions,
-    callback?: (error: Error | null, items: TaskChannelInstance[]) => any,
+    callback?: (error: Error | null, items: TaskChannelInstance[]) => any
   ): Promise<TaskChannelInstance[]>;
   /**
    * Lists TaskChannelInstance records from the API as a list with HTTP metadata.
@@ -827,15 +824,15 @@ export interface TaskChannelListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TaskChannelInstance[]>,
-    ) => any,
+      items: ApiResponse<TaskChannelInstance[]>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance[]>>;
   listWithHttpInfo(
     params: TaskChannelListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TaskChannelInstance[]>,
-    ) => any,
+      items: ApiResponse<TaskChannelInstance[]>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance[]>>;
   /**
    * Retrieve a single page of TaskChannelInstance records from the API.
@@ -849,11 +846,11 @@ export interface TaskChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: TaskChannelPage) => any,
+    callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage>;
   page(
     params: TaskChannelListInstancePageOptions,
-    callback?: (error: Error | null, items: TaskChannelPage) => any,
+    callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage>;
   /**
    * Retrieve a single page of TaskChannelInstance records from the API with HTTP metadata.
@@ -867,17 +864,11 @@ export interface TaskChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TaskChannelPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<TaskChannelPage>) => any
   ): Promise<ApiResponse<TaskChannelPage>>;
   pageWithHttpInfo(
     params: TaskChannelListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TaskChannelPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<TaskChannelPage>) => any
   ): Promise<ApiResponse<TaskChannelPage>>;
 
   /**
@@ -889,7 +880,7 @@ export interface TaskChannelListInstance {
 
 export function TaskChannelListInstance(
   version: V1,
-  workspaceSid: string,
+  workspaceSid: string
 ): TaskChannelListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -907,7 +898,7 @@ export function TaskChannelListInstance(
 
   instance.create = function create(
     params: TaskChannelListInstanceCreateOptions,
-    callback?: (error: Error | null, items: TaskChannelInstance) => any,
+    callback?: (error: Error | null, items: TaskChannelInstance) => any
   ): Promise<TaskChannelInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -931,7 +922,7 @@ export function TaskChannelListInstance(
     data["UniqueName"] = params["uniqueName"];
     if (params["channelOptimizedRouting"] !== undefined)
       data["ChannelOptimizedRouting"] = serialize.bool(
-        params["channelOptimizedRouting"],
+        params["channelOptimizedRouting"]
       );
 
     const headers: any = {};
@@ -951,13 +942,13 @@ export function TaskChannelListInstance(
         new TaskChannelInstance(
           operationVersion,
           payload,
-          instance._solution.workspaceSid,
-        ),
+          instance._solution.workspaceSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -966,8 +957,8 @@ export function TaskChannelListInstance(
     params: TaskChannelListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TaskChannelInstance>,
-    ) => any,
+      items: ApiResponse<TaskChannelInstance>
+    ) => any
   ): Promise<ApiResponse<TaskChannelInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -991,7 +982,7 @@ export function TaskChannelListInstance(
     data["UniqueName"] = params["uniqueName"];
     if (params["channelOptimizedRouting"] !== undefined)
       data["ChannelOptimizedRouting"] = serialize.bool(
-        params["channelOptimizedRouting"],
+        params["channelOptimizedRouting"]
       );
 
     const headers: any = {};
@@ -1012,13 +1003,13 @@ export function TaskChannelListInstance(
         body: new TaskChannelInstance(
           operationVersion,
           response.body,
-          instance._solution.workspaceSid,
+          instance._solution.workspaceSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1027,7 +1018,7 @@ export function TaskChannelListInstance(
     params?:
       | TaskChannelListInstancePageOptions
       | ((error: Error | null, items: TaskChannelPage) => any),
-    callback?: (error: Error | null, items: TaskChannelPage) => any,
+    callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1056,12 +1047,12 @@ export function TaskChannelListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TaskChannelPage(operationVersion, payload, instance._solution),
+        new TaskChannelPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1071,7 +1062,7 @@ export function TaskChannelListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TaskChannelPage) => any,
+    callback?: (error: Error | null, items: TaskChannelPage) => any
   ): Promise<TaskChannelPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1079,7 +1070,7 @@ export function TaskChannelListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new TaskChannelPage(instance._version, payload, instance._solution),
+        new TaskChannelPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1089,10 +1080,7 @@ export function TaskChannelListInstance(
     params?:
       | TaskChannelListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<TaskChannelPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TaskChannelPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<TaskChannelPage>) => any
   ): Promise<ApiResponse<TaskChannelPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1123,13 +1111,13 @@ export function TaskChannelListInstance(
         body: new TaskChannelPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1143,8 +1131,8 @@ export function TaskChannelListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<TaskChannelPage>,
-    ) => any,
+      items?: ApiResponse<TaskChannelPage>
+    ) => any
   ): Promise<ApiResponse<TaskChannelPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1159,9 +1147,9 @@ export function TaskChannelListInstance(
         body: new TaskChannelPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1173,7 +1161,7 @@ export function TaskChannelListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1197,7 +1185,7 @@ export class TaskChannelPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: TaskChannelSolution,
+    solution: TaskChannelSolution
   ) {
     super(version, response, solution);
   }
@@ -1211,7 +1199,7 @@ export class TaskChannelPage extends Page<
     return new TaskChannelInstance(
       this._version,
       payload,
-      this._solution.workspaceSid,
+      this._solution.workspaceSid
     );
   }
 

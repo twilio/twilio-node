@@ -67,7 +67,7 @@ export interface NumberContext {
    * @returns Resolves to processed NumberInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any,
+    callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance>;
   /**
    * Fetch a NumberInstance
@@ -79,7 +79,7 @@ export interface NumberContext {
    */
   fetch(
     params: NumberContextFetchOptions,
-    callback?: (error: Error | null, item?: NumberInstance) => any,
+    callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance>;
 
   /**
@@ -90,7 +90,7 @@ export interface NumberContext {
    * @returns Resolves to processed NumberInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
   ): Promise<ApiResponse<NumberInstance>>;
   /**
    * Fetch a NumberInstance and return HTTP info
@@ -102,7 +102,7 @@ export interface NumberContext {
    */
   fetchWithHttpInfo(
     params: NumberContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
   ): Promise<ApiResponse<NumberInstance>>;
 
   /**
@@ -122,7 +122,7 @@ export class NumberContextImpl implements NumberContext {
 
   constructor(
     protected _version: V2,
-    destinationNumber: string,
+    destinationNumber: string
   ) {
     if (!isValidPathParam(destinationNumber)) {
       throw new Error("Parameter 'destinationNumber' is not valid.");
@@ -136,7 +136,7 @@ export class NumberContextImpl implements NumberContext {
     params?:
       | NumberContextFetchOptions
       | ((error: Error | null, item?: NumberInstance) => any),
-    callback?: (error: Error | null, item?: NumberInstance) => any,
+    callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -167,13 +167,13 @@ export class NumberContextImpl implements NumberContext {
         new NumberInstance(
           operationVersion,
           payload,
-          instance._solution.destinationNumber,
-        ),
+          instance._solution.destinationNumber
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -182,7 +182,7 @@ export class NumberContextImpl implements NumberContext {
     params?:
       | NumberContextFetchOptions
       | ((error: Error | null, item?: ApiResponse<NumberInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
   ): Promise<ApiResponse<NumberInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -214,13 +214,13 @@ export class NumberContextImpl implements NumberContext {
         body: new NumberInstance(
           operationVersion,
           response.body,
-          instance._solution.destinationNumber,
+          instance._solution.destinationNumber
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -259,7 +259,7 @@ export class NumberInstance {
   constructor(
     protected _version: V2,
     payload: NumberResource,
-    destinationNumber?: string,
+    destinationNumber?: string
   ) {
     this.destinationNumber = payload.destination_number;
     this.originationNumber = payload.origination_number;
@@ -271,15 +271,15 @@ export class NumberInstance {
         ? payload.terminating_prefix_prices.map(
             (payload: any) =>
               new PricingV2TrunkingCountryInstanceTerminatingPrefixPrices(
-                payload,
-              ),
+                payload
+              )
           )
         : null;
     this.originatingCallPrice =
       payload.originating_call_price !== null &&
       payload.originating_call_price !== undefined
         ? new PricingV2TrunkingNumberOriginatingCallPrice(
-            payload.originating_call_price,
+            payload.originating_call_price
           )
         : null;
     this.priceUnit = payload.price_unit;
@@ -330,7 +330,7 @@ export class NumberInstance {
    * @returns Resolves to processed NumberInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: NumberInstance) => any,
+    callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance>;
   /**
    * Fetch a NumberInstance
@@ -342,12 +342,12 @@ export class NumberInstance {
    */
   fetch(
     params: NumberContextFetchOptions,
-    callback?: (error: Error | null, item?: NumberInstance) => any,
+    callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: NumberInstance) => any,
+    callback?: (error: Error | null, item?: NumberInstance) => any
   ): Promise<NumberInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -360,7 +360,7 @@ export class NumberInstance {
    * @returns Resolves to processed NumberInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
   ): Promise<ApiResponse<NumberInstance>>;
   /**
    * Fetch a NumberInstance and return HTTP info
@@ -372,12 +372,12 @@ export class NumberInstance {
    */
   fetchWithHttpInfo(
     params: NumberContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
   ): Promise<ApiResponse<NumberInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<NumberInstance>) => any
   ): Promise<ApiResponse<NumberInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -440,7 +440,7 @@ export function NumberListInstance(version: V2): NumberListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

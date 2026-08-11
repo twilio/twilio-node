@@ -127,7 +127,7 @@ export interface TriggerContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -138,7 +138,7 @@ export interface TriggerContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -149,7 +149,7 @@ export interface TriggerContext {
    * @returns Resolves to processed TriggerInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TriggerInstance) => any,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance>;
 
   /**
@@ -160,10 +160,7 @@ export interface TriggerContext {
    * @returns Resolves to processed TriggerInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TriggerInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TriggerInstance>) => any
   ): Promise<ApiResponse<TriggerInstance>>;
 
   /**
@@ -174,7 +171,7 @@ export interface TriggerContext {
    * @returns Resolves to processed TriggerInstance
    */
   update(
-    callback?: (error: Error | null, item?: TriggerInstance) => any,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance>;
   /**
    * Update a TriggerInstance
@@ -186,7 +183,7 @@ export interface TriggerContext {
    */
   update(
     params: TriggerContextUpdateOptions,
-    callback?: (error: Error | null, item?: TriggerInstance) => any,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance>;
 
   /**
@@ -197,10 +194,7 @@ export interface TriggerContext {
    * @returns Resolves to processed TriggerInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TriggerInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TriggerInstance>) => any
   ): Promise<ApiResponse<TriggerInstance>>;
   /**
    * Update a TriggerInstance and return HTTP info
@@ -212,10 +206,7 @@ export interface TriggerContext {
    */
   updateWithHttpInfo(
     params: TriggerContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TriggerInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TriggerInstance>) => any
   ): Promise<ApiResponse<TriggerInstance>>;
 
   /**
@@ -237,7 +228,7 @@ export class TriggerContextImpl implements TriggerContext {
   constructor(
     protected _version: V2010,
     accountSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -252,7 +243,7 @@ export class TriggerContextImpl implements TriggerContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -266,13 +257,13 @@ export class TriggerContextImpl implements TriggerContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -288,13 +279,13 @@ export class TriggerContextImpl implements TriggerContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: TriggerInstance) => any,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -313,22 +304,19 @@ export class TriggerContextImpl implements TriggerContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TriggerInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TriggerInstance>) => any
   ): Promise<ApiResponse<TriggerInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -348,13 +336,13 @@ export class TriggerContextImpl implements TriggerContext {
           operationVersion,
           response.body,
           instance._solution.accountSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -363,7 +351,7 @@ export class TriggerContextImpl implements TriggerContext {
     params?:
       | TriggerContextUpdateOptions
       | ((error: Error | null, item?: TriggerInstance) => any),
-    callback?: (error: Error | null, item?: TriggerInstance) => any,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -400,13 +388,13 @@ export class TriggerContextImpl implements TriggerContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -415,10 +403,7 @@ export class TriggerContextImpl implements TriggerContext {
     params?:
       | TriggerContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<TriggerInstance>) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TriggerInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TriggerInstance>) => any
   ): Promise<ApiResponse<TriggerInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -456,13 +441,13 @@ export class TriggerContextImpl implements TriggerContext {
           operationVersion,
           response.body,
           instance._solution.accountSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -512,7 +497,7 @@ export class TriggerInstance {
     protected _version: V2010,
     payload: TriggerResource,
     accountSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -599,7 +584,7 @@ export class TriggerInstance {
       new TriggerContextImpl(
         this._version,
         this._solution.accountSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -612,7 +597,7 @@ export class TriggerInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -625,7 +610,7 @@ export class TriggerInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -638,7 +623,7 @@ export class TriggerInstance {
    * @returns Resolves to processed TriggerInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TriggerInstance) => any,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance> {
     return this._proxy.fetch(callback);
   }
@@ -651,10 +636,7 @@ export class TriggerInstance {
    * @returns Resolves to processed TriggerInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TriggerInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TriggerInstance>) => any
   ): Promise<ApiResponse<TriggerInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -667,7 +649,7 @@ export class TriggerInstance {
    * @returns Resolves to processed TriggerInstance
    */
   update(
-    callback?: (error: Error | null, item?: TriggerInstance) => any,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance>;
   /**
    * Update a TriggerInstance
@@ -679,12 +661,12 @@ export class TriggerInstance {
    */
   update(
     params: TriggerContextUpdateOptions,
-    callback?: (error: Error | null, item?: TriggerInstance) => any,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: TriggerInstance) => any,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance> {
     return this._proxy.update(params, callback);
   }
@@ -697,10 +679,7 @@ export class TriggerInstance {
    * @returns Resolves to processed TriggerInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TriggerInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TriggerInstance>) => any
   ): Promise<ApiResponse<TriggerInstance>>;
   /**
    * Update a TriggerInstance and return HTTP info
@@ -712,18 +691,12 @@ export class TriggerInstance {
    */
   updateWithHttpInfo(
     params: TriggerContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TriggerInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TriggerInstance>) => any
   ): Promise<ApiResponse<TriggerInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TriggerInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TriggerInstance>) => any
   ): Promise<ApiResponse<TriggerInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -781,7 +754,7 @@ export interface TriggerListInstance {
    */
   create(
     params: TriggerListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TriggerInstance) => any,
+    callback?: (error: Error | null, item?: TriggerInstance) => any
   ): Promise<TriggerInstance>;
 
   /**
@@ -794,10 +767,7 @@ export interface TriggerListInstance {
    */
   createWithHttpInfo(
     params: TriggerListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TriggerInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TriggerInstance>) => any
   ): Promise<ApiResponse<TriggerInstance>>;
 
   /**
@@ -816,11 +786,11 @@ export interface TriggerListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: TriggerInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TriggerInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: TriggerListInstanceEachOptions,
-    callback?: (item: TriggerInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TriggerInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams TriggerInstance records from the API with HTTP metadata captured per page.
@@ -838,11 +808,11 @@ export interface TriggerListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: TriggerInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TriggerInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: TriggerListInstanceEachOptions,
-    callback?: (item: TriggerInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TriggerInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of TriggerInstance records from the API.
@@ -854,7 +824,7 @@ export interface TriggerListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TriggerPage) => any,
+    callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage>;
   /**
    * Retrieve a single target page of TriggerInstance records from the API with HTTP metadata.
@@ -866,7 +836,7 @@ export interface TriggerListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<TriggerPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TriggerPage>) => any
   ): Promise<ApiResponse<TriggerPage>>;
   /**
    * Lists TriggerInstance records from the API as a list.
@@ -878,11 +848,11 @@ export interface TriggerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: TriggerInstance[]) => any,
+    callback?: (error: Error | null, items: TriggerInstance[]) => any
   ): Promise<TriggerInstance[]>;
   list(
     params: TriggerListInstanceOptions,
-    callback?: (error: Error | null, items: TriggerInstance[]) => any,
+    callback?: (error: Error | null, items: TriggerInstance[]) => any
   ): Promise<TriggerInstance[]>;
   /**
    * Lists TriggerInstance records from the API as a list with HTTP metadata.
@@ -898,15 +868,15 @@ export interface TriggerListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TriggerInstance[]>,
-    ) => any,
+      items: ApiResponse<TriggerInstance[]>
+    ) => any
   ): Promise<ApiResponse<TriggerInstance[]>>;
   listWithHttpInfo(
     params: TriggerListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TriggerInstance[]>,
-    ) => any,
+      items: ApiResponse<TriggerInstance[]>
+    ) => any
   ): Promise<ApiResponse<TriggerInstance[]>>;
   /**
    * Retrieve a single page of TriggerInstance records from the API.
@@ -920,11 +890,11 @@ export interface TriggerListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: TriggerPage) => any,
+    callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage>;
   page(
     params: TriggerListInstancePageOptions,
-    callback?: (error: Error | null, items: TriggerPage) => any,
+    callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage>;
   /**
    * Retrieve a single page of TriggerInstance records from the API with HTTP metadata.
@@ -938,11 +908,11 @@ export interface TriggerListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<TriggerPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TriggerPage>) => any
   ): Promise<ApiResponse<TriggerPage>>;
   pageWithHttpInfo(
     params: TriggerListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<TriggerPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TriggerPage>) => any
   ): Promise<ApiResponse<TriggerPage>>;
 
   /**
@@ -954,7 +924,7 @@ export interface TriggerListInstance {
 
 export function TriggerListInstance(
   version: V2010,
-  accountSid: string,
+  accountSid: string
 ): TriggerListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -972,7 +942,7 @@ export function TriggerListInstance(
 
   instance.create = function create(
     params: TriggerListInstanceCreateOptions,
-    callback?: (error: Error | null, items: TriggerInstance) => any,
+    callback?: (error: Error | null, items: TriggerInstance) => any
   ): Promise<TriggerInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -994,7 +964,7 @@ export function TriggerListInstance(
       params["usageCategory"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['usageCategory']\" missing.",
+        "Required parameter \"params['usageCategory']\" missing."
       );
     }
 
@@ -1031,23 +1001,20 @@ export function TriggerListInstance(
         new TriggerInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid,
-        ),
+          instance._solution.accountSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: TriggerListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TriggerInstance>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<TriggerInstance>) => any
   ): Promise<ApiResponse<TriggerInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1069,7 +1036,7 @@ export function TriggerListInstance(
       params["usageCategory"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['usageCategory']\" missing.",
+        "Required parameter \"params['usageCategory']\" missing."
       );
     }
 
@@ -1107,13 +1074,13 @@ export function TriggerListInstance(
         body: new TriggerInstance(
           operationVersion,
           response.body,
-          instance._solution.accountSid,
+          instance._solution.accountSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1122,7 +1089,7 @@ export function TriggerListInstance(
     params?:
       | TriggerListInstancePageOptions
       | ((error: Error | null, items: TriggerPage) => any),
-    callback?: (error: Error | null, items: TriggerPage) => any,
+    callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1157,12 +1124,12 @@ export function TriggerListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TriggerPage(operationVersion, payload, instance._solution),
+        new TriggerPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1172,7 +1139,7 @@ export function TriggerListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TriggerPage) => any,
+    callback?: (error: Error | null, items: TriggerPage) => any
   ): Promise<TriggerPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1180,7 +1147,7 @@ export function TriggerListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new TriggerPage(instance._version, payload, instance._solution),
+        new TriggerPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1190,7 +1157,7 @@ export function TriggerListInstance(
     params?:
       | TriggerListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<TriggerPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<TriggerPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TriggerPage>) => any
   ): Promise<ApiResponse<TriggerPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1229,7 +1196,7 @@ export function TriggerListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1241,7 +1208,7 @@ export function TriggerListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<TriggerPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<TriggerPage>) => any
   ): Promise<ApiResponse<TriggerPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1254,7 +1221,7 @@ export function TriggerListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new TriggerPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1266,7 +1233,7 @@ export function TriggerListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1290,7 +1257,7 @@ export class TriggerPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: TriggerSolution,
+    solution: TriggerSolution
   ) {
     super(version, response, solution);
   }
@@ -1304,7 +1271,7 @@ export class TriggerPage extends Page<
     return new TriggerInstance(
       this._version,
       payload,
-      this._solution.accountSid,
+      this._solution.accountSid
     );
   }
 

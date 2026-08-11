@@ -144,7 +144,7 @@ export interface StoreContext {
    * @returns Resolves to processed StoreInstance
    */
   remove(
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance>;
 
   /**
@@ -155,7 +155,7 @@ export interface StoreContext {
    * @returns Resolves to processed StoreInstance with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>>;
 
   /**
@@ -166,7 +166,7 @@ export interface StoreContext {
    * @returns Resolves to processed StoreInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance>;
 
   /**
@@ -177,7 +177,7 @@ export interface StoreContext {
    * @returns Resolves to processed StoreInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>>;
 
   /**
@@ -188,7 +188,7 @@ export interface StoreContext {
    * @returns Resolves to processed StoreInstance
    */
   patch(
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance>;
   /**
    * Patch a StoreInstance
@@ -202,7 +202,7 @@ export interface StoreContext {
   patch(
     params: PatchStoreRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance>;
 
   /**
@@ -213,7 +213,7 @@ export interface StoreContext {
    * @returns Resolves to processed StoreInstance with HTTP metadata
    */
   patchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>>;
   /**
    * Patch a StoreInstance and return HTTP info
@@ -227,7 +227,7 @@ export interface StoreContext {
   patchWithHttpInfo(
     params: PatchStoreRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>>;
 
   /**
@@ -247,7 +247,7 @@ export class StoreContextImpl implements StoreContext {
 
   constructor(
     protected _version: V1,
-    storeId: string,
+    storeId: string
   ) {
     if (!isValidPathParam(storeId)) {
       throw new Error("Parameter 'storeId' is not valid.");
@@ -258,7 +258,7 @@ export class StoreContextImpl implements StoreContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -273,22 +273,18 @@ export class StoreContextImpl implements StoreContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new StoreInstance(
-          operationVersion,
-          payload,
-          instance._solution.storeId,
-        ),
+        new StoreInstance(operationVersion, payload, instance._solution.storeId)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -307,19 +303,19 @@ export class StoreContextImpl implements StoreContext {
         body: new StoreInstance(
           operationVersion,
           response.body,
-          instance._solution.storeId,
+          instance._solution.storeId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -334,22 +330,18 @@ export class StoreContextImpl implements StoreContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new StoreInstance(
-          operationVersion,
-          payload,
-          instance._solution.storeId,
-        ),
+        new StoreInstance(operationVersion, payload, instance._solution.storeId)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -368,13 +360,13 @@ export class StoreContextImpl implements StoreContext {
         body: new StoreInstance(
           operationVersion,
           response.body,
-          instance._solution.storeId,
+          instance._solution.storeId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -383,7 +375,7 @@ export class StoreContextImpl implements StoreContext {
     params?:
       PatchStoreRequest | ((error: Error | null, item?: StoreInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -415,16 +407,12 @@ export class StoreContextImpl implements StoreContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new StoreInstance(
-          operationVersion,
-          payload,
-          instance._solution.storeId,
-        ),
+        new StoreInstance(operationVersion, payload, instance._solution.storeId)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -434,7 +422,7 @@ export class StoreContextImpl implements StoreContext {
       | PatchStoreRequest
       | ((error: Error | null, item?: ApiResponse<StoreInstance>) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -470,13 +458,13 @@ export class StoreContextImpl implements StoreContext {
         body: new StoreInstance(
           operationVersion,
           response.body,
-          instance._solution.storeId,
+          instance._solution.storeId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -585,7 +573,7 @@ export class StoreInstance {
   constructor(
     protected _version: V1,
     _payload: StoreResource,
-    storeId?: string,
+    storeId?: string
   ) {
     const payload: any = _payload;
     this.message = payload.message;
@@ -655,7 +643,7 @@ export class StoreInstance {
    * @returns Resolves to processed StoreInstance
    */
   remove(
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance> {
     return this._proxy.remove(callback);
   }
@@ -668,7 +656,7 @@ export class StoreInstance {
    * @returns Resolves to processed StoreInstance with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -681,7 +669,7 @@ export class StoreInstance {
    * @returns Resolves to processed StoreInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance> {
     return this._proxy.fetch(callback);
   }
@@ -694,7 +682,7 @@ export class StoreInstance {
    * @returns Resolves to processed StoreInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -707,7 +695,7 @@ export class StoreInstance {
    * @returns Resolves to processed StoreInstance
    */
   patch(
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance>;
   /**
    * Patch a StoreInstance
@@ -721,12 +709,12 @@ export class StoreInstance {
   patch(
     params: PatchStoreRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance>;
 
   patch(
     params?: any,
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance> {
     return this._proxy.patch(params, callback);
   }
@@ -739,7 +727,7 @@ export class StoreInstance {
    * @returns Resolves to processed StoreInstance with HTTP metadata
    */
   patchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>>;
   /**
    * Patch a StoreInstance and return HTTP info
@@ -753,12 +741,12 @@ export class StoreInstance {
   patchWithHttpInfo(
     params: PatchStoreRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>>;
 
   patchWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>> {
     return this._proxy.patchWithHttpInfo(params, callback);
   }
@@ -810,7 +798,7 @@ export interface StoreListInstance {
   create(
     params: ServiceRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: StoreInstance) => any,
+    callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance>;
 
   /**
@@ -825,7 +813,7 @@ export interface StoreListInstance {
   createWithHttpInfo(
     params: ServiceRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>>;
 
   /**
@@ -846,7 +834,7 @@ export interface StoreListInstance {
   each(callback?: (item: string, done: (err?: Error) => void) => void): void;
   each(
     params: StoreListInstanceEachOptions,
-    callback?: (item: string, done: (err?: Error) => void) => void,
+    callback?: (item: string, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams StoreInstance records from the API with HTTP metadata captured per page.
@@ -864,11 +852,11 @@ export interface StoreListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: string, done: (err?: Error) => void) => void,
+    callback?: (item: string, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: StoreListInstanceEachOptions,
-    callback?: (item: string, done: (err?: Error) => void) => void,
+    callback?: (item: string, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of StoreInstance records from the API.
@@ -880,7 +868,7 @@ export interface StoreListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: StorePage) => any,
+    callback?: (error: Error | null, items: StorePage) => any
   ): Promise<StorePage>;
   /**
    * Retrieve a single target page of StoreInstance records from the API with HTTP metadata.
@@ -892,7 +880,7 @@ export interface StoreListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<StorePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<StorePage>) => any
   ): Promise<ApiResponse<StorePage>>;
   /**
    * Lists StoreInstance records from the API as a list.
@@ -904,11 +892,11 @@ export interface StoreListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: string[]) => any,
+    callback?: (error: Error | null, items: string[]) => any
   ): Promise<string[]>;
   list(
     params: StoreListInstanceOptions,
-    callback?: (error: Error | null, items: string[]) => any,
+    callback?: (error: Error | null, items: string[]) => any
   ): Promise<string[]>;
   /**
    * Lists StoreInstance records from the API as a list with HTTP metadata.
@@ -922,11 +910,11 @@ export interface StoreListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<string[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any
   ): Promise<ApiResponse<string[]>>;
   listWithHttpInfo(
     params: StoreListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<string[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any
   ): Promise<ApiResponse<string[]>>;
   /**
    * Retrieve a single page of StoreInstance records from the API.
@@ -940,11 +928,11 @@ export interface StoreListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: StorePage) => any,
+    callback?: (error: Error | null, items: StorePage) => any
   ): Promise<StorePage>;
   page(
     params: StoreListInstancePageOptions,
-    callback?: (error: Error | null, items: StorePage) => any,
+    callback?: (error: Error | null, items: StorePage) => any
   ): Promise<StorePage>;
   /**
    * Retrieve a single page of StoreInstance records from the API with HTTP metadata.
@@ -958,11 +946,11 @@ export interface StoreListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<StorePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<StorePage>) => any
   ): Promise<ApiResponse<StorePage>>;
   pageWithHttpInfo(
     params: StoreListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<StorePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<StorePage>) => any
   ): Promise<ApiResponse<StorePage>>;
 
   /**
@@ -986,7 +974,7 @@ export function StoreListInstance(version: V1): StoreListInstance {
   instance.create = function create(
     params: ServiceRequest,
     headers?: any,
-    callback?: (error: Error | null, items: StoreInstance) => any,
+    callback?: (error: Error | null, items: StoreInstance) => any
   ): Promise<StoreInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1012,12 +1000,12 @@ export function StoreListInstance(version: V1): StoreListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new StoreInstance(operationVersion, payload),
+      (payload) => new StoreInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1025,7 +1013,7 @@ export function StoreListInstance(version: V1): StoreListInstance {
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: ServiceRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<StoreInstance>) => any,
+    callback?: (error: Error | null, items: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1058,7 +1046,7 @@ export function StoreListInstance(version: V1): StoreListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1067,7 +1055,7 @@ export function StoreListInstance(version: V1): StoreListInstance {
     params?:
       | StoreListInstancePageOptions
       | ((error: Error | null, items: StorePage) => any),
-    callback?: (error: Error | null, items: StorePage) => any,
+    callback?: (error: Error | null, items: StorePage) => any
   ): Promise<StorePage> {
     if (params instanceof Function) {
       callback = params;
@@ -1101,13 +1089,13 @@ export function StoreListInstance(version: V1): StoreListInstance {
           payload,
           instance._uri,
           data,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1115,7 +1103,7 @@ export function StoreListInstance(version: V1): StoreListInstance {
 
   instance.list = function list(
     params?: any,
-    callback?: (error: Error | null, items: string[]) => any,
+    callback?: (error: Error | null, items: string[]) => any
   ): Promise<string[]> {
     if (params instanceof Function) {
       callback = params;
@@ -1152,7 +1140,7 @@ export function StoreListInstance(version: V1): StoreListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: StorePage) => any,
+    callback?: (error: Error | null, items: StorePage) => any
   ): Promise<StorePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1165,8 +1153,8 @@ export function StoreListInstance(version: V1): StoreListInstance {
           payload,
           instance._uri,
           {},
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1176,7 +1164,7 @@ export function StoreListInstance(version: V1): StoreListInstance {
     params?:
       | StoreListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<StorePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<StorePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<StorePage>) => any
   ): Promise<ApiResponse<StorePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1209,13 +1197,13 @@ export function StoreListInstance(version: V1): StoreListInstance {
           response,
           instance._uri,
           data,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1224,7 +1212,7 @@ export function StoreListInstance(version: V1): StoreListInstance {
 
   instance.listWithHttpInfo = function listWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, items: ApiResponse<string[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any
   ): Promise<ApiResponse<string[]>> {
     if (params instanceof Function) {
       callback = params;
@@ -1236,7 +1224,7 @@ export function StoreListInstance(version: V1): StoreListInstance {
     let lastResponse: any;
 
     function fetchNextPage(
-      nextPageParams: any,
+      nextPageParams: any
     ): Promise<ApiResponse<string[]>> {
       return instance
         .pageWithHttpInfo(nextPageParams)
@@ -1278,7 +1266,7 @@ export function StoreListInstance(version: V1): StoreListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<StorePage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<StorePage>) => any
   ): Promise<ApiResponse<StorePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1295,9 +1283,9 @@ export function StoreListInstance(version: V1): StoreListInstance {
           response,
           instance._uri,
           {},
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1309,7 +1297,7 @@ export function StoreListInstance(version: V1): StoreListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1337,7 +1325,7 @@ export class StorePage extends TokenPage<
     response: Response<string>,
     uri: string,
     params: any,
-    solution: StoreSolution,
+    solution: StoreSolution
   ) {
     super(version, response, uri, params, solution);
   }

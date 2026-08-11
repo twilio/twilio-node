@@ -140,7 +140,7 @@ export interface ProfileContext {
    * @returns Resolves to processed ProfileInstance
    */
   remove(
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance>;
 
   /**
@@ -151,10 +151,7 @@ export interface ProfileContext {
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>>;
 
   /**
@@ -165,7 +162,7 @@ export interface ProfileContext {
    * @returns Resolves to processed ProfileInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance>;
   /**
    * Fetch a ProfileInstance
@@ -177,7 +174,7 @@ export interface ProfileContext {
    */
   fetch(
     params: ProfileContextFetchOptions,
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance>;
 
   /**
@@ -188,10 +185,7 @@ export interface ProfileContext {
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>>;
   /**
    * Fetch a ProfileInstance and return HTTP info
@@ -203,10 +197,7 @@ export interface ProfileContext {
    */
   fetchWithHttpInfo(
     params: ProfileContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>>;
 
   /**
@@ -221,7 +212,7 @@ export interface ProfileContext {
   patch(
     params: ProfilePatch,
     headers?: any,
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance>;
 
   /**
@@ -236,10 +227,7 @@ export interface ProfileContext {
   patchWithHttpInfo(
     params: ProfilePatch,
     headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>>;
 
   /**
@@ -261,7 +249,7 @@ export class ProfileContextImpl implements ProfileContext {
   constructor(
     protected _version: V1,
     storeId: string,
-    profileId: string,
+    profileId: string
   ) {
     if (!isValidPathParam(storeId)) {
       throw new Error("Parameter 'storeId' is not valid.");
@@ -276,7 +264,7 @@ export class ProfileContextImpl implements ProfileContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -295,22 +283,19 @@ export class ProfileContextImpl implements ProfileContext {
           operationVersion,
           payload,
           instance._solution.storeId,
-          instance._solution.profileId,
-        ),
+          instance._solution.profileId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -330,13 +315,13 @@ export class ProfileContextImpl implements ProfileContext {
           operationVersion,
           response.body,
           instance._solution.storeId,
-          instance._solution.profileId,
+          instance._solution.profileId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -345,7 +330,7 @@ export class ProfileContextImpl implements ProfileContext {
     params?:
       | ProfileContextFetchOptions
       | ((error: Error | null, item?: ProfileInstance) => any),
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -377,13 +362,13 @@ export class ProfileContextImpl implements ProfileContext {
           operationVersion,
           payload,
           instance._solution.storeId,
-          instance._solution.profileId,
-        ),
+          instance._solution.profileId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -392,10 +377,7 @@ export class ProfileContextImpl implements ProfileContext {
     params?:
       | ProfileContextFetchOptions
       | ((error: Error | null, item?: ApiResponse<ProfileInstance>) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -428,13 +410,13 @@ export class ProfileContextImpl implements ProfileContext {
           operationVersion,
           response.body,
           instance._solution.storeId,
-          instance._solution.profileId,
+          instance._solution.profileId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -442,7 +424,7 @@ export class ProfileContextImpl implements ProfileContext {
   patch(
     params: ProfilePatch,
     headers?: any,
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -474,13 +456,13 @@ export class ProfileContextImpl implements ProfileContext {
           operationVersion,
           payload,
           instance._solution.storeId,
-          instance._solution.profileId,
-        ),
+          instance._solution.profileId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -488,10 +470,7 @@ export class ProfileContextImpl implements ProfileContext {
   patchWithHttpInfo(
     params: ProfilePatch,
     headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -524,13 +503,13 @@ export class ProfileContextImpl implements ProfileContext {
           operationVersion,
           response.body,
           instance._solution.storeId,
-          instance._solution.profileId,
+          instance._solution.profileId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -633,7 +612,7 @@ export class ProfileInstance {
     protected _version: V1,
     _payload: ProfileResource,
     storeId: string,
-    profileId?: string,
+    profileId?: string
   ) {
     const payload: any = _payload;
     this.id = payload.id;
@@ -671,7 +650,7 @@ export class ProfileInstance {
       new ProfileContextImpl(
         this._version,
         this._solution.storeId,
-        this._solution.profileId,
+        this._solution.profileId
       );
     return this._context;
   }
@@ -684,7 +663,7 @@ export class ProfileInstance {
    * @returns Resolves to processed ProfileInstance
    */
   remove(
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance> {
     return this._proxy.remove(callback);
   }
@@ -697,10 +676,7 @@ export class ProfileInstance {
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -713,7 +689,7 @@ export class ProfileInstance {
    * @returns Resolves to processed ProfileInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance>;
   /**
    * Fetch a ProfileInstance
@@ -725,12 +701,12 @@ export class ProfileInstance {
    */
   fetch(
     params: ProfileContextFetchOptions,
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -743,10 +719,7 @@ export class ProfileInstance {
    * @returns Resolves to processed ProfileInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>>;
   /**
    * Fetch a ProfileInstance and return HTTP info
@@ -758,18 +731,12 @@ export class ProfileInstance {
    */
   fetchWithHttpInfo(
     params: ProfileContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -786,12 +753,12 @@ export class ProfileInstance {
   patch(
     params: ProfilePatch,
     headers?: any,
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance>;
 
   patch(
     params?: any,
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance> {
     return this._proxy.patch(params, callback);
   }
@@ -808,18 +775,12 @@ export class ProfileInstance {
   patchWithHttpInfo(
     params: ProfilePatch,
     headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>>;
 
   patchWithHttpInfo(
     params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>> {
     return this._proxy.patchWithHttpInfo(params, callback);
   }
@@ -869,7 +830,7 @@ export interface ProfileListInstance {
   create(
     params: ProfileData,
     headers?: any,
-    callback?: (error: Error | null, item?: ProfileInstance) => any,
+    callback?: (error: Error | null, item?: ProfileInstance) => any
   ): Promise<ProfileInstance>;
 
   /**
@@ -884,10 +845,7 @@ export interface ProfileListInstance {
   createWithHttpInfo(
     params: ProfileData,
     headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>>;
 
   /**
@@ -908,7 +866,7 @@ export interface ProfileListInstance {
   each(callback?: (item: string, done: (err?: Error) => void) => void): void;
   each(
     params: ProfileListInstanceEachOptions,
-    callback?: (item: string, done: (err?: Error) => void) => void,
+    callback?: (item: string, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams ProfileInstance records from the API with HTTP metadata captured per page.
@@ -926,11 +884,11 @@ export interface ProfileListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: string, done: (err?: Error) => void) => void,
+    callback?: (item: string, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: ProfileListInstanceEachOptions,
-    callback?: (item: string, done: (err?: Error) => void) => void,
+    callback?: (item: string, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of ProfileInstance records from the API.
@@ -942,7 +900,7 @@ export interface ProfileListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ProfilePage) => any,
+    callback?: (error: Error | null, items: ProfilePage) => any
   ): Promise<ProfilePage>;
   /**
    * Retrieve a single target page of ProfileInstance records from the API with HTTP metadata.
@@ -954,7 +912,7 @@ export interface ProfileListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any
   ): Promise<ApiResponse<ProfilePage>>;
   /**
    * Lists ProfileInstance records from the API as a list.
@@ -966,11 +924,11 @@ export interface ProfileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: string[]) => any,
+    callback?: (error: Error | null, items: string[]) => any
   ): Promise<string[]>;
   list(
     params: ProfileListInstanceOptions,
-    callback?: (error: Error | null, items: string[]) => any,
+    callback?: (error: Error | null, items: string[]) => any
   ): Promise<string[]>;
   /**
    * Lists ProfileInstance records from the API as a list with HTTP metadata.
@@ -984,11 +942,11 @@ export interface ProfileListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<string[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any
   ): Promise<ApiResponse<string[]>>;
   listWithHttpInfo(
     params: ProfileListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<string[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any
   ): Promise<ApiResponse<string[]>>;
   /**
    * Retrieve a single page of ProfileInstance records from the API.
@@ -1002,11 +960,11 @@ export interface ProfileListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ProfilePage) => any,
+    callback?: (error: Error | null, items: ProfilePage) => any
   ): Promise<ProfilePage>;
   page(
     params: ProfileListInstancePageOptions,
-    callback?: (error: Error | null, items: ProfilePage) => any,
+    callback?: (error: Error | null, items: ProfilePage) => any
   ): Promise<ProfilePage>;
   /**
    * Retrieve a single page of ProfileInstance records from the API with HTTP metadata.
@@ -1020,11 +978,11 @@ export interface ProfileListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any
   ): Promise<ApiResponse<ProfilePage>>;
   pageWithHttpInfo(
     params: ProfileListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any
   ): Promise<ApiResponse<ProfilePage>>;
 
   /**
@@ -1036,7 +994,7 @@ export interface ProfileListInstance {
 
 export function ProfileListInstance(
   version: V1,
-  storeId: string,
+  storeId: string
 ): ProfileListInstance {
   if (!isValidPathParam(storeId)) {
     throw new Error("Parameter 'storeId' is not valid.");
@@ -1056,7 +1014,7 @@ export function ProfileListInstance(
   instance.create = function create(
     params: ProfileData,
     headers?: any,
-    callback?: (error: Error | null, items: ProfileInstance) => any,
+    callback?: (error: Error | null, items: ProfileInstance) => any
   ): Promise<ProfileInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1086,13 +1044,13 @@ export function ProfileListInstance(
         new ProfileInstance(
           operationVersion,
           payload,
-          instance._solution.storeId,
-        ),
+          instance._solution.storeId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1100,10 +1058,7 @@ export function ProfileListInstance(
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: ProfileData,
     headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ProfileInstance>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ProfileInstance>) => any
   ): Promise<ApiResponse<ProfileInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1134,13 +1089,13 @@ export function ProfileListInstance(
         body: new ProfileInstance(
           operationVersion,
           response.body,
-          instance._solution.storeId,
+          instance._solution.storeId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1149,7 +1104,7 @@ export function ProfileListInstance(
     params?:
       | ProfileListInstancePageOptions
       | ((error: Error | null, items: ProfilePage) => any),
-    callback?: (error: Error | null, items: ProfilePage) => any,
+    callback?: (error: Error | null, items: ProfilePage) => any
   ): Promise<ProfilePage> {
     if (params instanceof Function) {
       callback = params;
@@ -1183,13 +1138,13 @@ export function ProfileListInstance(
           payload,
           instance._uri,
           data,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1197,7 +1152,7 @@ export function ProfileListInstance(
 
   instance.list = function list(
     params?: any,
-    callback?: (error: Error | null, items: string[]) => any,
+    callback?: (error: Error | null, items: string[]) => any
   ): Promise<string[]> {
     if (params instanceof Function) {
       callback = params;
@@ -1235,7 +1190,7 @@ export function ProfileListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ProfilePage) => any,
+    callback?: (error: Error | null, items: ProfilePage) => any
   ): Promise<ProfilePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1248,8 +1203,8 @@ export function ProfileListInstance(
           payload,
           instance._uri,
           {},
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1259,7 +1214,7 @@ export function ProfileListInstance(
     params?:
       | ProfileListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ProfilePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ProfilePage>) => any
   ): Promise<ApiResponse<ProfilePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1292,13 +1247,13 @@ export function ProfileListInstance(
           response,
           instance._uri,
           data,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1307,7 +1262,7 @@ export function ProfileListInstance(
 
   instance.listWithHttpInfo = function listWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, items: ApiResponse<string[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any
   ): Promise<ApiResponse<string[]>> {
     if (params instanceof Function) {
       callback = params;
@@ -1319,7 +1274,7 @@ export function ProfileListInstance(
     let lastResponse: any;
 
     function fetchNextPage(
-      nextPageParams: any,
+      nextPageParams: any
     ): Promise<ApiResponse<string[]>> {
       return instance
         .pageWithHttpInfo(nextPageParams)
@@ -1362,7 +1317,7 @@ export function ProfileListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ProfilePage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<ProfilePage>) => any
   ): Promise<ApiResponse<ProfilePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1379,9 +1334,9 @@ export function ProfileListInstance(
           response,
           instance._uri,
           {},
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1393,7 +1348,7 @@ export function ProfileListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1421,7 +1376,7 @@ export class ProfilePage extends TokenPage<
     response: Response<string>,
     uri: string,
     params: any,
-    solution: ProfileSolution,
+    solution: ProfileSolution
   ) {
     super(version, response, uri, params, solution);
   }

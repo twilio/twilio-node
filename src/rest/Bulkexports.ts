@@ -16,7 +16,7 @@ class Bulkexports extends BulkexportsBase {
    */
   get exportConfiguration(): ExportConfigurationListInstance {
     console.warn(
-      "exportConfiguration is deprecated. Use v1.exportConfiguration instead.",
+      "exportConfiguration is deprecated. Use v1.exportConfiguration instead."
     );
     return this.v1.exportConfiguration;
   }

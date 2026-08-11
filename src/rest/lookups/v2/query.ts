@@ -299,7 +299,7 @@ export interface QueryListInstance {
    * @returns Resolves to processed QueryInstance
    */
   create(
-    callback?: (error: Error | null, item?: QueryInstance) => any,
+    callback?: (error: Error | null, item?: QueryInstance) => any
   ): Promise<QueryInstance>;
   /**
    * Create a QueryInstance
@@ -313,7 +313,7 @@ export interface QueryListInstance {
   create(
     params: LookupRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: QueryInstance) => any,
+    callback?: (error: Error | null, item?: QueryInstance) => any
   ): Promise<QueryInstance>;
 
   /**
@@ -324,7 +324,7 @@ export interface QueryListInstance {
    * @returns Resolves to processed QueryInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any
   ): Promise<ApiResponse<QueryInstance>>;
   /**
    * Create a QueryInstance and return HTTP info
@@ -338,7 +338,7 @@ export interface QueryListInstance {
   createWithHttpInfo(
     params: LookupRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<QueryInstance>) => any
   ): Promise<ApiResponse<QueryInstance>>;
 
   /**
@@ -359,7 +359,7 @@ export function QueryListInstance(version: V2): QueryListInstance {
     params?:
       LookupRequest | ((error: Error | null, items: QueryInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, items: QueryInstance) => any,
+    callback?: (error: Error | null, items: QueryInstance) => any
   ): Promise<QueryInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -388,12 +388,12 @@ export function QueryListInstance(version: V2): QueryListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new QueryInstance(operationVersion, payload),
+      (payload) => new QueryInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -403,7 +403,7 @@ export function QueryListInstance(version: V2): QueryListInstance {
       | LookupRequest
       | ((error: Error | null, items: ApiResponse<QueryInstance>) => any),
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<QueryInstance>) => any,
+    callback?: (error: Error | null, items: ApiResponse<QueryInstance>) => any
   ): Promise<ApiResponse<QueryInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -439,7 +439,7 @@ export function QueryListInstance(version: V2): QueryListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -450,7 +450,7 @@ export function QueryListInstance(version: V2): QueryListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -467,12 +467,12 @@ interface QueryResource {
 export class QueryInstance {
   constructor(
     protected _version: V2,
-    payload: QueryResource,
+    payload: QueryResource
   ) {
     this.phoneNumbers =
       payload.phone_numbers !== null && payload.phone_numbers !== undefined
         ? payload.phone_numbers.map(
-            (payload: any) => new LookupBatchResponse(payload),
+            (payload: any) => new LookupBatchResponse(payload)
           )
         : null;
   }

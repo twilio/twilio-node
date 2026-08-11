@@ -48,7 +48,7 @@ interface ExponentialBackoffResponseHandlerOptions {
 
 function getExponentialBackoffResponseHandler(
   axios: AxiosInstance,
-  opts: ExponentialBackoffResponseHandlerOptions,
+  opts: ExponentialBackoffResponseHandlerOptions
 ) {
   const maxIntervalMillis = opts.maxIntervalMillis;
   const maxRetries = opts.maxRetries;
@@ -65,7 +65,7 @@ function getExponentialBackoffResponseHandler(
       config.retryCount = retryCount;
       const baseDelay = Math.min(
         maxIntervalMillis,
-        DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS * Math.pow(2, retryCount),
+        DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS * Math.pow(2, retryCount)
       );
       const delay = Math.floor(baseDelay * Math.random()); // Full jitter backoff
 
@@ -147,14 +147,14 @@ class RequestClient {
         getExponentialBackoffResponseHandler(this.axios, {
           maxIntervalMillis: this.maxRetryDelay,
           maxRetries: this.maxRetries,
-        }),
+        })
       );
     }
 
     // if validation client is set, intercept the request using ValidationInterceptor
     if (opts.validationClient) {
       this.axios.interceptors.request.use(
-        this.validationInterceptor(opts.validationClient),
+        this.validationInterceptor(opts.validationClient)
       );
     }
   }
@@ -176,7 +176,7 @@ class RequestClient {
    * @param opts.logLevel - Show debug logs
    */
   async request<TData>(
-    opts: RequestClient.RequestOptions<TData>,
+    opts: RequestClient.RequestOptions<TData>
   ): Promise<Response<TData>> {
     if (!opts.method) {
       throw new Error("http method is required");
@@ -195,7 +195,7 @@ class RequestClient {
 
     if (opts.username && opts.password) {
       auth = Buffer.from(opts.username + ":" + opts.password).toString(
-        "base64",
+        "base64"
       );
       headers.Authorization = "Basic " + auth;
     } else if (opts.authStrategy) {
@@ -255,7 +255,7 @@ class RequestClient {
         _this.lastResponse = new Response(
           response.status,
           response.data,
-          response.headers,
+          response.headers
         );
         return {
           statusCode: response.status,
@@ -301,7 +301,7 @@ class RequestClient {
       config.headers = config.headers || new AxiosHeaders();
       try {
         config.headers["Twilio-Client-Validation"] = new ValidationToken(
-          validationClient,
+          validationClient
         ).fromHttpRequest(config);
       } catch (err) {
         console.log("Error creating Twilio-Client-Validation header:", err);
@@ -323,10 +323,10 @@ class RequestClient {
     if (options.headers) {
       console.log("Headers:");
       const filteredHeaderKeys = this.filterLoggingHeaders(
-        options.headers as Headers,
+        options.headers as Headers
       );
       filteredHeaderKeys.forEach((header) =>
-        console.log(`${header}: ${options.headers?.header}`),
+        console.log(`${header}: ${options.headers?.header}`)
       );
     }
 

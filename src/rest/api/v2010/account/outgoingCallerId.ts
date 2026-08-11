@@ -43,7 +43,7 @@ export interface OutgoingCallerIdListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: OutgoingCallerIdInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -90,7 +90,7 @@ export interface OutgoingCallerIdContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -101,7 +101,7 @@ export interface OutgoingCallerIdContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -112,7 +112,7 @@ export interface OutgoingCallerIdContext {
    * @returns Resolves to processed OutgoingCallerIdInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance>;
 
   /**
@@ -125,8 +125,8 @@ export interface OutgoingCallerIdContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OutgoingCallerIdInstance>,
-    ) => any,
+      item?: ApiResponse<OutgoingCallerIdInstance>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdInstance>>;
 
   /**
@@ -137,7 +137,7 @@ export interface OutgoingCallerIdContext {
    * @returns Resolves to processed OutgoingCallerIdInstance
    */
   update(
-    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance>;
   /**
    * Update a OutgoingCallerIdInstance
@@ -149,7 +149,7 @@ export interface OutgoingCallerIdContext {
    */
   update(
     params: OutgoingCallerIdContextUpdateOptions,
-    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance>;
 
   /**
@@ -162,8 +162,8 @@ export interface OutgoingCallerIdContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OutgoingCallerIdInstance>,
-    ) => any,
+      item?: ApiResponse<OutgoingCallerIdInstance>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdInstance>>;
   /**
    * Update a OutgoingCallerIdInstance and return HTTP info
@@ -177,8 +177,8 @@ export interface OutgoingCallerIdContext {
     params: OutgoingCallerIdContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OutgoingCallerIdInstance>,
-    ) => any,
+      item?: ApiResponse<OutgoingCallerIdInstance>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdInstance>>;
 
   /**
@@ -200,7 +200,7 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   constructor(
     protected _version: V2010,
     accountSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -215,7 +215,7 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -229,13 +229,13 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -251,13 +251,13 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -276,13 +276,13 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -290,8 +290,8 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OutgoingCallerIdInstance>,
-    ) => any,
+      item?: ApiResponse<OutgoingCallerIdInstance>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -311,13 +311,13 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
           operationVersion,
           response.body,
           instance._solution.accountSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -326,7 +326,7 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
     params?:
       | OutgoingCallerIdContextUpdateOptions
       | ((error: Error | null, item?: OutgoingCallerIdInstance) => any),
-    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -359,13 +359,13 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -375,12 +375,12 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
       | OutgoingCallerIdContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<OutgoingCallerIdInstance>,
+          item?: ApiResponse<OutgoingCallerIdInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OutgoingCallerIdInstance>,
-    ) => any,
+      item?: ApiResponse<OutgoingCallerIdInstance>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -414,13 +414,13 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
           operationVersion,
           response.body,
           instance._solution.accountSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -461,7 +461,7 @@ export class OutgoingCallerIdInstance {
     protected _version: V2010,
     payload: OutgoingCallerIdResource,
     accountSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
@@ -509,7 +509,7 @@ export class OutgoingCallerIdInstance {
       new OutgoingCallerIdContextImpl(
         this._version,
         this._solution.accountSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -522,7 +522,7 @@ export class OutgoingCallerIdInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -535,7 +535,7 @@ export class OutgoingCallerIdInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -548,7 +548,7 @@ export class OutgoingCallerIdInstance {
    * @returns Resolves to processed OutgoingCallerIdInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance> {
     return this._proxy.fetch(callback);
   }
@@ -563,8 +563,8 @@ export class OutgoingCallerIdInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OutgoingCallerIdInstance>,
-    ) => any,
+      item?: ApiResponse<OutgoingCallerIdInstance>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -577,7 +577,7 @@ export class OutgoingCallerIdInstance {
    * @returns Resolves to processed OutgoingCallerIdInstance
    */
   update(
-    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance>;
   /**
    * Update a OutgoingCallerIdInstance
@@ -589,12 +589,12 @@ export class OutgoingCallerIdInstance {
    */
   update(
     params: OutgoingCallerIdContextUpdateOptions,
-    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any,
+    callback?: (error: Error | null, item?: OutgoingCallerIdInstance) => any
   ): Promise<OutgoingCallerIdInstance> {
     return this._proxy.update(params, callback);
   }
@@ -609,8 +609,8 @@ export class OutgoingCallerIdInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OutgoingCallerIdInstance>,
-    ) => any,
+      item?: ApiResponse<OutgoingCallerIdInstance>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdInstance>>;
   /**
    * Update a OutgoingCallerIdInstance and return HTTP info
@@ -624,16 +624,16 @@ export class OutgoingCallerIdInstance {
     params: OutgoingCallerIdContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OutgoingCallerIdInstance>,
-    ) => any,
+      item?: ApiResponse<OutgoingCallerIdInstance>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OutgoingCallerIdInstance>,
-    ) => any,
+      item?: ApiResponse<OutgoingCallerIdInstance>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -690,15 +690,15 @@ export interface OutgoingCallerIdListInstance {
   each(
     callback?: (
       item: OutgoingCallerIdInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: OutgoingCallerIdListInstanceEachOptions,
     callback?: (
       item: OutgoingCallerIdInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams OutgoingCallerIdInstance records from the API with HTTP metadata captured per page.
@@ -718,15 +718,15 @@ export interface OutgoingCallerIdListInstance {
   eachWithHttpInfo(
     callback?: (
       item: OutgoingCallerIdInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: OutgoingCallerIdListInstanceEachOptions,
     callback?: (
       item: OutgoingCallerIdInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of OutgoingCallerIdInstance records from the API.
@@ -738,7 +738,7 @@ export interface OutgoingCallerIdListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any,
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
   ): Promise<OutgoingCallerIdPage>;
   /**
    * Retrieve a single target page of OutgoingCallerIdInstance records from the API with HTTP metadata.
@@ -752,8 +752,8 @@ export interface OutgoingCallerIdListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<OutgoingCallerIdPage>,
-    ) => any,
+      items: ApiResponse<OutgoingCallerIdPage>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdPage>>;
   /**
    * Lists OutgoingCallerIdInstance records from the API as a list.
@@ -765,11 +765,11 @@ export interface OutgoingCallerIdListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any,
+    callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any
   ): Promise<OutgoingCallerIdInstance[]>;
   list(
     params: OutgoingCallerIdListInstanceOptions,
-    callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any,
+    callback?: (error: Error | null, items: OutgoingCallerIdInstance[]) => any
   ): Promise<OutgoingCallerIdInstance[]>;
   /**
    * Lists OutgoingCallerIdInstance records from the API as a list with HTTP metadata.
@@ -785,15 +785,15 @@ export interface OutgoingCallerIdListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<OutgoingCallerIdInstance[]>,
-    ) => any,
+      items: ApiResponse<OutgoingCallerIdInstance[]>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdInstance[]>>;
   listWithHttpInfo(
     params: OutgoingCallerIdListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<OutgoingCallerIdInstance[]>,
-    ) => any,
+      items: ApiResponse<OutgoingCallerIdInstance[]>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdInstance[]>>;
   /**
    * Retrieve a single page of OutgoingCallerIdInstance records from the API.
@@ -807,11 +807,11 @@ export interface OutgoingCallerIdListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any,
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
   ): Promise<OutgoingCallerIdPage>;
   page(
     params: OutgoingCallerIdListInstancePageOptions,
-    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any,
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
   ): Promise<OutgoingCallerIdPage>;
   /**
    * Retrieve a single page of OutgoingCallerIdInstance records from the API with HTTP metadata.
@@ -827,15 +827,15 @@ export interface OutgoingCallerIdListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<OutgoingCallerIdPage>,
-    ) => any,
+      items: ApiResponse<OutgoingCallerIdPage>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdPage>>;
   pageWithHttpInfo(
     params: OutgoingCallerIdListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<OutgoingCallerIdPage>,
-    ) => any,
+      items: ApiResponse<OutgoingCallerIdPage>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdPage>>;
 
   /**
@@ -847,7 +847,7 @@ export interface OutgoingCallerIdListInstance {
 
 export function OutgoingCallerIdListInstance(
   version: V2010,
-  accountSid: string,
+  accountSid: string
 ): OutgoingCallerIdListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -867,7 +867,7 @@ export function OutgoingCallerIdListInstance(
     params?:
       | OutgoingCallerIdListInstancePageOptions
       | ((error: Error | null, items: OutgoingCallerIdPage) => any),
-    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any,
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
   ): Promise<OutgoingCallerIdPage> {
     if (params instanceof Function) {
       callback = params;
@@ -900,12 +900,12 @@ export function OutgoingCallerIdListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new OutgoingCallerIdPage(operationVersion, payload, instance._solution),
+        new OutgoingCallerIdPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -915,7 +915,7 @@ export function OutgoingCallerIdListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any,
+    callback?: (error: Error | null, items: OutgoingCallerIdPage) => any
   ): Promise<OutgoingCallerIdPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -923,11 +923,7 @@ export function OutgoingCallerIdListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new OutgoingCallerIdPage(
-          instance._version,
-          payload,
-          instance._solution,
-        ),
+        new OutgoingCallerIdPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -938,12 +934,12 @@ export function OutgoingCallerIdListInstance(
       | OutgoingCallerIdListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<OutgoingCallerIdPage>,
+          items: ApiResponse<OutgoingCallerIdPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<OutgoingCallerIdPage>,
-    ) => any,
+      items: ApiResponse<OutgoingCallerIdPage>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -978,13 +974,13 @@ export function OutgoingCallerIdListInstance(
         body: new OutgoingCallerIdPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -998,8 +994,8 @@ export function OutgoingCallerIdListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<OutgoingCallerIdPage>,
-    ) => any,
+      items?: ApiResponse<OutgoingCallerIdPage>
+    ) => any
   ): Promise<ApiResponse<OutgoingCallerIdPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1014,9 +1010,9 @@ export function OutgoingCallerIdListInstance(
         body: new OutgoingCallerIdPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1028,7 +1024,7 @@ export function OutgoingCallerIdListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1052,7 +1048,7 @@ export class OutgoingCallerIdPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: OutgoingCallerIdSolution,
+    solution: OutgoingCallerIdSolution
   ) {
     super(version, response, solution);
   }
@@ -1066,7 +1062,7 @@ export class OutgoingCallerIdPage extends Page<
     return new OutgoingCallerIdInstance(
       this._version,
       payload,
-      this._solution.accountSid,
+      this._solution.accountSid
     );
   }
 

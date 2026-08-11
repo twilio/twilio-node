@@ -60,7 +60,7 @@ export interface RecordingRulesListInstance {
    * @returns Resolves to processed RecordingRulesInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: RecordingRulesInstance) => any,
+    callback?: (error: Error | null, item?: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance>;
 
   /**
@@ -73,8 +73,8 @@ export interface RecordingRulesListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingRulesInstance>,
-    ) => any,
+      item?: ApiResponse<RecordingRulesInstance>
+    ) => any
   ): Promise<ApiResponse<RecordingRulesInstance>>;
 
   /**
@@ -85,7 +85,7 @@ export interface RecordingRulesListInstance {
    * @returns Resolves to processed RecordingRulesInstance
    */
   update(
-    callback?: (error: Error | null, item?: RecordingRulesInstance) => any,
+    callback?: (error: Error | null, item?: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance>;
   /**
    * Update a RecordingRulesInstance
@@ -97,7 +97,7 @@ export interface RecordingRulesListInstance {
    */
   update(
     params: RecordingRulesListInstanceUpdateOptions,
-    callback?: (error: Error | null, item?: RecordingRulesInstance) => any,
+    callback?: (error: Error | null, item?: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance>;
 
   /**
@@ -110,8 +110,8 @@ export interface RecordingRulesListInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingRulesInstance>,
-    ) => any,
+      item?: ApiResponse<RecordingRulesInstance>
+    ) => any
   ): Promise<ApiResponse<RecordingRulesInstance>>;
   /**
    * Update a RecordingRulesInstance and return HTTP info
@@ -125,8 +125,8 @@ export interface RecordingRulesListInstance {
     params: RecordingRulesListInstanceUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RecordingRulesInstance>,
-    ) => any,
+      item?: ApiResponse<RecordingRulesInstance>
+    ) => any
   ): Promise<ApiResponse<RecordingRulesInstance>>;
 
   /**
@@ -138,7 +138,7 @@ export interface RecordingRulesListInstance {
 
 export function RecordingRulesListInstance(
   version: V1,
-  roomSid: string,
+  roomSid: string
 ): RecordingRulesListInstance {
   if (!isValidPathParam(roomSid)) {
     throw new Error("Parameter 'roomSid' is not valid.");
@@ -151,7 +151,7 @@ export function RecordingRulesListInstance(
   instance._uri = `/Rooms/${roomSid}/RecordingRules`;
 
   instance.fetch = function fetch(
-    callback?: (error: Error | null, items: RecordingRulesInstance) => any,
+    callback?: (error: Error | null, items: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -168,13 +168,13 @@ export function RecordingRulesListInstance(
         new RecordingRulesInstance(
           operationVersion,
           payload,
-          instance._solution.roomSid,
-        ),
+          instance._solution.roomSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -182,8 +182,8 @@ export function RecordingRulesListInstance(
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<RecordingRulesInstance>,
-    ) => any,
+      items: ApiResponse<RecordingRulesInstance>
+    ) => any
   ): Promise<ApiResponse<RecordingRulesInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -201,13 +201,13 @@ export function RecordingRulesListInstance(
         body: new RecordingRulesInstance(
           operationVersion,
           response.body,
-          instance._solution.roomSid,
+          instance._solution.roomSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -216,7 +216,7 @@ export function RecordingRulesListInstance(
     params?:
       | RecordingRulesListInstanceUpdateOptions
       | ((error: Error | null, items: RecordingRulesInstance) => any),
-    callback?: (error: Error | null, items: RecordingRulesInstance) => any,
+    callback?: (error: Error | null, items: RecordingRulesInstance) => any
   ): Promise<RecordingRulesInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -247,13 +247,13 @@ export function RecordingRulesListInstance(
         new RecordingRulesInstance(
           operationVersion,
           payload,
-          instance._solution.roomSid,
-        ),
+          instance._solution.roomSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -263,12 +263,12 @@ export function RecordingRulesListInstance(
       | RecordingRulesListInstanceUpdateOptions
       | ((
           error: Error | null,
-          items: ApiResponse<RecordingRulesInstance>,
+          items: ApiResponse<RecordingRulesInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<RecordingRulesInstance>,
-    ) => any,
+      items: ApiResponse<RecordingRulesInstance>
+    ) => any
   ): Promise<ApiResponse<RecordingRulesInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -300,13 +300,13 @@ export function RecordingRulesListInstance(
         body: new RecordingRulesInstance(
           operationVersion,
           response.body,
-          instance._solution.roomSid,
+          instance._solution.roomSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -317,7 +317,7 @@ export function RecordingRulesListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -338,13 +338,13 @@ export class RecordingRulesInstance {
   constructor(
     protected _version: V1,
     payload: RecordingRulesResource,
-    roomSid: string,
+    roomSid: string
   ) {
     this.roomSid = payload.room_sid;
     this.rules =
       payload.rules !== null && payload.rules !== undefined
         ? payload.rules.map(
-            (payload: any) => new VideoV1RoomRoomRecordingRuleRules(payload),
+            (payload: any) => new VideoV1RoomRoomRecordingRuleRules(payload)
           )
         : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);

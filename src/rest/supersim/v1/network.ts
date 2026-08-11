@@ -85,7 +85,7 @@ export interface NetworkContext {
    * @returns Resolves to processed NetworkInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: NetworkInstance) => any,
+    callback?: (error: Error | null, item?: NetworkInstance) => any
   ): Promise<NetworkInstance>;
 
   /**
@@ -96,10 +96,7 @@ export interface NetworkContext {
    * @returns Resolves to processed NetworkInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NetworkInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<NetworkInstance>) => any
   ): Promise<ApiResponse<NetworkInstance>>;
 
   /**
@@ -119,7 +116,7 @@ export class NetworkContextImpl implements NetworkContext {
 
   constructor(
     protected _version: V1,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -130,7 +127,7 @@ export class NetworkContextImpl implements NetworkContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: NetworkInstance) => any,
+    callback?: (error: Error | null, item?: NetworkInstance) => any
   ): Promise<NetworkInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -145,21 +142,18 @@ export class NetworkContextImpl implements NetworkContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NetworkInstance(operationVersion, payload, instance._solution.sid),
+        new NetworkInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NetworkInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<NetworkInstance>) => any
   ): Promise<ApiResponse<NetworkInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -178,13 +172,13 @@ export class NetworkContextImpl implements NetworkContext {
         body: new NetworkInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -222,7 +216,7 @@ export class NetworkInstance {
   constructor(
     protected _version: V1,
     payload: NetworkResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -269,7 +263,7 @@ export class NetworkInstance {
    * @returns Resolves to processed NetworkInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: NetworkInstance) => any,
+    callback?: (error: Error | null, item?: NetworkInstance) => any
   ): Promise<NetworkInstance> {
     return this._proxy.fetch(callback);
   }
@@ -282,10 +276,7 @@ export class NetworkInstance {
    * @returns Resolves to processed NetworkInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NetworkInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<NetworkInstance>) => any
   ): Promise<ApiResponse<NetworkInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -336,11 +327,11 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void,
+    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: NetworkListInstanceEachOptions,
-    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void,
+    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams NetworkInstance records from the API with HTTP metadata captured per page.
@@ -358,11 +349,11 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void,
+    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: NetworkListInstanceEachOptions,
-    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void,
+    callback?: (item: NetworkInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of NetworkInstance records from the API.
@@ -374,7 +365,7 @@ export interface NetworkListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: NetworkPage) => any,
+    callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage>;
   /**
    * Retrieve a single target page of NetworkInstance records from the API with HTTP metadata.
@@ -386,7 +377,7 @@ export interface NetworkListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<NetworkPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<NetworkPage>) => any
   ): Promise<ApiResponse<NetworkPage>>;
   /**
    * Lists NetworkInstance records from the API as a list.
@@ -398,11 +389,11 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: NetworkInstance[]) => any,
+    callback?: (error: Error | null, items: NetworkInstance[]) => any
   ): Promise<NetworkInstance[]>;
   list(
     params: NetworkListInstanceOptions,
-    callback?: (error: Error | null, items: NetworkInstance[]) => any,
+    callback?: (error: Error | null, items: NetworkInstance[]) => any
   ): Promise<NetworkInstance[]>;
   /**
    * Lists NetworkInstance records from the API as a list with HTTP metadata.
@@ -418,15 +409,15 @@ export interface NetworkListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<NetworkInstance[]>,
-    ) => any,
+      items: ApiResponse<NetworkInstance[]>
+    ) => any
   ): Promise<ApiResponse<NetworkInstance[]>>;
   listWithHttpInfo(
     params: NetworkListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<NetworkInstance[]>,
-    ) => any,
+      items: ApiResponse<NetworkInstance[]>
+    ) => any
   ): Promise<ApiResponse<NetworkInstance[]>>;
   /**
    * Retrieve a single page of NetworkInstance records from the API.
@@ -440,11 +431,11 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: NetworkPage) => any,
+    callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage>;
   page(
     params: NetworkListInstancePageOptions,
-    callback?: (error: Error | null, items: NetworkPage) => any,
+    callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage>;
   /**
    * Retrieve a single page of NetworkInstance records from the API with HTTP metadata.
@@ -458,11 +449,11 @@ export interface NetworkListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<NetworkPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<NetworkPage>) => any
   ): Promise<ApiResponse<NetworkPage>>;
   pageWithHttpInfo(
     params: NetworkListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<NetworkPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<NetworkPage>) => any
   ): Promise<ApiResponse<NetworkPage>>;
 
   /**
@@ -487,7 +478,7 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
     params?:
       | NetworkListInstancePageOptions
       | ((error: Error | null, items: NetworkPage) => any),
-    callback?: (error: Error | null, items: NetworkPage) => any,
+    callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage> {
     if (params instanceof Function) {
       callback = params;
@@ -520,12 +511,12 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NetworkPage(operationVersion, payload, instance._solution),
+        new NetworkPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -535,7 +526,7 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: NetworkPage) => any,
+    callback?: (error: Error | null, items: NetworkPage) => any
   ): Promise<NetworkPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -543,7 +534,7 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new NetworkPage(instance._version, payload, instance._solution),
+        new NetworkPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -553,7 +544,7 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
     params?:
       | NetworkListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<NetworkPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<NetworkPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<NetworkPage>) => any
   ): Promise<ApiResponse<NetworkPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -590,7 +581,7 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -602,7 +593,7 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<NetworkPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<NetworkPage>) => any
   ): Promise<ApiResponse<NetworkPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -615,7 +606,7 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new NetworkPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -627,7 +618,7 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -651,7 +642,7 @@ export class NetworkPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: NetworkSolution,
+    solution: NetworkSolution
   ) {
     super(version, response, solution);
   }

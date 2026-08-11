@@ -38,8 +38,8 @@ export interface TaskQueueRealTimeStatisticsContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: TaskQueueRealTimeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance>;
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
@@ -53,8 +53,8 @@ export interface TaskQueueRealTimeStatisticsContext {
     params: TaskQueueRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: TaskQueueRealTimeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance>;
 
   /**
@@ -67,8 +67,8 @@ export interface TaskQueueRealTimeStatisticsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>>;
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance and return HTTP info
@@ -82,8 +82,8 @@ export interface TaskQueueRealTimeStatisticsContext {
     params: TaskQueueRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>>;
 
   /**
@@ -105,7 +105,7 @@ export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTime
   constructor(
     protected _version: V1,
     workspaceSid: string,
-    taskQueueSid: string,
+    taskQueueSid: string
   ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -124,12 +124,12 @@ export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTime
       | TaskQueueRealTimeStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: TaskQueueRealTimeStatisticsInstance,
+          item?: TaskQueueRealTimeStatisticsInstance
         ) => any),
     callback?: (
       error: Error | null,
-      item?: TaskQueueRealTimeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -161,13 +161,13 @@ export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTime
           operationVersion,
           payload,
           instance._solution.workspaceSid,
-          instance._solution.taskQueueSid,
-        ),
+          instance._solution.taskQueueSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -177,12 +177,12 @@ export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTime
       | TaskQueueRealTimeStatisticsContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>,
+          item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -215,13 +215,13 @@ export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTime
           operationVersion,
           response.body,
           instance._solution.workspaceSid,
-          instance._solution.taskQueueSid,
+          instance._solution.taskQueueSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -267,16 +267,16 @@ export class TaskQueueRealTimeStatisticsInstance {
     protected _version: V1,
     payload: TaskQueueRealTimeStatisticsResource,
     workspaceSid: string,
-    taskQueueSid: string,
+    taskQueueSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.activityStatistics = payload.activity_statistics;
     this.longestTaskWaitingAge = deserialize.integer(
-      payload.longest_task_waiting_age,
+      payload.longest_task_waiting_age
     );
     this.longestTaskWaitingSid = payload.longest_task_waiting_sid;
     this.longestRelativeTaskAgeInQueue = deserialize.integer(
-      payload.longest_relative_task_age_in_queue,
+      payload.longest_relative_task_age_in_queue
     );
     this.longestRelativeTaskSidInQueue =
       payload.longest_relative_task_sid_in_queue;
@@ -284,10 +284,10 @@ export class TaskQueueRealTimeStatisticsInstance {
     this.tasksByPriority = payload.tasks_by_priority;
     this.tasksByStatus = payload.tasks_by_status;
     this.totalAvailableWorkers = deserialize.integer(
-      payload.total_available_workers,
+      payload.total_available_workers
     );
     this.totalEligibleWorkers = deserialize.integer(
-      payload.total_eligible_workers,
+      payload.total_eligible_workers
     );
     this.totalTasks = deserialize.integer(payload.total_tasks);
     this.workspaceSid = payload.workspace_sid;
@@ -359,7 +359,7 @@ export class TaskQueueRealTimeStatisticsInstance {
       new TaskQueueRealTimeStatisticsContextImpl(
         this._version,
         this._solution.workspaceSid,
-        this._solution.taskQueueSid,
+        this._solution.taskQueueSid
       );
     return this._context;
   }
@@ -374,8 +374,8 @@ export class TaskQueueRealTimeStatisticsInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: TaskQueueRealTimeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance>;
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance
@@ -389,16 +389,16 @@ export class TaskQueueRealTimeStatisticsInstance {
     params: TaskQueueRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: TaskQueueRealTimeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance>;
 
   fetch(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: TaskQueueRealTimeStatisticsInstance,
-    ) => any,
+      item?: TaskQueueRealTimeStatisticsInstance
+    ) => any
   ): Promise<TaskQueueRealTimeStatisticsInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -413,8 +413,8 @@ export class TaskQueueRealTimeStatisticsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>>;
   /**
    * Fetch a TaskQueueRealTimeStatisticsInstance and return HTTP info
@@ -428,16 +428,16 @@ export class TaskQueueRealTimeStatisticsInstance {
     params: TaskQueueRealTimeStatisticsContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>,
-    ) => any,
+      item?: ApiResponse<TaskQueueRealTimeStatisticsInstance>
+    ) => any
   ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -494,7 +494,7 @@ export interface TaskQueueRealTimeStatisticsListInstance {
 export function TaskQueueRealTimeStatisticsListInstance(
   version: V1,
   workspaceSid: string,
-  taskQueueSid: string,
+  taskQueueSid: string
 ): TaskQueueRealTimeStatisticsListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -511,7 +511,7 @@ export function TaskQueueRealTimeStatisticsListInstance(
     return new TaskQueueRealTimeStatisticsContextImpl(
       version,
       workspaceSid,
-      taskQueueSid,
+      taskQueueSid
     );
   };
 
@@ -525,7 +525,7 @@ export function TaskQueueRealTimeStatisticsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

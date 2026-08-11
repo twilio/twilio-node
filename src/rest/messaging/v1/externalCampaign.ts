@@ -48,7 +48,7 @@ export interface ExternalCampaignListInstance {
    */
   create(
     params: ExternalCampaignListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ExternalCampaignInstance) => any,
+    callback?: (error: Error | null, item?: ExternalCampaignInstance) => any
   ): Promise<ExternalCampaignInstance>;
 
   /**
@@ -63,8 +63,8 @@ export interface ExternalCampaignListInstance {
     params: ExternalCampaignListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExternalCampaignInstance>,
-    ) => any,
+      item?: ApiResponse<ExternalCampaignInstance>
+    ) => any
   ): Promise<ApiResponse<ExternalCampaignInstance>>;
 
   /**
@@ -75,7 +75,7 @@ export interface ExternalCampaignListInstance {
 }
 
 export function ExternalCampaignListInstance(
-  version: V1,
+  version: V1
 ): ExternalCampaignListInstance {
   const instance = {} as ExternalCampaignListInstance;
 
@@ -85,7 +85,7 @@ export function ExternalCampaignListInstance(
 
   instance.create = function create(
     params: ExternalCampaignListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ExternalCampaignInstance) => any,
+    callback?: (error: Error | null, items: ExternalCampaignInstance) => any
   ): Promise<ExternalCampaignInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -100,7 +100,7 @@ export function ExternalCampaignListInstance(
       params["messagingServiceSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['messagingServiceSid']\" missing.",
+        "Required parameter \"params['messagingServiceSid']\" missing."
       );
     }
 
@@ -125,12 +125,12 @@ export function ExternalCampaignListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ExternalCampaignInstance(operationVersion, payload),
+      (payload) => new ExternalCampaignInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -139,8 +139,8 @@ export function ExternalCampaignListInstance(
     params: ExternalCampaignListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ExternalCampaignInstance>,
-    ) => any,
+      items: ApiResponse<ExternalCampaignInstance>
+    ) => any
   ): Promise<ApiResponse<ExternalCampaignInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -155,7 +155,7 @@ export function ExternalCampaignListInstance(
       params["messagingServiceSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['messagingServiceSid']\" missing.",
+        "Required parameter \"params['messagingServiceSid']\" missing."
       );
     }
 
@@ -187,7 +187,7 @@ export function ExternalCampaignListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -198,7 +198,7 @@ export function ExternalCampaignListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -219,7 +219,7 @@ interface ExternalCampaignResource {
 export class ExternalCampaignInstance {
   constructor(
     protected _version: V1,
-    payload: ExternalCampaignResource,
+    payload: ExternalCampaignResource
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

@@ -44,7 +44,7 @@ export interface NewSigningKeyListInstance {
    * @returns Resolves to processed NewSigningKeyInstance
    */
   create(
-    callback?: (error: Error | null, item?: NewSigningKeyInstance) => any,
+    callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
   ): Promise<NewSigningKeyInstance>;
   /**
    * Create a NewSigningKeyInstance
@@ -56,7 +56,7 @@ export interface NewSigningKeyListInstance {
    */
   create(
     params: NewSigningKeyListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NewSigningKeyInstance) => any,
+    callback?: (error: Error | null, item?: NewSigningKeyInstance) => any
   ): Promise<NewSigningKeyInstance>;
 
   /**
@@ -69,8 +69,8 @@ export interface NewSigningKeyListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NewSigningKeyInstance>,
-    ) => any,
+      item?: ApiResponse<NewSigningKeyInstance>
+    ) => any
   ): Promise<ApiResponse<NewSigningKeyInstance>>;
   /**
    * Create a NewSigningKeyInstance and return HTTP info
@@ -84,8 +84,8 @@ export interface NewSigningKeyListInstance {
     params: NewSigningKeyListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NewSigningKeyInstance>,
-    ) => any,
+      item?: ApiResponse<NewSigningKeyInstance>
+    ) => any
   ): Promise<ApiResponse<NewSigningKeyInstance>>;
 
   /**
@@ -97,7 +97,7 @@ export interface NewSigningKeyListInstance {
 
 export function NewSigningKeyListInstance(
   version: V2010,
-  accountSid: string,
+  accountSid: string
 ): NewSigningKeyListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -113,7 +113,7 @@ export function NewSigningKeyListInstance(
     params?:
       | NewSigningKeyListInstanceCreateOptions
       | ((error: Error | null, items: NewSigningKeyInstance) => any),
-    callback?: (error: Error | null, items: NewSigningKeyInstance) => any,
+    callback?: (error: Error | null, items: NewSigningKeyInstance) => any
   ): Promise<NewSigningKeyInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -144,13 +144,13 @@ export function NewSigningKeyListInstance(
         new NewSigningKeyInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid,
-        ),
+          instance._solution.accountSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -160,12 +160,12 @@ export function NewSigningKeyListInstance(
       | NewSigningKeyListInstanceCreateOptions
       | ((
           error: Error | null,
-          items: ApiResponse<NewSigningKeyInstance>,
+          items: ApiResponse<NewSigningKeyInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<NewSigningKeyInstance>,
-    ) => any,
+      items: ApiResponse<NewSigningKeyInstance>
+    ) => any
   ): Promise<ApiResponse<NewSigningKeyInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -197,13 +197,13 @@ export function NewSigningKeyListInstance(
         body: new NewSigningKeyInstance(
           operationVersion,
           response.body,
-          instance._solution.accountSid,
+          instance._solution.accountSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -214,7 +214,7 @@ export function NewSigningKeyListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -236,7 +236,7 @@ export class NewSigningKeyInstance {
   constructor(
     protected _version: V2010,
     payload: NewSigningKeyResource,
-    accountSid: string,
+    accountSid: string
   ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;

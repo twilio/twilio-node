@@ -47,7 +47,7 @@ export interface AccessTokenContext {
    * @returns Resolves to processed AccessTokenInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AccessTokenInstance) => any,
+    callback?: (error: Error | null, item?: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance>;
 
   /**
@@ -60,8 +60,8 @@ export interface AccessTokenContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccessTokenInstance>,
-    ) => any,
+      item?: ApiResponse<AccessTokenInstance>
+    ) => any
   ): Promise<ApiResponse<AccessTokenInstance>>;
 
   /**
@@ -83,7 +83,7 @@ export class AccessTokenContextImpl implements AccessTokenContext {
   constructor(
     protected _version: V2,
     serviceSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -98,7 +98,7 @@ export class AccessTokenContextImpl implements AccessTokenContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: AccessTokenInstance) => any,
+    callback?: (error: Error | null, item?: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -117,13 +117,13 @@ export class AccessTokenContextImpl implements AccessTokenContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -131,8 +131,8 @@ export class AccessTokenContextImpl implements AccessTokenContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccessTokenInstance>,
-    ) => any,
+      item?: ApiResponse<AccessTokenInstance>
+    ) => any
   ): Promise<ApiResponse<AccessTokenInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -152,13 +152,13 @@ export class AccessTokenContextImpl implements AccessTokenContext {
           operationVersion,
           response.body,
           instance._solution.serviceSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -200,7 +200,7 @@ export class AccessTokenInstance {
     protected _version: V2,
     payload: AccessTokenResource,
     serviceSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -260,7 +260,7 @@ export class AccessTokenInstance {
       new AccessTokenContextImpl(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -273,7 +273,7 @@ export class AccessTokenInstance {
    * @returns Resolves to processed AccessTokenInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: AccessTokenInstance) => any,
+    callback?: (error: Error | null, item?: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance> {
     return this._proxy.fetch(callback);
   }
@@ -288,8 +288,8 @@ export class AccessTokenInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccessTokenInstance>,
-    ) => any,
+      item?: ApiResponse<AccessTokenInstance>
+    ) => any
   ): Promise<ApiResponse<AccessTokenInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -341,7 +341,7 @@ export interface AccessTokenListInstance {
    */
   create(
     params: AccessTokenListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: AccessTokenInstance) => any,
+    callback?: (error: Error | null, item?: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance>;
 
   /**
@@ -356,8 +356,8 @@ export interface AccessTokenListInstance {
     params: AccessTokenListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccessTokenInstance>,
-    ) => any,
+      item?: ApiResponse<AccessTokenInstance>
+    ) => any
   ): Promise<ApiResponse<AccessTokenInstance>>;
 
   /**
@@ -369,7 +369,7 @@ export interface AccessTokenListInstance {
 
 export function AccessTokenListInstance(
   version: V2,
-  serviceSid: string,
+  serviceSid: string
 ): AccessTokenListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -387,7 +387,7 @@ export function AccessTokenListInstance(
 
   instance.create = function create(
     params: AccessTokenListInstanceCreateOptions,
-    callback?: (error: Error | null, items: AccessTokenInstance) => any,
+    callback?: (error: Error | null, items: AccessTokenInstance) => any
   ): Promise<AccessTokenInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -427,13 +427,13 @@ export function AccessTokenListInstance(
         new AccessTokenInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid,
-        ),
+          instance._solution.serviceSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -442,8 +442,8 @@ export function AccessTokenListInstance(
     params: AccessTokenListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AccessTokenInstance>,
-    ) => any,
+      items: ApiResponse<AccessTokenInstance>
+    ) => any
   ): Promise<ApiResponse<AccessTokenInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -484,13 +484,13 @@ export function AccessTokenListInstance(
         body: new AccessTokenInstance(
           operationVersion,
           response.body,
-          instance._solution.serviceSid,
+          instance._solution.serviceSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -501,7 +501,7 @@ export function AccessTokenListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

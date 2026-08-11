@@ -7,7 +7,7 @@ class Numbers extends NumbersBase {
    */
   get regulatoryCompliance(): RegulatoryComplianceListInstance {
     console.warn(
-      "regulatoryCompliance is deprecated. Use v2.regulatoryCompliance instead.",
+      "regulatoryCompliance is deprecated. Use v2.regulatoryCompliance instead."
     );
     return this.v2.regulatoryCompliance;
   }

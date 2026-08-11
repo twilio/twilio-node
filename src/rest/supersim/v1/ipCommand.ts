@@ -124,7 +124,7 @@ export interface IpCommandContext {
    * @returns Resolves to processed IpCommandInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: IpCommandInstance) => any,
+    callback?: (error: Error | null, item?: IpCommandInstance) => any
   ): Promise<IpCommandInstance>;
 
   /**
@@ -137,8 +137,8 @@ export interface IpCommandContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpCommandInstance>,
-    ) => any,
+      item?: ApiResponse<IpCommandInstance>
+    ) => any
   ): Promise<ApiResponse<IpCommandInstance>>;
 
   /**
@@ -158,7 +158,7 @@ export class IpCommandContextImpl implements IpCommandContext {
 
   constructor(
     protected _version: V1,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -169,7 +169,7 @@ export class IpCommandContextImpl implements IpCommandContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: IpCommandInstance) => any,
+    callback?: (error: Error | null, item?: IpCommandInstance) => any
   ): Promise<IpCommandInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -184,16 +184,12 @@ export class IpCommandContextImpl implements IpCommandContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpCommandInstance(
-          operationVersion,
-          payload,
-          instance._solution.sid,
-        ),
+        new IpCommandInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -201,8 +197,8 @@ export class IpCommandContextImpl implements IpCommandContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpCommandInstance>,
-    ) => any,
+      item?: ApiResponse<IpCommandInstance>
+    ) => any
   ): Promise<ApiResponse<IpCommandInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -221,13 +217,13 @@ export class IpCommandContextImpl implements IpCommandContext {
         body: new IpCommandInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -273,7 +269,7 @@ export class IpCommandInstance {
   constructor(
     protected _version: V1,
     payload: IpCommandResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -351,7 +347,7 @@ export class IpCommandInstance {
    * @returns Resolves to processed IpCommandInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: IpCommandInstance) => any,
+    callback?: (error: Error | null, item?: IpCommandInstance) => any
   ): Promise<IpCommandInstance> {
     return this._proxy.fetch(callback);
   }
@@ -366,8 +362,8 @@ export class IpCommandInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpCommandInstance>,
-    ) => any,
+      item?: ApiResponse<IpCommandInstance>
+    ) => any
   ): Promise<ApiResponse<IpCommandInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -420,7 +416,7 @@ export interface IpCommandListInstance {
    */
   create(
     params: IpCommandListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: IpCommandInstance) => any,
+    callback?: (error: Error | null, item?: IpCommandInstance) => any
   ): Promise<IpCommandInstance>;
 
   /**
@@ -435,8 +431,8 @@ export interface IpCommandListInstance {
     params: IpCommandListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IpCommandInstance>,
-    ) => any,
+      item?: ApiResponse<IpCommandInstance>
+    ) => any
   ): Promise<ApiResponse<IpCommandInstance>>;
 
   /**
@@ -455,11 +451,11 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void,
+    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: IpCommandListInstanceEachOptions,
-    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void,
+    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams IpCommandInstance records from the API with HTTP metadata captured per page.
@@ -477,11 +473,11 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void,
+    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: IpCommandListInstanceEachOptions,
-    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void,
+    callback?: (item: IpCommandInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of IpCommandInstance records from the API.
@@ -493,7 +489,7 @@ export interface IpCommandListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: IpCommandPage) => any,
+    callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage>;
   /**
    * Retrieve a single target page of IpCommandInstance records from the API with HTTP metadata.
@@ -505,7 +501,7 @@ export interface IpCommandListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<IpCommandPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<IpCommandPage>) => any
   ): Promise<ApiResponse<IpCommandPage>>;
   /**
    * Lists IpCommandInstance records from the API as a list.
@@ -517,11 +513,11 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: IpCommandInstance[]) => any,
+    callback?: (error: Error | null, items: IpCommandInstance[]) => any
   ): Promise<IpCommandInstance[]>;
   list(
     params: IpCommandListInstanceOptions,
-    callback?: (error: Error | null, items: IpCommandInstance[]) => any,
+    callback?: (error: Error | null, items: IpCommandInstance[]) => any
   ): Promise<IpCommandInstance[]>;
   /**
    * Lists IpCommandInstance records from the API as a list with HTTP metadata.
@@ -537,15 +533,15 @@ export interface IpCommandListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpCommandInstance[]>,
-    ) => any,
+      items: ApiResponse<IpCommandInstance[]>
+    ) => any
   ): Promise<ApiResponse<IpCommandInstance[]>>;
   listWithHttpInfo(
     params: IpCommandListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpCommandInstance[]>,
-    ) => any,
+      items: ApiResponse<IpCommandInstance[]>
+    ) => any
   ): Promise<ApiResponse<IpCommandInstance[]>>;
   /**
    * Retrieve a single page of IpCommandInstance records from the API.
@@ -559,11 +555,11 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: IpCommandPage) => any,
+    callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage>;
   page(
     params: IpCommandListInstancePageOptions,
-    callback?: (error: Error | null, items: IpCommandPage) => any,
+    callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage>;
   /**
    * Retrieve a single page of IpCommandInstance records from the API with HTTP metadata.
@@ -577,11 +573,11 @@ export interface IpCommandListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<IpCommandPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<IpCommandPage>) => any
   ): Promise<ApiResponse<IpCommandPage>>;
   pageWithHttpInfo(
     params: IpCommandListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<IpCommandPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<IpCommandPage>) => any
   ): Promise<ApiResponse<IpCommandPage>>;
 
   /**
@@ -604,7 +600,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
   instance.create = function create(
     params: IpCommandListInstanceCreateOptions,
-    callback?: (error: Error | null, items: IpCommandInstance) => any,
+    callback?: (error: Error | null, items: IpCommandInstance) => any
   ): Promise<IpCommandInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -649,12 +645,12 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new IpCommandInstance(operationVersion, payload),
+      (payload) => new IpCommandInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -663,8 +659,8 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
     params: IpCommandListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<IpCommandInstance>,
-    ) => any,
+      items: ApiResponse<IpCommandInstance>
+    ) => any
   ): Promise<ApiResponse<IpCommandInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -716,7 +712,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -725,7 +721,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
     params?:
       | IpCommandListInstancePageOptions
       | ((error: Error | null, items: IpCommandPage) => any),
-    callback?: (error: Error | null, items: IpCommandPage) => any,
+    callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage> {
     if (params instanceof Function) {
       callback = params;
@@ -759,12 +755,12 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new IpCommandPage(operationVersion, payload, instance._solution),
+        new IpCommandPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -774,7 +770,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: IpCommandPage) => any,
+    callback?: (error: Error | null, items: IpCommandPage) => any
   ): Promise<IpCommandPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -782,7 +778,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new IpCommandPage(instance._version, payload, instance._solution),
+        new IpCommandPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -792,7 +788,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
     params?:
       | IpCommandListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<IpCommandPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<IpCommandPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<IpCommandPage>) => any
   ): Promise<ApiResponse<IpCommandPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -830,7 +826,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -842,7 +838,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<IpCommandPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<IpCommandPage>) => any
   ): Promise<ApiResponse<IpCommandPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -857,9 +853,9 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
         body: new IpCommandPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -871,7 +867,7 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -895,7 +891,7 @@ export class IpCommandPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: IpCommandSolution,
+    solution: IpCommandSolution
   ) {
     super(version, response, solution);
   }

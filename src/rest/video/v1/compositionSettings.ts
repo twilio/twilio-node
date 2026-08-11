@@ -48,7 +48,7 @@ export interface CompositionSettingsContext {
    */
   create(
     params: CompositionSettingsContextCreateOptions,
-    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance>;
 
   /**
@@ -63,8 +63,8 @@ export interface CompositionSettingsContext {
     params: CompositionSettingsContextCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CompositionSettingsInstance>,
-    ) => any,
+      item?: ApiResponse<CompositionSettingsInstance>
+    ) => any
   ): Promise<ApiResponse<CompositionSettingsInstance>>;
 
   /**
@@ -75,7 +75,7 @@ export interface CompositionSettingsContext {
    * @returns Resolves to processed CompositionSettingsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance>;
 
   /**
@@ -88,8 +88,8 @@ export interface CompositionSettingsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CompositionSettingsInstance>,
-    ) => any,
+      item?: ApiResponse<CompositionSettingsInstance>
+    ) => any
   ): Promise<ApiResponse<CompositionSettingsInstance>>;
 
   /**
@@ -112,7 +112,7 @@ export class CompositionSettingsContextImpl implements CompositionSettingsContex
 
   create(
     params: CompositionSettingsContextCreateOptions,
-    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -152,12 +152,12 @@ export class CompositionSettingsContextImpl implements CompositionSettingsContex
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CompositionSettingsInstance(operationVersion, payload),
+      (payload) => new CompositionSettingsInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -166,8 +166,8 @@ export class CompositionSettingsContextImpl implements CompositionSettingsContex
     params: CompositionSettingsContextCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CompositionSettingsInstance>,
-    ) => any,
+      item?: ApiResponse<CompositionSettingsInstance>
+    ) => any
   ): Promise<ApiResponse<CompositionSettingsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -214,13 +214,13 @@ export class CompositionSettingsContextImpl implements CompositionSettingsContex
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -234,12 +234,12 @@ export class CompositionSettingsContextImpl implements CompositionSettingsContex
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CompositionSettingsInstance(operationVersion, payload),
+      (payload) => new CompositionSettingsInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -247,8 +247,8 @@ export class CompositionSettingsContextImpl implements CompositionSettingsContex
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CompositionSettingsInstance>,
-    ) => any,
+      item?: ApiResponse<CompositionSettingsInstance>
+    ) => any
   ): Promise<ApiResponse<CompositionSettingsInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -269,7 +269,7 @@ export class CompositionSettingsContextImpl implements CompositionSettingsContex
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -307,7 +307,7 @@ export class CompositionSettingsInstance {
 
   constructor(
     protected _version: V1,
-    payload: CompositionSettingsResource,
+    payload: CompositionSettingsResource
   ) {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -370,12 +370,12 @@ export class CompositionSettingsInstance {
    */
   create(
     params: CompositionSettingsContextCreateOptions,
-    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance>;
 
   create(
     params?: any,
-    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance> {
     return this._proxy.create(params, callback);
   }
@@ -392,16 +392,16 @@ export class CompositionSettingsInstance {
     params: CompositionSettingsContextCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CompositionSettingsInstance>,
-    ) => any,
+      item?: ApiResponse<CompositionSettingsInstance>
+    ) => any
   ): Promise<ApiResponse<CompositionSettingsInstance>>;
 
   createWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CompositionSettingsInstance>,
-    ) => any,
+      item?: ApiResponse<CompositionSettingsInstance>
+    ) => any
   ): Promise<ApiResponse<CompositionSettingsInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
@@ -414,7 +414,7 @@ export class CompositionSettingsInstance {
    * @returns Resolves to processed CompositionSettingsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any,
+    callback?: (error: Error | null, item?: CompositionSettingsInstance) => any
   ): Promise<CompositionSettingsInstance> {
     return this._proxy.fetch(callback);
   }
@@ -429,8 +429,8 @@ export class CompositionSettingsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CompositionSettingsInstance>,
-    ) => any,
+      item?: ApiResponse<CompositionSettingsInstance>
+    ) => any
   ): Promise<ApiResponse<CompositionSettingsInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -476,7 +476,7 @@ export interface CompositionSettingsListInstance {
 }
 
 export function CompositionSettingsListInstance(
-  version: V1,
+  version: V1
 ): CompositionSettingsListInstance {
   const instance = (() => instance.get()) as CompositionSettingsListInstance;
 
@@ -494,7 +494,7 @@ export function CompositionSettingsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -9,7 +9,7 @@ class Accounts extends AccountsBase {
    */
   get authTokenPromotion(): AuthTokenPromotionListInstance {
     console.warn(
-      "authTokenPromotion is deprecated. Use v1.authTokenPromotion; instead.",
+      "authTokenPromotion is deprecated. Use v1.authTokenPromotion; instead."
     );
     return this.v1.authTokenPromotion;
   }
@@ -27,7 +27,7 @@ class Accounts extends AccountsBase {
    */
   get secondaryAuthToken(): SecondaryAuthTokenListInstance {
     console.warn(
-      "secondaryAuthToken is deprecated. Use v1.secondaryAuthToken; instead.",
+      "secondaryAuthToken is deprecated. Use v1.secondaryAuthToken; instead."
     );
     return this.v1.secondaryAuthToken;
   }

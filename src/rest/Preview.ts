@@ -13,7 +13,7 @@ class Preview extends PreviewBase {
    */
   get authorizationDocuments(): AuthorizationDocumentListInstance {
     console.warn(
-      "authorizationDocuments is deprecated. Use hosted_numbers.authorizationDocuments instead.",
+      "authorizationDocuments is deprecated. Use hosted_numbers.authorizationDocuments instead."
     );
     return this.hosted_numbers.authorizationDocuments;
   }
@@ -23,7 +23,7 @@ class Preview extends PreviewBase {
    */
   get hostedNumberOrders(): HostedNumberOrderListInstance {
     console.warn(
-      "hostedNumberOrders is deprecated. Use hosted_numbers.hostedNumberOrders instead.",
+      "hostedNumberOrders is deprecated. Use hosted_numbers.hostedNumberOrders instead."
     );
     return this.hosted_numbers.hostedNumberOrders;
   }
@@ -33,7 +33,7 @@ class Preview extends PreviewBase {
    */
   get availableAddOns(): AvailableAddOnListInstance {
     console.warn(
-      "availableAddOns is deprecated. Use marketplace.availableAddOns instead.",
+      "availableAddOns is deprecated. Use marketplace.availableAddOns instead."
     );
     return this.marketplace.availableAddOns;
   }
@@ -43,7 +43,7 @@ class Preview extends PreviewBase {
    */
   get installedAddOns(): InstalledAddOnListInstance {
     console.warn(
-      "installedAddOns is deprecated. Use marketplace.installedAddOns instead.",
+      "installedAddOns is deprecated. Use marketplace.installedAddOns instead."
     );
     return this.marketplace.installedAddOns;
   }

@@ -77,7 +77,7 @@ export interface WorkerChannelContext {
    * @returns Resolves to processed WorkerChannelInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WorkerChannelInstance) => any,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance>;
 
   /**
@@ -90,8 +90,8 @@ export interface WorkerChannelContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkerChannelInstance>,
-    ) => any,
+      item?: ApiResponse<WorkerChannelInstance>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelInstance>>;
 
   /**
@@ -102,7 +102,7 @@ export interface WorkerChannelContext {
    * @returns Resolves to processed WorkerChannelInstance
    */
   update(
-    callback?: (error: Error | null, item?: WorkerChannelInstance) => any,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance>;
   /**
    * Update a WorkerChannelInstance
@@ -114,7 +114,7 @@ export interface WorkerChannelContext {
    */
   update(
     params: WorkerChannelContextUpdateOptions,
-    callback?: (error: Error | null, item?: WorkerChannelInstance) => any,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance>;
 
   /**
@@ -127,8 +127,8 @@ export interface WorkerChannelContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkerChannelInstance>,
-    ) => any,
+      item?: ApiResponse<WorkerChannelInstance>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelInstance>>;
   /**
    * Update a WorkerChannelInstance and return HTTP info
@@ -142,8 +142,8 @@ export interface WorkerChannelContext {
     params: WorkerChannelContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkerChannelInstance>,
-    ) => any,
+      item?: ApiResponse<WorkerChannelInstance>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelInstance>>;
 
   /**
@@ -167,7 +167,7 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
     protected _version: V1,
     workspaceSid: string,
     workerSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -186,7 +186,7 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: WorkerChannelInstance) => any,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -206,13 +206,13 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
           payload,
           instance._solution.workspaceSid,
           instance._solution.workerSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -220,8 +220,8 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkerChannelInstance>,
-    ) => any,
+      item?: ApiResponse<WorkerChannelInstance>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -242,13 +242,13 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
           response.body,
           instance._solution.workspaceSid,
           instance._solution.workerSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -257,7 +257,7 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
     params?:
       | WorkerChannelContextUpdateOptions
       | ((error: Error | null, item?: WorkerChannelInstance) => any),
-    callback?: (error: Error | null, item?: WorkerChannelInstance) => any,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -292,13 +292,13 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
           payload,
           instance._solution.workspaceSid,
           instance._solution.workerSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -308,12 +308,12 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
       | WorkerChannelContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<WorkerChannelInstance>,
+          item?: ApiResponse<WorkerChannelInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkerChannelInstance>,
-    ) => any,
+      item?: ApiResponse<WorkerChannelInstance>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -349,13 +349,13 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
           response.body,
           instance._solution.workspaceSid,
           instance._solution.workerSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -403,13 +403,13 @@ export class WorkerChannelInstance {
     payload: WorkerChannelResource,
     workspaceSid: string,
     workerSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.assignedTasks = deserialize.integer(payload.assigned_tasks);
     this.available = payload.available;
     this.availableCapacityPercentage = deserialize.integer(
-      payload.available_capacity_percentage,
+      payload.available_capacity_percentage
     );
     this.configuredCapacity = deserialize.integer(payload.configured_capacity);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -484,7 +484,7 @@ export class WorkerChannelInstance {
         this._version,
         this._solution.workspaceSid,
         this._solution.workerSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -497,7 +497,7 @@ export class WorkerChannelInstance {
    * @returns Resolves to processed WorkerChannelInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: WorkerChannelInstance) => any,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance> {
     return this._proxy.fetch(callback);
   }
@@ -512,8 +512,8 @@ export class WorkerChannelInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkerChannelInstance>,
-    ) => any,
+      item?: ApiResponse<WorkerChannelInstance>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -526,7 +526,7 @@ export class WorkerChannelInstance {
    * @returns Resolves to processed WorkerChannelInstance
    */
   update(
-    callback?: (error: Error | null, item?: WorkerChannelInstance) => any,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance>;
   /**
    * Update a WorkerChannelInstance
@@ -538,12 +538,12 @@ export class WorkerChannelInstance {
    */
   update(
     params: WorkerChannelContextUpdateOptions,
-    callback?: (error: Error | null, item?: WorkerChannelInstance) => any,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: WorkerChannelInstance) => any,
+    callback?: (error: Error | null, item?: WorkerChannelInstance) => any
   ): Promise<WorkerChannelInstance> {
     return this._proxy.update(params, callback);
   }
@@ -558,8 +558,8 @@ export class WorkerChannelInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkerChannelInstance>,
-    ) => any,
+      item?: ApiResponse<WorkerChannelInstance>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelInstance>>;
   /**
    * Update a WorkerChannelInstance and return HTTP info
@@ -573,16 +573,16 @@ export class WorkerChannelInstance {
     params: WorkerChannelContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkerChannelInstance>,
-    ) => any,
+      item?: ApiResponse<WorkerChannelInstance>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<WorkerChannelInstance>,
-    ) => any,
+      item?: ApiResponse<WorkerChannelInstance>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -646,15 +646,15 @@ export interface WorkerChannelListInstance {
   each(
     callback?: (
       item: WorkerChannelInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: WorkerChannelListInstanceEachOptions,
     callback?: (
       item: WorkerChannelInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams WorkerChannelInstance records from the API with HTTP metadata captured per page.
@@ -674,15 +674,15 @@ export interface WorkerChannelListInstance {
   eachWithHttpInfo(
     callback?: (
       item: WorkerChannelInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: WorkerChannelListInstanceEachOptions,
     callback?: (
       item: WorkerChannelInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of WorkerChannelInstance records from the API.
@@ -694,7 +694,7 @@ export interface WorkerChannelListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: WorkerChannelPage) => any,
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
   ): Promise<WorkerChannelPage>;
   /**
    * Retrieve a single target page of WorkerChannelInstance records from the API with HTTP metadata.
@@ -708,8 +708,8 @@ export interface WorkerChannelListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkerChannelPage>,
-    ) => any,
+      items: ApiResponse<WorkerChannelPage>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelPage>>;
   /**
    * Lists WorkerChannelInstance records from the API as a list.
@@ -721,11 +721,11 @@ export interface WorkerChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: WorkerChannelInstance[]) => any,
+    callback?: (error: Error | null, items: WorkerChannelInstance[]) => any
   ): Promise<WorkerChannelInstance[]>;
   list(
     params: WorkerChannelListInstanceOptions,
-    callback?: (error: Error | null, items: WorkerChannelInstance[]) => any,
+    callback?: (error: Error | null, items: WorkerChannelInstance[]) => any
   ): Promise<WorkerChannelInstance[]>;
   /**
    * Lists WorkerChannelInstance records from the API as a list with HTTP metadata.
@@ -741,15 +741,15 @@ export interface WorkerChannelListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkerChannelInstance[]>,
-    ) => any,
+      items: ApiResponse<WorkerChannelInstance[]>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelInstance[]>>;
   listWithHttpInfo(
     params: WorkerChannelListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkerChannelInstance[]>,
-    ) => any,
+      items: ApiResponse<WorkerChannelInstance[]>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelInstance[]>>;
   /**
    * Retrieve a single page of WorkerChannelInstance records from the API.
@@ -763,11 +763,11 @@ export interface WorkerChannelListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: WorkerChannelPage) => any,
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
   ): Promise<WorkerChannelPage>;
   page(
     params: WorkerChannelListInstancePageOptions,
-    callback?: (error: Error | null, items: WorkerChannelPage) => any,
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
   ): Promise<WorkerChannelPage>;
   /**
    * Retrieve a single page of WorkerChannelInstance records from the API with HTTP metadata.
@@ -783,15 +783,15 @@ export interface WorkerChannelListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkerChannelPage>,
-    ) => any,
+      items: ApiResponse<WorkerChannelPage>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelPage>>;
   pageWithHttpInfo(
     params: WorkerChannelListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkerChannelPage>,
-    ) => any,
+      items: ApiResponse<WorkerChannelPage>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelPage>>;
 
   /**
@@ -804,7 +804,7 @@ export interface WorkerChannelListInstance {
 export function WorkerChannelListInstance(
   version: V1,
   workspaceSid: string,
-  workerSid: string,
+  workerSid: string
 ): WorkerChannelListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -828,7 +828,7 @@ export function WorkerChannelListInstance(
     params?:
       | WorkerChannelListInstancePageOptions
       | ((error: Error | null, items: WorkerChannelPage) => any),
-    callback?: (error: Error | null, items: WorkerChannelPage) => any,
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
   ): Promise<WorkerChannelPage> {
     if (params instanceof Function) {
       callback = params;
@@ -857,12 +857,12 @@ export function WorkerChannelListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new WorkerChannelPage(operationVersion, payload, instance._solution),
+        new WorkerChannelPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -872,7 +872,7 @@ export function WorkerChannelListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: WorkerChannelPage) => any,
+    callback?: (error: Error | null, items: WorkerChannelPage) => any
   ): Promise<WorkerChannelPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -880,7 +880,7 @@ export function WorkerChannelListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new WorkerChannelPage(instance._version, payload, instance._solution),
+        new WorkerChannelPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -892,8 +892,8 @@ export function WorkerChannelListInstance(
       | ((error: Error | null, items: ApiResponse<WorkerChannelPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<WorkerChannelPage>,
-    ) => any,
+      items: ApiResponse<WorkerChannelPage>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -924,13 +924,13 @@ export function WorkerChannelListInstance(
         body: new WorkerChannelPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -944,8 +944,8 @@ export function WorkerChannelListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<WorkerChannelPage>,
-    ) => any,
+      items?: ApiResponse<WorkerChannelPage>
+    ) => any
   ): Promise<ApiResponse<WorkerChannelPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -960,9 +960,9 @@ export function WorkerChannelListInstance(
         body: new WorkerChannelPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -974,7 +974,7 @@ export function WorkerChannelListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -998,7 +998,7 @@ export class WorkerChannelPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: WorkerChannelSolution,
+    solution: WorkerChannelSolution
   ) {
     super(version, response, solution);
   }
@@ -1013,7 +1013,7 @@ export class WorkerChannelPage extends Page<
       this._version,
       payload,
       this._solution.workspaceSid,
-      this._solution.workerSid,
+      this._solution.workerSid
     );
   }
 

@@ -38,7 +38,7 @@ export interface SipDomainContext {
    * @returns Resolves to processed SipDomainInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SipDomainInstance) => any,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance>;
 
   /**
@@ -51,8 +51,8 @@ export interface SipDomainContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SipDomainInstance>,
-    ) => any,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
   ): Promise<ApiResponse<SipDomainInstance>>;
 
   /**
@@ -63,7 +63,7 @@ export interface SipDomainContext {
    * @returns Resolves to processed SipDomainInstance
    */
   update(
-    callback?: (error: Error | null, item?: SipDomainInstance) => any,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance>;
   /**
    * Update a SipDomainInstance
@@ -75,7 +75,7 @@ export interface SipDomainContext {
    */
   update(
     params: SipDomainContextUpdateOptions,
-    callback?: (error: Error | null, item?: SipDomainInstance) => any,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance>;
 
   /**
@@ -88,8 +88,8 @@ export interface SipDomainContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SipDomainInstance>,
-    ) => any,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
   ): Promise<ApiResponse<SipDomainInstance>>;
   /**
    * Update a SipDomainInstance and return HTTP info
@@ -103,8 +103,8 @@ export interface SipDomainContext {
     params: SipDomainContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SipDomainInstance>,
-    ) => any,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
   ): Promise<ApiResponse<SipDomainInstance>>;
 
   /**
@@ -124,7 +124,7 @@ export class SipDomainContextImpl implements SipDomainContext {
 
   constructor(
     protected _version: V2,
-    sipDomain: string,
+    sipDomain: string
   ) {
     if (!isValidPathParam(sipDomain)) {
       throw new Error("Parameter 'sipDomain' is not valid.");
@@ -135,7 +135,7 @@ export class SipDomainContextImpl implements SipDomainContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: SipDomainInstance) => any,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -153,13 +153,13 @@ export class SipDomainContextImpl implements SipDomainContext {
         new SipDomainInstance(
           operationVersion,
           payload,
-          instance._solution.sipDomain,
-        ),
+          instance._solution.sipDomain
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -167,8 +167,8 @@ export class SipDomainContextImpl implements SipDomainContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SipDomainInstance>,
-    ) => any,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
   ): Promise<ApiResponse<SipDomainInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -187,13 +187,13 @@ export class SipDomainContextImpl implements SipDomainContext {
         body: new SipDomainInstance(
           operationVersion,
           response.body,
-          instance._solution.sipDomain,
+          instance._solution.sipDomain
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -202,7 +202,7 @@ export class SipDomainContextImpl implements SipDomainContext {
     params?:
       | SipDomainContextUpdateOptions
       | ((error: Error | null, item?: SipDomainInstance) => any),
-    callback?: (error: Error | null, item?: SipDomainInstance) => any,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -236,13 +236,13 @@ export class SipDomainContextImpl implements SipDomainContext {
         new SipDomainInstance(
           operationVersion,
           payload,
-          instance._solution.sipDomain,
-        ),
+          instance._solution.sipDomain
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -253,8 +253,8 @@ export class SipDomainContextImpl implements SipDomainContext {
       | ((error: Error | null, item?: ApiResponse<SipDomainInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SipDomainInstance>,
-    ) => any,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
   ): Promise<ApiResponse<SipDomainInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -289,13 +289,13 @@ export class SipDomainContextImpl implements SipDomainContext {
         body: new SipDomainInstance(
           operationVersion,
           response.body,
-          instance._solution.sipDomain,
+          instance._solution.sipDomain
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -334,7 +334,7 @@ export class SipDomainInstance {
   constructor(
     protected _version: V2,
     payload: SipDomainResource,
-    sipDomain?: string,
+    sipDomain?: string
   ) {
     this.sipDomain = payload.sip_domain;
     this.url = payload.url;
@@ -372,7 +372,7 @@ export class SipDomainInstance {
    * @returns Resolves to processed SipDomainInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SipDomainInstance) => any,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance> {
     return this._proxy.fetch(callback);
   }
@@ -387,8 +387,8 @@ export class SipDomainInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SipDomainInstance>,
-    ) => any,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
   ): Promise<ApiResponse<SipDomainInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -401,7 +401,7 @@ export class SipDomainInstance {
    * @returns Resolves to processed SipDomainInstance
    */
   update(
-    callback?: (error: Error | null, item?: SipDomainInstance) => any,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance>;
   /**
    * Update a SipDomainInstance
@@ -413,12 +413,12 @@ export class SipDomainInstance {
    */
   update(
     params: SipDomainContextUpdateOptions,
-    callback?: (error: Error | null, item?: SipDomainInstance) => any,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: SipDomainInstance) => any,
+    callback?: (error: Error | null, item?: SipDomainInstance) => any
   ): Promise<SipDomainInstance> {
     return this._proxy.update(params, callback);
   }
@@ -433,8 +433,8 @@ export class SipDomainInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SipDomainInstance>,
-    ) => any,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
   ): Promise<ApiResponse<SipDomainInstance>>;
   /**
    * Update a SipDomainInstance and return HTTP info
@@ -448,16 +448,16 @@ export class SipDomainInstance {
     params: SipDomainContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SipDomainInstance>,
-    ) => any,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
   ): Promise<ApiResponse<SipDomainInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SipDomainInstance>,
-    ) => any,
+      item?: ApiResponse<SipDomainInstance>
+    ) => any
   ): Promise<ApiResponse<SipDomainInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -520,7 +520,7 @@ export function SipDomainListInstance(version: V2): SipDomainListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

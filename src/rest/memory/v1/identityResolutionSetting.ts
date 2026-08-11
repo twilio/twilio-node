@@ -108,8 +108,8 @@ export interface IdentityResolutionSettingListInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: IdentityResolutionSettingInstance,
-    ) => any,
+      item?: IdentityResolutionSettingInstance
+    ) => any
   ): Promise<IdentityResolutionSettingInstance>;
 
   /**
@@ -122,8 +122,8 @@ export interface IdentityResolutionSettingListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IdentityResolutionSettingInstance>,
-    ) => any,
+      item?: ApiResponse<IdentityResolutionSettingInstance>
+    ) => any
   ): Promise<ApiResponse<IdentityResolutionSettingInstance>>;
 
   /**
@@ -140,8 +140,8 @@ export interface IdentityResolutionSettingListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: IdentityResolutionSettingInstance,
-    ) => any,
+      item?: IdentityResolutionSettingInstance
+    ) => any
   ): Promise<IdentityResolutionSettingInstance>;
 
   /**
@@ -158,8 +158,8 @@ export interface IdentityResolutionSettingListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<IdentityResolutionSettingInstance>,
-    ) => any,
+      item?: ApiResponse<IdentityResolutionSettingInstance>
+    ) => any
   ): Promise<ApiResponse<IdentityResolutionSettingInstance>>;
 
   /**
@@ -171,7 +171,7 @@ export interface IdentityResolutionSettingListInstance {
 
 export function IdentityResolutionSettingListInstance(
   version: V1,
-  storeId: string,
+  storeId: string
 ): IdentityResolutionSettingListInstance {
   if (!isValidPathParam(storeId)) {
     throw new Error("Parameter 'storeId' is not valid.");
@@ -186,8 +186,8 @@ export function IdentityResolutionSettingListInstance(
   instance.fetch = function fetch(
     callback?: (
       error: Error | null,
-      items: IdentityResolutionSettingInstance,
-    ) => any,
+      items: IdentityResolutionSettingInstance
+    ) => any
   ): Promise<IdentityResolutionSettingInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -204,13 +204,13 @@ export function IdentityResolutionSettingListInstance(
         new IdentityResolutionSettingInstance(
           operationVersion,
           payload,
-          instance._solution.storeId,
-        ),
+          instance._solution.storeId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -218,8 +218,8 @@ export function IdentityResolutionSettingListInstance(
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<IdentityResolutionSettingInstance>,
-    ) => any,
+      items: ApiResponse<IdentityResolutionSettingInstance>
+    ) => any
   ): Promise<ApiResponse<IdentityResolutionSettingInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -237,13 +237,13 @@ export function IdentityResolutionSettingListInstance(
         body: new IdentityResolutionSettingInstance(
           operationVersion,
           response.body,
-          instance._solution.storeId,
+          instance._solution.storeId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -253,8 +253,8 @@ export function IdentityResolutionSettingListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: IdentityResolutionSettingInstance,
-    ) => any,
+      items: IdentityResolutionSettingInstance
+    ) => any
   ): Promise<IdentityResolutionSettingInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -284,13 +284,13 @@ export function IdentityResolutionSettingListInstance(
         new IdentityResolutionSettingInstance(
           operationVersion,
           payload,
-          instance._solution.storeId,
-        ),
+          instance._solution.storeId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -300,8 +300,8 @@ export function IdentityResolutionSettingListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<IdentityResolutionSettingInstance>,
-    ) => any,
+      items: ApiResponse<IdentityResolutionSettingInstance>
+    ) => any
   ): Promise<ApiResponse<IdentityResolutionSettingInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -332,13 +332,13 @@ export function IdentityResolutionSettingListInstance(
         body: new IdentityResolutionSettingInstance(
           operationVersion,
           response.body,
-          instance._solution.storeId,
+          instance._solution.storeId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -349,7 +349,7 @@ export function IdentityResolutionSettingListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -385,14 +385,14 @@ export class IdentityResolutionSettingInstance {
   constructor(
     protected _version: V1,
     _payload: IdentityResolutionSettingResource,
-    storeId: string,
+    storeId: string
   ) {
     const payload: any = _payload;
     this.identifierConfigs =
       payload.identifierConfigs !== null &&
       payload.identifierConfigs !== undefined
         ? payload.identifierConfigs.map(
-            (payload: any) => new IdentifierConfig(payload),
+            (payload: any) => new IdentifierConfig(payload)
           )
         : null;
     this.matchingRules = payload.matchingRules;

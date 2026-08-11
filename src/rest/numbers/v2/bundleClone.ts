@@ -53,7 +53,7 @@ export interface BundleCloneContext {
    */
   create(
     params: BundleCloneContextCreateOptions,
-    callback?: (error: Error | null, item?: BundleCloneInstance) => any,
+    callback?: (error: Error | null, item?: BundleCloneInstance) => any
   ): Promise<BundleCloneInstance>;
 
   /**
@@ -68,8 +68,8 @@ export interface BundleCloneContext {
     params: BundleCloneContextCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BundleCloneInstance>,
-    ) => any,
+      item?: ApiResponse<BundleCloneInstance>
+    ) => any
   ): Promise<ApiResponse<BundleCloneInstance>>;
 
   /**
@@ -89,7 +89,7 @@ export class BundleCloneContextImpl implements BundleCloneContext {
 
   constructor(
     protected _version: V2,
-    bundleSid: string,
+    bundleSid: string
   ) {
     if (!isValidPathParam(bundleSid)) {
       throw new Error("Parameter 'bundleSid' is not valid.");
@@ -101,7 +101,7 @@ export class BundleCloneContextImpl implements BundleCloneContext {
 
   create(
     params: BundleCloneContextCreateOptions,
-    callback?: (error: Error | null, item?: BundleCloneInstance) => any,
+    callback?: (error: Error | null, item?: BundleCloneInstance) => any
   ): Promise<BundleCloneInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -112,7 +112,7 @@ export class BundleCloneContextImpl implements BundleCloneContext {
       params["targetAccountSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['targetAccountSid']\" missing.",
+        "Required parameter \"params['targetAccountSid']\" missing."
       );
     }
 
@@ -142,13 +142,13 @@ export class BundleCloneContextImpl implements BundleCloneContext {
         new BundleCloneInstance(
           operationVersion,
           payload,
-          instance._solution.bundleSid,
-        ),
+          instance._solution.bundleSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -157,8 +157,8 @@ export class BundleCloneContextImpl implements BundleCloneContext {
     params: BundleCloneContextCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BundleCloneInstance>,
-    ) => any,
+      item?: ApiResponse<BundleCloneInstance>
+    ) => any
   ): Promise<ApiResponse<BundleCloneInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -169,7 +169,7 @@ export class BundleCloneContextImpl implements BundleCloneContext {
       params["targetAccountSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['targetAccountSid']\" missing.",
+        "Required parameter \"params['targetAccountSid']\" missing."
       );
     }
 
@@ -200,13 +200,13 @@ export class BundleCloneContextImpl implements BundleCloneContext {
         body: new BundleCloneInstance(
           operationVersion,
           response.body,
-          instance._solution.bundleSid,
+          instance._solution.bundleSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -248,7 +248,7 @@ export class BundleCloneInstance {
   constructor(
     protected _version: V2,
     payload: BundleCloneResource,
-    bundleSid?: string,
+    bundleSid?: string
   ) {
     this.bundleSid = payload.bundle_sid;
     this.accountSid = payload.account_sid;
@@ -324,12 +324,12 @@ export class BundleCloneInstance {
    */
   create(
     params: BundleCloneContextCreateOptions,
-    callback?: (error: Error | null, item?: BundleCloneInstance) => any,
+    callback?: (error: Error | null, item?: BundleCloneInstance) => any
   ): Promise<BundleCloneInstance>;
 
   create(
     params?: any,
-    callback?: (error: Error | null, item?: BundleCloneInstance) => any,
+    callback?: (error: Error | null, item?: BundleCloneInstance) => any
   ): Promise<BundleCloneInstance> {
     return this._proxy.create(params, callback);
   }
@@ -346,16 +346,16 @@ export class BundleCloneInstance {
     params: BundleCloneContextCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BundleCloneInstance>,
-    ) => any,
+      item?: ApiResponse<BundleCloneInstance>
+    ) => any
   ): Promise<ApiResponse<BundleCloneInstance>>;
 
   createWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BundleCloneInstance>,
-    ) => any,
+      item?: ApiResponse<BundleCloneInstance>
+    ) => any
   ): Promise<ApiResponse<BundleCloneInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
@@ -421,7 +421,7 @@ export function BundleCloneListInstance(version: V2): BundleCloneListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

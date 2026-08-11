@@ -68,7 +68,7 @@ export interface OperationContext {
    * @returns Resolves to processed OperationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: OperationInstance) => any,
+    callback?: (error: Error | null, item?: OperationInstance) => any
   ): Promise<OperationInstance>;
 
   /**
@@ -81,8 +81,8 @@ export interface OperationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OperationInstance>,
-    ) => any,
+      item?: ApiResponse<OperationInstance>
+    ) => any
   ): Promise<ApiResponse<OperationInstance>>;
 
   /**
@@ -102,7 +102,7 @@ export class OperationContextImpl implements OperationContext {
 
   constructor(
     protected _version: V2,
-    id: string,
+    id: string
   ) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
@@ -113,7 +113,7 @@ export class OperationContextImpl implements OperationContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: OperationInstance) => any,
+    callback?: (error: Error | null, item?: OperationInstance) => any
   ): Promise<OperationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -128,12 +128,12 @@ export class OperationContextImpl implements OperationContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new OperationInstance(operationVersion, payload, instance._solution.id),
+        new OperationInstance(operationVersion, payload, instance._solution.id)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -141,8 +141,8 @@ export class OperationContextImpl implements OperationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OperationInstance>,
-    ) => any,
+      item?: ApiResponse<OperationInstance>
+    ) => any
   ): Promise<ApiResponse<OperationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -161,13 +161,13 @@ export class OperationContextImpl implements OperationContext {
         body: new OperationInstance(
           operationVersion,
           response.body,
-          instance._solution.id,
+          instance._solution.id
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -206,7 +206,7 @@ export class OperationInstance {
   constructor(
     protected _version: V2,
     _payload: OperationResource,
-    id?: string,
+    id?: string
   ) {
     const payload = _payload;
     this.operationId = payload.operationId;
@@ -261,7 +261,7 @@ export class OperationInstance {
    * @returns Resolves to processed OperationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: OperationInstance) => any,
+    callback?: (error: Error | null, item?: OperationInstance) => any
   ): Promise<OperationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -276,8 +276,8 @@ export class OperationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OperationInstance>,
-    ) => any,
+      item?: ApiResponse<OperationInstance>
+    ) => any
   ): Promise<ApiResponse<OperationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -338,7 +338,7 @@ export function OperationListInstance(version: V2): OperationListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

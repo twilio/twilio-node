@@ -45,7 +45,7 @@ export default class Page<
   constructor(
     version: TVersion,
     response: Response<string | TPayload>,
-    solution: Solution,
+    solution: Solution
   ) {
     let payload = this.processResponse(response);
 
@@ -136,7 +136,7 @@ export default class Page<
    */
   getInstance(payload: any): TInstance {
     throw new Error(
-      "Page.get_instance() must be implemented in the derived class",
+      "Page.get_instance() must be implemented in the derived class"
     );
   }
 
@@ -176,7 +176,7 @@ export default class Page<
     > = reqPromise.then(
       function (this: any, response: any) {
         return new this.constructor(this._version, response, this._solution);
-      }.bind(this),
+      }.bind(this)
     );
 
     return nextPagePromise;
@@ -204,7 +204,7 @@ export default class Page<
     > = reqPromise.then(
       function (this: any, response: any) {
         return new this.constructor(this._version, response, this._solution);
-      }.bind(this),
+      }.bind(this)
     );
 
     return prevPagePromise;
@@ -242,7 +242,7 @@ export default class Page<
     }
 
     const keys = Object.keys(payload).filter(
-      (key: string) => !Page.META_KEYS.includes(key),
+      (key: string) => !Page.META_KEYS.includes(key)
     );
     if (keys.length === 1) {
       return payload[keys[0]];
@@ -255,7 +255,7 @@ export default class Page<
 
   forOwn(
     obj: object,
-    iteratee: (val: any, key: string, object: object) => void,
+    iteratee: (val: any, key: string, object: object) => void
   ) {
     obj = Object(obj);
     for (const [key, val] of Object.entries(obj)) {

@@ -37,7 +37,7 @@ export interface CallContext {
    * @returns Resolves to processed CallInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any,
+    callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance>;
 
   /**
@@ -48,7 +48,7 @@ export interface CallContext {
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
   ): Promise<ApiResponse<CallInstance>>;
 
   /**
@@ -73,7 +73,7 @@ export class CallContextImpl implements CallContext {
 
   constructor(
     protected _version: V1,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -110,7 +110,7 @@ export class CallContextImpl implements CallContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any,
+    callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -125,18 +125,18 @@ export class CallContextImpl implements CallContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new CallInstance(operationVersion, payload, instance._solution.sid),
+        new CallInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
   ): Promise<ApiResponse<CallInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -155,13 +155,13 @@ export class CallContextImpl implements CallContext {
         body: new CallInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -195,7 +195,7 @@ export class CallInstance {
   constructor(
     protected _version: V1,
     payload: CallResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.url = payload.url;
@@ -222,7 +222,7 @@ export class CallInstance {
    * @returns Resolves to processed CallInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CallInstance) => any,
+    callback?: (error: Error | null, item?: CallInstance) => any
   ): Promise<CallInstance> {
     return this._proxy.fetch(callback);
   }
@@ -235,7 +235,7 @@ export class CallInstance {
    * @returns Resolves to processed CallInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<CallInstance>) => any
   ): Promise<ApiResponse<CallInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -320,7 +320,7 @@ export function CallListInstance(version: V1): CallListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

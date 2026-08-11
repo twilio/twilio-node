@@ -85,7 +85,7 @@ export interface LogContext {
    * @returns Resolves to processed LogInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: LogInstance) => any,
+    callback?: (error: Error | null, item?: LogInstance) => any
   ): Promise<LogInstance>;
 
   /**
@@ -96,7 +96,7 @@ export interface LogContext {
    * @returns Resolves to processed LogInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<LogInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<LogInstance>) => any
   ): Promise<ApiResponse<LogInstance>>;
 
   /**
@@ -120,7 +120,7 @@ export class LogContextImpl implements LogContext {
     protected _version: V1,
     serviceSid: string,
     environmentSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -139,7 +139,7 @@ export class LogContextImpl implements LogContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: LogInstance) => any,
+    callback?: (error: Error | null, item?: LogInstance) => any
   ): Promise<LogInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -159,19 +159,19 @@ export class LogContextImpl implements LogContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.environmentSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<LogInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<LogInstance>) => any
   ): Promise<ApiResponse<LogInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -192,13 +192,13 @@ export class LogContextImpl implements LogContext {
           response.body,
           instance._solution.serviceSid,
           instance._solution.environmentSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -245,7 +245,7 @@ export class LogInstance {
     payload: LogResource,
     serviceSid: string,
     environmentSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -319,7 +319,7 @@ export class LogInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.environmentSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -332,7 +332,7 @@ export class LogInstance {
    * @returns Resolves to processed LogInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: LogInstance) => any,
+    callback?: (error: Error | null, item?: LogInstance) => any
   ): Promise<LogInstance> {
     return this._proxy.fetch(callback);
   }
@@ -345,7 +345,7 @@ export class LogInstance {
    * @returns Resolves to processed LogInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<LogInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<LogInstance>) => any
   ): Promise<ApiResponse<LogInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -406,11 +406,11 @@ export interface LogListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: LogInstance, done: (err?: Error) => void) => void,
+    callback?: (item: LogInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: LogListInstanceEachOptions,
-    callback?: (item: LogInstance, done: (err?: Error) => void) => void,
+    callback?: (item: LogInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams LogInstance records from the API with HTTP metadata captured per page.
@@ -428,11 +428,11 @@ export interface LogListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: LogInstance, done: (err?: Error) => void) => void,
+    callback?: (item: LogInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: LogListInstanceEachOptions,
-    callback?: (item: LogInstance, done: (err?: Error) => void) => void,
+    callback?: (item: LogInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of LogInstance records from the API.
@@ -444,7 +444,7 @@ export interface LogListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: LogPage) => any,
+    callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage>;
   /**
    * Retrieve a single target page of LogInstance records from the API with HTTP metadata.
@@ -456,7 +456,7 @@ export interface LogListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<LogPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<LogPage>) => any
   ): Promise<ApiResponse<LogPage>>;
   /**
    * Lists LogInstance records from the API as a list.
@@ -468,11 +468,11 @@ export interface LogListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: LogInstance[]) => any,
+    callback?: (error: Error | null, items: LogInstance[]) => any
   ): Promise<LogInstance[]>;
   list(
     params: LogListInstanceOptions,
-    callback?: (error: Error | null, items: LogInstance[]) => any,
+    callback?: (error: Error | null, items: LogInstance[]) => any
   ): Promise<LogInstance[]>;
   /**
    * Lists LogInstance records from the API as a list with HTTP metadata.
@@ -486,11 +486,11 @@ export interface LogListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<LogInstance[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<LogInstance[]>) => any
   ): Promise<ApiResponse<LogInstance[]>>;
   listWithHttpInfo(
     params: LogListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<LogInstance[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<LogInstance[]>) => any
   ): Promise<ApiResponse<LogInstance[]>>;
   /**
    * Retrieve a single page of LogInstance records from the API.
@@ -504,11 +504,11 @@ export interface LogListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: LogPage) => any,
+    callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage>;
   page(
     params: LogListInstancePageOptions,
-    callback?: (error: Error | null, items: LogPage) => any,
+    callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage>;
   /**
    * Retrieve a single page of LogInstance records from the API with HTTP metadata.
@@ -522,11 +522,11 @@ export interface LogListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<LogPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<LogPage>) => any
   ): Promise<ApiResponse<LogPage>>;
   pageWithHttpInfo(
     params: LogListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<LogPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<LogPage>) => any
   ): Promise<ApiResponse<LogPage>>;
 
   /**
@@ -539,7 +539,7 @@ export interface LogListInstance {
 export function LogListInstance(
   version: V1,
   serviceSid: string,
-  environmentSid: string,
+  environmentSid: string
 ): LogListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -563,7 +563,7 @@ export function LogListInstance(
     params?:
       | LogListInstancePageOptions
       | ((error: Error | null, items: LogPage) => any),
-    callback?: (error: Error | null, items: LogPage) => any,
+    callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage> {
     if (params instanceof Function) {
       callback = params;
@@ -597,12 +597,12 @@ export function LogListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new LogPage(operationVersion, payload, instance._solution),
+      (payload) => new LogPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -612,14 +612,14 @@ export function LogListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: LogPage) => any,
+    callback?: (error: Error | null, items: LogPage) => any
   ): Promise<LogPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new LogPage(instance._version, payload, instance._solution),
+      (payload) => new LogPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -629,7 +629,7 @@ export function LogListInstance(
     params?:
       | LogListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<LogPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<LogPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<LogPage>) => any
   ): Promise<ApiResponse<LogPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -668,7 +668,7 @@ export function LogListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -680,7 +680,7 @@ export function LogListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<LogPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<LogPage>) => any
   ): Promise<ApiResponse<LogPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -693,7 +693,7 @@ export function LogListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new LogPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -705,7 +705,7 @@ export function LogListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -735,7 +735,7 @@ export class LogPage extends Page<V1, LogPayload, LogResource, LogInstance> {
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.environmentSid,
+      this._solution.environmentSid
     );
   }
 

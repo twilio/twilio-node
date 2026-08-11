@@ -33,7 +33,7 @@ export interface AnonymizeContext {
    * @returns Resolves to processed AnonymizeInstance
    */
   update(
-    callback?: (error: Error | null, item?: AnonymizeInstance) => any,
+    callback?: (error: Error | null, item?: AnonymizeInstance) => any
   ): Promise<AnonymizeInstance>;
 
   /**
@@ -46,8 +46,8 @@ export interface AnonymizeContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnonymizeInstance>,
-    ) => any,
+      item?: ApiResponse<AnonymizeInstance>
+    ) => any
   ): Promise<ApiResponse<AnonymizeInstance>>;
 
   /**
@@ -69,7 +69,7 @@ export class AnonymizeContextImpl implements AnonymizeContext {
   constructor(
     protected _version: V1,
     roomSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(roomSid)) {
       throw new Error("Parameter 'roomSid' is not valid.");
@@ -84,7 +84,7 @@ export class AnonymizeContextImpl implements AnonymizeContext {
   }
 
   update(
-    callback?: (error: Error | null, item?: AnonymizeInstance) => any,
+    callback?: (error: Error | null, item?: AnonymizeInstance) => any
   ): Promise<AnonymizeInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -103,13 +103,13 @@ export class AnonymizeContextImpl implements AnonymizeContext {
           operationVersion,
           payload,
           instance._solution.roomSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -117,8 +117,8 @@ export class AnonymizeContextImpl implements AnonymizeContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnonymizeInstance>,
-    ) => any,
+      item?: ApiResponse<AnonymizeInstance>
+    ) => any
   ): Promise<ApiResponse<AnonymizeInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -138,13 +138,13 @@ export class AnonymizeContextImpl implements AnonymizeContext {
           operationVersion,
           response.body,
           instance._solution.roomSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -187,7 +187,7 @@ export class AnonymizeInstance {
     protected _version: V1,
     payload: AnonymizeResource,
     roomSid: string,
-    sid: string,
+    sid: string
   ) {
     this.sid = payload.sid;
     this.roomSid = payload.room_sid;
@@ -252,7 +252,7 @@ export class AnonymizeInstance {
       new AnonymizeContextImpl(
         this._version,
         this._solution.roomSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -265,7 +265,7 @@ export class AnonymizeInstance {
    * @returns Resolves to processed AnonymizeInstance
    */
   update(
-    callback?: (error: Error | null, item?: AnonymizeInstance) => any,
+    callback?: (error: Error | null, item?: AnonymizeInstance) => any
   ): Promise<AnonymizeInstance> {
     return this._proxy.update(callback);
   }
@@ -280,8 +280,8 @@ export class AnonymizeInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AnonymizeInstance>,
-    ) => any,
+      item?: ApiResponse<AnonymizeInstance>
+    ) => any
   ): Promise<ApiResponse<AnonymizeInstance>> {
     return this._proxy.updateWithHttpInfo(callback);
   }
@@ -335,7 +335,7 @@ export interface AnonymizeListInstance {
 export function AnonymizeListInstance(
   version: V1,
   roomSid: string,
-  sid: string,
+  sid: string
 ): AnonymizeListInstance {
   if (!isValidPathParam(roomSid)) {
     throw new Error("Parameter 'roomSid' is not valid.");
@@ -361,7 +361,7 @@ export function AnonymizeListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

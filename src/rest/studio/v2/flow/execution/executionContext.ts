@@ -28,7 +28,7 @@ export interface ExecutionContextContext {
    * @returns Resolves to processed ExecutionContextInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExecutionContextInstance) => any,
+    callback?: (error: Error | null, item?: ExecutionContextInstance) => any
   ): Promise<ExecutionContextInstance>;
 
   /**
@@ -41,8 +41,8 @@ export interface ExecutionContextContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionContextInstance>,
-    ) => any,
+      item?: ApiResponse<ExecutionContextInstance>
+    ) => any
   ): Promise<ApiResponse<ExecutionContextInstance>>;
 
   /**
@@ -64,7 +64,7 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   constructor(
     protected _version: V2,
     flowSid: string,
-    executionSid: string,
+    executionSid: string
   ) {
     if (!isValidPathParam(flowSid)) {
       throw new Error("Parameter 'flowSid' is not valid.");
@@ -79,7 +79,7 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ExecutionContextInstance) => any,
+    callback?: (error: Error | null, item?: ExecutionContextInstance) => any
   ): Promise<ExecutionContextInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -98,13 +98,13 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
           operationVersion,
           payload,
           instance._solution.flowSid,
-          instance._solution.executionSid,
-        ),
+          instance._solution.executionSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -112,8 +112,8 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionContextInstance>,
-    ) => any,
+      item?: ApiResponse<ExecutionContextInstance>
+    ) => any
   ): Promise<ApiResponse<ExecutionContextInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -133,13 +133,13 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
           operationVersion,
           response.body,
           instance._solution.flowSid,
-          instance._solution.executionSid,
+          instance._solution.executionSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -176,7 +176,7 @@ export class ExecutionContextInstance {
     protected _version: V2,
     payload: ExecutionContextResource,
     flowSid: string,
-    executionSid: string,
+    executionSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.context = payload.context;
@@ -214,7 +214,7 @@ export class ExecutionContextInstance {
       new ExecutionContextContextImpl(
         this._version,
         this._solution.flowSid,
-        this._solution.executionSid,
+        this._solution.executionSid
       );
     return this._context;
   }
@@ -227,7 +227,7 @@ export class ExecutionContextInstance {
    * @returns Resolves to processed ExecutionContextInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ExecutionContextInstance) => any,
+    callback?: (error: Error | null, item?: ExecutionContextInstance) => any
   ): Promise<ExecutionContextInstance> {
     return this._proxy.fetch(callback);
   }
@@ -242,8 +242,8 @@ export class ExecutionContextInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ExecutionContextInstance>,
-    ) => any,
+      item?: ApiResponse<ExecutionContextInstance>
+    ) => any
   ): Promise<ApiResponse<ExecutionContextInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -291,7 +291,7 @@ export interface ExecutionContextListInstance {
 export function ExecutionContextListInstance(
   version: V2,
   flowSid: string,
-  executionSid: string,
+  executionSid: string
 ): ExecutionContextListInstance {
   if (!isValidPathParam(flowSid)) {
     throw new Error("Parameter 'flowSid' is not valid.");
@@ -317,7 +317,7 @@ export function ExecutionContextListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

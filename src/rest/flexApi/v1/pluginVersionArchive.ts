@@ -36,10 +36,7 @@ export interface PluginVersionArchiveContext {
    * @returns Resolves to processed PluginVersionArchiveInstance
    */
   update(
-    callback?: (
-      error: Error | null,
-      item?: PluginVersionArchiveInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
   ): Promise<PluginVersionArchiveInstance>;
   /**
    * Update a PluginVersionArchiveInstance
@@ -51,10 +48,7 @@ export interface PluginVersionArchiveContext {
    */
   update(
     params: PluginVersionArchiveContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: PluginVersionArchiveInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
   ): Promise<PluginVersionArchiveInstance>;
 
   /**
@@ -67,8 +61,8 @@ export interface PluginVersionArchiveContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginVersionArchiveInstance>,
-    ) => any,
+      item?: ApiResponse<PluginVersionArchiveInstance>
+    ) => any
   ): Promise<ApiResponse<PluginVersionArchiveInstance>>;
   /**
    * Update a PluginVersionArchiveInstance and return HTTP info
@@ -82,8 +76,8 @@ export interface PluginVersionArchiveContext {
     params: PluginVersionArchiveContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginVersionArchiveInstance>,
-    ) => any,
+      item?: ApiResponse<PluginVersionArchiveInstance>
+    ) => any
   ): Promise<ApiResponse<PluginVersionArchiveInstance>>;
 
   /**
@@ -105,7 +99,7 @@ export class PluginVersionArchiveContextImpl implements PluginVersionArchiveCont
   constructor(
     protected _version: V1,
     pluginSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(pluginSid)) {
       throw new Error("Parameter 'pluginSid' is not valid.");
@@ -123,10 +117,7 @@ export class PluginVersionArchiveContextImpl implements PluginVersionArchiveCont
     params?:
       | PluginVersionArchiveContextUpdateOptions
       | ((error: Error | null, item?: PluginVersionArchiveInstance) => any),
-    callback?: (
-      error: Error | null,
-      item?: PluginVersionArchiveInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
   ): Promise<PluginVersionArchiveInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -157,13 +148,13 @@ export class PluginVersionArchiveContextImpl implements PluginVersionArchiveCont
           operationVersion,
           payload,
           instance._solution.pluginSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -173,12 +164,12 @@ export class PluginVersionArchiveContextImpl implements PluginVersionArchiveCont
       | PluginVersionArchiveContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<PluginVersionArchiveInstance>,
+          item?: ApiResponse<PluginVersionArchiveInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginVersionArchiveInstance>,
-    ) => any,
+      item?: ApiResponse<PluginVersionArchiveInstance>
+    ) => any
   ): Promise<ApiResponse<PluginVersionArchiveInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -210,13 +201,13 @@ export class PluginVersionArchiveContextImpl implements PluginVersionArchiveCont
           operationVersion,
           response.body,
           instance._solution.pluginSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -258,7 +249,7 @@ export class PluginVersionArchiveInstance {
     protected _version: V1,
     payload: PluginVersionArchiveResource,
     pluginSid?: string,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.pluginSid = payload.plugin_sid;
@@ -321,7 +312,7 @@ export class PluginVersionArchiveInstance {
       new PluginVersionArchiveContextImpl(
         this._version,
         this._solution.pluginSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -334,10 +325,7 @@ export class PluginVersionArchiveInstance {
    * @returns Resolves to processed PluginVersionArchiveInstance
    */
   update(
-    callback?: (
-      error: Error | null,
-      item?: PluginVersionArchiveInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
   ): Promise<PluginVersionArchiveInstance>;
   /**
    * Update a PluginVersionArchiveInstance
@@ -349,18 +337,12 @@ export class PluginVersionArchiveInstance {
    */
   update(
     params: PluginVersionArchiveContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: PluginVersionArchiveInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
   ): Promise<PluginVersionArchiveInstance>;
 
   update(
     params?: any,
-    callback?: (
-      error: Error | null,
-      item?: PluginVersionArchiveInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: PluginVersionArchiveInstance) => any
   ): Promise<PluginVersionArchiveInstance> {
     return this._proxy.update(params, callback);
   }
@@ -375,8 +357,8 @@ export class PluginVersionArchiveInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginVersionArchiveInstance>,
-    ) => any,
+      item?: ApiResponse<PluginVersionArchiveInstance>
+    ) => any
   ): Promise<ApiResponse<PluginVersionArchiveInstance>>;
   /**
    * Update a PluginVersionArchiveInstance and return HTTP info
@@ -390,16 +372,16 @@ export class PluginVersionArchiveInstance {
     params: PluginVersionArchiveContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginVersionArchiveInstance>,
-    ) => any,
+      item?: ApiResponse<PluginVersionArchiveInstance>
+    ) => any
   ): Promise<ApiResponse<PluginVersionArchiveInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginVersionArchiveInstance>,
-    ) => any,
+      item?: ApiResponse<PluginVersionArchiveInstance>
+    ) => any
   ): Promise<ApiResponse<PluginVersionArchiveInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -447,7 +429,7 @@ export interface PluginVersionArchiveListInstance {
 }
 
 export function PluginVersionArchiveListInstance(
-  version: V1,
+  version: V1
 ): PluginVersionArchiveListInstance {
   const instance = ((pluginSid, sid) =>
     instance.get(pluginSid, sid)) as PluginVersionArchiveListInstance;
@@ -466,7 +448,7 @@ export function PluginVersionArchiveListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -55,7 +55,7 @@ export interface FlowValidateListInstance {
    */
   update(
     params: FlowValidateListInstanceUpdateOptions,
-    callback?: (error: Error | null, item?: FlowValidateInstance) => any,
+    callback?: (error: Error | null, item?: FlowValidateInstance) => any
   ): Promise<FlowValidateInstance>;
 
   /**
@@ -70,8 +70,8 @@ export interface FlowValidateListInstance {
     params: FlowValidateListInstanceUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlowValidateInstance>,
-    ) => any,
+      item?: ApiResponse<FlowValidateInstance>
+    ) => any
   ): Promise<ApiResponse<FlowValidateInstance>>;
 
   /**
@@ -82,7 +82,7 @@ export interface FlowValidateListInstance {
 }
 
 export function FlowValidateListInstance(
-  version: V2,
+  version: V2
 ): FlowValidateListInstance {
   const instance = {} as FlowValidateListInstance;
 
@@ -92,7 +92,7 @@ export function FlowValidateListInstance(
 
   instance.update = function update(
     params: FlowValidateListInstanceUpdateOptions,
-    callback?: (error: Error | null, items: FlowValidateInstance) => any,
+    callback?: (error: Error | null, items: FlowValidateInstance) => any
   ): Promise<FlowValidateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -136,12 +136,12 @@ export function FlowValidateListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new FlowValidateInstance(operationVersion, payload),
+      (payload) => new FlowValidateInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -150,8 +150,8 @@ export function FlowValidateListInstance(
     params: FlowValidateListInstanceUpdateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<FlowValidateInstance>,
-    ) => any,
+      items: ApiResponse<FlowValidateInstance>
+    ) => any
   ): Promise<ApiResponse<FlowValidateInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -202,7 +202,7 @@ export function FlowValidateListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -213,7 +213,7 @@ export function FlowValidateListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -230,7 +230,7 @@ interface FlowValidateResource {
 export class FlowValidateInstance {
   constructor(
     protected _version: V2,
-    payload: FlowValidateResource,
+    payload: FlowValidateResource
   ) {
     this.valid = payload.valid;
   }

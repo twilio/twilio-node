@@ -89,7 +89,7 @@ export interface EndUserContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -100,7 +100,7 @@ export interface EndUserContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -111,7 +111,7 @@ export interface EndUserContext {
    * @returns Resolves to processed EndUserInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EndUserInstance) => any,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance>;
 
   /**
@@ -122,10 +122,7 @@ export interface EndUserContext {
    * @returns Resolves to processed EndUserInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EndUserInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<EndUserInstance>) => any
   ): Promise<ApiResponse<EndUserInstance>>;
 
   /**
@@ -136,7 +133,7 @@ export interface EndUserContext {
    * @returns Resolves to processed EndUserInstance
    */
   update(
-    callback?: (error: Error | null, item?: EndUserInstance) => any,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance>;
   /**
    * Update a EndUserInstance
@@ -148,7 +145,7 @@ export interface EndUserContext {
    */
   update(
     params: EndUserContextUpdateOptions,
-    callback?: (error: Error | null, item?: EndUserInstance) => any,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance>;
 
   /**
@@ -159,10 +156,7 @@ export interface EndUserContext {
    * @returns Resolves to processed EndUserInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EndUserInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<EndUserInstance>) => any
   ): Promise<ApiResponse<EndUserInstance>>;
   /**
    * Update a EndUserInstance and return HTTP info
@@ -174,10 +168,7 @@ export interface EndUserContext {
    */
   updateWithHttpInfo(
     params: EndUserContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EndUserInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<EndUserInstance>) => any
   ): Promise<ApiResponse<EndUserInstance>>;
 
   /**
@@ -197,7 +188,7 @@ export class EndUserContextImpl implements EndUserContext {
 
   constructor(
     protected _version: V1,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -208,7 +199,7 @@ export class EndUserContextImpl implements EndUserContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -222,13 +213,13 @@ export class EndUserContextImpl implements EndUserContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -244,13 +235,13 @@ export class EndUserContextImpl implements EndUserContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: EndUserInstance) => any,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -265,21 +256,18 @@ export class EndUserContextImpl implements EndUserContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EndUserInstance(operationVersion, payload, instance._solution.sid),
+        new EndUserInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EndUserInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<EndUserInstance>) => any
   ): Promise<ApiResponse<EndUserInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -298,13 +286,13 @@ export class EndUserContextImpl implements EndUserContext {
         body: new EndUserInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -313,7 +301,7 @@ export class EndUserContextImpl implements EndUserContext {
     params?:
       | EndUserContextUpdateOptions
       | ((error: Error | null, item?: EndUserInstance) => any),
-    callback?: (error: Error | null, item?: EndUserInstance) => any,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -344,12 +332,12 @@ export class EndUserContextImpl implements EndUserContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EndUserInstance(operationVersion, payload, instance._solution.sid),
+        new EndUserInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -358,10 +346,7 @@ export class EndUserContextImpl implements EndUserContext {
     params?:
       | EndUserContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<EndUserInstance>) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EndUserInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<EndUserInstance>) => any
   ): Promise<ApiResponse<EndUserInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -396,13 +381,13 @@ export class EndUserContextImpl implements EndUserContext {
         body: new EndUserInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -443,7 +428,7 @@ export class EndUserInstance {
   constructor(
     protected _version: V1,
     payload: EndUserResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -505,7 +490,7 @@ export class EndUserInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -518,7 +503,7 @@ export class EndUserInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -531,7 +516,7 @@ export class EndUserInstance {
    * @returns Resolves to processed EndUserInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: EndUserInstance) => any,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance> {
     return this._proxy.fetch(callback);
   }
@@ -544,10 +529,7 @@ export class EndUserInstance {
    * @returns Resolves to processed EndUserInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EndUserInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<EndUserInstance>) => any
   ): Promise<ApiResponse<EndUserInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -560,7 +542,7 @@ export class EndUserInstance {
    * @returns Resolves to processed EndUserInstance
    */
   update(
-    callback?: (error: Error | null, item?: EndUserInstance) => any,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance>;
   /**
    * Update a EndUserInstance
@@ -572,12 +554,12 @@ export class EndUserInstance {
    */
   update(
     params: EndUserContextUpdateOptions,
-    callback?: (error: Error | null, item?: EndUserInstance) => any,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: EndUserInstance) => any,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance> {
     return this._proxy.update(params, callback);
   }
@@ -590,10 +572,7 @@ export class EndUserInstance {
    * @returns Resolves to processed EndUserInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EndUserInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<EndUserInstance>) => any
   ): Promise<ApiResponse<EndUserInstance>>;
   /**
    * Update a EndUserInstance and return HTTP info
@@ -605,18 +584,12 @@ export class EndUserInstance {
    */
   updateWithHttpInfo(
     params: EndUserContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EndUserInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<EndUserInstance>) => any
   ): Promise<ApiResponse<EndUserInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EndUserInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<EndUserInstance>) => any
   ): Promise<ApiResponse<EndUserInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -664,7 +637,7 @@ export interface EndUserListInstance {
    */
   create(
     params: EndUserListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: EndUserInstance) => any,
+    callback?: (error: Error | null, item?: EndUserInstance) => any
   ): Promise<EndUserInstance>;
 
   /**
@@ -677,10 +650,7 @@ export interface EndUserListInstance {
    */
   createWithHttpInfo(
     params: EndUserListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<EndUserInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<EndUserInstance>) => any
   ): Promise<ApiResponse<EndUserInstance>>;
 
   /**
@@ -699,11 +669,11 @@ export interface EndUserListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void,
+    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: EndUserListInstanceEachOptions,
-    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void,
+    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams EndUserInstance records from the API with HTTP metadata captured per page.
@@ -721,11 +691,11 @@ export interface EndUserListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void,
+    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: EndUserListInstanceEachOptions,
-    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void,
+    callback?: (item: EndUserInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of EndUserInstance records from the API.
@@ -737,7 +707,7 @@ export interface EndUserListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EndUserPage) => any,
+    callback?: (error: Error | null, items: EndUserPage) => any
   ): Promise<EndUserPage>;
   /**
    * Retrieve a single target page of EndUserInstance records from the API with HTTP metadata.
@@ -749,7 +719,7 @@ export interface EndUserListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<EndUserPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<EndUserPage>) => any
   ): Promise<ApiResponse<EndUserPage>>;
   /**
    * Lists EndUserInstance records from the API as a list.
@@ -761,11 +731,11 @@ export interface EndUserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: EndUserInstance[]) => any,
+    callback?: (error: Error | null, items: EndUserInstance[]) => any
   ): Promise<EndUserInstance[]>;
   list(
     params: EndUserListInstanceOptions,
-    callback?: (error: Error | null, items: EndUserInstance[]) => any,
+    callback?: (error: Error | null, items: EndUserInstance[]) => any
   ): Promise<EndUserInstance[]>;
   /**
    * Lists EndUserInstance records from the API as a list with HTTP metadata.
@@ -781,15 +751,15 @@ export interface EndUserListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<EndUserInstance[]>,
-    ) => any,
+      items: ApiResponse<EndUserInstance[]>
+    ) => any
   ): Promise<ApiResponse<EndUserInstance[]>>;
   listWithHttpInfo(
     params: EndUserListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EndUserInstance[]>,
-    ) => any,
+      items: ApiResponse<EndUserInstance[]>
+    ) => any
   ): Promise<ApiResponse<EndUserInstance[]>>;
   /**
    * Retrieve a single page of EndUserInstance records from the API.
@@ -803,11 +773,11 @@ export interface EndUserListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: EndUserPage) => any,
+    callback?: (error: Error | null, items: EndUserPage) => any
   ): Promise<EndUserPage>;
   page(
     params: EndUserListInstancePageOptions,
-    callback?: (error: Error | null, items: EndUserPage) => any,
+    callback?: (error: Error | null, items: EndUserPage) => any
   ): Promise<EndUserPage>;
   /**
    * Retrieve a single page of EndUserInstance records from the API with HTTP metadata.
@@ -821,11 +791,11 @@ export interface EndUserListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<EndUserPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<EndUserPage>) => any
   ): Promise<ApiResponse<EndUserPage>>;
   pageWithHttpInfo(
     params: EndUserListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<EndUserPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<EndUserPage>) => any
   ): Promise<ApiResponse<EndUserPage>>;
 
   /**
@@ -848,7 +818,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
 
   instance.create = function create(
     params: EndUserListInstanceCreateOptions,
-    callback?: (error: Error | null, items: EndUserInstance) => any,
+    callback?: (error: Error | null, items: EndUserInstance) => any
   ): Promise<EndUserInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -886,22 +856,19 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new EndUserInstance(operationVersion, payload),
+      (payload) => new EndUserInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: EndUserListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<EndUserInstance>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<EndUserInstance>) => any
   ): Promise<ApiResponse<EndUserInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -946,7 +913,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -955,7 +922,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
     params?:
       | EndUserListInstancePageOptions
       | ((error: Error | null, items: EndUserPage) => any),
-    callback?: (error: Error | null, items: EndUserPage) => any,
+    callback?: (error: Error | null, items: EndUserPage) => any
   ): Promise<EndUserPage> {
     if (params instanceof Function) {
       callback = params;
@@ -984,12 +951,12 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new EndUserPage(operationVersion, payload, instance._solution),
+        new EndUserPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -999,7 +966,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: EndUserPage) => any,
+    callback?: (error: Error | null, items: EndUserPage) => any
   ): Promise<EndUserPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1007,7 +974,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new EndUserPage(instance._version, payload, instance._solution),
+        new EndUserPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1017,7 +984,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
     params?:
       | EndUserListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<EndUserPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<EndUserPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<EndUserPage>) => any
   ): Promise<ApiResponse<EndUserPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1050,7 +1017,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1062,7 +1029,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<EndUserPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<EndUserPage>) => any
   ): Promise<ApiResponse<EndUserPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1075,7 +1042,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new EndUserPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1087,7 +1054,7 @@ export function EndUserListInstance(version: V1): EndUserListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1111,7 +1078,7 @@ export class EndUserPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: EndUserSolution,
+    solution: EndUserSolution
   ) {
     super(version, response, solution);
   }

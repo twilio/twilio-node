@@ -199,7 +199,7 @@ export interface QueryJobContext {
    * @returns Resolves to processed QueryJobInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: QueryJobInstance) => any,
+    callback?: (error: Error | null, item?: QueryJobInstance) => any
   ): Promise<QueryJobInstance>;
 
   /**
@@ -212,8 +212,8 @@ export interface QueryJobContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<QueryJobInstance>,
-    ) => any,
+      item?: ApiResponse<QueryJobInstance>
+    ) => any
   ): Promise<ApiResponse<QueryJobInstance>>;
 
   /**
@@ -233,7 +233,7 @@ export class QueryJobContextImpl implements QueryJobContext {
 
   constructor(
     protected _version: V3,
-    operationId: string,
+    operationId: string
   ) {
     if (!isValidPathParam(operationId)) {
       throw new Error("Parameter 'operationId' is not valid.");
@@ -244,7 +244,7 @@ export class QueryJobContextImpl implements QueryJobContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: QueryJobInstance) => any,
+    callback?: (error: Error | null, item?: QueryJobInstance) => any
   ): Promise<QueryJobInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -262,13 +262,13 @@ export class QueryJobContextImpl implements QueryJobContext {
         new QueryJobInstance(
           operationVersion,
           payload,
-          instance._solution.operationId,
-        ),
+          instance._solution.operationId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -276,8 +276,8 @@ export class QueryJobContextImpl implements QueryJobContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<QueryJobInstance>,
-    ) => any,
+      item?: ApiResponse<QueryJobInstance>
+    ) => any
   ): Promise<ApiResponse<QueryJobInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -296,13 +296,13 @@ export class QueryJobContextImpl implements QueryJobContext {
         body: new QueryJobInstance(
           operationVersion,
           response.body,
-          instance._solution.operationId,
+          instance._solution.operationId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -418,7 +418,7 @@ export class QueryJobInstance {
   constructor(
     protected _version: V3,
     _payload: QueryJobResource,
-    operationId?: string,
+    operationId?: string
   ) {
     const payload: any = _payload;
     this.operationId = payload.operationId;
@@ -481,7 +481,7 @@ export class QueryJobInstance {
    * @returns Resolves to processed QueryJobInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: QueryJobInstance) => any,
+    callback?: (error: Error | null, item?: QueryJobInstance) => any
   ): Promise<QueryJobInstance> {
     return this._proxy.fetch(callback);
   }
@@ -496,8 +496,8 @@ export class QueryJobInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<QueryJobInstance>,
-    ) => any,
+      item?: ApiResponse<QueryJobInstance>
+    ) => any
   ): Promise<ApiResponse<QueryJobInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -547,7 +547,7 @@ export interface QueryJobListInstance {
   create(
     params: InsightsQueryRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: QueryJobInstance) => any,
+    callback?: (error: Error | null, item?: QueryJobInstance) => any
   ): Promise<QueryJobInstance>;
 
   /**
@@ -564,8 +564,8 @@ export interface QueryJobListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<QueryJobInstance>,
-    ) => any,
+      item?: ApiResponse<QueryJobInstance>
+    ) => any
   ): Promise<ApiResponse<QueryJobInstance>>;
 
   /**
@@ -584,11 +584,11 @@ export interface QueryJobListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: QueryJobInstance, done: (err?: Error) => void) => void,
+    callback?: (item: QueryJobInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: QueryJobListInstanceEachOptions,
-    callback?: (item: QueryJobInstance, done: (err?: Error) => void) => void,
+    callback?: (item: QueryJobInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams QueryJobInstance records from the API with HTTP metadata captured per page.
@@ -606,11 +606,11 @@ export interface QueryJobListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: QueryJobInstance, done: (err?: Error) => void) => void,
+    callback?: (item: QueryJobInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: QueryJobListInstanceEachOptions,
-    callback?: (item: QueryJobInstance, done: (err?: Error) => void) => void,
+    callback?: (item: QueryJobInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of QueryJobInstance records from the API.
@@ -622,7 +622,7 @@ export interface QueryJobListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: QueryJobPage) => any,
+    callback?: (error: Error | null, items: QueryJobPage) => any
   ): Promise<QueryJobPage>;
   /**
    * Retrieve a single target page of QueryJobInstance records from the API with HTTP metadata.
@@ -634,7 +634,7 @@ export interface QueryJobListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<QueryJobPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<QueryJobPage>) => any
   ): Promise<ApiResponse<QueryJobPage>>;
   /**
    * Lists QueryJobInstance records from the API as a list.
@@ -646,11 +646,11 @@ export interface QueryJobListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: QueryJobInstance[]) => any,
+    callback?: (error: Error | null, items: QueryJobInstance[]) => any
   ): Promise<QueryJobInstance[]>;
   list(
     params: QueryJobListInstanceOptions,
-    callback?: (error: Error | null, items: QueryJobInstance[]) => any,
+    callback?: (error: Error | null, items: QueryJobInstance[]) => any
   ): Promise<QueryJobInstance[]>;
   /**
    * Lists QueryJobInstance records from the API as a list with HTTP metadata.
@@ -666,15 +666,15 @@ export interface QueryJobListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<QueryJobInstance[]>,
-    ) => any,
+      items: ApiResponse<QueryJobInstance[]>
+    ) => any
   ): Promise<ApiResponse<QueryJobInstance[]>>;
   listWithHttpInfo(
     params: QueryJobListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<QueryJobInstance[]>,
-    ) => any,
+      items: ApiResponse<QueryJobInstance[]>
+    ) => any
   ): Promise<ApiResponse<QueryJobInstance[]>>;
   /**
    * Retrieve a single page of QueryJobInstance records from the API.
@@ -688,11 +688,11 @@ export interface QueryJobListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: QueryJobPage) => any,
+    callback?: (error: Error | null, items: QueryJobPage) => any
   ): Promise<QueryJobPage>;
   page(
     params: QueryJobListInstancePageOptions,
-    callback?: (error: Error | null, items: QueryJobPage) => any,
+    callback?: (error: Error | null, items: QueryJobPage) => any
   ): Promise<QueryJobPage>;
   /**
    * Retrieve a single page of QueryJobInstance records from the API with HTTP metadata.
@@ -706,11 +706,11 @@ export interface QueryJobListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<QueryJobPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<QueryJobPage>) => any
   ): Promise<ApiResponse<QueryJobPage>>;
   pageWithHttpInfo(
     params: QueryJobListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<QueryJobPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<QueryJobPage>) => any
   ): Promise<ApiResponse<QueryJobPage>>;
 
   /**
@@ -735,7 +735,7 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
   instance.create = function create(
     params: InsightsQueryRequest,
     headers?: any,
-    callback?: (error: Error | null, items: QueryJobInstance) => any,
+    callback?: (error: Error | null, items: QueryJobInstance) => any
   ): Promise<QueryJobInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -761,12 +761,12 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new QueryJobInstance(operationVersion, payload),
+      (payload) => new QueryJobInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -776,8 +776,8 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<QueryJobInstance>,
-    ) => any,
+      items: ApiResponse<QueryJobInstance>
+    ) => any
   ): Promise<ApiResponse<QueryJobInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -810,7 +810,7 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -819,7 +819,7 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
     params?:
       | QueryJobListInstancePageOptions
       | ((error: Error | null, items: QueryJobPage) => any),
-    callback?: (error: Error | null, items: QueryJobPage) => any,
+    callback?: (error: Error | null, items: QueryJobPage) => any
   ): Promise<QueryJobPage> {
     if (params instanceof Function) {
       callback = params;
@@ -853,13 +853,13 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
           payload,
           instance._uri,
           data,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -869,7 +869,7 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: QueryJobPage) => any,
+    callback?: (error: Error | null, items: QueryJobPage) => any
   ): Promise<QueryJobPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -882,8 +882,8 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
           payload,
           instance._uri,
           {},
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -893,7 +893,7 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
     params?:
       | QueryJobListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<QueryJobPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<QueryJobPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<QueryJobPage>) => any
   ): Promise<ApiResponse<QueryJobPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -926,13 +926,13 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
           response,
           instance._uri,
           data,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -944,7 +944,7 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<QueryJobPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<QueryJobPage>) => any
   ): Promise<ApiResponse<QueryJobPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -961,9 +961,9 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
           response,
           instance._uri,
           {},
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -975,7 +975,7 @@ export function QueryJobListInstance(version: V3): QueryJobListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1003,7 +1003,7 @@ export class QueryJobPage extends TokenPage<
     response: Response<string>,
     uri: string,
     params: any,
-    solution: QueryJobSolution,
+    solution: QueryJobSolution
   ) {
     super(version, response, uri, params, solution);
   }

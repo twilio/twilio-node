@@ -55,7 +55,7 @@ twilio.messages.create(
     }
     console.log("Created message using callback");
     console.log(result.sid);
-  },
+  }
 );
 
 // Send message using promise with RestException handling
@@ -94,7 +94,7 @@ twilio.trunking.v1.trunks.create(
     console.log("Created trunk with friendly name");
     console.log(result.sid);
     console.log(result.friendlyName);
-  },
+  }
 );
 
 promise = twilio.trunking.v1.trunks.create({
@@ -130,7 +130,7 @@ twilio.trunking.v1.trunks(trunkSid).update(
     console.log("Updated using callbacks");
     console.log(result.sid);
     console.log(result.friendlyName);
-  },
+  }
 );
 
 // Update trunk using promise
@@ -174,7 +174,7 @@ promise.then(function (response) {
   console.log("Response Headers:", response.headers);
   console.log(
     "Rate Limit Remaining:",
-    response.headers["x-ratelimit-remaining"],
+    response.headers["x-ratelimit-remaining"]
   );
 });
 

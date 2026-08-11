@@ -56,24 +56,24 @@ export default class V1 extends Version {
   /** Accessor for conversationSummaries resource - list operations */
   conversationSummaries(
     storeId: string,
-    profileId: string,
+    profileId: string
   ): ConversationSummaryListInstance;
   /** Accessor for conversationSummaries resource - instance operations */
   conversationSummaries(
     storeId: string,
     profileId: string,
-    summaryId: string,
+    summaryId: string
   ): ConversationSummaryContext;
   /** Implementation */
   conversationSummaries(
     storeId: string,
     profileId: string,
-    summaryId?: string,
+    summaryId?: string
   ): ConversationSummaryListInstance | ConversationSummaryContext {
     const listInstance = ConversationSummaryListInstance(
       this,
       storeId,
-      profileId,
+      profileId
     );
     if (summaryId !== undefined) {
       return listInstance.get(summaryId);
@@ -88,7 +88,7 @@ export default class V1 extends Version {
   /** Implementation */
   dataMappings(
     storeId: string,
-    dataMappingId?: string,
+    dataMappingId?: string
   ): DataMappingListInstance | DataMappingContext {
     const listInstance = DataMappingListInstance(this, storeId);
     if (dataMappingId !== undefined) {
@@ -103,13 +103,13 @@ export default class V1 extends Version {
   identifiers(
     storeId: string,
     profileId: string,
-    idType: string,
+    idType: string
   ): IdentifierContext;
   /** Implementation */
   identifiers(
     storeId: string,
     profileId: string,
-    idType?: string,
+    idType?: string
   ): IdentifierListInstance | IdentifierContext {
     const listInstance = IdentifierListInstance(this, storeId, profileId);
     if (idType !== undefined) {
@@ -120,7 +120,7 @@ export default class V1 extends Version {
 
   /** Accessor for identityResolutionSettings resource */
   identityResolutionSettings(
-    storeId: string,
+    storeId: string
   ): IdentityResolutionSettingListInstance {
     return IdentityResolutionSettingListInstance(this, storeId);
   }
@@ -132,7 +132,7 @@ export default class V1 extends Version {
   /** Implementation */
   imports(
     storeId: string,
-    importId?: string,
+    importId?: string
   ): ImportListInstance | ImportContext {
     const listInstance = ImportListInstance(this, storeId);
     if (importId !== undefined) {
@@ -152,13 +152,13 @@ export default class V1 extends Version {
   observations(
     storeId: string,
     profileId: string,
-    observationId: string,
+    observationId: string
   ): ObservationContext;
   /** Implementation */
   observations(
     storeId: string,
     profileId: string,
-    observationId?: string,
+    observationId?: string
   ): ObservationListInstance | ObservationContext {
     const listInstance = ObservationListInstance(this, storeId, profileId);
     if (observationId !== undefined) {
@@ -180,7 +180,7 @@ export default class V1 extends Version {
   /** Implementation */
   profiles(
     storeId: string,
-    profileId?: string,
+    profileId?: string
   ): ProfileListInstance | ProfileContext {
     const listInstance = ProfileListInstance(this, storeId);
     if (profileId !== undefined) {
@@ -198,7 +198,7 @@ export default class V1 extends Version {
   revisions(
     storeId: string,
     profileId: string,
-    observationId: string,
+    observationId: string
   ): RevisionListInstance {
     return RevisionListInstance(this, storeId, profileId, observationId);
   }
@@ -221,7 +221,7 @@ export default class V1 extends Version {
   /** Implementation */
   traitGroups(
     storeId: string,
-    traitGroupName?: string,
+    traitGroupName?: string
   ): TraitGroupListInstance | TraitGroupContext {
     const listInstance = TraitGroupListInstance(this, storeId);
     if (traitGroupName !== undefined) {

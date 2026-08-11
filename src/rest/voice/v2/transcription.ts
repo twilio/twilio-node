@@ -144,7 +144,7 @@ export interface TranscriptionContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -155,7 +155,7 @@ export interface TranscriptionContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -166,7 +166,7 @@ export interface TranscriptionContext {
    * @returns Resolves to processed TranscriptionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance>;
 
   /**
@@ -179,8 +179,8 @@ export interface TranscriptionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>>;
 
   /**
@@ -191,7 +191,7 @@ export interface TranscriptionContext {
    * @returns Resolves to processed TranscriptionInstance
    */
   update(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance>;
   /**
    * Update a TranscriptionInstance
@@ -205,7 +205,7 @@ export interface TranscriptionContext {
   update(
     params: VoiceV2ConfigurationTranscriptionRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance>;
 
   /**
@@ -218,8 +218,8 @@ export interface TranscriptionContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>>;
   /**
    * Update a TranscriptionInstance and return HTTP info
@@ -235,8 +235,8 @@ export interface TranscriptionContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>>;
 
   /**
@@ -256,7 +256,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
 
   constructor(
     protected _version: V2,
-    idOrUniqueName: string,
+    idOrUniqueName: string
   ) {
     if (!isValidPathParam(idOrUniqueName)) {
       throw new Error("Parameter 'idOrUniqueName' is not valid.");
@@ -267,7 +267,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -281,13 +281,13 @@ export class TranscriptionContextImpl implements TranscriptionContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -303,13 +303,13 @@ export class TranscriptionContextImpl implements TranscriptionContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -327,13 +327,13 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         new TranscriptionInstance(
           operationVersion,
           payload,
-          instance._solution.idOrUniqueName,
-        ),
+          instance._solution.idOrUniqueName
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -341,8 +341,8 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -361,13 +361,13 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         body: new TranscriptionInstance(
           operationVersion,
           response.body,
-          instance._solution.idOrUniqueName,
+          instance._solution.idOrUniqueName
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -377,7 +377,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
       | VoiceV2ConfigurationTranscriptionRequest
       | ((error: Error | null, item?: TranscriptionInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -414,13 +414,13 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         new TranscriptionInstance(
           operationVersion,
           payload,
-          instance._solution.idOrUniqueName,
-        ),
+          instance._solution.idOrUniqueName
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -430,13 +430,13 @@ export class TranscriptionContextImpl implements TranscriptionContext {
       | VoiceV2ConfigurationTranscriptionRequest
       | ((
           error: Error | null,
-          item?: ApiResponse<TranscriptionInstance>,
+          item?: ApiResponse<TranscriptionInstance>
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -474,13 +474,13 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         body: new TranscriptionInstance(
           operationVersion,
           response.body,
-          instance._solution.idOrUniqueName,
+          instance._solution.idOrUniqueName
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -525,7 +525,7 @@ export class TranscriptionInstance {
   constructor(
     protected _version: V2,
     payload: TranscriptionResource,
-    idOrUniqueName?: string,
+    idOrUniqueName?: string
   ) {
     this.id = payload.id;
     this.accountSid = payload.account_sid;
@@ -536,7 +536,7 @@ export class TranscriptionInstance {
     this.configuration =
       payload.configuration !== null && payload.configuration !== undefined
         ? new VoiceV2ConfigurationTranscriptionConfiguration(
-            payload.configuration,
+            payload.configuration
           )
         : null;
     this.message = payload.message;
@@ -588,7 +588,7 @@ export class TranscriptionInstance {
       this._context ||
       new TranscriptionContextImpl(
         this._version,
-        this._solution.idOrUniqueName,
+        this._solution.idOrUniqueName
       );
     return this._context;
   }
@@ -601,7 +601,7 @@ export class TranscriptionInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -614,7 +614,7 @@ export class TranscriptionInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -627,7 +627,7 @@ export class TranscriptionInstance {
    * @returns Resolves to processed TranscriptionInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance> {
     return this._proxy.fetch(callback);
   }
@@ -642,8 +642,8 @@ export class TranscriptionInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -656,7 +656,7 @@ export class TranscriptionInstance {
    * @returns Resolves to processed TranscriptionInstance
    */
   update(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance>;
   /**
    * Update a TranscriptionInstance
@@ -670,12 +670,12 @@ export class TranscriptionInstance {
   update(
     params: VoiceV2ConfigurationTranscriptionRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance> {
     return this._proxy.update(params, callback);
   }
@@ -690,8 +690,8 @@ export class TranscriptionInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>>;
   /**
    * Update a TranscriptionInstance and return HTTP info
@@ -707,16 +707,16 @@ export class TranscriptionInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -765,7 +765,7 @@ export interface TranscriptionListInstance {
    * @returns Resolves to processed TranscriptionInstance
    */
   create(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance>;
   /**
    * Create a TranscriptionInstance
@@ -779,7 +779,7 @@ export interface TranscriptionListInstance {
   create(
     params: VoiceV2ConfigurationTranscriptionRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any,
+    callback?: (error: Error | null, item?: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance>;
 
   /**
@@ -792,8 +792,8 @@ export interface TranscriptionListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>>;
   /**
    * Create a TranscriptionInstance and return HTTP info
@@ -809,8 +809,8 @@ export interface TranscriptionListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      item?: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>>;
 
   /**
@@ -821,7 +821,7 @@ export interface TranscriptionListInstance {
 }
 
 export function TranscriptionListInstance(
-  version: V2,
+  version: V2
 ): TranscriptionListInstance {
   const instance = ((idOrUniqueName) =>
     instance.get(idOrUniqueName)) as TranscriptionListInstance;
@@ -839,7 +839,7 @@ export function TranscriptionListInstance(
       | VoiceV2ConfigurationTranscriptionRequest
       | ((error: Error | null, items: TranscriptionInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, items: TranscriptionInstance) => any,
+    callback?: (error: Error | null, items: TranscriptionInstance) => any
   ): Promise<TranscriptionInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -871,12 +871,12 @@ export function TranscriptionListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TranscriptionInstance(operationVersion, payload),
+      (payload) => new TranscriptionInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -886,13 +886,13 @@ export function TranscriptionListInstance(
       | VoiceV2ConfigurationTranscriptionRequest
       | ((
           error: Error | null,
-          items: ApiResponse<TranscriptionInstance>,
+          items: ApiResponse<TranscriptionInstance>
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TranscriptionInstance>,
-    ) => any,
+      items: ApiResponse<TranscriptionInstance>
+    ) => any
   ): Promise<ApiResponse<TranscriptionInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -931,7 +931,7 @@ export function TranscriptionListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -942,7 +942,7 @@ export function TranscriptionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

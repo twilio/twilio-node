@@ -204,7 +204,7 @@ export interface ReservationContext {
    * @returns Resolves to processed ReservationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ReservationInstance) => any,
+    callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance>;
 
   /**
@@ -217,8 +217,8 @@ export interface ReservationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ReservationInstance>,
-    ) => any,
+      item?: ApiResponse<ReservationInstance>
+    ) => any
   ): Promise<ApiResponse<ReservationInstance>>;
 
   /**
@@ -229,7 +229,7 @@ export interface ReservationContext {
    * @returns Resolves to processed ReservationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ReservationInstance) => any,
+    callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance>;
   /**
    * Update a ReservationInstance
@@ -241,7 +241,7 @@ export interface ReservationContext {
    */
   update(
     params: ReservationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ReservationInstance) => any,
+    callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance>;
 
   /**
@@ -254,8 +254,8 @@ export interface ReservationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ReservationInstance>,
-    ) => any,
+      item?: ApiResponse<ReservationInstance>
+    ) => any
   ): Promise<ApiResponse<ReservationInstance>>;
   /**
    * Update a ReservationInstance and return HTTP info
@@ -269,8 +269,8 @@ export interface ReservationContext {
     params: ReservationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ReservationInstance>,
-    ) => any,
+      item?: ApiResponse<ReservationInstance>
+    ) => any
   ): Promise<ApiResponse<ReservationInstance>>;
 
   /**
@@ -294,7 +294,7 @@ export class ReservationContextImpl implements ReservationContext {
     protected _version: V1,
     workspaceSid: string,
     workerSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -313,7 +313,7 @@ export class ReservationContextImpl implements ReservationContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ReservationInstance) => any,
+    callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -333,13 +333,13 @@ export class ReservationContextImpl implements ReservationContext {
           payload,
           instance._solution.workspaceSid,
           instance._solution.workerSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -347,8 +347,8 @@ export class ReservationContextImpl implements ReservationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ReservationInstance>,
-    ) => any,
+      item?: ApiResponse<ReservationInstance>
+    ) => any
   ): Promise<ApiResponse<ReservationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -369,13 +369,13 @@ export class ReservationContextImpl implements ReservationContext {
           response.body,
           instance._solution.workspaceSid,
           instance._solution.workerSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -384,7 +384,7 @@ export class ReservationContextImpl implements ReservationContext {
     params?:
       | ReservationContextUpdateOptions
       | ((error: Error | null, item?: ReservationInstance) => any),
-    callback?: (error: Error | null, item?: ReservationInstance) => any,
+    callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -439,7 +439,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["statusCallbackEvent"] !== undefined)
       data["StatusCallbackEvent"] = serialize.map(
         params["statusCallbackEvent"],
-        (e: ReservationCallStatus) => e,
+        (e: ReservationCallStatus) => e
       );
     if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
@@ -449,11 +449,11 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["beep"] !== undefined) data["Beep"] = params["beep"];
     if (params["startConferenceOnEnter"] !== undefined)
       data["StartConferenceOnEnter"] = serialize.bool(
-        params["startConferenceOnEnter"],
+        params["startConferenceOnEnter"]
       );
     if (params["endConferenceOnExit"] !== undefined)
       data["EndConferenceOnExit"] = serialize.bool(
-        params["endConferenceOnExit"],
+        params["endConferenceOnExit"]
       );
     if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
     if (params["waitMethod"] !== undefined)
@@ -470,7 +470,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["conferenceStatusCallbackEvent"] !== undefined)
       data["ConferenceStatusCallbackEvent"] = serialize.map(
         params["conferenceStatusCallbackEvent"],
-        (e: ReservationConferenceEvent) => e,
+        (e: ReservationConferenceEvent) => e
       );
     if (params["conferenceRecord"] !== undefined)
       data["ConferenceRecord"] = params["conferenceRecord"];
@@ -497,17 +497,17 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["dequeueStatusCallbackEvent"] !== undefined)
       data["DequeueStatusCallbackEvent"] = serialize.map(
         params["dequeueStatusCallbackEvent"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["postWorkActivitySid"] !== undefined)
       data["PostWorkActivitySid"] = params["postWorkActivitySid"];
     if (params["endConferenceOnCustomerExit"] !== undefined)
       data["EndConferenceOnCustomerExit"] = serialize.bool(
-        params["endConferenceOnCustomerExit"],
+        params["endConferenceOnCustomerExit"]
       );
     if (params["beepOnCustomerEntrance"] !== undefined)
       data["BeepOnCustomerEntrance"] = serialize.bool(
-        params["beepOnCustomerEntrance"],
+        params["beepOnCustomerEntrance"]
       );
     if (params["jitterBufferSize"] !== undefined)
       data["JitterBufferSize"] = params["jitterBufferSize"];
@@ -534,13 +534,13 @@ export class ReservationContextImpl implements ReservationContext {
           payload,
           instance._solution.workspaceSid,
           instance._solution.workerSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -551,8 +551,8 @@ export class ReservationContextImpl implements ReservationContext {
       | ((error: Error | null, item?: ApiResponse<ReservationInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ReservationInstance>,
-    ) => any,
+      item?: ApiResponse<ReservationInstance>
+    ) => any
   ): Promise<ApiResponse<ReservationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -607,7 +607,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["statusCallbackEvent"] !== undefined)
       data["StatusCallbackEvent"] = serialize.map(
         params["statusCallbackEvent"],
-        (e: ReservationCallStatus) => e,
+        (e: ReservationCallStatus) => e
       );
     if (params["timeout"] !== undefined) data["Timeout"] = params["timeout"];
     if (params["record"] !== undefined)
@@ -617,11 +617,11 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["beep"] !== undefined) data["Beep"] = params["beep"];
     if (params["startConferenceOnEnter"] !== undefined)
       data["StartConferenceOnEnter"] = serialize.bool(
-        params["startConferenceOnEnter"],
+        params["startConferenceOnEnter"]
       );
     if (params["endConferenceOnExit"] !== undefined)
       data["EndConferenceOnExit"] = serialize.bool(
-        params["endConferenceOnExit"],
+        params["endConferenceOnExit"]
       );
     if (params["waitUrl"] !== undefined) data["WaitUrl"] = params["waitUrl"];
     if (params["waitMethod"] !== undefined)
@@ -638,7 +638,7 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["conferenceStatusCallbackEvent"] !== undefined)
       data["ConferenceStatusCallbackEvent"] = serialize.map(
         params["conferenceStatusCallbackEvent"],
-        (e: ReservationConferenceEvent) => e,
+        (e: ReservationConferenceEvent) => e
       );
     if (params["conferenceRecord"] !== undefined)
       data["ConferenceRecord"] = params["conferenceRecord"];
@@ -665,17 +665,17 @@ export class ReservationContextImpl implements ReservationContext {
     if (params["dequeueStatusCallbackEvent"] !== undefined)
       data["DequeueStatusCallbackEvent"] = serialize.map(
         params["dequeueStatusCallbackEvent"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["postWorkActivitySid"] !== undefined)
       data["PostWorkActivitySid"] = params["postWorkActivitySid"];
     if (params["endConferenceOnCustomerExit"] !== undefined)
       data["EndConferenceOnCustomerExit"] = serialize.bool(
-        params["endConferenceOnCustomerExit"],
+        params["endConferenceOnCustomerExit"]
       );
     if (params["beepOnCustomerEntrance"] !== undefined)
       data["BeepOnCustomerEntrance"] = serialize.bool(
-        params["beepOnCustomerEntrance"],
+        params["beepOnCustomerEntrance"]
       );
     if (params["jitterBufferSize"] !== undefined)
       data["JitterBufferSize"] = params["jitterBufferSize"];
@@ -703,13 +703,13 @@ export class ReservationContextImpl implements ReservationContext {
           response.body,
           instance._solution.workspaceSid,
           instance._solution.workerSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -755,7 +755,7 @@ export class ReservationInstance {
     payload: ReservationResource,
     workspaceSid: string,
     workerSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -821,7 +821,7 @@ export class ReservationInstance {
         this._version,
         this._solution.workspaceSid,
         this._solution.workerSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -834,7 +834,7 @@ export class ReservationInstance {
    * @returns Resolves to processed ReservationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ReservationInstance) => any,
+    callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -849,8 +849,8 @@ export class ReservationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ReservationInstance>,
-    ) => any,
+      item?: ApiResponse<ReservationInstance>
+    ) => any
   ): Promise<ApiResponse<ReservationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -863,7 +863,7 @@ export class ReservationInstance {
    * @returns Resolves to processed ReservationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ReservationInstance) => any,
+    callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance>;
   /**
    * Update a ReservationInstance
@@ -875,12 +875,12 @@ export class ReservationInstance {
    */
   update(
     params: ReservationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ReservationInstance) => any,
+    callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ReservationInstance) => any,
+    callback?: (error: Error | null, item?: ReservationInstance) => any
   ): Promise<ReservationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -895,8 +895,8 @@ export class ReservationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ReservationInstance>,
-    ) => any,
+      item?: ApiResponse<ReservationInstance>
+    ) => any
   ): Promise<ApiResponse<ReservationInstance>>;
   /**
    * Update a ReservationInstance and return HTTP info
@@ -910,16 +910,16 @@ export class ReservationInstance {
     params: ReservationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ReservationInstance>,
-    ) => any,
+      item?: ApiResponse<ReservationInstance>
+    ) => any
   ): Promise<ApiResponse<ReservationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ReservationInstance>,
-    ) => any,
+      item?: ApiResponse<ReservationInstance>
+    ) => any
   ): Promise<ApiResponse<ReservationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -979,11 +979,11 @@ export interface ReservationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: ReservationListInstanceEachOptions,
-    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams ReservationInstance records from the API with HTTP metadata captured per page.
@@ -1001,11 +1001,11 @@ export interface ReservationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: ReservationListInstanceEachOptions,
-    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ReservationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of ReservationInstance records from the API.
@@ -1017,7 +1017,7 @@ export interface ReservationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ReservationPage) => any,
+    callback?: (error: Error | null, items: ReservationPage) => any
   ): Promise<ReservationPage>;
   /**
    * Retrieve a single target page of ReservationInstance records from the API with HTTP metadata.
@@ -1029,10 +1029,7 @@ export interface ReservationListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ReservationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ReservationPage>) => any
   ): Promise<ApiResponse<ReservationPage>>;
   /**
    * Lists ReservationInstance records from the API as a list.
@@ -1044,11 +1041,11 @@ export interface ReservationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ReservationInstance[]) => any,
+    callback?: (error: Error | null, items: ReservationInstance[]) => any
   ): Promise<ReservationInstance[]>;
   list(
     params: ReservationListInstanceOptions,
-    callback?: (error: Error | null, items: ReservationInstance[]) => any,
+    callback?: (error: Error | null, items: ReservationInstance[]) => any
   ): Promise<ReservationInstance[]>;
   /**
    * Lists ReservationInstance records from the API as a list with HTTP metadata.
@@ -1064,15 +1061,15 @@ export interface ReservationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ReservationInstance[]>,
-    ) => any,
+      items: ApiResponse<ReservationInstance[]>
+    ) => any
   ): Promise<ApiResponse<ReservationInstance[]>>;
   listWithHttpInfo(
     params: ReservationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ReservationInstance[]>,
-    ) => any,
+      items: ApiResponse<ReservationInstance[]>
+    ) => any
   ): Promise<ApiResponse<ReservationInstance[]>>;
   /**
    * Retrieve a single page of ReservationInstance records from the API.
@@ -1086,11 +1083,11 @@ export interface ReservationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ReservationPage) => any,
+    callback?: (error: Error | null, items: ReservationPage) => any
   ): Promise<ReservationPage>;
   page(
     params: ReservationListInstancePageOptions,
-    callback?: (error: Error | null, items: ReservationPage) => any,
+    callback?: (error: Error | null, items: ReservationPage) => any
   ): Promise<ReservationPage>;
   /**
    * Retrieve a single page of ReservationInstance records from the API with HTTP metadata.
@@ -1104,17 +1101,11 @@ export interface ReservationListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ReservationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ReservationPage>) => any
   ): Promise<ApiResponse<ReservationPage>>;
   pageWithHttpInfo(
     params: ReservationListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ReservationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ReservationPage>) => any
   ): Promise<ApiResponse<ReservationPage>>;
 
   /**
@@ -1127,7 +1118,7 @@ export interface ReservationListInstance {
 export function ReservationListInstance(
   version: V1,
   workspaceSid: string,
-  workerSid: string,
+  workerSid: string
 ): ReservationListInstance {
   if (!isValidPathParam(workspaceSid)) {
     throw new Error("Parameter 'workspaceSid' is not valid.");
@@ -1151,7 +1142,7 @@ export function ReservationListInstance(
     params?:
       | ReservationListInstancePageOptions
       | ((error: Error | null, items: ReservationPage) => any),
-    callback?: (error: Error | null, items: ReservationPage) => any,
+    callback?: (error: Error | null, items: ReservationPage) => any
   ): Promise<ReservationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1182,12 +1173,12 @@ export function ReservationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ReservationPage(operationVersion, payload, instance._solution),
+        new ReservationPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1197,7 +1188,7 @@ export function ReservationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ReservationPage) => any,
+    callback?: (error: Error | null, items: ReservationPage) => any
   ): Promise<ReservationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1205,7 +1196,7 @@ export function ReservationListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ReservationPage(instance._version, payload, instance._solution),
+        new ReservationPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1215,10 +1206,7 @@ export function ReservationListInstance(
     params?:
       | ReservationListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ReservationPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ReservationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ReservationPage>) => any
   ): Promise<ApiResponse<ReservationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1251,13 +1239,13 @@ export function ReservationListInstance(
         body: new ReservationPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1271,8 +1259,8 @@ export function ReservationListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ReservationPage>,
-    ) => any,
+      items?: ApiResponse<ReservationPage>
+    ) => any
   ): Promise<ApiResponse<ReservationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1287,9 +1275,9 @@ export function ReservationListInstance(
         body: new ReservationPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1301,7 +1289,7 @@ export function ReservationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1325,7 +1313,7 @@ export class ReservationPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ReservationSolution,
+    solution: ReservationSolution
   ) {
     super(version, response, solution);
   }
@@ -1340,7 +1328,7 @@ export class ReservationPage extends Page<
       this._version,
       payload,
       this._solution.workspaceSid,
-      this._solution.workerSid,
+      this._solution.workerSid
     );
   }
 

@@ -33,7 +33,7 @@ export interface BuildStatusContext {
    * @returns Resolves to processed BuildStatusInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BuildStatusInstance) => any,
+    callback?: (error: Error | null, item?: BuildStatusInstance) => any
   ): Promise<BuildStatusInstance>;
 
   /**
@@ -46,8 +46,8 @@ export interface BuildStatusContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BuildStatusInstance>,
-    ) => any,
+      item?: ApiResponse<BuildStatusInstance>
+    ) => any
   ): Promise<ApiResponse<BuildStatusInstance>>;
 
   /**
@@ -69,7 +69,7 @@ export class BuildStatusContextImpl implements BuildStatusContext {
   constructor(
     protected _version: V1,
     serviceSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -84,7 +84,7 @@ export class BuildStatusContextImpl implements BuildStatusContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: BuildStatusInstance) => any,
+    callback?: (error: Error | null, item?: BuildStatusInstance) => any
   ): Promise<BuildStatusInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -103,13 +103,13 @@ export class BuildStatusContextImpl implements BuildStatusContext {
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -117,8 +117,8 @@ export class BuildStatusContextImpl implements BuildStatusContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BuildStatusInstance>,
-    ) => any,
+      item?: ApiResponse<BuildStatusInstance>
+    ) => any
   ): Promise<ApiResponse<BuildStatusInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -138,13 +138,13 @@ export class BuildStatusContextImpl implements BuildStatusContext {
           operationVersion,
           response.body,
           instance._solution.serviceSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -181,7 +181,7 @@ export class BuildStatusInstance {
     protected _version: V1,
     payload: BuildStatusResource,
     serviceSid: string,
-    sid: string,
+    sid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -216,7 +216,7 @@ export class BuildStatusInstance {
       new BuildStatusContextImpl(
         this._version,
         this._solution.serviceSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -229,7 +229,7 @@ export class BuildStatusInstance {
    * @returns Resolves to processed BuildStatusInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BuildStatusInstance) => any,
+    callback?: (error: Error | null, item?: BuildStatusInstance) => any
   ): Promise<BuildStatusInstance> {
     return this._proxy.fetch(callback);
   }
@@ -244,8 +244,8 @@ export class BuildStatusInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BuildStatusInstance>,
-    ) => any,
+      item?: ApiResponse<BuildStatusInstance>
+    ) => any
   ): Promise<ApiResponse<BuildStatusInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -293,7 +293,7 @@ export interface BuildStatusListInstance {
 export function BuildStatusListInstance(
   version: V1,
   serviceSid: string,
-  sid: string,
+  sid: string
 ): BuildStatusListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -319,7 +319,7 @@ export function BuildStatusListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

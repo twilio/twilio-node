@@ -47,7 +47,7 @@ export interface StreamMessageListInstance {
    */
   create(
     params: StreamMessageListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: StreamMessageInstance) => any,
+    callback?: (error: Error | null, item?: StreamMessageInstance) => any
   ): Promise<StreamMessageInstance>;
 
   /**
@@ -62,8 +62,8 @@ export interface StreamMessageListInstance {
     params: StreamMessageListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<StreamMessageInstance>,
-    ) => any,
+      item?: ApiResponse<StreamMessageInstance>
+    ) => any
   ): Promise<ApiResponse<StreamMessageInstance>>;
 
   /**
@@ -76,7 +76,7 @@ export interface StreamMessageListInstance {
 export function StreamMessageListInstance(
   version: V1,
   serviceSid: string,
-  streamSid: string,
+  streamSid: string
 ): StreamMessageListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -94,7 +94,7 @@ export function StreamMessageListInstance(
 
   instance.create = function create(
     params: StreamMessageListInstanceCreateOptions,
-    callback?: (error: Error | null, items: StreamMessageInstance) => any,
+    callback?: (error: Error | null, items: StreamMessageInstance) => any
   ): Promise<StreamMessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -126,13 +126,13 @@ export function StreamMessageListInstance(
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.streamSid,
-        ),
+          instance._solution.streamSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -141,8 +141,8 @@ export function StreamMessageListInstance(
     params: StreamMessageListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<StreamMessageInstance>,
-    ) => any,
+      items: ApiResponse<StreamMessageInstance>
+    ) => any
   ): Promise<ApiResponse<StreamMessageInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -175,13 +175,13 @@ export function StreamMessageListInstance(
           operationVersion,
           response.body,
           instance._solution.serviceSid,
-          instance._solution.streamSid,
+          instance._solution.streamSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -192,7 +192,7 @@ export function StreamMessageListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -212,7 +212,7 @@ export class StreamMessageInstance {
     protected _version: V1,
     payload: StreamMessageResource,
     serviceSid: string,
-    streamSid: string,
+    streamSid: string
   ) {
     this.sid = payload.sid;
     this.data = payload.data;

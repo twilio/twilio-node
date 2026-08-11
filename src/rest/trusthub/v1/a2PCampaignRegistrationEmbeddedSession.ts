@@ -38,8 +38,8 @@ export interface A2PCampaignRegistrationEmbeddedSessionListInstance {
   create(
     callback?: (
       error: Error | null,
-      item?: A2PCampaignRegistrationEmbeddedSessionInstance,
-    ) => any,
+      item?: A2PCampaignRegistrationEmbeddedSessionInstance
+    ) => any
   ): Promise<A2PCampaignRegistrationEmbeddedSessionInstance>;
 
   /**
@@ -52,8 +52,8 @@ export interface A2PCampaignRegistrationEmbeddedSessionListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<A2PCampaignRegistrationEmbeddedSessionInstance>,
-    ) => any,
+      item?: ApiResponse<A2PCampaignRegistrationEmbeddedSessionInstance>
+    ) => any
   ): Promise<ApiResponse<A2PCampaignRegistrationEmbeddedSessionInstance>>;
 
   /**
@@ -65,7 +65,7 @@ export interface A2PCampaignRegistrationEmbeddedSessionListInstance {
 
 export function A2PCampaignRegistrationEmbeddedSessionListInstance(
   version: V1,
-  id: string,
+  id: string
 ): A2PCampaignRegistrationEmbeddedSessionListInstance {
   if (!isValidPathParam(id)) {
     throw new Error("Parameter 'id' is not valid.");
@@ -80,8 +80,8 @@ export function A2PCampaignRegistrationEmbeddedSessionListInstance(
   instance.create = function create(
     callback?: (
       error: Error | null,
-      items: A2PCampaignRegistrationEmbeddedSessionInstance,
-    ) => any,
+      items: A2PCampaignRegistrationEmbeddedSessionInstance
+    ) => any
   ): Promise<A2PCampaignRegistrationEmbeddedSessionInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -98,13 +98,13 @@ export function A2PCampaignRegistrationEmbeddedSessionListInstance(
         new A2PCampaignRegistrationEmbeddedSessionInstance(
           operationVersion,
           payload,
-          instance._solution.id,
-        ),
+          instance._solution.id
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -112,8 +112,8 @@ export function A2PCampaignRegistrationEmbeddedSessionListInstance(
   instance.createWithHttpInfo = function createWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<A2PCampaignRegistrationEmbeddedSessionInstance>,
-    ) => any,
+      items: ApiResponse<A2PCampaignRegistrationEmbeddedSessionInstance>
+    ) => any
   ): Promise<ApiResponse<A2PCampaignRegistrationEmbeddedSessionInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -128,20 +128,20 @@ export function A2PCampaignRegistrationEmbeddedSessionListInstance(
       })
       .then(
         (
-          response,
+          response
         ): ApiResponse<A2PCampaignRegistrationEmbeddedSessionInstance> => ({
           ...response,
           body: new A2PCampaignRegistrationEmbeddedSessionInstance(
             operationVersion,
             response.body,
-            instance._solution.id,
+            instance._solution.id
           ),
-        }),
+        })
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -152,7 +152,7 @@ export function A2PCampaignRegistrationEmbeddedSessionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -172,7 +172,7 @@ export class A2PCampaignRegistrationEmbeddedSessionInstance {
   constructor(
     protected _version: V1,
     payload: A2PCampaignRegistrationEmbeddedSessionResource,
-    id?: string,
+    id?: string
   ) {
     this.id = payload.id;
     this.sessionId = payload.sessionId;

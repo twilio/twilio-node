@@ -193,11 +193,11 @@ export interface NationalListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: NationalInstance, done: (err?: Error) => void) => void,
+    callback?: (item: NationalInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: NationalListInstanceEachOptions,
-    callback?: (item: NationalInstance, done: (err?: Error) => void) => void,
+    callback?: (item: NationalInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams NationalInstance records from the API with HTTP metadata captured per page.
@@ -215,11 +215,11 @@ export interface NationalListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: NationalInstance, done: (err?: Error) => void) => void,
+    callback?: (item: NationalInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: NationalListInstanceEachOptions,
-    callback?: (item: NationalInstance, done: (err?: Error) => void) => void,
+    callback?: (item: NationalInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of NationalInstance records from the API.
@@ -231,7 +231,7 @@ export interface NationalListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: NationalPage) => any,
+    callback?: (error: Error | null, items: NationalPage) => any
   ): Promise<NationalPage>;
   /**
    * Retrieve a single target page of NationalInstance records from the API with HTTP metadata.
@@ -243,7 +243,7 @@ export interface NationalListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<NationalPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<NationalPage>) => any
   ): Promise<ApiResponse<NationalPage>>;
   /**
    * Lists NationalInstance records from the API as a list.
@@ -255,11 +255,11 @@ export interface NationalListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: NationalInstance[]) => any,
+    callback?: (error: Error | null, items: NationalInstance[]) => any
   ): Promise<NationalInstance[]>;
   list(
     params: NationalListInstanceOptions,
-    callback?: (error: Error | null, items: NationalInstance[]) => any,
+    callback?: (error: Error | null, items: NationalInstance[]) => any
   ): Promise<NationalInstance[]>;
   /**
    * Lists NationalInstance records from the API as a list with HTTP metadata.
@@ -275,15 +275,15 @@ export interface NationalListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<NationalInstance[]>,
-    ) => any,
+      items: ApiResponse<NationalInstance[]>
+    ) => any
   ): Promise<ApiResponse<NationalInstance[]>>;
   listWithHttpInfo(
     params: NationalListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<NationalInstance[]>,
-    ) => any,
+      items: ApiResponse<NationalInstance[]>
+    ) => any
   ): Promise<ApiResponse<NationalInstance[]>>;
   /**
    * Retrieve a single page of NationalInstance records from the API.
@@ -297,11 +297,11 @@ export interface NationalListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: NationalPage) => any,
+    callback?: (error: Error | null, items: NationalPage) => any
   ): Promise<NationalPage>;
   page(
     params: NationalListInstancePageOptions,
-    callback?: (error: Error | null, items: NationalPage) => any,
+    callback?: (error: Error | null, items: NationalPage) => any
   ): Promise<NationalPage>;
   /**
    * Retrieve a single page of NationalInstance records from the API with HTTP metadata.
@@ -315,11 +315,11 @@ export interface NationalListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<NationalPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<NationalPage>) => any
   ): Promise<ApiResponse<NationalPage>>;
   pageWithHttpInfo(
     params: NationalListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<NationalPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<NationalPage>) => any
   ): Promise<ApiResponse<NationalPage>>;
 
   /**
@@ -332,7 +332,7 @@ export interface NationalListInstance {
 export function NationalListInstance(
   version: V2010,
   accountSid: string,
-  countryCode: string,
+  countryCode: string
 ): NationalListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -352,7 +352,7 @@ export function NationalListInstance(
     params?:
       | NationalListInstancePageOptions
       | ((error: Error | null, items: NationalPage) => any),
-    callback?: (error: Error | null, items: NationalPage) => any,
+    callback?: (error: Error | null, items: NationalPage) => any
   ): Promise<NationalPage> {
     if (params instanceof Function) {
       callback = params;
@@ -373,15 +373,15 @@ export function NationalListInstance(
       data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
       data["ExcludeAllAddressRequired"] = serialize.bool(
-        params["excludeAllAddressRequired"],
+        params["excludeAllAddressRequired"]
       );
     if (params["excludeLocalAddressRequired"] !== undefined)
       data["ExcludeLocalAddressRequired"] = serialize.bool(
-        params["excludeLocalAddressRequired"],
+        params["excludeLocalAddressRequired"]
       );
     if (params["excludeForeignAddressRequired"] !== undefined)
       data["ExcludeForeignAddressRequired"] = serialize.bool(
-        params["excludeForeignAddressRequired"],
+        params["excludeForeignAddressRequired"]
       );
     if (params["beta"] !== undefined)
       data["Beta"] = serialize.bool(params["beta"]);
@@ -418,12 +418,12 @@ export function NationalListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new NationalPage(operationVersion, payload, instance._solution),
+        new NationalPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -433,7 +433,7 @@ export function NationalListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: NationalPage) => any,
+    callback?: (error: Error | null, items: NationalPage) => any
   ): Promise<NationalPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -441,7 +441,7 @@ export function NationalListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new NationalPage(instance._version, payload, instance._solution),
+        new NationalPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -451,7 +451,7 @@ export function NationalListInstance(
     params?:
       | NationalListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<NationalPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<NationalPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<NationalPage>) => any
   ): Promise<ApiResponse<NationalPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -472,15 +472,15 @@ export function NationalListInstance(
       data["VoiceEnabled"] = serialize.bool(params["voiceEnabled"]);
     if (params["excludeAllAddressRequired"] !== undefined)
       data["ExcludeAllAddressRequired"] = serialize.bool(
-        params["excludeAllAddressRequired"],
+        params["excludeAllAddressRequired"]
       );
     if (params["excludeLocalAddressRequired"] !== undefined)
       data["ExcludeLocalAddressRequired"] = serialize.bool(
-        params["excludeLocalAddressRequired"],
+        params["excludeLocalAddressRequired"]
       );
     if (params["excludeForeignAddressRequired"] !== undefined)
       data["ExcludeForeignAddressRequired"] = serialize.bool(
-        params["excludeForeignAddressRequired"],
+        params["excludeForeignAddressRequired"]
       );
     if (params["beta"] !== undefined)
       data["Beta"] = serialize.bool(params["beta"]);
@@ -521,7 +521,7 @@ export function NationalListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -533,7 +533,7 @@ export function NationalListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<NationalPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<NationalPage>) => any
   ): Promise<ApiResponse<NationalPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -546,7 +546,7 @@ export function NationalListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new NationalPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -558,7 +558,7 @@ export function NationalListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -591,7 +591,7 @@ export class NationalInstance {
     protected _version: V2010,
     payload: NationalResource,
     accountSid: string,
-    countryCode: string,
+    countryCode: string
   ) {
     this.friendlyName = payload.friendly_name;
     this.phoneNumber = payload.phone_number;
@@ -702,7 +702,7 @@ export class NationalPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: NationalSolution,
+    solution: NationalSolution
   ) {
     super(version, response, solution);
   }
@@ -717,7 +717,7 @@ export class NationalPage extends Page<
       this._version,
       payload,
       this._solution.accountSid,
-      this._solution.countryCode,
+      this._solution.countryCode
     );
   }
 

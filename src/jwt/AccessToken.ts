@@ -26,7 +26,7 @@ class AccessToken implements AccessToken.AccessTokenOptions {
     accountSid: string,
     keySid: string,
     secret: string,
-    options: AccessToken.AccessTokenOptions,
+    options: AccessToken.AccessTokenOptions
   ) {
     if (!accountSid) {
       throw new Error("accountSid is required");
@@ -60,7 +60,7 @@ class AccessToken implements AccessToken.AccessTokenOptions {
     if (!AccessToken.ALGORITHMS.includes(algorithm)) {
       throw new Error(
         "Algorithm not supported. Allowed values are " +
-          AccessToken.ALGORITHMS.join(", "),
+          AccessToken.ALGORITHMS.join(", ")
       );
     }
 

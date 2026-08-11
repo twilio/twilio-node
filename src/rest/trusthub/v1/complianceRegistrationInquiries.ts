@@ -148,8 +148,8 @@ export interface ComplianceRegistrationInquiriesContext {
   update(
     callback?: (
       error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance,
-    ) => any,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
   ): Promise<ComplianceRegistrationInquiriesInstance>;
   /**
    * Update a ComplianceRegistrationInquiriesInstance
@@ -163,8 +163,8 @@ export interface ComplianceRegistrationInquiriesContext {
     params: ComplianceRegistrationInquiriesContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance,
-    ) => any,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
   ): Promise<ComplianceRegistrationInquiriesInstance>;
 
   /**
@@ -177,8 +177,8 @@ export interface ComplianceRegistrationInquiriesContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>>;
   /**
    * Update a ComplianceRegistrationInquiriesInstance and return HTTP info
@@ -192,8 +192,8 @@ export interface ComplianceRegistrationInquiriesContext {
     params: ComplianceRegistrationInquiriesContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>>;
 
   /**
@@ -213,7 +213,7 @@ export class ComplianceRegistrationInquiriesContextImpl implements ComplianceReg
 
   constructor(
     protected _version: V1,
-    registrationId: string,
+    registrationId: string
   ) {
     if (!isValidPathParam(registrationId)) {
       throw new Error("Parameter 'registrationId' is not valid.");
@@ -228,12 +228,12 @@ export class ComplianceRegistrationInquiriesContextImpl implements ComplianceReg
       | ComplianceRegistrationInquiriesContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ComplianceRegistrationInquiriesInstance,
+          item?: ComplianceRegistrationInquiriesInstance
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance,
-    ) => any,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
   ): Promise<ComplianceRegistrationInquiriesInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -267,13 +267,13 @@ export class ComplianceRegistrationInquiriesContextImpl implements ComplianceReg
         new ComplianceRegistrationInquiriesInstance(
           operationVersion,
           payload,
-          instance._solution.registrationId,
-        ),
+          instance._solution.registrationId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -283,12 +283,12 @@ export class ComplianceRegistrationInquiriesContextImpl implements ComplianceReg
       | ComplianceRegistrationInquiriesContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<ComplianceRegistrationInquiriesInstance>,
+          item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -324,14 +324,14 @@ export class ComplianceRegistrationInquiriesContextImpl implements ComplianceReg
           body: new ComplianceRegistrationInquiriesInstance(
             operationVersion,
             response.body,
-            instance._solution.registrationId,
+            instance._solution.registrationId
           ),
-        }),
+        })
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -366,7 +366,7 @@ export class ComplianceRegistrationInquiriesInstance {
   constructor(
     protected _version: V1,
     payload: ComplianceRegistrationInquiriesResource,
-    registrationId?: string,
+    registrationId?: string
   ) {
     this.inquiryId = payload.inquiry_id;
     this.inquirySessionToken = payload.inquiry_session_token;
@@ -398,7 +398,7 @@ export class ComplianceRegistrationInquiriesInstance {
       this._context ||
       new ComplianceRegistrationInquiriesContextImpl(
         this._version,
-        this._solution.registrationId,
+        this._solution.registrationId
       );
     return this._context;
   }
@@ -413,8 +413,8 @@ export class ComplianceRegistrationInquiriesInstance {
   update(
     callback?: (
       error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance,
-    ) => any,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
   ): Promise<ComplianceRegistrationInquiriesInstance>;
   /**
    * Update a ComplianceRegistrationInquiriesInstance
@@ -428,16 +428,16 @@ export class ComplianceRegistrationInquiriesInstance {
     params: ComplianceRegistrationInquiriesContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance,
-    ) => any,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
   ): Promise<ComplianceRegistrationInquiriesInstance>;
 
   update(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance,
-    ) => any,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
   ): Promise<ComplianceRegistrationInquiriesInstance> {
     return this._proxy.update(params, callback);
   }
@@ -452,8 +452,8 @@ export class ComplianceRegistrationInquiriesInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>>;
   /**
    * Update a ComplianceRegistrationInquiriesInstance and return HTTP info
@@ -467,16 +467,16 @@ export class ComplianceRegistrationInquiriesInstance {
     params: ComplianceRegistrationInquiriesContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -522,8 +522,8 @@ export interface ComplianceRegistrationInquiriesListInstance {
     params: ComplianceRegistrationInquiriesListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ComplianceRegistrationInquiriesInstance,
-    ) => any,
+      item?: ComplianceRegistrationInquiriesInstance
+    ) => any
   ): Promise<ComplianceRegistrationInquiriesInstance>;
 
   /**
@@ -538,8 +538,8 @@ export interface ComplianceRegistrationInquiriesListInstance {
     params: ComplianceRegistrationInquiriesListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>,
-    ) => any,
+      item?: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>>;
 
   /**
@@ -550,19 +550,19 @@ export interface ComplianceRegistrationInquiriesListInstance {
 }
 
 export function ComplianceRegistrationInquiriesListInstance(
-  version: V1,
+  version: V1
 ): ComplianceRegistrationInquiriesListInstance {
   const instance = ((registrationId) =>
     instance.get(
-      registrationId,
+      registrationId
     )) as ComplianceRegistrationInquiriesListInstance;
 
   instance.get = function get(
-    registrationId,
+    registrationId
   ): ComplianceRegistrationInquiriesContext {
     return new ComplianceRegistrationInquiriesContextImpl(
       version,
-      registrationId,
+      registrationId
     );
   };
 
@@ -574,8 +574,8 @@ export function ComplianceRegistrationInquiriesListInstance(
     params: ComplianceRegistrationInquiriesListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ComplianceRegistrationInquiriesInstance,
-    ) => any,
+      items: ComplianceRegistrationInquiriesInstance
+    ) => any
   ): Promise<ComplianceRegistrationInquiriesInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -590,7 +590,7 @@ export function ComplianceRegistrationInquiriesListInstance(
       params["phoneNumberType"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['phoneNumberType']\" missing.",
+        "Required parameter \"params['phoneNumberType']\" missing."
       );
     }
 
@@ -610,7 +610,7 @@ export function ComplianceRegistrationInquiriesListInstance(
       data["NotificationEmail"] = params["notificationEmail"];
     if (params["acceptedNotificationReceipt"] !== undefined)
       data["AcceptedNotificationReceipt"] = serialize.bool(
-        params["acceptedNotificationReceipt"],
+        params["acceptedNotificationReceipt"]
       );
     if (params["businessRegistrationNumber"] !== undefined)
       data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
@@ -662,7 +662,7 @@ export function ComplianceRegistrationInquiriesListInstance(
         params["emergencyAddressCountryCode"];
     if (params["useAddressAsEmergencyAddress"] !== undefined)
       data["UseAddressAsEmergencyAddress"] = serialize.bool(
-        params["useAddressAsEmergencyAddress"],
+        params["useAddressAsEmergencyAddress"]
       );
     if (params["fileName"] !== undefined) data["FileName"] = params["fileName"];
     if (params["file"] !== undefined) data["File"] = params["file"];
@@ -699,12 +699,12 @@ export function ComplianceRegistrationInquiriesListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ComplianceRegistrationInquiriesInstance(operationVersion, payload),
+        new ComplianceRegistrationInquiriesInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -713,8 +713,8 @@ export function ComplianceRegistrationInquiriesListInstance(
     params: ComplianceRegistrationInquiriesListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ComplianceRegistrationInquiriesInstance>,
-    ) => any,
+      items: ApiResponse<ComplianceRegistrationInquiriesInstance>
+    ) => any
   ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -729,7 +729,7 @@ export function ComplianceRegistrationInquiriesListInstance(
       params["phoneNumberType"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['phoneNumberType']\" missing.",
+        "Required parameter \"params['phoneNumberType']\" missing."
       );
     }
 
@@ -749,7 +749,7 @@ export function ComplianceRegistrationInquiriesListInstance(
       data["NotificationEmail"] = params["notificationEmail"];
     if (params["acceptedNotificationReceipt"] !== undefined)
       data["AcceptedNotificationReceipt"] = serialize.bool(
-        params["acceptedNotificationReceipt"],
+        params["acceptedNotificationReceipt"]
       );
     if (params["businessRegistrationNumber"] !== undefined)
       data["BusinessRegistrationNumber"] = params["businessRegistrationNumber"];
@@ -801,7 +801,7 @@ export function ComplianceRegistrationInquiriesListInstance(
         params["emergencyAddressCountryCode"];
     if (params["useAddressAsEmergencyAddress"] !== undefined)
       data["UseAddressAsEmergencyAddress"] = serialize.bool(
-        params["useAddressAsEmergencyAddress"],
+        params["useAddressAsEmergencyAddress"]
       );
     if (params["fileName"] !== undefined) data["FileName"] = params["fileName"];
     if (params["file"] !== undefined) data["File"] = params["file"];
@@ -842,14 +842,14 @@ export function ComplianceRegistrationInquiriesListInstance(
           ...response,
           body: new ComplianceRegistrationInquiriesInstance(
             operationVersion,
-            response.body,
+            response.body
           ),
-        }),
+        })
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -860,7 +860,7 @@ export function ComplianceRegistrationInquiriesListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

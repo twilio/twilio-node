@@ -168,7 +168,7 @@ export interface ConversationContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
   /**
    * Remove a ConversationInstance
@@ -180,7 +180,7 @@ export interface ConversationContext {
    */
   remove(
     params: ConversationContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -191,7 +191,7 @@ export interface ConversationContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
   /**
    * Remove a ConversationInstance and return HTTP info
@@ -203,7 +203,7 @@ export interface ConversationContext {
    */
   removeWithHttpInfo(
     params: ConversationContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -214,7 +214,7 @@ export interface ConversationContext {
    * @returns Resolves to processed ConversationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConversationInstance) => any,
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
 
   /**
@@ -227,8 +227,8 @@ export interface ConversationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>,
-    ) => any,
+      item?: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>>;
 
   /**
@@ -239,7 +239,7 @@ export interface ConversationContext {
    * @returns Resolves to processed ConversationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ConversationInstance) => any,
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
   /**
    * Update a ConversationInstance
@@ -251,7 +251,7 @@ export interface ConversationContext {
    */
   update(
     params: ConversationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ConversationInstance) => any,
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
 
   /**
@@ -264,8 +264,8 @@ export interface ConversationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>,
-    ) => any,
+      item?: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>>;
   /**
    * Update a ConversationInstance and return HTTP info
@@ -279,8 +279,8 @@ export interface ConversationContext {
     params: ConversationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>,
-    ) => any,
+      item?: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>>;
 
   /**
@@ -304,7 +304,7 @@ export class ConversationContextImpl implements ConversationContext {
 
   constructor(
     protected _version: V1,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -337,7 +337,7 @@ export class ConversationContextImpl implements ConversationContext {
     params?:
       | ConversationContextRemoveOptions
       | ((error: Error | null, item?: boolean) => any),
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
@@ -363,7 +363,7 @@ export class ConversationContextImpl implements ConversationContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -372,7 +372,7 @@ export class ConversationContextImpl implements ConversationContext {
     params?:
       | ConversationContextRemoveOptions
       | ((error: Error | null, item?: ApiResponse<boolean>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
@@ -404,13 +404,13 @@ export class ConversationContextImpl implements ConversationContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ConversationInstance) => any,
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -428,13 +428,13 @@ export class ConversationContextImpl implements ConversationContext {
         new ConversationInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -442,8 +442,8 @@ export class ConversationContextImpl implements ConversationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>,
-    ) => any,
+      item?: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -462,13 +462,13 @@ export class ConversationContextImpl implements ConversationContext {
         body: new ConversationInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -477,7 +477,7 @@ export class ConversationContextImpl implements ConversationContext {
     params?:
       | ConversationContextUpdateOptions
       | ((error: Error | null, item?: ConversationInstance) => any),
-    callback?: (error: Error | null, item?: ConversationInstance) => any,
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -530,13 +530,13 @@ export class ConversationContextImpl implements ConversationContext {
         new ConversationInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -546,12 +546,12 @@ export class ConversationContextImpl implements ConversationContext {
       | ConversationContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<ConversationInstance>,
+          item?: ApiResponse<ConversationInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>,
-    ) => any,
+      item?: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -605,13 +605,13 @@ export class ConversationContextImpl implements ConversationContext {
         body: new ConversationInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -658,7 +658,7 @@ export class ConversationInstance {
   constructor(
     protected _version: V1,
     payload: ConversationResource,
-    sid?: string,
+    sid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.chatServiceSid = payload.chat_service_sid;
@@ -744,7 +744,7 @@ export class ConversationInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
   /**
    * Remove a ConversationInstance
@@ -756,12 +756,12 @@ export class ConversationInstance {
    */
   remove(
     params: ConversationContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   remove(
     params?: any,
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
@@ -774,7 +774,7 @@ export class ConversationInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
   /**
    * Remove a ConversationInstance and return HTTP info
@@ -786,12 +786,12 @@ export class ConversationInstance {
    */
   removeWithHttpInfo(
     params: ConversationContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   removeWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(params, callback);
   }
@@ -804,7 +804,7 @@ export class ConversationInstance {
    * @returns Resolves to processed ConversationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConversationInstance) => any,
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -819,8 +819,8 @@ export class ConversationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>,
-    ) => any,
+      item?: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -833,7 +833,7 @@ export class ConversationInstance {
    * @returns Resolves to processed ConversationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ConversationInstance) => any,
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
   /**
    * Update a ConversationInstance
@@ -845,12 +845,12 @@ export class ConversationInstance {
    */
   update(
     params: ConversationContextUpdateOptions,
-    callback?: (error: Error | null, item?: ConversationInstance) => any,
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ConversationInstance) => any,
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -865,8 +865,8 @@ export class ConversationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>,
-    ) => any,
+      item?: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>>;
   /**
    * Update a ConversationInstance and return HTTP info
@@ -880,16 +880,16 @@ export class ConversationInstance {
     params: ConversationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>,
-    ) => any,
+      item?: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>,
-    ) => any,
+      item?: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -962,7 +962,7 @@ export interface ConversationListInstance {
    * @returns Resolves to processed ConversationInstance
    */
   create(
-    callback?: (error: Error | null, item?: ConversationInstance) => any,
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
   /**
    * Create a ConversationInstance
@@ -974,7 +974,7 @@ export interface ConversationListInstance {
    */
   create(
     params: ConversationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ConversationInstance) => any,
+    callback?: (error: Error | null, item?: ConversationInstance) => any
   ): Promise<ConversationInstance>;
 
   /**
@@ -987,8 +987,8 @@ export interface ConversationListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>,
-    ) => any,
+      item?: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>>;
   /**
    * Create a ConversationInstance and return HTTP info
@@ -1002,8 +1002,8 @@ export interface ConversationListInstance {
     params: ConversationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConversationInstance>,
-    ) => any,
+      item?: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>>;
 
   /**
@@ -1022,17 +1022,11 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (
-      item: ConversationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: ConversationListInstanceEachOptions,
-    callback?: (
-      item: ConversationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams ConversationInstance records from the API with HTTP metadata captured per page.
@@ -1050,17 +1044,11 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (
-      item: ConversationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: ConversationListInstanceEachOptions,
-    callback?: (
-      item: ConversationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: ConversationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of ConversationInstance records from the API.
@@ -1072,7 +1060,7 @@ export interface ConversationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConversationPage) => any,
+    callback?: (error: Error | null, items: ConversationPage) => any
   ): Promise<ConversationPage>;
   /**
    * Retrieve a single target page of ConversationInstance records from the API with HTTP metadata.
@@ -1086,8 +1074,8 @@ export interface ConversationListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationPage>,
-    ) => any,
+      items: ApiResponse<ConversationPage>
+    ) => any
   ): Promise<ApiResponse<ConversationPage>>;
   /**
    * Lists ConversationInstance records from the API as a list.
@@ -1099,11 +1087,11 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ConversationInstance[]) => any,
+    callback?: (error: Error | null, items: ConversationInstance[]) => any
   ): Promise<ConversationInstance[]>;
   list(
     params: ConversationListInstanceOptions,
-    callback?: (error: Error | null, items: ConversationInstance[]) => any,
+    callback?: (error: Error | null, items: ConversationInstance[]) => any
   ): Promise<ConversationInstance[]>;
   /**
    * Lists ConversationInstance records from the API as a list with HTTP metadata.
@@ -1119,15 +1107,15 @@ export interface ConversationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationInstance[]>,
-    ) => any,
+      items: ApiResponse<ConversationInstance[]>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance[]>>;
   listWithHttpInfo(
     params: ConversationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationInstance[]>,
-    ) => any,
+      items: ApiResponse<ConversationInstance[]>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance[]>>;
   /**
    * Retrieve a single page of ConversationInstance records from the API.
@@ -1141,11 +1129,11 @@ export interface ConversationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ConversationPage) => any,
+    callback?: (error: Error | null, items: ConversationPage) => any
   ): Promise<ConversationPage>;
   page(
     params: ConversationListInstancePageOptions,
-    callback?: (error: Error | null, items: ConversationPage) => any,
+    callback?: (error: Error | null, items: ConversationPage) => any
   ): Promise<ConversationPage>;
   /**
    * Retrieve a single page of ConversationInstance records from the API with HTTP metadata.
@@ -1161,15 +1149,15 @@ export interface ConversationListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationPage>,
-    ) => any,
+      items: ApiResponse<ConversationPage>
+    ) => any
   ): Promise<ApiResponse<ConversationPage>>;
   pageWithHttpInfo(
     params: ConversationListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationPage>,
-    ) => any,
+      items: ApiResponse<ConversationPage>
+    ) => any
   ): Promise<ApiResponse<ConversationPage>>;
 
   /**
@@ -1180,7 +1168,7 @@ export interface ConversationListInstance {
 }
 
 export function ConversationListInstance(
-  version: V1,
+  version: V1
 ): ConversationListInstance {
   const instance = ((sid) => instance.get(sid)) as ConversationListInstance;
 
@@ -1196,7 +1184,7 @@ export function ConversationListInstance(
     params?:
       | ConversationListInstanceCreateOptions
       | ((error: Error | null, items: ConversationInstance) => any),
-    callback?: (error: Error | null, items: ConversationInstance) => any,
+    callback?: (error: Error | null, items: ConversationInstance) => any
   ): Promise<ConversationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -1244,12 +1232,12 @@ export function ConversationListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ConversationInstance(operationVersion, payload),
+      (payload) => new ConversationInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1259,12 +1247,12 @@ export function ConversationListInstance(
       | ConversationListInstanceCreateOptions
       | ((
           error: Error | null,
-          items: ApiResponse<ConversationInstance>,
+          items: ApiResponse<ConversationInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationInstance>,
-    ) => any,
+      items: ApiResponse<ConversationInstance>
+    ) => any
   ): Promise<ApiResponse<ConversationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -1319,7 +1307,7 @@ export function ConversationListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1328,7 +1316,7 @@ export function ConversationListInstance(
     params?:
       | ConversationListInstancePageOptions
       | ((error: Error | null, items: ConversationPage) => any),
-    callback?: (error: Error | null, items: ConversationPage) => any,
+    callback?: (error: Error | null, items: ConversationPage) => any
   ): Promise<ConversationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1361,12 +1349,12 @@ export function ConversationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ConversationPage(operationVersion, payload, instance._solution),
+        new ConversationPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1376,7 +1364,7 @@ export function ConversationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConversationPage) => any,
+    callback?: (error: Error | null, items: ConversationPage) => any
   ): Promise<ConversationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1384,7 +1372,7 @@ export function ConversationListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ConversationPage(instance._version, payload, instance._solution),
+        new ConversationPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1396,8 +1384,8 @@ export function ConversationListInstance(
       | ((error: Error | null, items: ApiResponse<ConversationPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConversationPage>,
-    ) => any,
+      items: ApiResponse<ConversationPage>
+    ) => any
   ): Promise<ApiResponse<ConversationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1432,13 +1420,13 @@ export function ConversationListInstance(
         body: new ConversationPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1452,8 +1440,8 @@ export function ConversationListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ConversationPage>,
-    ) => any,
+      items?: ApiResponse<ConversationPage>
+    ) => any
   ): Promise<ApiResponse<ConversationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1468,9 +1456,9 @@ export function ConversationListInstance(
         body: new ConversationPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1482,7 +1470,7 @@ export function ConversationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1506,7 +1494,7 @@ export class ConversationPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ConversationSolution,
+    solution: ConversationSolution
   ) {
     super(version, response, solution);
   }

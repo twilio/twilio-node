@@ -279,7 +279,7 @@ export interface CommunicationContext {
    * @returns Resolves to processed CommunicationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CommunicationInstance) => any,
+    callback?: (error: Error | null, item?: CommunicationInstance) => any
   ): Promise<CommunicationInstance>;
 
   /**
@@ -292,8 +292,8 @@ export interface CommunicationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CommunicationInstance>,
-    ) => any,
+      item?: ApiResponse<CommunicationInstance>
+    ) => any
   ): Promise<ApiResponse<CommunicationInstance>>;
 
   /**
@@ -315,7 +315,7 @@ export class CommunicationContextImpl implements CommunicationContext {
   constructor(
     protected _version: V2,
     conversationId: string,
-    id: string,
+    id: string
   ) {
     if (!isValidPathParam(conversationId)) {
       throw new Error("Parameter 'conversationId' is not valid.");
@@ -330,7 +330,7 @@ export class CommunicationContextImpl implements CommunicationContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: CommunicationInstance) => any,
+    callback?: (error: Error | null, item?: CommunicationInstance) => any
   ): Promise<CommunicationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -349,13 +349,13 @@ export class CommunicationContextImpl implements CommunicationContext {
           operationVersion,
           payload,
           instance._solution.conversationId,
-          instance._solution.id,
-        ),
+          instance._solution.id
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -363,8 +363,8 @@ export class CommunicationContextImpl implements CommunicationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CommunicationInstance>,
-    ) => any,
+      item?: ApiResponse<CommunicationInstance>
+    ) => any
   ): Promise<ApiResponse<CommunicationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -384,13 +384,13 @@ export class CommunicationContextImpl implements CommunicationContext {
           operationVersion,
           response.body,
           instance._solution.conversationId,
-          instance._solution.id,
+          instance._solution.id
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -435,7 +435,7 @@ export class CommunicationInstance {
     protected _version: V2,
     _payload: CommunicationResource,
     conversationId: string,
-    id?: string,
+    id?: string
   ) {
     const payload = _payload;
     this.id = payload.id;
@@ -448,7 +448,7 @@ export class CommunicationInstance {
     this.content =
       payload.content !== null && payload.content !== undefined
         ? new ListCommunicationByConversation200ResponseCommunicationsContent(
-            payload.content,
+            payload.content
           )
         : null;
     this.channelId = payload.channelId;
@@ -458,8 +458,8 @@ export class CommunicationInstance {
         ? payload.recipients.map(
             (payload: any) =>
               new ListCommunicationByConversation200ResponseCommunicationsRecipients(
-                payload,
-              ),
+                payload
+              )
           )
         : null;
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
@@ -514,7 +514,7 @@ export class CommunicationInstance {
       new CommunicationContextImpl(
         this._version,
         this._solution.conversationId,
-        this._solution.id,
+        this._solution.id
       );
     return this._context;
   }
@@ -527,7 +527,7 @@ export class CommunicationInstance {
    * @returns Resolves to processed CommunicationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CommunicationInstance) => any,
+    callback?: (error: Error | null, item?: CommunicationInstance) => any
   ): Promise<CommunicationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -542,8 +542,8 @@ export class CommunicationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CommunicationInstance>,
-    ) => any,
+      item?: ApiResponse<CommunicationInstance>
+    ) => any
   ): Promise<ApiResponse<CommunicationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -594,7 +594,7 @@ export interface CommunicationListInstance {
    * @returns Resolves to processed CommunicationInstance
    */
   create(
-    callback?: (error: Error | null, item?: CommunicationInstance) => any,
+    callback?: (error: Error | null, item?: CommunicationInstance) => any
   ): Promise<CommunicationInstance>;
   /**
    * Create a CommunicationInstance
@@ -608,7 +608,7 @@ export interface CommunicationListInstance {
   create(
     params: CreateCommunicationInConversationRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: CommunicationInstance) => any,
+    callback?: (error: Error | null, item?: CommunicationInstance) => any
   ): Promise<CommunicationInstance>;
 
   /**
@@ -621,8 +621,8 @@ export interface CommunicationListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CommunicationInstance>,
-    ) => any,
+      item?: ApiResponse<CommunicationInstance>
+    ) => any
   ): Promise<ApiResponse<CommunicationInstance>>;
   /**
    * Create a CommunicationInstance and return HTTP info
@@ -638,8 +638,8 @@ export interface CommunicationListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CommunicationInstance>,
-    ) => any,
+      item?: ApiResponse<CommunicationInstance>
+    ) => any
   ): Promise<ApiResponse<CommunicationInstance>>;
 
   /**
@@ -660,15 +660,15 @@ export interface CommunicationListInstance {
   each(
     callback?: (
       item: CommunicationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: CommunicationListInstanceEachOptions,
     callback?: (
       item: CommunicationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams CommunicationInstance records from the API with HTTP metadata captured per page.
@@ -688,15 +688,15 @@ export interface CommunicationListInstance {
   eachWithHttpInfo(
     callback?: (
       item: CommunicationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: CommunicationListInstanceEachOptions,
     callback?: (
       item: CommunicationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of CommunicationInstance records from the API.
@@ -708,7 +708,7 @@ export interface CommunicationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CommunicationPage) => any,
+    callback?: (error: Error | null, items: CommunicationPage) => any
   ): Promise<CommunicationPage>;
   /**
    * Retrieve a single target page of CommunicationInstance records from the API with HTTP metadata.
@@ -722,8 +722,8 @@ export interface CommunicationListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CommunicationPage>,
-    ) => any,
+      items: ApiResponse<CommunicationPage>
+    ) => any
   ): Promise<ApiResponse<CommunicationPage>>;
   /**
    * Lists CommunicationInstance records from the API as a list.
@@ -735,11 +735,11 @@ export interface CommunicationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: CommunicationInstance[]) => any,
+    callback?: (error: Error | null, items: CommunicationInstance[]) => any
   ): Promise<CommunicationInstance[]>;
   list(
     params: CommunicationListInstanceOptions,
-    callback?: (error: Error | null, items: CommunicationInstance[]) => any,
+    callback?: (error: Error | null, items: CommunicationInstance[]) => any
   ): Promise<CommunicationInstance[]>;
   /**
    * Lists CommunicationInstance records from the API as a list with HTTP metadata.
@@ -755,15 +755,15 @@ export interface CommunicationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CommunicationInstance[]>,
-    ) => any,
+      items: ApiResponse<CommunicationInstance[]>
+    ) => any
   ): Promise<ApiResponse<CommunicationInstance[]>>;
   listWithHttpInfo(
     params: CommunicationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CommunicationInstance[]>,
-    ) => any,
+      items: ApiResponse<CommunicationInstance[]>
+    ) => any
   ): Promise<ApiResponse<CommunicationInstance[]>>;
   /**
    * Retrieve a single page of CommunicationInstance records from the API.
@@ -777,11 +777,11 @@ export interface CommunicationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: CommunicationPage) => any,
+    callback?: (error: Error | null, items: CommunicationPage) => any
   ): Promise<CommunicationPage>;
   page(
     params: CommunicationListInstancePageOptions,
-    callback?: (error: Error | null, items: CommunicationPage) => any,
+    callback?: (error: Error | null, items: CommunicationPage) => any
   ): Promise<CommunicationPage>;
   /**
    * Retrieve a single page of CommunicationInstance records from the API with HTTP metadata.
@@ -797,15 +797,15 @@ export interface CommunicationListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CommunicationPage>,
-    ) => any,
+      items: ApiResponse<CommunicationPage>
+    ) => any
   ): Promise<ApiResponse<CommunicationPage>>;
   pageWithHttpInfo(
     params: CommunicationListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CommunicationPage>,
-    ) => any,
+      items: ApiResponse<CommunicationPage>
+    ) => any
   ): Promise<ApiResponse<CommunicationPage>>;
 
   /**
@@ -817,7 +817,7 @@ export interface CommunicationListInstance {
 
 export function CommunicationListInstance(
   version: V2,
-  conversationId: string,
+  conversationId: string
 ): CommunicationListInstance {
   if (!isValidPathParam(conversationId)) {
     throw new Error("Parameter 'conversationId' is not valid.");
@@ -838,7 +838,7 @@ export function CommunicationListInstance(
       | CreateCommunicationInConversationRequest
       | ((error: Error | null, items: CommunicationInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, items: CommunicationInstance) => any,
+    callback?: (error: Error | null, items: CommunicationInstance) => any
   ): Promise<CommunicationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -874,13 +874,13 @@ export function CommunicationListInstance(
         new CommunicationInstance(
           operationVersion,
           payload,
-          instance._solution.conversationId,
-        ),
+          instance._solution.conversationId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -890,13 +890,13 @@ export function CommunicationListInstance(
       | CreateCommunicationInConversationRequest
       | ((
           error: Error | null,
-          items: ApiResponse<CommunicationInstance>,
+          items: ApiResponse<CommunicationInstance>
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<CommunicationInstance>,
-    ) => any,
+      items: ApiResponse<CommunicationInstance>
+    ) => any
   ): Promise<ApiResponse<CommunicationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -933,13 +933,13 @@ export function CommunicationListInstance(
         body: new CommunicationInstance(
           operationVersion,
           response.body,
-          instance._solution.conversationId,
+          instance._solution.conversationId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -948,7 +948,7 @@ export function CommunicationListInstance(
     params?:
       | CommunicationListInstancePageOptions
       | ((error: Error | null, items: CommunicationPage) => any),
-    callback?: (error: Error | null, items: CommunicationPage) => any,
+    callback?: (error: Error | null, items: CommunicationPage) => any
   ): Promise<CommunicationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -983,13 +983,13 @@ export function CommunicationListInstance(
           payload,
           instance._uri,
           data,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -999,7 +999,7 @@ export function CommunicationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: CommunicationPage) => any,
+    callback?: (error: Error | null, items: CommunicationPage) => any
   ): Promise<CommunicationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1012,8 +1012,8 @@ export function CommunicationListInstance(
           payload,
           instance._uri,
           {},
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1025,8 +1025,8 @@ export function CommunicationListInstance(
       | ((error: Error | null, items: ApiResponse<CommunicationPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<CommunicationPage>,
-    ) => any,
+      items: ApiResponse<CommunicationPage>
+    ) => any
   ): Promise<ApiResponse<CommunicationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1060,13 +1060,13 @@ export function CommunicationListInstance(
           response,
           instance._uri,
           data,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1080,8 +1080,8 @@ export function CommunicationListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<CommunicationPage>,
-    ) => any,
+      items?: ApiResponse<CommunicationPage>
+    ) => any
   ): Promise<ApiResponse<CommunicationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1098,9 +1098,9 @@ export function CommunicationListInstance(
           response,
           instance._uri,
           {},
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1112,7 +1112,7 @@ export function CommunicationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1140,7 +1140,7 @@ export class CommunicationPage extends TokenPage<
     response: Response<string>,
     uri: string,
     params: any,
-    solution: CommunicationSolution,
+    solution: CommunicationSolution
   ) {
     super(version, response, uri, params, solution);
   }
@@ -1154,7 +1154,7 @@ export class CommunicationPage extends TokenPage<
     return new CommunicationInstance(
       this._version,
       payload,
-      this._solution.conversationId,
+      this._solution.conversationId
     );
   }
 

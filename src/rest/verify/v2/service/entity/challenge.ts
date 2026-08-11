@@ -134,7 +134,7 @@ export interface ChallengeContext {
    * @returns Resolves to processed ChallengeInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ChallengeInstance) => any,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance>;
 
   /**
@@ -147,8 +147,8 @@ export interface ChallengeContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ChallengeInstance>,
-    ) => any,
+      item?: ApiResponse<ChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance>>;
 
   /**
@@ -159,7 +159,7 @@ export interface ChallengeContext {
    * @returns Resolves to processed ChallengeInstance
    */
   update(
-    callback?: (error: Error | null, item?: ChallengeInstance) => any,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance>;
   /**
    * Update a ChallengeInstance
@@ -171,7 +171,7 @@ export interface ChallengeContext {
    */
   update(
     params: ChallengeContextUpdateOptions,
-    callback?: (error: Error | null, item?: ChallengeInstance) => any,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance>;
 
   /**
@@ -184,8 +184,8 @@ export interface ChallengeContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ChallengeInstance>,
-    ) => any,
+      item?: ApiResponse<ChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance>>;
   /**
    * Update a ChallengeInstance and return HTTP info
@@ -199,8 +199,8 @@ export interface ChallengeContext {
     params: ChallengeContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ChallengeInstance>,
-    ) => any,
+      item?: ApiResponse<ChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance>>;
 
   /**
@@ -226,7 +226,7 @@ export class ChallengeContextImpl implements ChallengeContext {
     protected _version: V2,
     serviceSid: string,
     identity: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -251,13 +251,13 @@ export class ChallengeContextImpl implements ChallengeContext {
         this._version,
         this._solution.serviceSid,
         this._solution.identity,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._notifications;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ChallengeInstance) => any,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -277,13 +277,13 @@ export class ChallengeContextImpl implements ChallengeContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.identity,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -291,8 +291,8 @@ export class ChallengeContextImpl implements ChallengeContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ChallengeInstance>,
-    ) => any,
+      item?: ApiResponse<ChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -313,13 +313,13 @@ export class ChallengeContextImpl implements ChallengeContext {
           response.body,
           instance._solution.serviceSid,
           instance._solution.identity,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -328,7 +328,7 @@ export class ChallengeContextImpl implements ChallengeContext {
     params?:
       | ChallengeContextUpdateOptions
       | ((error: Error | null, item?: ChallengeInstance) => any),
-    callback?: (error: Error | null, item?: ChallengeInstance) => any,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -364,13 +364,13 @@ export class ChallengeContextImpl implements ChallengeContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.identity,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -381,8 +381,8 @@ export class ChallengeContextImpl implements ChallengeContext {
       | ((error: Error | null, item?: ApiResponse<ChallengeInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ChallengeInstance>,
-    ) => any,
+      item?: ApiResponse<ChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -419,13 +419,13 @@ export class ChallengeContextImpl implements ChallengeContext {
           response.body,
           instance._solution.serviceSid,
           instance._solution.identity,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -478,7 +478,7 @@ export class ChallengeInstance {
     payload: ChallengeResource,
     serviceSid: string,
     identity: string,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -573,7 +573,7 @@ export class ChallengeInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.identity,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -586,7 +586,7 @@ export class ChallengeInstance {
    * @returns Resolves to processed ChallengeInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ChallengeInstance) => any,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
     return this._proxy.fetch(callback);
   }
@@ -601,8 +601,8 @@ export class ChallengeInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ChallengeInstance>,
-    ) => any,
+      item?: ApiResponse<ChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -615,7 +615,7 @@ export class ChallengeInstance {
    * @returns Resolves to processed ChallengeInstance
    */
   update(
-    callback?: (error: Error | null, item?: ChallengeInstance) => any,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance>;
   /**
    * Update a ChallengeInstance
@@ -627,12 +627,12 @@ export class ChallengeInstance {
    */
   update(
     params: ChallengeContextUpdateOptions,
-    callback?: (error: Error | null, item?: ChallengeInstance) => any,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ChallengeInstance) => any,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
     return this._proxy.update(params, callback);
   }
@@ -647,8 +647,8 @@ export class ChallengeInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ChallengeInstance>,
-    ) => any,
+      item?: ApiResponse<ChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance>>;
   /**
    * Update a ChallengeInstance and return HTTP info
@@ -662,16 +662,16 @@ export class ChallengeInstance {
     params: ChallengeContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ChallengeInstance>,
-    ) => any,
+      item?: ApiResponse<ChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ChallengeInstance>,
-    ) => any,
+      item?: ApiResponse<ChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -739,7 +739,7 @@ export interface ChallengeListInstance {
    */
   create(
     params: ChallengeListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ChallengeInstance) => any,
+    callback?: (error: Error | null, item?: ChallengeInstance) => any
   ): Promise<ChallengeInstance>;
 
   /**
@@ -754,8 +754,8 @@ export interface ChallengeListInstance {
     params: ChallengeListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ChallengeInstance>,
-    ) => any,
+      item?: ApiResponse<ChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance>>;
 
   /**
@@ -774,11 +774,11 @@ export interface ChallengeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: ChallengeListInstanceEachOptions,
-    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams ChallengeInstance records from the API with HTTP metadata captured per page.
@@ -796,11 +796,11 @@ export interface ChallengeListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: ChallengeListInstanceEachOptions,
-    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ChallengeInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of ChallengeInstance records from the API.
@@ -812,7 +812,7 @@ export interface ChallengeListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ChallengePage) => any,
+    callback?: (error: Error | null, items: ChallengePage) => any
   ): Promise<ChallengePage>;
   /**
    * Retrieve a single target page of ChallengeInstance records from the API with HTTP metadata.
@@ -824,7 +824,7 @@ export interface ChallengeListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ChallengePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ChallengePage>) => any
   ): Promise<ApiResponse<ChallengePage>>;
   /**
    * Lists ChallengeInstance records from the API as a list.
@@ -836,11 +836,11 @@ export interface ChallengeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ChallengeInstance[]) => any,
+    callback?: (error: Error | null, items: ChallengeInstance[]) => any
   ): Promise<ChallengeInstance[]>;
   list(
     params: ChallengeListInstanceOptions,
-    callback?: (error: Error | null, items: ChallengeInstance[]) => any,
+    callback?: (error: Error | null, items: ChallengeInstance[]) => any
   ): Promise<ChallengeInstance[]>;
   /**
    * Lists ChallengeInstance records from the API as a list with HTTP metadata.
@@ -856,15 +856,15 @@ export interface ChallengeListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ChallengeInstance[]>,
-    ) => any,
+      items: ApiResponse<ChallengeInstance[]>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance[]>>;
   listWithHttpInfo(
     params: ChallengeListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ChallengeInstance[]>,
-    ) => any,
+      items: ApiResponse<ChallengeInstance[]>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance[]>>;
   /**
    * Retrieve a single page of ChallengeInstance records from the API.
@@ -878,11 +878,11 @@ export interface ChallengeListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ChallengePage) => any,
+    callback?: (error: Error | null, items: ChallengePage) => any
   ): Promise<ChallengePage>;
   page(
     params: ChallengeListInstancePageOptions,
-    callback?: (error: Error | null, items: ChallengePage) => any,
+    callback?: (error: Error | null, items: ChallengePage) => any
   ): Promise<ChallengePage>;
   /**
    * Retrieve a single page of ChallengeInstance records from the API with HTTP metadata.
@@ -896,11 +896,11 @@ export interface ChallengeListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ChallengePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ChallengePage>) => any
   ): Promise<ApiResponse<ChallengePage>>;
   pageWithHttpInfo(
     params: ChallengeListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ChallengePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ChallengePage>) => any
   ): Promise<ApiResponse<ChallengePage>>;
 
   /**
@@ -913,7 +913,7 @@ export interface ChallengeListInstance {
 export function ChallengeListInstance(
   version: V2,
   serviceSid: string,
-  identity: string,
+  identity: string
 ): ChallengeListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -935,7 +935,7 @@ export function ChallengeListInstance(
 
   instance.create = function create(
     params: ChallengeListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ChallengeInstance) => any,
+    callback?: (error: Error | null, items: ChallengeInstance) => any
   ): Promise<ChallengeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -950,14 +950,14 @@ export function ChallengeListInstance(
     data["FactorSid"] = params["factorSid"];
     if (params["expirationDate"] !== undefined)
       data["ExpirationDate"] = serialize.iso8601DateTime(
-        params["expirationDate"],
+        params["expirationDate"]
       );
     if (params["details.message"] !== undefined)
       data["Details.Message"] = params["details.message"];
     if (params["details.fields"] !== undefined)
       data["Details.Fields"] = serialize.map(
         params["details.fields"],
-        (e: any) => serialize.object(e),
+        (e: any) => serialize.object(e)
       );
     if (params["hiddenDetails"] !== undefined)
       data["HiddenDetails"] = serialize.object(params["hiddenDetails"]);
@@ -982,13 +982,13 @@ export function ChallengeListInstance(
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.identity,
-        ),
+          instance._solution.identity
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -997,8 +997,8 @@ export function ChallengeListInstance(
     params: ChallengeListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ChallengeInstance>,
-    ) => any,
+      items: ApiResponse<ChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ChallengeInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1013,14 +1013,14 @@ export function ChallengeListInstance(
     data["FactorSid"] = params["factorSid"];
     if (params["expirationDate"] !== undefined)
       data["ExpirationDate"] = serialize.iso8601DateTime(
-        params["expirationDate"],
+        params["expirationDate"]
       );
     if (params["details.message"] !== undefined)
       data["Details.Message"] = params["details.message"];
     if (params["details.fields"] !== undefined)
       data["Details.Fields"] = serialize.map(
         params["details.fields"],
-        (e: any) => serialize.object(e),
+        (e: any) => serialize.object(e)
       );
     if (params["hiddenDetails"] !== undefined)
       data["HiddenDetails"] = serialize.object(params["hiddenDetails"]);
@@ -1046,13 +1046,13 @@ export function ChallengeListInstance(
           operationVersion,
           response.body,
           instance._solution.serviceSid,
-          instance._solution.identity,
+          instance._solution.identity
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1061,7 +1061,7 @@ export function ChallengeListInstance(
     params?:
       | ChallengeListInstancePageOptions
       | ((error: Error | null, items: ChallengePage) => any),
-    callback?: (error: Error | null, items: ChallengePage) => any,
+    callback?: (error: Error | null, items: ChallengePage) => any
   ): Promise<ChallengePage> {
     if (params instanceof Function) {
       callback = params;
@@ -1094,12 +1094,12 @@ export function ChallengeListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ChallengePage(operationVersion, payload, instance._solution),
+        new ChallengePage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1109,7 +1109,7 @@ export function ChallengeListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ChallengePage) => any,
+    callback?: (error: Error | null, items: ChallengePage) => any
   ): Promise<ChallengePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1117,7 +1117,7 @@ export function ChallengeListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ChallengePage(instance._version, payload, instance._solution),
+        new ChallengePage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1127,7 +1127,7 @@ export function ChallengeListInstance(
     params?:
       | ChallengeListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ChallengePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ChallengePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ChallengePage>) => any
   ): Promise<ApiResponse<ChallengePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1164,7 +1164,7 @@ export function ChallengeListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1176,7 +1176,7 @@ export function ChallengeListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ChallengePage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<ChallengePage>) => any
   ): Promise<ApiResponse<ChallengePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1191,9 +1191,9 @@ export function ChallengeListInstance(
         body: new ChallengePage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1205,7 +1205,7 @@ export function ChallengeListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1229,7 +1229,7 @@ export class ChallengePage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: ChallengeSolution,
+    solution: ChallengeSolution
   ) {
     super(version, response, solution);
   }
@@ -1244,7 +1244,7 @@ export class ChallengePage extends Page<
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.identity,
+      this._solution.identity
     );
   }
 

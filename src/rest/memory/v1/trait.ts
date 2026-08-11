@@ -97,11 +97,11 @@ export interface TraitListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: TraitInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TraitInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: TraitListInstanceEachOptions,
-    callback?: (item: TraitInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TraitInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams TraitInstance records from the API with HTTP metadata captured per page.
@@ -119,11 +119,11 @@ export interface TraitListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: TraitInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TraitInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: TraitListInstanceEachOptions,
-    callback?: (item: TraitInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TraitInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of TraitInstance records from the API.
@@ -135,7 +135,7 @@ export interface TraitListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TraitPage) => any,
+    callback?: (error: Error | null, items: TraitPage) => any
   ): Promise<TraitPage>;
   /**
    * Retrieve a single target page of TraitInstance records from the API with HTTP metadata.
@@ -147,7 +147,7 @@ export interface TraitListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<TraitPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TraitPage>) => any
   ): Promise<ApiResponse<TraitPage>>;
   /**
    * Lists TraitInstance records from the API as a list.
@@ -159,11 +159,11 @@ export interface TraitListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: TraitInstance[]) => any,
+    callback?: (error: Error | null, items: TraitInstance[]) => any
   ): Promise<TraitInstance[]>;
   list(
     params: TraitListInstanceOptions,
-    callback?: (error: Error | null, items: TraitInstance[]) => any,
+    callback?: (error: Error | null, items: TraitInstance[]) => any
   ): Promise<TraitInstance[]>;
   /**
    * Lists TraitInstance records from the API as a list with HTTP metadata.
@@ -177,17 +177,11 @@ export interface TraitListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TraitInstance[]>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<TraitInstance[]>) => any
   ): Promise<ApiResponse<TraitInstance[]>>;
   listWithHttpInfo(
     params: TraitListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TraitInstance[]>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<TraitInstance[]>) => any
   ): Promise<ApiResponse<TraitInstance[]>>;
   /**
    * Retrieve a single page of TraitInstance records from the API.
@@ -201,11 +195,11 @@ export interface TraitListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: TraitPage) => any,
+    callback?: (error: Error | null, items: TraitPage) => any
   ): Promise<TraitPage>;
   page(
     params: TraitListInstancePageOptions,
-    callback?: (error: Error | null, items: TraitPage) => any,
+    callback?: (error: Error | null, items: TraitPage) => any
   ): Promise<TraitPage>;
   /**
    * Retrieve a single page of TraitInstance records from the API with HTTP metadata.
@@ -219,11 +213,11 @@ export interface TraitListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<TraitPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TraitPage>) => any
   ): Promise<ApiResponse<TraitPage>>;
   pageWithHttpInfo(
     params: TraitListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<TraitPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TraitPage>) => any
   ): Promise<ApiResponse<TraitPage>>;
 
   /**
@@ -236,7 +230,7 @@ export interface TraitListInstance {
 export function TraitListInstance(
   version: V1,
   storeId: string,
-  profileId: string,
+  profileId: string
 ): TraitListInstance {
   if (!isValidPathParam(storeId)) {
     throw new Error("Parameter 'storeId' is not valid.");
@@ -256,7 +250,7 @@ export function TraitListInstance(
     params?:
       | TraitListInstancePageOptions
       | ((error: Error | null, items: TraitPage) => any),
-    callback?: (error: Error | null, items: TraitPage) => any,
+    callback?: (error: Error | null, items: TraitPage) => any
   ): Promise<TraitPage> {
     if (params instanceof Function) {
       callback = params;
@@ -292,13 +286,13 @@ export function TraitListInstance(
           payload,
           instance._uri,
           data,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -308,7 +302,7 @@ export function TraitListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TraitPage) => any,
+    callback?: (error: Error | null, items: TraitPage) => any
   ): Promise<TraitPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -321,8 +315,8 @@ export function TraitListInstance(
           payload,
           instance._uri,
           {},
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -332,7 +326,7 @@ export function TraitListInstance(
     params?:
       | TraitListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<TraitPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<TraitPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TraitPage>) => any
   ): Promise<ApiResponse<TraitPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -367,13 +361,13 @@ export function TraitListInstance(
           response,
           instance._uri,
           data,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -385,7 +379,7 @@ export function TraitListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<TraitPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<TraitPage>) => any
   ): Promise<ApiResponse<TraitPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -402,9 +396,9 @@ export function TraitListInstance(
           response,
           instance._uri,
           {},
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -416,7 +410,7 @@ export function TraitListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -443,7 +437,7 @@ export class TraitInstance {
     protected _version: V1,
     _payload: TraitResource,
     storeId: string,
-    profileId: string,
+    profileId: string
   ) {
     const payload = _payload;
     this.name = payload.name;
@@ -508,7 +502,7 @@ export class TraitPage extends TokenPage<
     response: Response<string>,
     uri: string,
     params: any,
-    solution: TraitSolution,
+    solution: TraitSolution
   ) {
     super(version, response, uri, params, solution);
   }
@@ -523,7 +517,7 @@ export class TraitPage extends TokenPage<
       this._version,
       payload,
       this._solution.storeId,
-      this._solution.profileId,
+      this._solution.profileId
     );
   }
 

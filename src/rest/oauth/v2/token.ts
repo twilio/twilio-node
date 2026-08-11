@@ -60,7 +60,7 @@ export interface TokenListInstance {
    * @returns Resolves to processed TokenInstance
    */
   create(
-    callback?: (error: Error | null, item?: TokenInstance) => any,
+    callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance>;
   /**
    * Create a TokenInstance
@@ -72,7 +72,7 @@ export interface TokenListInstance {
    */
   create(
     params: TokenListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TokenInstance) => any,
+    callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance>;
 
   /**
@@ -83,7 +83,7 @@ export interface TokenListInstance {
    * @returns Resolves to processed TokenInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any
   ): Promise<ApiResponse<TokenInstance>>;
   /**
    * Create a TokenInstance and return HTTP info
@@ -95,7 +95,7 @@ export interface TokenListInstance {
    */
   createWithHttpInfo(
     params: TokenListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any
   ): Promise<ApiResponse<TokenInstance>>;
 
   /**
@@ -116,7 +116,7 @@ export function TokenListInstance(version: V2): TokenListInstance {
     params?:
       | TokenListInstanceCreateOptions
       | ((error: Error | null, items: TokenInstance) => any),
-    callback?: (error: Error | null, items: TokenInstance) => any,
+    callback?: (error: Error | null, items: TokenInstance) => any
   ): Promise<TokenInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -159,12 +159,12 @@ export function TokenListInstance(version: V2): TokenListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new TokenInstance(operationVersion, payload),
+      (payload) => new TokenInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -173,7 +173,7 @@ export function TokenListInstance(version: V2): TokenListInstance {
     params?:
       | TokenListInstanceCreateOptions
       | ((error: Error | null, items: ApiResponse<TokenInstance>) => any),
-    callback?: (error: Error | null, items: ApiResponse<TokenInstance>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TokenInstance>) => any
   ): Promise<ApiResponse<TokenInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -223,7 +223,7 @@ export function TokenListInstance(version: V2): TokenListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -234,7 +234,7 @@ export function TokenListInstance(version: V2): TokenListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -255,7 +255,7 @@ interface TokenResource {
 export class TokenInstance {
   constructor(
     protected _version: V2,
-    payload: TokenResource,
+    payload: TokenResource
   ) {
     this.accessToken = payload.access_token;
     this.refreshToken = payload.refresh_token;

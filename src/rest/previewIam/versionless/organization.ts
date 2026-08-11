@@ -48,7 +48,7 @@ export class OrganizationContextImpl implements OrganizationContext {
 
   constructor(
     protected _version: Versionless,
-    organizationSid: string,
+    organizationSid: string
   ) {
     if (!isValidPathParam(organizationSid)) {
       throw new Error("Parameter 'organizationSid' is not valid.");
@@ -111,7 +111,7 @@ export interface OrganizationListInstance {
 }
 
 export function OrganizationListInstance(
-  version: Versionless,
+  version: Versionless
 ): OrganizationListInstance {
   const instance = ((organizationSid) =>
     instance.get(organizationSid)) as OrganizationListInstance;
@@ -130,7 +130,7 @@ export function OrganizationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

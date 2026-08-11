@@ -75,7 +75,7 @@ export default class TwilioServiceException
 }
 
 function parseResponseBody(
-  response_body: string,
+  response_body: string
 ): TwilioServiceErrorResponse | null {
   let body = null;
   try {

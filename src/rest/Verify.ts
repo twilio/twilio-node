@@ -27,7 +27,7 @@ class Verify extends VerifyBase {
    */
   get verificationAttempts(): VerificationAttemptListInstance {
     console.warn(
-      "verificationAttempts is deprecated. Use v2.verificationAttempts instead.",
+      "verificationAttempts is deprecated. Use v2.verificationAttempts instead."
     );
     return this.v2.verificationAttempts;
   }
@@ -37,7 +37,7 @@ class Verify extends VerifyBase {
    */
   get verificationAttemptsSummary(): VerificationAttemptsSummaryListInstance {
     console.warn(
-      "verificationAttemptsSummary is deprecated. Use v2.verificationAttemptsSummary instead.",
+      "verificationAttemptsSummary is deprecated. Use v2.verificationAttemptsSummary instead."
     );
     return this.v2.verificationAttemptsSummary;
   }

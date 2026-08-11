@@ -20,7 +20,7 @@ class Video extends VideoBase {
    */
   get compositionHooks(): CompositionHookListInstance {
     console.warn(
-      "compositionHooks is deprecated. Use v1.compositionHooks instead.",
+      "compositionHooks is deprecated. Use v1.compositionHooks instead."
     );
     return this.v1.compositionHooks;
   }
@@ -30,7 +30,7 @@ class Video extends VideoBase {
    */
   get compositionSettings(): CompositionSettingsListInstance {
     console.warn(
-      "compositionSettings is deprecated. Use v1.compositionSettings instead.",
+      "compositionSettings is deprecated. Use v1.compositionSettings instead."
     );
     return this.v1.compositionSettings;
   }
@@ -48,7 +48,7 @@ class Video extends VideoBase {
    */
   get recordingSettings(): RecordingSettingsListInstance {
     console.warn(
-      "recordingSettings is deprecated. Use v1.recordingSettings instead.",
+      "recordingSettings is deprecated. Use v1.recordingSettings instead."
     );
     return this.v1.recordingSettings;
   }

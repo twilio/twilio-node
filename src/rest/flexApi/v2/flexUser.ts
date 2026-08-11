@@ -40,7 +40,7 @@ export interface FlexUserContext {
    * @returns Resolves to processed FlexUserInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance>;
 
   /**
@@ -53,8 +53,8 @@ export interface FlexUserContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlexUserInstance>,
-    ) => any,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
   ): Promise<ApiResponse<FlexUserInstance>>;
 
   /**
@@ -65,7 +65,7 @@ export interface FlexUserContext {
    * @returns Resolves to processed FlexUserInstance
    */
   update(
-    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance>;
   /**
    * Update a FlexUserInstance
@@ -77,7 +77,7 @@ export interface FlexUserContext {
    */
   update(
     params: FlexUserContextUpdateOptions,
-    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance>;
 
   /**
@@ -90,8 +90,8 @@ export interface FlexUserContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlexUserInstance>,
-    ) => any,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
   ): Promise<ApiResponse<FlexUserInstance>>;
   /**
    * Update a FlexUserInstance and return HTTP info
@@ -105,8 +105,8 @@ export interface FlexUserContext {
     params: FlexUserContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlexUserInstance>,
-    ) => any,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
   ): Promise<ApiResponse<FlexUserInstance>>;
 
   /**
@@ -128,7 +128,7 @@ export class FlexUserContextImpl implements FlexUserContext {
   constructor(
     protected _version: V2,
     instanceSid: string,
-    flexUserSid: string,
+    flexUserSid: string
   ) {
     if (!isValidPathParam(instanceSid)) {
       throw new Error("Parameter 'instanceSid' is not valid.");
@@ -143,7 +143,7 @@ export class FlexUserContextImpl implements FlexUserContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -162,13 +162,13 @@ export class FlexUserContextImpl implements FlexUserContext {
           operationVersion,
           payload,
           instance._solution.instanceSid,
-          instance._solution.flexUserSid,
-        ),
+          instance._solution.flexUserSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -176,8 +176,8 @@ export class FlexUserContextImpl implements FlexUserContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlexUserInstance>,
-    ) => any,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
   ): Promise<ApiResponse<FlexUserInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -197,13 +197,13 @@ export class FlexUserContextImpl implements FlexUserContext {
           operationVersion,
           response.body,
           instance._solution.instanceSid,
-          instance._solution.flexUserSid,
+          instance._solution.flexUserSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -212,7 +212,7 @@ export class FlexUserContextImpl implements FlexUserContext {
     params?:
       | FlexUserContextUpdateOptions
       | ((error: Error | null, item?: FlexUserInstance) => any),
-    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -246,13 +246,13 @@ export class FlexUserContextImpl implements FlexUserContext {
           operationVersion,
           payload,
           instance._solution.instanceSid,
-          instance._solution.flexUserSid,
-        ),
+          instance._solution.flexUserSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -263,8 +263,8 @@ export class FlexUserContextImpl implements FlexUserContext {
       | ((error: Error | null, item?: ApiResponse<FlexUserInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlexUserInstance>,
-    ) => any,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
   ): Promise<ApiResponse<FlexUserInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -299,13 +299,13 @@ export class FlexUserContextImpl implements FlexUserContext {
           operationVersion,
           response.body,
           instance._solution.instanceSid,
-          instance._solution.flexUserSid,
+          instance._solution.flexUserSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -352,7 +352,7 @@ export class FlexUserInstance {
     protected _version: V2,
     payload: FlexUserResource,
     instanceSid?: string,
-    flexUserSid?: string,
+    flexUserSid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.instanceSid = payload.instance_sid;
@@ -437,7 +437,7 @@ export class FlexUserInstance {
       new FlexUserContextImpl(
         this._version,
         this._solution.instanceSid,
-        this._solution.flexUserSid,
+        this._solution.flexUserSid
       );
     return this._context;
   }
@@ -450,7 +450,7 @@ export class FlexUserInstance {
    * @returns Resolves to processed FlexUserInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance> {
     return this._proxy.fetch(callback);
   }
@@ -465,8 +465,8 @@ export class FlexUserInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlexUserInstance>,
-    ) => any,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
   ): Promise<ApiResponse<FlexUserInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -479,7 +479,7 @@ export class FlexUserInstance {
    * @returns Resolves to processed FlexUserInstance
    */
   update(
-    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance>;
   /**
    * Update a FlexUserInstance
@@ -491,12 +491,12 @@ export class FlexUserInstance {
    */
   update(
     params: FlexUserContextUpdateOptions,
-    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: FlexUserInstance) => any,
+    callback?: (error: Error | null, item?: FlexUserInstance) => any
   ): Promise<FlexUserInstance> {
     return this._proxy.update(params, callback);
   }
@@ -511,8 +511,8 @@ export class FlexUserInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlexUserInstance>,
-    ) => any,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
   ): Promise<ApiResponse<FlexUserInstance>>;
   /**
    * Update a FlexUserInstance and return HTTP info
@@ -526,16 +526,16 @@ export class FlexUserInstance {
     params: FlexUserContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlexUserInstance>,
-    ) => any,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
   ): Promise<ApiResponse<FlexUserInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<FlexUserInstance>,
-    ) => any,
+      item?: ApiResponse<FlexUserInstance>
+    ) => any
   ): Promise<ApiResponse<FlexUserInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -605,7 +605,7 @@ export function FlexUserListInstance(version: V2): FlexUserListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

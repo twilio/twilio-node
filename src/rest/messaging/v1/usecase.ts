@@ -34,7 +34,7 @@ export interface UsecaseListInstance {
    * @returns Resolves to processed UsecaseInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: UsecaseInstance) => any,
+    callback?: (error: Error | null, item?: UsecaseInstance) => any
   ): Promise<UsecaseInstance>;
 
   /**
@@ -45,10 +45,7 @@ export interface UsecaseListInstance {
    * @returns Resolves to processed UsecaseInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<UsecaseInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<UsecaseInstance>) => any
   ): Promise<ApiResponse<UsecaseInstance>>;
 
   /**
@@ -66,7 +63,7 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
   instance._uri = `/Services/Usecases`;
 
   instance.fetch = function fetch(
-    callback?: (error: Error | null, items: UsecaseInstance) => any,
+    callback?: (error: Error | null, items: UsecaseInstance) => any
   ): Promise<UsecaseInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -79,21 +76,18 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new UsecaseInstance(operationVersion, payload),
+      (payload) => new UsecaseInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
 
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<UsecaseInstance>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<UsecaseInstance>) => any
   ): Promise<ApiResponse<UsecaseInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -113,7 +107,7 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -124,7 +118,7 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -141,7 +135,7 @@ interface UsecaseResource {
 export class UsecaseInstance {
   constructor(
     protected _version: V1,
-    payload: UsecaseResource,
+    payload: UsecaseResource
   ) {
     this.usecases = payload.usecases;
   }

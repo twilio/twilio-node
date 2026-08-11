@@ -22,7 +22,7 @@ class Conversations extends ConversationsBase {
    */
   get addressConfigurations(): AddressConfigurationListInstance {
     console.warn(
-      "addressConfigurations is deprecated. Use v1.addressConfigurations instead.",
+      "addressConfigurations is deprecated. Use v1.addressConfigurations instead."
     );
     return this.v1.addressConfigurations;
   }
@@ -48,7 +48,7 @@ class Conversations extends ConversationsBase {
    */
   get participantConversations(): ParticipantConversationListInstance {
     console.warn(
-      "participantConversations is deprecated. Use v1.participantConversations instead.",
+      "participantConversations is deprecated. Use v1.participantConversations instead."
     );
     return this.v1.participantConversations;
   }

@@ -44,7 +44,7 @@ export interface ModuleDataListInstance {
    * @returns Resolves to processed ModuleDataInstance
    */
   create(
-    callback?: (error: Error | null, item?: ModuleDataInstance) => any,
+    callback?: (error: Error | null, item?: ModuleDataInstance) => any
   ): Promise<ModuleDataInstance>;
   /**
    * Create a ModuleDataInstance
@@ -56,7 +56,7 @@ export interface ModuleDataListInstance {
    */
   create(
     params: ModuleDataListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ModuleDataInstance) => any,
+    callback?: (error: Error | null, item?: ModuleDataInstance) => any
   ): Promise<ModuleDataInstance>;
 
   /**
@@ -69,8 +69,8 @@ export interface ModuleDataListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ModuleDataInstance>,
-    ) => any,
+      item?: ApiResponse<ModuleDataInstance>
+    ) => any
   ): Promise<ApiResponse<ModuleDataInstance>>;
   /**
    * Create a ModuleDataInstance and return HTTP info
@@ -84,8 +84,8 @@ export interface ModuleDataListInstance {
     params: ModuleDataListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ModuleDataInstance>,
-    ) => any,
+      item?: ApiResponse<ModuleDataInstance>
+    ) => any
   ): Promise<ApiResponse<ModuleDataInstance>>;
 
   /**
@@ -96,7 +96,7 @@ export interface ModuleDataListInstance {
    * @returns Resolves to processed ModuleDataInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ModuleDataInstance) => any,
+    callback?: (error: Error | null, item?: ModuleDataInstance) => any
   ): Promise<ModuleDataInstance>;
 
   /**
@@ -109,8 +109,8 @@ export interface ModuleDataListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ModuleDataInstance>,
-    ) => any,
+      item?: ApiResponse<ModuleDataInstance>
+    ) => any
   ): Promise<ApiResponse<ModuleDataInstance>>;
 
   /**
@@ -131,7 +131,7 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
     params?:
       | ModuleDataListInstanceCreateOptions
       | ((error: Error | null, items: ModuleDataInstance) => any),
-    callback?: (error: Error | null, items: ModuleDataInstance) => any,
+    callback?: (error: Error | null, items: ModuleDataInstance) => any
   ): Promise<ModuleDataInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -160,12 +160,12 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ModuleDataInstance(operationVersion, payload),
+      (payload) => new ModuleDataInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -176,8 +176,8 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
       | ((error: Error | null, items: ApiResponse<ModuleDataInstance>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ModuleDataInstance>,
-    ) => any,
+      items: ApiResponse<ModuleDataInstance>
+    ) => any
   ): Promise<ApiResponse<ModuleDataInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -213,13 +213,13 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
 
   instance.fetch = function fetch(
-    callback?: (error: Error | null, items: ModuleDataInstance) => any,
+    callback?: (error: Error | null, items: ModuleDataInstance) => any
   ): Promise<ModuleDataInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -232,12 +232,12 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ModuleDataInstance(operationVersion, payload),
+      (payload) => new ModuleDataInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -245,8 +245,8 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ModuleDataInstance>,
-    ) => any,
+      items: ApiResponse<ModuleDataInstance>
+    ) => any
   ): Promise<ApiResponse<ModuleDataInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -266,7 +266,7 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -277,7 +277,7 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -303,7 +303,7 @@ interface ModuleDataResource {
 export class ModuleDataInstance {
   constructor(
     protected _version: V1,
-    payload: ModuleDataResource,
+    payload: ModuleDataResource
   ) {
     this.url = payload.url;
     this.sid = payload.sid;

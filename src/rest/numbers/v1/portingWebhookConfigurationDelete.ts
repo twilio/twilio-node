@@ -34,7 +34,7 @@ export interface PortingWebhookConfigurationDeleteContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -45,7 +45,7 @@ export interface PortingWebhookConfigurationDeleteContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -65,7 +65,7 @@ export class PortingWebhookConfigurationDeleteContextImpl implements PortingWebh
 
   constructor(
     protected _version: V1,
-    webhookType: PortingWebhookConfigurationDeleteWebhookType,
+    webhookType: PortingWebhookConfigurationDeleteWebhookType
   ) {
     if (!isValidPathParam(webhookType)) {
       throw new Error("Parameter 'webhookType' is not valid.");
@@ -76,7 +76,7 @@ export class PortingWebhookConfigurationDeleteContextImpl implements PortingWebh
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -90,13 +90,13 @@ export class PortingWebhookConfigurationDeleteContextImpl implements PortingWebh
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -112,7 +112,7 @@ export class PortingWebhookConfigurationDeleteContextImpl implements PortingWebh
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -139,10 +139,10 @@ export interface PortingWebhookConfigurationDeleteListInstance {
   _uri: string;
 
   (
-    webhookType: PortingWebhookConfigurationDeleteWebhookType,
+    webhookType: PortingWebhookConfigurationDeleteWebhookType
   ): PortingWebhookConfigurationDeleteContext;
   get(
-    webhookType: PortingWebhookConfigurationDeleteWebhookType,
+    webhookType: PortingWebhookConfigurationDeleteWebhookType
   ): PortingWebhookConfigurationDeleteContext;
 
   /**
@@ -153,17 +153,17 @@ export interface PortingWebhookConfigurationDeleteListInstance {
 }
 
 export function PortingWebhookConfigurationDeleteListInstance(
-  version: V1,
+  version: V1
 ): PortingWebhookConfigurationDeleteListInstance {
   const instance = ((webhookType) =>
     instance.get(webhookType)) as PortingWebhookConfigurationDeleteListInstance;
 
   instance.get = function get(
-    webhookType,
+    webhookType
   ): PortingWebhookConfigurationDeleteContext {
     return new PortingWebhookConfigurationDeleteContextImpl(
       version,
-      webhookType,
+      webhookType
     );
   };
 
@@ -177,7 +177,7 @@ export function PortingWebhookConfigurationDeleteListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

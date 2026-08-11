@@ -303,7 +303,7 @@ export interface ApplicationContext {
    * @returns Resolves to processed ApplicationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+    callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance>;
 
   /**
@@ -316,8 +316,8 @@ export interface ApplicationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>,
-    ) => any,
+      item?: ApiResponse<ApplicationInstance>
+    ) => any
   ): Promise<ApiResponse<ApplicationInstance>>;
 
   /**
@@ -337,7 +337,7 @@ export class ApplicationContextImpl implements ApplicationContext {
 
   constructor(
     protected _version: V2,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -348,7 +348,7 @@ export class ApplicationContextImpl implements ApplicationContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+    callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -366,13 +366,13 @@ export class ApplicationContextImpl implements ApplicationContext {
         new ApplicationInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -380,8 +380,8 @@ export class ApplicationContextImpl implements ApplicationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>,
-    ) => any,
+      item?: ApiResponse<ApplicationInstance>
+    ) => any
   ): Promise<ApiResponse<ApplicationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -400,13 +400,13 @@ export class ApplicationContextImpl implements ApplicationContext {
         body: new ApplicationInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -460,12 +460,12 @@ export class ApplicationInstance {
   constructor(
     protected _version: V2,
     payload: ApplicationResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.applicationRequirementsSid = payload.application_requirements_sid;
     this.applicationRequirementsVersion = deserialize.integer(
-      payload.application_requirements_version,
+      payload.application_requirements_version
     );
     this.accountSid = payload.account_sid;
     this.bundleSid = payload.bundle_sid;
@@ -483,7 +483,7 @@ export class ApplicationInstance {
       payload.business_information !== null &&
       payload.business_information !== undefined
         ? new CreateShortCodeApplicationResponseBusinessInformation(
-            payload.business_information,
+            payload.business_information
           )
         : null;
     this.userSignUp =
@@ -494,21 +494,21 @@ export class ApplicationInstance {
       payload.compliance_keywords !== null &&
       payload.compliance_keywords !== undefined
         ? new CreateShortCodeApplicationResponseComplianceKeywords(
-            payload.compliance_keywords,
+            payload.compliance_keywords
           )
         : null;
     this.contentExamples =
       payload.content_examples !== null &&
       payload.content_examples !== undefined
         ? new CreateShortCodeApplicationResponseContentExamples(
-            payload.content_examples,
+            payload.content_examples
           )
         : null;
     this.smsCampaignDetails =
       payload.sms_campaign_details !== null &&
       payload.sms_campaign_details !== undefined
         ? new CreateShortCodeApplicationResponseSmsCampaignDetails(
-            payload.sms_campaign_details,
+            payload.sms_campaign_details
           )
         : null;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -601,7 +601,7 @@ export class ApplicationInstance {
    * @returns Resolves to processed ApplicationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+    callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -616,8 +616,8 @@ export class ApplicationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>,
-    ) => any,
+      item?: ApiResponse<ApplicationInstance>
+    ) => any
   ): Promise<ApiResponse<ApplicationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -680,7 +680,7 @@ export interface ApplicationListInstance {
   create(
     params: CreateShortCodeApplicationRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApplicationInstance) => any,
+    callback?: (error: Error | null, item?: ApplicationInstance) => any
   ): Promise<ApplicationInstance>;
 
   /**
@@ -697,8 +697,8 @@ export interface ApplicationListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApplicationInstance>,
-    ) => any,
+      item?: ApiResponse<ApplicationInstance>
+    ) => any
   ): Promise<ApiResponse<ApplicationInstance>>;
 
   /**
@@ -717,11 +717,11 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: ApplicationListInstanceEachOptions,
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams ApplicationInstance records from the API with HTTP metadata captured per page.
@@ -739,11 +739,11 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: ApplicationListInstanceEachOptions,
-    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of ApplicationInstance records from the API.
@@ -755,7 +755,7 @@ export interface ApplicationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApplicationPage) => any,
+    callback?: (error: Error | null, items: ApplicationPage) => any
   ): Promise<ApplicationPage>;
   /**
    * Retrieve a single target page of ApplicationInstance records from the API with HTTP metadata.
@@ -767,10 +767,7 @@ export interface ApplicationListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ApplicationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
   ): Promise<ApiResponse<ApplicationPage>>;
   /**
    * Lists ApplicationInstance records from the API as a list.
@@ -782,11 +779,11 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ApplicationInstance[]) => any,
+    callback?: (error: Error | null, items: ApplicationInstance[]) => any
   ): Promise<ApplicationInstance[]>;
   list(
     params: ApplicationListInstanceOptions,
-    callback?: (error: Error | null, items: ApplicationInstance[]) => any,
+    callback?: (error: Error | null, items: ApplicationInstance[]) => any
   ): Promise<ApplicationInstance[]>;
   /**
    * Lists ApplicationInstance records from the API as a list with HTTP metadata.
@@ -802,15 +799,15 @@ export interface ApplicationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ApplicationInstance[]>,
-    ) => any,
+      items: ApiResponse<ApplicationInstance[]>
+    ) => any
   ): Promise<ApiResponse<ApplicationInstance[]>>;
   listWithHttpInfo(
     params: ApplicationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ApplicationInstance[]>,
-    ) => any,
+      items: ApiResponse<ApplicationInstance[]>
+    ) => any
   ): Promise<ApiResponse<ApplicationInstance[]>>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API.
@@ -824,11 +821,11 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ApplicationPage) => any,
+    callback?: (error: Error | null, items: ApplicationPage) => any
   ): Promise<ApplicationPage>;
   page(
     params: ApplicationListInstancePageOptions,
-    callback?: (error: Error | null, items: ApplicationPage) => any,
+    callback?: (error: Error | null, items: ApplicationPage) => any
   ): Promise<ApplicationPage>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API with HTTP metadata.
@@ -842,17 +839,11 @@ export interface ApplicationListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ApplicationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
   ): Promise<ApiResponse<ApplicationPage>>;
   pageWithHttpInfo(
     params: ApplicationListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ApplicationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
   ): Promise<ApiResponse<ApplicationPage>>;
 
   /**
@@ -876,7 +867,7 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
   instance.create = function create(
     params: CreateShortCodeApplicationRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ApplicationInstance) => any,
+    callback?: (error: Error | null, items: ApplicationInstance) => any
   ): Promise<ApplicationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -902,12 +893,12 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ApplicationInstance(operationVersion, payload),
+      (payload) => new ApplicationInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -917,8 +908,8 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ApplicationInstance>,
-    ) => any,
+      items: ApiResponse<ApplicationInstance>
+    ) => any
   ): Promise<ApiResponse<ApplicationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -951,7 +942,7 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -960,7 +951,7 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
     params?:
       | ApplicationListInstancePageOptions
       | ((error: Error | null, items: ApplicationPage) => any),
-    callback?: (error: Error | null, items: ApplicationPage) => any,
+    callback?: (error: Error | null, items: ApplicationPage) => any
   ): Promise<ApplicationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -997,12 +988,12 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ApplicationPage(operationVersion, payload, instance._solution),
+        new ApplicationPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1012,7 +1003,7 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApplicationPage) => any,
+    callback?: (error: Error | null, items: ApplicationPage) => any
   ): Promise<ApplicationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1020,7 +1011,7 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ApplicationPage(instance._version, payload, instance._solution),
+        new ApplicationPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1030,10 +1021,7 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
     params?:
       | ApplicationListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ApplicationPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ApplicationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ApplicationPage>) => any
   ): Promise<ApiResponse<ApplicationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1072,13 +1060,13 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
         body: new ApplicationPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1092,8 +1080,8 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ApplicationPage>,
-    ) => any,
+      items?: ApiResponse<ApplicationPage>
+    ) => any
   ): Promise<ApiResponse<ApplicationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1108,9 +1096,9 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
         body: new ApplicationPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1122,7 +1110,7 @@ export function ApplicationListInstance(version: V2): ApplicationListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1146,7 +1134,7 @@ export class ApplicationPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: ApplicationSolution,
+    solution: ApplicationSolution
   ) {
     super(version, response, solution);
   }

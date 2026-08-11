@@ -28,7 +28,7 @@ export interface DomainValidateDnContext {
    * @returns Resolves to processed DomainValidateDnInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DomainValidateDnInstance) => any,
+    callback?: (error: Error | null, item?: DomainValidateDnInstance) => any
   ): Promise<DomainValidateDnInstance>;
 
   /**
@@ -41,8 +41,8 @@ export interface DomainValidateDnContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainValidateDnInstance>,
-    ) => any,
+      item?: ApiResponse<DomainValidateDnInstance>
+    ) => any
   ): Promise<ApiResponse<DomainValidateDnInstance>>;
 
   /**
@@ -62,7 +62,7 @@ export class DomainValidateDnContextImpl implements DomainValidateDnContext {
 
   constructor(
     protected _version: V1,
-    domainSid: string,
+    domainSid: string
   ) {
     if (!isValidPathParam(domainSid)) {
       throw new Error("Parameter 'domainSid' is not valid.");
@@ -73,7 +73,7 @@ export class DomainValidateDnContextImpl implements DomainValidateDnContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: DomainValidateDnInstance) => any,
+    callback?: (error: Error | null, item?: DomainValidateDnInstance) => any
   ): Promise<DomainValidateDnInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -91,13 +91,13 @@ export class DomainValidateDnContextImpl implements DomainValidateDnContext {
         new DomainValidateDnInstance(
           operationVersion,
           payload,
-          instance._solution.domainSid,
-        ),
+          instance._solution.domainSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -105,8 +105,8 @@ export class DomainValidateDnContextImpl implements DomainValidateDnContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainValidateDnInstance>,
-    ) => any,
+      item?: ApiResponse<DomainValidateDnInstance>
+    ) => any
   ): Promise<ApiResponse<DomainValidateDnInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -125,13 +125,13 @@ export class DomainValidateDnContextImpl implements DomainValidateDnContext {
         body: new DomainValidateDnInstance(
           operationVersion,
           response.body,
-          instance._solution.domainSid,
+          instance._solution.domainSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -166,7 +166,7 @@ export class DomainValidateDnInstance {
   constructor(
     protected _version: V1,
     payload: DomainValidateDnResource,
-    domainSid?: string,
+    domainSid?: string
   ) {
     this.domainSid = payload.domain_sid;
     this.isValid = payload.is_valid;
@@ -199,7 +199,7 @@ export class DomainValidateDnInstance {
    * @returns Resolves to processed DomainValidateDnInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DomainValidateDnInstance) => any,
+    callback?: (error: Error | null, item?: DomainValidateDnInstance) => any
   ): Promise<DomainValidateDnInstance> {
     return this._proxy.fetch(callback);
   }
@@ -214,8 +214,8 @@ export class DomainValidateDnInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainValidateDnInstance>,
-    ) => any,
+      item?: ApiResponse<DomainValidateDnInstance>
+    ) => any
   ): Promise<ApiResponse<DomainValidateDnInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -257,7 +257,7 @@ export interface DomainValidateDnListInstance {
 }
 
 export function DomainValidateDnListInstance(
-  version: V1,
+  version: V1
 ): DomainValidateDnListInstance {
   const instance = ((domainSid) =>
     instance.get(domainSid)) as DomainValidateDnListInstance;
@@ -276,7 +276,7 @@ export function DomainValidateDnListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

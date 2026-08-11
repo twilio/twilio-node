@@ -60,7 +60,7 @@ export interface LookupOverrideContext {
    * @returns Resolves to processed LookupOverrideInstance
    */
   create(
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance>;
   /**
    * Create a LookupOverrideInstance
@@ -74,7 +74,7 @@ export interface LookupOverrideContext {
   create(
     params: OverridesRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance>;
 
   /**
@@ -87,8 +87,8 @@ export interface LookupOverrideContext {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>>;
   /**
    * Create a LookupOverrideInstance and return HTTP info
@@ -104,8 +104,8 @@ export interface LookupOverrideContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>>;
 
   /**
@@ -116,7 +116,7 @@ export interface LookupOverrideContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -127,7 +127,7 @@ export interface LookupOverrideContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -138,7 +138,7 @@ export interface LookupOverrideContext {
    * @returns Resolves to processed LookupOverrideInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance>;
 
   /**
@@ -151,8 +151,8 @@ export interface LookupOverrideContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>>;
 
   /**
@@ -163,7 +163,7 @@ export interface LookupOverrideContext {
    * @returns Resolves to processed LookupOverrideInstance
    */
   update(
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance>;
   /**
    * Update a LookupOverrideInstance
@@ -177,7 +177,7 @@ export interface LookupOverrideContext {
   update(
     params: OverridesRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance>;
 
   /**
@@ -190,8 +190,8 @@ export interface LookupOverrideContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>>;
   /**
    * Update a LookupOverrideInstance and return HTTP info
@@ -207,8 +207,8 @@ export interface LookupOverrideContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>>;
 
   /**
@@ -230,7 +230,7 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
   constructor(
     protected _version: V2,
     field: string,
-    phoneNumber: string,
+    phoneNumber: string
   ) {
     if (!isValidPathParam(field)) {
       throw new Error("Parameter 'field' is not valid.");
@@ -249,7 +249,7 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
       | OverridesRequest
       | ((error: Error | null, item?: LookupOverrideInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -284,13 +284,13 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
           operationVersion,
           payload,
           instance._solution.field,
-          instance._solution.phoneNumber,
-        ),
+          instance._solution.phoneNumber
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -300,13 +300,13 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
       | OverridesRequest
       | ((
           error: Error | null,
-          item?: ApiResponse<LookupOverrideInstance>,
+          item?: ApiResponse<LookupOverrideInstance>
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -342,19 +342,19 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
           operationVersion,
           response.body,
           instance._solution.field,
-          instance._solution.phoneNumber,
+          instance._solution.phoneNumber
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -368,13 +368,13 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -390,13 +390,13 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -415,13 +415,13 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
           operationVersion,
           payload,
           instance._solution.field,
-          instance._solution.phoneNumber,
-        ),
+          instance._solution.phoneNumber
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -429,8 +429,8 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -450,13 +450,13 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
           operationVersion,
           response.body,
           instance._solution.field,
-          instance._solution.phoneNumber,
+          instance._solution.phoneNumber
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -466,7 +466,7 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
       | OverridesRequest
       | ((error: Error | null, item?: LookupOverrideInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -501,13 +501,13 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
           operationVersion,
           payload,
           instance._solution.field,
-          instance._solution.phoneNumber,
-        ),
+          instance._solution.phoneNumber
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -517,13 +517,13 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
       | OverridesRequest
       | ((
           error: Error | null,
-          item?: ApiResponse<LookupOverrideInstance>,
+          item?: ApiResponse<LookupOverrideInstance>
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -559,13 +559,13 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
           operationVersion,
           response.body,
           instance._solution.field,
-          instance._solution.phoneNumber,
+          instance._solution.phoneNumber
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -612,14 +612,14 @@ export class LookupOverrideInstance {
     protected _version: V2,
     payload: LookupOverrideResource,
     field?: string,
-    phoneNumber?: string,
+    phoneNumber?: string
   ) {
     this.phoneNumber = payload.phone_number;
     this.originalLineType = payload.original_line_type;
     this.overriddenLineType = payload.overridden_line_type;
     this.overrideReason = payload.override_reason;
     this.overrideTimestamp = deserialize.iso8601DateTime(
-      payload.override_timestamp,
+      payload.override_timestamp
     );
     this.overriddenByAccountSid = payload.overridden_by_account_sid;
     this.code = payload.code;
@@ -699,7 +699,7 @@ export class LookupOverrideInstance {
       new LookupOverrideContextImpl(
         this._version,
         this._solution.field,
-        this._solution.phoneNumber,
+        this._solution.phoneNumber
       );
     return this._context;
   }
@@ -712,7 +712,7 @@ export class LookupOverrideInstance {
    * @returns Resolves to processed LookupOverrideInstance
    */
   create(
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance>;
   /**
    * Create a LookupOverrideInstance
@@ -726,12 +726,12 @@ export class LookupOverrideInstance {
   create(
     params: OverridesRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance>;
 
   create(
     params?: any,
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance> {
     return this._proxy.create(params, callback);
   }
@@ -746,8 +746,8 @@ export class LookupOverrideInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>>;
   /**
    * Create a LookupOverrideInstance and return HTTP info
@@ -763,16 +763,16 @@ export class LookupOverrideInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>>;
 
   createWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
@@ -785,7 +785,7 @@ export class LookupOverrideInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -798,7 +798,7 @@ export class LookupOverrideInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -811,7 +811,7 @@ export class LookupOverrideInstance {
    * @returns Resolves to processed LookupOverrideInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance> {
     return this._proxy.fetch(callback);
   }
@@ -826,8 +826,8 @@ export class LookupOverrideInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -840,7 +840,7 @@ export class LookupOverrideInstance {
    * @returns Resolves to processed LookupOverrideInstance
    */
   update(
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance>;
   /**
    * Update a LookupOverrideInstance
@@ -854,12 +854,12 @@ export class LookupOverrideInstance {
   update(
     params: OverridesRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: LookupOverrideInstance) => any,
+    callback?: (error: Error | null, item?: LookupOverrideInstance) => any
   ): Promise<LookupOverrideInstance> {
     return this._proxy.update(params, callback);
   }
@@ -874,8 +874,8 @@ export class LookupOverrideInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>>;
   /**
    * Update a LookupOverrideInstance and return HTTP info
@@ -891,16 +891,16 @@ export class LookupOverrideInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LookupOverrideInstance>,
-    ) => any,
+      item?: ApiResponse<LookupOverrideInstance>
+    ) => any
   ): Promise<ApiResponse<LookupOverrideInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -953,7 +953,7 @@ export interface LookupOverrideListInstance {
 }
 
 export function LookupOverrideListInstance(
-  version: V2,
+  version: V2
 ): LookupOverrideListInstance {
   const instance = ((field, phoneNumber) =>
     instance.get(field, phoneNumber)) as LookupOverrideListInstance;
@@ -972,7 +972,7 @@ export function LookupOverrideListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

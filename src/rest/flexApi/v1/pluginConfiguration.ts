@@ -56,7 +56,7 @@ export interface PluginConfigurationListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: PluginConfigurationInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -101,7 +101,7 @@ export interface PluginConfigurationContext {
    * @returns Resolves to processed PluginConfigurationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any
   ): Promise<PluginConfigurationInstance>;
   /**
    * Fetch a PluginConfigurationInstance
@@ -113,7 +113,7 @@ export interface PluginConfigurationContext {
    */
   fetch(
     params: PluginConfigurationContextFetchOptions,
-    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any
   ): Promise<PluginConfigurationInstance>;
 
   /**
@@ -126,8 +126,8 @@ export interface PluginConfigurationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<PluginConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationInstance>>;
   /**
    * Fetch a PluginConfigurationInstance and return HTTP info
@@ -141,8 +141,8 @@ export interface PluginConfigurationContext {
     params: PluginConfigurationContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<PluginConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationInstance>>;
 
   /**
@@ -164,7 +164,7 @@ export class PluginConfigurationContextImpl implements PluginConfigurationContex
 
   constructor(
     protected _version: V1,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -185,7 +185,7 @@ export class PluginConfigurationContextImpl implements PluginConfigurationContex
     params?:
       | PluginConfigurationContextFetchOptions
       | ((error: Error | null, item?: PluginConfigurationInstance) => any),
-    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any
   ): Promise<PluginConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -215,13 +215,13 @@ export class PluginConfigurationContextImpl implements PluginConfigurationContex
         new PluginConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -231,12 +231,12 @@ export class PluginConfigurationContextImpl implements PluginConfigurationContex
       | PluginConfigurationContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<PluginConfigurationInstance>,
+          item?: ApiResponse<PluginConfigurationInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<PluginConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -267,13 +267,13 @@ export class PluginConfigurationContextImpl implements PluginConfigurationContex
         body: new PluginConfigurationInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -314,7 +314,7 @@ export class PluginConfigurationInstance {
   constructor(
     protected _version: V1,
     payload: PluginConfigurationResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -373,7 +373,7 @@ export class PluginConfigurationInstance {
    * @returns Resolves to processed PluginConfigurationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any
   ): Promise<PluginConfigurationInstance>;
   /**
    * Fetch a PluginConfigurationInstance
@@ -385,12 +385,12 @@ export class PluginConfigurationInstance {
    */
   fetch(
     params: PluginConfigurationContextFetchOptions,
-    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any
   ): Promise<PluginConfigurationInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any
   ): Promise<PluginConfigurationInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -405,8 +405,8 @@ export class PluginConfigurationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<PluginConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationInstance>>;
   /**
    * Fetch a PluginConfigurationInstance and return HTTP info
@@ -420,16 +420,16 @@ export class PluginConfigurationInstance {
     params: PluginConfigurationContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<PluginConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<PluginConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -484,7 +484,7 @@ export interface PluginConfigurationListInstance {
    */
   create(
     params: PluginConfigurationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: PluginConfigurationInstance) => any
   ): Promise<PluginConfigurationInstance>;
 
   /**
@@ -499,8 +499,8 @@ export interface PluginConfigurationListInstance {
     params: PluginConfigurationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PluginConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<PluginConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationInstance>>;
 
   /**
@@ -521,15 +521,15 @@ export interface PluginConfigurationListInstance {
   each(
     callback?: (
       item: PluginConfigurationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: PluginConfigurationListInstanceEachOptions,
     callback?: (
       item: PluginConfigurationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams PluginConfigurationInstance records from the API with HTTP metadata captured per page.
@@ -549,15 +549,15 @@ export interface PluginConfigurationListInstance {
   eachWithHttpInfo(
     callback?: (
       item: PluginConfigurationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: PluginConfigurationListInstanceEachOptions,
     callback?: (
       item: PluginConfigurationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of PluginConfigurationInstance records from the API.
@@ -569,7 +569,7 @@ export interface PluginConfigurationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PluginConfigurationPage) => any,
+    callback?: (error: Error | null, items: PluginConfigurationPage) => any
   ): Promise<PluginConfigurationPage>;
   /**
    * Retrieve a single target page of PluginConfigurationInstance records from the API with HTTP metadata.
@@ -583,8 +583,8 @@ export interface PluginConfigurationListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<PluginConfigurationPage>,
-    ) => any,
+      items: ApiResponse<PluginConfigurationPage>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationPage>>;
   /**
    * Lists PluginConfigurationInstance records from the API as a list.
@@ -598,15 +598,15 @@ export interface PluginConfigurationListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: PluginConfigurationInstance[],
-    ) => any,
+      items: PluginConfigurationInstance[]
+    ) => any
   ): Promise<PluginConfigurationInstance[]>;
   list(
     params: PluginConfigurationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: PluginConfigurationInstance[],
-    ) => any,
+      items: PluginConfigurationInstance[]
+    ) => any
   ): Promise<PluginConfigurationInstance[]>;
   /**
    * Lists PluginConfigurationInstance records from the API as a list with HTTP metadata.
@@ -622,15 +622,15 @@ export interface PluginConfigurationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<PluginConfigurationInstance[]>,
-    ) => any,
+      items: ApiResponse<PluginConfigurationInstance[]>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationInstance[]>>;
   listWithHttpInfo(
     params: PluginConfigurationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<PluginConfigurationInstance[]>,
-    ) => any,
+      items: ApiResponse<PluginConfigurationInstance[]>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationInstance[]>>;
   /**
    * Retrieve a single page of PluginConfigurationInstance records from the API.
@@ -644,11 +644,11 @@ export interface PluginConfigurationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: PluginConfigurationPage) => any,
+    callback?: (error: Error | null, items: PluginConfigurationPage) => any
   ): Promise<PluginConfigurationPage>;
   page(
     params: PluginConfigurationListInstancePageOptions,
-    callback?: (error: Error | null, items: PluginConfigurationPage) => any,
+    callback?: (error: Error | null, items: PluginConfigurationPage) => any
   ): Promise<PluginConfigurationPage>;
   /**
    * Retrieve a single page of PluginConfigurationInstance records from the API with HTTP metadata.
@@ -664,15 +664,15 @@ export interface PluginConfigurationListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<PluginConfigurationPage>,
-    ) => any,
+      items: ApiResponse<PluginConfigurationPage>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationPage>>;
   pageWithHttpInfo(
     params: PluginConfigurationListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<PluginConfigurationPage>,
-    ) => any,
+      items: ApiResponse<PluginConfigurationPage>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationPage>>;
 
   /**
@@ -683,7 +683,7 @@ export interface PluginConfigurationListInstance {
 }
 
 export function PluginConfigurationListInstance(
-  version: V1,
+  version: V1
 ): PluginConfigurationListInstance {
   const instance = ((sid) =>
     instance.get(sid)) as PluginConfigurationListInstance;
@@ -698,7 +698,7 @@ export function PluginConfigurationListInstance(
 
   instance.create = function create(
     params: PluginConfigurationListInstanceCreateOptions,
-    callback?: (error: Error | null, items: PluginConfigurationInstance) => any,
+    callback?: (error: Error | null, items: PluginConfigurationInstance) => any
   ): Promise<PluginConfigurationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -713,7 +713,7 @@ export function PluginConfigurationListInstance(
     data["Name"] = params["name"];
     if (params["plugins"] !== undefined)
       data["Plugins"] = serialize.map(params["plugins"], (e: any) =>
-        serialize.object(e),
+        serialize.object(e)
       );
     if (params["description"] !== undefined)
       data["Description"] = params["description"];
@@ -733,12 +733,12 @@ export function PluginConfigurationListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new PluginConfigurationInstance(operationVersion, payload),
+      (payload) => new PluginConfigurationInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -747,8 +747,8 @@ export function PluginConfigurationListInstance(
     params: PluginConfigurationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<PluginConfigurationInstance>,
-    ) => any,
+      items: ApiResponse<PluginConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -763,7 +763,7 @@ export function PluginConfigurationListInstance(
     data["Name"] = params["name"];
     if (params["plugins"] !== undefined)
       data["Plugins"] = serialize.map(params["plugins"], (e: any) =>
-        serialize.object(e),
+        serialize.object(e)
       );
     if (params["description"] !== undefined)
       data["Description"] = params["description"];
@@ -790,7 +790,7 @@ export function PluginConfigurationListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -799,7 +799,7 @@ export function PluginConfigurationListInstance(
     params?:
       | PluginConfigurationListInstancePageOptions
       | ((error: Error | null, items: PluginConfigurationPage) => any),
-    callback?: (error: Error | null, items: PluginConfigurationPage) => any,
+    callback?: (error: Error | null, items: PluginConfigurationPage) => any
   ): Promise<PluginConfigurationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -833,13 +833,13 @@ export function PluginConfigurationListInstance(
         new PluginConfigurationPage(
           operationVersion,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -849,7 +849,7 @@ export function PluginConfigurationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PluginConfigurationPage) => any,
+    callback?: (error: Error | null, items: PluginConfigurationPage) => any
   ): Promise<PluginConfigurationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -860,8 +860,8 @@ export function PluginConfigurationListInstance(
         new PluginConfigurationPage(
           instance._version,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -872,12 +872,12 @@ export function PluginConfigurationListInstance(
       | PluginConfigurationListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<PluginConfigurationPage>,
+          items: ApiResponse<PluginConfigurationPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<PluginConfigurationPage>,
-    ) => any,
+      items: ApiResponse<PluginConfigurationPage>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -910,13 +910,13 @@ export function PluginConfigurationListInstance(
         body: new PluginConfigurationPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -930,8 +930,8 @@ export function PluginConfigurationListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<PluginConfigurationPage>,
-    ) => any,
+      items?: ApiResponse<PluginConfigurationPage>
+    ) => any
   ): Promise<ApiResponse<PluginConfigurationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -946,9 +946,9 @@ export function PluginConfigurationListInstance(
         body: new PluginConfigurationPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -960,7 +960,7 @@ export function PluginConfigurationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -984,7 +984,7 @@ export class PluginConfigurationPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: PluginConfigurationSolution,
+    solution: PluginConfigurationSolution
   ) {
     super(version, response, solution);
   }
@@ -995,7 +995,7 @@ export class PluginConfigurationPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: PluginConfigurationResource,
+    payload: PluginConfigurationResource
   ): PluginConfigurationInstance {
     return new PluginConfigurationInstance(this._version, payload);
   }

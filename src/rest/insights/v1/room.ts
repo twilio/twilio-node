@@ -127,7 +127,7 @@ export interface RoomContext {
    * @returns Resolves to processed RoomInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: RoomInstance) => any,
+    callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance>;
 
   /**
@@ -138,7 +138,7 @@ export interface RoomContext {
    * @returns Resolves to processed RoomInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
   ): Promise<ApiResponse<RoomInstance>>;
 
   /**
@@ -160,7 +160,7 @@ export class RoomContextImpl implements RoomContext {
 
   constructor(
     protected _version: V1,
-    roomSid: string,
+    roomSid: string
   ) {
     if (!isValidPathParam(roomSid)) {
       throw new Error("Parameter 'roomSid' is not valid.");
@@ -178,7 +178,7 @@ export class RoomContextImpl implements RoomContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: RoomInstance) => any,
+    callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -193,18 +193,18 @@ export class RoomContextImpl implements RoomContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new RoomInstance(operationVersion, payload, instance._solution.roomSid),
+        new RoomInstance(operationVersion, payload, instance._solution.roomSid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
   ): Promise<ApiResponse<RoomInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -223,13 +223,13 @@ export class RoomContextImpl implements RoomContext {
         body: new RoomInstance(
           operationVersion,
           response.body,
-          instance._solution.roomSid,
+          instance._solution.roomSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -288,7 +288,7 @@ export class RoomInstance {
   constructor(
     protected _version: V1,
     payload: RoomResource,
-    roomSid?: string,
+    roomSid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.roomSid = payload.room_sid;
@@ -304,13 +304,13 @@ export class RoomInstance {
     this.maxParticipants = deserialize.integer(payload.max_participants);
     this.uniqueParticipants = deserialize.integer(payload.unique_participants);
     this.uniqueParticipantIdentities = deserialize.integer(
-      payload.unique_participant_identities,
+      payload.unique_participant_identities
     );
     this.concurrentParticipants = deserialize.integer(
-      payload.concurrent_participants,
+      payload.concurrent_participants
     );
     this.maxConcurrentParticipants = deserialize.integer(
-      payload.max_concurrent_participants,
+      payload.max_concurrent_participants
     );
     this.codecs = payload.codecs;
     this.mediaRegion = payload.media_region;
@@ -425,7 +425,7 @@ export class RoomInstance {
    * @returns Resolves to processed RoomInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: RoomInstance) => any,
+    callback?: (error: Error | null, item?: RoomInstance) => any
   ): Promise<RoomInstance> {
     return this._proxy.fetch(callback);
   }
@@ -438,7 +438,7 @@ export class RoomInstance {
    * @returns Resolves to processed RoomInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<RoomInstance>) => any
   ): Promise<ApiResponse<RoomInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -517,11 +517,11 @@ export interface RoomListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: RoomInstance, done: (err?: Error) => void) => void,
+    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: RoomListInstanceEachOptions,
-    callback?: (item: RoomInstance, done: (err?: Error) => void) => void,
+    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams RoomInstance records from the API with HTTP metadata captured per page.
@@ -539,11 +539,11 @@ export interface RoomListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: RoomInstance, done: (err?: Error) => void) => void,
+    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: RoomListInstanceEachOptions,
-    callback?: (item: RoomInstance, done: (err?: Error) => void) => void,
+    callback?: (item: RoomInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of RoomInstance records from the API.
@@ -555,7 +555,7 @@ export interface RoomListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: RoomPage) => any,
+    callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage>;
   /**
    * Retrieve a single target page of RoomInstance records from the API with HTTP metadata.
@@ -567,7 +567,7 @@ export interface RoomListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
   ): Promise<ApiResponse<RoomPage>>;
   /**
    * Lists RoomInstance records from the API as a list.
@@ -579,11 +579,11 @@ export interface RoomListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: RoomInstance[]) => any,
+    callback?: (error: Error | null, items: RoomInstance[]) => any
   ): Promise<RoomInstance[]>;
   list(
     params: RoomListInstanceOptions,
-    callback?: (error: Error | null, items: RoomInstance[]) => any,
+    callback?: (error: Error | null, items: RoomInstance[]) => any
   ): Promise<RoomInstance[]>;
   /**
    * Lists RoomInstance records from the API as a list with HTTP metadata.
@@ -597,11 +597,11 @@ export interface RoomListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<RoomInstance[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<RoomInstance[]>) => any
   ): Promise<ApiResponse<RoomInstance[]>>;
   listWithHttpInfo(
     params: RoomListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<RoomInstance[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<RoomInstance[]>) => any
   ): Promise<ApiResponse<RoomInstance[]>>;
   /**
    * Retrieve a single page of RoomInstance records from the API.
@@ -615,11 +615,11 @@ export interface RoomListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: RoomPage) => any,
+    callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage>;
   page(
     params: RoomListInstancePageOptions,
-    callback?: (error: Error | null, items: RoomPage) => any,
+    callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage>;
   /**
    * Retrieve a single page of RoomInstance records from the API with HTTP metadata.
@@ -633,11 +633,11 @@ export interface RoomListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
   ): Promise<ApiResponse<RoomPage>>;
   pageWithHttpInfo(
     params: RoomListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
   ): Promise<ApiResponse<RoomPage>>;
 
   /**
@@ -662,7 +662,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
     params?:
       | RoomListInstancePageOptions
       | ((error: Error | null, items: RoomPage) => any),
-    callback?: (error: Error | null, items: RoomPage) => any,
+    callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage> {
     if (params instanceof Function) {
       callback = params;
@@ -676,7 +676,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
     if (params["roomType"] !== undefined)
       data["RoomType"] = serialize.map(
         params["roomType"],
-        (e: RoomRoomType) => e,
+        (e: RoomRoomType) => e
       );
     if (params["codec"] !== undefined)
       data["Codec"] = serialize.map(params["codec"], (e: RoomCodec) => e);
@@ -685,7 +685,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
       data["CreatedAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
     if (params["createdBefore"] !== undefined)
       data["CreatedBefore"] = serialize.iso8601DateTime(
-        params["createdBefore"],
+        params["createdBefore"]
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
@@ -704,12 +704,12 @@ export function RoomListInstance(version: V1): RoomListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RoomPage(operationVersion, payload, instance._solution),
+      (payload) => new RoomPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -719,14 +719,14 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: RoomPage) => any,
+    callback?: (error: Error | null, items: RoomPage) => any
   ): Promise<RoomPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new RoomPage(instance._version, payload, instance._solution),
+      (payload) => new RoomPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -736,7 +736,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
     params?:
       | RoomListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<RoomPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<RoomPage>) => any
   ): Promise<ApiResponse<RoomPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -750,7 +750,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
     if (params["roomType"] !== undefined)
       data["RoomType"] = serialize.map(
         params["roomType"],
-        (e: RoomRoomType) => e,
+        (e: RoomRoomType) => e
       );
     if (params["codec"] !== undefined)
       data["Codec"] = serialize.map(params["codec"], (e: RoomCodec) => e);
@@ -759,7 +759,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
       data["CreatedAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
     if (params["createdBefore"] !== undefined)
       data["CreatedBefore"] = serialize.iso8601DateTime(
-        params["createdBefore"],
+        params["createdBefore"]
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
@@ -783,7 +783,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -795,7 +795,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<RoomPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<RoomPage>) => any
   ): Promise<ApiResponse<RoomPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -808,7 +808,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new RoomPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -820,7 +820,7 @@ export function RoomListInstance(version: V1): RoomListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

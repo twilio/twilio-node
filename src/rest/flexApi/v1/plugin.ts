@@ -110,7 +110,7 @@ export interface PluginContext {
    * @returns Resolves to processed PluginInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance>;
   /**
    * Fetch a PluginInstance
@@ -122,7 +122,7 @@ export interface PluginContext {
    */
   fetch(
     params: PluginContextFetchOptions,
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance>;
 
   /**
@@ -133,7 +133,7 @@ export interface PluginContext {
    * @returns Resolves to processed PluginInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>>;
   /**
    * Fetch a PluginInstance and return HTTP info
@@ -145,7 +145,7 @@ export interface PluginContext {
    */
   fetchWithHttpInfo(
     params: PluginContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>>;
 
   /**
@@ -156,7 +156,7 @@ export interface PluginContext {
    * @returns Resolves to processed PluginInstance
    */
   update(
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance>;
   /**
    * Update a PluginInstance
@@ -168,7 +168,7 @@ export interface PluginContext {
    */
   update(
     params: PluginContextUpdateOptions,
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance>;
 
   /**
@@ -179,7 +179,7 @@ export interface PluginContext {
    * @returns Resolves to processed PluginInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>>;
   /**
    * Update a PluginInstance and return HTTP info
@@ -191,7 +191,7 @@ export interface PluginContext {
    */
   updateWithHttpInfo(
     params: PluginContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>>;
 
   /**
@@ -213,7 +213,7 @@ export class PluginContextImpl implements PluginContext {
 
   constructor(
     protected _version: V1,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -234,7 +234,7 @@ export class PluginContextImpl implements PluginContext {
     params?:
       | PluginContextFetchOptions
       | ((error: Error | null, item?: PluginInstance) => any),
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -261,12 +261,12 @@ export class PluginContextImpl implements PluginContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PluginInstance(operationVersion, payload, instance._solution.sid),
+        new PluginInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -275,7 +275,7 @@ export class PluginContextImpl implements PluginContext {
     params?:
       | PluginContextFetchOptions
       | ((error: Error | null, item?: ApiResponse<PluginInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -306,13 +306,13 @@ export class PluginContextImpl implements PluginContext {
         body: new PluginInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -321,7 +321,7 @@ export class PluginContextImpl implements PluginContext {
     params?:
       | PluginContextUpdateOptions
       | ((error: Error | null, item?: PluginInstance) => any),
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -354,12 +354,12 @@ export class PluginContextImpl implements PluginContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PluginInstance(operationVersion, payload, instance._solution.sid),
+        new PluginInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -368,7 +368,7 @@ export class PluginContextImpl implements PluginContext {
     params?:
       | PluginContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<PluginInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -405,13 +405,13 @@ export class PluginContextImpl implements PluginContext {
         body: new PluginInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -454,7 +454,7 @@ export class PluginInstance {
   constructor(
     protected _version: V1,
     payload: PluginResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -522,7 +522,7 @@ export class PluginInstance {
    * @returns Resolves to processed PluginInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance>;
   /**
    * Fetch a PluginInstance
@@ -534,12 +534,12 @@ export class PluginInstance {
    */
   fetch(
     params: PluginContextFetchOptions,
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -552,7 +552,7 @@ export class PluginInstance {
    * @returns Resolves to processed PluginInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>>;
   /**
    * Fetch a PluginInstance and return HTTP info
@@ -564,12 +564,12 @@ export class PluginInstance {
    */
   fetchWithHttpInfo(
     params: PluginContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -582,7 +582,7 @@ export class PluginInstance {
    * @returns Resolves to processed PluginInstance
    */
   update(
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance>;
   /**
    * Update a PluginInstance
@@ -594,12 +594,12 @@ export class PluginInstance {
    */
   update(
     params: PluginContextUpdateOptions,
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance> {
     return this._proxy.update(params, callback);
   }
@@ -612,7 +612,7 @@ export class PluginInstance {
    * @returns Resolves to processed PluginInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>>;
   /**
    * Update a PluginInstance and return HTTP info
@@ -624,12 +624,12 @@ export class PluginInstance {
    */
   updateWithHttpInfo(
     params: PluginContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -686,7 +686,7 @@ export interface PluginListInstance {
    */
   create(
     params: PluginListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: PluginInstance) => any,
+    callback?: (error: Error | null, item?: PluginInstance) => any
   ): Promise<PluginInstance>;
 
   /**
@@ -699,7 +699,7 @@ export interface PluginListInstance {
    */
   createWithHttpInfo(
     params: PluginListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>>;
 
   /**
@@ -718,11 +718,11 @@ export interface PluginListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: PluginInstance, done: (err?: Error) => void) => void,
+    callback?: (item: PluginInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: PluginListInstanceEachOptions,
-    callback?: (item: PluginInstance, done: (err?: Error) => void) => void,
+    callback?: (item: PluginInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams PluginInstance records from the API with HTTP metadata captured per page.
@@ -740,11 +740,11 @@ export interface PluginListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: PluginInstance, done: (err?: Error) => void) => void,
+    callback?: (item: PluginInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: PluginListInstanceEachOptions,
-    callback?: (item: PluginInstance, done: (err?: Error) => void) => void,
+    callback?: (item: PluginInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of PluginInstance records from the API.
@@ -756,7 +756,7 @@ export interface PluginListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PluginPage) => any,
+    callback?: (error: Error | null, items: PluginPage) => any
   ): Promise<PluginPage>;
   /**
    * Retrieve a single target page of PluginInstance records from the API with HTTP metadata.
@@ -768,7 +768,7 @@ export interface PluginListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<PluginPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<PluginPage>) => any
   ): Promise<ApiResponse<PluginPage>>;
   /**
    * Lists PluginInstance records from the API as a list.
@@ -780,11 +780,11 @@ export interface PluginListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: PluginInstance[]) => any,
+    callback?: (error: Error | null, items: PluginInstance[]) => any
   ): Promise<PluginInstance[]>;
   list(
     params: PluginListInstanceOptions,
-    callback?: (error: Error | null, items: PluginInstance[]) => any,
+    callback?: (error: Error | null, items: PluginInstance[]) => any
   ): Promise<PluginInstance[]>;
   /**
    * Lists PluginInstance records from the API as a list with HTTP metadata.
@@ -800,15 +800,15 @@ export interface PluginListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<PluginInstance[]>,
-    ) => any,
+      items: ApiResponse<PluginInstance[]>
+    ) => any
   ): Promise<ApiResponse<PluginInstance[]>>;
   listWithHttpInfo(
     params: PluginListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<PluginInstance[]>,
-    ) => any,
+      items: ApiResponse<PluginInstance[]>
+    ) => any
   ): Promise<ApiResponse<PluginInstance[]>>;
   /**
    * Retrieve a single page of PluginInstance records from the API.
@@ -822,11 +822,11 @@ export interface PluginListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: PluginPage) => any,
+    callback?: (error: Error | null, items: PluginPage) => any
   ): Promise<PluginPage>;
   page(
     params: PluginListInstancePageOptions,
-    callback?: (error: Error | null, items: PluginPage) => any,
+    callback?: (error: Error | null, items: PluginPage) => any
   ): Promise<PluginPage>;
   /**
    * Retrieve a single page of PluginInstance records from the API with HTTP metadata.
@@ -840,11 +840,11 @@ export interface PluginListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<PluginPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<PluginPage>) => any
   ): Promise<ApiResponse<PluginPage>>;
   pageWithHttpInfo(
     params: PluginListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<PluginPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<PluginPage>) => any
   ): Promise<ApiResponse<PluginPage>>;
 
   /**
@@ -867,7 +867,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
 
   instance.create = function create(
     params: PluginListInstanceCreateOptions,
-    callback?: (error: Error | null, items: PluginInstance) => any,
+    callback?: (error: Error | null, items: PluginInstance) => any
   ): Promise<PluginInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -900,19 +900,19 @@ export function PluginListInstance(version: V1): PluginListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new PluginInstance(operationVersion, payload),
+      (payload) => new PluginInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: PluginListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<PluginInstance>) => any,
+    callback?: (error: Error | null, items: ApiResponse<PluginInstance>) => any
   ): Promise<ApiResponse<PluginInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -952,7 +952,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -961,7 +961,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
     params?:
       | PluginListInstancePageOptions
       | ((error: Error | null, items: PluginPage) => any),
-    callback?: (error: Error | null, items: PluginPage) => any,
+    callback?: (error: Error | null, items: PluginPage) => any
   ): Promise<PluginPage> {
     if (params instanceof Function) {
       callback = params;
@@ -991,13 +991,12 @@ export function PluginListInstance(version: V1): PluginListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) =>
-        new PluginPage(operationVersion, payload, instance._solution),
+      (payload) => new PluginPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1007,7 +1006,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PluginPage) => any,
+    callback?: (error: Error | null, items: PluginPage) => any
   ): Promise<PluginPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1015,7 +1014,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new PluginPage(instance._version, payload, instance._solution),
+        new PluginPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1025,7 +1024,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
     params?:
       | PluginListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<PluginPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<PluginPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<PluginPage>) => any
   ): Promise<ApiResponse<PluginPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1060,7 +1059,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1072,7 +1071,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<PluginPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<PluginPage>) => any
   ): Promise<ApiResponse<PluginPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1085,7 +1084,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new PluginPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1097,7 +1096,7 @@ export function PluginListInstance(version: V1): PluginListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1121,7 +1120,7 @@ export class PluginPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: PluginSolution,
+    solution: PluginSolution
   ) {
     super(version, response, solution);
   }

@@ -37,7 +37,7 @@ export interface InsightsSegmentsListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: InsightsSegmentsInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -104,15 +104,15 @@ export interface InsightsSegmentsListInstance {
   each(
     callback?: (
       item: InsightsSegmentsInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: InsightsSegmentsListInstanceEachOptions,
     callback?: (
       item: InsightsSegmentsInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams InsightsSegmentsInstance records from the API with HTTP metadata captured per page.
@@ -132,15 +132,15 @@ export interface InsightsSegmentsListInstance {
   eachWithHttpInfo(
     callback?: (
       item: InsightsSegmentsInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: InsightsSegmentsListInstanceEachOptions,
     callback?: (
       item: InsightsSegmentsInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of InsightsSegmentsInstance records from the API.
@@ -152,7 +152,7 @@ export interface InsightsSegmentsListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: InsightsSegmentsPage) => any,
+    callback?: (error: Error | null, items: InsightsSegmentsPage) => any
   ): Promise<InsightsSegmentsPage>;
   /**
    * Retrieve a single target page of InsightsSegmentsInstance records from the API with HTTP metadata.
@@ -166,8 +166,8 @@ export interface InsightsSegmentsListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsSegmentsPage>,
-    ) => any,
+      items: ApiResponse<InsightsSegmentsPage>
+    ) => any
   ): Promise<ApiResponse<InsightsSegmentsPage>>;
   /**
    * Lists InsightsSegmentsInstance records from the API as a list.
@@ -179,11 +179,11 @@ export interface InsightsSegmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: InsightsSegmentsInstance[]) => any,
+    callback?: (error: Error | null, items: InsightsSegmentsInstance[]) => any
   ): Promise<InsightsSegmentsInstance[]>;
   list(
     params: InsightsSegmentsListInstanceOptions,
-    callback?: (error: Error | null, items: InsightsSegmentsInstance[]) => any,
+    callback?: (error: Error | null, items: InsightsSegmentsInstance[]) => any
   ): Promise<InsightsSegmentsInstance[]>;
   /**
    * Lists InsightsSegmentsInstance records from the API as a list with HTTP metadata.
@@ -199,15 +199,15 @@ export interface InsightsSegmentsListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsSegmentsInstance[]>,
-    ) => any,
+      items: ApiResponse<InsightsSegmentsInstance[]>
+    ) => any
   ): Promise<ApiResponse<InsightsSegmentsInstance[]>>;
   listWithHttpInfo(
     params: InsightsSegmentsListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsSegmentsInstance[]>,
-    ) => any,
+      items: ApiResponse<InsightsSegmentsInstance[]>
+    ) => any
   ): Promise<ApiResponse<InsightsSegmentsInstance[]>>;
   /**
    * Retrieve a single page of InsightsSegmentsInstance records from the API.
@@ -221,11 +221,11 @@ export interface InsightsSegmentsListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: InsightsSegmentsPage) => any,
+    callback?: (error: Error | null, items: InsightsSegmentsPage) => any
   ): Promise<InsightsSegmentsPage>;
   page(
     params: InsightsSegmentsListInstancePageOptions,
-    callback?: (error: Error | null, items: InsightsSegmentsPage) => any,
+    callback?: (error: Error | null, items: InsightsSegmentsPage) => any
   ): Promise<InsightsSegmentsPage>;
   /**
    * Retrieve a single page of InsightsSegmentsInstance records from the API with HTTP metadata.
@@ -241,15 +241,15 @@ export interface InsightsSegmentsListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsSegmentsPage>,
-    ) => any,
+      items: ApiResponse<InsightsSegmentsPage>
+    ) => any
   ): Promise<ApiResponse<InsightsSegmentsPage>>;
   pageWithHttpInfo(
     params: InsightsSegmentsListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsSegmentsPage>,
-    ) => any,
+      items: ApiResponse<InsightsSegmentsPage>
+    ) => any
   ): Promise<ApiResponse<InsightsSegmentsPage>>;
 
   /**
@@ -260,7 +260,7 @@ export interface InsightsSegmentsListInstance {
 }
 
 export function InsightsSegmentsListInstance(
-  version: V1,
+  version: V1
 ): InsightsSegmentsListInstance {
   const instance = {} as InsightsSegmentsListInstance;
 
@@ -272,7 +272,7 @@ export function InsightsSegmentsListInstance(
     params?:
       | InsightsSegmentsListInstancePageOptions
       | ((error: Error | null, items: InsightsSegmentsPage) => any),
-    callback?: (error: Error | null, items: InsightsSegmentsPage) => any,
+    callback?: (error: Error | null, items: InsightsSegmentsPage) => any
   ): Promise<InsightsSegmentsPage> {
     if (params instanceof Function) {
       callback = params;
@@ -288,7 +288,7 @@ export function InsightsSegmentsListInstance(
     if (params["reservationId"] !== undefined)
       data["ReservationId"] = serialize.map(
         params["reservationId"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
@@ -310,12 +310,12 @@ export function InsightsSegmentsListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new InsightsSegmentsPage(operationVersion, payload, instance._solution),
+        new InsightsSegmentsPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -325,7 +325,7 @@ export function InsightsSegmentsListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: InsightsSegmentsPage) => any,
+    callback?: (error: Error | null, items: InsightsSegmentsPage) => any
   ): Promise<InsightsSegmentsPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -333,11 +333,7 @@ export function InsightsSegmentsListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new InsightsSegmentsPage(
-          instance._version,
-          payload,
-          instance._solution,
-        ),
+        new InsightsSegmentsPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -348,12 +344,12 @@ export function InsightsSegmentsListInstance(
       | InsightsSegmentsListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<InsightsSegmentsPage>,
+          items: ApiResponse<InsightsSegmentsPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<InsightsSegmentsPage>,
-    ) => any,
+      items: ApiResponse<InsightsSegmentsPage>
+    ) => any
   ): Promise<ApiResponse<InsightsSegmentsPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -369,7 +365,7 @@ export function InsightsSegmentsListInstance(
     if (params["reservationId"] !== undefined)
       data["ReservationId"] = serialize.map(
         params["reservationId"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
 
@@ -393,13 +389,13 @@ export function InsightsSegmentsListInstance(
         body: new InsightsSegmentsPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -413,8 +409,8 @@ export function InsightsSegmentsListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<InsightsSegmentsPage>,
-    ) => any,
+      items?: ApiResponse<InsightsSegmentsPage>
+    ) => any
   ): Promise<ApiResponse<InsightsSegmentsPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -429,9 +425,9 @@ export function InsightsSegmentsListInstance(
         body: new InsightsSegmentsPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -443,7 +439,7 @@ export function InsightsSegmentsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -483,7 +479,7 @@ interface InsightsSegmentsResource {
 export class InsightsSegmentsInstance {
   constructor(
     protected _version: V1,
-    payload: InsightsSegmentsResource,
+    payload: InsightsSegmentsResource
   ) {
     this.segmentId = payload.segment_id;
     this.externalId = payload.external_id;
@@ -642,7 +638,7 @@ export class InsightsSegmentsPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: InsightsSegmentsSolution,
+    solution: InsightsSegmentsSolution
   ) {
     super(version, response, solution);
   }

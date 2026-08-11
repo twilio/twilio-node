@@ -216,7 +216,7 @@ export interface MessageContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -227,7 +227,7 @@ export interface MessageContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -238,7 +238,7 @@ export interface MessageContext {
    * @returns Resolves to processed MessageInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: MessageInstance) => any,
+    callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
 
   /**
@@ -249,10 +249,7 @@ export interface MessageContext {
    * @returns Resolves to processed MessageInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<MessageInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
   ): Promise<ApiResponse<MessageInstance>>;
 
   /**
@@ -263,7 +260,7 @@ export interface MessageContext {
    * @returns Resolves to processed MessageInstance
    */
   update(
-    callback?: (error: Error | null, item?: MessageInstance) => any,
+    callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
   /**
    * Update a MessageInstance
@@ -275,7 +272,7 @@ export interface MessageContext {
    */
   update(
     params: MessageContextUpdateOptions,
-    callback?: (error: Error | null, item?: MessageInstance) => any,
+    callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
 
   /**
@@ -286,10 +283,7 @@ export interface MessageContext {
    * @returns Resolves to processed MessageInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<MessageInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
   ): Promise<ApiResponse<MessageInstance>>;
   /**
    * Update a MessageInstance and return HTTP info
@@ -301,10 +295,7 @@ export interface MessageContext {
    */
   updateWithHttpInfo(
     params: MessageContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<MessageInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
   ): Promise<ApiResponse<MessageInstance>>;
 
   /**
@@ -329,7 +320,7 @@ export class MessageContextImpl implements MessageContext {
   constructor(
     protected _version: V2010,
     accountSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -349,7 +340,7 @@ export class MessageContextImpl implements MessageContext {
       FeedbackListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._feedback;
   }
@@ -360,13 +351,13 @@ export class MessageContextImpl implements MessageContext {
       MediaListInstance(
         this._version,
         this._solution.accountSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._media;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -380,13 +371,13 @@ export class MessageContextImpl implements MessageContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -402,13 +393,13 @@ export class MessageContextImpl implements MessageContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: MessageInstance) => any,
+    callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -427,22 +418,19 @@ export class MessageContextImpl implements MessageContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<MessageInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
   ): Promise<ApiResponse<MessageInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -462,13 +450,13 @@ export class MessageContextImpl implements MessageContext {
           operationVersion,
           response.body,
           instance._solution.accountSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -477,7 +465,7 @@ export class MessageContextImpl implements MessageContext {
     params?:
       | MessageContextUpdateOptions
       | ((error: Error | null, item?: MessageInstance) => any),
-    callback?: (error: Error | null, item?: MessageInstance) => any,
+    callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -510,13 +498,13 @@ export class MessageContextImpl implements MessageContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -525,10 +513,7 @@ export class MessageContextImpl implements MessageContext {
     params?:
       | MessageContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<MessageInstance>) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<MessageInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
   ): Promise<ApiResponse<MessageInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -562,13 +547,13 @@ export class MessageContextImpl implements MessageContext {
           operationVersion,
           response.body,
           instance._solution.accountSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -622,7 +607,7 @@ export class MessageInstance {
     protected _version: V2010,
     payload: MessageResource,
     accountSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.body = payload.body;
     this.numSegments = payload.num_segments;
@@ -729,7 +714,7 @@ export class MessageInstance {
       new MessageContextImpl(
         this._version,
         this._solution.accountSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -742,7 +727,7 @@ export class MessageInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -755,7 +740,7 @@ export class MessageInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -768,7 +753,7 @@ export class MessageInstance {
    * @returns Resolves to processed MessageInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: MessageInstance) => any,
+    callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     return this._proxy.fetch(callback);
   }
@@ -781,10 +766,7 @@ export class MessageInstance {
    * @returns Resolves to processed MessageInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<MessageInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
   ): Promise<ApiResponse<MessageInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -797,7 +779,7 @@ export class MessageInstance {
    * @returns Resolves to processed MessageInstance
    */
   update(
-    callback?: (error: Error | null, item?: MessageInstance) => any,
+    callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
   /**
    * Update a MessageInstance
@@ -809,12 +791,12 @@ export class MessageInstance {
    */
   update(
     params: MessageContextUpdateOptions,
-    callback?: (error: Error | null, item?: MessageInstance) => any,
+    callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: MessageInstance) => any,
+    callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance> {
     return this._proxy.update(params, callback);
   }
@@ -827,10 +809,7 @@ export class MessageInstance {
    * @returns Resolves to processed MessageInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<MessageInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
   ): Promise<ApiResponse<MessageInstance>>;
   /**
    * Update a MessageInstance and return HTTP info
@@ -842,18 +821,12 @@ export class MessageInstance {
    */
   updateWithHttpInfo(
     params: MessageContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<MessageInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
   ): Promise<ApiResponse<MessageInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<MessageInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
   ): Promise<ApiResponse<MessageInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -929,7 +902,7 @@ export interface MessageListInstance {
    */
   create(
     params: MessageListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: MessageInstance) => any,
+    callback?: (error: Error | null, item?: MessageInstance) => any
   ): Promise<MessageInstance>;
 
   /**
@@ -942,10 +915,7 @@ export interface MessageListInstance {
    */
   createWithHttpInfo(
     params: MessageListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<MessageInstance>,
-    ) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MessageInstance>) => any
   ): Promise<ApiResponse<MessageInstance>>;
 
   /**
@@ -964,11 +934,11 @@ export interface MessageListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: MessageInstance, done: (err?: Error) => void) => void,
+    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: MessageListInstanceEachOptions,
-    callback?: (item: MessageInstance, done: (err?: Error) => void) => void,
+    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams MessageInstance records from the API with HTTP metadata captured per page.
@@ -986,11 +956,11 @@ export interface MessageListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: MessageInstance, done: (err?: Error) => void) => void,
+    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: MessageListInstanceEachOptions,
-    callback?: (item: MessageInstance, done: (err?: Error) => void) => void,
+    callback?: (item: MessageInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of MessageInstance records from the API.
@@ -1002,7 +972,7 @@ export interface MessageListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MessagePage) => any,
+    callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage>;
   /**
    * Retrieve a single target page of MessageInstance records from the API with HTTP metadata.
@@ -1014,7 +984,7 @@ export interface MessageListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
   ): Promise<ApiResponse<MessagePage>>;
   /**
    * Lists MessageInstance records from the API as a list.
@@ -1026,11 +996,11 @@ export interface MessageListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: MessageInstance[]) => any,
+    callback?: (error: Error | null, items: MessageInstance[]) => any
   ): Promise<MessageInstance[]>;
   list(
     params: MessageListInstanceOptions,
-    callback?: (error: Error | null, items: MessageInstance[]) => any,
+    callback?: (error: Error | null, items: MessageInstance[]) => any
   ): Promise<MessageInstance[]>;
   /**
    * Lists MessageInstance records from the API as a list with HTTP metadata.
@@ -1046,15 +1016,15 @@ export interface MessageListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<MessageInstance[]>,
-    ) => any,
+      items: ApiResponse<MessageInstance[]>
+    ) => any
   ): Promise<ApiResponse<MessageInstance[]>>;
   listWithHttpInfo(
     params: MessageListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<MessageInstance[]>,
-    ) => any,
+      items: ApiResponse<MessageInstance[]>
+    ) => any
   ): Promise<ApiResponse<MessageInstance[]>>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
@@ -1068,11 +1038,11 @@ export interface MessageListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: MessagePage) => any,
+    callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage>;
   page(
     params: MessageListInstancePageOptions,
-    callback?: (error: Error | null, items: MessagePage) => any,
+    callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage>;
   /**
    * Retrieve a single page of MessageInstance records from the API with HTTP metadata.
@@ -1086,11 +1056,11 @@ export interface MessageListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
   ): Promise<ApiResponse<MessagePage>>;
   pageWithHttpInfo(
     params: MessageListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
   ): Promise<ApiResponse<MessagePage>>;
 
   /**
@@ -1102,7 +1072,7 @@ export interface MessageListInstance {
 
 export function MessageListInstance(
   version: V2010,
-  accountSid: string,
+  accountSid: string
 ): MessageListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -1120,7 +1090,7 @@ export function MessageListInstance(
 
   instance.create = function create(
     params: MessageListInstanceCreateOptions,
-    callback?: (error: Error | null, items: MessageInstance) => any,
+    callback?: (error: Error | null, items: MessageInstance) => any
   ): Promise<MessageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1154,7 +1124,7 @@ export function MessageListInstance(
     if (params["persistentAction"] !== undefined)
       data["PersistentAction"] = serialize.map(
         params["persistentAction"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["trafficType"] !== undefined)
       data["TrafficType"] = params["trafficType"];
@@ -1198,23 +1168,20 @@ export function MessageListInstance(
         new MessageInstance(
           operationVersion,
           payload,
-          instance._solution.accountSid,
-        ),
+          instance._solution.accountSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
     params: MessageListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<MessageInstance>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<MessageInstance>) => any
   ): Promise<ApiResponse<MessageInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1248,7 +1215,7 @@ export function MessageListInstance(
     if (params["persistentAction"] !== undefined)
       data["PersistentAction"] = serialize.map(
         params["persistentAction"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["trafficType"] !== undefined)
       data["TrafficType"] = params["trafficType"];
@@ -1293,13 +1260,13 @@ export function MessageListInstance(
         body: new MessageInstance(
           operationVersion,
           response.body,
-          instance._solution.accountSid,
+          instance._solution.accountSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1308,7 +1275,7 @@ export function MessageListInstance(
     params?:
       | MessageListInstancePageOptions
       | ((error: Error | null, items: MessagePage) => any),
-    callback?: (error: Error | null, items: MessagePage) => any,
+    callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage> {
     if (params instanceof Function) {
       callback = params;
@@ -1345,12 +1312,12 @@ export function MessageListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MessagePage(operationVersion, payload, instance._solution),
+        new MessagePage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1360,7 +1327,7 @@ export function MessageListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: MessagePage) => any,
+    callback?: (error: Error | null, items: MessagePage) => any
   ): Promise<MessagePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1368,7 +1335,7 @@ export function MessageListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new MessagePage(instance._version, payload, instance._solution),
+        new MessagePage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1378,7 +1345,7 @@ export function MessageListInstance(
     params?:
       | MessageListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<MessagePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<MessagePage>) => any
   ): Promise<ApiResponse<MessagePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1419,7 +1386,7 @@ export function MessageListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1431,7 +1398,7 @@ export function MessageListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<MessagePage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<MessagePage>) => any
   ): Promise<ApiResponse<MessagePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1444,7 +1411,7 @@ export function MessageListInstance(
         statusCode: response.statusCode,
         headers: response.headers,
         body: new MessagePage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1456,7 +1423,7 @@ export function MessageListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1480,7 +1447,7 @@ export class MessagePage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: MessageSolution,
+    solution: MessageSolution
   ) {
     super(version, response, solution);
   }
@@ -1494,7 +1461,7 @@ export class MessagePage extends Page<
     return new MessageInstance(
       this._version,
       payload,
-      this._solution.accountSid,
+      this._solution.accountSid
     );
   }
 

@@ -30,8 +30,8 @@ export interface LinkshorteningMessagingServiceContext {
   create(
     callback?: (
       error: Error | null,
-      item?: LinkshorteningMessagingServiceInstance,
-    ) => any,
+      item?: LinkshorteningMessagingServiceInstance
+    ) => any
   ): Promise<LinkshorteningMessagingServiceInstance>;
 
   /**
@@ -44,8 +44,8 @@ export interface LinkshorteningMessagingServiceContext {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LinkshorteningMessagingServiceInstance>,
-    ) => any,
+      item?: ApiResponse<LinkshorteningMessagingServiceInstance>
+    ) => any
   ): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>>;
 
   /**
@@ -56,7 +56,7 @@ export interface LinkshorteningMessagingServiceContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -67,7 +67,7 @@ export interface LinkshorteningMessagingServiceContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -89,7 +89,7 @@ export class LinkshorteningMessagingServiceContextImpl implements Linkshortening
   constructor(
     protected _version: V1,
     domainSid: string,
-    messagingServiceSid: string,
+    messagingServiceSid: string
   ) {
     if (!isValidPathParam(domainSid)) {
       throw new Error("Parameter 'domainSid' is not valid.");
@@ -106,8 +106,8 @@ export class LinkshorteningMessagingServiceContextImpl implements Linkshortening
   create(
     callback?: (
       error: Error | null,
-      item?: LinkshorteningMessagingServiceInstance,
-    ) => any,
+      item?: LinkshorteningMessagingServiceInstance
+    ) => any
   ): Promise<LinkshorteningMessagingServiceInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -126,13 +126,13 @@ export class LinkshorteningMessagingServiceContextImpl implements Linkshortening
           operationVersion,
           payload,
           instance._solution.domainSid,
-          instance._solution.messagingServiceSid,
-        ),
+          instance._solution.messagingServiceSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -140,8 +140,8 @@ export class LinkshorteningMessagingServiceContextImpl implements Linkshortening
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LinkshorteningMessagingServiceInstance>,
-    ) => any,
+      item?: ApiResponse<LinkshorteningMessagingServiceInstance>
+    ) => any
   ): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -162,20 +162,20 @@ export class LinkshorteningMessagingServiceContextImpl implements Linkshortening
             operationVersion,
             response.body,
             instance._solution.domainSid,
-            instance._solution.messagingServiceSid,
+            instance._solution.messagingServiceSid
           ),
-        }),
+        })
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -189,13 +189,13 @@ export class LinkshorteningMessagingServiceContextImpl implements Linkshortening
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -211,7 +211,7 @@ export class LinkshorteningMessagingServiceContextImpl implements Linkshortening
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -246,7 +246,7 @@ export class LinkshorteningMessagingServiceInstance {
     protected _version: V1,
     payload: LinkshorteningMessagingServiceResource,
     domainSid?: string,
-    messagingServiceSid?: string,
+    messagingServiceSid?: string
   ) {
     this.domainSid = payload.domain_sid;
     this.messagingServiceSid = payload.messaging_service_sid;
@@ -274,7 +274,7 @@ export class LinkshorteningMessagingServiceInstance {
       new LinkshorteningMessagingServiceContextImpl(
         this._version,
         this._solution.domainSid,
-        this._solution.messagingServiceSid,
+        this._solution.messagingServiceSid
       );
     return this._context;
   }
@@ -289,8 +289,8 @@ export class LinkshorteningMessagingServiceInstance {
   create(
     callback?: (
       error: Error | null,
-      item?: LinkshorteningMessagingServiceInstance,
-    ) => any,
+      item?: LinkshorteningMessagingServiceInstance
+    ) => any
   ): Promise<LinkshorteningMessagingServiceInstance> {
     return this._proxy.create(callback);
   }
@@ -305,8 +305,8 @@ export class LinkshorteningMessagingServiceInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LinkshorteningMessagingServiceInstance>,
-    ) => any,
+      item?: ApiResponse<LinkshorteningMessagingServiceInstance>
+    ) => any
   ): Promise<ApiResponse<LinkshorteningMessagingServiceInstance>> {
     return this._proxy.createWithHttpInfo(callback);
   }
@@ -319,7 +319,7 @@ export class LinkshorteningMessagingServiceInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -332,7 +332,7 @@ export class LinkshorteningMessagingServiceInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -364,11 +364,11 @@ export interface LinkshorteningMessagingServiceListInstance {
 
   (
     domainSid: string,
-    messagingServiceSid: string,
+    messagingServiceSid: string
   ): LinkshorteningMessagingServiceContext;
   get(
     domainSid: string,
-    messagingServiceSid: string,
+    messagingServiceSid: string
   ): LinkshorteningMessagingServiceContext;
 
   /**
@@ -379,22 +379,22 @@ export interface LinkshorteningMessagingServiceListInstance {
 }
 
 export function LinkshorteningMessagingServiceListInstance(
-  version: V1,
+  version: V1
 ): LinkshorteningMessagingServiceListInstance {
   const instance = ((domainSid, messagingServiceSid) =>
     instance.get(
       domainSid,
-      messagingServiceSid,
+      messagingServiceSid
     )) as LinkshorteningMessagingServiceListInstance;
 
   instance.get = function get(
     domainSid,
-    messagingServiceSid,
+    messagingServiceSid
   ): LinkshorteningMessagingServiceContext {
     return new LinkshorteningMessagingServiceContextImpl(
       version,
       domainSid,
-      messagingServiceSid,
+      messagingServiceSid
     );
   };
 
@@ -408,7 +408,7 @@ export function LinkshorteningMessagingServiceListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

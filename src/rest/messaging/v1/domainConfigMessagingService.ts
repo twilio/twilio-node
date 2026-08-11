@@ -30,8 +30,8 @@ export interface DomainConfigMessagingServiceContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: DomainConfigMessagingServiceInstance,
-    ) => any,
+      item?: DomainConfigMessagingServiceInstance
+    ) => any
   ): Promise<DomainConfigMessagingServiceInstance>;
 
   /**
@@ -44,8 +44,8 @@ export interface DomainConfigMessagingServiceContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigMessagingServiceInstance>,
-    ) => any,
+      item?: ApiResponse<DomainConfigMessagingServiceInstance>
+    ) => any
   ): Promise<ApiResponse<DomainConfigMessagingServiceInstance>>;
 
   /**
@@ -65,7 +65,7 @@ export class DomainConfigMessagingServiceContextImpl implements DomainConfigMess
 
   constructor(
     protected _version: V1,
-    messagingServiceSid: string,
+    messagingServiceSid: string
   ) {
     if (!isValidPathParam(messagingServiceSid)) {
       throw new Error("Parameter 'messagingServiceSid' is not valid.");
@@ -78,8 +78,8 @@ export class DomainConfigMessagingServiceContextImpl implements DomainConfigMess
   fetch(
     callback?: (
       error: Error | null,
-      item?: DomainConfigMessagingServiceInstance,
-    ) => any,
+      item?: DomainConfigMessagingServiceInstance
+    ) => any
   ): Promise<DomainConfigMessagingServiceInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -97,13 +97,13 @@ export class DomainConfigMessagingServiceContextImpl implements DomainConfigMess
         new DomainConfigMessagingServiceInstance(
           operationVersion,
           payload,
-          instance._solution.messagingServiceSid,
-        ),
+          instance._solution.messagingServiceSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -111,8 +111,8 @@ export class DomainConfigMessagingServiceContextImpl implements DomainConfigMess
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigMessagingServiceInstance>,
-    ) => any,
+      item?: ApiResponse<DomainConfigMessagingServiceInstance>
+    ) => any
   ): Promise<ApiResponse<DomainConfigMessagingServiceInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -131,13 +131,13 @@ export class DomainConfigMessagingServiceContextImpl implements DomainConfigMess
         body: new DomainConfigMessagingServiceInstance(
           operationVersion,
           response.body,
-          instance._solution.messagingServiceSid,
+          instance._solution.messagingServiceSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -177,7 +177,7 @@ export class DomainConfigMessagingServiceInstance {
   constructor(
     protected _version: V1,
     payload: DomainConfigMessagingServiceResource,
-    messagingServiceSid?: string,
+    messagingServiceSid?: string
   ) {
     this.domainSid = payload.domain_sid;
     this.configSid = payload.config_sid;
@@ -231,7 +231,7 @@ export class DomainConfigMessagingServiceInstance {
       this._context ||
       new DomainConfigMessagingServiceContextImpl(
         this._version,
-        this._solution.messagingServiceSid,
+        this._solution.messagingServiceSid
       );
     return this._context;
   }
@@ -246,8 +246,8 @@ export class DomainConfigMessagingServiceInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: DomainConfigMessagingServiceInstance,
-    ) => any,
+      item?: DomainConfigMessagingServiceInstance
+    ) => any
   ): Promise<DomainConfigMessagingServiceInstance> {
     return this._proxy.fetch(callback);
   }
@@ -262,8 +262,8 @@ export class DomainConfigMessagingServiceInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainConfigMessagingServiceInstance>,
-    ) => any,
+      item?: ApiResponse<DomainConfigMessagingServiceInstance>
+    ) => any
   ): Promise<ApiResponse<DomainConfigMessagingServiceInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -310,19 +310,19 @@ export interface DomainConfigMessagingServiceListInstance {
 }
 
 export function DomainConfigMessagingServiceListInstance(
-  version: V1,
+  version: V1
 ): DomainConfigMessagingServiceListInstance {
   const instance = ((messagingServiceSid) =>
     instance.get(
-      messagingServiceSid,
+      messagingServiceSid
     )) as DomainConfigMessagingServiceListInstance;
 
   instance.get = function get(
-    messagingServiceSid,
+    messagingServiceSid
   ): DomainConfigMessagingServiceContext {
     return new DomainConfigMessagingServiceContextImpl(
       version,
-      messagingServiceSid,
+      messagingServiceSid
     );
   };
 
@@ -336,7 +336,7 @@ export function DomainConfigMessagingServiceListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

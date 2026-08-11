@@ -59,8 +59,8 @@ export interface AccountDefaultConfigurationContext {
   create(
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance>;
   /**
    * Create a AccountDefaultConfigurationInstance
@@ -76,8 +76,8 @@ export interface AccountDefaultConfigurationContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance>;
 
   /**
@@ -90,8 +90,8 @@ export interface AccountDefaultConfigurationContext {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
   /**
    * Create a AccountDefaultConfigurationInstance and return HTTP info
@@ -107,8 +107,8 @@ export interface AccountDefaultConfigurationContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
 
   /**
@@ -119,7 +119,7 @@ export interface AccountDefaultConfigurationContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -130,7 +130,7 @@ export interface AccountDefaultConfigurationContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -143,8 +143,8 @@ export interface AccountDefaultConfigurationContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance>;
 
   /**
@@ -157,8 +157,8 @@ export interface AccountDefaultConfigurationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
 
   /**
@@ -171,8 +171,8 @@ export interface AccountDefaultConfigurationContext {
   update(
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance>;
   /**
    * Update a AccountDefaultConfigurationInstance
@@ -188,8 +188,8 @@ export interface AccountDefaultConfigurationContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance>;
 
   /**
@@ -202,8 +202,8 @@ export interface AccountDefaultConfigurationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
   /**
    * Update a AccountDefaultConfigurationInstance and return HTTP info
@@ -219,8 +219,8 @@ export interface AccountDefaultConfigurationContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
 
   /**
@@ -240,7 +240,7 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
 
   constructor(
     protected _version: V2,
-    type: string,
+    type: string
   ) {
     if (!isValidPathParam(type)) {
       throw new Error("Parameter 'type' is not valid.");
@@ -255,13 +255,13 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
       | VoiceV2AccountDefaultConfigurationRequest
       | ((
           error: Error | null,
-          item?: AccountDefaultConfigurationInstance,
+          item?: AccountDefaultConfigurationInstance
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -298,13 +298,13 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
         new AccountDefaultConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.type,
-        ),
+          instance._solution.type
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -314,13 +314,13 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
       | VoiceV2AccountDefaultConfigurationRequest
       | ((
           error: Error | null,
-          item?: ApiResponse<AccountDefaultConfigurationInstance>,
+          item?: ApiResponse<AccountDefaultConfigurationInstance>
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -358,19 +358,19 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
         body: new AccountDefaultConfigurationInstance(
           operationVersion,
           response.body,
-          instance._solution.type,
+          instance._solution.type
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -384,13 +384,13 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -406,7 +406,7 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -414,8 +414,8 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
   fetch(
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -433,13 +433,13 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
         new AccountDefaultConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.type,
-        ),
+          instance._solution.type
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -447,8 +447,8 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -467,13 +467,13 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
         body: new AccountDefaultConfigurationInstance(
           operationVersion,
           response.body,
-          instance._solution.type,
+          instance._solution.type
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -483,13 +483,13 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
       | VoiceV2AccountDefaultConfigurationRequest
       | ((
           error: Error | null,
-          item?: AccountDefaultConfigurationInstance,
+          item?: AccountDefaultConfigurationInstance
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -526,13 +526,13 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
         new AccountDefaultConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.type,
-        ),
+          instance._solution.type
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -542,13 +542,13 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
       | VoiceV2AccountDefaultConfigurationRequest
       | ((
           error: Error | null,
-          item?: ApiResponse<AccountDefaultConfigurationInstance>,
+          item?: ApiResponse<AccountDefaultConfigurationInstance>
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -586,13 +586,13 @@ export class AccountDefaultConfigurationContextImpl implements AccountDefaultCon
         body: new AccountDefaultConfigurationInstance(
           operationVersion,
           response.body,
-          instance._solution.type,
+          instance._solution.type
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -632,7 +632,7 @@ export class AccountDefaultConfigurationInstance {
   constructor(
     protected _version: V2,
     payload: AccountDefaultConfigurationResource,
-    type?: string,
+    type?: string
   ) {
     this.accountSid = payload.account_sid;
     this.description = payload.description;
@@ -680,7 +680,7 @@ export class AccountDefaultConfigurationInstance {
       this._context ||
       new AccountDefaultConfigurationContextImpl(
         this._version,
-        this._solution.type,
+        this._solution.type
       );
     return this._context;
   }
@@ -695,8 +695,8 @@ export class AccountDefaultConfigurationInstance {
   create(
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance>;
   /**
    * Create a AccountDefaultConfigurationInstance
@@ -712,16 +712,16 @@ export class AccountDefaultConfigurationInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance>;
 
   create(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance> {
     return this._proxy.create(params, callback);
   }
@@ -736,8 +736,8 @@ export class AccountDefaultConfigurationInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
   /**
    * Create a AccountDefaultConfigurationInstance and return HTTP info
@@ -753,16 +753,16 @@ export class AccountDefaultConfigurationInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
 
   createWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
@@ -775,7 +775,7 @@ export class AccountDefaultConfigurationInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -788,7 +788,7 @@ export class AccountDefaultConfigurationInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -803,8 +803,8 @@ export class AccountDefaultConfigurationInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -819,8 +819,8 @@ export class AccountDefaultConfigurationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -835,8 +835,8 @@ export class AccountDefaultConfigurationInstance {
   update(
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance>;
   /**
    * Update a AccountDefaultConfigurationInstance
@@ -852,16 +852,16 @@ export class AccountDefaultConfigurationInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance>;
 
   update(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: AccountDefaultConfigurationInstance,
-    ) => any,
+      item?: AccountDefaultConfigurationInstance
+    ) => any
   ): Promise<AccountDefaultConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -876,8 +876,8 @@ export class AccountDefaultConfigurationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
   /**
    * Update a AccountDefaultConfigurationInstance and return HTTP info
@@ -893,16 +893,16 @@ export class AccountDefaultConfigurationInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AccountDefaultConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AccountDefaultConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AccountDefaultConfigurationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -949,7 +949,7 @@ export interface AccountDefaultConfigurationListInstance {
 }
 
 export function AccountDefaultConfigurationListInstance(
-  version: V2,
+  version: V2
 ): AccountDefaultConfigurationListInstance {
   const instance = ((type) =>
     instance.get(type)) as AccountDefaultConfigurationListInstance;
@@ -968,7 +968,7 @@ export function AccountDefaultConfigurationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

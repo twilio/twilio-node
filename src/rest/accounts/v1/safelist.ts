@@ -60,7 +60,7 @@ export interface SafelistListInstance {
    */
   create(
     params: SafelistListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SafelistInstance) => any,
+    callback?: (error: Error | null, item?: SafelistInstance) => any
   ): Promise<SafelistInstance>;
 
   /**
@@ -75,8 +75,8 @@ export interface SafelistListInstance {
     params: SafelistListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SafelistInstance>,
-    ) => any,
+      item?: ApiResponse<SafelistInstance>
+    ) => any
   ): Promise<ApiResponse<SafelistInstance>>;
 
   /**
@@ -87,7 +87,7 @@ export interface SafelistListInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
   /**
    * Remove a SafelistInstance
@@ -99,7 +99,7 @@ export interface SafelistListInstance {
    */
   remove(
     params: SafelistListInstanceRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -110,7 +110,7 @@ export interface SafelistListInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
   /**
    * Remove a SafelistInstance and return HTTP info
@@ -122,7 +122,7 @@ export interface SafelistListInstance {
    */
   removeWithHttpInfo(
     params: SafelistListInstanceRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -133,7 +133,7 @@ export interface SafelistListInstance {
    * @returns Resolves to processed SafelistInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SafelistInstance) => any,
+    callback?: (error: Error | null, item?: SafelistInstance) => any
   ): Promise<SafelistInstance>;
   /**
    * Fetch a SafelistInstance
@@ -145,7 +145,7 @@ export interface SafelistListInstance {
    */
   fetch(
     params: SafelistListInstanceFetchOptions,
-    callback?: (error: Error | null, item?: SafelistInstance) => any,
+    callback?: (error: Error | null, item?: SafelistInstance) => any
   ): Promise<SafelistInstance>;
 
   /**
@@ -158,8 +158,8 @@ export interface SafelistListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SafelistInstance>,
-    ) => any,
+      item?: ApiResponse<SafelistInstance>
+    ) => any
   ): Promise<ApiResponse<SafelistInstance>>;
   /**
    * Fetch a SafelistInstance and return HTTP info
@@ -173,8 +173,8 @@ export interface SafelistListInstance {
     params: SafelistListInstanceFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SafelistInstance>,
-    ) => any,
+      item?: ApiResponse<SafelistInstance>
+    ) => any
   ): Promise<ApiResponse<SafelistInstance>>;
 
   /**
@@ -193,7 +193,7 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
 
   instance.create = function create(
     params: SafelistListInstanceCreateOptions,
-    callback?: (error: Error | null, items: SafelistInstance) => any,
+    callback?: (error: Error | null, items: SafelistInstance) => any
   ): Promise<SafelistInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -220,12 +220,12 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SafelistInstance(operationVersion, payload),
+      (payload) => new SafelistInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -234,8 +234,8 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
     params: SafelistListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SafelistInstance>,
-    ) => any,
+      items: ApiResponse<SafelistInstance>
+    ) => any
   ): Promise<ApiResponse<SafelistInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -269,7 +269,7 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -278,7 +278,7 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
     params?:
       | SafelistListInstanceRemoveOptions
       | ((error: Error | null, items: boolean) => any),
-    callback?: (error: Error | null, items: boolean) => any,
+    callback?: (error: Error | null, items: boolean) => any
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
@@ -304,7 +304,7 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -313,7 +313,7 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
     params?:
       | SafelistListInstanceRemoveOptions
       | ((error: Error | null, items: ApiResponse<boolean>) => any),
-    callback?: (error: Error | null, items: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, items: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
@@ -345,7 +345,7 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -354,7 +354,7 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
     params?:
       | SafelistListInstanceFetchOptions
       | ((error: Error | null, items: SafelistInstance) => any),
-    callback?: (error: Error | null, items: SafelistInstance) => any,
+    callback?: (error: Error | null, items: SafelistInstance) => any
   ): Promise<SafelistInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -380,12 +380,12 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SafelistInstance(operationVersion, payload),
+      (payload) => new SafelistInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -396,8 +396,8 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
       | ((error: Error | null, items: ApiResponse<SafelistInstance>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<SafelistInstance>,
-    ) => any,
+      items: ApiResponse<SafelistInstance>
+    ) => any
   ): Promise<ApiResponse<SafelistInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -430,7 +430,7 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -441,7 +441,7 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -459,7 +459,7 @@ interface SafelistResource {
 export class SafelistInstance {
   constructor(
     protected _version: V1,
-    payload: SafelistResource,
+    payload: SafelistResource
   ) {
     this.sid = payload.sid;
     this.phoneNumber = payload.phone_number;

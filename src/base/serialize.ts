@@ -140,7 +140,7 @@ type MapFunction<TInput, TOutput> = (input: TInput) => TOutput;
  */
 export function map<TInput, TOutput>(
   input: Array<TInput>,
-  transform: MapFunction<TInput, TOutput>,
+  transform: MapFunction<TInput, TOutput>
 ): Array<TOutput> {
   if (typeof input === "object" && Array.isArray(input)) {
     return input.map((element) => transform(element));

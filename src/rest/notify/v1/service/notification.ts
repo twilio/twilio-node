@@ -83,7 +83,7 @@ export interface NotificationListInstance {
    * @returns Resolves to processed NotificationInstance
    */
   create(
-    callback?: (error: Error | null, item?: NotificationInstance) => any,
+    callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
   /**
    * Create a NotificationInstance
@@ -95,7 +95,7 @@ export interface NotificationListInstance {
    */
   create(
     params: NotificationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NotificationInstance) => any,
+    callback?: (error: Error | null, item?: NotificationInstance) => any
   ): Promise<NotificationInstance>;
 
   /**
@@ -108,8 +108,8 @@ export interface NotificationListInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>,
-    ) => any,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
   ): Promise<ApiResponse<NotificationInstance>>;
   /**
    * Create a NotificationInstance and return HTTP info
@@ -123,8 +123,8 @@ export interface NotificationListInstance {
     params: NotificationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NotificationInstance>,
-    ) => any,
+      item?: ApiResponse<NotificationInstance>
+    ) => any
   ): Promise<ApiResponse<NotificationInstance>>;
 
   /**
@@ -136,7 +136,7 @@ export interface NotificationListInstance {
 
 export function NotificationListInstance(
   version: V1,
-  serviceSid: string,
+  serviceSid: string
 ): NotificationListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -152,7 +152,7 @@ export function NotificationListInstance(
     params?:
       | NotificationListInstanceCreateOptions
       | ((error: Error | null, items: NotificationInstance) => any),
-    callback?: (error: Error | null, items: NotificationInstance) => any,
+    callback?: (error: Error | null, items: NotificationInstance) => any
   ): Promise<NotificationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -211,13 +211,13 @@ export function NotificationListInstance(
         new NotificationInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid,
-        ),
+          instance._solution.serviceSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -227,12 +227,12 @@ export function NotificationListInstance(
       | NotificationListInstanceCreateOptions
       | ((
           error: Error | null,
-          items: ApiResponse<NotificationInstance>,
+          items: ApiResponse<NotificationInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<NotificationInstance>,
-    ) => any,
+      items: ApiResponse<NotificationInstance>
+    ) => any
   ): Promise<ApiResponse<NotificationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -292,13 +292,13 @@ export function NotificationListInstance(
         body: new NotificationInstance(
           operationVersion,
           response.body,
-          instance._solution.serviceSid,
+          instance._solution.serviceSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -309,7 +309,7 @@ export function NotificationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -346,7 +346,7 @@ export class NotificationInstance {
   constructor(
     protected _version: V1,
     payload: NotificationResource,
-    serviceSid: string,
+    serviceSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

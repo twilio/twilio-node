@@ -73,7 +73,7 @@ export interface BrandRegistrationListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: BrandRegistrationInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -115,7 +115,7 @@ export interface BrandRegistrationContext {
    * @returns Resolves to processed BrandRegistrationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any,
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance>;
 
   /**
@@ -128,8 +128,8 @@ export interface BrandRegistrationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BrandRegistrationInstance>,
-    ) => any,
+      item?: ApiResponse<BrandRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationInstance>>;
 
   /**
@@ -140,7 +140,7 @@ export interface BrandRegistrationContext {
    * @returns Resolves to processed BrandRegistrationInstance
    */
   update(
-    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any,
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance>;
 
   /**
@@ -153,8 +153,8 @@ export interface BrandRegistrationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BrandRegistrationInstance>,
-    ) => any,
+      item?: ApiResponse<BrandRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationInstance>>;
 
   /**
@@ -177,7 +177,7 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
 
   constructor(
     protected _version: V1,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -202,7 +202,7 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any,
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -220,13 +220,13 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
         new BrandRegistrationInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -234,8 +234,8 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BrandRegistrationInstance>,
-    ) => any,
+      item?: ApiResponse<BrandRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -254,19 +254,19 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
         body: new BrandRegistrationInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   update(
-    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any,
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -284,13 +284,13 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
         new BrandRegistrationInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -298,8 +298,8 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BrandRegistrationInstance>,
-    ) => any,
+      item?: ApiResponse<BrandRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -318,13 +318,13 @@ export class BrandRegistrationContextImpl implements BrandRegistrationContext {
         body: new BrandRegistrationInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -378,7 +378,7 @@ export class BrandRegistrationInstance {
   constructor(
     protected _version: V1,
     payload: BrandRegistrationResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -496,7 +496,7 @@ export class BrandRegistrationInstance {
    * @returns Resolves to processed BrandRegistrationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any,
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -511,8 +511,8 @@ export class BrandRegistrationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BrandRegistrationInstance>,
-    ) => any,
+      item?: ApiResponse<BrandRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -525,7 +525,7 @@ export class BrandRegistrationInstance {
    * @returns Resolves to processed BrandRegistrationInstance
    */
   update(
-    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any,
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance> {
     return this._proxy.update(callback);
   }
@@ -540,8 +540,8 @@ export class BrandRegistrationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BrandRegistrationInstance>,
-    ) => any,
+      item?: ApiResponse<BrandRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationInstance>> {
     return this._proxy.updateWithHttpInfo(callback);
   }
@@ -616,7 +616,7 @@ export interface BrandRegistrationListInstance {
    */
   create(
     params: BrandRegistrationListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any,
+    callback?: (error: Error | null, item?: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance>;
 
   /**
@@ -631,8 +631,8 @@ export interface BrandRegistrationListInstance {
     params: BrandRegistrationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<BrandRegistrationInstance>,
-    ) => any,
+      item?: ApiResponse<BrandRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationInstance>>;
 
   /**
@@ -653,15 +653,15 @@ export interface BrandRegistrationListInstance {
   each(
     callback?: (
       item: BrandRegistrationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: BrandRegistrationListInstanceEachOptions,
     callback?: (
       item: BrandRegistrationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams BrandRegistrationInstance records from the API with HTTP metadata captured per page.
@@ -681,15 +681,15 @@ export interface BrandRegistrationListInstance {
   eachWithHttpInfo(
     callback?: (
       item: BrandRegistrationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: BrandRegistrationListInstanceEachOptions,
     callback?: (
       item: BrandRegistrationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of BrandRegistrationInstance records from the API.
@@ -701,7 +701,7 @@ export interface BrandRegistrationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: BrandRegistrationPage) => any,
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage>;
   /**
    * Retrieve a single target page of BrandRegistrationInstance records from the API with HTTP metadata.
@@ -715,8 +715,8 @@ export interface BrandRegistrationListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<BrandRegistrationPage>,
-    ) => any,
+      items: ApiResponse<BrandRegistrationPage>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationPage>>;
   /**
    * Lists BrandRegistrationInstance records from the API as a list.
@@ -728,11 +728,11 @@ export interface BrandRegistrationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any,
+    callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any
   ): Promise<BrandRegistrationInstance[]>;
   list(
     params: BrandRegistrationListInstanceOptions,
-    callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any,
+    callback?: (error: Error | null, items: BrandRegistrationInstance[]) => any
   ): Promise<BrandRegistrationInstance[]>;
   /**
    * Lists BrandRegistrationInstance records from the API as a list with HTTP metadata.
@@ -748,15 +748,15 @@ export interface BrandRegistrationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<BrandRegistrationInstance[]>,
-    ) => any,
+      items: ApiResponse<BrandRegistrationInstance[]>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationInstance[]>>;
   listWithHttpInfo(
     params: BrandRegistrationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<BrandRegistrationInstance[]>,
-    ) => any,
+      items: ApiResponse<BrandRegistrationInstance[]>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationInstance[]>>;
   /**
    * Retrieve a single page of BrandRegistrationInstance records from the API.
@@ -770,11 +770,11 @@ export interface BrandRegistrationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: BrandRegistrationPage) => any,
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage>;
   page(
     params: BrandRegistrationListInstancePageOptions,
-    callback?: (error: Error | null, items: BrandRegistrationPage) => any,
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage>;
   /**
    * Retrieve a single page of BrandRegistrationInstance records from the API with HTTP metadata.
@@ -790,15 +790,15 @@ export interface BrandRegistrationListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<BrandRegistrationPage>,
-    ) => any,
+      items: ApiResponse<BrandRegistrationPage>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationPage>>;
   pageWithHttpInfo(
     params: BrandRegistrationListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<BrandRegistrationPage>,
-    ) => any,
+      items: ApiResponse<BrandRegistrationPage>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationPage>>;
 
   /**
@@ -809,7 +809,7 @@ export interface BrandRegistrationListInstance {
 }
 
 export function BrandRegistrationListInstance(
-  version: V1,
+  version: V1
 ): BrandRegistrationListInstance {
   const instance = ((sid) =>
     instance.get(sid)) as BrandRegistrationListInstance;
@@ -824,7 +824,7 @@ export function BrandRegistrationListInstance(
 
   instance.create = function create(
     params: BrandRegistrationListInstanceCreateOptions,
-    callback?: (error: Error | null, items: BrandRegistrationInstance) => any,
+    callback?: (error: Error | null, items: BrandRegistrationInstance) => any
   ): Promise<BrandRegistrationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -835,7 +835,7 @@ export function BrandRegistrationListInstance(
       params["customerProfileBundleSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['customerProfileBundleSid']\" missing.",
+        "Required parameter \"params['customerProfileBundleSid']\" missing."
       );
     }
 
@@ -844,7 +844,7 @@ export function BrandRegistrationListInstance(
       params["a2PProfileBundleSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['a2PProfileBundleSid']\" missing.",
+        "Required parameter \"params['a2PProfileBundleSid']\" missing."
       );
     }
 
@@ -859,7 +859,7 @@ export function BrandRegistrationListInstance(
       data["Mock"] = serialize.bool(params["mock"]);
     if (params["skipAutomaticSecVet"] !== undefined)
       data["SkipAutomaticSecVet"] = serialize.bool(
-        params["skipAutomaticSecVet"],
+        params["skipAutomaticSecVet"]
       );
 
     const headers: any = {};
@@ -875,12 +875,12 @@ export function BrandRegistrationListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new BrandRegistrationInstance(operationVersion, payload),
+      (payload) => new BrandRegistrationInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -889,8 +889,8 @@ export function BrandRegistrationListInstance(
     params: BrandRegistrationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<BrandRegistrationInstance>,
-    ) => any,
+      items: ApiResponse<BrandRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -901,7 +901,7 @@ export function BrandRegistrationListInstance(
       params["customerProfileBundleSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['customerProfileBundleSid']\" missing.",
+        "Required parameter \"params['customerProfileBundleSid']\" missing."
       );
     }
 
@@ -910,7 +910,7 @@ export function BrandRegistrationListInstance(
       params["a2PProfileBundleSid"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['a2PProfileBundleSid']\" missing.",
+        "Required parameter \"params['a2PProfileBundleSid']\" missing."
       );
     }
 
@@ -925,7 +925,7 @@ export function BrandRegistrationListInstance(
       data["Mock"] = serialize.bool(params["mock"]);
     if (params["skipAutomaticSecVet"] !== undefined)
       data["SkipAutomaticSecVet"] = serialize.bool(
-        params["skipAutomaticSecVet"],
+        params["skipAutomaticSecVet"]
       );
 
     const headers: any = {};
@@ -948,7 +948,7 @@ export function BrandRegistrationListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -957,7 +957,7 @@ export function BrandRegistrationListInstance(
     params?:
       | BrandRegistrationListInstancePageOptions
       | ((error: Error | null, items: BrandRegistrationPage) => any),
-    callback?: (error: Error | null, items: BrandRegistrationPage) => any,
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -986,16 +986,12 @@ export function BrandRegistrationListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new BrandRegistrationPage(
-          operationVersion,
-          payload,
-          instance._solution,
-        ),
+        new BrandRegistrationPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1005,7 +1001,7 @@ export function BrandRegistrationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: BrandRegistrationPage) => any,
+    callback?: (error: Error | null, items: BrandRegistrationPage) => any
   ): Promise<BrandRegistrationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1016,8 +1012,8 @@ export function BrandRegistrationListInstance(
         new BrandRegistrationPage(
           instance._version,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1028,12 +1024,12 @@ export function BrandRegistrationListInstance(
       | BrandRegistrationListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<BrandRegistrationPage>,
+          items: ApiResponse<BrandRegistrationPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<BrandRegistrationPage>,
-    ) => any,
+      items: ApiResponse<BrandRegistrationPage>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1064,13 +1060,13 @@ export function BrandRegistrationListInstance(
         body: new BrandRegistrationPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1084,8 +1080,8 @@ export function BrandRegistrationListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<BrandRegistrationPage>,
-    ) => any,
+      items?: ApiResponse<BrandRegistrationPage>
+    ) => any
   ): Promise<ApiResponse<BrandRegistrationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1100,9 +1096,9 @@ export function BrandRegistrationListInstance(
         body: new BrandRegistrationPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1114,7 +1110,7 @@ export function BrandRegistrationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1138,7 +1134,7 @@ export class BrandRegistrationPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: BrandRegistrationSolution,
+    solution: BrandRegistrationSolution
   ) {
     super(version, response, solution);
   }

@@ -69,7 +69,7 @@ export interface ConferenceParticipantListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: ConferenceParticipantInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -122,8 +122,8 @@ export interface ConferenceParticipantContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: ConferenceParticipantInstance,
-    ) => any,
+      item?: ConferenceParticipantInstance
+    ) => any
   ): Promise<ConferenceParticipantInstance>;
   /**
    * Fetch a ConferenceParticipantInstance
@@ -137,8 +137,8 @@ export interface ConferenceParticipantContext {
     params: ConferenceParticipantContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ConferenceParticipantInstance,
-    ) => any,
+      item?: ConferenceParticipantInstance
+    ) => any
   ): Promise<ConferenceParticipantInstance>;
 
   /**
@@ -151,8 +151,8 @@ export interface ConferenceParticipantContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConferenceParticipantInstance>,
-    ) => any,
+      item?: ApiResponse<ConferenceParticipantInstance>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantInstance>>;
   /**
    * Fetch a ConferenceParticipantInstance and return HTTP info
@@ -166,8 +166,8 @@ export interface ConferenceParticipantContext {
     params: ConferenceParticipantContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConferenceParticipantInstance>,
-    ) => any,
+      item?: ApiResponse<ConferenceParticipantInstance>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantInstance>>;
 
   /**
@@ -189,7 +189,7 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
   constructor(
     protected _version: V1,
     conferenceSid: string,
-    participantSid: string,
+    participantSid: string
   ) {
     if (!isValidPathParam(conferenceSid)) {
       throw new Error("Parameter 'conferenceSid' is not valid.");
@@ -209,8 +209,8 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
       | ((error: Error | null, item?: ConferenceParticipantInstance) => any),
     callback?: (
       error: Error | null,
-      item?: ConferenceParticipantInstance,
-    ) => any,
+      item?: ConferenceParticipantInstance
+    ) => any
   ): Promise<ConferenceParticipantInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -242,13 +242,13 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
           operationVersion,
           payload,
           instance._solution.conferenceSid,
-          instance._solution.participantSid,
-        ),
+          instance._solution.participantSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -258,12 +258,12 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
       | ConferenceParticipantContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<ConferenceParticipantInstance>,
+          item?: ApiResponse<ConferenceParticipantInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConferenceParticipantInstance>,
-    ) => any,
+      item?: ApiResponse<ConferenceParticipantInstance>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -296,13 +296,13 @@ export class ConferenceParticipantContextImpl implements ConferenceParticipantCo
           operationVersion,
           response.body,
           instance._solution.conferenceSid,
-          instance._solution.participantSid,
+          instance._solution.participantSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -363,7 +363,7 @@ export class ConferenceParticipantInstance {
     protected _version: V1,
     payload: ConferenceParticipantResource,
     conferenceSid: string,
-    participantSid?: string,
+    participantSid?: string
   ) {
     this.participantSid = payload.participant_sid;
     this.label = payload.label;
@@ -380,10 +380,10 @@ export class ConferenceParticipantInstance {
     this.leaveTime = deserialize.iso8601DateTime(payload.leave_time);
     this.durationSeconds = deserialize.integer(payload.duration_seconds);
     this.outboundQueueLength = deserialize.integer(
-      payload.outbound_queue_length,
+      payload.outbound_queue_length
     );
     this.outboundTimeInQueue = deserialize.integer(
-      payload.outbound_time_in_queue,
+      payload.outbound_time_in_queue
     );
     this.jitterBufferSize = payload.jitter_buffer_size;
     this.isCoach = payload.is_coach;
@@ -494,7 +494,7 @@ export class ConferenceParticipantInstance {
       new ConferenceParticipantContextImpl(
         this._version,
         this._solution.conferenceSid,
-        this._solution.participantSid,
+        this._solution.participantSid
       );
     return this._context;
   }
@@ -509,8 +509,8 @@ export class ConferenceParticipantInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: ConferenceParticipantInstance,
-    ) => any,
+      item?: ConferenceParticipantInstance
+    ) => any
   ): Promise<ConferenceParticipantInstance>;
   /**
    * Fetch a ConferenceParticipantInstance
@@ -524,16 +524,16 @@ export class ConferenceParticipantInstance {
     params: ConferenceParticipantContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ConferenceParticipantInstance,
-    ) => any,
+      item?: ConferenceParticipantInstance
+    ) => any
   ): Promise<ConferenceParticipantInstance>;
 
   fetch(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ConferenceParticipantInstance,
-    ) => any,
+      item?: ConferenceParticipantInstance
+    ) => any
   ): Promise<ConferenceParticipantInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -548,8 +548,8 @@ export class ConferenceParticipantInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConferenceParticipantInstance>,
-    ) => any,
+      item?: ApiResponse<ConferenceParticipantInstance>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantInstance>>;
   /**
    * Fetch a ConferenceParticipantInstance and return HTTP info
@@ -563,16 +563,16 @@ export class ConferenceParticipantInstance {
     params: ConferenceParticipantContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConferenceParticipantInstance>,
-    ) => any,
+      item?: ApiResponse<ConferenceParticipantInstance>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConferenceParticipantInstance>,
-    ) => any,
+      item?: ApiResponse<ConferenceParticipantInstance>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -649,15 +649,15 @@ export interface ConferenceParticipantListInstance {
   each(
     callback?: (
       item: ConferenceParticipantInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: ConferenceParticipantListInstanceEachOptions,
     callback?: (
       item: ConferenceParticipantInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams ConferenceParticipantInstance records from the API with HTTP metadata captured per page.
@@ -677,15 +677,15 @@ export interface ConferenceParticipantListInstance {
   eachWithHttpInfo(
     callback?: (
       item: ConferenceParticipantInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: ConferenceParticipantListInstanceEachOptions,
     callback?: (
       item: ConferenceParticipantInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of ConferenceParticipantInstance records from the API.
@@ -697,7 +697,7 @@ export interface ConferenceParticipantListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConferenceParticipantPage) => any,
+    callback?: (error: Error | null, items: ConferenceParticipantPage) => any
   ): Promise<ConferenceParticipantPage>;
   /**
    * Retrieve a single target page of ConferenceParticipantInstance records from the API with HTTP metadata.
@@ -711,8 +711,8 @@ export interface ConferenceParticipantListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConferenceParticipantPage>,
-    ) => any,
+      items: ApiResponse<ConferenceParticipantPage>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantPage>>;
   /**
    * Lists ConferenceParticipantInstance records from the API as a list.
@@ -726,15 +726,15 @@ export interface ConferenceParticipantListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: ConferenceParticipantInstance[],
-    ) => any,
+      items: ConferenceParticipantInstance[]
+    ) => any
   ): Promise<ConferenceParticipantInstance[]>;
   list(
     params: ConferenceParticipantListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ConferenceParticipantInstance[],
-    ) => any,
+      items: ConferenceParticipantInstance[]
+    ) => any
   ): Promise<ConferenceParticipantInstance[]>;
   /**
    * Lists ConferenceParticipantInstance records from the API as a list with HTTP metadata.
@@ -750,15 +750,15 @@ export interface ConferenceParticipantListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConferenceParticipantInstance[]>,
-    ) => any,
+      items: ApiResponse<ConferenceParticipantInstance[]>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantInstance[]>>;
   listWithHttpInfo(
     params: ConferenceParticipantListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConferenceParticipantInstance[]>,
-    ) => any,
+      items: ApiResponse<ConferenceParticipantInstance[]>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantInstance[]>>;
   /**
    * Retrieve a single page of ConferenceParticipantInstance records from the API.
@@ -772,11 +772,11 @@ export interface ConferenceParticipantListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ConferenceParticipantPage) => any,
+    callback?: (error: Error | null, items: ConferenceParticipantPage) => any
   ): Promise<ConferenceParticipantPage>;
   page(
     params: ConferenceParticipantListInstancePageOptions,
-    callback?: (error: Error | null, items: ConferenceParticipantPage) => any,
+    callback?: (error: Error | null, items: ConferenceParticipantPage) => any
   ): Promise<ConferenceParticipantPage>;
   /**
    * Retrieve a single page of ConferenceParticipantInstance records from the API with HTTP metadata.
@@ -792,15 +792,15 @@ export interface ConferenceParticipantListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConferenceParticipantPage>,
-    ) => any,
+      items: ApiResponse<ConferenceParticipantPage>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantPage>>;
   pageWithHttpInfo(
     params: ConferenceParticipantListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConferenceParticipantPage>,
-    ) => any,
+      items: ApiResponse<ConferenceParticipantPage>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantPage>>;
 
   /**
@@ -812,7 +812,7 @@ export interface ConferenceParticipantListInstance {
 
 export function ConferenceParticipantListInstance(
   version: V1,
-  conferenceSid: string,
+  conferenceSid: string
 ): ConferenceParticipantListInstance {
   if (!isValidPathParam(conferenceSid)) {
     throw new Error("Parameter 'conferenceSid' is not valid.");
@@ -825,7 +825,7 @@ export function ConferenceParticipantListInstance(
     return new ConferenceParticipantContextImpl(
       version,
       conferenceSid,
-      participantSid,
+      participantSid
     );
   };
 
@@ -837,7 +837,7 @@ export function ConferenceParticipantListInstance(
     params?:
       | ConferenceParticipantListInstancePageOptions
       | ((error: Error | null, items: ConferenceParticipantPage) => any),
-    callback?: (error: Error | null, items: ConferenceParticipantPage) => any,
+    callback?: (error: Error | null, items: ConferenceParticipantPage) => any
   ): Promise<ConferenceParticipantPage> {
     if (params instanceof Function) {
       callback = params;
@@ -873,13 +873,13 @@ export function ConferenceParticipantListInstance(
         new ConferenceParticipantPage(
           operationVersion,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -889,7 +889,7 @@ export function ConferenceParticipantListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConferenceParticipantPage) => any,
+    callback?: (error: Error | null, items: ConferenceParticipantPage) => any
   ): Promise<ConferenceParticipantPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -900,8 +900,8 @@ export function ConferenceParticipantListInstance(
         new ConferenceParticipantPage(
           instance._version,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -912,12 +912,12 @@ export function ConferenceParticipantListInstance(
       | ConferenceParticipantListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<ConferenceParticipantPage>,
+          items: ApiResponse<ConferenceParticipantPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConferenceParticipantPage>,
-    ) => any,
+      items: ApiResponse<ConferenceParticipantPage>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -952,13 +952,13 @@ export function ConferenceParticipantListInstance(
         body: new ConferenceParticipantPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -972,8 +972,8 @@ export function ConferenceParticipantListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ConferenceParticipantPage>,
-    ) => any,
+      items?: ApiResponse<ConferenceParticipantPage>
+    ) => any
   ): Promise<ApiResponse<ConferenceParticipantPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -988,9 +988,9 @@ export function ConferenceParticipantListInstance(
         body: new ConferenceParticipantPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1002,7 +1002,7 @@ export function ConferenceParticipantListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1026,7 +1026,7 @@ export class ConferenceParticipantPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: ConferenceParticipantSolution,
+    solution: ConferenceParticipantSolution
   ) {
     super(version, response, solution);
   }
@@ -1037,12 +1037,12 @@ export class ConferenceParticipantPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: ConferenceParticipantResource,
+    payload: ConferenceParticipantResource
   ): ConferenceParticipantInstance {
     return new ConferenceParticipantInstance(
       this._version,
       payload,
-      this._solution.conferenceSid,
+      this._solution.conferenceSid
     );
   }
 

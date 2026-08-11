@@ -114,7 +114,7 @@ export interface SearchListInstance {
    * @returns Resolves to processed SearchInstance
    */
   create(
-    callback?: (error: Error | null, item?: SearchInstance) => any,
+    callback?: (error: Error | null, item?: SearchInstance) => any
   ): Promise<SearchInstance>;
   /**
    * Create a SearchInstance
@@ -128,7 +128,7 @@ export interface SearchListInstance {
   create(
     params: KnowledgeSearch,
     headers?: any,
-    callback?: (error: Error | null, item?: SearchInstance) => any,
+    callback?: (error: Error | null, item?: SearchInstance) => any
   ): Promise<SearchInstance>;
 
   /**
@@ -139,7 +139,7 @@ export interface SearchListInstance {
    * @returns Resolves to processed SearchInstance with HTTP metadata
    */
   createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
   ): Promise<ApiResponse<SearchInstance>>;
   /**
    * Create a SearchInstance and return HTTP info
@@ -153,7 +153,7 @@ export interface SearchListInstance {
   createWithHttpInfo(
     params: KnowledgeSearch,
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
   ): Promise<ApiResponse<SearchInstance>>;
 
   /**
@@ -165,7 +165,7 @@ export interface SearchListInstance {
 
 export function SearchListInstance(
   version: V2,
-  kbId: string,
+  kbId: string
 ): SearchListInstance {
   if (!isValidPathParam(kbId)) {
     throw new Error("Parameter 'kbId' is not valid.");
@@ -181,7 +181,7 @@ export function SearchListInstance(
     params?:
       KnowledgeSearch | ((error: Error | null, items: SearchInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, items: SearchInstance) => any,
+    callback?: (error: Error | null, items: SearchInstance) => any
   ): Promise<SearchInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -211,12 +211,12 @@ export function SearchListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SearchInstance(operationVersion, payload, instance._solution.kbId),
+        new SearchInstance(operationVersion, payload, instance._solution.kbId)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -226,7 +226,7 @@ export function SearchListInstance(
       | KnowledgeSearch
       | ((error: Error | null, items: ApiResponse<SearchInstance>) => any),
     headers?: any,
-    callback?: (error: Error | null, items: ApiResponse<SearchInstance>) => any,
+    callback?: (error: Error | null, items: ApiResponse<SearchInstance>) => any
   ): Promise<ApiResponse<SearchInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -260,13 +260,13 @@ export function SearchListInstance(
         body: new SearchInstance(
           operationVersion,
           response.body,
-          instance._solution.kbId,
+          instance._solution.kbId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -277,7 +277,7 @@ export function SearchListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -293,13 +293,13 @@ export class SearchInstance {
   constructor(
     protected _version: V2,
     _payload: SearchResource,
-    kbId: string,
+    kbId: string
   ) {
     const payload = _payload;
     this.chunks =
       payload.chunks !== null && payload.chunks !== undefined
         ? payload.chunks.map(
-            (payload: any) => new KnowledgeChunkResult(payload),
+            (payload: any) => new KnowledgeChunkResult(payload)
           )
         : null;
   }

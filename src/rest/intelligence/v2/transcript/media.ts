@@ -36,7 +36,7 @@ export interface MediaContext {
    * @returns Resolves to processed MediaInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: MediaInstance) => any,
+    callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance>;
   /**
    * Fetch a MediaInstance
@@ -48,7 +48,7 @@ export interface MediaContext {
    */
   fetch(
     params: MediaContextFetchOptions,
-    callback?: (error: Error | null, item?: MediaInstance) => any,
+    callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance>;
 
   /**
@@ -59,7 +59,7 @@ export interface MediaContext {
    * @returns Resolves to processed MediaInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
   ): Promise<ApiResponse<MediaInstance>>;
   /**
    * Fetch a MediaInstance and return HTTP info
@@ -71,7 +71,7 @@ export interface MediaContext {
    */
   fetchWithHttpInfo(
     params: MediaContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
   ): Promise<ApiResponse<MediaInstance>>;
 
   /**
@@ -91,7 +91,7 @@ export class MediaContextImpl implements MediaContext {
 
   constructor(
     protected _version: V2,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -105,7 +105,7 @@ export class MediaContextImpl implements MediaContext {
     params?:
       | MediaContextFetchOptions
       | ((error: Error | null, item?: MediaInstance) => any),
-    callback?: (error: Error | null, item?: MediaInstance) => any,
+    callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -133,12 +133,12 @@ export class MediaContextImpl implements MediaContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new MediaInstance(operationVersion, payload, instance._solution.sid),
+        new MediaInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -147,7 +147,7 @@ export class MediaContextImpl implements MediaContext {
     params?:
       | MediaContextFetchOptions
       | ((error: Error | null, item?: ApiResponse<MediaInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
   ): Promise<ApiResponse<MediaInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -179,13 +179,13 @@ export class MediaContextImpl implements MediaContext {
         body: new MediaInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -221,7 +221,7 @@ export class MediaInstance {
   constructor(
     protected _version: V2,
     payload: MediaResource,
-    sid: string,
+    sid: string
   ) {
     this.accountSid = payload.account_sid;
     this.mediaUrl = payload.media_url;
@@ -267,7 +267,7 @@ export class MediaInstance {
    * @returns Resolves to processed MediaInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: MediaInstance) => any,
+    callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance>;
   /**
    * Fetch a MediaInstance
@@ -279,12 +279,12 @@ export class MediaInstance {
    */
   fetch(
     params: MediaContextFetchOptions,
-    callback?: (error: Error | null, item?: MediaInstance) => any,
+    callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: MediaInstance) => any,
+    callback?: (error: Error | null, item?: MediaInstance) => any
   ): Promise<MediaInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -297,7 +297,7 @@ export class MediaInstance {
    * @returns Resolves to processed MediaInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
   ): Promise<ApiResponse<MediaInstance>>;
   /**
    * Fetch a MediaInstance and return HTTP info
@@ -309,12 +309,12 @@ export class MediaInstance {
    */
   fetchWithHttpInfo(
     params: MediaContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
   ): Promise<ApiResponse<MediaInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<MediaInstance>) => any
   ): Promise<ApiResponse<MediaInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -379,7 +379,7 @@ export function MediaListInstance(version: V2, sid: string): MediaListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

@@ -34,7 +34,7 @@ export interface ProvisioningStatusContext {
    * @returns Resolves to processed ProvisioningStatusInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any,
+    callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any
   ): Promise<ProvisioningStatusInstance>;
 
   /**
@@ -47,8 +47,8 @@ export interface ProvisioningStatusContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ProvisioningStatusInstance>,
-    ) => any,
+      item?: ApiResponse<ProvisioningStatusInstance>
+    ) => any
   ): Promise<ApiResponse<ProvisioningStatusInstance>>;
 
   /**
@@ -70,7 +70,7 @@ export class ProvisioningStatusContextImpl implements ProvisioningStatusContext 
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any,
+    callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any
   ): Promise<ProvisioningStatusInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -84,12 +84,12 @@ export class ProvisioningStatusContextImpl implements ProvisioningStatusContext 
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ProvisioningStatusInstance(operationVersion, payload),
+      (payload) => new ProvisioningStatusInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -97,8 +97,8 @@ export class ProvisioningStatusContextImpl implements ProvisioningStatusContext 
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ProvisioningStatusInstance>,
-    ) => any,
+      item?: ApiResponse<ProvisioningStatusInstance>
+    ) => any
   ): Promise<ApiResponse<ProvisioningStatusInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -119,7 +119,7 @@ export class ProvisioningStatusContextImpl implements ProvisioningStatusContext 
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -151,7 +151,7 @@ export class ProvisioningStatusInstance {
 
   constructor(
     protected _version: V1,
-    payload: ProvisioningStatusResource,
+    payload: ProvisioningStatusResource
   ) {
     this.status = payload.status;
     this.url = payload.url;
@@ -179,7 +179,7 @@ export class ProvisioningStatusInstance {
    * @returns Resolves to processed ProvisioningStatusInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any,
+    callback?: (error: Error | null, item?: ProvisioningStatusInstance) => any
   ): Promise<ProvisioningStatusInstance> {
     return this._proxy.fetch(callback);
   }
@@ -194,8 +194,8 @@ export class ProvisioningStatusInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ProvisioningStatusInstance>,
-    ) => any,
+      item?: ApiResponse<ProvisioningStatusInstance>
+    ) => any
   ): Promise<ApiResponse<ProvisioningStatusInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -235,7 +235,7 @@ export interface ProvisioningStatusListInstance {
 }
 
 export function ProvisioningStatusListInstance(
-  version: V1,
+  version: V1
 ): ProvisioningStatusListInstance {
   const instance = (() => instance.get()) as ProvisioningStatusListInstance;
 
@@ -253,7 +253,7 @@ export function ProvisioningStatusListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

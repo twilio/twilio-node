@@ -98,7 +98,7 @@ export interface AddressConfigurationListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: AddressConfigurationInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -141,7 +141,7 @@ export interface AddressConfigurationContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -152,7 +152,7 @@ export interface AddressConfigurationContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -163,10 +163,7 @@ export interface AddressConfigurationContext {
    * @returns Resolves to processed AddressConfigurationInstance
    */
   fetch(
-    callback?: (
-      error: Error | null,
-      item?: AddressConfigurationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance>;
 
   /**
@@ -179,8 +176,8 @@ export interface AddressConfigurationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddressConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AddressConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance>>;
 
   /**
@@ -191,10 +188,7 @@ export interface AddressConfigurationContext {
    * @returns Resolves to processed AddressConfigurationInstance
    */
   update(
-    callback?: (
-      error: Error | null,
-      item?: AddressConfigurationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance>;
   /**
    * Update a AddressConfigurationInstance
@@ -206,10 +200,7 @@ export interface AddressConfigurationContext {
    */
   update(
     params: AddressConfigurationContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: AddressConfigurationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance>;
 
   /**
@@ -222,8 +213,8 @@ export interface AddressConfigurationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddressConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AddressConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance>>;
   /**
    * Update a AddressConfigurationInstance and return HTTP info
@@ -237,8 +228,8 @@ export interface AddressConfigurationContext {
     params: AddressConfigurationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddressConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AddressConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance>>;
 
   /**
@@ -258,7 +249,7 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
 
   constructor(
     protected _version: V1,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -269,7 +260,7 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -283,13 +274,13 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -305,16 +296,13 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (
-      error: Error | null,
-      item?: AddressConfigurationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -332,13 +320,13 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
         new AddressConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -346,8 +334,8 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddressConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AddressConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -366,13 +354,13 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
         body: new AddressConfigurationInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -381,10 +369,7 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
     params?:
       | AddressConfigurationContextUpdateOptions
       | ((error: Error | null, item?: AddressConfigurationInstance) => any),
-    callback?: (
-      error: Error | null,
-      item?: AddressConfigurationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -399,7 +384,7 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
       data["FriendlyName"] = params["friendlyName"];
     if (params["autoCreation.enabled"] !== undefined)
       data["AutoCreation.Enabled"] = serialize.bool(
-        params["autoCreation.enabled"],
+        params["autoCreation.enabled"]
       );
     if (params["autoCreation.type"] !== undefined)
       data["AutoCreation.Type"] = params["autoCreation.type"];
@@ -413,7 +398,7 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
     if (params["autoCreation.webhookFilters"] !== undefined)
       data["AutoCreation.WebhookFilters"] = serialize.map(
         params["autoCreation.webhookFilters"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["autoCreation.studioFlowSid"] !== undefined)
       data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
@@ -439,13 +424,13 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
         new AddressConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -455,12 +440,12 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
       | AddressConfigurationContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<AddressConfigurationInstance>,
+          item?: ApiResponse<AddressConfigurationInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddressConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AddressConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -475,7 +460,7 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
       data["FriendlyName"] = params["friendlyName"];
     if (params["autoCreation.enabled"] !== undefined)
       data["AutoCreation.Enabled"] = serialize.bool(
-        params["autoCreation.enabled"],
+        params["autoCreation.enabled"]
       );
     if (params["autoCreation.type"] !== undefined)
       data["AutoCreation.Type"] = params["autoCreation.type"];
@@ -489,7 +474,7 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
     if (params["autoCreation.webhookFilters"] !== undefined)
       data["AutoCreation.WebhookFilters"] = serialize.map(
         params["autoCreation.webhookFilters"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["autoCreation.studioFlowSid"] !== undefined)
       data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
@@ -516,13 +501,13 @@ export class AddressConfigurationContextImpl implements AddressConfigurationCont
         body: new AddressConfigurationInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -565,7 +550,7 @@ export class AddressConfigurationInstance {
   constructor(
     protected _version: V1,
     payload: AddressConfigurationResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -637,7 +622,7 @@ export class AddressConfigurationInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -650,7 +635,7 @@ export class AddressConfigurationInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -663,10 +648,7 @@ export class AddressConfigurationInstance {
    * @returns Resolves to processed AddressConfigurationInstance
    */
   fetch(
-    callback?: (
-      error: Error | null,
-      item?: AddressConfigurationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -681,8 +663,8 @@ export class AddressConfigurationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddressConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AddressConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -695,10 +677,7 @@ export class AddressConfigurationInstance {
    * @returns Resolves to processed AddressConfigurationInstance
    */
   update(
-    callback?: (
-      error: Error | null,
-      item?: AddressConfigurationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance>;
   /**
    * Update a AddressConfigurationInstance
@@ -710,18 +689,12 @@ export class AddressConfigurationInstance {
    */
   update(
     params: AddressConfigurationContextUpdateOptions,
-    callback?: (
-      error: Error | null,
-      item?: AddressConfigurationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance>;
 
   update(
     params?: any,
-    callback?: (
-      error: Error | null,
-      item?: AddressConfigurationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -736,8 +709,8 @@ export class AddressConfigurationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddressConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AddressConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance>>;
   /**
    * Update a AddressConfigurationInstance and return HTTP info
@@ -751,16 +724,16 @@ export class AddressConfigurationInstance {
     params: AddressConfigurationContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddressConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AddressConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddressConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AddressConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -810,10 +783,7 @@ export interface AddressConfigurationListInstance {
    */
   create(
     params: AddressConfigurationListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: AddressConfigurationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance>;
 
   /**
@@ -828,8 +798,8 @@ export interface AddressConfigurationListInstance {
     params: AddressConfigurationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AddressConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<AddressConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance>>;
 
   /**
@@ -850,15 +820,15 @@ export interface AddressConfigurationListInstance {
   each(
     callback?: (
       item: AddressConfigurationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: AddressConfigurationListInstanceEachOptions,
     callback?: (
       item: AddressConfigurationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams AddressConfigurationInstance records from the API with HTTP metadata captured per page.
@@ -878,15 +848,15 @@ export interface AddressConfigurationListInstance {
   eachWithHttpInfo(
     callback?: (
       item: AddressConfigurationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: AddressConfigurationListInstanceEachOptions,
     callback?: (
       item: AddressConfigurationInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of AddressConfigurationInstance records from the API.
@@ -898,7 +868,7 @@ export interface AddressConfigurationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AddressConfigurationPage) => any,
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any
   ): Promise<AddressConfigurationPage>;
   /**
    * Retrieve a single target page of AddressConfigurationInstance records from the API with HTTP metadata.
@@ -912,8 +882,8 @@ export interface AddressConfigurationListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AddressConfigurationPage>,
-    ) => any,
+      items: ApiResponse<AddressConfigurationPage>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationPage>>;
   /**
    * Lists AddressConfigurationInstance records from the API as a list.
@@ -927,15 +897,15 @@ export interface AddressConfigurationListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: AddressConfigurationInstance[],
-    ) => any,
+      items: AddressConfigurationInstance[]
+    ) => any
   ): Promise<AddressConfigurationInstance[]>;
   list(
     params: AddressConfigurationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: AddressConfigurationInstance[],
-    ) => any,
+      items: AddressConfigurationInstance[]
+    ) => any
   ): Promise<AddressConfigurationInstance[]>;
   /**
    * Lists AddressConfigurationInstance records from the API as a list with HTTP metadata.
@@ -951,15 +921,15 @@ export interface AddressConfigurationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AddressConfigurationInstance[]>,
-    ) => any,
+      items: ApiResponse<AddressConfigurationInstance[]>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance[]>>;
   listWithHttpInfo(
     params: AddressConfigurationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AddressConfigurationInstance[]>,
-    ) => any,
+      items: ApiResponse<AddressConfigurationInstance[]>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance[]>>;
   /**
    * Retrieve a single page of AddressConfigurationInstance records from the API.
@@ -973,11 +943,11 @@ export interface AddressConfigurationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AddressConfigurationPage) => any,
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any
   ): Promise<AddressConfigurationPage>;
   page(
     params: AddressConfigurationListInstancePageOptions,
-    callback?: (error: Error | null, items: AddressConfigurationPage) => any,
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any
   ): Promise<AddressConfigurationPage>;
   /**
    * Retrieve a single page of AddressConfigurationInstance records from the API with HTTP metadata.
@@ -993,15 +963,15 @@ export interface AddressConfigurationListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AddressConfigurationPage>,
-    ) => any,
+      items: ApiResponse<AddressConfigurationPage>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationPage>>;
   pageWithHttpInfo(
     params: AddressConfigurationListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AddressConfigurationPage>,
-    ) => any,
+      items: ApiResponse<AddressConfigurationPage>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationPage>>;
 
   /**
@@ -1012,7 +982,7 @@ export interface AddressConfigurationListInstance {
 }
 
 export function AddressConfigurationListInstance(
-  version: V1,
+  version: V1
 ): AddressConfigurationListInstance {
   const instance = ((sid) =>
     instance.get(sid)) as AddressConfigurationListInstance;
@@ -1027,10 +997,7 @@ export function AddressConfigurationListInstance(
 
   instance.create = function create(
     params: AddressConfigurationListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: AddressConfigurationInstance,
-    ) => any,
+    callback?: (error: Error | null, items: AddressConfigurationInstance) => any
   ): Promise<AddressConfigurationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1053,7 +1020,7 @@ export function AddressConfigurationListInstance(
       data["FriendlyName"] = params["friendlyName"];
     if (params["autoCreation.enabled"] !== undefined)
       data["AutoCreation.Enabled"] = serialize.bool(
-        params["autoCreation.enabled"],
+        params["autoCreation.enabled"]
       );
     if (params["autoCreation.type"] !== undefined)
       data["AutoCreation.Type"] = params["autoCreation.type"];
@@ -1067,7 +1034,7 @@ export function AddressConfigurationListInstance(
     if (params["autoCreation.webhookFilters"] !== undefined)
       data["AutoCreation.WebhookFilters"] = serialize.map(
         params["autoCreation.webhookFilters"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["autoCreation.studioFlowSid"] !== undefined)
       data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
@@ -1090,12 +1057,12 @@ export function AddressConfigurationListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AddressConfigurationInstance(operationVersion, payload),
+      (payload) => new AddressConfigurationInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1104,8 +1071,8 @@ export function AddressConfigurationListInstance(
     params: AddressConfigurationListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AddressConfigurationInstance>,
-    ) => any,
+      items: ApiResponse<AddressConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1128,7 +1095,7 @@ export function AddressConfigurationListInstance(
       data["FriendlyName"] = params["friendlyName"];
     if (params["autoCreation.enabled"] !== undefined)
       data["AutoCreation.Enabled"] = serialize.bool(
-        params["autoCreation.enabled"],
+        params["autoCreation.enabled"]
       );
     if (params["autoCreation.type"] !== undefined)
       data["AutoCreation.Type"] = params["autoCreation.type"];
@@ -1142,7 +1109,7 @@ export function AddressConfigurationListInstance(
     if (params["autoCreation.webhookFilters"] !== undefined)
       data["AutoCreation.WebhookFilters"] = serialize.map(
         params["autoCreation.webhookFilters"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["autoCreation.studioFlowSid"] !== undefined)
       data["AutoCreation.StudioFlowSid"] = params["autoCreation.studioFlowSid"];
@@ -1172,7 +1139,7 @@ export function AddressConfigurationListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1181,7 +1148,7 @@ export function AddressConfigurationListInstance(
     params?:
       | AddressConfigurationListInstancePageOptions
       | ((error: Error | null, items: AddressConfigurationPage) => any),
-    callback?: (error: Error | null, items: AddressConfigurationPage) => any,
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any
   ): Promise<AddressConfigurationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1214,13 +1181,13 @@ export function AddressConfigurationListInstance(
         new AddressConfigurationPage(
           operationVersion,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1230,7 +1197,7 @@ export function AddressConfigurationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AddressConfigurationPage) => any,
+    callback?: (error: Error | null, items: AddressConfigurationPage) => any
   ): Promise<AddressConfigurationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1241,8 +1208,8 @@ export function AddressConfigurationListInstance(
         new AddressConfigurationPage(
           instance._version,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1253,12 +1220,12 @@ export function AddressConfigurationListInstance(
       | AddressConfigurationListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<AddressConfigurationPage>,
+          items: ApiResponse<AddressConfigurationPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<AddressConfigurationPage>,
-    ) => any,
+      items: ApiResponse<AddressConfigurationPage>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1290,13 +1257,13 @@ export function AddressConfigurationListInstance(
         body: new AddressConfigurationPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1310,8 +1277,8 @@ export function AddressConfigurationListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<AddressConfigurationPage>,
-    ) => any,
+      items?: ApiResponse<AddressConfigurationPage>
+    ) => any
   ): Promise<ApiResponse<AddressConfigurationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1326,9 +1293,9 @@ export function AddressConfigurationListInstance(
         body: new AddressConfigurationPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1340,7 +1307,7 @@ export function AddressConfigurationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1364,7 +1331,7 @@ export class AddressConfigurationPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: AddressConfigurationSolution,
+    solution: AddressConfigurationSolution
   ) {
     super(version, response, solution);
   }
@@ -1375,7 +1342,7 @@ export class AddressConfigurationPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AddressConfigurationResource,
+    payload: AddressConfigurationResource
   ): AddressConfigurationInstance {
     return new AddressConfigurationInstance(this._version, payload);
   }

@@ -38,7 +38,7 @@ export interface TrunkContext {
    * @returns Resolves to processed TrunkInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TrunkInstance) => any,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance>;
 
   /**
@@ -49,7 +49,7 @@ export interface TrunkContext {
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
   ): Promise<ApiResponse<TrunkInstance>>;
 
   /**
@@ -60,7 +60,7 @@ export interface TrunkContext {
    * @returns Resolves to processed TrunkInstance
    */
   update(
-    callback?: (error: Error | null, item?: TrunkInstance) => any,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance>;
   /**
    * Update a TrunkInstance
@@ -72,7 +72,7 @@ export interface TrunkContext {
    */
   update(
     params: TrunkContextUpdateOptions,
-    callback?: (error: Error | null, item?: TrunkInstance) => any,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance>;
 
   /**
@@ -83,7 +83,7 @@ export interface TrunkContext {
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
   ): Promise<ApiResponse<TrunkInstance>>;
   /**
    * Update a TrunkInstance and return HTTP info
@@ -95,7 +95,7 @@ export interface TrunkContext {
    */
   updateWithHttpInfo(
     params: TrunkContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
   ): Promise<ApiResponse<TrunkInstance>>;
 
   /**
@@ -115,7 +115,7 @@ export class TrunkContextImpl implements TrunkContext {
 
   constructor(
     protected _version: V2,
-    sipTrunkDomain: string,
+    sipTrunkDomain: string
   ) {
     if (!isValidPathParam(sipTrunkDomain)) {
       throw new Error("Parameter 'sipTrunkDomain' is not valid.");
@@ -126,7 +126,7 @@ export class TrunkContextImpl implements TrunkContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: TrunkInstance) => any,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -144,19 +144,19 @@ export class TrunkContextImpl implements TrunkContext {
         new TrunkInstance(
           operationVersion,
           payload,
-          instance._solution.sipTrunkDomain,
-        ),
+          instance._solution.sipTrunkDomain
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
   ): Promise<ApiResponse<TrunkInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -175,13 +175,13 @@ export class TrunkContextImpl implements TrunkContext {
         body: new TrunkInstance(
           operationVersion,
           response.body,
-          instance._solution.sipTrunkDomain,
+          instance._solution.sipTrunkDomain
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -190,7 +190,7 @@ export class TrunkContextImpl implements TrunkContext {
     params?:
       | TrunkContextUpdateOptions
       | ((error: Error | null, item?: TrunkInstance) => any),
-    callback?: (error: Error | null, item?: TrunkInstance) => any,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -224,13 +224,13 @@ export class TrunkContextImpl implements TrunkContext {
         new TrunkInstance(
           operationVersion,
           payload,
-          instance._solution.sipTrunkDomain,
-        ),
+          instance._solution.sipTrunkDomain
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -239,7 +239,7 @@ export class TrunkContextImpl implements TrunkContext {
     params?:
       | TrunkContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<TrunkInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
   ): Promise<ApiResponse<TrunkInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -274,13 +274,13 @@ export class TrunkContextImpl implements TrunkContext {
         body: new TrunkInstance(
           operationVersion,
           response.body,
-          instance._solution.sipTrunkDomain,
+          instance._solution.sipTrunkDomain
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -319,7 +319,7 @@ export class TrunkInstance {
   constructor(
     protected _version: V2,
     payload: TrunkResource,
-    sipTrunkDomain?: string,
+    sipTrunkDomain?: string
   ) {
     this.sipTrunkDomain = payload.sip_trunk_domain;
     this.url = payload.url;
@@ -381,7 +381,7 @@ export class TrunkInstance {
    * @returns Resolves to processed TrunkInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: TrunkInstance) => any,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
     return this._proxy.fetch(callback);
   }
@@ -394,7 +394,7 @@ export class TrunkInstance {
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
   ): Promise<ApiResponse<TrunkInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -407,7 +407,7 @@ export class TrunkInstance {
    * @returns Resolves to processed TrunkInstance
    */
   update(
-    callback?: (error: Error | null, item?: TrunkInstance) => any,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance>;
   /**
    * Update a TrunkInstance
@@ -419,12 +419,12 @@ export class TrunkInstance {
    */
   update(
     params: TrunkContextUpdateOptions,
-    callback?: (error: Error | null, item?: TrunkInstance) => any,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: TrunkInstance) => any,
+    callback?: (error: Error | null, item?: TrunkInstance) => any
   ): Promise<TrunkInstance> {
     return this._proxy.update(params, callback);
   }
@@ -437,7 +437,7 @@ export class TrunkInstance {
    * @returns Resolves to processed TrunkInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
   ): Promise<ApiResponse<TrunkInstance>>;
   /**
    * Update a TrunkInstance and return HTTP info
@@ -449,12 +449,12 @@ export class TrunkInstance {
    */
   updateWithHttpInfo(
     params: TrunkContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
   ): Promise<ApiResponse<TrunkInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<TrunkInstance>) => any
   ): Promise<ApiResponse<TrunkInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -517,7 +517,7 @@ export function TrunkListInstance(version: V2): TrunkListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

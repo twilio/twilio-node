@@ -135,11 +135,11 @@ export interface ContentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: ContentListInstanceEachOptions,
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams ContentInstance records from the API with HTTP metadata captured per page.
@@ -157,11 +157,11 @@ export interface ContentListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: ContentListInstanceEachOptions,
-    callback?: (item: ContentInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ContentInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of ContentInstance records from the API.
@@ -173,7 +173,7 @@ export interface ContentListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ContentPage) => any,
+    callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage>;
   /**
    * Retrieve a single target page of ContentInstance records from the API with HTTP metadata.
@@ -185,7 +185,7 @@ export interface ContentListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any
   ): Promise<ApiResponse<ContentPage>>;
   /**
    * Lists ContentInstance records from the API as a list.
@@ -197,11 +197,11 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ContentInstance[]) => any,
+    callback?: (error: Error | null, items: ContentInstance[]) => any
   ): Promise<ContentInstance[]>;
   list(
     params: ContentListInstanceOptions,
-    callback?: (error: Error | null, items: ContentInstance[]) => any,
+    callback?: (error: Error | null, items: ContentInstance[]) => any
   ): Promise<ContentInstance[]>;
   /**
    * Lists ContentInstance records from the API as a list with HTTP metadata.
@@ -217,15 +217,15 @@ export interface ContentListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ContentInstance[]>,
-    ) => any,
+      items: ApiResponse<ContentInstance[]>
+    ) => any
   ): Promise<ApiResponse<ContentInstance[]>>;
   listWithHttpInfo(
     params: ContentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ContentInstance[]>,
-    ) => any,
+      items: ApiResponse<ContentInstance[]>
+    ) => any
   ): Promise<ApiResponse<ContentInstance[]>>;
   /**
    * Retrieve a single page of ContentInstance records from the API.
@@ -239,11 +239,11 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ContentPage) => any,
+    callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage>;
   page(
     params: ContentListInstancePageOptions,
-    callback?: (error: Error | null, items: ContentPage) => any,
+    callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage>;
   /**
    * Retrieve a single page of ContentInstance records from the API with HTTP metadata.
@@ -257,11 +257,11 @@ export interface ContentListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any
   ): Promise<ApiResponse<ContentPage>>;
   pageWithHttpInfo(
     params: ContentListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any
   ): Promise<ApiResponse<ContentPage>>;
 
   /**
@@ -282,7 +282,7 @@ export function ContentListInstance(version: V2): ContentListInstance {
     params?:
       | ContentListInstancePageOptions
       | ((error: Error | null, items: ContentPage) => any),
-    callback?: (error: Error | null, items: ContentPage) => any,
+    callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage> {
     if (params instanceof Function) {
       callback = params;
@@ -300,11 +300,11 @@ export function ContentListInstance(version: V2): ContentListInstance {
       data["SortByContentName"] = params["sortByContentName"];
     if (params["dateCreatedAfter"] !== undefined)
       data["DateCreatedAfter"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"],
+        params["dateCreatedAfter"]
       );
     if (params["dateCreatedBefore"] !== undefined)
       data["DateCreatedBefore"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"],
+        params["dateCreatedBefore"]
       );
     if (params["contentName"] !== undefined)
       data["ContentName"] = params["contentName"];
@@ -314,12 +314,12 @@ export function ContentListInstance(version: V2): ContentListInstance {
     if (params["contentType"] !== undefined)
       data["ContentType"] = serialize.map(
         params["contentType"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["channelEligibility"] !== undefined)
       data["ChannelEligibility"] = serialize.map(
         params["channelEligibility"],
-        (e: string) => e,
+        (e: string) => e
       );
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
@@ -338,12 +338,12 @@ export function ContentListInstance(version: V2): ContentListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ContentPage(operationVersion, payload, instance._solution),
+        new ContentPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -353,7 +353,7 @@ export function ContentListInstance(version: V2): ContentListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ContentPage) => any,
+    callback?: (error: Error | null, items: ContentPage) => any
   ): Promise<ContentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -361,7 +361,7 @@ export function ContentListInstance(version: V2): ContentListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ContentPage(instance._version, payload, instance._solution),
+        new ContentPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -371,7 +371,7 @@ export function ContentListInstance(version: V2): ContentListInstance {
     params?:
       | ContentListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ContentPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ContentPage>) => any
   ): Promise<ApiResponse<ContentPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -389,11 +389,11 @@ export function ContentListInstance(version: V2): ContentListInstance {
       data["SortByContentName"] = params["sortByContentName"];
     if (params["dateCreatedAfter"] !== undefined)
       data["DateCreatedAfter"] = serialize.iso8601DateTime(
-        params["dateCreatedAfter"],
+        params["dateCreatedAfter"]
       );
     if (params["dateCreatedBefore"] !== undefined)
       data["DateCreatedBefore"] = serialize.iso8601DateTime(
-        params["dateCreatedBefore"],
+        params["dateCreatedBefore"]
       );
     if (params["contentName"] !== undefined)
       data["ContentName"] = params["contentName"];
@@ -403,12 +403,12 @@ export function ContentListInstance(version: V2): ContentListInstance {
     if (params["contentType"] !== undefined)
       data["ContentType"] = serialize.map(
         params["contentType"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["channelEligibility"] !== undefined)
       data["ChannelEligibility"] = serialize.map(
         params["channelEligibility"],
-        (e: string) => e,
+        (e: string) => e
       );
 
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
@@ -431,7 +431,7 @@ export function ContentListInstance(version: V2): ContentListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -443,7 +443,7 @@ export function ContentListInstance(version: V2): ContentListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<ContentPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<ContentPage>) => any
   ): Promise<ApiResponse<ContentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -456,7 +456,7 @@ export function ContentListInstance(version: V2): ContentListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new ContentPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -468,7 +468,7 @@ export function ContentListInstance(version: V2): ContentListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -496,7 +496,7 @@ interface ContentResource {
 export class ContentInstance {
   constructor(
     protected _version: V2,
-    payload: ContentResource,
+    payload: ContentResource
   ) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -592,7 +592,7 @@ export class ContentPage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: ContentSolution,
+    solution: ContentSolution
   ) {
     super(version, response, solution);
   }

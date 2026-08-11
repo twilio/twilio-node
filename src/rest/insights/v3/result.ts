@@ -75,7 +75,7 @@ export interface ResultListInstance {
    * @returns Resolves to processed ResultInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ResultInstance) => any,
+    callback?: (error: Error | null, item?: ResultInstance) => any
   ): Promise<ResultInstance>;
   /**
    * Fetch a ResultInstance
@@ -87,7 +87,7 @@ export interface ResultListInstance {
    */
   fetch(
     params: ResultListInstanceFetchOptions,
-    callback?: (error: Error | null, item?: ResultInstance) => any,
+    callback?: (error: Error | null, item?: ResultInstance) => any
   ): Promise<ResultInstance>;
 
   /**
@@ -98,7 +98,7 @@ export interface ResultListInstance {
    * @returns Resolves to processed ResultInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ResultInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ResultInstance>) => any
   ): Promise<ApiResponse<ResultInstance>>;
   /**
    * Fetch a ResultInstance and return HTTP info
@@ -110,7 +110,7 @@ export interface ResultListInstance {
    */
   fetchWithHttpInfo(
     params: ResultListInstanceFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<ResultInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<ResultInstance>) => any
   ): Promise<ApiResponse<ResultInstance>>;
 
   /**
@@ -122,7 +122,7 @@ export interface ResultListInstance {
 
 export function ResultListInstance(
   version: V3,
-  operationId: string,
+  operationId: string
 ): ResultListInstance {
   if (!isValidPathParam(operationId)) {
     throw new Error("Parameter 'operationId' is not valid.");
@@ -138,7 +138,7 @@ export function ResultListInstance(
     params?:
       | ResultListInstanceFetchOptions
       | ((error: Error | null, items: ResultInstance) => any),
-    callback?: (error: Error | null, items: ResultInstance) => any,
+    callback?: (error: Error | null, items: ResultInstance) => any
   ): Promise<ResultInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -169,13 +169,13 @@ export function ResultListInstance(
         new ResultInstance(
           operationVersion,
           payload,
-          instance._solution.operationId,
-        ),
+          instance._solution.operationId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -184,7 +184,7 @@ export function ResultListInstance(
     params?:
       | ResultListInstanceFetchOptions
       | ((error: Error | null, items: ApiResponse<ResultInstance>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ResultInstance>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ResultInstance>) => any
   ): Promise<ApiResponse<ResultInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -216,13 +216,13 @@ export function ResultListInstance(
         body: new ResultInstance(
           operationVersion,
           response.body,
-          instance._solution.operationId,
+          instance._solution.operationId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -233,7 +233,7 @@ export function ResultListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -251,7 +251,7 @@ export class ResultInstance {
   constructor(
     protected _version: V3,
     _payload: ResultResource,
-    operationId: string,
+    operationId: string
   ) {
     const payload = _payload;
     this.domain = payload.domain;

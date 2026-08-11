@@ -80,7 +80,7 @@ export interface AuthorizationDocumentListInstanceEachOptions {
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (
     item: AuthorizationDocumentInstance,
-    done: (err?: Error) => void,
+    done: (err?: Error) => void
   ) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
@@ -131,8 +131,8 @@ export interface AuthorizationDocumentContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: AuthorizationDocumentInstance,
-    ) => any,
+      item?: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance>;
 
   /**
@@ -145,8 +145,8 @@ export interface AuthorizationDocumentContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizationDocumentInstance>,
-    ) => any,
+      item?: ApiResponse<AuthorizationDocumentInstance>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance>>;
 
   /**
@@ -159,8 +159,8 @@ export interface AuthorizationDocumentContext {
   update(
     callback?: (
       error: Error | null,
-      item?: AuthorizationDocumentInstance,
-    ) => any,
+      item?: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance>;
   /**
    * Update a AuthorizationDocumentInstance
@@ -174,8 +174,8 @@ export interface AuthorizationDocumentContext {
     params: AuthorizationDocumentContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: AuthorizationDocumentInstance,
-    ) => any,
+      item?: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance>;
 
   /**
@@ -188,8 +188,8 @@ export interface AuthorizationDocumentContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizationDocumentInstance>,
-    ) => any,
+      item?: ApiResponse<AuthorizationDocumentInstance>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance>>;
   /**
    * Update a AuthorizationDocumentInstance and return HTTP info
@@ -203,8 +203,8 @@ export interface AuthorizationDocumentContext {
     params: AuthorizationDocumentContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizationDocumentInstance>,
-    ) => any,
+      item?: ApiResponse<AuthorizationDocumentInstance>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance>>;
 
   /**
@@ -226,7 +226,7 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
 
   constructor(
     protected _version: HostedNumbers,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -246,8 +246,8 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
   fetch(
     callback?: (
       error: Error | null,
-      item?: AuthorizationDocumentInstance,
-    ) => any,
+      item?: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -265,13 +265,13 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
         new AuthorizationDocumentInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -279,8 +279,8 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizationDocumentInstance>,
-    ) => any,
+      item?: ApiResponse<AuthorizationDocumentInstance>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -299,13 +299,13 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
         body: new AuthorizationDocumentInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -316,8 +316,8 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
       | ((error: Error | null, item?: AuthorizationDocumentInstance) => any),
     callback?: (
       error: Error | null,
-      item?: AuthorizationDocumentInstance,
-    ) => any,
+      item?: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -331,7 +331,7 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
     if (params["hostedNumberOrderSids"] !== undefined)
       data["HostedNumberOrderSids"] = serialize.map(
         params["hostedNumberOrderSids"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["addressSid"] !== undefined)
       data["AddressSid"] = params["addressSid"];
@@ -362,13 +362,13 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
         new AuthorizationDocumentInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -378,12 +378,12 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
       | AuthorizationDocumentContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<AuthorizationDocumentInstance>,
+          item?: ApiResponse<AuthorizationDocumentInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizationDocumentInstance>,
-    ) => any,
+      item?: ApiResponse<AuthorizationDocumentInstance>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -397,7 +397,7 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
     if (params["hostedNumberOrderSids"] !== undefined)
       data["HostedNumberOrderSids"] = serialize.map(
         params["hostedNumberOrderSids"],
-        (e: string) => e,
+        (e: string) => e
       );
     if (params["addressSid"] !== undefined)
       data["AddressSid"] = params["addressSid"];
@@ -429,13 +429,13 @@ export class AuthorizationDocumentContextImpl implements AuthorizationDocumentCo
         body: new AuthorizationDocumentInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -477,7 +477,7 @@ export class AuthorizationDocumentInstance {
   constructor(
     protected _version: HostedNumbers,
     payload: AuthorizationDocumentResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.addressSid = payload.address_sid;
@@ -537,8 +537,8 @@ export class AuthorizationDocumentInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: AuthorizationDocumentInstance,
-    ) => any,
+      item?: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance> {
     return this._proxy.fetch(callback);
   }
@@ -553,8 +553,8 @@ export class AuthorizationDocumentInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizationDocumentInstance>,
-    ) => any,
+      item?: ApiResponse<AuthorizationDocumentInstance>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -569,8 +569,8 @@ export class AuthorizationDocumentInstance {
   update(
     callback?: (
       error: Error | null,
-      item?: AuthorizationDocumentInstance,
-    ) => any,
+      item?: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance>;
   /**
    * Update a AuthorizationDocumentInstance
@@ -584,16 +584,16 @@ export class AuthorizationDocumentInstance {
     params: AuthorizationDocumentContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: AuthorizationDocumentInstance,
-    ) => any,
+      item?: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance>;
 
   update(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: AuthorizationDocumentInstance,
-    ) => any,
+      item?: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance> {
     return this._proxy.update(params, callback);
   }
@@ -608,8 +608,8 @@ export class AuthorizationDocumentInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizationDocumentInstance>,
-    ) => any,
+      item?: ApiResponse<AuthorizationDocumentInstance>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance>>;
   /**
    * Update a AuthorizationDocumentInstance and return HTTP info
@@ -623,16 +623,16 @@ export class AuthorizationDocumentInstance {
     params: AuthorizationDocumentContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizationDocumentInstance>,
-    ) => any,
+      item?: ApiResponse<AuthorizationDocumentInstance>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizationDocumentInstance>,
-    ) => any,
+      item?: ApiResponse<AuthorizationDocumentInstance>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -690,8 +690,8 @@ export interface AuthorizationDocumentListInstance {
     params: AuthorizationDocumentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: AuthorizationDocumentInstance,
-    ) => any,
+      item?: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance>;
 
   /**
@@ -706,8 +706,8 @@ export interface AuthorizationDocumentListInstance {
     params: AuthorizationDocumentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<AuthorizationDocumentInstance>,
-    ) => any,
+      item?: ApiResponse<AuthorizationDocumentInstance>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance>>;
 
   /**
@@ -728,15 +728,15 @@ export interface AuthorizationDocumentListInstance {
   each(
     callback?: (
       item: AuthorizationDocumentInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   each(
     params: AuthorizationDocumentListInstanceEachOptions,
     callback?: (
       item: AuthorizationDocumentInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Streams AuthorizationDocumentInstance records from the API with HTTP metadata captured per page.
@@ -756,15 +756,15 @@ export interface AuthorizationDocumentListInstance {
   eachWithHttpInfo(
     callback?: (
       item: AuthorizationDocumentInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   eachWithHttpInfo(
     params: AuthorizationDocumentListInstanceEachOptions,
     callback?: (
       item: AuthorizationDocumentInstance,
-      done: (err?: Error) => void,
-    ) => void,
+      done: (err?: Error) => void
+    ) => void
   ): void;
   /**
    * Retrieve a single target page of AuthorizationDocumentInstance records from the API.
@@ -776,7 +776,7 @@ export interface AuthorizationDocumentListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any,
+    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage>;
   /**
    * Retrieve a single target page of AuthorizationDocumentInstance records from the API with HTTP metadata.
@@ -790,8 +790,8 @@ export interface AuthorizationDocumentListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthorizationDocumentPage>,
-    ) => any,
+      items: ApiResponse<AuthorizationDocumentPage>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentPage>>;
   /**
    * Lists AuthorizationDocumentInstance records from the API as a list.
@@ -805,15 +805,15 @@ export interface AuthorizationDocumentListInstance {
   list(
     callback?: (
       error: Error | null,
-      items: AuthorizationDocumentInstance[],
-    ) => any,
+      items: AuthorizationDocumentInstance[]
+    ) => any
   ): Promise<AuthorizationDocumentInstance[]>;
   list(
     params: AuthorizationDocumentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: AuthorizationDocumentInstance[],
-    ) => any,
+      items: AuthorizationDocumentInstance[]
+    ) => any
   ): Promise<AuthorizationDocumentInstance[]>;
   /**
    * Lists AuthorizationDocumentInstance records from the API as a list with HTTP metadata.
@@ -829,15 +829,15 @@ export interface AuthorizationDocumentListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthorizationDocumentInstance[]>,
-    ) => any,
+      items: ApiResponse<AuthorizationDocumentInstance[]>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance[]>>;
   listWithHttpInfo(
     params: AuthorizationDocumentListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthorizationDocumentInstance[]>,
-    ) => any,
+      items: ApiResponse<AuthorizationDocumentInstance[]>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance[]>>;
   /**
    * Retrieve a single page of AuthorizationDocumentInstance records from the API.
@@ -851,11 +851,11 @@ export interface AuthorizationDocumentListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any,
+    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage>;
   page(
     params: AuthorizationDocumentListInstancePageOptions,
-    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any,
+    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage>;
   /**
    * Retrieve a single page of AuthorizationDocumentInstance records from the API with HTTP metadata.
@@ -871,15 +871,15 @@ export interface AuthorizationDocumentListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthorizationDocumentPage>,
-    ) => any,
+      items: ApiResponse<AuthorizationDocumentPage>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentPage>>;
   pageWithHttpInfo(
     params: AuthorizationDocumentListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthorizationDocumentPage>,
-    ) => any,
+      items: ApiResponse<AuthorizationDocumentPage>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentPage>>;
 
   /**
@@ -890,7 +890,7 @@ export interface AuthorizationDocumentListInstance {
 }
 
 export function AuthorizationDocumentListInstance(
-  version: HostedNumbers,
+  version: HostedNumbers
 ): AuthorizationDocumentListInstance {
   const instance = ((sid) =>
     instance.get(sid)) as AuthorizationDocumentListInstance;
@@ -907,8 +907,8 @@ export function AuthorizationDocumentListInstance(
     params: AuthorizationDocumentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: AuthorizationDocumentInstance,
-    ) => any,
+      items: AuthorizationDocumentInstance
+    ) => any
   ): Promise<AuthorizationDocumentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -919,7 +919,7 @@ export function AuthorizationDocumentListInstance(
       params["hostedNumberOrderSids"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['hostedNumberOrderSids']\" missing.",
+        "Required parameter \"params['hostedNumberOrderSids']\" missing."
       );
     }
 
@@ -943,7 +943,7 @@ export function AuthorizationDocumentListInstance(
       params["contactPhoneNumber"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['contactPhoneNumber']\" missing.",
+        "Required parameter \"params['contactPhoneNumber']\" missing."
       );
     }
 
@@ -951,7 +951,7 @@ export function AuthorizationDocumentListInstance(
 
     data["HostedNumberOrderSids"] = serialize.map(
       params["hostedNumberOrderSids"],
-      (e: string) => e,
+      (e: string) => e
     );
 
     data["AddressSid"] = params["addressSid"];
@@ -977,12 +977,12 @@ export function AuthorizationDocumentListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new AuthorizationDocumentInstance(operationVersion, payload),
+      (payload) => new AuthorizationDocumentInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -991,8 +991,8 @@ export function AuthorizationDocumentListInstance(
     params: AuthorizationDocumentListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthorizationDocumentInstance>,
-    ) => any,
+      items: ApiResponse<AuthorizationDocumentInstance>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1003,7 +1003,7 @@ export function AuthorizationDocumentListInstance(
       params["hostedNumberOrderSids"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['hostedNumberOrderSids']\" missing.",
+        "Required parameter \"params['hostedNumberOrderSids']\" missing."
       );
     }
 
@@ -1027,7 +1027,7 @@ export function AuthorizationDocumentListInstance(
       params["contactPhoneNumber"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['contactPhoneNumber']\" missing.",
+        "Required parameter \"params['contactPhoneNumber']\" missing."
       );
     }
 
@@ -1035,7 +1035,7 @@ export function AuthorizationDocumentListInstance(
 
     data["HostedNumberOrderSids"] = serialize.map(
       params["hostedNumberOrderSids"],
-      (e: string) => e,
+      (e: string) => e
     );
 
     data["AddressSid"] = params["addressSid"];
@@ -1065,13 +1065,13 @@ export function AuthorizationDocumentListInstance(
         ...response,
         body: new AuthorizationDocumentInstance(
           operationVersion,
-          response.body,
+          response.body
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1080,7 +1080,7 @@ export function AuthorizationDocumentListInstance(
     params?:
       | AuthorizationDocumentListInstancePageOptions
       | ((error: Error | null, items: AuthorizationDocumentPage) => any),
-    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any,
+    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1114,13 +1114,13 @@ export function AuthorizationDocumentListInstance(
         new AuthorizationDocumentPage(
           operationVersion,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1130,7 +1130,7 @@ export function AuthorizationDocumentListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any,
+    callback?: (error: Error | null, items: AuthorizationDocumentPage) => any
   ): Promise<AuthorizationDocumentPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1141,8 +1141,8 @@ export function AuthorizationDocumentListInstance(
         new AuthorizationDocumentPage(
           instance._version,
           payload,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1153,12 +1153,12 @@ export function AuthorizationDocumentListInstance(
       | AuthorizationDocumentListInstancePageOptions
       | ((
           error: Error | null,
-          items: ApiResponse<AuthorizationDocumentPage>,
+          items: ApiResponse<AuthorizationDocumentPage>
         ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<AuthorizationDocumentPage>,
-    ) => any,
+      items: ApiResponse<AuthorizationDocumentPage>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1191,13 +1191,13 @@ export function AuthorizationDocumentListInstance(
         body: new AuthorizationDocumentPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1211,8 +1211,8 @@ export function AuthorizationDocumentListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<AuthorizationDocumentPage>,
-    ) => any,
+      items?: ApiResponse<AuthorizationDocumentPage>
+    ) => any
   ): Promise<ApiResponse<AuthorizationDocumentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1227,9 +1227,9 @@ export function AuthorizationDocumentListInstance(
         body: new AuthorizationDocumentPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1241,7 +1241,7 @@ export function AuthorizationDocumentListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1265,7 +1265,7 @@ export class AuthorizationDocumentPage extends Page<
   constructor(
     version: HostedNumbers,
     response: Response<string>,
-    solution: AuthorizationDocumentSolution,
+    solution: AuthorizationDocumentSolution
   ) {
     super(version, response, solution);
   }
@@ -1276,7 +1276,7 @@ export class AuthorizationDocumentPage extends Page<
    * @param payload - Payload response from the API
    */
   getInstance(
-    payload: AuthorizationDocumentResource,
+    payload: AuthorizationDocumentResource
   ): AuthorizationDocumentInstance {
     return new AuthorizationDocumentInstance(this._version, payload);
   }

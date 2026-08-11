@@ -195,10 +195,7 @@ export interface A2PBrandRegistrationListInstance {
   create(
     params: TrusthubV1A2pBrandRegistrationRequest,
     headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: A2PBrandRegistrationInstance,
-    ) => any,
+    callback?: (error: Error | null, item?: A2PBrandRegistrationInstance) => any
   ): Promise<A2PBrandRegistrationInstance>;
 
   /**
@@ -215,8 +212,8 @@ export interface A2PBrandRegistrationListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<A2PBrandRegistrationInstance>,
-    ) => any,
+      item?: ApiResponse<A2PBrandRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<A2PBrandRegistrationInstance>>;
 
   /**
@@ -227,7 +224,7 @@ export interface A2PBrandRegistrationListInstance {
 }
 
 export function A2PBrandRegistrationListInstance(
-  version: V1,
+  version: V1
 ): A2PBrandRegistrationListInstance {
   const instance = {} as A2PBrandRegistrationListInstance;
 
@@ -238,10 +235,7 @@ export function A2PBrandRegistrationListInstance(
   instance.create = function create(
     params: TrusthubV1A2pBrandRegistrationRequest,
     headers?: any,
-    callback?: (
-      error: Error | null,
-      items: A2PBrandRegistrationInstance,
-    ) => any,
+    callback?: (error: Error | null, items: A2PBrandRegistrationInstance) => any
   ): Promise<A2PBrandRegistrationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -267,12 +261,12 @@ export function A2PBrandRegistrationListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new A2PBrandRegistrationInstance(operationVersion, payload),
+      (payload) => new A2PBrandRegistrationInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -282,8 +276,8 @@ export function A2PBrandRegistrationListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<A2PBrandRegistrationInstance>,
-    ) => any,
+      items: ApiResponse<A2PBrandRegistrationInstance>
+    ) => any
   ): Promise<ApiResponse<A2PBrandRegistrationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -316,7 +310,7 @@ export function A2PBrandRegistrationListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -327,7 +321,7 @@ export function A2PBrandRegistrationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -346,7 +340,7 @@ interface A2PBrandRegistrationResource {
 export class A2PBrandRegistrationInstance {
   constructor(
     protected _version: V1,
-    payload: A2PBrandRegistrationResource,
+    payload: A2PBrandRegistrationResource
   ) {
     this.id = payload.id;
     this.sessionId = payload.sessionId;

@@ -76,7 +76,7 @@ export interface RateLimitListInstance {
    * @returns Resolves to processed RateLimitInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: RateLimitInstance) => any,
+    callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance>;
   /**
    * Fetch a RateLimitInstance
@@ -88,7 +88,7 @@ export interface RateLimitListInstance {
    */
   fetch(
     params: RateLimitListInstanceFetchOptions,
-    callback?: (error: Error | null, item?: RateLimitInstance) => any,
+    callback?: (error: Error | null, item?: RateLimitInstance) => any
   ): Promise<RateLimitInstance>;
 
   /**
@@ -101,8 +101,8 @@ export interface RateLimitListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RateLimitInstance>,
-    ) => any,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
   ): Promise<ApiResponse<RateLimitInstance>>;
   /**
    * Fetch a RateLimitInstance and return HTTP info
@@ -116,8 +116,8 @@ export interface RateLimitListInstance {
     params: RateLimitListInstanceFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<RateLimitInstance>,
-    ) => any,
+      item?: ApiResponse<RateLimitInstance>
+    ) => any
   ): Promise<ApiResponse<RateLimitInstance>>;
 
   /**
@@ -138,7 +138,7 @@ export function RateLimitListInstance(version: V2): RateLimitListInstance {
     params?:
       | RateLimitListInstanceFetchOptions
       | ((error: Error | null, items: RateLimitInstance) => any),
-    callback?: (error: Error | null, items: RateLimitInstance) => any,
+    callback?: (error: Error | null, items: RateLimitInstance) => any
   ): Promise<RateLimitInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -164,12 +164,12 @@ export function RateLimitListInstance(version: V2): RateLimitListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new RateLimitInstance(operationVersion, payload),
+      (payload) => new RateLimitInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -180,8 +180,8 @@ export function RateLimitListInstance(version: V2): RateLimitListInstance {
       | ((error: Error | null, items: ApiResponse<RateLimitInstance>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<RateLimitInstance>,
-    ) => any,
+      items: ApiResponse<RateLimitInstance>
+    ) => any
   ): Promise<ApiResponse<RateLimitInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -214,7 +214,7 @@ export function RateLimitListInstance(version: V2): RateLimitListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -225,7 +225,7 @@ export function RateLimitListInstance(version: V2): RateLimitListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -242,12 +242,12 @@ interface RateLimitResource {
 export class RateLimitInstance {
   constructor(
     protected _version: V2,
-    payload: RateLimitResource,
+    payload: RateLimitResource
   ) {
     this.rateLimits =
       payload.rate_limits !== null && payload.rate_limits !== undefined
         ? payload.rate_limits.map(
-            (payload: any) => new RateLimitResponse(payload),
+            (payload: any) => new RateLimitResponse(payload)
           )
         : null;
   }

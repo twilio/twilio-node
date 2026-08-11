@@ -28,7 +28,7 @@ export interface ApprovalFetchContext {
    * @returns Resolves to processed ApprovalFetchInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ApprovalFetchInstance) => any,
+    callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
   ): Promise<ApprovalFetchInstance>;
 
   /**
@@ -41,8 +41,8 @@ export interface ApprovalFetchContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApprovalFetchInstance>,
-    ) => any,
+      item?: ApiResponse<ApprovalFetchInstance>
+    ) => any
   ): Promise<ApiResponse<ApprovalFetchInstance>>;
 
   /**
@@ -62,7 +62,7 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
 
   constructor(
     protected _version: V1,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -73,7 +73,7 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ApprovalFetchInstance) => any,
+    callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
   ): Promise<ApprovalFetchInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -91,13 +91,13 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
         new ApprovalFetchInstance(
           operationVersion,
           payload,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -105,8 +105,8 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApprovalFetchInstance>,
-    ) => any,
+      item?: ApiResponse<ApprovalFetchInstance>
+    ) => any
   ): Promise<ApiResponse<ApprovalFetchInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -125,13 +125,13 @@ export class ApprovalFetchContextImpl implements ApprovalFetchContext {
         body: new ApprovalFetchInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -166,7 +166,7 @@ export class ApprovalFetchInstance {
   constructor(
     protected _version: V1,
     payload: ApprovalFetchResource,
-    sid: string,
+    sid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -208,7 +208,7 @@ export class ApprovalFetchInstance {
    * @returns Resolves to processed ApprovalFetchInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ApprovalFetchInstance) => any,
+    callback?: (error: Error | null, item?: ApprovalFetchInstance) => any
   ): Promise<ApprovalFetchInstance> {
     return this._proxy.fetch(callback);
   }
@@ -223,8 +223,8 @@ export class ApprovalFetchInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApprovalFetchInstance>,
-    ) => any,
+      item?: ApiResponse<ApprovalFetchInstance>
+    ) => any
   ): Promise<ApiResponse<ApprovalFetchInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -269,7 +269,7 @@ export interface ApprovalFetchListInstance {
 
 export function ApprovalFetchListInstance(
   version: V1,
-  sid: string,
+  sid: string
 ): ApprovalFetchListInstance {
   if (!isValidPathParam(sid)) {
     throw new Error("Parameter 'sid' is not valid.");
@@ -291,7 +291,7 @@ export function ApprovalFetchListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

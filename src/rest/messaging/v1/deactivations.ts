@@ -46,7 +46,7 @@ export interface DeactivationsContext {
    */
   fetch(
     params: DeactivationsContextFetchOptions,
-    callback?: (error: Error | null, item?: void) => any,
+    callback?: (error: Error | null, item?: void) => any
   ): Promise<void>;
 
   /**
@@ -57,7 +57,7 @@ export interface DeactivationsContext {
    * @returns Resolves to processed void with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
   ): Promise<ApiResponse<void>>;
   /**
    * Fetch a DeactivationsInstance and return HTTP info
@@ -69,7 +69,7 @@ export interface DeactivationsContext {
    */
   fetchWithHttpInfo(
     params: DeactivationsContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
   ): Promise<ApiResponse<void>>;
 
   /**
@@ -94,7 +94,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
     params?:
       | DeactivationsContextFetchOptions
       | ((error: Error | null, item?: void) => any),
-    callback?: (error: Error | null, item?: void) => any,
+    callback?: (error: Error | null, item?: void) => any
   ): Promise<void> {
     if (params instanceof Function) {
       callback = params;
@@ -122,7 +122,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -131,7 +131,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
     params?:
       | DeactivationsContextFetchOptions
       | ((error: Error | null, item?: ApiResponse<void>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
   ): Promise<ApiResponse<void>> {
     if (params instanceof Function) {
       callback = params;
@@ -165,7 +165,7 @@ export class DeactivationsContextImpl implements DeactivationsContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -196,7 +196,7 @@ export class DeactivationsInstance {
 
   constructor(
     protected _version: V1,
-    payload: DeactivationsResource,
+    payload: DeactivationsResource
   ) {
     this.redirectTo = payload.redirect_to;
 
@@ -232,12 +232,12 @@ export class DeactivationsInstance {
    */
   fetch(
     params: DeactivationsContextFetchOptions,
-    callback?: (error: Error | null, item?: void) => any,
+    callback?: (error: Error | null, item?: void) => any
   ): Promise<void>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: void) => any,
+    callback?: (error: Error | null, item?: void) => any
   ): Promise<void> {
     return this._proxy.fetch(params, callback);
   }
@@ -250,7 +250,7 @@ export class DeactivationsInstance {
    * @returns Resolves to processed void with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
   ): Promise<ApiResponse<void>>;
   /**
    * Fetch a DeactivationsInstance and return HTTP info
@@ -262,12 +262,12 @@ export class DeactivationsInstance {
    */
   fetchWithHttpInfo(
     params: DeactivationsContextFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
   ): Promise<ApiResponse<void>>;
 
   fetchWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
   ): Promise<ApiResponse<void>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -306,7 +306,7 @@ export interface DeactivationsListInstance {
 }
 
 export function DeactivationsListInstance(
-  version: V1,
+  version: V1
 ): DeactivationsListInstance {
   const instance = (() => instance.get()) as DeactivationsListInstance;
 
@@ -324,7 +324,7 @@ export function DeactivationsListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

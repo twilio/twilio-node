@@ -30,8 +30,8 @@ export interface LinkshorteningMessagingServiceDomainAssociationContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: LinkshorteningMessagingServiceDomainAssociationInstance,
-    ) => any,
+      item?: LinkshorteningMessagingServiceDomainAssociationInstance
+    ) => any
   ): Promise<LinkshorteningMessagingServiceDomainAssociationInstance>;
 
   /**
@@ -44,8 +44,8 @@ export interface LinkshorteningMessagingServiceDomainAssociationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>,
-    ) => any,
+      item?: ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
+    ) => any
   ): Promise<
     ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
   >;
@@ -67,7 +67,7 @@ export class LinkshorteningMessagingServiceDomainAssociationContextImpl implemen
 
   constructor(
     protected _version: V1,
-    messagingServiceSid: string,
+    messagingServiceSid: string
   ) {
     if (!isValidPathParam(messagingServiceSid)) {
       throw new Error("Parameter 'messagingServiceSid' is not valid.");
@@ -80,8 +80,8 @@ export class LinkshorteningMessagingServiceDomainAssociationContextImpl implemen
   fetch(
     callback?: (
       error: Error | null,
-      item?: LinkshorteningMessagingServiceDomainAssociationInstance,
-    ) => any,
+      item?: LinkshorteningMessagingServiceDomainAssociationInstance
+    ) => any
   ): Promise<LinkshorteningMessagingServiceDomainAssociationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -99,13 +99,13 @@ export class LinkshorteningMessagingServiceDomainAssociationContextImpl implemen
         new LinkshorteningMessagingServiceDomainAssociationInstance(
           operationVersion,
           payload,
-          instance._solution.messagingServiceSid,
-        ),
+          instance._solution.messagingServiceSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -113,8 +113,8 @@ export class LinkshorteningMessagingServiceDomainAssociationContextImpl implemen
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>,
-    ) => any,
+      item?: ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
+    ) => any
   ): Promise<
     ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
   > {
@@ -126,24 +126,24 @@ export class LinkshorteningMessagingServiceDomainAssociationContextImpl implemen
     // CREATE, FETCH, UPDATE operations
     let operationPromise = operationVersion
       .fetchWithResponseInfo<LinkshorteningMessagingServiceDomainAssociationResource>(
-        { uri: instance._uri, method: "get", headers },
+        { uri: instance._uri, method: "get", headers }
       )
       .then(
         (
-          response,
+          response
         ): ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance> => ({
           ...response,
           body: new LinkshorteningMessagingServiceDomainAssociationInstance(
             operationVersion,
             response.body,
-            instance._solution.messagingServiceSid,
+            instance._solution.messagingServiceSid
           ),
-        }),
+        })
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -177,7 +177,7 @@ export class LinkshorteningMessagingServiceDomainAssociationInstance {
   constructor(
     protected _version: V1,
     payload: LinkshorteningMessagingServiceDomainAssociationResource,
-    messagingServiceSid?: string,
+    messagingServiceSid?: string
   ) {
     this.domainSid = payload.domain_sid;
     this.messagingServiceSid = payload.messaging_service_sid;
@@ -201,7 +201,7 @@ export class LinkshorteningMessagingServiceDomainAssociationInstance {
       this._context ||
       new LinkshorteningMessagingServiceDomainAssociationContextImpl(
         this._version,
-        this._solution.messagingServiceSid,
+        this._solution.messagingServiceSid
       );
     return this._context;
   }
@@ -216,8 +216,8 @@ export class LinkshorteningMessagingServiceDomainAssociationInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: LinkshorteningMessagingServiceDomainAssociationInstance,
-    ) => any,
+      item?: LinkshorteningMessagingServiceDomainAssociationInstance
+    ) => any
   ): Promise<LinkshorteningMessagingServiceDomainAssociationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -232,8 +232,8 @@ export class LinkshorteningMessagingServiceDomainAssociationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>,
-    ) => any,
+      item?: ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
+    ) => any
   ): Promise<
     ApiResponse<LinkshorteningMessagingServiceDomainAssociationInstance>
   > {
@@ -266,10 +266,10 @@ export interface LinkshorteningMessagingServiceDomainAssociationListInstance {
   _uri: string;
 
   (
-    messagingServiceSid: string,
+    messagingServiceSid: string
   ): LinkshorteningMessagingServiceDomainAssociationContext;
   get(
-    messagingServiceSid: string,
+    messagingServiceSid: string
   ): LinkshorteningMessagingServiceDomainAssociationContext;
 
   /**
@@ -280,19 +280,19 @@ export interface LinkshorteningMessagingServiceDomainAssociationListInstance {
 }
 
 export function LinkshorteningMessagingServiceDomainAssociationListInstance(
-  version: V1,
+  version: V1
 ): LinkshorteningMessagingServiceDomainAssociationListInstance {
   const instance = ((messagingServiceSid) =>
     instance.get(
-      messagingServiceSid,
+      messagingServiceSid
     )) as LinkshorteningMessagingServiceDomainAssociationListInstance;
 
   instance.get = function get(
-    messagingServiceSid,
+    messagingServiceSid
   ): LinkshorteningMessagingServiceDomainAssociationContext {
     return new LinkshorteningMessagingServiceDomainAssociationContextImpl(
       version,
-      messagingServiceSid,
+      messagingServiceSid
     );
   };
 
@@ -306,7 +306,7 @@ export function LinkshorteningMessagingServiceDomainAssociationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

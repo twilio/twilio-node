@@ -30,8 +30,8 @@ export interface CustomerProfilesProvisionalCopyContext {
   create(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesProvisionalCopyInstance,
-    ) => any,
+      item?: CustomerProfilesProvisionalCopyInstance
+    ) => any
   ): Promise<CustomerProfilesProvisionalCopyInstance>;
 
   /**
@@ -44,8 +44,8 @@ export interface CustomerProfilesProvisionalCopyContext {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>>;
 
   /**
@@ -58,8 +58,8 @@ export interface CustomerProfilesProvisionalCopyContext {
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesProvisionalCopyInstance,
-    ) => any,
+      item?: CustomerProfilesProvisionalCopyInstance
+    ) => any
   ): Promise<CustomerProfilesProvisionalCopyInstance>;
 
   /**
@@ -72,8 +72,8 @@ export interface CustomerProfilesProvisionalCopyContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>>;
 
   /**
@@ -93,7 +93,7 @@ export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfi
 
   constructor(
     protected _version: V1,
-    customerProfileSid: string,
+    customerProfileSid: string
   ) {
     if (!isValidPathParam(customerProfileSid)) {
       throw new Error("Parameter 'customerProfileSid' is not valid.");
@@ -106,8 +106,8 @@ export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfi
   create(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesProvisionalCopyInstance,
-    ) => any,
+      item?: CustomerProfilesProvisionalCopyInstance
+    ) => any
   ): Promise<CustomerProfilesProvisionalCopyInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -125,13 +125,13 @@ export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfi
         new CustomerProfilesProvisionalCopyInstance(
           operationVersion,
           payload,
-          instance._solution.customerProfileSid,
-        ),
+          instance._solution.customerProfileSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -139,8 +139,8 @@ export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfi
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -160,14 +160,14 @@ export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfi
           body: new CustomerProfilesProvisionalCopyInstance(
             operationVersion,
             response.body,
-            instance._solution.customerProfileSid,
+            instance._solution.customerProfileSid
           ),
-        }),
+        })
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -175,8 +175,8 @@ export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfi
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesProvisionalCopyInstance,
-    ) => any,
+      item?: CustomerProfilesProvisionalCopyInstance
+    ) => any
   ): Promise<CustomerProfilesProvisionalCopyInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -194,13 +194,13 @@ export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfi
         new CustomerProfilesProvisionalCopyInstance(
           operationVersion,
           payload,
-          instance._solution.customerProfileSid,
-        ),
+          instance._solution.customerProfileSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -208,8 +208,8 @@ export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfi
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -229,14 +229,14 @@ export class CustomerProfilesProvisionalCopyContextImpl implements CustomerProfi
           body: new CustomerProfilesProvisionalCopyInstance(
             operationVersion,
             response.body,
-            instance._solution.customerProfileSid,
+            instance._solution.customerProfileSid
           ),
-        }),
+        })
       );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -278,7 +278,7 @@ export class CustomerProfilesProvisionalCopyInstance {
   constructor(
     protected _version: V1,
     payload: CustomerProfilesProvisionalCopyResource,
-    customerProfileSid?: string,
+    customerProfileSid?: string
   ) {
     this.customerProfileSid = payload.customer_profile_sid;
     this.accountSid = payload.account_sid;
@@ -345,7 +345,7 @@ export class CustomerProfilesProvisionalCopyInstance {
       this._context ||
       new CustomerProfilesProvisionalCopyContextImpl(
         this._version,
-        this._solution.customerProfileSid,
+        this._solution.customerProfileSid
       );
     return this._context;
   }
@@ -360,8 +360,8 @@ export class CustomerProfilesProvisionalCopyInstance {
   create(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesProvisionalCopyInstance,
-    ) => any,
+      item?: CustomerProfilesProvisionalCopyInstance
+    ) => any
   ): Promise<CustomerProfilesProvisionalCopyInstance> {
     return this._proxy.create(callback);
   }
@@ -376,8 +376,8 @@ export class CustomerProfilesProvisionalCopyInstance {
   createWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>> {
     return this._proxy.createWithHttpInfo(callback);
   }
@@ -392,8 +392,8 @@ export class CustomerProfilesProvisionalCopyInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: CustomerProfilesProvisionalCopyInstance,
-    ) => any,
+      item?: CustomerProfilesProvisionalCopyInstance
+    ) => any
   ): Promise<CustomerProfilesProvisionalCopyInstance> {
     return this._proxy.fetch(callback);
   }
@@ -408,8 +408,8 @@ export class CustomerProfilesProvisionalCopyInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>,
-    ) => any,
+      item?: ApiResponse<CustomerProfilesProvisionalCopyInstance>
+    ) => any
   ): Promise<ApiResponse<CustomerProfilesProvisionalCopyInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -458,19 +458,19 @@ export interface CustomerProfilesProvisionalCopyListInstance {
 }
 
 export function CustomerProfilesProvisionalCopyListInstance(
-  version: V1,
+  version: V1
 ): CustomerProfilesProvisionalCopyListInstance {
   const instance = ((customerProfileSid) =>
     instance.get(
-      customerProfileSid,
+      customerProfileSid
     )) as CustomerProfilesProvisionalCopyListInstance;
 
   instance.get = function get(
-    customerProfileSid,
+    customerProfileSid
   ): CustomerProfilesProvisionalCopyContext {
     return new CustomerProfilesProvisionalCopyContextImpl(
       version,
-      customerProfileSid,
+      customerProfileSid
     );
   };
 
@@ -484,7 +484,7 @@ export function CustomerProfilesProvisionalCopyListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

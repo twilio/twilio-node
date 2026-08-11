@@ -87,11 +87,11 @@ export interface TemplateListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: TemplateListInstanceEachOptions,
-    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams TemplateInstance records from the API with HTTP metadata captured per page.
@@ -109,11 +109,11 @@ export interface TemplateListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: TemplateListInstanceEachOptions,
-    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void,
+    callback?: (item: TemplateInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of TemplateInstance records from the API.
@@ -125,7 +125,7 @@ export interface TemplateListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TemplatePage) => any,
+    callback?: (error: Error | null, items: TemplatePage) => any
   ): Promise<TemplatePage>;
   /**
    * Retrieve a single target page of TemplateInstance records from the API with HTTP metadata.
@@ -137,7 +137,7 @@ export interface TemplateListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<TemplatePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TemplatePage>) => any
   ): Promise<ApiResponse<TemplatePage>>;
   /**
    * Lists TemplateInstance records from the API as a list.
@@ -149,11 +149,11 @@ export interface TemplateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: TemplateInstance[]) => any,
+    callback?: (error: Error | null, items: TemplateInstance[]) => any
   ): Promise<TemplateInstance[]>;
   list(
     params: TemplateListInstanceOptions,
-    callback?: (error: Error | null, items: TemplateInstance[]) => any,
+    callback?: (error: Error | null, items: TemplateInstance[]) => any
   ): Promise<TemplateInstance[]>;
   /**
    * Lists TemplateInstance records from the API as a list with HTTP metadata.
@@ -169,15 +169,15 @@ export interface TemplateListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<TemplateInstance[]>,
-    ) => any,
+      items: ApiResponse<TemplateInstance[]>
+    ) => any
   ): Promise<ApiResponse<TemplateInstance[]>>;
   listWithHttpInfo(
     params: TemplateListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<TemplateInstance[]>,
-    ) => any,
+      items: ApiResponse<TemplateInstance[]>
+    ) => any
   ): Promise<ApiResponse<TemplateInstance[]>>;
   /**
    * Retrieve a single page of TemplateInstance records from the API.
@@ -191,11 +191,11 @@ export interface TemplateListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: TemplatePage) => any,
+    callback?: (error: Error | null, items: TemplatePage) => any
   ): Promise<TemplatePage>;
   page(
     params: TemplateListInstancePageOptions,
-    callback?: (error: Error | null, items: TemplatePage) => any,
+    callback?: (error: Error | null, items: TemplatePage) => any
   ): Promise<TemplatePage>;
   /**
    * Retrieve a single page of TemplateInstance records from the API with HTTP metadata.
@@ -209,11 +209,11 @@ export interface TemplateListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<TemplatePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TemplatePage>) => any
   ): Promise<ApiResponse<TemplatePage>>;
   pageWithHttpInfo(
     params: TemplateListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<TemplatePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TemplatePage>) => any
   ): Promise<ApiResponse<TemplatePage>>;
 
   /**
@@ -234,7 +234,7 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
     params?:
       | TemplateListInstancePageOptions
       | ((error: Error | null, items: TemplatePage) => any),
-    callback?: (error: Error | null, items: TemplatePage) => any,
+    callback?: (error: Error | null, items: TemplatePage) => any
   ): Promise<TemplatePage> {
     if (params instanceof Function) {
       callback = params;
@@ -265,12 +265,12 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new TemplatePage(operationVersion, payload, instance._solution),
+        new TemplatePage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -280,7 +280,7 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: TemplatePage) => any,
+    callback?: (error: Error | null, items: TemplatePage) => any
   ): Promise<TemplatePage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -288,7 +288,7 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new TemplatePage(instance._version, payload, instance._solution),
+        new TemplatePage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -298,7 +298,7 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
     params?:
       | TemplateListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<TemplatePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<TemplatePage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<TemplatePage>) => any
   ): Promise<ApiResponse<TemplatePage>> {
     if (params instanceof Function) {
       callback = params;
@@ -333,7 +333,7 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -345,7 +345,7 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<TemplatePage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<TemplatePage>) => any
   ): Promise<ApiResponse<TemplatePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -358,7 +358,7 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new TemplatePage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -370,7 +370,7 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -393,7 +393,7 @@ interface TemplateResource {
 export class TemplateInstance {
   constructor(
     protected _version: V2,
-    payload: TemplateResource,
+    payload: TemplateResource
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
@@ -459,7 +459,7 @@ export class TemplatePage extends Page<
   constructor(
     version: V2,
     response: Response<string>,
-    solution: TemplateSolution,
+    solution: TemplateSolution
   ) {
     super(version, response, solution);
   }

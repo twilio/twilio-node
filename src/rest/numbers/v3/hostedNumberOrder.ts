@@ -91,7 +91,7 @@ export interface HostedNumberOrderListInstance {
    */
   create(
     params: HostedNumberOrderListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any,
+    callback?: (error: Error | null, item?: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance>;
 
   /**
@@ -106,8 +106,8 @@ export interface HostedNumberOrderListInstance {
     params: HostedNumberOrderListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<HostedNumberOrderInstance>,
-    ) => any,
+      item?: ApiResponse<HostedNumberOrderInstance>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance>>;
 
   /**
@@ -118,7 +118,7 @@ export interface HostedNumberOrderListInstance {
 }
 
 export function HostedNumberOrderListInstance(
-  version: V3,
+  version: V3
 ): HostedNumberOrderListInstance {
   const instance = {} as HostedNumberOrderListInstance;
 
@@ -128,7 +128,7 @@ export function HostedNumberOrderListInstance(
 
   instance.create = function create(
     params: HostedNumberOrderListInstanceCreateOptions,
-    callback?: (error: Error | null, items: HostedNumberOrderInstance) => any,
+    callback?: (error: Error | null, items: HostedNumberOrderInstance) => any
   ): Promise<HostedNumberOrderInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -143,7 +143,7 @@ export function HostedNumberOrderListInstance(
       params["smsCapability"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['smsCapability']\" missing.",
+        "Required parameter \"params['smsCapability']\" missing."
       );
     }
 
@@ -194,12 +194,12 @@ export function HostedNumberOrderListInstance(
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new HostedNumberOrderInstance(operationVersion, payload),
+      (payload) => new HostedNumberOrderInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -208,8 +208,8 @@ export function HostedNumberOrderListInstance(
     params: HostedNumberOrderListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<HostedNumberOrderInstance>,
-    ) => any,
+      items: ApiResponse<HostedNumberOrderInstance>
+    ) => any
   ): Promise<ApiResponse<HostedNumberOrderInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -224,7 +224,7 @@ export function HostedNumberOrderListInstance(
       params["smsCapability"] === undefined
     ) {
       throw new Error(
-        "Required parameter \"params['smsCapability']\" missing.",
+        "Required parameter \"params['smsCapability']\" missing."
       );
     }
 
@@ -282,7 +282,7 @@ export function HostedNumberOrderListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -293,7 +293,7 @@ export function HostedNumberOrderListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -330,7 +330,7 @@ interface HostedNumberOrderResource {
 export class HostedNumberOrderInstance {
   constructor(
     protected _version: V3,
-    _payload: HostedNumberOrderResource,
+    _payload: HostedNumberOrderResource
   ) {
     const payload = _payload;
     this.sid = payload.sid;
@@ -347,7 +347,7 @@ export class HostedNumberOrderInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.dateCreated);
     this.dateUpdated = deserialize.iso8601DateTime(payload.dateUpdated);
     this.verificationAttempts = deserialize.integer(
-      payload.verificationAttempts,
+      payload.verificationAttempts
     );
     this.email = payload.email;
     this.ccEmails = payload.ccEmails;

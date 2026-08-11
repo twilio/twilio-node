@@ -49,7 +49,7 @@ export interface ConfigurationContext {
    * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
   /**
    * Fetch a ConfigurationInstance
@@ -61,7 +61,7 @@ export interface ConfigurationContext {
    */
   fetch(
     params: ConfigurationContextFetchOptions,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
 
   /**
@@ -74,8 +74,8 @@ export interface ConfigurationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Fetch a ConfigurationInstance and return HTTP info
@@ -89,8 +89,8 @@ export interface ConfigurationContext {
     params: ConfigurationContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
 
   /**
@@ -101,7 +101,7 @@ export interface ConfigurationContext {
    * @returns Resolves to processed ConfigurationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
@@ -115,7 +115,7 @@ export interface ConfigurationContext {
   update(
     params: object,
     headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
 
   /**
@@ -128,8 +128,8 @@ export interface ConfigurationContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Update a ConfigurationInstance and return HTTP info
@@ -145,8 +145,8 @@ export interface ConfigurationContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
 
   /**
@@ -171,7 +171,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     params?:
       | ConfigurationContextFetchOptions
       | ((error: Error | null, item?: ConfigurationInstance) => any),
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -198,12 +198,12 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ConfigurationInstance(operationVersion, payload),
+      (payload) => new ConfigurationInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -213,12 +213,12 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       | ConfigurationContextFetchOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<ConfigurationInstance>,
+          item?: ApiResponse<ConfigurationInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -252,7 +252,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -261,7 +261,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     params?:
       object | ((error: Error | null, item?: ConfigurationInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -291,12 +291,12 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new ConfigurationInstance(operationVersion, payload),
+      (payload) => new ConfigurationInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -306,13 +306,13 @@ export class ConfigurationContextImpl implements ConfigurationContext {
       | object
       | ((
           error: Error | null,
-          item?: ApiResponse<ConfigurationInstance>,
+          item?: ApiResponse<ConfigurationInstance>
         ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -349,7 +349,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -428,7 +428,7 @@ export class ConfigurationInstance {
 
   constructor(
     protected _version: V1,
-    payload: ConfigurationResource,
+    payload: ConfigurationResource
   ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -691,7 +691,7 @@ export class ConfigurationInstance {
    * @returns Resolves to processed ConfigurationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
   /**
    * Fetch a ConfigurationInstance
@@ -703,12 +703,12 @@ export class ConfigurationInstance {
    */
   fetch(
     params: ConfigurationContextFetchOptions,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
 
   fetch(
     params?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     return this._proxy.fetch(params, callback);
   }
@@ -723,8 +723,8 @@ export class ConfigurationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Fetch a ConfigurationInstance and return HTTP info
@@ -738,16 +738,16 @@ export class ConfigurationInstance {
     params: ConfigurationContextFetchOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
 
   fetchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>> {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
@@ -760,7 +760,7 @@ export class ConfigurationInstance {
    * @returns Resolves to processed ConfigurationInstance
    */
   update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
@@ -774,12 +774,12 @@ export class ConfigurationInstance {
   update(
     params: object,
     headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
@@ -794,8 +794,8 @@ export class ConfigurationInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Update a ConfigurationInstance and return HTTP info
@@ -811,16 +811,16 @@ export class ConfigurationInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>,
-    ) => any,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
   ): Promise<ApiResponse<ConfigurationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -907,7 +907,7 @@ export interface ConfigurationListInstance {
 }
 
 export function ConfigurationListInstance(
-  version: V1,
+  version: V1
 ): ConfigurationListInstance {
   const instance = (() => instance.get()) as ConfigurationListInstance;
 
@@ -925,7 +925,7 @@ export function ConfigurationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

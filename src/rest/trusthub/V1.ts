@@ -79,7 +79,7 @@ export default class V1 extends Version {
 
   /** Accessor for a2PBrandRegistrationEmbeddedSessions resource */
   a2PBrandRegistrationEmbeddedSessions(
-    Id: string,
+    Id: string
   ): A2PBrandRegistrationEmbeddedSessionListInstance {
     return A2PBrandRegistrationEmbeddedSessionListInstance(this, Id);
   }
@@ -94,7 +94,7 @@ export default class V1 extends Version {
 
   /** Accessor for a2PCampaignRegistrationEmbeddedSessions resource */
   a2PCampaignRegistrationEmbeddedSessions(
-    Id: string,
+    Id: string
   ): A2PCampaignRegistrationEmbeddedSessionListInstance {
     return A2PCampaignRegistrationEmbeddedSessionListInstance(this, Id);
   }

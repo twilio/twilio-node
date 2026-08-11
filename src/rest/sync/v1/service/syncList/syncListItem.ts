@@ -127,7 +127,7 @@ export interface SyncListItemContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
   /**
    * Remove a SyncListItemInstance
@@ -139,7 +139,7 @@ export interface SyncListItemContext {
    */
   remove(
     params: SyncListItemContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -150,7 +150,7 @@ export interface SyncListItemContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
   /**
    * Remove a SyncListItemInstance and return HTTP info
@@ -162,7 +162,7 @@ export interface SyncListItemContext {
    */
   removeWithHttpInfo(
     params: SyncListItemContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -173,7 +173,7 @@ export interface SyncListItemContext {
    * @returns Resolves to processed SyncListItemInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any,
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance>;
 
   /**
@@ -186,8 +186,8 @@ export interface SyncListItemContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListItemInstance>,
-    ) => any,
+      item?: ApiResponse<SyncListItemInstance>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance>>;
 
   /**
@@ -198,7 +198,7 @@ export interface SyncListItemContext {
    * @returns Resolves to processed SyncListItemInstance
    */
   update(
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any,
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance>;
   /**
    * Update a SyncListItemInstance
@@ -210,7 +210,7 @@ export interface SyncListItemContext {
    */
   update(
     params: SyncListItemContextUpdateOptions,
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any,
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance>;
 
   /**
@@ -223,8 +223,8 @@ export interface SyncListItemContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListItemInstance>,
-    ) => any,
+      item?: ApiResponse<SyncListItemInstance>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance>>;
   /**
    * Update a SyncListItemInstance and return HTTP info
@@ -238,8 +238,8 @@ export interface SyncListItemContext {
     params: SyncListItemContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListItemInstance>,
-    ) => any,
+      item?: ApiResponse<SyncListItemInstance>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance>>;
 
   /**
@@ -263,7 +263,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     protected _version: V1,
     serviceSid: string,
     listSid: string,
-    index: number,
+    index: number
   ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
@@ -285,7 +285,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     params?:
       | SyncListItemContextRemoveOptions
       | ((error: Error | null, item?: boolean) => any),
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
@@ -311,7 +311,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -320,7 +320,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     params?:
       | SyncListItemContextRemoveOptions
       | ((error: Error | null, item?: ApiResponse<boolean>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
@@ -352,13 +352,13 @@ export class SyncListItemContextImpl implements SyncListItemContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any,
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -378,13 +378,13 @@ export class SyncListItemContextImpl implements SyncListItemContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.listSid,
-          instance._solution.index,
-        ),
+          instance._solution.index
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -392,8 +392,8 @@ export class SyncListItemContextImpl implements SyncListItemContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListItemInstance>,
-    ) => any,
+      item?: ApiResponse<SyncListItemInstance>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -414,13 +414,13 @@ export class SyncListItemContextImpl implements SyncListItemContext {
           response.body,
           instance._solution.serviceSid,
           instance._solution.listSid,
-          instance._solution.index,
+          instance._solution.index
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -429,7 +429,7 @@ export class SyncListItemContextImpl implements SyncListItemContext {
     params?:
       | SyncListItemContextUpdateOptions
       | ((error: Error | null, item?: SyncListItemInstance) => any),
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any,
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -469,13 +469,13 @@ export class SyncListItemContextImpl implements SyncListItemContext {
           payload,
           instance._solution.serviceSid,
           instance._solution.listSid,
-          instance._solution.index,
-        ),
+          instance._solution.index
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -485,12 +485,12 @@ export class SyncListItemContextImpl implements SyncListItemContext {
       | SyncListItemContextUpdateOptions
       | ((
           error: Error | null,
-          item?: ApiResponse<SyncListItemInstance>,
+          item?: ApiResponse<SyncListItemInstance>
         ) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListItemInstance>,
-    ) => any,
+      item?: ApiResponse<SyncListItemInstance>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -531,13 +531,13 @@ export class SyncListItemContextImpl implements SyncListItemContext {
           response.body,
           instance._solution.serviceSid,
           instance._solution.listSid,
-          instance._solution.index,
+          instance._solution.index
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -583,7 +583,7 @@ export class SyncListItemInstance {
     payload: SyncListItemResource,
     serviceSid: string,
     listSid: string,
-    index?: number,
+    index?: number
   ) {
     this.index = deserialize.integer(payload.index);
     this.accountSid = payload.account_sid;
@@ -652,7 +652,7 @@ export class SyncListItemInstance {
         this._version,
         this._solution.serviceSid,
         this._solution.listSid,
-        this._solution.index,
+        this._solution.index
       );
     return this._context;
   }
@@ -665,7 +665,7 @@ export class SyncListItemInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
   /**
    * Remove a SyncListItemInstance
@@ -677,12 +677,12 @@ export class SyncListItemInstance {
    */
   remove(
     params: SyncListItemContextRemoveOptions,
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   remove(
     params?: any,
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(params, callback);
   }
@@ -695,7 +695,7 @@ export class SyncListItemInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
   /**
    * Remove a SyncListItemInstance and return HTTP info
@@ -707,12 +707,12 @@ export class SyncListItemInstance {
    */
   removeWithHttpInfo(
     params: SyncListItemContextRemoveOptions,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   removeWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(params, callback);
   }
@@ -725,7 +725,7 @@ export class SyncListItemInstance {
    * @returns Resolves to processed SyncListItemInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any,
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
     return this._proxy.fetch(callback);
   }
@@ -740,8 +740,8 @@ export class SyncListItemInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListItemInstance>,
-    ) => any,
+      item?: ApiResponse<SyncListItemInstance>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -754,7 +754,7 @@ export class SyncListItemInstance {
    * @returns Resolves to processed SyncListItemInstance
    */
   update(
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any,
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance>;
   /**
    * Update a SyncListItemInstance
@@ -766,12 +766,12 @@ export class SyncListItemInstance {
    */
   update(
     params: SyncListItemContextUpdateOptions,
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any,
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any,
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
     return this._proxy.update(params, callback);
   }
@@ -786,8 +786,8 @@ export class SyncListItemInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListItemInstance>,
-    ) => any,
+      item?: ApiResponse<SyncListItemInstance>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance>>;
   /**
    * Update a SyncListItemInstance and return HTTP info
@@ -801,16 +801,16 @@ export class SyncListItemInstance {
     params: SyncListItemContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListItemInstance>,
-    ) => any,
+      item?: ApiResponse<SyncListItemInstance>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListItemInstance>,
-    ) => any,
+      item?: ApiResponse<SyncListItemInstance>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -864,7 +864,7 @@ export interface SyncListItemListInstance {
    */
   create(
     params: SyncListItemListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: SyncListItemInstance) => any,
+    callback?: (error: Error | null, item?: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance>;
 
   /**
@@ -879,8 +879,8 @@ export interface SyncListItemListInstance {
     params: SyncListItemListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<SyncListItemInstance>,
-    ) => any,
+      item?: ApiResponse<SyncListItemInstance>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance>>;
 
   /**
@@ -899,17 +899,11 @@ export interface SyncListItemListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (
-      item: SyncListItemInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: SyncListItemListInstanceEachOptions,
-    callback?: (
-      item: SyncListItemInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams SyncListItemInstance records from the API with HTTP metadata captured per page.
@@ -927,17 +921,11 @@ export interface SyncListItemListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (
-      item: SyncListItemInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: SyncListItemListInstanceEachOptions,
-    callback?: (
-      item: SyncListItemInstance,
-      done: (err?: Error) => void,
-    ) => void,
+    callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of SyncListItemInstance records from the API.
@@ -949,7 +937,7 @@ export interface SyncListItemListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SyncListItemPage) => any,
+    callback?: (error: Error | null, items: SyncListItemPage) => any
   ): Promise<SyncListItemPage>;
   /**
    * Retrieve a single target page of SyncListItemInstance records from the API with HTTP metadata.
@@ -963,8 +951,8 @@ export interface SyncListItemListInstance {
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListItemPage>,
-    ) => any,
+      items: ApiResponse<SyncListItemPage>
+    ) => any
   ): Promise<ApiResponse<SyncListItemPage>>;
   /**
    * Lists SyncListItemInstance records from the API as a list.
@@ -976,11 +964,11 @@ export interface SyncListItemListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SyncListItemInstance[]) => any,
+    callback?: (error: Error | null, items: SyncListItemInstance[]) => any
   ): Promise<SyncListItemInstance[]>;
   list(
     params: SyncListItemListInstanceOptions,
-    callback?: (error: Error | null, items: SyncListItemInstance[]) => any,
+    callback?: (error: Error | null, items: SyncListItemInstance[]) => any
   ): Promise<SyncListItemInstance[]>;
   /**
    * Lists SyncListItemInstance records from the API as a list with HTTP metadata.
@@ -996,15 +984,15 @@ export interface SyncListItemListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListItemInstance[]>,
-    ) => any,
+      items: ApiResponse<SyncListItemInstance[]>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance[]>>;
   listWithHttpInfo(
     params: SyncListItemListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListItemInstance[]>,
-    ) => any,
+      items: ApiResponse<SyncListItemInstance[]>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance[]>>;
   /**
    * Retrieve a single page of SyncListItemInstance records from the API.
@@ -1018,11 +1006,11 @@ export interface SyncListItemListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SyncListItemPage) => any,
+    callback?: (error: Error | null, items: SyncListItemPage) => any
   ): Promise<SyncListItemPage>;
   page(
     params: SyncListItemListInstancePageOptions,
-    callback?: (error: Error | null, items: SyncListItemPage) => any,
+    callback?: (error: Error | null, items: SyncListItemPage) => any
   ): Promise<SyncListItemPage>;
   /**
    * Retrieve a single page of SyncListItemInstance records from the API with HTTP metadata.
@@ -1038,15 +1026,15 @@ export interface SyncListItemListInstance {
   pageWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListItemPage>,
-    ) => any,
+      items: ApiResponse<SyncListItemPage>
+    ) => any
   ): Promise<ApiResponse<SyncListItemPage>>;
   pageWithHttpInfo(
     params: SyncListItemListInstancePageOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListItemPage>,
-    ) => any,
+      items: ApiResponse<SyncListItemPage>
+    ) => any
   ): Promise<ApiResponse<SyncListItemPage>>;
 
   /**
@@ -1059,7 +1047,7 @@ export interface SyncListItemListInstance {
 export function SyncListItemListInstance(
   version: V1,
   serviceSid: string,
-  listSid: string,
+  listSid: string
 ): SyncListItemListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -1081,7 +1069,7 @@ export function SyncListItemListInstance(
 
   instance.create = function create(
     params: SyncListItemListInstanceCreateOptions,
-    callback?: (error: Error | null, items: SyncListItemInstance) => any,
+    callback?: (error: Error | null, items: SyncListItemInstance) => any
   ): Promise<SyncListItemInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1117,13 +1105,13 @@ export function SyncListItemListInstance(
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.listSid,
-        ),
+          instance._solution.listSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1132,8 +1120,8 @@ export function SyncListItemListInstance(
     params: SyncListItemListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListItemInstance>,
-    ) => any,
+      items: ApiResponse<SyncListItemInstance>
+    ) => any
   ): Promise<ApiResponse<SyncListItemInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1170,13 +1158,13 @@ export function SyncListItemListInstance(
           operationVersion,
           response.body,
           instance._solution.serviceSid,
-          instance._solution.listSid,
+          instance._solution.listSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1185,7 +1173,7 @@ export function SyncListItemListInstance(
     params?:
       | SyncListItemListInstancePageOptions
       | ((error: Error | null, items: SyncListItemPage) => any),
-    callback?: (error: Error | null, items: SyncListItemPage) => any,
+    callback?: (error: Error | null, items: SyncListItemPage) => any
   ): Promise<SyncListItemPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1217,12 +1205,12 @@ export function SyncListItemListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SyncListItemPage(operationVersion, payload, instance._solution),
+        new SyncListItemPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1232,7 +1220,7 @@ export function SyncListItemListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SyncListItemPage) => any,
+    callback?: (error: Error | null, items: SyncListItemPage) => any
   ): Promise<SyncListItemPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1240,7 +1228,7 @@ export function SyncListItemListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new SyncListItemPage(instance._version, payload, instance._solution),
+        new SyncListItemPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1252,8 +1240,8 @@ export function SyncListItemListInstance(
       | ((error: Error | null, items: ApiResponse<SyncListItemPage>) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<SyncListItemPage>,
-    ) => any,
+      items: ApiResponse<SyncListItemPage>
+    ) => any
   ): Promise<ApiResponse<SyncListItemPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1287,13 +1275,13 @@ export function SyncListItemListInstance(
         body: new SyncListItemPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1307,8 +1295,8 @@ export function SyncListItemListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<SyncListItemPage>,
-    ) => any,
+      items?: ApiResponse<SyncListItemPage>
+    ) => any
   ): Promise<ApiResponse<SyncListItemPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1323,9 +1311,9 @@ export function SyncListItemListInstance(
         body: new SyncListItemPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1337,7 +1325,7 @@ export function SyncListItemListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1361,7 +1349,7 @@ export class SyncListItemPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: SyncListItemSolution,
+    solution: SyncListItemSolution
   ) {
     super(version, response, solution);
   }
@@ -1376,7 +1364,7 @@ export class SyncListItemPage extends Page<
       this._version,
       payload,
       this._solution.serviceSid,
-      this._solution.listSid,
+      this._solution.listSid
     );
   }
 

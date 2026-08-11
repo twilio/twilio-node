@@ -94,7 +94,7 @@ export interface ConnectAppContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -105,7 +105,7 @@ export interface ConnectAppContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -116,7 +116,7 @@ export interface ConnectAppContext {
    * @returns Resolves to processed ConnectAppInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConnectAppInstance) => any,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance>;
 
   /**
@@ -129,8 +129,8 @@ export interface ConnectAppContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectAppInstance>,
-    ) => any,
+      item?: ApiResponse<ConnectAppInstance>
+    ) => any
   ): Promise<ApiResponse<ConnectAppInstance>>;
 
   /**
@@ -141,7 +141,7 @@ export interface ConnectAppContext {
    * @returns Resolves to processed ConnectAppInstance
    */
   update(
-    callback?: (error: Error | null, item?: ConnectAppInstance) => any,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance>;
   /**
    * Update a ConnectAppInstance
@@ -153,7 +153,7 @@ export interface ConnectAppContext {
    */
   update(
     params: ConnectAppContextUpdateOptions,
-    callback?: (error: Error | null, item?: ConnectAppInstance) => any,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance>;
 
   /**
@@ -166,8 +166,8 @@ export interface ConnectAppContext {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectAppInstance>,
-    ) => any,
+      item?: ApiResponse<ConnectAppInstance>
+    ) => any
   ): Promise<ApiResponse<ConnectAppInstance>>;
   /**
    * Update a ConnectAppInstance and return HTTP info
@@ -181,8 +181,8 @@ export interface ConnectAppContext {
     params: ConnectAppContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectAppInstance>,
-    ) => any,
+      item?: ApiResponse<ConnectAppInstance>
+    ) => any
   ): Promise<ApiResponse<ConnectAppInstance>>;
 
   /**
@@ -204,7 +204,7 @@ export class ConnectAppContextImpl implements ConnectAppContext {
   constructor(
     protected _version: V2010,
     accountSid: string,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
@@ -219,7 +219,7 @@ export class ConnectAppContextImpl implements ConnectAppContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -233,13 +233,13 @@ export class ConnectAppContextImpl implements ConnectAppContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -255,13 +255,13 @@ export class ConnectAppContextImpl implements ConnectAppContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ConnectAppInstance) => any,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -280,13 +280,13 @@ export class ConnectAppContextImpl implements ConnectAppContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -294,8 +294,8 @@ export class ConnectAppContextImpl implements ConnectAppContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectAppInstance>,
-    ) => any,
+      item?: ApiResponse<ConnectAppInstance>
+    ) => any
   ): Promise<ApiResponse<ConnectAppInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -315,13 +315,13 @@ export class ConnectAppContextImpl implements ConnectAppContext {
           operationVersion,
           response.body,
           instance._solution.accountSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -330,7 +330,7 @@ export class ConnectAppContextImpl implements ConnectAppContext {
     params?:
       | ConnectAppContextUpdateOptions
       | ((error: Error | null, item?: ConnectAppInstance) => any),
-    callback?: (error: Error | null, item?: ConnectAppInstance) => any,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -358,7 +358,7 @@ export class ConnectAppContextImpl implements ConnectAppContext {
     if (params["permissions"] !== undefined)
       data["Permissions"] = serialize.map(
         params["permissions"],
-        (e: ConnectAppPermission) => e,
+        (e: ConnectAppPermission) => e
       );
 
     const headers: any = {};
@@ -380,13 +380,13 @@ export class ConnectAppContextImpl implements ConnectAppContext {
           operationVersion,
           payload,
           instance._solution.accountSid,
-          instance._solution.sid,
-        ),
+          instance._solution.sid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -397,8 +397,8 @@ export class ConnectAppContextImpl implements ConnectAppContext {
       | ((error: Error | null, item?: ApiResponse<ConnectAppInstance>) => any),
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectAppInstance>,
-    ) => any,
+      item?: ApiResponse<ConnectAppInstance>
+    ) => any
   ): Promise<ApiResponse<ConnectAppInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -426,7 +426,7 @@ export class ConnectAppContextImpl implements ConnectAppContext {
     if (params["permissions"] !== undefined)
       data["Permissions"] = serialize.map(
         params["permissions"],
-        (e: ConnectAppPermission) => e,
+        (e: ConnectAppPermission) => e
       );
 
     const headers: any = {};
@@ -449,13 +449,13 @@ export class ConnectAppContextImpl implements ConnectAppContext {
           operationVersion,
           response.body,
           instance._solution.accountSid,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -500,7 +500,7 @@ export class ConnectAppInstance {
     protected _version: V2010,
     payload: ConnectAppResource,
     accountSid: string,
-    sid?: string,
+    sid?: string
   ) {
     this.accountSid = payload.account_sid;
     this.authorizeRedirectUrl = payload.authorize_redirect_url;
@@ -568,7 +568,7 @@ export class ConnectAppInstance {
       new ConnectAppContextImpl(
         this._version,
         this._solution.accountSid,
-        this._solution.sid,
+        this._solution.sid
       );
     return this._context;
   }
@@ -581,7 +581,7 @@ export class ConnectAppInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -594,7 +594,7 @@ export class ConnectAppInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -607,7 +607,7 @@ export class ConnectAppInstance {
    * @returns Resolves to processed ConnectAppInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ConnectAppInstance) => any,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance> {
     return this._proxy.fetch(callback);
   }
@@ -622,8 +622,8 @@ export class ConnectAppInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectAppInstance>,
-    ) => any,
+      item?: ApiResponse<ConnectAppInstance>
+    ) => any
   ): Promise<ApiResponse<ConnectAppInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -636,7 +636,7 @@ export class ConnectAppInstance {
    * @returns Resolves to processed ConnectAppInstance
    */
   update(
-    callback?: (error: Error | null, item?: ConnectAppInstance) => any,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance>;
   /**
    * Update a ConnectAppInstance
@@ -648,12 +648,12 @@ export class ConnectAppInstance {
    */
   update(
     params: ConnectAppContextUpdateOptions,
-    callback?: (error: Error | null, item?: ConnectAppInstance) => any,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: ConnectAppInstance) => any,
+    callback?: (error: Error | null, item?: ConnectAppInstance) => any
   ): Promise<ConnectAppInstance> {
     return this._proxy.update(params, callback);
   }
@@ -668,8 +668,8 @@ export class ConnectAppInstance {
   updateWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectAppInstance>,
-    ) => any,
+      item?: ApiResponse<ConnectAppInstance>
+    ) => any
   ): Promise<ApiResponse<ConnectAppInstance>>;
   /**
    * Update a ConnectAppInstance and return HTTP info
@@ -683,16 +683,16 @@ export class ConnectAppInstance {
     params: ConnectAppContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectAppInstance>,
-    ) => any,
+      item?: ApiResponse<ConnectAppInstance>
+    ) => any
   ): Promise<ApiResponse<ConnectAppInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ConnectAppInstance>,
-    ) => any,
+      item?: ApiResponse<ConnectAppInstance>
+    ) => any
   ): Promise<ApiResponse<ConnectAppInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -751,11 +751,11 @@ export interface ConnectAppListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: ConnectAppListInstanceEachOptions,
-    callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams ConnectAppInstance records from the API with HTTP metadata captured per page.
@@ -773,11 +773,11 @@ export interface ConnectAppListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: ConnectAppListInstanceEachOptions,
-    callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of ConnectAppInstance records from the API.
@@ -789,7 +789,7 @@ export interface ConnectAppListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConnectAppPage) => any,
+    callback?: (error: Error | null, items: ConnectAppPage) => any
   ): Promise<ConnectAppPage>;
   /**
    * Retrieve a single target page of ConnectAppInstance records from the API with HTTP metadata.
@@ -801,7 +801,7 @@ export interface ConnectAppListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<ConnectAppPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ConnectAppPage>) => any
   ): Promise<ApiResponse<ConnectAppPage>>;
   /**
    * Lists ConnectAppInstance records from the API as a list.
@@ -813,11 +813,11 @@ export interface ConnectAppListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ConnectAppInstance[]) => any,
+    callback?: (error: Error | null, items: ConnectAppInstance[]) => any
   ): Promise<ConnectAppInstance[]>;
   list(
     params: ConnectAppListInstanceOptions,
-    callback?: (error: Error | null, items: ConnectAppInstance[]) => any,
+    callback?: (error: Error | null, items: ConnectAppInstance[]) => any
   ): Promise<ConnectAppInstance[]>;
   /**
    * Lists ConnectAppInstance records from the API as a list with HTTP metadata.
@@ -833,15 +833,15 @@ export interface ConnectAppListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConnectAppInstance[]>,
-    ) => any,
+      items: ApiResponse<ConnectAppInstance[]>
+    ) => any
   ): Promise<ApiResponse<ConnectAppInstance[]>>;
   listWithHttpInfo(
     params: ConnectAppListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ConnectAppInstance[]>,
-    ) => any,
+      items: ApiResponse<ConnectAppInstance[]>
+    ) => any
   ): Promise<ApiResponse<ConnectAppInstance[]>>;
   /**
    * Retrieve a single page of ConnectAppInstance records from the API.
@@ -855,11 +855,11 @@ export interface ConnectAppListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ConnectAppPage) => any,
+    callback?: (error: Error | null, items: ConnectAppPage) => any
   ): Promise<ConnectAppPage>;
   page(
     params: ConnectAppListInstancePageOptions,
-    callback?: (error: Error | null, items: ConnectAppPage) => any,
+    callback?: (error: Error | null, items: ConnectAppPage) => any
   ): Promise<ConnectAppPage>;
   /**
    * Retrieve a single page of ConnectAppInstance records from the API with HTTP metadata.
@@ -873,11 +873,11 @@ export interface ConnectAppListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<ConnectAppPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ConnectAppPage>) => any
   ): Promise<ApiResponse<ConnectAppPage>>;
   pageWithHttpInfo(
     params: ConnectAppListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<ConnectAppPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ConnectAppPage>) => any
   ): Promise<ApiResponse<ConnectAppPage>>;
 
   /**
@@ -889,7 +889,7 @@ export interface ConnectAppListInstance {
 
 export function ConnectAppListInstance(
   version: V2010,
-  accountSid: string,
+  accountSid: string
 ): ConnectAppListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -909,7 +909,7 @@ export function ConnectAppListInstance(
     params?:
       | ConnectAppListInstancePageOptions
       | ((error: Error | null, items: ConnectAppPage) => any),
-    callback?: (error: Error | null, items: ConnectAppPage) => any,
+    callback?: (error: Error | null, items: ConnectAppPage) => any
   ): Promise<ConnectAppPage> {
     if (params instanceof Function) {
       callback = params;
@@ -938,12 +938,12 @@ export function ConnectAppListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new ConnectAppPage(operationVersion, payload, instance._solution),
+        new ConnectAppPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -953,7 +953,7 @@ export function ConnectAppListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ConnectAppPage) => any,
+    callback?: (error: Error | null, items: ConnectAppPage) => any
   ): Promise<ConnectAppPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -961,7 +961,7 @@ export function ConnectAppListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new ConnectAppPage(instance._version, payload, instance._solution),
+        new ConnectAppPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -971,7 +971,7 @@ export function ConnectAppListInstance(
     params?:
       | ConnectAppListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ConnectAppPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<ConnectAppPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<ConnectAppPage>) => any
   ): Promise<ApiResponse<ConnectAppPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1002,13 +1002,13 @@ export function ConnectAppListInstance(
         body: new ConnectAppPage(
           operationVersion,
           response,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1020,10 +1020,7 @@ export function ConnectAppListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<ConnectAppPage>,
-    ) => any,
+    callback?: (error: Error | null, items?: ApiResponse<ConnectAppPage>) => any
   ): Promise<ApiResponse<ConnectAppPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1038,9 +1035,9 @@ export function ConnectAppListInstance(
         body: new ConnectAppPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1052,7 +1049,7 @@ export function ConnectAppListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1076,7 +1073,7 @@ export class ConnectAppPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: ConnectAppSolution,
+    solution: ConnectAppSolution
   ) {
     super(version, response, solution);
   }
@@ -1090,7 +1087,7 @@ export class ConnectAppPage extends Page<
     return new ConnectAppInstance(
       this._version,
       payload,
-      this._solution.accountSid,
+      this._solution.accountSid
     );
   }
 

@@ -13,7 +13,7 @@ export default class Domain {
    */
   constructor(
     public twilio: BaseTwilio,
-    public baseUrl: string,
+    public baseUrl: string
   ) {}
 
   /**

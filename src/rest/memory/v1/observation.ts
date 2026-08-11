@@ -193,7 +193,7 @@ export interface ObservationContext {
    * @returns Resolves to processed ObservationInstance
    */
   remove(
-    callback?: (error: Error | null, item?: ObservationInstance) => any,
+    callback?: (error: Error | null, item?: ObservationInstance) => any
   ): Promise<ObservationInstance>;
 
   /**
@@ -206,8 +206,8 @@ export interface ObservationContext {
   removeWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ObservationInstance>,
-    ) => any,
+      item?: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>>;
 
   /**
@@ -218,7 +218,7 @@ export interface ObservationContext {
    * @returns Resolves to processed ObservationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ObservationInstance) => any,
+    callback?: (error: Error | null, item?: ObservationInstance) => any
   ): Promise<ObservationInstance>;
 
   /**
@@ -231,8 +231,8 @@ export interface ObservationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ObservationInstance>,
-    ) => any,
+      item?: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>>;
 
   /**
@@ -247,7 +247,7 @@ export interface ObservationContext {
   patch(
     params: ObservationBase,
     headers?: any,
-    callback?: (error: Error | null, item?: ObservationInstance) => any,
+    callback?: (error: Error | null, item?: ObservationInstance) => any
   ): Promise<ObservationInstance>;
 
   /**
@@ -264,8 +264,8 @@ export interface ObservationContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ObservationInstance>,
-    ) => any,
+      item?: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>>;
 
   /**
@@ -289,7 +289,7 @@ export class ObservationContextImpl implements ObservationContext {
     protected _version: V1,
     storeId: string,
     profileId: string,
-    observationId: string,
+    observationId: string
   ) {
     if (!isValidPathParam(storeId)) {
       throw new Error("Parameter 'storeId' is not valid.");
@@ -308,7 +308,7 @@ export class ObservationContextImpl implements ObservationContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: ObservationInstance) => any,
+    callback?: (error: Error | null, item?: ObservationInstance) => any
   ): Promise<ObservationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -328,13 +328,13 @@ export class ObservationContextImpl implements ObservationContext {
           payload,
           instance._solution.storeId,
           instance._solution.profileId,
-          instance._solution.observationId,
-        ),
+          instance._solution.observationId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -342,8 +342,8 @@ export class ObservationContextImpl implements ObservationContext {
   removeWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ObservationInstance>,
-    ) => any,
+      item?: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -364,19 +364,19 @@ export class ObservationContextImpl implements ObservationContext {
           response.body,
           instance._solution.storeId,
           instance._solution.profileId,
-          instance._solution.observationId,
+          instance._solution.observationId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: ObservationInstance) => any,
+    callback?: (error: Error | null, item?: ObservationInstance) => any
   ): Promise<ObservationInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -396,13 +396,13 @@ export class ObservationContextImpl implements ObservationContext {
           payload,
           instance._solution.storeId,
           instance._solution.profileId,
-          instance._solution.observationId,
-        ),
+          instance._solution.observationId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -410,8 +410,8 @@ export class ObservationContextImpl implements ObservationContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ObservationInstance>,
-    ) => any,
+      item?: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -432,13 +432,13 @@ export class ObservationContextImpl implements ObservationContext {
           response.body,
           instance._solution.storeId,
           instance._solution.profileId,
-          instance._solution.observationId,
+          instance._solution.observationId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -446,7 +446,7 @@ export class ObservationContextImpl implements ObservationContext {
   patch(
     params: ObservationBase,
     headers?: any,
-    callback?: (error: Error | null, item?: ObservationInstance) => any,
+    callback?: (error: Error | null, item?: ObservationInstance) => any
   ): Promise<ObservationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -479,13 +479,13 @@ export class ObservationContextImpl implements ObservationContext {
           payload,
           instance._solution.storeId,
           instance._solution.profileId,
-          instance._solution.observationId,
-        ),
+          instance._solution.observationId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -495,8 +495,8 @@ export class ObservationContextImpl implements ObservationContext {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ObservationInstance>,
-    ) => any,
+      item?: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -530,13 +530,13 @@ export class ObservationContextImpl implements ObservationContext {
           response.body,
           instance._solution.storeId,
           instance._solution.profileId,
-          instance._solution.observationId,
+          instance._solution.observationId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -640,7 +640,7 @@ export class ObservationInstance {
     _payload: ObservationResource,
     storeId: string,
     profileId: string,
-    observationId?: string,
+    observationId?: string
   ) {
     const payload: any = _payload;
     this.message = payload.message;
@@ -692,7 +692,7 @@ export class ObservationInstance {
         this._version,
         this._solution.storeId,
         this._solution.profileId,
-        this._solution.observationId,
+        this._solution.observationId
       );
     return this._context;
   }
@@ -705,7 +705,7 @@ export class ObservationInstance {
    * @returns Resolves to processed ObservationInstance
    */
   remove(
-    callback?: (error: Error | null, item?: ObservationInstance) => any,
+    callback?: (error: Error | null, item?: ObservationInstance) => any
   ): Promise<ObservationInstance> {
     return this._proxy.remove(callback);
   }
@@ -720,8 +720,8 @@ export class ObservationInstance {
   removeWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ObservationInstance>,
-    ) => any,
+      item?: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -734,7 +734,7 @@ export class ObservationInstance {
    * @returns Resolves to processed ObservationInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: ObservationInstance) => any,
+    callback?: (error: Error | null, item?: ObservationInstance) => any
   ): Promise<ObservationInstance> {
     return this._proxy.fetch(callback);
   }
@@ -749,8 +749,8 @@ export class ObservationInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ObservationInstance>,
-    ) => any,
+      item?: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -767,12 +767,12 @@ export class ObservationInstance {
   patch(
     params: ObservationBase,
     headers?: any,
-    callback?: (error: Error | null, item?: ObservationInstance) => any,
+    callback?: (error: Error | null, item?: ObservationInstance) => any
   ): Promise<ObservationInstance>;
 
   patch(
     params?: any,
-    callback?: (error: Error | null, item?: ObservationInstance) => any,
+    callback?: (error: Error | null, item?: ObservationInstance) => any
   ): Promise<ObservationInstance> {
     return this._proxy.patch(params, callback);
   }
@@ -791,16 +791,16 @@ export class ObservationInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ObservationInstance>,
-    ) => any,
+      item?: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>>;
 
   patchWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ObservationInstance>,
-    ) => any,
+      item?: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>> {
     return this._proxy.patchWithHttpInfo(params, callback);
   }
@@ -853,7 +853,7 @@ export interface ObservationListInstance {
   create(
     params: CreateObservationsRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ObservationInstance) => any,
+    callback?: (error: Error | null, item?: ObservationInstance) => any
   ): Promise<ObservationInstance>;
 
   /**
@@ -870,8 +870,8 @@ export interface ObservationListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ObservationInstance>,
-    ) => any,
+      item?: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>>;
 
   /**
@@ -890,11 +890,11 @@ export interface ObservationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: ObservationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ObservationInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: ObservationListInstanceEachOptions,
-    callback?: (item: ObservationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ObservationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams ObservationInstance records from the API with HTTP metadata captured per page.
@@ -912,11 +912,11 @@ export interface ObservationListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: ObservationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ObservationInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: ObservationListInstanceEachOptions,
-    callback?: (item: ObservationInstance, done: (err?: Error) => void) => void,
+    callback?: (item: ObservationInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of ObservationInstance records from the API.
@@ -928,7 +928,7 @@ export interface ObservationListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ObservationPage) => any,
+    callback?: (error: Error | null, items: ObservationPage) => any
   ): Promise<ObservationPage>;
   /**
    * Retrieve a single target page of ObservationInstance records from the API with HTTP metadata.
@@ -940,10 +940,7 @@ export interface ObservationListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ObservationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ObservationPage>) => any
   ): Promise<ApiResponse<ObservationPage>>;
   /**
    * Lists ObservationInstance records from the API as a list.
@@ -955,11 +952,11 @@ export interface ObservationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: ObservationInstance[]) => any,
+    callback?: (error: Error | null, items: ObservationInstance[]) => any
   ): Promise<ObservationInstance[]>;
   list(
     params: ObservationListInstanceOptions,
-    callback?: (error: Error | null, items: ObservationInstance[]) => any,
+    callback?: (error: Error | null, items: ObservationInstance[]) => any
   ): Promise<ObservationInstance[]>;
   /**
    * Lists ObservationInstance records from the API as a list with HTTP metadata.
@@ -975,15 +972,15 @@ export interface ObservationListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<ObservationInstance[]>,
-    ) => any,
+      items: ApiResponse<ObservationInstance[]>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance[]>>;
   listWithHttpInfo(
     params: ObservationListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ObservationInstance[]>,
-    ) => any,
+      items: ApiResponse<ObservationInstance[]>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance[]>>;
   /**
    * Retrieve a single page of ObservationInstance records from the API.
@@ -997,11 +994,11 @@ export interface ObservationListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: ObservationPage) => any,
+    callback?: (error: Error | null, items: ObservationPage) => any
   ): Promise<ObservationPage>;
   page(
     params: ObservationListInstancePageOptions,
-    callback?: (error: Error | null, items: ObservationPage) => any,
+    callback?: (error: Error | null, items: ObservationPage) => any
   ): Promise<ObservationPage>;
   /**
    * Retrieve a single page of ObservationInstance records from the API with HTTP metadata.
@@ -1015,17 +1012,11 @@ export interface ObservationListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ObservationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ObservationPage>) => any
   ): Promise<ApiResponse<ObservationPage>>;
   pageWithHttpInfo(
     params: ObservationListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ObservationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ObservationPage>) => any
   ): Promise<ApiResponse<ObservationPage>>;
 
   /**
@@ -1038,7 +1029,7 @@ export interface ObservationListInstance {
 export function ObservationListInstance(
   version: V1,
   storeId: string,
-  profileId: string,
+  profileId: string
 ): ObservationListInstance {
   if (!isValidPathParam(storeId)) {
     throw new Error("Parameter 'storeId' is not valid.");
@@ -1056,7 +1047,7 @@ export function ObservationListInstance(
       version,
       storeId,
       profileId,
-      observationId,
+      observationId
     );
   };
 
@@ -1067,7 +1058,7 @@ export function ObservationListInstance(
   instance.create = function create(
     params: CreateObservationsRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ObservationInstance) => any,
+    callback?: (error: Error | null, items: ObservationInstance) => any
   ): Promise<ObservationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1098,13 +1089,13 @@ export function ObservationListInstance(
           operationVersion,
           payload,
           instance._solution.storeId,
-          instance._solution.profileId,
-        ),
+          instance._solution.profileId
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1114,8 +1105,8 @@ export function ObservationListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ObservationInstance>,
-    ) => any,
+      items: ApiResponse<ObservationInstance>
+    ) => any
   ): Promise<ApiResponse<ObservationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -1147,13 +1138,13 @@ export function ObservationListInstance(
           operationVersion,
           response.body,
           instance._solution.storeId,
-          instance._solution.profileId,
+          instance._solution.profileId
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1162,7 +1153,7 @@ export function ObservationListInstance(
     params?:
       | ObservationListInstancePageOptions
       | ((error: Error | null, items: ObservationPage) => any),
-    callback?: (error: Error | null, items: ObservationPage) => any,
+    callback?: (error: Error | null, items: ObservationPage) => any
   ): Promise<ObservationPage> {
     if (params instanceof Function) {
       callback = params;
@@ -1182,7 +1173,7 @@ export function ObservationListInstance(
       data["createdAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
     if (params["createdBefore"] !== undefined)
       data["createdBefore"] = serialize.iso8601DateTime(
-        params["createdBefore"],
+        params["createdBefore"]
       );
     if (params["conversationId"] !== undefined)
       data["conversationId"] = params["conversationId"];
@@ -1207,13 +1198,13 @@ export function ObservationListInstance(
           payload,
           instance._uri,
           data,
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1223,7 +1214,7 @@ export function ObservationListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: ObservationPage) => any,
+    callback?: (error: Error | null, items: ObservationPage) => any
   ): Promise<ObservationPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -1236,8 +1227,8 @@ export function ObservationListInstance(
           payload,
           instance._uri,
           {},
-          instance._solution,
-        ),
+          instance._solution
+        )
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1247,10 +1238,7 @@ export function ObservationListInstance(
     params?:
       | ObservationListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<ObservationPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ObservationPage>,
-    ) => any,
+    callback?: (error: Error | null, items: ApiResponse<ObservationPage>) => any
   ): Promise<ApiResponse<ObservationPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -1270,7 +1258,7 @@ export function ObservationListInstance(
       data["createdAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
     if (params["createdBefore"] !== undefined)
       data["createdBefore"] = serialize.iso8601DateTime(
-        params["createdBefore"],
+        params["createdBefore"]
       );
     if (params["conversationId"] !== undefined)
       data["conversationId"] = params["conversationId"];
@@ -1294,13 +1282,13 @@ export function ObservationListInstance(
           response,
           instance._uri,
           data,
-          instance._solution,
+          instance._solution
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -1314,8 +1302,8 @@ export function ObservationListInstance(
     targetUrl: string,
     callback?: (
       error: Error | null,
-      items?: ApiResponse<ObservationPage>,
-    ) => any,
+      items?: ApiResponse<ObservationPage>
+    ) => any
   ): Promise<ApiResponse<ObservationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -1332,9 +1320,9 @@ export function ObservationListInstance(
           response,
           instance._uri,
           {},
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -1346,7 +1334,7 @@ export function ObservationListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1374,7 +1362,7 @@ export class ObservationPage extends TokenPage<
     response: Response<string>,
     uri: string,
     params: any,
-    solution: ObservationSolution,
+    solution: ObservationSolution
   ) {
     super(version, response, uri, params, solution);
   }
@@ -1389,7 +1377,7 @@ export class ObservationPage extends TokenPage<
       this._version,
       payload,
       this._solution.storeId,
-      this._solution.profileId,
+      this._solution.profileId
     );
   }
 

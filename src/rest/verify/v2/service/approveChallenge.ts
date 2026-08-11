@@ -105,7 +105,7 @@ export interface ApproveChallengeListInstance {
   update(
     params: ApprovePasskeysChallengeRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: ApproveChallengeInstance) => any,
+    callback?: (error: Error | null, item?: ApproveChallengeInstance) => any
   ): Promise<ApproveChallengeInstance>;
 
   /**
@@ -122,8 +122,8 @@ export interface ApproveChallengeListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<ApproveChallengeInstance>,
-    ) => any,
+      item?: ApiResponse<ApproveChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ApproveChallengeInstance>>;
 
   /**
@@ -135,7 +135,7 @@ export interface ApproveChallengeListInstance {
 
 export function ApproveChallengeListInstance(
   version: V2,
-  serviceSid: string,
+  serviceSid: string
 ): ApproveChallengeListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -150,7 +150,7 @@ export function ApproveChallengeListInstance(
   instance.update = function update(
     params: ApprovePasskeysChallengeRequest,
     headers?: any,
-    callback?: (error: Error | null, items: ApproveChallengeInstance) => any,
+    callback?: (error: Error | null, items: ApproveChallengeInstance) => any
   ): Promise<ApproveChallengeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -180,13 +180,13 @@ export function ApproveChallengeListInstance(
         new ApproveChallengeInstance(
           operationVersion,
           payload,
-          instance._solution.serviceSid,
-        ),
+          instance._solution.serviceSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -196,8 +196,8 @@ export function ApproveChallengeListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<ApproveChallengeInstance>,
-    ) => any,
+      items: ApiResponse<ApproveChallengeInstance>
+    ) => any
   ): Promise<ApiResponse<ApproveChallengeInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -228,13 +228,13 @@ export function ApproveChallengeListInstance(
         body: new ApproveChallengeInstance(
           operationVersion,
           response.body,
-          instance._solution.serviceSid,
+          instance._solution.serviceSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -245,7 +245,7 @@ export function ApproveChallengeListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -281,7 +281,7 @@ export class ApproveChallengeInstance {
   constructor(
     protected _version: V2,
     payload: ApproveChallengeResource,
-    serviceSid: string,
+    serviceSid: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

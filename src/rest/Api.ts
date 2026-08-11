@@ -47,7 +47,7 @@ class Api extends ApiBase {
    */
   get applications(): ApplicationListInstance {
     console.warn(
-      "applications is deprecated. Use account.applications instead.",
+      "applications is deprecated. Use account.applications instead."
     );
     return this.account.applications;
   }
@@ -57,7 +57,7 @@ class Api extends ApiBase {
    */
   get authorizedConnectApps(): AuthorizedConnectAppListInstance {
     console.warn(
-      "authorizedConnectApps is deprecated. Use account.authorizedConnectApps instead.",
+      "authorizedConnectApps is deprecated. Use account.authorizedConnectApps instead."
     );
     return this.account.authorizedConnectApps;
   }
@@ -67,7 +67,7 @@ class Api extends ApiBase {
    */
   get availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance {
     console.warn(
-      "availablePhoneNumbers is deprecated. Use account.availablePhoneNumbers instead.",
+      "availablePhoneNumbers is deprecated. Use account.availablePhoneNumbers instead."
     );
     return this.account.availablePhoneNumbers;
   }
@@ -109,7 +109,7 @@ class Api extends ApiBase {
    */
   get incomingPhoneNumbers(): IncomingPhoneNumberListInstance {
     console.warn(
-      "incomingPhoneNumbers is deprecated. Use account.incomingPhoneNumbers instead.",
+      "incomingPhoneNumbers is deprecated. Use account.incomingPhoneNumbers instead."
     );
     return this.account.incomingPhoneNumbers;
   }
@@ -143,7 +143,7 @@ class Api extends ApiBase {
    */
   get newSigningKeys(): NewSigningKeyListInstance {
     console.warn(
-      "newSigningKeys is deprecated. Use account.newSigningKeys instead.",
+      "newSigningKeys is deprecated. Use account.newSigningKeys instead."
     );
     return this.account.newSigningKeys;
   }
@@ -153,7 +153,7 @@ class Api extends ApiBase {
    */
   get notifications(): NotificationListInstance {
     console.warn(
-      "notifications is deprecated. Use account.notifications instead.",
+      "notifications is deprecated. Use account.notifications instead."
     );
     return this.account.notifications;
   }
@@ -163,7 +163,7 @@ class Api extends ApiBase {
    */
   get outgoingCallerIds(): OutgoingCallerIdListInstance {
     console.warn(
-      "outgoingCallerIds is deprecated. Use account.outgoingCallerIds instead.",
+      "outgoingCallerIds is deprecated. Use account.outgoingCallerIds instead."
     );
     return this.account.outgoingCallerIds;
   }
@@ -221,7 +221,7 @@ class Api extends ApiBase {
    */
   get transcriptions(): TranscriptionListInstance {
     console.warn(
-      "transcriptions is deprecated. Use account.transcriptions instead.",
+      "transcriptions is deprecated. Use account.transcriptions instead."
     );
     return this.account.transcriptions;
   }
@@ -239,7 +239,7 @@ class Api extends ApiBase {
    */
   get validationRequests(): ValidationRequestListInstance {
     console.warn(
-      "validationRequests is deprecated. Use account.validationRequests instead.",
+      "validationRequests is deprecated. Use account.validationRequests instead."
     );
     return this.account.validationRequests;
   }

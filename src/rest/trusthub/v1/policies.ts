@@ -67,7 +67,7 @@ export interface PoliciesContext {
    * @returns Resolves to processed PoliciesInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PoliciesInstance) => any,
+    callback?: (error: Error | null, item?: PoliciesInstance) => any
   ): Promise<PoliciesInstance>;
 
   /**
@@ -80,8 +80,8 @@ export interface PoliciesContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PoliciesInstance>,
-    ) => any,
+      item?: ApiResponse<PoliciesInstance>
+    ) => any
   ): Promise<ApiResponse<PoliciesInstance>>;
 
   /**
@@ -101,7 +101,7 @@ export class PoliciesContextImpl implements PoliciesContext {
 
   constructor(
     protected _version: V1,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -112,7 +112,7 @@ export class PoliciesContextImpl implements PoliciesContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: PoliciesInstance) => any,
+    callback?: (error: Error | null, item?: PoliciesInstance) => any
   ): Promise<PoliciesInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -127,12 +127,12 @@ export class PoliciesContextImpl implements PoliciesContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PoliciesInstance(operationVersion, payload, instance._solution.sid),
+        new PoliciesInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -140,8 +140,8 @@ export class PoliciesContextImpl implements PoliciesContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PoliciesInstance>,
-    ) => any,
+      item?: ApiResponse<PoliciesInstance>
+    ) => any
   ): Promise<ApiResponse<PoliciesInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -160,13 +160,13 @@ export class PoliciesContextImpl implements PoliciesContext {
         body: new PoliciesInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -203,7 +203,7 @@ export class PoliciesInstance {
   constructor(
     protected _version: V1,
     payload: PoliciesResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -245,7 +245,7 @@ export class PoliciesInstance {
    * @returns Resolves to processed PoliciesInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: PoliciesInstance) => any,
+    callback?: (error: Error | null, item?: PoliciesInstance) => any
   ): Promise<PoliciesInstance> {
     return this._proxy.fetch(callback);
   }
@@ -260,8 +260,8 @@ export class PoliciesInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<PoliciesInstance>,
-    ) => any,
+      item?: ApiResponse<PoliciesInstance>
+    ) => any
   ): Promise<ApiResponse<PoliciesInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -311,11 +311,11 @@ export interface PoliciesListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void,
+    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: PoliciesListInstanceEachOptions,
-    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void,
+    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams PoliciesInstance records from the API with HTTP metadata captured per page.
@@ -333,11 +333,11 @@ export interface PoliciesListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void,
+    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: PoliciesListInstanceEachOptions,
-    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void,
+    callback?: (item: PoliciesInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of PoliciesInstance records from the API.
@@ -349,7 +349,7 @@ export interface PoliciesListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PoliciesPage) => any,
+    callback?: (error: Error | null, items: PoliciesPage) => any
   ): Promise<PoliciesPage>;
   /**
    * Retrieve a single target page of PoliciesInstance records from the API with HTTP metadata.
@@ -361,7 +361,7 @@ export interface PoliciesListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any
   ): Promise<ApiResponse<PoliciesPage>>;
   /**
    * Lists PoliciesInstance records from the API as a list.
@@ -373,11 +373,11 @@ export interface PoliciesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: PoliciesInstance[]) => any,
+    callback?: (error: Error | null, items: PoliciesInstance[]) => any
   ): Promise<PoliciesInstance[]>;
   list(
     params: PoliciesListInstanceOptions,
-    callback?: (error: Error | null, items: PoliciesInstance[]) => any,
+    callback?: (error: Error | null, items: PoliciesInstance[]) => any
   ): Promise<PoliciesInstance[]>;
   /**
    * Lists PoliciesInstance records from the API as a list with HTTP metadata.
@@ -393,15 +393,15 @@ export interface PoliciesListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<PoliciesInstance[]>,
-    ) => any,
+      items: ApiResponse<PoliciesInstance[]>
+    ) => any
   ): Promise<ApiResponse<PoliciesInstance[]>>;
   listWithHttpInfo(
     params: PoliciesListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<PoliciesInstance[]>,
-    ) => any,
+      items: ApiResponse<PoliciesInstance[]>
+    ) => any
   ): Promise<ApiResponse<PoliciesInstance[]>>;
   /**
    * Retrieve a single page of PoliciesInstance records from the API.
@@ -415,11 +415,11 @@ export interface PoliciesListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: PoliciesPage) => any,
+    callback?: (error: Error | null, items: PoliciesPage) => any
   ): Promise<PoliciesPage>;
   page(
     params: PoliciesListInstancePageOptions,
-    callback?: (error: Error | null, items: PoliciesPage) => any,
+    callback?: (error: Error | null, items: PoliciesPage) => any
   ): Promise<PoliciesPage>;
   /**
    * Retrieve a single page of PoliciesInstance records from the API with HTTP metadata.
@@ -433,11 +433,11 @@ export interface PoliciesListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any
   ): Promise<ApiResponse<PoliciesPage>>;
   pageWithHttpInfo(
     params: PoliciesListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any
   ): Promise<ApiResponse<PoliciesPage>>;
 
   /**
@@ -462,7 +462,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
     params?:
       | PoliciesListInstancePageOptions
       | ((error: Error | null, items: PoliciesPage) => any),
-    callback?: (error: Error | null, items: PoliciesPage) => any,
+    callback?: (error: Error | null, items: PoliciesPage) => any
   ): Promise<PoliciesPage> {
     if (params instanceof Function) {
       callback = params;
@@ -491,12 +491,12 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new PoliciesPage(operationVersion, payload, instance._solution),
+        new PoliciesPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -506,7 +506,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: PoliciesPage) => any,
+    callback?: (error: Error | null, items: PoliciesPage) => any
   ): Promise<PoliciesPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -514,7 +514,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new PoliciesPage(instance._version, payload, instance._solution),
+        new PoliciesPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -524,7 +524,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
     params?:
       | PoliciesListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<PoliciesPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<PoliciesPage>) => any
   ): Promise<ApiResponse<PoliciesPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -557,7 +557,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -569,7 +569,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<PoliciesPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<PoliciesPage>) => any
   ): Promise<ApiResponse<PoliciesPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -582,7 +582,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new PoliciesPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -594,7 +594,7 @@ export function PoliciesListInstance(version: V1): PoliciesListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -618,7 +618,7 @@ export class PoliciesPage extends Page<
   constructor(
     version: V1,
     response: Response<string>,
-    solution: PoliciesSolution,
+    solution: PoliciesSolution
   ) {
     super(version, response, solution);
   }

@@ -59,7 +59,7 @@ export interface EmbeddedSessionListInstance {
   create(
     params: NumbersV1CreateEmbeddedSessionRequest,
     headers?: any,
-    callback?: (error: Error | null, item?: EmbeddedSessionInstance) => any,
+    callback?: (error: Error | null, item?: EmbeddedSessionInstance) => any
   ): Promise<EmbeddedSessionInstance>;
 
   /**
@@ -76,8 +76,8 @@ export interface EmbeddedSessionListInstance {
     headers?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<EmbeddedSessionInstance>,
-    ) => any,
+      item?: ApiResponse<EmbeddedSessionInstance>
+    ) => any
   ): Promise<ApiResponse<EmbeddedSessionInstance>>;
 
   /**
@@ -89,7 +89,7 @@ export interface EmbeddedSessionListInstance {
 
 export function EmbeddedSessionListInstance(
   version: V1,
-  bundleSid: string,
+  bundleSid: string
 ): EmbeddedSessionListInstance {
   if (!isValidPathParam(bundleSid)) {
     throw new Error("Parameter 'bundleSid' is not valid.");
@@ -104,7 +104,7 @@ export function EmbeddedSessionListInstance(
   instance.create = function create(
     params: NumbersV1CreateEmbeddedSessionRequest,
     headers?: any,
-    callback?: (error: Error | null, items: EmbeddedSessionInstance) => any,
+    callback?: (error: Error | null, items: EmbeddedSessionInstance) => any
   ): Promise<EmbeddedSessionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -134,13 +134,13 @@ export function EmbeddedSessionListInstance(
         new EmbeddedSessionInstance(
           operationVersion,
           payload,
-          instance._solution.bundleSid,
-        ),
+          instance._solution.bundleSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -150,8 +150,8 @@ export function EmbeddedSessionListInstance(
     headers?: any,
     callback?: (
       error: Error | null,
-      items: ApiResponse<EmbeddedSessionInstance>,
-    ) => any,
+      items: ApiResponse<EmbeddedSessionInstance>
+    ) => any
   ): Promise<ApiResponse<EmbeddedSessionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -182,13 +182,13 @@ export function EmbeddedSessionListInstance(
         body: new EmbeddedSessionInstance(
           operationVersion,
           response.body,
-          instance._solution.bundleSid,
+          instance._solution.bundleSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -199,7 +199,7 @@ export function EmbeddedSessionListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -219,7 +219,7 @@ export class EmbeddedSessionInstance {
   constructor(
     protected _version: V1,
     payload: EmbeddedSessionResource,
-    bundleSid?: string,
+    bundleSid?: string
   ) {
     this.id = payload.id;
     this.sessionId = payload.sessionId;

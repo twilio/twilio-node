@@ -107,11 +107,11 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void,
+    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: LastMonthListInstanceEachOptions,
-    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void,
+    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams LastMonthInstance records from the API with HTTP metadata captured per page.
@@ -129,11 +129,11 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void,
+    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: LastMonthListInstanceEachOptions,
-    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void,
+    callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of LastMonthInstance records from the API.
@@ -145,7 +145,7 @@ export interface LastMonthListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: LastMonthPage) => any,
+    callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage>;
   /**
    * Retrieve a single target page of LastMonthInstance records from the API with HTTP metadata.
@@ -157,7 +157,7 @@ export interface LastMonthListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<LastMonthPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<LastMonthPage>) => any
   ): Promise<ApiResponse<LastMonthPage>>;
   /**
    * Lists LastMonthInstance records from the API as a list.
@@ -169,11 +169,11 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: LastMonthInstance[]) => any,
+    callback?: (error: Error | null, items: LastMonthInstance[]) => any
   ): Promise<LastMonthInstance[]>;
   list(
     params: LastMonthListInstanceOptions,
-    callback?: (error: Error | null, items: LastMonthInstance[]) => any,
+    callback?: (error: Error | null, items: LastMonthInstance[]) => any
   ): Promise<LastMonthInstance[]>;
   /**
    * Lists LastMonthInstance records from the API as a list with HTTP metadata.
@@ -189,15 +189,15 @@ export interface LastMonthListInstance {
   listWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<LastMonthInstance[]>,
-    ) => any,
+      items: ApiResponse<LastMonthInstance[]>
+    ) => any
   ): Promise<ApiResponse<LastMonthInstance[]>>;
   listWithHttpInfo(
     params: LastMonthListInstanceOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<LastMonthInstance[]>,
-    ) => any,
+      items: ApiResponse<LastMonthInstance[]>
+    ) => any
   ): Promise<ApiResponse<LastMonthInstance[]>>;
   /**
    * Retrieve a single page of LastMonthInstance records from the API.
@@ -211,11 +211,11 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: LastMonthPage) => any,
+    callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage>;
   page(
     params: LastMonthListInstancePageOptions,
-    callback?: (error: Error | null, items: LastMonthPage) => any,
+    callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage>;
   /**
    * Retrieve a single page of LastMonthInstance records from the API with HTTP metadata.
@@ -229,11 +229,11 @@ export interface LastMonthListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<LastMonthPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<LastMonthPage>) => any
   ): Promise<ApiResponse<LastMonthPage>>;
   pageWithHttpInfo(
     params: LastMonthListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<LastMonthPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<LastMonthPage>) => any
   ): Promise<ApiResponse<LastMonthPage>>;
 
   /**
@@ -245,7 +245,7 @@ export interface LastMonthListInstance {
 
 export function LastMonthListInstance(
   version: V2010,
-  accountSid: string,
+  accountSid: string
 ): LastMonthListInstance {
   if (!isValidPathParam(accountSid)) {
     throw new Error("Parameter 'accountSid' is not valid.");
@@ -261,7 +261,7 @@ export function LastMonthListInstance(
     params?:
       | LastMonthListInstancePageOptions
       | ((error: Error | null, items: LastMonthPage) => any),
-    callback?: (error: Error | null, items: LastMonthPage) => any,
+    callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage> {
     if (params instanceof Function) {
       callback = params;
@@ -297,12 +297,12 @@ export function LastMonthListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new LastMonthPage(operationVersion, payload, instance._solution),
+        new LastMonthPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -312,7 +312,7 @@ export function LastMonthListInstance(
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: LastMonthPage) => any,
+    callback?: (error: Error | null, items: LastMonthPage) => any
   ): Promise<LastMonthPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
@@ -320,7 +320,7 @@ export function LastMonthListInstance(
     });
     let pagePromise = operationPromise.then(
       (payload) =>
-        new LastMonthPage(instance._version, payload, instance._solution),
+        new LastMonthPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -330,7 +330,7 @@ export function LastMonthListInstance(
     params?:
       | LastMonthListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<LastMonthPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<LastMonthPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<LastMonthPage>) => any
   ): Promise<ApiResponse<LastMonthPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -370,7 +370,7 @@ export function LastMonthListInstance(
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -382,7 +382,7 @@ export function LastMonthListInstance(
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<LastMonthPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<LastMonthPage>) => any
   ): Promise<ApiResponse<LastMonthPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -397,9 +397,9 @@ export function LastMonthListInstance(
         body: new LastMonthPage(
           instance._version,
           response,
-          instance._solution,
+          instance._solution
         ),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -411,7 +411,7 @@ export function LastMonthListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -445,7 +445,7 @@ export class LastMonthInstance {
   constructor(
     protected _version: V2010,
     payload: LastMonthResource,
-    accountSid: string,
+    accountSid: string
   ) {
     this.accountSid = payload.account_sid;
     this.apiVersion = payload.api_version;
@@ -571,7 +571,7 @@ export class LastMonthPage extends Page<
   constructor(
     version: V2010,
     response: Response<string>,
-    solution: LastMonthSolution,
+    solution: LastMonthSolution
   ) {
     super(version, response, solution);
   }
@@ -585,7 +585,7 @@ export class LastMonthPage extends Page<
     return new LastMonthInstance(
       this._version,
       payload,
-      this._solution.accountSid,
+      this._solution.accountSid
     );
   }
 

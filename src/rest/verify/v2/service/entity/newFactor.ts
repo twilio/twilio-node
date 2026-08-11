@@ -87,7 +87,7 @@ export interface NewFactorListInstance {
    */
   create(
     params: NewFactorListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: NewFactorInstance) => any,
+    callback?: (error: Error | null, item?: NewFactorInstance) => any
   ): Promise<NewFactorInstance>;
 
   /**
@@ -102,8 +102,8 @@ export interface NewFactorListInstance {
     params: NewFactorListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<NewFactorInstance>,
-    ) => any,
+      item?: ApiResponse<NewFactorInstance>
+    ) => any
   ): Promise<ApiResponse<NewFactorInstance>>;
 
   /**
@@ -116,7 +116,7 @@ export interface NewFactorListInstance {
 export function NewFactorListInstance(
   version: V2,
   serviceSid: string,
-  identity: string,
+  identity: string
 ): NewFactorListInstance {
   if (!isValidPathParam(serviceSid)) {
     throw new Error("Parameter 'serviceSid' is not valid.");
@@ -134,7 +134,7 @@ export function NewFactorListInstance(
 
   instance.create = function create(
     params: NewFactorListInstanceCreateOptions,
-    callback?: (error: Error | null, items: NewFactorInstance) => any,
+    callback?: (error: Error | null, items: NewFactorInstance) => any
   ): Promise<NewFactorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -200,13 +200,13 @@ export function NewFactorListInstance(
           operationVersion,
           payload,
           instance._solution.serviceSid,
-          instance._solution.identity,
-        ),
+          instance._solution.identity
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -215,8 +215,8 @@ export function NewFactorListInstance(
     params: NewFactorListInstanceCreateOptions,
     callback?: (
       error: Error | null,
-      items: ApiResponse<NewFactorInstance>,
-    ) => any,
+      items: ApiResponse<NewFactorInstance>
+    ) => any
   ): Promise<ApiResponse<NewFactorInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -283,13 +283,13 @@ export function NewFactorListInstance(
           operationVersion,
           response.body,
           instance._solution.serviceSid,
-          instance._solution.identity,
+          instance._solution.identity
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -300,7 +300,7 @@ export function NewFactorListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -333,7 +333,7 @@ export class NewFactorInstance {
     protected _version: V2,
     payload: NewFactorResource,
     serviceSid: string,
-    identity: string,
+    identity: string
   ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;

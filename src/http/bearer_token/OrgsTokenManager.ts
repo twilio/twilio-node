@@ -33,7 +33,7 @@ export default class OrgsTokenManager implements TokenManager {
       })
       .catch((error) => {
         throw new Error(
-          `Error Status Code: ${error.status}\nFailed to fetch access token: ${error.message}`,
+          `Error Status Code: ${error.status}\nFailed to fetch access token: ${error.message}`
         );
       });
   }

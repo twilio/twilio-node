@@ -138,7 +138,7 @@ export interface SimContext {
    * @returns Resolves to processed SimInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SimInstance) => any,
+    callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance>;
 
   /**
@@ -149,7 +149,7 @@ export interface SimContext {
    * @returns Resolves to processed SimInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any
   ): Promise<ApiResponse<SimInstance>>;
 
   /**
@@ -160,7 +160,7 @@ export interface SimContext {
    * @returns Resolves to processed SimInstance
    */
   update(
-    callback?: (error: Error | null, item?: SimInstance) => any,
+    callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance>;
   /**
    * Update a SimInstance
@@ -172,7 +172,7 @@ export interface SimContext {
    */
   update(
     params: SimContextUpdateOptions,
-    callback?: (error: Error | null, item?: SimInstance) => any,
+    callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance>;
 
   /**
@@ -183,7 +183,7 @@ export interface SimContext {
    * @returns Resolves to processed SimInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any
   ): Promise<ApiResponse<SimInstance>>;
   /**
    * Update a SimInstance and return HTTP info
@@ -195,7 +195,7 @@ export interface SimContext {
    */
   updateWithHttpInfo(
     params: SimContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any
   ): Promise<ApiResponse<SimInstance>>;
 
   /**
@@ -217,7 +217,7 @@ export class SimContextImpl implements SimContext {
 
   constructor(
     protected _version: Wireless,
-    sid: string,
+    sid: string
   ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
@@ -234,7 +234,7 @@ export class SimContextImpl implements SimContext {
   }
 
   fetch(
-    callback?: (error: Error | null, item?: SimInstance) => any,
+    callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -249,18 +249,18 @@ export class SimContextImpl implements SimContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SimInstance(operationVersion, payload, instance._solution.sid),
+        new SimInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any
   ): Promise<ApiResponse<SimInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -279,13 +279,13 @@ export class SimContextImpl implements SimContext {
         body: new SimInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -294,7 +294,7 @@ export class SimContextImpl implements SimContext {
     params?:
       | SimContextUpdateOptions
       | ((error: Error | null, item?: SimInstance) => any),
-    callback?: (error: Error | null, item?: SimInstance) => any,
+    callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -349,12 +349,12 @@ export class SimContextImpl implements SimContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new SimInstance(operationVersion, payload, instance._solution.sid),
+        new SimInstance(operationVersion, payload, instance._solution.sid)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -363,7 +363,7 @@ export class SimContextImpl implements SimContext {
     params?:
       | SimContextUpdateOptions
       | ((error: Error | null, item?: ApiResponse<SimInstance>) => any),
-    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any
   ): Promise<ApiResponse<SimInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -422,13 +422,13 @@ export class SimContextImpl implements SimContext {
         body: new SimInstance(
           operationVersion,
           response.body,
-          instance._solution.sid,
+          instance._solution.sid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -483,7 +483,7 @@ export class SimInstance {
   constructor(
     protected _version: Wireless,
     payload: SimResource,
-    sid?: string,
+    sid?: string
   ) {
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
@@ -548,7 +548,7 @@ export class SimInstance {
    * @returns Resolves to processed SimInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: SimInstance) => any,
+    callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
     return this._proxy.fetch(callback);
   }
@@ -561,7 +561,7 @@ export class SimInstance {
    * @returns Resolves to processed SimInstance with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any
   ): Promise<ApiResponse<SimInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -574,7 +574,7 @@ export class SimInstance {
    * @returns Resolves to processed SimInstance
    */
   update(
-    callback?: (error: Error | null, item?: SimInstance) => any,
+    callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance>;
   /**
    * Update a SimInstance
@@ -586,12 +586,12 @@ export class SimInstance {
    */
   update(
     params: SimContextUpdateOptions,
-    callback?: (error: Error | null, item?: SimInstance) => any,
+    callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: SimInstance) => any,
+    callback?: (error: Error | null, item?: SimInstance) => any
   ): Promise<SimInstance> {
     return this._proxy.update(params, callback);
   }
@@ -604,7 +604,7 @@ export class SimInstance {
    * @returns Resolves to processed SimInstance with HTTP metadata
    */
   updateWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any
   ): Promise<ApiResponse<SimInstance>>;
   /**
    * Update a SimInstance and return HTTP info
@@ -616,12 +616,12 @@ export class SimInstance {
    */
   updateWithHttpInfo(
     params: SimContextUpdateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any
   ): Promise<ApiResponse<SimInstance>>;
 
   updateWithHttpInfo(
     params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<SimInstance>) => any
   ): Promise<ApiResponse<SimInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -696,11 +696,11 @@ export interface SimListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(
-    callback?: (item: SimInstance, done: (err?: Error) => void) => void,
+    callback?: (item: SimInstance, done: (err?: Error) => void) => void
   ): void;
   each(
     params: SimListInstanceEachOptions,
-    callback?: (item: SimInstance, done: (err?: Error) => void) => void,
+    callback?: (item: SimInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Streams SimInstance records from the API with HTTP metadata captured per page.
@@ -718,11 +718,11 @@ export interface SimListInstance {
    * @param { function } [callback] - Function to process each record
    */
   eachWithHttpInfo(
-    callback?: (item: SimInstance, done: (err?: Error) => void) => void,
+    callback?: (item: SimInstance, done: (err?: Error) => void) => void
   ): void;
   eachWithHttpInfo(
     params: SimListInstanceEachOptions,
-    callback?: (item: SimInstance, done: (err?: Error) => void) => void,
+    callback?: (item: SimInstance, done: (err?: Error) => void) => void
   ): void;
   /**
    * Retrieve a single target page of SimInstance records from the API.
@@ -734,7 +734,7 @@ export interface SimListInstance {
    */
   getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SimPage) => any,
+    callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage>;
   /**
    * Retrieve a single target page of SimInstance records from the API with HTTP metadata.
@@ -746,7 +746,7 @@ export interface SimListInstance {
    */
   getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<SimPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<SimPage>) => any
   ): Promise<ApiResponse<SimPage>>;
   /**
    * Lists SimInstance records from the API as a list.
@@ -758,11 +758,11 @@ export interface SimListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   list(
-    callback?: (error: Error | null, items: SimInstance[]) => any,
+    callback?: (error: Error | null, items: SimInstance[]) => any
   ): Promise<SimInstance[]>;
   list(
     params: SimListInstanceOptions,
-    callback?: (error: Error | null, items: SimInstance[]) => any,
+    callback?: (error: Error | null, items: SimInstance[]) => any
   ): Promise<SimInstance[]>;
   /**
    * Lists SimInstance records from the API as a list with HTTP metadata.
@@ -776,11 +776,11 @@ export interface SimListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   listWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<SimInstance[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<SimInstance[]>) => any
   ): Promise<ApiResponse<SimInstance[]>>;
   listWithHttpInfo(
     params: SimListInstanceOptions,
-    callback?: (error: Error | null, items: ApiResponse<SimInstance[]>) => any,
+    callback?: (error: Error | null, items: ApiResponse<SimInstance[]>) => any
   ): Promise<ApiResponse<SimInstance[]>>;
   /**
    * Retrieve a single page of SimInstance records from the API.
@@ -794,11 +794,11 @@ export interface SimListInstance {
    * @param { function } [callback] - Callback to handle list of records
    */
   page(
-    callback?: (error: Error | null, items: SimPage) => any,
+    callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage>;
   page(
     params: SimListInstancePageOptions,
-    callback?: (error: Error | null, items: SimPage) => any,
+    callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage>;
   /**
    * Retrieve a single page of SimInstance records from the API with HTTP metadata.
@@ -812,11 +812,11 @@ export interface SimListInstance {
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
   pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<SimPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<SimPage>) => any
   ): Promise<ApiResponse<SimPage>>;
   pageWithHttpInfo(
     params: SimListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<SimPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<SimPage>) => any
   ): Promise<ApiResponse<SimPage>>;
 
   /**
@@ -841,7 +841,7 @@ export function SimListInstance(version: Wireless): SimListInstance {
     params?:
       | SimListInstancePageOptions
       | ((error: Error | null, items: SimPage) => any),
-    callback?: (error: Error | null, items: SimPage) => any,
+    callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage> {
     if (params instanceof Function) {
       callback = params;
@@ -875,12 +875,12 @@ export function SimListInstance(version: Wireless): SimListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new SimPage(operationVersion, payload, instance._solution),
+      (payload) => new SimPage(operationVersion, payload, instance._solution)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -890,14 +890,14 @@ export function SimListInstance(version: Wireless): SimListInstance {
 
   instance.getPage = function getPage(
     targetUrl: string,
-    callback?: (error: Error | null, items: SimPage) => any,
+    callback?: (error: Error | null, items: SimPage) => any
   ): Promise<SimPage> {
     const operationPromise = instance._version._domain.twilio.request({
       method: "get",
       uri: targetUrl,
     });
     let pagePromise = operationPromise.then(
-      (payload) => new SimPage(instance._version, payload, instance._solution),
+      (payload) => new SimPage(instance._version, payload, instance._solution)
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -907,7 +907,7 @@ export function SimListInstance(version: Wireless): SimListInstance {
     params?:
       | SimListInstancePageOptions
       | ((error: Error | null, items: ApiResponse<SimPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<SimPage>) => any,
+    callback?: (error: Error | null, items: ApiResponse<SimPage>) => any
   ): Promise<ApiResponse<SimPage>> {
     if (params instanceof Function) {
       callback = params;
@@ -946,7 +946,7 @@ export function SimListInstance(version: Wireless): SimListInstance {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -958,7 +958,7 @@ export function SimListInstance(version: Wireless): SimListInstance {
 
   instance.getPageWithHttpInfo = function getPageWithHttpInfo(
     targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<SimPage>) => any,
+    callback?: (error: Error | null, items?: ApiResponse<SimPage>) => any
   ): Promise<ApiResponse<SimPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
     const operationPromise = instance._version._domain.twilio.request({
@@ -971,7 +971,7 @@ export function SimListInstance(version: Wireless): SimListInstance {
         statusCode: response.statusCode,
         headers: response.headers,
         body: new SimPage(instance._version, response, instance._solution),
-      }),
+      })
     );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
@@ -983,7 +983,7 @@ export function SimListInstance(version: Wireless): SimListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -1007,7 +1007,7 @@ export class SimPage extends Page<
   constructor(
     version: Wireless,
     response: Response<string>,
-    solution: SimSolution,
+    solution: SimSolution
   ) {
     super(version, response, solution);
   }

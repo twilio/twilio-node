@@ -36,7 +36,7 @@ export interface DomainCertsContext {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
   /**
@@ -47,7 +47,7 @@ export interface DomainCertsContext {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
 
   /**
@@ -58,7 +58,7 @@ export interface DomainCertsContext {
    * @returns Resolves to processed DomainCertsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any,
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance>;
 
   /**
@@ -71,8 +71,8 @@ export interface DomainCertsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainCertsInstance>,
-    ) => any,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
   ): Promise<ApiResponse<DomainCertsInstance>>;
 
   /**
@@ -85,7 +85,7 @@ export interface DomainCertsContext {
    */
   update(
     params: DomainCertsContextUpdateOptions,
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any,
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance>;
 
   /**
@@ -100,8 +100,8 @@ export interface DomainCertsContext {
     params: DomainCertsContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainCertsInstance>,
-    ) => any,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
   ): Promise<ApiResponse<DomainCertsInstance>>;
 
   /**
@@ -121,7 +121,7 @@ export class DomainCertsContextImpl implements DomainCertsContext {
 
   constructor(
     protected _version: V1,
-    domainSid: string,
+    domainSid: string
   ) {
     if (!isValidPathParam(domainSid)) {
       throw new Error("Parameter 'domainSid' is not valid.");
@@ -132,7 +132,7 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   }
 
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     const headers: any = {};
 
@@ -146,13 +146,13 @@ export class DomainCertsContextImpl implements DomainCertsContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     const headers: any = {};
 
@@ -168,13 +168,13 @@ export class DomainCertsContextImpl implements DomainCertsContext {
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   fetch(
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any,
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -192,13 +192,13 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         new DomainCertsInstance(
           operationVersion,
           payload,
-          instance._solution.domainSid,
-        ),
+          instance._solution.domainSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -206,8 +206,8 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainCertsInstance>,
-    ) => any,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
   ): Promise<ApiResponse<DomainCertsInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -226,20 +226,20 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         body: new DomainCertsInstance(
           operationVersion,
           response.body,
-          instance._solution.domainSid,
+          instance._solution.domainSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
 
   update(
     params: DomainCertsContextUpdateOptions,
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any,
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -271,13 +271,13 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         new DomainCertsInstance(
           operationVersion,
           payload,
-          instance._solution.domainSid,
-        ),
+          instance._solution.domainSid
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -286,8 +286,8 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     params: DomainCertsContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainCertsInstance>,
-    ) => any,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
   ): Promise<ApiResponse<DomainCertsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
@@ -320,13 +320,13 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         body: new DomainCertsInstance(
           operationVersion,
           response.body,
-          instance._solution.domainSid,
+          instance._solution.domainSid
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   }
@@ -365,7 +365,7 @@ export class DomainCertsInstance {
   constructor(
     protected _version: V1,
     payload: DomainCertsResource,
-    domainSid?: string,
+    domainSid?: string
   ) {
     this.domainSid = payload.domain_sid;
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -424,7 +424,7 @@ export class DomainCertsInstance {
    * @returns Resolves to processed boolean
    */
   remove(
-    callback?: (error: Error | null, item?: boolean) => any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
@@ -437,7 +437,7 @@ export class DomainCertsInstance {
    * @returns Resolves to processed boolean with HTTP metadata
    */
   removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
@@ -450,7 +450,7 @@ export class DomainCertsInstance {
    * @returns Resolves to processed DomainCertsInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any,
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
     return this._proxy.fetch(callback);
   }
@@ -465,8 +465,8 @@ export class DomainCertsInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainCertsInstance>,
-    ) => any,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
   ): Promise<ApiResponse<DomainCertsInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
@@ -481,12 +481,12 @@ export class DomainCertsInstance {
    */
   update(
     params: DomainCertsContextUpdateOptions,
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any,
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance>;
 
   update(
     params?: any,
-    callback?: (error: Error | null, item?: DomainCertsInstance) => any,
+    callback?: (error: Error | null, item?: DomainCertsInstance) => any
   ): Promise<DomainCertsInstance> {
     return this._proxy.update(params, callback);
   }
@@ -503,16 +503,16 @@ export class DomainCertsInstance {
     params: DomainCertsContextUpdateOptions,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainCertsInstance>,
-    ) => any,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
   ): Promise<ApiResponse<DomainCertsInstance>>;
 
   updateWithHttpInfo(
     params?: any,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<DomainCertsInstance>,
-    ) => any,
+      item?: ApiResponse<DomainCertsInstance>
+    ) => any
   ): Promise<ApiResponse<DomainCertsInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
@@ -575,7 +575,7 @@ export function DomainCertsListInstance(version: V1): DomainCertsListInstance {
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };

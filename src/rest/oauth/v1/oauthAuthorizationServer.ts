@@ -36,8 +36,8 @@ export interface OauthAuthorizationServerListInstance {
   fetch(
     callback?: (
       error: Error | null,
-      item?: OauthAuthorizationServerInstance,
-    ) => any,
+      item?: OauthAuthorizationServerInstance
+    ) => any
   ): Promise<OauthAuthorizationServerInstance>;
 
   /**
@@ -50,8 +50,8 @@ export interface OauthAuthorizationServerListInstance {
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<OauthAuthorizationServerInstance>,
-    ) => any,
+      item?: ApiResponse<OauthAuthorizationServerInstance>
+    ) => any
   ): Promise<ApiResponse<OauthAuthorizationServerInstance>>;
 
   /**
@@ -62,7 +62,7 @@ export interface OauthAuthorizationServerListInstance {
 }
 
 export function OauthAuthorizationServerListInstance(
-  version: V1,
+  version: V1
 ): OauthAuthorizationServerListInstance {
   const instance = {} as OauthAuthorizationServerListInstance;
 
@@ -73,8 +73,8 @@ export function OauthAuthorizationServerListInstance(
   instance.fetch = function fetch(
     callback?: (
       error: Error | null,
-      items: OauthAuthorizationServerInstance,
-    ) => any,
+      items: OauthAuthorizationServerInstance
+    ) => any
   ): Promise<OauthAuthorizationServerInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -88,12 +88,12 @@ export function OauthAuthorizationServerListInstance(
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new OauthAuthorizationServerInstance(operationVersion, payload),
+        new OauthAuthorizationServerInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -101,8 +101,8 @@ export function OauthAuthorizationServerListInstance(
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<OauthAuthorizationServerInstance>,
-    ) => any,
+      items: ApiResponse<OauthAuthorizationServerInstance>
+    ) => any
   ): Promise<ApiResponse<OauthAuthorizationServerInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -119,13 +119,13 @@ export function OauthAuthorizationServerListInstance(
         ...response,
         body: new OauthAuthorizationServerInstance(
           operationVersion,
-          response.body,
+          response.body
         ),
       }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
-      callback,
+      callback
     );
     return operationPromise;
   };
@@ -136,7 +136,7 @@ export function OauthAuthorizationServerListInstance(
 
   instance[inspect.custom] = function inspectImpl(
     _depth: any,
-    options: InspectOptions,
+    options: InspectOptions
   ) {
     return inspect(instance.toJSON(), options);
   };
@@ -159,7 +159,7 @@ interface OauthAuthorizationServerResource {
 export class OauthAuthorizationServerInstance {
   constructor(
     protected _version: V1,
-    payload: OauthAuthorizationServerResource,
+    payload: OauthAuthorizationServerResource
   ) {
     this.issuer = payload.issuer;
     this.authorizationEndpoint = payload.authorization_endpoint;
