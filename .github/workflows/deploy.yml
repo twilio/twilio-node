@@ -3,7 +3,7 @@
  on:
    push:
      tags:
-       - 'v*'
+       - '*'
 
  env:
    ARTIFACTORY_URL: ${{ vars.ARTIFACTORY_URL }}
@@ -75,6 +75,6 @@
          with:
            registry: 'https://registry.npmjs.org'
            validate-tag: 'true'
-           tag-prefix: 'v'
+           tag-prefix: ''
            access: 'public'
            provenance: 'true'
