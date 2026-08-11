@@ -1,0 +1,35 @@
+name: Deprecate npm version
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Package version to deprecate (e.g. 1.0.0)'
+        required: true
+        type: string
+      message:
+        description: 'Deprecation message shown to users on install'
+        required: true
+        type: string
+        default: 'This version has been deprecated. Please upgrade to the latest version.'
+
+jobs:
+  deprecate:
+    name: Deprecate twilio@${{ inputs.version }}
+    runs-on: ubuntu-x64
+    if: github.repository_owner == 'twilio'
+    environment:
+      name: production
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Verify version exists on npm
+        run: npm view "twilio@${{ inputs.version }}" version
+
+#      - name: Deprecate version
+#        run: npm deprecate "twilio@${{ inputs.version }}" "${{ inputs.message }}"
