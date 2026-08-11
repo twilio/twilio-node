@@ -24,7 +24,7 @@
        - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
        - name: Artifactory OIDC Auth
-         uses: twilio/sdk-actions/artifactory-oidc@0375437914d535a5fb178bdbfdb5d51bdde2616e # v1
+         uses: twilio/sdk-actions/artifactory-oidc@23b656b843d2a3461cf38e4fd466c07a822d5fc0 # v1
 
        - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
          with:
@@ -51,7 +51,7 @@
        - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
        - name: Artifactory OIDC Auth
-         uses: twilio/sdk-actions/artifactory-oidc@artifactory-oidc@375437914d535a5fb178bdbfdb5d51bdde2616e # v1
+         uses: twilio/sdk-actions/artifactory-oidc@23b656b843d2a3461cf38e4fd466c07a822d5fc0 # v1
 
        # Node 24+ required for npm OIDC trusted publisher support (npm >= 11.5.1)
        - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
