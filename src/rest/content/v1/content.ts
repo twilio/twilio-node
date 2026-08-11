@@ -83,7 +83,11 @@ export class CardAction {
 }
 
 export type CardActionType =
-  "URL" | "PHONE_NUMBER" | "QUICK_REPLY" | "COPY_CODE" | "VOICE_CALL";
+  | "URL"
+  | "PHONE_NUMBER"
+  | "QUICK_REPLY"
+  | "COPY_CODE"
+  | "VOICE_CALL";
 
 export class CarouselAction {
   "type": CarouselActionType;
@@ -656,10 +660,7 @@ export class ContentContextImpl implements ContentContext {
   protected _approvalCreate?: ApprovalCreateListInstance;
   protected _approvalFetch?: ApprovalFetchListInstance;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -712,10 +713,12 @@ export class ContentContextImpl implements ContentContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -765,14 +768,16 @@ export class ContentContextImpl implements ContentContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ContentInstance> => ({
-        ...response,
-        body: new ContentInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ContentInstance> => ({
+          ...response,
+          body: new ContentInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -852,14 +857,16 @@ export class ContentContextImpl implements ContentContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ContentInstance> => ({
-        ...response,
-        body: new ContentInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ContentInstance> => ({
+          ...response,
+          body: new ContentInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -903,11 +910,7 @@ export class ContentInstance {
   protected _solution: ContentContextSolution;
   protected _context?: ContentContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ContentResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: ContentResource, sid?: string) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.sid = payload.sid;
@@ -1376,10 +1379,12 @@ export function ContentListInstance(version: V1): ContentListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<ContentInstance> => ({
-        ...response,
-        body: new ContentInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<ContentInstance> => ({
+          ...response,
+          body: new ContentInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1479,11 +1484,13 @@ export function ContentListInstance(version: V1): ContentListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ContentPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ContentPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<ContentPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ContentPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

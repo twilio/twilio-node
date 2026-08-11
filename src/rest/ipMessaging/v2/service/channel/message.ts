@@ -336,10 +336,12 @@ export class MessageContextImpl implements MessageContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -395,16 +397,18 @@ export class MessageContextImpl implements MessageContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<MessageInstance> => ({
-        ...response,
-        body: new MessageInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.channelSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MessageInstance> => ({
+          ...response,
+          body: new MessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.channelSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -514,16 +518,18 @@ export class MessageContextImpl implements MessageContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<MessageInstance> => ({
-        ...response,
-        body: new MessageInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.channelSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MessageInstance> => ({
+          ...response,
+          body: new MessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.channelSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1140,15 +1146,17 @@ export function MessageListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<MessageInstance> => ({
-        ...response,
-        body: new MessageInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.channelSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<MessageInstance> => ({
+          ...response,
+          body: new MessageInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.channelSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1250,11 +1258,13 @@ export function MessageListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<MessagePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new MessagePage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<MessagePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new MessagePage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -178,14 +178,16 @@ export function BulkListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<BulkInstance> => ({
-        ...response,
-        body: new BulkInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BulkInstance> => ({
+          ...response,
+          body: new BulkInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -213,11 +215,7 @@ interface BulkResource {
 }
 
 export class BulkInstance {
-  constructor(
-    protected _version: V1,
-    _payload: BulkResource,
-    storeId: string
-  ) {
+  constructor(protected _version: V1, _payload: BulkResource, storeId: string) {
     const payload = _payload;
     this.message = payload.message;
   }

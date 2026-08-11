@@ -28,7 +28,9 @@ export type TranscriptionStatus = "in-progress" | "stopped";
  * One of `inbound_track`, `outbound_track`, `both_tracks`.
  */
 export type TranscriptionTrack =
-  "inbound_track" | "outbound_track" | "both_tracks";
+  | "inbound_track"
+  | "outbound_track"
+  | "both_tracks";
 
 export type TranscriptionUpdateStatus = "stopped";
 
@@ -231,16 +233,18 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<TranscriptionInstance> => ({
-        ...response,
-        body: new TranscriptionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TranscriptionInstance> => ({
+          ...response,
+          body: new TranscriptionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -647,15 +651,17 @@ export function TranscriptionListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<TranscriptionInstance> => ({
-        ...response,
-        body: new TranscriptionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.callSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TranscriptionInstance> => ({
+          ...response,
+          body: new TranscriptionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

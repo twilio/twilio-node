@@ -357,16 +357,18 @@ export class ObservationContextImpl implements ObservationContext {
         method: "delete",
         headers,
       })
-      .then((response): ApiResponse<ObservationInstance> => ({
-        ...response,
-        body: new ObservationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId,
-          instance._solution.observationId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ObservationInstance> => ({
+          ...response,
+          body: new ObservationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId,
+            instance._solution.observationId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -425,16 +427,18 @@ export class ObservationContextImpl implements ObservationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ObservationInstance> => ({
-        ...response,
-        body: new ObservationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId,
-          instance._solution.observationId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ObservationInstance> => ({
+          ...response,
+          body: new ObservationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId,
+            instance._solution.observationId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -523,16 +527,18 @@ export class ObservationContextImpl implements ObservationContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ObservationInstance> => ({
-        ...response,
-        body: new ObservationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId,
-          instance._solution.observationId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ObservationInstance> => ({
+          ...response,
+          body: new ObservationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId,
+            instance._solution.observationId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1132,15 +1138,17 @@ export function ObservationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ObservationInstance> => ({
-        ...response,
-        body: new ObservationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ObservationInstance> => ({
+          ...response,
+          body: new ObservationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1274,17 +1282,19 @@ export function ObservationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ObservationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ObservationPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ObservationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ObservationPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

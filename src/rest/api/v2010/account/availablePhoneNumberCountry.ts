@@ -117,7 +117,9 @@ export interface AvailablePhoneNumberCountryContextSolution {
   countryCode: string;
 }
 
-export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNumberCountryContext {
+export class AvailablePhoneNumberCountryContextImpl
+  implements AvailablePhoneNumberCountryContext
+{
   protected _solution: AvailablePhoneNumberCountryContextSolution;
   protected _uri: string;
 
@@ -275,15 +277,17 @@ export class AvailablePhoneNumberCountryContextImpl implements AvailablePhoneNum
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<AvailablePhoneNumberCountryInstance> => ({
-        ...response,
-        body: new AvailablePhoneNumberCountryInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.countryCode
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AvailablePhoneNumberCountryInstance> => ({
+          ...response,
+          body: new AvailablePhoneNumberCountryInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.countryCode
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -804,15 +808,17 @@ export function AvailablePhoneNumberCountryListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<AvailablePhoneNumberCountryPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new AvailablePhoneNumberCountryPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AvailablePhoneNumberCountryPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AvailablePhoneNumberCountryPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

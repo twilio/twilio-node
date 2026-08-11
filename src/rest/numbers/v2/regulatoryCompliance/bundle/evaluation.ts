@@ -105,11 +105,7 @@ export class EvaluationContextImpl implements EvaluationContext {
   protected _solution: EvaluationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    bundleSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V2, bundleSid: string, sid: string) {
     if (!isValidPathParam(bundleSid)) {
       throw new Error("Parameter 'bundleSid' is not valid.");
     }
@@ -171,15 +167,17 @@ export class EvaluationContextImpl implements EvaluationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<EvaluationInstance> => ({
-        ...response,
-        body: new EvaluationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.bundleSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EvaluationInstance> => ({
+          ...response,
+          body: new EvaluationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.bundleSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -579,14 +577,16 @@ export function EvaluationListInstance(
         method: "post",
         headers,
       })
-      .then((response): ApiResponse<EvaluationInstance> => ({
-        ...response,
-        body: new EvaluationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.bundleSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EvaluationInstance> => ({
+          ...response,
+          body: new EvaluationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.bundleSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -686,15 +686,17 @@ export function EvaluationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<EvaluationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new EvaluationPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EvaluationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new EvaluationPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

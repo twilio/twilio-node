@@ -164,10 +164,12 @@ export function NewApiKeyListInstance(version: V1): NewApiKeyListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<NewApiKeyInstance> => ({
-        ...response,
-        body: new NewApiKeyInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<NewApiKeyInstance> => ({
+          ...response,
+          body: new NewApiKeyInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -202,10 +204,7 @@ interface NewApiKeyResource {
 }
 
 export class NewApiKeyInstance {
-  constructor(
-    protected _version: V1,
-    payload: NewApiKeyResource
-  ) {
+  constructor(protected _version: V1, payload: NewApiKeyResource) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);

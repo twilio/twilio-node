@@ -389,15 +389,17 @@ export function InteractionChannelInviteListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<InteractionChannelInviteInstance> => ({
-        ...response,
-        body: new InteractionChannelInviteInstance(
-          operationVersion,
-          response.body,
-          instance._solution.interactionSid,
-          instance._solution.channelSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InteractionChannelInviteInstance> => ({
+          ...response,
+          body: new InteractionChannelInviteInstance(
+            operationVersion,
+            response.body,
+            instance._solution.interactionSid,
+            instance._solution.channelSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -511,15 +513,17 @@ export function InteractionChannelInviteListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<InteractionChannelInvitePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new InteractionChannelInvitePage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InteractionChannelInvitePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new InteractionChannelInvitePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

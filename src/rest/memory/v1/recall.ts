@@ -209,7 +209,11 @@ export class Participant {
  * Type of Participant in the Conversation
  */
 export type ParticipantType =
-  "HUMAN_AGENT" | "CUSTOMER" | "AI_AGENT" | "AGENT" | "UNKNOWN";
+  | "HUMAN_AGENT"
+  | "CUSTOMER"
+  | "AI_AGENT"
+  | "AGENT"
+  | "UNKNOWN";
 
 /**
  * A transient and mutable observation memory associated with a profile.
@@ -461,15 +465,17 @@ export function RecallListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<RecallInstance> => ({
-        ...response,
-        body: new RecallInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RecallInstance> => ({
+          ...response,
+          body: new RecallInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -23,25 +23,35 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * The type of business identity.  Can be `direct customer` or `ISV`.
  */
 export type ComplianceRegistrationInquiriesBusinessIdentityType =
-  "direct_customer" | "isv_reseller_or_partner" | "unknown";
+  | "direct_customer"
+  | "isv_reseller_or_partner"
+  | "unknown";
 
 /**
  * The authority that registered the business
  */
 export type ComplianceRegistrationInquiriesBusinessRegistrationAuthority =
-  "UK:CRN" | "US:EIN" | "CA:CBN" | "AU:ACN" | "Other";
+  | "UK:CRN"
+  | "US:EIN"
+  | "CA:CBN"
+  | "AU:ACN"
+  | "Other";
 
 /**
  * The type of End User the regulation requires - can be `Individual` or `Business`.
  */
 export type ComplianceRegistrationInquiriesEndUserType =
-  "Individual" | "Business";
+  | "Individual"
+  | "Business";
 
 /**
  * The type of phone number of the Bundle\'s ownership request.  Can be `local`, `mobile`, `national`, or `toll-free`.
  */
 export type ComplianceRegistrationInquiriesPhoneNumberType =
-  "local" | "national" | "mobile" | "toll-free";
+  | "local"
+  | "national"
+  | "mobile"
+  | "toll-free";
 
 /**
  * Options to pass to update a ComplianceRegistrationInquiriesInstance
@@ -207,14 +217,13 @@ export interface ComplianceRegistrationInquiriesContextSolution {
   registrationId: string;
 }
 
-export class ComplianceRegistrationInquiriesContextImpl implements ComplianceRegistrationInquiriesContext {
+export class ComplianceRegistrationInquiriesContextImpl
+  implements ComplianceRegistrationInquiriesContext
+{
   protected _solution: ComplianceRegistrationInquiriesContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    registrationId: string
-  ) {
+  constructor(protected _version: V1, registrationId: string) {
     if (!isValidPathParam(registrationId)) {
       throw new Error("Parameter 'registrationId' is not valid.");
     }
@@ -350,7 +359,8 @@ export class ComplianceRegistrationInquiriesContextImpl implements ComplianceReg
   }
 }
 
-interface ComplianceRegistrationInquiriesPayload extends ComplianceRegistrationInquiriesResource {}
+interface ComplianceRegistrationInquiriesPayload
+  extends ComplianceRegistrationInquiriesResource {}
 
 interface ComplianceRegistrationInquiriesResource {
   inquiry_id: string;

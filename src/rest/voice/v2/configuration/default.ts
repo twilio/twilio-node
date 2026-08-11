@@ -137,7 +137,8 @@ export function DefaultListInstance(
 
   instance.create = function create(
     params?:
-      DefaultConfigurationRequest | ((error: Error | null, items: void) => any),
+      | DefaultConfigurationRequest
+      | ((error: Error | null, items: void) => any),
     headers?: any,
     callback?: (error: Error | null, items: void) => any
   ): Promise<void> {
@@ -214,10 +215,12 @@ export function DefaultListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<void> => ({
-        ...response,
-        body: undefined,
-      }));
+      .then(
+        (response): ApiResponse<void> => ({
+          ...response,
+          body: undefined,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -265,14 +268,16 @@ export function DefaultListInstance(
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<DefaultInstance> => ({
-        ...response,
-        body: new DefaultInstance(
-          operationVersion,
-          response.body,
-          instance._solution.type
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DefaultInstance> => ({
+          ...response,
+          body: new DefaultInstance(
+            operationVersion,
+            response.body,
+            instance._solution.type
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -315,11 +320,7 @@ interface DefaultResource {
  * Twilio error response
  */
 export class DefaultInstance {
-  constructor(
-    protected _version: V2,
-    payload: DefaultResource,
-    type: string
-  ) {
+  constructor(protected _version: V2, payload: DefaultResource, type: string) {
     this.message = payload.message;
     this.code = payload.code;
     this.status = payload.status;

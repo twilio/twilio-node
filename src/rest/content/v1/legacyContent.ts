@@ -341,15 +341,17 @@ export function LegacyContentListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<LegacyContentPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new LegacyContentPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<LegacyContentPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new LegacyContentPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -424,10 +426,7 @@ interface LegacyContentResource {
 }
 
 export class LegacyContentInstance {
-  constructor(
-    protected _version: V1,
-    payload: LegacyContentResource
-  ) {
+  constructor(protected _version: V1, payload: LegacyContentResource) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.sid = payload.sid;

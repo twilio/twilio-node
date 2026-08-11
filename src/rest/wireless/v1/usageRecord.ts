@@ -350,15 +350,17 @@ export function UsageRecordListInstance(version: V1): UsageRecordListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<UsageRecordPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new UsageRecordPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UsageRecordPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new UsageRecordPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -426,10 +428,7 @@ interface UsageRecordResource {
 }
 
 export class UsageRecordInstance {
-  constructor(
-    protected _version: V1,
-    payload: UsageRecordResource
-  ) {
+  constructor(protected _version: V1, payload: UsageRecordResource) {
     this.accountSid = payload.account_sid;
     this.period = payload.period;
     this.commands = payload.commands;

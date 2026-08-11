@@ -322,10 +322,7 @@ export class OutboundContextImpl implements OutboundContext {
   protected _solution: OutboundContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    reportId: string
-  ) {
+  constructor(protected _version: V2, reportId: string) {
     if (!isValidPathParam(reportId)) {
       throw new Error("Parameter 'reportId' is not valid.");
     }
@@ -428,14 +425,16 @@ export class OutboundContextImpl implements OutboundContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<OutboundInstance> => ({
-        ...response,
-        body: new OutboundInstance(
-          operationVersion,
-          response.body,
-          instance._solution.reportId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OutboundInstance> => ({
+          ...response,
+          body: new OutboundInstance(
+            operationVersion,
+            response.body,
+            instance._solution.reportId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -976,11 +975,17 @@ export function OutboundListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<OutboundPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new OutboundPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<OutboundPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new OutboundPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

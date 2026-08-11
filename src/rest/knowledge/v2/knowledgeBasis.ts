@@ -217,10 +217,7 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
   protected _solution: KnowledgeBasisContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    kbId: string
-  ) {
+  constructor(protected _version: V2, kbId: string) {
     if (!isValidPathParam(kbId)) {
       throw new Error("Parameter 'kbId' is not valid.");
     }
@@ -277,14 +274,16 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
         method: "delete",
         headers,
       })
-      .then((response): ApiResponse<KnowledgeBasisInstance> => ({
-        ...response,
-        body: new KnowledgeBasisInstance(
-          operationVersion,
-          response.body,
-          instance._solution.kbId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeBasisInstance> => ({
+          ...response,
+          body: new KnowledgeBasisInstance(
+            operationVersion,
+            response.body,
+            instance._solution.kbId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -341,14 +340,16 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<KnowledgeBasisInstance> => ({
-        ...response,
-        body: new KnowledgeBasisInstance(
-          operationVersion,
-          response.body,
-          instance._solution.kbId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeBasisInstance> => ({
+          ...response,
+          body: new KnowledgeBasisInstance(
+            operationVersion,
+            response.body,
+            instance._solution.kbId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -435,14 +436,16 @@ export class KnowledgeBasisContextImpl implements KnowledgeBasisContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<KnowledgeBasisInstance> => ({
-        ...response,
-        body: new KnowledgeBasisInstance(
-          operationVersion,
-          response.body,
-          instance._solution.kbId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeBasisInstance> => ({
+          ...response,
+          body: new KnowledgeBasisInstance(
+            operationVersion,
+            response.body,
+            instance._solution.kbId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1026,10 +1029,12 @@ export function KnowledgeBasisListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<KnowledgeBasisInstance> => ({
-        ...response,
-        body: new KnowledgeBasisInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeBasisInstance> => ({
+          ...response,
+          body: new KnowledgeBasisInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1144,17 +1149,19 @@ export function KnowledgeBasisListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<KnowledgeBasisPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new KnowledgeBasisPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeBasisPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new KnowledgeBasisPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

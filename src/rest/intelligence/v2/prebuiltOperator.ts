@@ -26,7 +26,11 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * Operator availability status. Possible values: internal, beta, public, retired.
  */
 export type PrebuiltOperatorAvailability =
-  "internal" | "beta" | "public" | "retired" | "general-availability";
+  | "internal"
+  | "beta"
+  | "public"
+  | "retired"
+  | "general-availability";
 
 /**
  * Options to pass to each
@@ -120,10 +124,7 @@ export class PrebuiltOperatorContextImpl implements PrebuiltOperatorContext {
   protected _solution: PrebuiltOperatorContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    sid: string
-  ) {
+  constructor(protected _version: V2, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -180,14 +181,16 @@ export class PrebuiltOperatorContextImpl implements PrebuiltOperatorContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<PrebuiltOperatorInstance> => ({
-        ...response,
-        body: new PrebuiltOperatorInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PrebuiltOperatorInstance> => ({
+          ...response,
+          body: new PrebuiltOperatorInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -664,15 +667,17 @@ export function PrebuiltOperatorListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<PrebuiltOperatorPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new PrebuiltOperatorPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PrebuiltOperatorPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new PrebuiltOperatorPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

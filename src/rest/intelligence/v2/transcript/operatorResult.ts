@@ -257,15 +257,17 @@ export class OperatorResultContextImpl implements OperatorResultContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<OperatorResultInstance> => ({
-        ...response,
-        body: new OperatorResultInstance(
-          operationVersion,
-          response.body,
-          instance._solution.transcriptSid,
-          instance._solution.operatorSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OperatorResultInstance> => ({
+          ...response,
+          body: new OperatorResultInstance(
+            operationVersion,
+            response.body,
+            instance._solution.transcriptSid,
+            instance._solution.operatorSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -813,15 +815,17 @@ export function OperatorResultListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<OperatorResultPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new OperatorResultPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OperatorResultPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new OperatorResultPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

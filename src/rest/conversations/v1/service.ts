@@ -149,10 +149,7 @@ export class ServiceContextImpl implements ServiceContext {
   protected _roles?: RoleListInstance;
   protected _users?: UserListInstance;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -240,10 +237,12 @@ export class ServiceContextImpl implements ServiceContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -293,14 +292,16 @@ export class ServiceContextImpl implements ServiceContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ServiceInstance> => ({
-        ...response,
-        body: new ServiceInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ServiceInstance> => ({
+          ...response,
+          body: new ServiceInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -341,11 +342,7 @@ export class ServiceInstance {
   protected _solution: ServiceContextSolution;
   protected _context?: ServiceContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ServiceResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: ServiceResource, sid?: string) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
@@ -789,10 +786,12 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<ServiceInstance> => ({
-        ...response,
-        body: new ServiceInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<ServiceInstance> => ({
+          ...response,
+          body: new ServiceInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -892,11 +891,13 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ServicePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ServicePage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<ServicePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ServicePage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

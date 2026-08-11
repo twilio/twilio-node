@@ -190,11 +190,7 @@ export class ImportContextImpl implements ImportContext {
   protected _solution: ImportContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    storeId: string,
-    importId: string
-  ) {
+  constructor(protected _version: V1, storeId: string, importId: string) {
     if (!isValidPathParam(storeId)) {
       throw new Error("Parameter 'storeId' is not valid.");
     }
@@ -253,15 +249,17 @@ export class ImportContextImpl implements ImportContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ImportInstance> => ({
-        ...response,
-        body: new ImportInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.importId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ImportInstance> => ({
+          ...response,
+          body: new ImportInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.importId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -773,14 +771,16 @@ export function ImportListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ImportInstance> => ({
-        ...response,
-        body: new ImportInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ImportInstance> => ({
+          ...response,
+          body: new ImportInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -927,17 +927,19 @@ export function ImportListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ImportPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ImportPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ImportPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ImportPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -79,15 +79,13 @@ export interface OperatorAttachmentContextSolution {
   operatorSid: string;
 }
 
-export class OperatorAttachmentContextImpl implements OperatorAttachmentContext {
+export class OperatorAttachmentContextImpl
+  implements OperatorAttachmentContext
+{
   protected _solution: OperatorAttachmentContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    serviceSid: string,
-    operatorSid: string
-  ) {
+  constructor(protected _version: V2, serviceSid: string, operatorSid: string) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -149,15 +147,17 @@ export class OperatorAttachmentContextImpl implements OperatorAttachmentContext 
         method: "post",
         headers,
       })
-      .then((response): ApiResponse<OperatorAttachmentInstance> => ({
-        ...response,
-        body: new OperatorAttachmentInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.operatorSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<OperatorAttachmentInstance> => ({
+          ...response,
+          body: new OperatorAttachmentInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.operatorSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -196,10 +196,12 @@ export class OperatorAttachmentContextImpl implements OperatorAttachmentContext 
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

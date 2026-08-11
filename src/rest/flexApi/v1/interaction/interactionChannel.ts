@@ -29,13 +29,26 @@ import { InteractionTransferListInstance } from "./interactionChannel/interactio
  * The status of this channel.
  */
 export type InteractionChannelChannelStatus =
-  "setup" | "active" | "failed" | "closed" | "inactive" | "pause" | "transfer";
+  | "setup"
+  | "active"
+  | "failed"
+  | "closed"
+  | "inactive"
+  | "pause"
+  | "transfer";
 
 /**
  * The Interaction Channel\'s type. Can be: `sms`, `email`, `chat`, `whatsapp`, `web`, `messenger`, or `gbm`.   **Note:** These can be different from the task channel type specified in the Routing attributes. Task channel type corresponds to channel capacity while this channel type is the actual media type
  */
 export type InteractionChannelType =
-  "voice" | "sms" | "email" | "web" | "whatsapp" | "chat" | "messenger" | "gbm";
+  | "voice"
+  | "sms"
+  | "email"
+  | "web"
+  | "whatsapp"
+  | "chat"
+  | "messenger"
+  | "gbm";
 
 export type InteractionChannelUpdateChannelStatus = "closed" | "inactive";
 
@@ -159,7 +172,9 @@ export interface InteractionChannelContextSolution {
   sid: string;
 }
 
-export class InteractionChannelContextImpl implements InteractionChannelContext {
+export class InteractionChannelContextImpl
+  implements InteractionChannelContext
+{
   protected _solution: InteractionChannelContextSolution;
   protected _uri: string;
 
@@ -167,11 +182,7 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
   protected _participants?: InteractionChannelParticipantListInstance;
   protected _transfers?: InteractionTransferListInstance;
 
-  constructor(
-    protected _version: V1,
-    interactionSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, interactionSid: string, sid: string) {
     if (!isValidPathParam(interactionSid)) {
       throw new Error("Parameter 'interactionSid' is not valid.");
     }
@@ -266,15 +277,17 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<InteractionChannelInstance> => ({
-        ...response,
-        body: new InteractionChannelInstance(
-          operationVersion,
-          response.body,
-          instance._solution.interactionSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InteractionChannelInstance> => ({
+          ...response,
+          body: new InteractionChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.interactionSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -366,15 +379,17 @@ export class InteractionChannelContextImpl implements InteractionChannelContext 
         data,
         headers,
       })
-      .then((response): ApiResponse<InteractionChannelInstance> => ({
-        ...response,
-        body: new InteractionChannelInstance(
-          operationVersion,
-          response.body,
-          instance._solution.interactionSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InteractionChannelInstance> => ({
+          ...response,
+          body: new InteractionChannelInstance(
+            operationVersion,
+            response.body,
+            instance._solution.interactionSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -894,15 +909,17 @@ export function InteractionChannelListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<InteractionChannelPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new InteractionChannelPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InteractionChannelPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new InteractionChannelPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

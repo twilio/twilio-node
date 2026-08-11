@@ -36,7 +36,11 @@ export type CommandDirection = "from_sim" | "to_sim";
  * The status of the Command. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`. See [Status Values](https://www.twilio.com/docs/iot/wireless/api/command-resource#status-values) for a description of each state.
  */
 export type CommandStatus =
-  "queued" | "sent" | "delivered" | "received" | "failed";
+  | "queued"
+  | "sent"
+  | "delivered"
+  | "received"
+  | "failed";
 
 /**
  * The type of transport used. Can be: `sms` or `ip`.
@@ -183,10 +187,7 @@ export class CommandContextImpl implements CommandContext {
   protected _solution: CommandContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -225,10 +226,12 @@ export class CommandContextImpl implements CommandContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -278,14 +281,16 @@ export class CommandContextImpl implements CommandContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<CommandInstance> => ({
-        ...response,
-        body: new CommandInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CommandInstance> => ({
+          ...response,
+          body: new CommandInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -331,11 +336,7 @@ export class CommandInstance {
   protected _solution: CommandContextSolution;
   protected _context?: CommandContext;
 
-  constructor(
-    protected _version: V1,
-    payload: CommandResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: CommandResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.simSid = payload.sim_sid;
@@ -768,10 +769,12 @@ export function CommandListInstance(version: V1): CommandListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<CommandInstance> => ({
-        ...response,
-        body: new CommandInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<CommandInstance> => ({
+          ...response,
+          body: new CommandInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -883,11 +886,13 @@ export function CommandListInstance(version: V1): CommandListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<CommandPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new CommandPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<CommandPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CommandPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -114,14 +114,16 @@ export function BalanceListInstance(
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<BalanceInstance> => ({
-        ...response,
-        body: new BalanceInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BalanceInstance> => ({
+          ...response,
+          body: new BalanceInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

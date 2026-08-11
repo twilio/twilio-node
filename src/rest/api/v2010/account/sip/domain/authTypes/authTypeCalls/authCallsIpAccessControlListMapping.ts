@@ -133,7 +133,9 @@ export interface AuthCallsIpAccessControlListMappingContextSolution {
   sid: string;
 }
 
-export class AuthCallsIpAccessControlListMappingContextImpl implements AuthCallsIpAccessControlListMappingContext {
+export class AuthCallsIpAccessControlListMappingContextImpl
+  implements AuthCallsIpAccessControlListMappingContext
+{
   protected _solution: AuthCallsIpAccessControlListMappingContextSolution;
   protected _uri: string;
 
@@ -189,10 +191,12 @@ export class AuthCallsIpAccessControlListMappingContextImpl implements AuthCalls
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -290,7 +294,8 @@ export class AuthCallsIpAccessControlListMappingContextImpl implements AuthCalls
   }
 }
 
-interface AuthCallsIpAccessControlListMappingPayload extends TwilioResponsePayload {
+interface AuthCallsIpAccessControlListMappingPayload
+  extends TwilioResponsePayload {
   contents: AuthCallsIpAccessControlListMappingResource[];
 }
 

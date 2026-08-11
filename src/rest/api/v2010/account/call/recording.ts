@@ -38,7 +38,12 @@ export type RecordingSource =
  * The status of the recording. Can be: `processing`, `completed` and `absent`. For more detailed statuses on in-progress recordings, check out how to [Update a Recording Resource](https://www.twilio.com/docs/voice/api/recording#update-a-recording-resource).
  */
 export type RecordingStatus =
-  "in-progress" | "paused" | "stopped" | "processing" | "completed" | "absent";
+  | "in-progress"
+  | "paused"
+  | "stopped"
+  | "processing"
+  | "completed"
+  | "absent";
 
 /**
  * Options to pass to update a RecordingInstance
@@ -270,10 +275,12 @@ export class RecordingContextImpl implements RecordingContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -332,16 +339,18 @@ export class RecordingContextImpl implements RecordingContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<RecordingInstance> => ({
-        ...response,
-        body: new RecordingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RecordingInstance> => ({
+          ...response,
+          body: new RecordingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -434,16 +443,18 @@ export class RecordingContextImpl implements RecordingContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<RecordingInstance> => ({
-        ...response,
-        body: new RecordingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RecordingInstance> => ({
+          ...response,
+          body: new RecordingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1088,15 +1099,17 @@ export function RecordingListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<RecordingInstance> => ({
-        ...response,
-        body: new RecordingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.callSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RecordingInstance> => ({
+          ...response,
+          body: new RecordingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1208,11 +1221,17 @@ export function RecordingListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<RecordingPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new RecordingPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<RecordingPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new RecordingPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -191,10 +191,7 @@ export class EndUserContextImpl implements EndUserContext {
   protected _solution: EndUserContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    sid: string
-  ) {
+  constructor(protected _version: V2, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -233,10 +230,12 @@ export class EndUserContextImpl implements EndUserContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -286,14 +285,16 @@ export class EndUserContextImpl implements EndUserContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<EndUserInstance> => ({
-        ...response,
-        body: new EndUserInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EndUserInstance> => ({
+          ...response,
+          body: new EndUserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -381,14 +382,16 @@ export class EndUserContextImpl implements EndUserContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<EndUserInstance> => ({
-        ...response,
-        body: new EndUserInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EndUserInstance> => ({
+          ...response,
+          body: new EndUserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -430,11 +433,7 @@ export class EndUserInstance {
   protected _solution: EndUserContextSolution;
   protected _context?: EndUserContext;
 
-  constructor(
-    protected _version: V2,
-    payload: EndUserResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V2, payload: EndUserResource, sid?: string) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -908,10 +907,12 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<EndUserInstance> => ({
-        ...response,
-        body: new EndUserInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<EndUserInstance> => ({
+          ...response,
+          body: new EndUserInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1011,11 +1012,13 @@ export function EndUserListInstance(version: V2): EndUserListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<EndUserPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new EndUserPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<EndUserPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new EndUserPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

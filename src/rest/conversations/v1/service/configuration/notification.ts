@@ -144,10 +144,7 @@ export class NotificationContextImpl implements NotificationContext {
   protected _solution: NotificationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    chatServiceSid: string
-  ) {
+  constructor(protected _version: V1, chatServiceSid: string) {
     if (!isValidPathParam(chatServiceSid)) {
       throw new Error("Parameter 'chatServiceSid' is not valid.");
     }
@@ -204,14 +201,16 @@ export class NotificationContextImpl implements NotificationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<NotificationInstance> => ({
-        ...response,
-        body: new NotificationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.chatServiceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<NotificationInstance> => ({
+          ...response,
+          body: new NotificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -377,14 +376,16 @@ export class NotificationContextImpl implements NotificationContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<NotificationInstance> => ({
-        ...response,
-        body: new NotificationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.chatServiceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<NotificationInstance> => ({
+          ...response,
+          body: new NotificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -26,7 +26,10 @@ import { ApiResponse } from "../../../../../base/ApiResponse";
  * Whether the phone number requires an [Address](https://www.twilio.com/docs/usage/api/address) registered with Twilio. Can be: `none`, `any`, `local`, or `foreign`.
  */
 export type DependentPhoneNumberAddressRequirement =
-  "none" | "any" | "local" | "foreign";
+  | "none"
+  | "any"
+  | "local"
+  | "foreign";
 
 /**
  * Whether the phone number is enabled for emergency calling.
@@ -385,15 +388,17 @@ export function DependentPhoneNumberListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<DependentPhoneNumberPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new DependentPhoneNumberPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DependentPhoneNumberPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new DependentPhoneNumberPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

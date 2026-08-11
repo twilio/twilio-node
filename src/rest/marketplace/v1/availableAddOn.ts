@@ -107,10 +107,7 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
 
   protected _extensions?: AvailableAddOnExtensionListInstance;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -174,14 +171,16 @@ export class AvailableAddOnContextImpl implements AvailableAddOnContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<AvailableAddOnInstance> => ({
-        ...response,
-        body: new AvailableAddOnInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AvailableAddOnInstance> => ({
+          ...response,
+          body: new AvailableAddOnInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -622,15 +621,17 @@ export function AvailableAddOnListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<AvailableAddOnPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new AvailableAddOnPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AvailableAddOnPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AvailableAddOnPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

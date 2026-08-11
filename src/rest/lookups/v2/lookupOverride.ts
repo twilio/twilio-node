@@ -227,11 +227,7 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
   protected _solution: LookupOverrideContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    field: string,
-    phoneNumber: string
-  ) {
+  constructor(protected _version: V2, field: string, phoneNumber: string) {
     if (!isValidPathParam(field)) {
       throw new Error("Parameter 'field' is not valid.");
     }
@@ -336,15 +332,17 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<LookupOverrideInstance> => ({
-        ...response,
-        body: new LookupOverrideInstance(
-          operationVersion,
-          response.body,
-          instance._solution.field,
-          instance._solution.phoneNumber
-        ),
-      }));
+      .then(
+        (response): ApiResponse<LookupOverrideInstance> => ({
+          ...response,
+          body: new LookupOverrideInstance(
+            operationVersion,
+            response.body,
+            instance._solution.field,
+            instance._solution.phoneNumber
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -383,10 +381,12 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -444,15 +444,17 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<LookupOverrideInstance> => ({
-        ...response,
-        body: new LookupOverrideInstance(
-          operationVersion,
-          response.body,
-          instance._solution.field,
-          instance._solution.phoneNumber
-        ),
-      }));
+      .then(
+        (response): ApiResponse<LookupOverrideInstance> => ({
+          ...response,
+          body: new LookupOverrideInstance(
+            operationVersion,
+            response.body,
+            instance._solution.field,
+            instance._solution.phoneNumber
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -553,15 +555,17 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<LookupOverrideInstance> => ({
-        ...response,
-        body: new LookupOverrideInstance(
-          operationVersion,
-          response.body,
-          instance._solution.field,
-          instance._solution.phoneNumber
-        ),
-      }));
+      .then(
+        (response): ApiResponse<LookupOverrideInstance> => ({
+          ...response,
+          body: new LookupOverrideInstance(
+            operationVersion,
+            response.body,
+            instance._solution.field,
+            instance._solution.phoneNumber
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

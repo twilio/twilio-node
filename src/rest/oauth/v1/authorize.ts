@@ -176,10 +176,12 @@ export function AuthorizeListInstance(version: V1): AuthorizeListInstance {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<void> => ({
-        ...response,
-        body: undefined,
-      }));
+      .then(
+        (response): ApiResponse<void> => ({
+          ...response,
+          body: undefined,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -209,10 +211,7 @@ interface AuthorizeResource {
 }
 
 export class AuthorizeInstance {
-  constructor(
-    protected _version: V1,
-    payload: AuthorizeResource
-  ) {
+  constructor(protected _version: V1, payload: AuthorizeResource) {
     this.redirectTo = payload.redirect_to;
   }
 

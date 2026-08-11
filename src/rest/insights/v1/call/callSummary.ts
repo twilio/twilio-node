@@ -70,7 +70,10 @@ export class CallSummaryCrelayRateStats {
 }
 
 export type CallSummaryCrelaySessionState =
-  "unknown" | "failure" | "ended" | "hung_up";
+  | "unknown"
+  | "failure"
+  | "ended"
+  | "hung_up";
 
 export class CallSummaryCrelayTokenStats {
   "total"?: number;
@@ -112,7 +115,11 @@ export type CallSummaryCallState =
   | "undialed";
 
 export type CallSummaryCallType =
-  "carrier" | "sip" | "trunking" | "client" | "whatsapp";
+  | "carrier"
+  | "sip"
+  | "trunking"
+  | "client"
+  | "whatsapp";
 
 export type CallSummaryProcessingState = "complete" | "partial";
 
@@ -192,10 +199,7 @@ export class CallSummaryContextImpl implements CallSummaryContext {
   protected _solution: CallSummaryContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    callSid: string
-  ) {
+  constructor(protected _version: V1, callSid: string) {
     if (!isValidPathParam(callSid)) {
       throw new Error("Parameter 'callSid' is not valid.");
     }
@@ -284,14 +288,16 @@ export class CallSummaryContextImpl implements CallSummaryContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<CallSummaryInstance> => ({
-        ...response,
-        body: new CallSummaryInstance(
-          operationVersion,
-          response.body,
-          instance._solution.callSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CallSummaryInstance> => ({
+          ...response,
+          body: new CallSummaryInstance(
+            operationVersion,
+            response.body,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

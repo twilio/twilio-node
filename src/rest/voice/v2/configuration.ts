@@ -122,10 +122,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
   protected _default?: DefaultListInstance;
 
-  constructor(
-    protected _version: V2,
-    type: string
-  ) {
+  constructor(protected _version: V2, type: string) {
     if (!isValidPathParam(type)) {
       throw new Error("Parameter 'type' is not valid.");
     }
@@ -237,14 +234,16 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ConfigurationInstance> => ({
-        ...response,
-        body: new ConfigurationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.type
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConfigurationInstance> => ({
+          ...response,
+          body: new ConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.type
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

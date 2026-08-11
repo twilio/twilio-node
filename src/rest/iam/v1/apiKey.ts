@@ -135,10 +135,7 @@ export class ApiKeyContextImpl implements ApiKeyContext {
   protected _solution: ApiKeyContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -177,10 +174,12 @@ export class ApiKeyContextImpl implements ApiKeyContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -230,14 +229,16 @@ export class ApiKeyContextImpl implements ApiKeyContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ApiKeyInstance> => ({
-        ...response,
-        body: new ApiKeyInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ApiKeyInstance> => ({
+          ...response,
+          body: new ApiKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -325,14 +326,16 @@ export class ApiKeyContextImpl implements ApiKeyContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ApiKeyInstance> => ({
-        ...response,
-        body: new ApiKeyInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ApiKeyInstance> => ({
+          ...response,
+          body: new ApiKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -369,11 +372,7 @@ export class ApiKeyInstance {
   protected _solution: ApiKeyContextSolution;
   protected _context?: ApiKeyContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ApiKeyResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: ApiKeyResource, sid?: string) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);

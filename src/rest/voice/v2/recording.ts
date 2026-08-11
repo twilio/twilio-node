@@ -273,10 +273,7 @@ export class RecordingContextImpl implements RecordingContext {
   protected _solution: RecordingContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    idOrUniqueName: string
-  ) {
+  constructor(protected _version: V2, idOrUniqueName: string) {
     if (!isValidPathParam(idOrUniqueName)) {
       throw new Error("Parameter 'idOrUniqueName' is not valid.");
     }
@@ -315,10 +312,12 @@ export class RecordingContextImpl implements RecordingContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -375,14 +374,16 @@ export class RecordingContextImpl implements RecordingContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<RecordingInstance> => ({
-        ...response,
-        body: new RecordingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.idOrUniqueName
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RecordingInstance> => ({
+          ...response,
+          body: new RecordingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.idOrUniqueName
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -485,14 +486,16 @@ export class RecordingContextImpl implements RecordingContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<RecordingInstance> => ({
-        ...response,
-        body: new RecordingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.idOrUniqueName
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RecordingInstance> => ({
+          ...response,
+          body: new RecordingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.idOrUniqueName
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -930,10 +933,12 @@ export function RecordingListInstance(version: V2): RecordingListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<RecordingInstance> => ({
-        ...response,
-        body: new RecordingInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<RecordingInstance> => ({
+          ...response,
+          body: new RecordingInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

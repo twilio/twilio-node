@@ -133,7 +133,9 @@ export interface AuthRegistrationsCredentialListMappingContextSolution {
   sid: string;
 }
 
-export class AuthRegistrationsCredentialListMappingContextImpl implements AuthRegistrationsCredentialListMappingContext {
+export class AuthRegistrationsCredentialListMappingContextImpl
+  implements AuthRegistrationsCredentialListMappingContext
+{
   protected _solution: AuthRegistrationsCredentialListMappingContextSolution;
   protected _uri: string;
 
@@ -189,10 +191,12 @@ export class AuthRegistrationsCredentialListMappingContextImpl implements AuthRe
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -290,7 +294,8 @@ export class AuthRegistrationsCredentialListMappingContextImpl implements AuthRe
   }
 }
 
-interface AuthRegistrationsCredentialListMappingPayload extends TwilioResponsePayload {
+interface AuthRegistrationsCredentialListMappingPayload
+  extends TwilioResponsePayload {
   contents: AuthRegistrationsCredentialListMappingResource[];
 }
 

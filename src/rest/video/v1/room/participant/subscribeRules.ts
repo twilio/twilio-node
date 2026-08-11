@@ -205,15 +205,17 @@ export function SubscribeRulesListInstance(
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<SubscribeRulesInstance> => ({
-        ...response,
-        body: new SubscribeRulesInstance(
-          operationVersion,
-          response.body,
-          instance._solution.roomSid,
-          instance._solution.participantSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SubscribeRulesInstance> => ({
+          ...response,
+          body: new SubscribeRulesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid,
+            instance._solution.participantSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -306,15 +308,17 @@ export function SubscribeRulesListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<SubscribeRulesInstance> => ({
-        ...response,
-        body: new SubscribeRulesInstance(
-          operationVersion,
-          response.body,
-          instance._solution.roomSid,
-          instance._solution.participantSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SubscribeRulesInstance> => ({
+          ...response,
+          body: new SubscribeRulesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid,
+            instance._solution.participantSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

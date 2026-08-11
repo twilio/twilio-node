@@ -216,10 +216,15 @@ export function SenderIdRegistrationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<SenderIdRegistrationInstance> => ({
-        ...response,
-        body: new SenderIdRegistrationInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<SenderIdRegistrationInstance> => ({
+          ...response,
+          body: new SenderIdRegistrationInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -260,10 +265,7 @@ interface SenderIdRegistrationResource {
 }
 
 export class SenderIdRegistrationInstance {
-  constructor(
-    protected _version: V1,
-    payload: SenderIdRegistrationResource
-  ) {
+  constructor(protected _version: V1, payload: SenderIdRegistrationResource) {
     this.id = payload.id;
     this.regulationId = payload.regulationId;
     this.regulationVersion = deserialize.integer(payload.regulationVersion);

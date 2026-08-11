@@ -122,10 +122,7 @@ export class WebhookContextImpl implements WebhookContext {
   protected _solution: WebhookContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    chatServiceSid: string
-  ) {
+  constructor(protected _version: V1, chatServiceSid: string) {
     if (!isValidPathParam(chatServiceSid)) {
       throw new Error("Parameter 'chatServiceSid' is not valid.");
     }
@@ -179,14 +176,16 @@ export class WebhookContextImpl implements WebhookContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<WebhookInstance> => ({
-        ...response,
-        body: new WebhookInstance(
-          operationVersion,
-          response.body,
-          instance._solution.chatServiceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WebhookInstance> => ({
+          ...response,
+          body: new WebhookInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -284,14 +283,16 @@ export class WebhookContextImpl implements WebhookContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<WebhookInstance> => ({
-        ...response,
-        body: new WebhookInstance(
-          operationVersion,
-          response.body,
-          instance._solution.chatServiceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WebhookInstance> => ({
+          ...response,
+          body: new WebhookInstance(
+            operationVersion,
+            response.body,
+            instance._solution.chatServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

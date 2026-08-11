@@ -225,11 +225,7 @@ export class WorkflowContextImpl implements WorkflowContext {
   protected _realTimeStatistics?: WorkflowRealTimeStatisticsListInstance;
   protected _statistics?: WorkflowStatisticsListInstance;
 
-  constructor(
-    protected _version: V1,
-    workspaceSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, workspaceSid: string, sid: string) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
     }
@@ -305,10 +301,12 @@ export class WorkflowContextImpl implements WorkflowContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -366,15 +364,17 @@ export class WorkflowContextImpl implements WorkflowContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<WorkflowInstance> => ({
-        ...response,
-        body: new WorkflowInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WorkflowInstance> => ({
+          ...response,
+          body: new WorkflowInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -488,15 +488,17 @@ export class WorkflowContextImpl implements WorkflowContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<WorkflowInstance> => ({
-        ...response,
-        body: new WorkflowInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WorkflowInstance> => ({
+          ...response,
+          body: new WorkflowInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1135,14 +1137,16 @@ export function WorkflowListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<WorkflowInstance> => ({
-        ...response,
-        body: new WorkflowInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WorkflowInstance> => ({
+          ...response,
+          body: new WorkflowInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1246,11 +1250,17 @@ export function WorkflowListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<WorkflowPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new WorkflowPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<WorkflowPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new WorkflowPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

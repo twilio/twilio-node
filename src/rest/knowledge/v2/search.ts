@@ -179,7 +179,8 @@ export function SearchListInstance(
 
   instance.create = function create(
     params?:
-      KnowledgeSearch | ((error: Error | null, items: SearchInstance) => any),
+      | KnowledgeSearch
+      | ((error: Error | null, items: SearchInstance) => any),
     headers?: any,
     callback?: (error: Error | null, items: SearchInstance) => any
   ): Promise<SearchInstance> {
@@ -255,14 +256,16 @@ export function SearchListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<SearchInstance> => ({
-        ...response,
-        body: new SearchInstance(
-          operationVersion,
-          response.body,
-          instance._solution.kbId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SearchInstance> => ({
+          ...response,
+          body: new SearchInstance(
+            operationVersion,
+            response.body,
+            instance._solution.kbId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -290,11 +293,7 @@ interface SearchResource {
 }
 
 export class SearchInstance {
-  constructor(
-    protected _version: V2,
-    _payload: SearchResource,
-    kbId: string
-  ) {
+  constructor(protected _version: V2, _payload: SearchResource, kbId: string) {
     const payload = _payload;
     this.chunks =
       payload.chunks !== null && payload.chunks !== undefined

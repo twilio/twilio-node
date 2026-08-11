@@ -335,17 +335,19 @@ export function ChunkListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ChunkPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ChunkPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ChunkPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ChunkPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

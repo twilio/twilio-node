@@ -106,7 +106,9 @@ export interface WorkflowCumulativeStatisticsContextSolution {
   workflowSid: string;
 }
 
-export class WorkflowCumulativeStatisticsContextImpl implements WorkflowCumulativeStatisticsContext {
+export class WorkflowCumulativeStatisticsContextImpl
+  implements WorkflowCumulativeStatisticsContext
+{
   protected _solution: WorkflowCumulativeStatisticsContextSolution;
   protected _uri: string;
 
@@ -231,15 +233,17 @@ export class WorkflowCumulativeStatisticsContextImpl implements WorkflowCumulati
         params: data,
         headers,
       })
-      .then((response): ApiResponse<WorkflowCumulativeStatisticsInstance> => ({
-        ...response,
-        body: new WorkflowCumulativeStatisticsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid,
-          instance._solution.workflowSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<WorkflowCumulativeStatisticsInstance> => ({
+          ...response,
+          body: new WorkflowCumulativeStatisticsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.workflowSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -262,7 +266,8 @@ export class WorkflowCumulativeStatisticsContextImpl implements WorkflowCumulati
   }
 }
 
-interface WorkflowCumulativeStatisticsPayload extends WorkflowCumulativeStatisticsResource {}
+interface WorkflowCumulativeStatisticsPayload
+  extends WorkflowCumulativeStatisticsResource {}
 
 interface WorkflowCumulativeStatisticsResource {
   account_sid: string;

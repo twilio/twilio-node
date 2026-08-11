@@ -205,11 +205,7 @@ export class UserContextImpl implements UserContext {
   protected _userBindings?: UserBindingListInstance;
   protected _userChannels?: UserChannelListInstance;
 
-  constructor(
-    protected _version: V2,
-    serviceSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V2, serviceSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -274,10 +270,12 @@ export class UserContextImpl implements UserContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -332,15 +330,17 @@ export class UserContextImpl implements UserContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<UserInstance> => ({
-        ...response,
-        body: new UserInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -439,15 +439,17 @@ export class UserContextImpl implements UserContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<UserInstance> => ({
-        ...response,
-        body: new UserInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -991,14 +993,16 @@ export function UserListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<UserInstance> => ({
-        ...response,
-        body: new UserInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1096,11 +1100,13 @@ export function UserListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<UserPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new UserPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<UserPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new UserPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

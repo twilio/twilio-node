@@ -158,10 +158,12 @@ export class DeactivationsContextImpl implements DeactivationsContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<void> => ({
-        ...response,
-        body: undefined,
-      }));
+      .then(
+        (response): ApiResponse<void> => ({
+          ...response,
+          body: undefined,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -194,10 +196,7 @@ export class DeactivationsInstance {
   protected _solution: DeactivationsContextSolution;
   protected _context?: DeactivationsContext;
 
-  constructor(
-    protected _version: V1,
-    payload: DeactivationsResource
-  ) {
+  constructor(protected _version: V1, payload: DeactivationsResource) {
     this.redirectTo = payload.redirect_to;
 
     this._solution = {};

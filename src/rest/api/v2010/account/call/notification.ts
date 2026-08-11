@@ -197,16 +197,18 @@ export class NotificationContextImpl implements NotificationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<NotificationInstance> => ({
-        ...response,
-        body: new NotificationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<NotificationInstance> => ({
+          ...response,
+          body: new NotificationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -732,15 +734,17 @@ export function NotificationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<NotificationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new NotificationPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<NotificationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new NotificationPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

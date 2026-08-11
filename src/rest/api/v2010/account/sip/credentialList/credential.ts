@@ -245,10 +245,12 @@ export class CredentialContextImpl implements CredentialContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -307,16 +309,18 @@ export class CredentialContextImpl implements CredentialContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<CredentialInstance> => ({
-        ...response,
-        body: new CredentialInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.credentialListSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CredentialInstance> => ({
+          ...response,
+          body: new CredentialInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.credentialListSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -407,16 +411,18 @@ export class CredentialContextImpl implements CredentialContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<CredentialInstance> => ({
-        ...response,
-        body: new CredentialInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.credentialListSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CredentialInstance> => ({
+          ...response,
+          body: new CredentialInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.credentialListSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -973,15 +979,17 @@ export function CredentialListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<CredentialInstance> => ({
-        ...response,
-        body: new CredentialInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.credentialListSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CredentialInstance> => ({
+          ...response,
+          body: new CredentialInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.credentialListSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1081,15 +1089,17 @@ export function CredentialListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<CredentialPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new CredentialPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CredentialPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CredentialPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

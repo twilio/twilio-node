@@ -26,7 +26,10 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * The Status of this Settings Update. One of `scheduled`, `in-progress`, `successful` or `failed`.
  */
 export type SettingsUpdateStatus =
-  "scheduled" | "in-progress" | "successful" | "failed";
+  | "scheduled"
+  | "in-progress"
+  | "successful"
+  | "failed";
 
 /**
  * Options to pass to each
@@ -366,15 +369,17 @@ export function SettingsUpdateListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<SettingsUpdatePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new SettingsUpdatePage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SettingsUpdatePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new SettingsUpdatePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -446,10 +451,7 @@ interface SettingsUpdateResource {
 }
 
 export class SettingsUpdateInstance {
-  constructor(
-    protected _version: V1,
-    payload: SettingsUpdateResource
-  ) {
+  constructor(protected _version: V1, payload: SettingsUpdateResource) {
     this.sid = payload.sid;
     this.iccid = payload.iccid;
     this.simSid = payload.sim_sid;

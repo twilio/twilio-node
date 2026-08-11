@@ -192,14 +192,16 @@ export function NewSigningKeyListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<NewSigningKeyInstance> => ({
-        ...response,
-        body: new NewSigningKeyInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<NewSigningKeyInstance> => ({
+          ...response,
+          body: new NewSigningKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

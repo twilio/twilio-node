@@ -190,11 +190,7 @@ export class QueueContextImpl implements QueueContext {
 
   protected _members?: MemberListInstance;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V2010, accountSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -248,10 +244,12 @@ export class QueueContextImpl implements QueueContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -306,15 +304,17 @@ export class QueueContextImpl implements QueueContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<QueueInstance> => ({
-        ...response,
-        body: new QueueInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<QueueInstance> => ({
+          ...response,
+          body: new QueueInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -405,15 +405,17 @@ export class QueueContextImpl implements QueueContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<QueueInstance> => ({
-        ...response,
-        body: new QueueInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<QueueInstance> => ({
+          ...response,
+          body: new QueueInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -949,14 +951,16 @@ export function QueueListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<QueueInstance> => ({
-        ...response,
-        body: new QueueInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<QueueInstance> => ({
+          ...response,
+          body: new QueueInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1054,11 +1058,13 @@ export function QueueListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<QueuePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new QueuePage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<QueuePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new QueuePage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

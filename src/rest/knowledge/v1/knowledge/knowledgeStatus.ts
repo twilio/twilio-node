@@ -60,10 +60,7 @@ export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
   protected _solution: KnowledgeStatusContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    id: string
-  ) {
+  constructor(protected _version: V1, id: string) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -120,14 +117,16 @@ export class KnowledgeStatusContextImpl implements KnowledgeStatusContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<KnowledgeStatusInstance> => ({
-        ...response,
-        body: new KnowledgeStatusInstance(
-          operationVersion,
-          response.body,
-          instance._solution.id
-        ),
-      }));
+      .then(
+        (response): ApiResponse<KnowledgeStatusInstance> => ({
+          ...response,
+          body: new KnowledgeStatusInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

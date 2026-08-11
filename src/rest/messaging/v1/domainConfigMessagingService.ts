@@ -59,14 +59,13 @@ export interface DomainConfigMessagingServiceContextSolution {
   messagingServiceSid: string;
 }
 
-export class DomainConfigMessagingServiceContextImpl implements DomainConfigMessagingServiceContext {
+export class DomainConfigMessagingServiceContextImpl
+  implements DomainConfigMessagingServiceContext
+{
   protected _solution: DomainConfigMessagingServiceContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    messagingServiceSid: string
-  ) {
+  constructor(protected _version: V1, messagingServiceSid: string) {
     if (!isValidPathParam(messagingServiceSid)) {
       throw new Error("Parameter 'messagingServiceSid' is not valid.");
     }
@@ -126,14 +125,16 @@ export class DomainConfigMessagingServiceContextImpl implements DomainConfigMess
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<DomainConfigMessagingServiceInstance> => ({
-        ...response,
-        body: new DomainConfigMessagingServiceInstance(
-          operationVersion,
-          response.body,
-          instance._solution.messagingServiceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DomainConfigMessagingServiceInstance> => ({
+          ...response,
+          body: new DomainConfigMessagingServiceInstance(
+            operationVersion,
+            response.body,
+            instance._solution.messagingServiceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -156,7 +157,8 @@ export class DomainConfigMessagingServiceContextImpl implements DomainConfigMess
   }
 }
 
-interface DomainConfigMessagingServicePayload extends DomainConfigMessagingServiceResource {}
+interface DomainConfigMessagingServicePayload
+  extends DomainConfigMessagingServiceResource {}
 
 interface DomainConfigMessagingServiceResource {
   domain_sid: string;

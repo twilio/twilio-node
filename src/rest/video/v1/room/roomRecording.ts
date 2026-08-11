@@ -33,7 +33,10 @@ export type RoomRecordingFormat = "mka" | "mkv";
  * The status of the recording. Can be: `processing`, `completed`, or `deleted`. `processing` indicates the Recording is still being captured. `completed` indicates the Recording has been captured and is now available for download. `deleted` means the recording media has been deleted from the system, but its metadata is still available for historical purposes.
  */
 export type RoomRecordingStatus =
-  "processing" | "completed" | "deleted" | "failed";
+  | "processing"
+  | "completed"
+  | "deleted"
+  | "failed";
 
 /**
  * The recording\'s media type. Can be: `audio` or `video`.
@@ -164,11 +167,7 @@ export class RoomRecordingContextImpl implements RoomRecordingContext {
   protected _solution: RoomRecordingContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    roomSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, roomSid: string, sid: string) {
     if (!isValidPathParam(roomSid)) {
       throw new Error("Parameter 'roomSid' is not valid.");
     }
@@ -211,10 +210,12 @@ export class RoomRecordingContextImpl implements RoomRecordingContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -272,15 +273,17 @@ export class RoomRecordingContextImpl implements RoomRecordingContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<RoomRecordingInstance> => ({
-        ...response,
-        body: new RoomRecordingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.roomSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RoomRecordingInstance> => ({
+          ...response,
+          body: new RoomRecordingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.roomSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -832,15 +835,17 @@ export function RoomRecordingListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<RoomRecordingPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new RoomRecordingPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RoomRecordingPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new RoomRecordingPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

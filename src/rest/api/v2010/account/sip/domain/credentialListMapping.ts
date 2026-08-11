@@ -133,7 +133,9 @@ export interface CredentialListMappingContextSolution {
   sid: string;
 }
 
-export class CredentialListMappingContextImpl implements CredentialListMappingContext {
+export class CredentialListMappingContextImpl
+  implements CredentialListMappingContext
+{
   protected _solution: CredentialListMappingContextSolution;
   protected _uri: string;
 
@@ -189,10 +191,12 @@ export class CredentialListMappingContextImpl implements CredentialListMappingCo
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -254,16 +258,18 @@ export class CredentialListMappingContextImpl implements CredentialListMappingCo
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<CredentialListMappingInstance> => ({
-        ...response,
-        body: new CredentialListMappingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.domainSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CredentialListMappingInstance> => ({
+          ...response,
+          body: new CredentialListMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.domainSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -786,15 +792,17 @@ export function CredentialListMappingListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<CredentialListMappingInstance> => ({
-        ...response,
-        body: new CredentialListMappingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.domainSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CredentialListMappingInstance> => ({
+          ...response,
+          body: new CredentialListMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.domainSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -908,15 +916,17 @@ export function CredentialListMappingListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<CredentialListMappingPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new CredentialListMappingPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CredentialListMappingPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CredentialListMappingPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

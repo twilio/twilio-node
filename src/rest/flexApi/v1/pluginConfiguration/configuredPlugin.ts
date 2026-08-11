@@ -243,15 +243,17 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<ConfiguredPluginInstance> => ({
-        ...response,
-        body: new ConfiguredPluginInstance(
-          operationVersion,
-          response.body,
-          instance._solution.configurationSid,
-          instance._solution.pluginSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConfiguredPluginInstance> => ({
+          ...response,
+          body: new ConfiguredPluginInstance(
+            operationVersion,
+            response.body,
+            instance._solution.configurationSid,
+            instance._solution.pluginSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -812,15 +814,17 @@ export function ConfiguredPluginListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ConfiguredPluginPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ConfiguredPluginPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConfiguredPluginPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ConfiguredPluginPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

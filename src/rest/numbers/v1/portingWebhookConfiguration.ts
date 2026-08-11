@@ -203,13 +203,15 @@ export function PortingWebhookConfigurationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<PortingWebhookConfigurationInstance> => ({
-        ...response,
-        body: new PortingWebhookConfigurationInstance(
-          operationVersion,
-          response.body
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PortingWebhookConfigurationInstance> => ({
+          ...response,
+          body: new PortingWebhookConfigurationInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -232,7 +234,8 @@ export function PortingWebhookConfigurationListInstance(
   return instance;
 }
 
-interface PortingWebhookConfigurationPayload extends PortingWebhookConfigurationResource {}
+interface PortingWebhookConfigurationPayload
+  extends PortingWebhookConfigurationResource {}
 
 interface PortingWebhookConfigurationResource {
   url: string;

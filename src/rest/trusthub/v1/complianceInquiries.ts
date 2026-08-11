@@ -82,14 +82,13 @@ export interface ComplianceInquiriesContextSolution {
   customerId: string;
 }
 
-export class ComplianceInquiriesContextImpl implements ComplianceInquiriesContext {
+export class ComplianceInquiriesContextImpl
+  implements ComplianceInquiriesContext
+{
   protected _solution: ComplianceInquiriesContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    customerId: string
-  ) {
+  constructor(protected _version: V1, customerId: string) {
     if (!isValidPathParam(customerId)) {
       throw new Error("Parameter 'customerId' is not valid.");
     }
@@ -190,14 +189,16 @@ export class ComplianceInquiriesContextImpl implements ComplianceInquiriesContex
         data,
         headers,
       })
-      .then((response): ApiResponse<ComplianceInquiriesInstance> => ({
-        ...response,
-        body: new ComplianceInquiriesInstance(
-          operationVersion,
-          response.body,
-          instance._solution.customerId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ComplianceInquiriesInstance> => ({
+          ...response,
+          body: new ComplianceInquiriesInstance(
+            operationVersion,
+            response.body,
+            instance._solution.customerId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -507,10 +508,15 @@ export function ComplianceInquiriesListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ComplianceInquiriesInstance> => ({
-        ...response,
-        body: new ComplianceInquiriesInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<ComplianceInquiriesInstance> => ({
+          ...response,
+          body: new ComplianceInquiriesInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

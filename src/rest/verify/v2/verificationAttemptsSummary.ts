@@ -20,7 +20,11 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 export type VerificationAttemptsSummaryChannels =
-  "sms" | "call" | "email" | "whatsapp" | "rbm";
+  | "sms"
+  | "call"
+  | "email"
+  | "whatsapp"
+  | "rbm";
 
 /**
  * Options to pass to fetch a VerificationAttemptsSummaryInstance
@@ -108,7 +112,9 @@ export interface VerificationAttemptsSummaryContext {
 
 export interface VerificationAttemptsSummaryContextSolution {}
 
-export class VerificationAttemptsSummaryContextImpl implements VerificationAttemptsSummaryContext {
+export class VerificationAttemptsSummaryContextImpl
+  implements VerificationAttemptsSummaryContext
+{
   protected _solution: VerificationAttemptsSummaryContextSolution;
   protected _uri: string;
 
@@ -226,13 +232,15 @@ export class VerificationAttemptsSummaryContextImpl implements VerificationAttem
         params: data,
         headers,
       })
-      .then((response): ApiResponse<VerificationAttemptsSummaryInstance> => ({
-        ...response,
-        body: new VerificationAttemptsSummaryInstance(
-          operationVersion,
-          response.body
-        ),
-      }));
+      .then(
+        (response): ApiResponse<VerificationAttemptsSummaryInstance> => ({
+          ...response,
+          body: new VerificationAttemptsSummaryInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -255,7 +263,8 @@ export class VerificationAttemptsSummaryContextImpl implements VerificationAttem
   }
 }
 
-interface VerificationAttemptsSummaryPayload extends VerificationAttemptsSummaryResource {}
+interface VerificationAttemptsSummaryPayload
+  extends VerificationAttemptsSummaryResource {}
 
 interface VerificationAttemptsSummaryResource {
   total_attempts: number;

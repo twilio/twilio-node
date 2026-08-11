@@ -115,10 +115,12 @@ export class DataContextImpl implements DataContext {
     // No response body — fire-and-forget operation
     let operationPromise = operationVersion
       .fetchWithResponseInfo({ uri: instance._uri, method: "get", headers })
-      .then((response): ApiResponse<void> => ({
-        ...response,
-        body: undefined,
-      }));
+      .then(
+        (response): ApiResponse<void> => ({
+          ...response,
+          body: undefined,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

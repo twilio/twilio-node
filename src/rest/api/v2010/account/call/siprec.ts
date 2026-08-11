@@ -594,16 +594,18 @@ export class SiprecContextImpl implements SiprecContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<SiprecInstance> => ({
-        ...response,
-        body: new SiprecInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.callSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SiprecInstance> => ({
+          ...response,
+          body: new SiprecInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1731,15 +1733,17 @@ export function SiprecListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<SiprecInstance> => ({
-        ...response,
-        body: new SiprecInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.callSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SiprecInstance> => ({
+          ...response,
+          body: new SiprecInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

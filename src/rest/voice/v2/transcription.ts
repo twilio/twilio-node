@@ -254,10 +254,7 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   protected _solution: TranscriptionContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    idOrUniqueName: string
-  ) {
+  constructor(protected _version: V2, idOrUniqueName: string) {
     if (!isValidPathParam(idOrUniqueName)) {
       throw new Error("Parameter 'idOrUniqueName' is not valid.");
     }
@@ -296,10 +293,12 @@ export class TranscriptionContextImpl implements TranscriptionContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -356,14 +355,16 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<TranscriptionInstance> => ({
-        ...response,
-        body: new TranscriptionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.idOrUniqueName
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TranscriptionInstance> => ({
+          ...response,
+          body: new TranscriptionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.idOrUniqueName
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -469,14 +470,16 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<TranscriptionInstance> => ({
-        ...response,
-        body: new TranscriptionInstance(
-          operationVersion,
-          response.body,
-          instance._solution.idOrUniqueName
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TranscriptionInstance> => ({
+          ...response,
+          body: new TranscriptionInstance(
+            operationVersion,
+            response.body,
+            instance._solution.idOrUniqueName
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -924,10 +927,12 @@ export function TranscriptionListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<TranscriptionInstance> => ({
-        ...response,
-        body: new TranscriptionInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<TranscriptionInstance> => ({
+          ...response,
+          body: new TranscriptionInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

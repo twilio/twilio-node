@@ -122,10 +122,7 @@ export class UserContextImpl implements UserContext {
   protected _solution: UserContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -175,14 +172,16 @@ export class UserContextImpl implements UserContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<UserInstance> => ({
-        ...response,
-        body: new UserInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -274,14 +273,16 @@ export class UserContextImpl implements UserContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<UserInstance> => ({
-        ...response,
-        body: new UserInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -320,11 +321,7 @@ export class UserInstance {
   protected _solution: UserContextSolution;
   protected _context?: UserContext;
 
-  constructor(
-    protected _version: V1,
-    payload: UserResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: UserResource, sid?: string) {
     this.sid = payload.sid;
     this.identity = payload.identity;
     this.friendlyName = payload.friendly_name;

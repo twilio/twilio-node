@@ -142,10 +142,7 @@ export class AnnotationContextImpl implements AnnotationContext {
   protected _solution: AnnotationContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    callSid: string
-  ) {
+  constructor(protected _version: V1, callSid: string) {
     if (!isValidPathParam(callSid)) {
       throw new Error("Parameter 'callSid' is not valid.");
     }
@@ -202,14 +199,16 @@ export class AnnotationContextImpl implements AnnotationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<AnnotationInstance> => ({
-        ...response,
-        body: new AnnotationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.callSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AnnotationInstance> => ({
+          ...response,
+          body: new AnnotationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -320,14 +319,16 @@ export class AnnotationContextImpl implements AnnotationContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<AnnotationInstance> => ({
-        ...response,
-        body: new AnnotationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.callSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AnnotationInstance> => ({
+          ...response,
+          body: new AnnotationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.callSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

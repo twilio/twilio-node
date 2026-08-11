@@ -126,10 +126,7 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   protected _solution: DomainConfigContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    domainSid: string
-  ) {
+  constructor(protected _version: V1, domainSid: string) {
     if (!isValidPathParam(domainSid)) {
       throw new Error("Parameter 'domainSid' is not valid.");
     }
@@ -186,14 +183,16 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<DomainConfigInstance> => ({
-        ...response,
-        body: new DomainConfigInstance(
-          operationVersion,
-          response.body,
-          instance._solution.domainSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DomainConfigInstance> => ({
+          ...response,
+          body: new DomainConfigInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -299,14 +298,16 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<DomainConfigInstance> => ({
-        ...response,
-        body: new DomainConfigInstance(
-          operationVersion,
-          response.body,
-          instance._solution.domainSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<DomainConfigInstance> => ({
+          ...response,
+          body: new DomainConfigInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

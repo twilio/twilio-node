@@ -326,12 +326,22 @@ namespace VoiceResponse {
   type ConferenceRecordingEvent = "in-progress" | "completed" | "absent";
 
   type ConferenceRegion =
-    "us1" | "us2" | "ie1" | "sg1" | "br1" | "au1" | "jp1" | "de1";
+    | "us1"
+    | "us2"
+    | "ie1"
+    | "sg1"
+    | "br1"
+    | "au1"
+    | "jp1"
+    | "de1";
 
   type ConferenceTrim = "trim-silence" | "do-not-trim";
 
   type ConversationEvent =
-    "call-initiated" | "call-ringing" | "call-answered" | "call-completed";
+    | "call-initiated"
+    | "call-ringing"
+    | "call-answered"
+    | "call-completed";
 
   type ConversationRecord =
     | "do-not-record"
@@ -1606,7 +1616,12 @@ namespace VoiceResponse {
   type SiprecTrack = "inbound_track" | "outbound_track" | "both_tracks";
 
   type SsmlBreakStrength =
-    "none" | "x-weak" | "weak" | "medium" | "strong" | "x-strong";
+    | "none"
+    | "x-weak"
+    | "weak"
+    | "medium"
+    | "strong"
+    | "x-strong";
 
   type SsmlEmphasisLevel = "strong" | "moderate" | "reduced";
 

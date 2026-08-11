@@ -122,10 +122,7 @@ export class CountryContextImpl implements CountryContext {
   protected _solution: CountryContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    isoCountry: string
-  ) {
+  constructor(protected _version: V1, isoCountry: string) {
     if (!isValidPathParam(isoCountry)) {
       throw new Error("Parameter 'isoCountry' is not valid.");
     }
@@ -179,14 +176,16 @@ export class CountryContextImpl implements CountryContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<CountryInstance> => ({
-        ...response,
-        body: new CountryInstance(
-          operationVersion,
-          response.body,
-          instance._solution.isoCountry
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CountryInstance> => ({
+          ...response,
+          body: new CountryInstance(
+            operationVersion,
+            response.body,
+            instance._solution.isoCountry
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -601,11 +600,13 @@ export function CountryListInstance(version: V1): CountryListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<CountryPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new CountryPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<CountryPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CountryPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

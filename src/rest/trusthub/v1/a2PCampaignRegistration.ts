@@ -292,13 +292,15 @@ export function A2PCampaignRegistrationListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<A2PCampaignRegistrationInstance> => ({
-        ...response,
-        body: new A2PCampaignRegistrationInstance(
-          operationVersion,
-          response.body
-        ),
-      }));
+      .then(
+        (response): ApiResponse<A2PCampaignRegistrationInstance> => ({
+          ...response,
+          body: new A2PCampaignRegistrationInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -321,7 +323,8 @@ export function A2PCampaignRegistrationListInstance(
   return instance;
 }
 
-interface A2PCampaignRegistrationPayload extends A2PCampaignRegistrationResource {}
+interface A2PCampaignRegistrationPayload
+  extends A2PCampaignRegistrationResource {}
 
 interface A2PCampaignRegistrationResource {
   id: string;

@@ -87,10 +87,7 @@ export class BundleCloneContextImpl implements BundleCloneContext {
   protected _solution: BundleCloneContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    bundleSid: string
-  ) {
+  constructor(protected _version: V2, bundleSid: string) {
     if (!isValidPathParam(bundleSid)) {
       throw new Error("Parameter 'bundleSid' is not valid.");
     }
@@ -195,14 +192,16 @@ export class BundleCloneContextImpl implements BundleCloneContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<BundleCloneInstance> => ({
-        ...response,
-        body: new BundleCloneInstance(
-          operationVersion,
-          response.body,
-          instance._solution.bundleSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BundleCloneInstance> => ({
+          ...response,
+          body: new BundleCloneInstance(
+            operationVersion,
+            response.body,
+            instance._solution.bundleSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

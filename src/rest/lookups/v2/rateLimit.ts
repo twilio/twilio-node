@@ -207,10 +207,12 @@ export function RateLimitListInstance(version: V2): RateLimitListInstance {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<RateLimitInstance> => ({
-        ...response,
-        body: new RateLimitInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<RateLimitInstance> => ({
+          ...response,
+          body: new RateLimitInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -240,10 +242,7 @@ interface RateLimitResource {
 }
 
 export class RateLimitInstance {
-  constructor(
-    protected _version: V2,
-    payload: RateLimitResource
-  ) {
+  constructor(protected _version: V2, payload: RateLimitResource) {
     this.rateLimits =
       payload.rate_limits !== null && payload.rate_limits !== undefined
         ? payload.rate_limits.map(

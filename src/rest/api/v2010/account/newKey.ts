@@ -180,14 +180,16 @@ export function NewKeyListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<NewKeyInstance> => ({
-        ...response,
-        body: new NewKeyInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<NewKeyInstance> => ({
+          ...response,
+          body: new NewKeyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

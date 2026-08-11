@@ -56,14 +56,13 @@ export interface RequestManagedCertContextSolution {
   domainSid: string;
 }
 
-export class RequestManagedCertContextImpl implements RequestManagedCertContext {
+export class RequestManagedCertContextImpl
+  implements RequestManagedCertContext
+{
   protected _solution: RequestManagedCertContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    domainSid: string
-  ) {
+  constructor(protected _version: V1, domainSid: string) {
     if (!isValidPathParam(domainSid)) {
       throw new Error("Parameter 'domainSid' is not valid.");
     }
@@ -120,14 +119,16 @@ export class RequestManagedCertContextImpl implements RequestManagedCertContext 
         method: "post",
         headers,
       })
-      .then((response): ApiResponse<RequestManagedCertInstance> => ({
-        ...response,
-        body: new RequestManagedCertInstance(
-          operationVersion,
-          response.body,
-          instance._solution.domainSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RequestManagedCertInstance> => ({
+          ...response,
+          body: new RequestManagedCertInstance(
+            operationVersion,
+            response.body,
+            instance._solution.domainSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

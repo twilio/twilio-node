@@ -245,10 +245,7 @@ export class StoreContextImpl implements StoreContext {
   protected _solution: StoreContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    storeId: string
-  ) {
+  constructor(protected _version: V1, storeId: string) {
     if (!isValidPathParam(storeId)) {
       throw new Error("Parameter 'storeId' is not valid.");
     }
@@ -298,14 +295,16 @@ export class StoreContextImpl implements StoreContext {
         method: "delete",
         headers,
       })
-      .then((response): ApiResponse<StoreInstance> => ({
-        ...response,
-        body: new StoreInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<StoreInstance> => ({
+          ...response,
+          body: new StoreInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -355,14 +354,16 @@ export class StoreContextImpl implements StoreContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<StoreInstance> => ({
-        ...response,
-        body: new StoreInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<StoreInstance> => ({
+          ...response,
+          body: new StoreInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -373,7 +374,8 @@ export class StoreContextImpl implements StoreContext {
 
   patch(
     params?:
-      PatchStoreRequest | ((error: Error | null, item?: StoreInstance) => any),
+      | PatchStoreRequest
+      | ((error: Error | null, item?: StoreInstance) => any),
     headers?: any,
     callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance> {
@@ -453,14 +455,16 @@ export class StoreContextImpl implements StoreContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<StoreInstance> => ({
-        ...response,
-        body: new StoreInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<StoreInstance> => ({
+          ...response,
+          body: new StoreInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1039,10 +1043,12 @@ export function StoreListInstance(version: V1): StoreListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<StoreInstance> => ({
-        ...response,
-        body: new StoreInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<StoreInstance> => ({
+          ...response,
+          body: new StoreInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1189,17 +1195,19 @@ export function StoreListInstance(version: V1): StoreListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<StorePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new StorePage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<StorePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new StorePage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

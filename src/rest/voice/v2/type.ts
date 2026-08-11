@@ -156,11 +156,7 @@ export class TypeContextImpl implements TypeContext {
   protected _solution: TypeContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    type: string,
-    idOrUniqueName: string
-  ) {
+  constructor(protected _version: V2, type: string, idOrUniqueName: string) {
     if (!isValidPathParam(type)) {
       throw new Error("Parameter 'type' is not valid.");
     }
@@ -203,10 +199,12 @@ export class TypeContextImpl implements TypeContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -261,15 +259,17 @@ export class TypeContextImpl implements TypeContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<TypeInstance> => ({
-        ...response,
-        body: new TypeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.type,
-          instance._solution.idOrUniqueName
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TypeInstance> => ({
+          ...response,
+          body: new TypeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.type,
+            instance._solution.idOrUniqueName
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -370,15 +370,17 @@ export class TypeContextImpl implements TypeContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<TypeInstance> => ({
-        ...response,
-        body: new TypeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.type,
-          instance._solution.idOrUniqueName
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TypeInstance> => ({
+          ...response,
+          body: new TypeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.type,
+            instance._solution.idOrUniqueName
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

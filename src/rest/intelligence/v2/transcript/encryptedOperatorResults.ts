@@ -97,14 +97,13 @@ export interface EncryptedOperatorResultsContextSolution {
   transcriptSid: string;
 }
 
-export class EncryptedOperatorResultsContextImpl implements EncryptedOperatorResultsContext {
+export class EncryptedOperatorResultsContextImpl
+  implements EncryptedOperatorResultsContext
+{
   protected _solution: EncryptedOperatorResultsContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    transcriptSid: string
-  ) {
+  constructor(protected _version: V2, transcriptSid: string) {
     if (!isValidPathParam(transcriptSid)) {
       throw new Error("Parameter 'transcriptSid' is not valid.");
     }
@@ -199,14 +198,16 @@ export class EncryptedOperatorResultsContextImpl implements EncryptedOperatorRes
         params: data,
         headers,
       })
-      .then((response): ApiResponse<EncryptedOperatorResultsInstance> => ({
-        ...response,
-        body: new EncryptedOperatorResultsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.transcriptSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EncryptedOperatorResultsInstance> => ({
+          ...response,
+          body: new EncryptedOperatorResultsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.transcriptSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -229,7 +230,8 @@ export class EncryptedOperatorResultsContextImpl implements EncryptedOperatorRes
   }
 }
 
-interface EncryptedOperatorResultsPayload extends EncryptedOperatorResultsResource {}
+interface EncryptedOperatorResultsPayload
+  extends EncryptedOperatorResultsResource {}
 
 interface EncryptedOperatorResultsResource {
   locations: Array<string>;

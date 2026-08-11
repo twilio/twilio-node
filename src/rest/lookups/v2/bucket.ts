@@ -157,11 +157,7 @@ export class BucketContextImpl implements BucketContext {
   protected _solution: BucketContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    field: string,
-    bucket: string
-  ) {
+  constructor(protected _version: V2, field: string, bucket: string) {
     if (!isValidPathParam(field)) {
       throw new Error("Parameter 'field' is not valid.");
     }
@@ -204,10 +200,12 @@ export class BucketContextImpl implements BucketContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -262,15 +260,17 @@ export class BucketContextImpl implements BucketContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<BucketInstance> => ({
-        ...response,
-        body: new BucketInstance(
-          operationVersion,
-          response.body,
-          instance._solution.field,
-          instance._solution.bucket
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BucketInstance> => ({
+          ...response,
+          body: new BucketInstance(
+            operationVersion,
+            response.body,
+            instance._solution.field,
+            instance._solution.bucket
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -281,7 +281,8 @@ export class BucketContextImpl implements BucketContext {
 
   update(
     params?:
-      RateLimitRequest | ((error: Error | null, item?: BucketInstance) => any),
+      | RateLimitRequest
+      | ((error: Error | null, item?: BucketInstance) => any),
     headers?: any,
     callback?: (error: Error | null, item?: BucketInstance) => any
   ): Promise<BucketInstance> {
@@ -364,15 +365,17 @@ export class BucketContextImpl implements BucketContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<BucketInstance> => ({
-        ...response,
-        body: new BucketInstance(
-          operationVersion,
-          response.body,
-          instance._solution.field,
-          instance._solution.bucket
-        ),
-      }));
+      .then(
+        (response): ApiResponse<BucketInstance> => ({
+          ...response,
+          body: new BucketInstance(
+            operationVersion,
+            response.body,
+            instance._solution.field,
+            instance._solution.bucket
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

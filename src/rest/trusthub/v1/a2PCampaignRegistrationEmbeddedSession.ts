@@ -160,7 +160,8 @@ export function A2PCampaignRegistrationEmbeddedSessionListInstance(
   return instance;
 }
 
-interface A2PCampaignRegistrationEmbeddedSessionPayload extends A2PCampaignRegistrationEmbeddedSessionResource {}
+interface A2PCampaignRegistrationEmbeddedSessionPayload
+  extends A2PCampaignRegistrationEmbeddedSessionResource {}
 
 interface A2PCampaignRegistrationEmbeddedSessionResource {
   id: string;

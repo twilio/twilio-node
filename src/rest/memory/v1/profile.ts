@@ -246,11 +246,7 @@ export class ProfileContextImpl implements ProfileContext {
   protected _solution: ProfileContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    storeId: string,
-    profileId: string
-  ) {
+  constructor(protected _version: V1, storeId: string, profileId: string) {
     if (!isValidPathParam(storeId)) {
       throw new Error("Parameter 'storeId' is not valid.");
     }
@@ -309,15 +305,17 @@ export class ProfileContextImpl implements ProfileContext {
         method: "delete",
         headers,
       })
-      .then((response): ApiResponse<ProfileInstance> => ({
-        ...response,
-        body: new ProfileInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ProfileInstance> => ({
+          ...response,
+          body: new ProfileInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -404,15 +402,17 @@ export class ProfileContextImpl implements ProfileContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<ProfileInstance> => ({
-        ...response,
-        body: new ProfileInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ProfileInstance> => ({
+          ...response,
+          body: new ProfileInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -497,15 +497,17 @@ export class ProfileContextImpl implements ProfileContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ProfileInstance> => ({
-        ...response,
-        body: new ProfileInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.profileId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ProfileInstance> => ({
+          ...response,
+          body: new ProfileInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.profileId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1084,14 +1086,16 @@ export function ProfileListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<ProfileInstance> => ({
-        ...response,
-        body: new ProfileInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ProfileInstance> => ({
+          ...response,
+          body: new ProfileInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1239,17 +1243,19 @@ export function ProfileListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ProfilePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ProfilePage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ProfilePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ProfilePage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

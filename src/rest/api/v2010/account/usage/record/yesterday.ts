@@ -362,11 +362,17 @@ export function YesterdayListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<YesterdayPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new YesterdayPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<YesterdayPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new YesterdayPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

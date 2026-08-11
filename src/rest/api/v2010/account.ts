@@ -256,10 +256,7 @@ export class AccountContextImpl implements AccountContext {
   protected _usage?: UsageListInstance;
   protected _validationRequests?: ValidationRequestListInstance;
 
-  constructor(
-    protected _version: V2010,
-    sid: string
-  ) {
+  constructor(protected _version: V2010, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -469,14 +466,16 @@ export class AccountContextImpl implements AccountContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<AccountInstance> => ({
-        ...response,
-        body: new AccountInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AccountInstance> => ({
+          ...response,
+          body: new AccountInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -562,14 +561,16 @@ export class AccountContextImpl implements AccountContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<AccountInstance> => ({
-        ...response,
-        body: new AccountInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<AccountInstance> => ({
+          ...response,
+          body: new AccountInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1244,10 +1245,12 @@ export function AccountListInstance(version: V2010): AccountListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<AccountInstance> => ({
-        ...response,
-        body: new AccountInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<AccountInstance> => ({
+          ...response,
+          body: new AccountInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1353,11 +1356,13 @@ export function AccountListInstance(version: V2010): AccountListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<AccountPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new AccountPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<AccountPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AccountPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

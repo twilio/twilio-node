@@ -23,7 +23,9 @@ import { ApiResponse } from "../../../../../base/ApiResponse";
  * The status of the Transfer. Can be: `active`, `completed`, `failed`.
  */
 export type InteractionTransferTransferStatus =
-  "active" | "failed" | "completed";
+  | "active"
+  | "failed"
+  | "completed";
 
 /**
  * The type of the Transfer. Can be: `cold`, `warm`.
@@ -141,7 +143,9 @@ export interface InteractionTransferContextSolution {
   sid: string;
 }
 
-export class InteractionTransferContextImpl implements InteractionTransferContext {
+export class InteractionTransferContextImpl
+  implements InteractionTransferContext
+{
   protected _solution: InteractionTransferContextSolution;
   protected _uri: string;
 
@@ -217,16 +221,18 @@ export class InteractionTransferContextImpl implements InteractionTransferContex
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<InteractionTransferInstance> => ({
-        ...response,
-        body: new InteractionTransferInstance(
-          operationVersion,
-          response.body,
-          instance._solution.interactionSid,
-          instance._solution.channelSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InteractionTransferInstance> => ({
+          ...response,
+          body: new InteractionTransferInstance(
+            operationVersion,
+            response.body,
+            instance._solution.interactionSid,
+            instance._solution.channelSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -328,16 +334,18 @@ export class InteractionTransferContextImpl implements InteractionTransferContex
         data,
         headers,
       })
-      .then((response): ApiResponse<InteractionTransferInstance> => ({
-        ...response,
-        body: new InteractionTransferInstance(
-          operationVersion,
-          response.body,
-          instance._solution.interactionSid,
-          instance._solution.channelSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InteractionTransferInstance> => ({
+          ...response,
+          body: new InteractionTransferInstance(
+            operationVersion,
+            response.body,
+            instance._solution.interactionSid,
+            instance._solution.channelSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -801,15 +809,17 @@ export function InteractionTransferListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<InteractionTransferInstance> => ({
-        ...response,
-        body: new InteractionTransferInstance(
-          operationVersion,
-          response.body,
-          instance._solution.interactionSid,
-          instance._solution.channelSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InteractionTransferInstance> => ({
+          ...response,
+          body: new InteractionTransferInstance(
+            operationVersion,
+            response.body,
+            instance._solution.interactionSid,
+            instance._solution.channelSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

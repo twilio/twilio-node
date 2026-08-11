@@ -122,10 +122,7 @@ export class SipDomainContextImpl implements SipDomainContext {
   protected _solution: SipDomainContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    sipDomain: string
-  ) {
+  constructor(protected _version: V2, sipDomain: string) {
     if (!isValidPathParam(sipDomain)) {
       throw new Error("Parameter 'sipDomain' is not valid.");
     }
@@ -182,14 +179,16 @@ export class SipDomainContextImpl implements SipDomainContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<SipDomainInstance> => ({
-        ...response,
-        body: new SipDomainInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sipDomain
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SipDomainInstance> => ({
+          ...response,
+          body: new SipDomainInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sipDomain
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -284,14 +283,16 @@ export class SipDomainContextImpl implements SipDomainContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<SipDomainInstance> => ({
-        ...response,
-        body: new SipDomainInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sipDomain
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SipDomainInstance> => ({
+          ...response,
+          body: new SipDomainInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sipDomain
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

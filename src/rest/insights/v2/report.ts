@@ -801,10 +801,7 @@ export class ReportContextImpl implements ReportContext {
   protected _solution: ReportContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    reportId: string
-  ) {
+  constructor(protected _version: V2, reportId: string) {
     if (!isValidPathParam(reportId)) {
       throw new Error("Parameter 'reportId' is not valid.");
     }
@@ -904,14 +901,16 @@ export class ReportContextImpl implements ReportContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ReportInstance> => ({
-        ...response,
-        body: new ReportInstance(
-          operationVersion,
-          response.body,
-          instance._solution.reportId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ReportInstance> => ({
+          ...response,
+          body: new ReportInstance(
+            operationVersion,
+            response.body,
+            instance._solution.reportId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -965,14 +964,16 @@ export class ReportContextImpl implements ReportContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ReportInstance> => ({
-        ...response,
-        body: new ReportInstance(
-          operationVersion,
-          response.body,
-          instance._solution.reportId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ReportInstance> => ({
+          ...response,
+          body: new ReportInstance(
+            operationVersion,
+            response.body,
+            instance._solution.reportId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

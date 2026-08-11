@@ -87,14 +87,13 @@ export interface TrustProductsProvisionalCopyContextSolution {
   trustProductSid: string;
 }
 
-export class TrustProductsProvisionalCopyContextImpl implements TrustProductsProvisionalCopyContext {
+export class TrustProductsProvisionalCopyContextImpl
+  implements TrustProductsProvisionalCopyContext
+{
   protected _solution: TrustProductsProvisionalCopyContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    trustProductSid: string
-  ) {
+  constructor(protected _version: V1, trustProductSid: string) {
     if (!isValidPathParam(trustProductSid)) {
       throw new Error("Parameter 'trustProductSid' is not valid.");
     }
@@ -154,14 +153,16 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
         method: "post",
         headers,
       })
-      .then((response): ApiResponse<TrustProductsProvisionalCopyInstance> => ({
-        ...response,
-        body: new TrustProductsProvisionalCopyInstance(
-          operationVersion,
-          response.body,
-          instance._solution.trustProductSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TrustProductsProvisionalCopyInstance> => ({
+          ...response,
+          body: new TrustProductsProvisionalCopyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trustProductSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -221,14 +222,16 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<TrustProductsProvisionalCopyInstance> => ({
-        ...response,
-        body: new TrustProductsProvisionalCopyInstance(
-          operationVersion,
-          response.body,
-          instance._solution.trustProductSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TrustProductsProvisionalCopyInstance> => ({
+          ...response,
+          body: new TrustProductsProvisionalCopyInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trustProductSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -251,7 +254,8 @@ export class TrustProductsProvisionalCopyContextImpl implements TrustProductsPro
   }
 }
 
-interface TrustProductsProvisionalCopyPayload extends TrustProductsProvisionalCopyResource {}
+interface TrustProductsProvisionalCopyPayload
+  extends TrustProductsProvisionalCopyResource {}
 
 interface TrustProductsProvisionalCopyResource {
   trust_product_sid: string;

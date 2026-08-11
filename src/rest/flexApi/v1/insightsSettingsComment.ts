@@ -186,13 +186,15 @@ export function InsightsSettingsCommentListInstance(
         params: data,
         headers,
       })
-      .then((response): ApiResponse<InsightsSettingsCommentInstance> => ({
-        ...response,
-        body: new InsightsSettingsCommentInstance(
-          operationVersion,
-          response.body
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InsightsSettingsCommentInstance> => ({
+          ...response,
+          body: new InsightsSettingsCommentInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -215,7 +217,8 @@ export function InsightsSettingsCommentListInstance(
   return instance;
 }
 
-interface InsightsSettingsCommentPayload extends InsightsSettingsCommentResource {}
+interface InsightsSettingsCommentPayload
+  extends InsightsSettingsCommentResource {}
 
 interface InsightsSettingsCommentResource {
   account_sid: string;

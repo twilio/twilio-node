@@ -137,10 +137,7 @@ export class RecordingContextImpl implements RecordingContext {
   protected _solution: RecordingContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    trunkSid: string
-  ) {
+  constructor(protected _version: V1, trunkSid: string) {
     if (!isValidPathParam(trunkSid)) {
       throw new Error("Parameter 'trunkSid' is not valid.");
     }
@@ -197,14 +194,16 @@ export class RecordingContextImpl implements RecordingContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<RecordingInstance> => ({
-        ...response,
-        body: new RecordingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.trunkSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RecordingInstance> => ({
+          ...response,
+          body: new RecordingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trunkSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -295,14 +294,16 @@ export class RecordingContextImpl implements RecordingContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<RecordingInstance> => ({
-        ...response,
-        body: new RecordingInstance(
-          operationVersion,
-          response.body,
-          instance._solution.trunkSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RecordingInstance> => ({
+          ...response,
+          body: new RecordingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trunkSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

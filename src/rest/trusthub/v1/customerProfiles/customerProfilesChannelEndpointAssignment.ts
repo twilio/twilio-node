@@ -146,15 +146,13 @@ export interface CustomerProfilesChannelEndpointAssignmentContextSolution {
   sid: string;
 }
 
-export class CustomerProfilesChannelEndpointAssignmentContextImpl implements CustomerProfilesChannelEndpointAssignmentContext {
+export class CustomerProfilesChannelEndpointAssignmentContextImpl
+  implements CustomerProfilesChannelEndpointAssignmentContext
+{
   protected _solution: CustomerProfilesChannelEndpointAssignmentContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    customerProfileSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, customerProfileSid: string, sid: string) {
     if (!isValidPathParam(customerProfileSid)) {
       throw new Error("Parameter 'customerProfileSid' is not valid.");
     }
@@ -197,10 +195,12 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl implements Cus
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -294,7 +294,8 @@ export class CustomerProfilesChannelEndpointAssignmentContextImpl implements Cus
   }
 }
 
-interface CustomerProfilesChannelEndpointAssignmentPayload extends TwilioResponsePayload {
+interface CustomerProfilesChannelEndpointAssignmentPayload
+  extends TwilioResponsePayload {
   results: CustomerProfilesChannelEndpointAssignmentResource[];
 }
 

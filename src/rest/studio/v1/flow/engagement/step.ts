@@ -184,16 +184,18 @@ export class StepContextImpl implements StepContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<StepInstance> => ({
-        ...response,
-        body: new StepInstance(
-          operationVersion,
-          response.body,
-          instance._solution.flowSid,
-          instance._solution.engagementSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<StepInstance> => ({
+          ...response,
+          body: new StepInstance(
+            operationVersion,
+            response.body,
+            instance._solution.flowSid,
+            instance._solution.engagementSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -668,11 +670,13 @@ export function StepListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<StepPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new StepPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<StepPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new StepPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -26,7 +26,11 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * A string specifying the communication channel used for the verification attempt.
  */
 export type VerificationAttemptChannels =
-  "sms" | "call" | "email" | "whatsapp" | "rbm";
+  | "sms"
+  | "call"
+  | "email"
+  | "whatsapp"
+  | "rbm";
 
 /**
  * A string specifying the conversion status of the verification. A conversion happens when the user is able to provide the correct code. Possible values are `CONVERTED` and `UNCONVERTED`.
@@ -157,14 +161,13 @@ export interface VerificationAttemptContextSolution {
   sid: string;
 }
 
-export class VerificationAttemptContextImpl implements VerificationAttemptContext {
+export class VerificationAttemptContextImpl
+  implements VerificationAttemptContext
+{
   protected _solution: VerificationAttemptContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V2,
-    sid: string
-  ) {
+  constructor(protected _version: V2, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -221,14 +224,16 @@ export class VerificationAttemptContextImpl implements VerificationAttemptContex
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<VerificationAttemptInstance> => ({
-        ...response,
-        body: new VerificationAttemptInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<VerificationAttemptInstance> => ({
+          ...response,
+          body: new VerificationAttemptInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -733,15 +738,17 @@ export function VerificationAttemptListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<VerificationAttemptPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new VerificationAttemptPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<VerificationAttemptPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new VerificationAttemptPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

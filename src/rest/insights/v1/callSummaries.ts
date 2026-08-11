@@ -42,12 +42,19 @@ export type CallSummariesCallState =
   | "undialed";
 
 export type CallSummariesCallType =
-  "carrier" | "sip" | "trunking" | "client" | "whatsapp";
+  | "carrier"
+  | "sip"
+  | "trunking"
+  | "client"
+  | "whatsapp";
 
 export type CallSummariesProcessingState = "complete" | "partial";
 
 export type CallSummariesProcessingStateRequest =
-  "completed" | "started" | "partial" | "all";
+  | "completed"
+  | "started"
+  | "partial"
+  | "all";
 
 export type CallSummariesSortBy = "start_time" | "end_time";
 
@@ -102,7 +109,10 @@ export class CallSummaryCrelayRateStats {
 }
 
 export type CallSummaryCrelaySessionState =
-  "unknown" | "failure" | "ended" | "hung_up";
+  | "unknown"
+  | "failure"
+  | "ended"
+  | "hung_up";
 
 export class CallSummaryCrelayTokenStats {
   "total"?: number;
@@ -799,15 +809,17 @@ export function CallSummariesListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<CallSummariesPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new CallSummariesPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<CallSummariesPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CallSummariesPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -895,10 +907,7 @@ interface CallSummariesResource {
 }
 
 export class CallSummariesInstance {
-  constructor(
-    protected _version: V1,
-    payload: CallSummariesResource
-  ) {
+  constructor(protected _version: V1, payload: CallSummariesResource) {
     this.accountSid = payload.account_sid;
     this.callSid = payload.call_sid;
     this.answeredBy = payload.answered_by;

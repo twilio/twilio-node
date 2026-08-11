@@ -95,11 +95,7 @@ export class DayContextImpl implements DayContext {
   protected _solution: DayContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    resourceType: string,
-    day: string
-  ) {
+  constructor(protected _version: V1, resourceType: string, day: string) {
     if (!isValidPathParam(resourceType)) {
       throw new Error("Parameter 'resourceType' is not valid.");
     }
@@ -142,10 +138,12 @@ export class DayContextImpl implements DayContext {
     // No response body — fire-and-forget operation
     let operationPromise = operationVersion
       .fetchWithResponseInfo({ uri: instance._uri, method: "get", headers })
-      .then((response): ApiResponse<void> => ({
-        ...response,
-        body: undefined,
-      }));
+      .then(
+        (response): ApiResponse<void> => ({
+          ...response,
+          body: undefined,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -544,11 +542,13 @@ export function DayListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<DayPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new DayPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<DayPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new DayPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

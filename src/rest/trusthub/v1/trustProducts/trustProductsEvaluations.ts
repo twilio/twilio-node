@@ -115,15 +115,13 @@ export interface TrustProductsEvaluationsContextSolution {
   sid: string;
 }
 
-export class TrustProductsEvaluationsContextImpl implements TrustProductsEvaluationsContext {
+export class TrustProductsEvaluationsContextImpl
+  implements TrustProductsEvaluationsContext
+{
   protected _solution: TrustProductsEvaluationsContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    trustProductSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, trustProductSid: string, sid: string) {
     if (!isValidPathParam(trustProductSid)) {
       throw new Error("Parameter 'trustProductSid' is not valid.");
     }
@@ -188,15 +186,17 @@ export class TrustProductsEvaluationsContextImpl implements TrustProductsEvaluat
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<TrustProductsEvaluationsInstance> => ({
-        ...response,
-        body: new TrustProductsEvaluationsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.trustProductSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TrustProductsEvaluationsInstance> => ({
+          ...response,
+          body: new TrustProductsEvaluationsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trustProductSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -671,14 +671,16 @@ export function TrustProductsEvaluationsListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<TrustProductsEvaluationsInstance> => ({
-        ...response,
-        body: new TrustProductsEvaluationsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.trustProductSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TrustProductsEvaluationsInstance> => ({
+          ...response,
+          body: new TrustProductsEvaluationsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.trustProductSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -792,15 +794,17 @@ export function TrustProductsEvaluationsListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<TrustProductsEvaluationsPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new TrustProductsEvaluationsPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TrustProductsEvaluationsPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new TrustProductsEvaluationsPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

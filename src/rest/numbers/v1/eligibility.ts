@@ -106,7 +106,8 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
 
   instance.create = function create(
     params?:
-      object | ((error: Error | null, items: EligibilityInstance) => any),
+      | object
+      | ((error: Error | null, items: EligibilityInstance) => any),
     headers?: any,
     callback?: (error: Error | null, items: EligibilityInstance) => any
   ): Promise<EligibilityInstance> {
@@ -184,10 +185,12 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<EligibilityInstance> => ({
-        ...response,
-        body: new EligibilityInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<EligibilityInstance> => ({
+          ...response,
+          body: new EligibilityInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -217,10 +220,7 @@ interface EligibilityResource {
 }
 
 export class EligibilityInstance {
-  constructor(
-    protected _version: V1,
-    payload: EligibilityResource
-  ) {
+  constructor(protected _version: V1, payload: EligibilityResource) {
     this.results = payload.results;
   }
 

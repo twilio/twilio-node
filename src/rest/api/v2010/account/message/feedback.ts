@@ -199,15 +199,17 @@ export function FeedbackListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<FeedbackInstance> => ({
-        ...response,
-        body: new FeedbackInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.messageSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<FeedbackInstance> => ({
+          ...response,
+          body: new FeedbackInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.messageSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

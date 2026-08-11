@@ -105,10 +105,7 @@ export class EventTypeContextImpl implements EventTypeContext {
   protected _solution: EventTypeContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    type: string
-  ) {
+  constructor(protected _version: V1, type: string) {
     if (!isValidPathParam(type)) {
       throw new Error("Parameter 'type' is not valid.");
     }
@@ -165,14 +162,16 @@ export class EventTypeContextImpl implements EventTypeContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<EventTypeInstance> => ({
-        ...response,
-        body: new EventTypeInstance(
-          operationVersion,
-          response.body,
-          instance._solution.type
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EventTypeInstance> => ({
+          ...response,
+          body: new EventTypeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.type
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -593,11 +592,17 @@ export function EventTypeListInstance(version: V1): EventTypeListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<EventTypePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new EventTypePage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<EventTypePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new EventTypePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -246,7 +246,8 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
   return instance;
 }
 
-interface TaskQueueBulkRealTimeStatisticsPayload extends TaskQueueBulkRealTimeStatisticsResource {}
+interface TaskQueueBulkRealTimeStatisticsPayload
+  extends TaskQueueBulkRealTimeStatisticsResource {}
 
 interface TaskQueueBulkRealTimeStatisticsResource {
   account_sid: string;

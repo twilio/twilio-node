@@ -174,10 +174,12 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<InsightsUserRolesInstance> => ({
-        ...response,
-        body: new InsightsUserRolesInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<InsightsUserRolesInstance> => ({
+          ...response,
+          body: new InsightsUserRolesInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -211,10 +213,7 @@ export class InsightsUserRolesInstance {
   protected _solution: InsightsUserRolesContextSolution;
   protected _context?: InsightsUserRolesContext;
 
-  constructor(
-    protected _version: V1,
-    payload: InsightsUserRolesResource
-  ) {
+  constructor(protected _version: V1, payload: InsightsUserRolesResource) {
     this.roles = payload.roles;
     this.url = payload.url;
 

@@ -132,10 +132,7 @@ export class EventContextImpl implements EventContext {
   protected _solution: EventContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -185,14 +182,16 @@ export class EventContextImpl implements EventContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<EventInstance> => ({
-        ...response,
-        body: new EventInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<EventInstance> => ({
+          ...response,
+          body: new EventInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -240,11 +239,7 @@ export class EventInstance {
   protected _solution: EventContextSolution;
   protected _context?: EventContext;
 
-  constructor(
-    protected _version: V1,
-    payload: EventResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: EventResource, sid?: string) {
     this.accountSid = payload.account_sid;
     this.actorSid = payload.actor_sid;
     this.actorType = payload.actor_type;
@@ -659,11 +654,13 @@ export function EventListInstance(version: V1): EventListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<EventPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new EventPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<EventPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new EventPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -154,10 +154,12 @@ export function BulkContactsListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<BulkContactsInstance> => ({
-        ...response,
-        body: new BulkContactsInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<BulkContactsInstance> => ({
+          ...response,
+          body: new BulkContactsInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -187,10 +189,7 @@ interface BulkContactsResource {
 }
 
 export class BulkContactsInstance {
-  constructor(
-    protected _version: V1,
-    payload: BulkContactsResource
-  ) {
+  constructor(protected _version: V1, payload: BulkContactsResource) {
     this.items = payload.items;
   }
 

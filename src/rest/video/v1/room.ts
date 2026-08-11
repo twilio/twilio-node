@@ -217,10 +217,7 @@ export class RoomContextImpl implements RoomContext {
   protected _recordings?: RoomRecordingListInstance;
   protected _transcriptions?: TranscriptionsListInstance;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -298,14 +295,16 @@ export class RoomContextImpl implements RoomContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<RoomInstance> => ({
-        ...response,
-        body: new RoomInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RoomInstance> => ({
+          ...response,
+          body: new RoomInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -385,14 +384,16 @@ export class RoomContextImpl implements RoomContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<RoomInstance> => ({
-        ...response,
-        body: new RoomInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<RoomInstance> => ({
+          ...response,
+          body: new RoomInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -450,11 +451,7 @@ export class RoomInstance {
   protected _solution: RoomContextSolution;
   protected _context?: RoomContext;
 
-  constructor(
-    protected _version: V1,
-    payload: RoomResource,
-    sid?: string
-  ) {
+  constructor(protected _version: V1, payload: RoomResource, sid?: string) {
     this.sid = payload.sid;
     this.status = payload.status;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -1082,10 +1079,12 @@ export function RoomListInstance(version: V1): RoomListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<RoomInstance> => ({
-        ...response,
-        body: new RoomInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<RoomInstance> => ({
+          ...response,
+          body: new RoomInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1205,11 +1204,13 @@ export function RoomListInstance(version: V1): RoomListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<RoomPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new RoomPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<RoomPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new RoomPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

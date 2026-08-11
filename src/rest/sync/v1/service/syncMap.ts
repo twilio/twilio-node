@@ -195,11 +195,7 @@ export class SyncMapContextImpl implements SyncMapContext {
   protected _syncMapItems?: SyncMapItemListInstance;
   protected _syncMapPermissions?: SyncMapPermissionListInstance;
 
-  constructor(
-    protected _version: V1,
-    serviceSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, serviceSid: string, sid: string) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -264,10 +260,12 @@ export class SyncMapContextImpl implements SyncMapContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then((response): ApiResponse<boolean> => ({
-        ...response,
-        body: response.statusCode === 204,
-      }));
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -322,15 +320,17 @@ export class SyncMapContextImpl implements SyncMapContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<SyncMapInstance> => ({
-        ...response,
-        body: new SyncMapInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SyncMapInstance> => ({
+          ...response,
+          body: new SyncMapInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -421,15 +421,17 @@ export class SyncMapContextImpl implements SyncMapContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<SyncMapInstance> => ({
-        ...response,
-        body: new SyncMapInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SyncMapInstance> => ({
+          ...response,
+          body: new SyncMapInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1014,14 +1016,16 @@ export function SyncMapListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<SyncMapInstance> => ({
-        ...response,
-        body: new SyncMapInstance(
-          operationVersion,
-          response.body,
-          instance._solution.serviceSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SyncMapInstance> => ({
+          ...response,
+          body: new SyncMapInstance(
+            operationVersion,
+            response.body,
+            instance._solution.serviceSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1121,11 +1125,13 @@ export function SyncMapListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<SyncMapPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new SyncMapPage(operationVersion, response, instance._solution),
-      }));
+      .then(
+        (response): ApiResponse<SyncMapPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new SyncMapPage(operationVersion, response, instance._solution),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

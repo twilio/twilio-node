@@ -164,11 +164,7 @@ export class PluginVersionsContextImpl implements PluginVersionsContext {
   protected _solution: PluginVersionsContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    pluginSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V1, pluginSid: string, sid: string) {
     if (!isValidPathParam(pluginSid)) {
       throw new Error("Parameter 'pluginSid' is not valid.");
     }
@@ -263,15 +259,17 @@ export class PluginVersionsContextImpl implements PluginVersionsContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<PluginVersionsInstance> => ({
-        ...response,
-        body: new PluginVersionsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.pluginSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PluginVersionsInstance> => ({
+          ...response,
+          body: new PluginVersionsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.pluginSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -831,14 +829,16 @@ export function PluginVersionsListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<PluginVersionsInstance> => ({
-        ...response,
-        body: new PluginVersionsInstance(
-          operationVersion,
-          response.body,
-          instance._solution.pluginSid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PluginVersionsInstance> => ({
+          ...response,
+          body: new PluginVersionsInstance(
+            operationVersion,
+            response.body,
+            instance._solution.pluginSid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -945,15 +945,17 @@ export function PluginVersionsListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<PluginVersionsPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new PluginVersionsPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<PluginVersionsPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new PluginVersionsPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

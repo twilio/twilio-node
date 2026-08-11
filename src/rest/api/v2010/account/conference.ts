@@ -237,11 +237,7 @@ export class ConferenceContextImpl implements ConferenceContext {
   protected _participants?: ParticipantListInstance;
   protected _recordings?: RecordingListInstance;
 
-  constructor(
-    protected _version: V2010,
-    accountSid: string,
-    sid: string
-  ) {
+  constructor(protected _version: V2010, accountSid: string, sid: string) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -325,15 +321,17 @@ export class ConferenceContextImpl implements ConferenceContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ConferenceInstance> => ({
-        ...response,
-        body: new ConferenceInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConferenceInstance> => ({
+          ...response,
+          body: new ConferenceInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -431,15 +429,17 @@ export class ConferenceContextImpl implements ConferenceContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ConferenceInstance> => ({
-        ...response,
-        body: new ConferenceInstance(
-          operationVersion,
-          response.body,
-          instance._solution.accountSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConferenceInstance> => ({
+          ...response,
+          body: new ConferenceInstance(
+            operationVersion,
+            response.body,
+            instance._solution.accountSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1003,15 +1003,17 @@ export function ConferenceListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ConferencePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ConferencePage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ConferencePage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ConferencePage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

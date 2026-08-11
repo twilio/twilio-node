@@ -211,14 +211,16 @@ export function ResultListInstance(
         params: data,
         headers,
       })
-      .then((response): ApiResponse<ResultInstance> => ({
-        ...response,
-        body: new ResultInstance(
-          operationVersion,
-          response.body,
-          instance._solution.operationId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ResultInstance> => ({
+          ...response,
+          body: new ResultInstance(
+            operationVersion,
+            response.body,
+            instance._solution.operationId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

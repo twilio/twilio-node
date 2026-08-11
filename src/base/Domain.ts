@@ -11,10 +11,7 @@ export default class Domain {
    * @param twilio - A Twilio Client
    * @param baseUrl - Base url for this domain
    */
-  constructor(
-    public twilio: BaseTwilio,
-    public baseUrl: string
-  ) {}
+  constructor(public twilio: BaseTwilio, public baseUrl: string) {}
 
   /**
    * Turn a uri into an absolute url

@@ -463,11 +463,7 @@ export class TraitGroupContextImpl implements TraitGroupContext {
   protected _solution: TraitGroupContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    storeId: string,
-    traitGroupName: string
-  ) {
+  constructor(protected _version: V1, storeId: string, traitGroupName: string) {
     if (!isValidPathParam(storeId)) {
       throw new Error("Parameter 'storeId' is not valid.");
     }
@@ -529,15 +525,17 @@ export class TraitGroupContextImpl implements TraitGroupContext {
         method: "delete",
         headers,
       })
-      .then((response): ApiResponse<TraitGroupInstance> => ({
-        ...response,
-        body: new TraitGroupInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.traitGroupName
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TraitGroupInstance> => ({
+          ...response,
+          body: new TraitGroupInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.traitGroupName
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -635,15 +633,17 @@ export class TraitGroupContextImpl implements TraitGroupContext {
         params: data,
         headers,
       })
-      .then((response): ApiResponse<TraitGroupInstance> => ({
-        ...response,
-        body: new TraitGroupInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.traitGroupName
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TraitGroupInstance> => ({
+          ...response,
+          body: new TraitGroupInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.traitGroupName
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -745,15 +745,17 @@ export class TraitGroupContextImpl implements TraitGroupContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<TraitGroupInstance> => ({
-        ...response,
-        body: new TraitGroupInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId,
-          instance._solution.traitGroupName
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TraitGroupInstance> => ({
+          ...response,
+          body: new TraitGroupInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.traitGroupName
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1497,14 +1499,16 @@ export function TraitGroupListInstance(
         data,
         headers,
       })
-      .then((response): ApiResponse<TraitGroupInstance> => ({
-        ...response,
-        body: new TraitGroupInstance(
-          operationVersion,
-          response.body,
-          instance._solution.storeId
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TraitGroupInstance> => ({
+          ...response,
+          body: new TraitGroupInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1620,17 +1624,19 @@ export function TraitGroupListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<TraitGroupPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new TraitGroupPage(
-          operationVersion,
-          response,
-          instance._uri,
-          data,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<TraitGroupPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new TraitGroupPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

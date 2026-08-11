@@ -189,13 +189,15 @@ export function InsightsSettingsAnswerSetsListInstance(
         params: data,
         headers,
       })
-      .then((response): ApiResponse<InsightsSettingsAnswerSetsInstance> => ({
-        ...response,
-        body: new InsightsSettingsAnswerSetsInstance(
-          operationVersion,
-          response.body
-        ),
-      }));
+      .then(
+        (response): ApiResponse<InsightsSettingsAnswerSetsInstance> => ({
+          ...response,
+          body: new InsightsSettingsAnswerSetsInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -218,7 +220,8 @@ export function InsightsSettingsAnswerSetsListInstance(
   return instance;
 }
 
-interface InsightsSettingsAnswerSetsPayload extends InsightsSettingsAnswerSetsResource {}
+interface InsightsSettingsAnswerSetsPayload
+  extends InsightsSettingsAnswerSetsResource {}
 
 interface InsightsSettingsAnswerSetsResource {
   account_sid: string;

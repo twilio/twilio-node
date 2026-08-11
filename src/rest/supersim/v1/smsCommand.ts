@@ -31,7 +31,11 @@ export type SmsCommandDirection = "to_sim" | "from_sim";
  * The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
  */
 export type SmsCommandStatus =
-  "queued" | "sent" | "delivered" | "received" | "failed";
+  | "queued"
+  | "sent"
+  | "delivered"
+  | "received"
+  | "failed";
 
 /**
  * Options to pass to create a SmsCommandInstance
@@ -142,10 +146,7 @@ export class SmsCommandContextImpl implements SmsCommandContext {
   protected _solution: SmsCommandContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    sid: string
-  ) {
+  constructor(protected _version: V1, sid: string) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -202,14 +203,16 @@ export class SmsCommandContextImpl implements SmsCommandContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<SmsCommandInstance> => ({
-        ...response,
-        body: new SmsCommandInstance(
-          operationVersion,
-          response.body,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SmsCommandInstance> => ({
+          ...response,
+          body: new SmsCommandInstance(
+            operationVersion,
+            response.body,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -654,10 +657,12 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
         data,
         headers,
       })
-      .then((response): ApiResponse<SmsCommandInstance> => ({
-        ...response,
-        body: new SmsCommandInstance(operationVersion, response.body),
-      }));
+      .then(
+        (response): ApiResponse<SmsCommandInstance> => ({
+          ...response,
+          body: new SmsCommandInstance(operationVersion, response.body),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -765,15 +770,17 @@ export function SmsCommandListInstance(version: V1): SmsCommandListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<SmsCommandPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new SmsCommandPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<SmsCommandPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new SmsCommandPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

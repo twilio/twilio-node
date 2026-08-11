@@ -23,10 +23,19 @@ import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
 export type ReservationCallStatus =
-  "initiated" | "ringing" | "answered" | "completed";
+  | "initiated"
+  | "ringing"
+  | "answered"
+  | "completed";
 
 export type ReservationConferenceEvent =
-  "start" | "end" | "join" | "leave" | "mute" | "hold" | "speaker";
+  | "start"
+  | "end"
+  | "join"
+  | "leave"
+  | "mute"
+  | "hold"
+  | "speaker";
 
 /**
  * The current status of the reservation. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
@@ -362,16 +371,18 @@ export class ReservationContextImpl implements ReservationContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ReservationInstance> => ({
-        ...response,
-        body: new ReservationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid,
-          instance._solution.workerSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ReservationInstance> => ({
+          ...response,
+          body: new ReservationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.workerSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -696,16 +707,18 @@ export class ReservationContextImpl implements ReservationContext {
         data,
         headers,
       })
-      .then((response): ApiResponse<ReservationInstance> => ({
-        ...response,
-        body: new ReservationInstance(
-          operationVersion,
-          response.body,
-          instance._solution.workspaceSid,
-          instance._solution.workerSid,
-          instance._solution.sid
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ReservationInstance> => ({
+          ...response,
+          body: new ReservationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.workspaceSid,
+            instance._solution.workerSid,
+            instance._solution.sid
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1233,15 +1246,17 @@ export function ReservationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then((response): ApiResponse<ReservationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ReservationPage(
-          operationVersion,
-          response,
-          instance._solution
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ReservationPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ReservationPage(
+            operationVersion,
+            response,
+            instance._solution
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -66,10 +66,7 @@ export class ExportContextImpl implements ExportContext {
   protected _days?: DayListInstance;
   protected _exportCustomJobs?: ExportCustomJobListInstance;
 
-  constructor(
-    protected _version: V1,
-    resourceType: string
-  ) {
+  constructor(protected _version: V1, resourceType: string) {
     if (!isValidPathParam(resourceType)) {
       throw new Error("Parameter 'resourceType' is not valid.");
     }
@@ -136,14 +133,16 @@ export class ExportContextImpl implements ExportContext {
         method: "get",
         headers,
       })
-      .then((response): ApiResponse<ExportInstance> => ({
-        ...response,
-        body: new ExportInstance(
-          operationVersion,
-          response.body,
-          instance._solution.resourceType
-        ),
-      }));
+      .then(
+        (response): ApiResponse<ExportInstance> => ({
+          ...response,
+          body: new ExportInstance(
+            operationVersion,
+            response.body,
+            instance._solution.resourceType
+          ),
+        })
+      );
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
