@@ -342,7 +342,7 @@ export class AddOnResultInstance {
     this.referenceSid = payload.reference_sid;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = { accountSid, referenceSid, sid: sid || this.sid };
+    this._solution = { accountSid, referenceSid, sid: sid };
   }
 
   /**

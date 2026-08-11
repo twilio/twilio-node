@@ -110,9 +110,9 @@ export interface ConversationListInstanceEachOptions {
   pageSize?: number;
   /** Token for pagination */
   pageToken?: string;
-  /** Filter by Conversations created before this timestamp. */
+  /** Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days. */
   createdAtBefore?: Date;
-  /** Filter by Conversations created after this timestamp. */
+  /** Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days. */
   createdAtAfter?: Date;
   /** Filter by Conversation status. */
   status?: "ACTIVE" | "INACTIVE" | "CLOSED";
@@ -144,9 +144,9 @@ export interface ConversationListInstanceOptions {
   pageSize?: number;
   /** Token for pagination */
   pageToken?: string;
-  /** Filter by Conversations created before this timestamp. */
+  /** Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days. */
   createdAtBefore?: Date;
-  /** Filter by Conversations created after this timestamp. */
+  /** Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days. */
   createdAtAfter?: Date;
   /** Filter by Conversation status. */
   status?: "ACTIVE" | "INACTIVE" | "CLOSED";
@@ -174,9 +174,9 @@ export interface ConversationListInstancePageOptions {
   pageSize?: number;
   /** Token for pagination */
   pageToken?: string;
-  /** Filter by Conversations created before this timestamp. */
+  /** Filter by Conversations created before this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days. */
   createdAtBefore?: Date;
-  /** Filter by Conversations created after this timestamp. */
+  /** Filter by Conversations created after this timestamp. The maximum allowed time range between `createdAtBefore` and `createdAtAfter` is 31 days. */
   createdAtAfter?: Date;
   /** Filter by Conversation status. */
   status?: "ACTIVE" | "INACTIVE" | "CLOSED";
@@ -345,8 +345,8 @@ export interface Content {
  */
 export interface Participant {
   id: string;
-  name?: string;
-  type?: string;
+  name?: string | null;
+  type?: string | null;
   addressValues: Array<string>;
 }
 

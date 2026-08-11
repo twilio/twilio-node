@@ -139,9 +139,9 @@ export class BulkHostedNumberOrderContextImpl
   ): Promise<BulkHostedNumberOrderInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -191,9 +191,9 @@ export class BulkHostedNumberOrderContextImpl
   ): Promise<ApiResponse<BulkHostedNumberOrderInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -279,7 +279,7 @@ export class BulkHostedNumberOrderInstance {
     this.totalCount = deserialize.integer(payload.total_count);
     this.results = payload.results;
 
-    this._solution = { bulkHostingSid: bulkHostingSid || this.bulkHostingSid };
+    this._solution = { bulkHostingSid: bulkHostingSid };
   }
 
   /**
@@ -533,9 +533,9 @@ export function BulkHostedNumberOrderListInstance(
   ): Promise<BulkHostedNumberOrderInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -583,9 +583,9 @@ export function BulkHostedNumberOrderListInstance(
   ): Promise<ApiResponse<BulkHostedNumberOrderInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};

@@ -476,11 +476,7 @@ export class SyncMapPermissionInstance {
     this.manage = payload.manage;
     this.url = payload.url;
 
-    this._solution = {
-      serviceSid,
-      mapSid,
-      identity: identity || this.identity,
-    };
+    this._solution = { serviceSid, mapSid, identity: identity };
   }
 
   /**

@@ -307,7 +307,7 @@ export class EventInstance {
     this.url = payload.url;
     this.workspaceSid = payload.workspace_sid;
 
-    this._solution = { workspaceSid, sid: sid || this.sid };
+    this._solution = { workspaceSid, sid: sid };
   }
 
   /**

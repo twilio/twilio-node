@@ -303,12 +303,17 @@ export class MessagingV2ChannelsSenderRequestsCreate {
    * The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
    */
   "senderId": string | null;
+  /**
+   * Optional display label for the sender in the Twilio Console.
+   */
+  "friendlyName"?: string | null;
   "configuration"?: MessagingV2ChannelsSenderConfiguration | null;
   "webhook"?: MessagingV2ChannelsSenderWebhook | null;
   "profile"?: MessagingV2ChannelsSenderProfile | null;
 
   constructor(payload) {
     this.senderId = payload["sender_id"];
+    this.friendlyName = payload["friendly_name"];
     this.configuration = payload["configuration"];
     this.webhook = payload["webhook"];
     this.profile = payload["profile"];
@@ -316,11 +321,16 @@ export class MessagingV2ChannelsSenderRequestsCreate {
 }
 
 export class MessagingV2ChannelsSenderRequestsUpdate {
+  /**
+   * Optional display label for the sender in the Twilio Console.
+   */
+  "friendlyName"?: string | null;
   "configuration"?: MessagingV2ChannelsSenderConfiguration | null;
   "webhook"?: MessagingV2ChannelsSenderWebhook | null;
   "profile"?: MessagingV2ChannelsSenderProfile | null;
 
   constructor(payload) {
+    this.friendlyName = payload["friendly_name"];
     this.configuration = payload["configuration"];
     this.webhook = payload["webhook"];
     this.profile = payload["profile"];
@@ -746,9 +756,12 @@ export class ChannelsSenderContextImpl implements ChannelsSenderContext {
   ): Promise<ChannelsSenderInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<MessagingV2ChannelsSenderRequestsUpdate> as MessagingV2ChannelsSenderRequestsUpdate;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<MessagingV2ChannelsSenderRequestsUpdate> as MessagingV2ChannelsSenderRequestsUpdate);
     }
 
     let data: any = {};
@@ -802,9 +815,12 @@ export class ChannelsSenderContextImpl implements ChannelsSenderContext {
   ): Promise<ApiResponse<ChannelsSenderInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<MessagingV2ChannelsSenderRequestsUpdate> as MessagingV2ChannelsSenderRequestsUpdate;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<MessagingV2ChannelsSenderRequestsUpdate> as MessagingV2ChannelsSenderRequestsUpdate);
     }
 
     let data: any = {};
@@ -868,6 +884,7 @@ interface ChannelsSenderResource {
   sid: string;
   status: ChannelsSenderStatus;
   sender_id: string;
+  friendly_name: string;
   configuration: MessagingV2ChannelsSenderConfiguration;
   webhook: MessagingV2ChannelsSenderWebhook;
   profile: MessagingV2ChannelsSenderProfileGenericResponse;
@@ -889,6 +906,7 @@ export class ChannelsSenderInstance {
     this.sid = payload.sid;
     this.status = payload.status;
     this.senderId = payload.sender_id;
+    this.friendlyName = payload.friendly_name;
     this.configuration =
       payload.configuration !== null && payload.configuration !== undefined
         ? new MessagingV2ChannelsSenderConfiguration(payload.configuration)
@@ -918,7 +936,7 @@ export class ChannelsSenderInstance {
         : null;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -930,6 +948,10 @@ export class ChannelsSenderInstance {
    * The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
    */
   senderId: string;
+  /**
+   * Optional display label for the sender in the Twilio Console.
+   */
+  friendlyName: string;
   configuration: MessagingV2ChannelsSenderConfiguration;
   webhook: MessagingV2ChannelsSenderWebhook;
   profile: MessagingV2ChannelsSenderProfileGenericResponse;
@@ -1089,6 +1111,7 @@ export class ChannelsSenderInstance {
       sid: this.sid,
       status: this.status,
       senderId: this.senderId,
+      friendlyName: this.friendlyName,
       configuration: this.configuration,
       webhook: this.webhook,
       profile: this.profile,

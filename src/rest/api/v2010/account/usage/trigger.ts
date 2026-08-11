@@ -355,9 +355,9 @@ export class TriggerContextImpl implements TriggerContext {
   ): Promise<TriggerInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -407,9 +407,9 @@ export class TriggerContextImpl implements TriggerContext {
   ): Promise<ApiResponse<TriggerInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -518,7 +518,7 @@ export class TriggerInstance {
     this.usageCategory = payload.usage_category;
     this.usageRecordUri = payload.usage_record_uri;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**

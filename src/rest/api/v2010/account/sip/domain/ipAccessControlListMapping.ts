@@ -325,7 +325,7 @@ export class IpAccessControlListMappingInstance {
     this.sid = payload.sid;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, domainSid, sid: sid || this.sid };
+    this._solution = { accountSid, domainSid, sid: sid };
   }
 
   /**

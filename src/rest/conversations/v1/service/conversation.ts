@@ -360,9 +360,9 @@ export class ConversationContextImpl implements ConversationContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -395,9 +395,9 @@ export class ConversationContextImpl implements ConversationContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -506,9 +506,9 @@ export class ConversationContextImpl implements ConversationContext {
   ): Promise<ConversationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -581,9 +581,9 @@ export class ConversationContextImpl implements ConversationContext {
   ): Promise<ApiResponse<ConversationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -705,7 +705,7 @@ export class ConversationInstance {
     this.links = payload.links;
     this.bindings = payload.bindings;
 
-    this._solution = { chatServiceSid, sid: sid || this.sid };
+    this._solution = { chatServiceSid, sid: sid };
   }
 
   /**
@@ -1229,9 +1229,9 @@ export function ConversationListInstance(
   ): Promise<ConversationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1302,9 +1302,9 @@ export function ConversationListInstance(
   ): Promise<ApiResponse<ConversationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

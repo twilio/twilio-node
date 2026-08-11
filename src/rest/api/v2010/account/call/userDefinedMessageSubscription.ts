@@ -181,7 +181,7 @@ export class UserDefinedMessageSubscriptionInstance {
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.uri = payload.uri;
 
-    this._solution = { accountSid, callSid, sid: sid || this.sid };
+    this._solution = { accountSid, callSid, sid: sid };
   }
 
   /**

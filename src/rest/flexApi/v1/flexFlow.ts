@@ -398,9 +398,9 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   ): Promise<FlexFlowInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -478,9 +478,9 @@ export class FlexFlowContextImpl implements FlexFlowContext {
   ): Promise<ApiResponse<FlexFlowInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -609,7 +609,7 @@ export class FlexFlowInstance {
     this.janitorEnabled = payload.janitor_enabled;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

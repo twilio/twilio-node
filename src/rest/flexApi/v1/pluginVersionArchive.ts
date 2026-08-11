@@ -119,9 +119,9 @@ export class PluginVersionArchiveContextImpl
   ): Promise<PluginVersionArchiveInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -171,9 +171,9 @@ export class PluginVersionArchiveContextImpl
   ): Promise<ApiResponse<PluginVersionArchiveInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -262,10 +262,7 @@ export class PluginVersionArchiveInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = {
-      pluginSid: pluginSid || this.pluginSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { pluginSid: pluginSid, sid: sid };
   }
 
   /**

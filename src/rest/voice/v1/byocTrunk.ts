@@ -348,9 +348,9 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
   ): Promise<ByocTrunkInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -411,9 +411,9 @@ export class ByocTrunkContextImpl implements ByocTrunkContext {
   ): Promise<ApiResponse<ByocTrunkInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -531,7 +531,7 @@ export class ByocTrunkInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -989,9 +989,9 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
   ): Promise<ByocTrunkInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1050,9 +1050,9 @@ export function ByocTrunkListInstance(version: V1): ByocTrunkListInstance {
   ): Promise<ApiResponse<ByocTrunkInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

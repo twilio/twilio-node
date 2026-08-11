@@ -393,7 +393,7 @@ export interface VoiceV3TranscriptionResolvedConfiguration {
   speechModel?: string;
   language?: string;
   transcriptionStatusCallback?: VoiceV3TranscriptionTranscriptionStatusCallback;
-  conversationConfigurationId?: string;
+  conversationConfigurationId?: string | null;
   participantDefaults?: Array<VoiceV3TranscriptionResolvedConfigurationParticipantDefaults>;
 }
 
@@ -413,12 +413,12 @@ export interface VoiceV3TranscriptionTranscription {
   accountId: string;
   status: string;
   transcriptionConfigurationId: string;
-  mediaUrl?: string;
-  sourceId?: string;
+  mediaUrl?: string | null;
+  sourceId?: string | null;
   audioStartedAt?: Date;
-  conversationId?: string;
+  conversationId?: string | null;
   participants?: Array<VoiceV3TranscriptionParticipant>;
-  duration?: number;
+  duration?: number | null;
   resolvedConfiguration?: VoiceV3TranscriptionResolvedConfiguration;
   createdAt: Date;
   updatedAt: Date;
@@ -431,7 +431,7 @@ export interface VoiceV3TranscriptionTranscription {
 export interface VoiceV3TranscriptionTranscriptionStatusCallback {
   url?: string;
   method?: string;
-  events?: Array<string>;
+  events?: Array<string> | null;
 }
 
 /**

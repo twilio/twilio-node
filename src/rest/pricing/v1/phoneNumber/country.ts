@@ -230,7 +230,7 @@ export class CountryInstance {
     this.priceUnit = payload.price_unit;
     this.url = payload.url;
 
-    this._solution = { isoCountry: isoCountry || this.isoCountry };
+    this._solution = { isoCountry: isoCountry };
   }
 
   /**

@@ -62,6 +62,14 @@ export class ConversationsV2ChannelSetting {
 }
 
 /**
+ * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+ */
+export type ConversationsV2ConversationGroupingType =
+  | "GROUP_BY_PROFILE"
+  | "GROUP_BY_PARTICIPANT_ADDRESSES"
+  | "GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE";
+
+/**
  * Configuration for Conversations V1 bridge. When set, messaging channels route through Conversations V1. Use this to integrate with existing Conversations V1 applications.
  */
 export class ConversationsV2ConversationsV1Bridge {
@@ -123,7 +131,7 @@ export class CreateConfigurationRequest {
    */
   "description": string;
   /**
-   * The strategy Conversation Orchestrator uses to assign communications to conversations.
+   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
    */
   "conversationGroupingType": string;
   /**
@@ -145,6 +153,7 @@ export class CreateConfigurationRequest {
    * Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
    */
   "memoryExtractionEnabled"?: boolean;
+  "conversationsV1Bridge"?: CreateConfigurationRequestConversationsV1Bridge;
 
   constructor(payload) {
     this.displayName = payload["displayName"];
@@ -155,6 +164,7 @@ export class CreateConfigurationRequest {
     this.statusCallbacks = payload["statusCallbacks"];
     this.intelligenceConfigurationIds = payload["intelligenceConfigurationIds"];
     this.memoryExtractionEnabled = payload["memoryExtractionEnabled"];
+    this.conversationsV1Bridge = payload["conversationsV1Bridge"];
   }
 }
 
@@ -202,6 +212,20 @@ export class CreateConfigurationRequestChannelSettingsValueStatusTimeouts {
   }
 }
 
+/**
+ * Configuration for Conversations V1 bridge. When set, messaging channels route through Conversations V1. Use this to integrate with existing Conversations V1 applications.
+ */
+export class CreateConfigurationRequestConversationsV1Bridge {
+  /**
+   * The Conversations V1 Service SID (IS prefix). One configuration per V1 Service SID.
+   */
+  "serviceId": string;
+
+  constructor(payload) {
+    this.serviceId = payload["serviceId"];
+  }
+}
+
 export class CreateConfigurationRequestStatusCallbacks {
   /**
    * The destination URL for webhooks.
@@ -228,7 +252,7 @@ export class UpdateConfigurationRequest {
    */
   "description": string;
   /**
-   * The strategy Conversation Orchestrator uses to assign communications to conversations.
+   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
    */
   "conversationGroupingType": string;
   /**
@@ -247,6 +271,7 @@ export class UpdateConfigurationRequest {
    * Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
    */
   "memoryExtractionEnabled"?: boolean;
+  "conversationsV1Bridge"?: CreateConfigurationRequestConversationsV1Bridge;
 
   constructor(payload) {
     this.displayName = payload["displayName"];
@@ -257,6 +282,7 @@ export class UpdateConfigurationRequest {
     this.statusCallbacks = payload["statusCallbacks"];
     this.intelligenceConfigurationIds = payload["intelligenceConfigurationIds"];
     this.memoryExtractionEnabled = payload["memoryExtractionEnabled"];
+    this.conversationsV1Bridge = payload["conversationsV1Bridge"];
   }
 }
 
@@ -516,20 +542,20 @@ export interface ConfigurationContext {
 }
 
 export interface ConfigurationContextSolution {
-  sid: string;
+  id: string;
 }
 
 export class ConfigurationContextImpl implements ConfigurationContext {
   protected _solution: ConfigurationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
-    if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+  constructor(protected _version: V2, id: string) {
+    if (!isValidPathParam(id)) {
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { sid };
-    this._uri = `/ControlPlane/Configurations/${sid}`;
+    this._solution = { id };
+    this._uri = `/ControlPlane/Configurations/${id}`;
   }
 
   remove(
@@ -566,7 +592,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         new ConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
+          instance._solution.id
         )
     );
 
@@ -619,7 +645,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
           body: new ConfigurationInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.id
           ),
         })
       );
@@ -650,7 +676,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         new ConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
+          instance._solution.id
         )
     );
 
@@ -685,7 +711,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
           body: new ConfigurationInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.id
           ),
         })
       );
@@ -739,7 +765,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         new ConfigurationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
+          instance._solution.id
         )
     );
 
@@ -800,7 +826,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
           body: new ConfigurationInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.id
           ),
         })
       );
@@ -879,6 +905,7 @@ export interface CreateConfigurationRequest {
   statusCallbacks?: Array<CreateConfigurationRequestStatusCallbacks>;
   intelligenceConfigurationIds?: Array<string>;
   memoryExtractionEnabled?: boolean;
+  conversationsV1Bridge?: CreateConfigurationRequestConversationsV1Bridge;
 }
 
 /**
@@ -907,6 +934,13 @@ export interface CreateConfigurationRequestChannelSettingsValueStatusTimeouts {
 }
 
 /**
+ * Nested model for CreateConfigurationRequestConversationsV1Bridge
+ */
+export interface CreateConfigurationRequestConversationsV1Bridge {
+  serviceId: string;
+}
+
+/**
  * Nested model for CreateConfigurationRequestStatusCallbacks
  */
 export interface CreateConfigurationRequestStatusCallbacks {
@@ -928,6 +962,7 @@ export interface UpdateConfigurationRequest {
   statusCallbacks?: Array<UpdateConfigurationRequestStatusCallbacks>;
   intelligenceConfigurationIds?: Array<string>;
   memoryExtractionEnabled?: boolean;
+  conversationsV1Bridge?: CreateConfigurationRequestConversationsV1Bridge;
 }
 
 /**
@@ -968,21 +1003,13 @@ interface ConfigurationPayload extends TokenPaginationPayload {
 }
 
 /**
- * Response model for CreateConfiguration202Response operations
- */
-interface CreateConfiguration202Response_ResponseResource {
-  statusUrl: string;
-  related?: { [key: string]: string };
-}
-
-/**
  * Response model for ListConfiguration200ResponseConfigurations operations
  */
 interface ListConfiguration200ResponseConfigurations_ResponseResource {
   id: string;
   displayName: string;
   description: string;
-  conversationGroupingType: string;
+  conversationGroupingType: ConversationsV2ConversationGroupingType;
   memoryStoreId: string;
   channelSettings?: { [key: string]: ConversationsV2ChannelSetting };
   statusCallbacks?: Array<ConversationsV2StatusCallbackConfig>;
@@ -995,11 +1022,19 @@ interface ListConfiguration200ResponseConfigurations_ResponseResource {
 }
 
 /**
+ * Response model for CreateConfiguration202Response operations
+ */
+interface CreateConfiguration202Response_ResponseResource {
+  statusUrl: string;
+  related?: { [key: string]: string };
+}
+
+/**
  * Union type for all possible response models
  */
 type ConfigurationResource =
-  | CreateConfiguration202Response_ResponseResource
-  | ListConfiguration200ResponseConfigurations_ResponseResource;
+  | ListConfiguration200ResponseConfigurations_ResponseResource
+  | CreateConfiguration202Response_ResponseResource;
 
 /**
  * Slim response for an accepted long-running operation.
@@ -1011,11 +1046,9 @@ export class ConfigurationInstance {
   constructor(
     protected _version: V2,
     _payload: ConfigurationResource,
-    sid?: string
+    id?: string
   ) {
     const payload: any = _payload;
-    this.statusUrl = payload.statusUrl;
-    this.related = payload.related;
     this.id = payload.id;
     this.displayName = payload.displayName;
     this.description = payload.description;
@@ -1040,18 +1073,12 @@ export class ConfigurationInstance {
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
     this.version = payload.version;
+    this.statusUrl = payload.statusUrl;
+    this.related = payload.related;
 
-    this._solution = { sid: sid };
+    this._solution = { id: id };
   }
 
-  /**
-   * URL to poll for operation status.
-   */
-  statusUrl?: string;
-  /**
-   * Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId
-   */
-  related?: { [key: string]: string };
   /**
    * Configuration ID.
    */
@@ -1064,10 +1091,7 @@ export class ConfigurationInstance {
    * Human-readable description for the Configuration. Allows spaces and special characters, typically limited to a paragraph of text. This serves as a descriptive field rather than just a name.
    */
   description?: string;
-  /**
-   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
-   */
-  conversationGroupingType?: string;
+  conversationGroupingType?: ConversationsV2ConversationGroupingType;
   /**
    * Memory Store ID for Profile resolution.
    */
@@ -1101,11 +1125,19 @@ export class ConfigurationInstance {
    * Version number used for optimistic locking.
    */
   version?: number;
+  /**
+   * URL to poll for operation status.
+   */
+  statusUrl?: string;
+  /**
+   * Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId
+   */
+  related?: { [key: string]: string };
 
   private get _proxy(): ConfigurationContext {
     this._context =
       this._context ||
-      new ConfigurationContextImpl(this._version, this._solution.sid);
+      new ConfigurationContextImpl(this._version, this._solution.id);
     return this._context;
   }
 
@@ -1287,8 +1319,6 @@ export class ConfigurationInstance {
    */
   toJSON() {
     return {
-      statusUrl: this.statusUrl,
-      related: this.related,
       id: this.id,
       displayName: this.displayName,
       description: this.description,
@@ -1302,6 +1332,8 @@ export class ConfigurationInstance {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       version: this.version,
+      statusUrl: this.statusUrl,
+      related: this.related,
     };
   }
 
@@ -1317,8 +1349,8 @@ export interface ConfigurationListInstance {
   _solution: ConfigurationSolution;
   _uri: string;
 
-  (sid: string): ConfigurationContext;
-  get(sid: string): ConfigurationContext;
+  (id: string): ConfigurationContext;
+  get(id: string): ConfigurationContext;
 
   /**
    * Create a ConfigurationInstance
@@ -1552,10 +1584,10 @@ export interface ConfigurationListInstance {
 export function ConfigurationListInstance(
   version: V2
 ): ConfigurationListInstance {
-  const instance = ((sid) => instance.get(sid)) as ConfigurationListInstance;
+  const instance = ((id) => instance.get(id)) as ConfigurationListInstance;
 
-  instance.get = function get(sid): ConfigurationContext {
-    return new ConfigurationContextImpl(version, sid);
+  instance.get = function get(id): ConfigurationContext {
+    return new ConfigurationContextImpl(version, id);
   };
 
   instance._version = version;

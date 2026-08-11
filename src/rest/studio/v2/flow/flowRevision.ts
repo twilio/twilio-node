@@ -244,7 +244,7 @@ export class FlowRevisionInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid, revision: revision || this.revision.toString() };
+    this._solution = { sid, revision: revision.toString() };
   }
 
   /**

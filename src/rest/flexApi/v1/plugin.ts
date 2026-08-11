@@ -235,9 +235,9 @@ export class PluginContextImpl implements PluginContext {
   ): Promise<PluginInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -276,9 +276,9 @@ export class PluginContextImpl implements PluginContext {
   ): Promise<ApiResponse<PluginInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -324,9 +324,9 @@ export class PluginContextImpl implements PluginContext {
   ): Promise<PluginInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -371,9 +371,9 @@ export class PluginContextImpl implements PluginContext {
   ): Promise<ApiResponse<PluginInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -464,7 +464,7 @@ export class PluginInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

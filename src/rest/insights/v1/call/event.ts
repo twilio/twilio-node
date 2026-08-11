@@ -22,6 +22,68 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+export class CallWrapUpEvent {
+  /**
+   * Duration in seconds.
+   */
+  "durationInSeconds"?: number;
+  /**
+   * End status of the call wrap up event.
+   */
+  "endStatus"?: string;
+
+  constructor(payload) {
+    this.durationInSeconds = payload["duration_in_seconds"];
+    this.endStatus = payload["end_status"];
+  }
+}
+
+export class ConfigurationEvent {
+  /**
+   * Key-value pairs for configuration settings.
+   */
+  "configurations"?: { [key: string]: string };
+  /**
+   * Key-value pairs for language configurations.
+   */
+  "languages"?: { [key: string]: ConfigurationEventLanguagesValue };
+
+  constructor(payload) {
+    this.configurations = payload["configurations"];
+    this.languages = payload["languages"];
+  }
+}
+
+export class ConfigurationEventLanguagesValue {
+  "ttsProvider"?: string;
+  "voice"?: string;
+  "transcriptionProvider"?: string;
+  "speechModel"?: string;
+
+  constructor(payload) {
+    this.ttsProvider = payload["tts_provider"];
+    this.voice = payload["voice"];
+    this.transcriptionProvider = payload["transcription_provider"];
+    this.speechModel = payload["speech_model"];
+  }
+}
+
+export class ErrorEvent {
+  /**
+   * Error code.
+   */
+  "errorCode"?: number;
+  /**
+   * Error message.
+   */
+  "message"?: string;
+
+  constructor(payload) {
+    this.errorCode = payload["error_code"];
+    this.message = payload["message"];
+  }
+}
+
 export type EventLevel = "UNKNOWN" | "DEBUG" | "INFO" | "WARNING" | "ERROR";
 
 export type EventTwilioEdge =
@@ -30,6 +92,89 @@ export type EventTwilioEdge =
   | "sip_edge"
   | "sdk_edge"
   | "client_edge";
+
+/**
+ * Contains information about the Conversation Relay (CRelay) connection used in calls.
+ */
+export class InsightsV1CallEventConversationRelayData {
+  /**
+   * Session id of the conversation relay.
+   */
+  "sessionId": string;
+  /**
+   * Sequence number of the event.
+   */
+  "sequenceNumber": number;
+  "ttsLatency": LatencyEvent;
+  "sttLatency": LatencyEvent;
+  "interrupt": InterruptEvent;
+  "lastTokenReceived": LastTokenReceivedEvent;
+  "configurations": ConfigurationEvent;
+  "languageChanged": LanguageChangedEvent;
+  "callWrapUp": CallWrapUpEvent;
+  "error": ErrorEvent;
+
+  constructor(payload) {
+    this.sessionId = payload["session_id"];
+    this.sequenceNumber = payload["sequence_number"];
+    this.ttsLatency = payload["tts_latency"];
+    this.sttLatency = payload["stt_latency"];
+    this.interrupt = payload["interrupt"];
+    this.lastTokenReceived = payload["last_token_received"];
+    this.configurations = payload["configurations"];
+    this.languageChanged = payload["language_changed"];
+    this.callWrapUp = payload["call_wrap_up"];
+    this.error = payload["error"];
+  }
+}
+
+export class InterruptEvent {
+  /**
+   * Type of interruption event.
+   */
+  "type"?: string;
+
+  constructor(payload) {
+    this.type = payload["type"];
+  }
+}
+
+export class LanguageChangedEvent {
+  "ttsLanguageCode"?: string;
+  "transcriptionLanguageCode"?: string;
+
+  constructor(payload) {
+    this.ttsLanguageCode = payload["tts_language_code"];
+    this.transcriptionLanguageCode = payload["transcription_language_code"];
+  }
+}
+
+export class LastTokenReceivedEvent {
+  /**
+   * Total number of tokens received.
+   */
+  "totalTokens"?: number;
+  /**
+   * Total number of words received.
+   */
+  "totalWords"?: number;
+
+  constructor(payload) {
+    this.totalTokens = payload["total_tokens"];
+    this.totalWords = payload["total_words"];
+  }
+}
+
+export class LatencyEvent {
+  /**
+   * Latency in milliseconds.
+   */
+  "latencyMs"?: number;
+
+  constructor(payload) {
+    this.latencyMs = payload["latency_ms"];
+  }
+}
 
 /**
  * Options to pass to each
@@ -404,6 +549,7 @@ interface EventResource {
   sip_edge: any;
   sdk_edge: any;
   client_edge: any;
+  conversation_relay_data: InsightsV1CallEventConversationRelayData;
 }
 
 export class EventInstance {
@@ -419,6 +565,13 @@ export class EventInstance {
     this.sipEdge = payload.sip_edge;
     this.sdkEdge = payload.sdk_edge;
     this.clientEdge = payload.client_edge;
+    this.conversationRelayData =
+      payload.conversation_relay_data !== null &&
+      payload.conversation_relay_data !== undefined
+        ? new InsightsV1CallEventConversationRelayData(
+            payload.conversation_relay_data
+          )
+        : null;
   }
 
   /**
@@ -459,6 +612,7 @@ export class EventInstance {
    * `object` Represents the Twilio media gateway for Client calls. The events here describe the call lifecycle as reported by Twilio\'s Voice SDK media gateways. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#edges-and-their-properties) for the object properties.
    */
   clientEdge: any;
+  conversationRelayData: InsightsV1CallEventConversationRelayData;
 
   /**
    * Provide a user-friendly representation
@@ -478,6 +632,7 @@ export class EventInstance {
       sipEdge: this.sipEdge,
       sdkEdge: this.sdkEdge,
       clientEdge: this.clientEdge,
+      conversationRelayData: this.conversationRelayData,
     };
   }
 

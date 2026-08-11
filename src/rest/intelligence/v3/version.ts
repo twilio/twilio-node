@@ -318,7 +318,7 @@ export interface OperatorContextMemory {
  */
 export interface OperatorParameter {
   type: string;
-  default?: any;
+  default?: any | null;
   required?: boolean;
   description?: string;
 }

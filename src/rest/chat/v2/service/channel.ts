@@ -331,9 +331,9 @@ export class ChannelContextImpl implements ChannelContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -366,9 +366,9 @@ export class ChannelContextImpl implements ChannelContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -474,9 +474,9 @@ export class ChannelContextImpl implements ChannelContext {
   ): Promise<ChannelInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -534,9 +534,9 @@ export class ChannelContextImpl implements ChannelContext {
   ): Promise<ApiResponse<ChannelInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -649,7 +649,7 @@ export class ChannelInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -1156,9 +1156,9 @@ export function ChannelListInstance(
   ): Promise<ChannelInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1215,9 +1215,9 @@ export function ChannelListInstance(
   ): Promise<ApiResponse<ChannelInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

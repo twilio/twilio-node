@@ -437,9 +437,9 @@ export class ServiceContextImpl implements ServiceContext {
   ): Promise<ServiceInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -513,9 +513,9 @@ export class ServiceContextImpl implements ServiceContext {
   ): Promise<ApiResponse<ServiceInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -661,7 +661,7 @@ export class ServiceInstance {
     this.usAppToPersonRegistered = payload.us_app_to_person_registered;
     this.useInboundWebhookOnNumber = payload.use_inbound_webhook_on_number;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

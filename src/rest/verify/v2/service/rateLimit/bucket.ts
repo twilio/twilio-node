@@ -327,9 +327,9 @@ export class BucketContextImpl implements BucketContext {
   ): Promise<BucketInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -376,9 +376,9 @@ export class BucketContextImpl implements BucketContext {
   ): Promise<ApiResponse<BucketInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -471,7 +471,7 @@ export class BucketInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { serviceSid, rateLimitSid, sid: sid || this.sid };
+    this._solution = { serviceSid, rateLimitSid, sid: sid };
   }
 
   /**

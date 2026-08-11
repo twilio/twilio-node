@@ -175,9 +175,9 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   ): Promise<ConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -222,9 +222,9 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   ): Promise<ApiResponse<ConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -268,9 +268,9 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   ): Promise<ConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -319,9 +319,9 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   ): Promise<ApiResponse<ConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};

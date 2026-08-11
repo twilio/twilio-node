@@ -324,7 +324,7 @@ export class AuthRegistrationsCredentialListMappingInstance {
     this.friendlyName = payload.friendly_name;
     this.sid = payload.sid;
 
-    this._solution = { accountSid, domainSid, sid: sid || this.sid };
+    this._solution = { accountSid, domainSid, sid: sid };
   }
 
   /**

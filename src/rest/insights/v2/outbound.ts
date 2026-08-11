@@ -340,9 +340,12 @@ export class OutboundContextImpl implements OutboundContext {
   ): Promise<OutboundInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
     }
 
     let data: any = {};
@@ -393,9 +396,12 @@ export class OutboundContextImpl implements OutboundContext {
   ): Promise<ApiResponse<OutboundInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
     }
 
     let data: any = {};
@@ -523,7 +529,7 @@ export class OutboundInstance {
           )
         : null;
 
-    this._solution = { reportId: reportId || this.reportId };
+    this._solution = { reportId: reportId };
   }
 
   /**

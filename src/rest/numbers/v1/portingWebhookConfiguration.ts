@@ -127,9 +127,9 @@ export function PortingWebhookConfigurationListInstance(
   ): Promise<PortingWebhookConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -178,9 +178,9 @@ export function PortingWebhookConfigurationListInstance(
   ): Promise<ApiResponse<PortingWebhookConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};

@@ -271,7 +271,7 @@ export class NotificationInstance {
     this.sid = payload.sid;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**

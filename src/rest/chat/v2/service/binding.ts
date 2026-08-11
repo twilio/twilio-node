@@ -314,7 +314,7 @@ export class BindingInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**

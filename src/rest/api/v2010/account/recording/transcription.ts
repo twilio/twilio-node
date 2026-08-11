@@ -323,7 +323,7 @@ export class TranscriptionInstance {
     this.type = payload.type;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, recordingSid, sid: sid || this.sid };
+    this._solution = { accountSid, recordingSid, sid: sid };
   }
 
   /**

@@ -217,9 +217,9 @@ export class ModuleDataManagementContextImpl
   ): Promise<ModuleDataManagementInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -279,9 +279,9 @@ export class ModuleDataManagementContextImpl
   ): Promise<ApiResponse<ModuleDataManagementInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -379,7 +379,7 @@ export class ModuleDataManagementInstance {
     this.pricing = payload.pricing;
     this.listings = payload.listings;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

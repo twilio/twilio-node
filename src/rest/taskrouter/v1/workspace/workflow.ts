@@ -391,9 +391,9 @@ export class WorkflowContextImpl implements WorkflowContext {
   ): Promise<WorkflowInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -453,9 +453,9 @@ export class WorkflowContextImpl implements WorkflowContext {
   ): Promise<ApiResponse<WorkflowInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -568,7 +568,7 @@ export class WorkflowInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { workspaceSid, sid: sid || this.sid };
+    this._solution = { workspaceSid, sid: sid };
   }
 
   /**

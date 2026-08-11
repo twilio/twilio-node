@@ -205,9 +205,9 @@ export class SipDomainContextImpl implements SipDomainContext {
   ): Promise<SipDomainInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -257,9 +257,9 @@ export class SipDomainContextImpl implements SipDomainContext {
   ): Promise<ApiResponse<SipDomainInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -346,7 +346,7 @@ export class SipDomainInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { sipDomain: sipDomain || this.sipDomain };
+    this._solution = { sipDomain: sipDomain };
   }
 
   sipDomain: string;

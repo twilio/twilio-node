@@ -463,7 +463,7 @@ export class IpAccessControlListInstance {
     this.subresourceUris = payload.subresource_uris;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**

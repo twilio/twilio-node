@@ -240,7 +240,7 @@ export class JobInstance {
     this.jobQueuePosition = payload.job_queue_position;
     this.estimatedCompletionTime = payload.estimated_completion_time;
 
-    this._solution = { jobSid: jobSid || this.jobSid };
+    this._solution = { jobSid: jobSid };
   }
 
   /**

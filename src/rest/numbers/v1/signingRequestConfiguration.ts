@@ -362,9 +362,9 @@ export function SigningRequestConfigurationListInstance(
   ): Promise<SigningRequestConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -413,9 +413,9 @@ export function SigningRequestConfigurationListInstance(
   ): Promise<ApiResponse<SigningRequestConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};

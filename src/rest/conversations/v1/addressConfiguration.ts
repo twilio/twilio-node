@@ -385,9 +385,9 @@ export class AddressConfigurationContextImpl
   ): Promise<AddressConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -461,9 +461,9 @@ export class AddressConfigurationContextImpl
   ): Promise<ApiResponse<AddressConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -577,7 +577,7 @@ export class AddressConfigurationInstance {
     this.url = payload.url;
     this.addressCountry = payload.address_country;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

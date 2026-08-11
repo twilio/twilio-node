@@ -174,7 +174,7 @@ export class SchemaInstance {
     );
     this.latestVersion = deserialize.integer(payload.latest_version);
 
-    this._solution = { id: id || this.id };
+    this._solution = { id: id };
   }
 
   /**

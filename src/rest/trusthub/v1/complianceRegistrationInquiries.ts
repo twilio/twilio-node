@@ -246,9 +246,9 @@ export class ComplianceRegistrationInquiriesContextImpl
   ): Promise<ComplianceRegistrationInquiriesInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -301,9 +301,9 @@ export class ComplianceRegistrationInquiriesContextImpl
   ): Promise<ApiResponse<ComplianceRegistrationInquiriesInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -383,7 +383,7 @@ export class ComplianceRegistrationInquiriesInstance {
     this.registrationId = payload.registration_id;
     this.url = payload.url;
 
-    this._solution = { registrationId: registrationId || this.registrationId };
+    this._solution = { registrationId: registrationId };
   }
 
   /**

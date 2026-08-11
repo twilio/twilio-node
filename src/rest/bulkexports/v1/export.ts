@@ -186,7 +186,7 @@ export class ExportInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { resourceType: resourceType || this.resourceType };
+    this._solution = { resourceType: resourceType };
   }
 
   /**

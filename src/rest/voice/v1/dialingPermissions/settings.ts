@@ -188,9 +188,9 @@ export class SettingsContextImpl implements SettingsContext {
   ): Promise<SettingsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -235,9 +235,9 @@ export class SettingsContextImpl implements SettingsContext {
   ): Promise<ApiResponse<SettingsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

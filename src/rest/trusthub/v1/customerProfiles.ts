@@ -400,9 +400,9 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   ): Promise<CustomerProfilesInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -457,9 +457,9 @@ export class CustomerProfilesContextImpl implements CustomerProfilesContext {
   ): Promise<ApiResponse<CustomerProfilesInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -560,7 +560,7 @@ export class CustomerProfilesInstance {
     this.links = payload.links;
     this.errors = payload.errors;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

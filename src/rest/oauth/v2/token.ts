@@ -41,6 +41,8 @@ export interface TokenListInstanceCreateOptions {
   refreshToken?: string;
   /** The scope of token */
   scope?: string;
+  /** The PKCE code verifier used to generate the code_challenge in the authorization request. */
+  codeVerifier?: string;
 }
 
 export interface TokenSolution {}
@@ -118,9 +120,9 @@ export function TokenListInstance(version: V2): TokenListInstance {
   ): Promise<TokenInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -141,6 +143,8 @@ export function TokenListInstance(version: V2): TokenListInstance {
     if (params["refreshToken"] !== undefined)
       data["refresh_token"] = params["refreshToken"];
     if (params["scope"] !== undefined) data["scope"] = params["scope"];
+    if (params["codeVerifier"] !== undefined)
+      data["code_verifier"] = params["codeVerifier"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -173,9 +177,9 @@ export function TokenListInstance(version: V2): TokenListInstance {
   ): Promise<ApiResponse<TokenInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -196,6 +200,8 @@ export function TokenListInstance(version: V2): TokenListInstance {
     if (params["refreshToken"] !== undefined)
       data["refresh_token"] = params["refreshToken"];
     if (params["scope"] !== undefined) data["scope"] = params["scope"];
+    if (params["codeVerifier"] !== undefined)
+      data["code_verifier"] = params["codeVerifier"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";

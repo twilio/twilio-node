@@ -341,9 +341,9 @@ export class WorkerContextImpl implements WorkerContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -376,9 +376,9 @@ export class WorkerContextImpl implements WorkerContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -484,9 +484,9 @@ export class WorkerContextImpl implements WorkerContext {
   ): Promise<WorkerInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -542,9 +542,9 @@ export class WorkerContextImpl implements WorkerContext {
   ): Promise<ApiResponse<WorkerInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -655,7 +655,7 @@ export class WorkerInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { workspaceSid, sid: sid || this.sid };
+    this._solution = { workspaceSid, sid: sid };
   }
 
   /**

@@ -478,11 +478,7 @@ export class SyncListPermissionInstance {
     this.manage = payload.manage;
     this.url = payload.url;
 
-    this._solution = {
-      serviceSid,
-      listSid,
-      identity: identity || this.identity,
-    };
+    this._solution = { serviceSid, listSid, identity: identity };
   }
 
   /**

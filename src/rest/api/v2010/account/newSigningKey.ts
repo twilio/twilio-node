@@ -117,9 +117,9 @@ export function NewSigningKeyListInstance(
   ): Promise<NewSigningKeyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -169,9 +169,9 @@ export function NewSigningKeyListInstance(
   ): Promise<ApiResponse<NewSigningKeyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

@@ -349,7 +349,7 @@ export class AssessmentsInstance {
     this.timestamp = payload.timestamp;
     this.url = payload.url;
 
-    this._solution = { assessmentSid: assessmentSid || this.assessmentSid };
+    this._solution = { assessmentSid: assessmentSid };
   }
 
   /**

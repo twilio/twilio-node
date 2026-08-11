@@ -263,9 +263,9 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
   ): Promise<WorkerChannelInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -319,9 +319,9 @@ export class WorkerChannelContextImpl implements WorkerChannelContext {
   ): Promise<ApiResponse<WorkerChannelInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -425,7 +425,7 @@ export class WorkerChannelInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = { workspaceSid, workerSid, sid: sid || this.sid };
+    this._solution = { workspaceSid, workerSid, sid: sid };
   }
 
   /**

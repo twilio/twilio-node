@@ -230,9 +230,9 @@ export class InsightsQuestionnairesQuestionContextImpl
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -265,9 +265,9 @@ export class InsightsQuestionnairesQuestionContextImpl
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -468,7 +468,7 @@ export class InsightsQuestionnairesQuestionInstance {
     this.answerSet = payload.answer_set;
     this.url = payload.url;
 
-    this._solution = { questionSid: questionSid || this.questionSid };
+    this._solution = { questionSid: questionSid };
   }
 
   /**

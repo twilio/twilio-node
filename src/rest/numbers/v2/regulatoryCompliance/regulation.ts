@@ -180,9 +180,9 @@ export class RegulationContextImpl implements RegulationContext {
   ): Promise<RegulationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -229,9 +229,9 @@ export class RegulationContextImpl implements RegulationContext {
   ): Promise<ApiResponse<RegulationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -315,7 +315,7 @@ export class RegulationInstance {
     this.requirements = payload.requirements;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

@@ -326,9 +326,9 @@ export class AuthorizationDocumentContextImpl
   ): Promise<AuthorizationDocumentInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -392,9 +392,9 @@ export class AuthorizationDocumentContextImpl
   ): Promise<ApiResponse<AuthorizationDocumentInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -496,7 +496,7 @@ export class AuthorizationDocumentInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

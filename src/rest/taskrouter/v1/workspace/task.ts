@@ -349,9 +349,9 @@ export class TaskContextImpl implements TaskContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -384,9 +384,9 @@ export class TaskContextImpl implements TaskContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -492,9 +492,9 @@ export class TaskContextImpl implements TaskContext {
   ): Promise<TaskInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -552,9 +552,9 @@ export class TaskContextImpl implements TaskContext {
   ): Promise<ApiResponse<TaskInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -691,7 +691,7 @@ export class TaskInstance {
     this.ignoreCapacity = payload.ignore_capacity;
     this.routingTarget = payload.routing_target;
 
-    this._solution = { workspaceSid, sid: sid || this.sid };
+    this._solution = { workspaceSid, sid: sid };
   }
 
   /**
@@ -1221,9 +1221,9 @@ export function TaskListInstance(
   ): Promise<TaskInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1283,9 +1283,9 @@ export function TaskListInstance(
   ): Promise<ApiResponse<TaskInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

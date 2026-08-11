@@ -773,7 +773,7 @@ export class UserInstance {
     this.code = payload.code;
     this.moreInfo = payload.moreInfo;
 
-    this._solution = { organizationSid, id: id || this.id };
+    this._solution = { organizationSid, id: id };
   }
 
   /**

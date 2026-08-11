@@ -125,9 +125,9 @@ export class PortingPortabilityContextImpl
   ): Promise<PortingPortabilityInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -179,9 +179,9 @@ export class PortingPortabilityContextImpl
   ): Promise<ApiResponse<PortingPortabilityInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -271,7 +271,7 @@ export class PortingPortabilityInstance {
     this.country = payload.country;
     this.url = payload.url;
 
-    this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
+    this._solution = { phoneNumber: phoneNumber };
   }
 
   /**

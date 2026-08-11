@@ -167,7 +167,7 @@ export class FormInstance {
     this.formMeta = payload.form_meta;
     this.url = payload.url;
 
-    this._solution = { formType: formType || this.formType };
+    this._solution = { formType: formType };
   }
 
   formType: FormFormTypes;

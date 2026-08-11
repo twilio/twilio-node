@@ -159,9 +159,9 @@ export function MessagingGeopermissionsListInstance(
   ): Promise<MessagingGeopermissionsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -206,9 +206,9 @@ export function MessagingGeopermissionsListInstance(
   ): Promise<ApiResponse<MessagingGeopermissionsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

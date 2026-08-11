@@ -331,9 +331,9 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   ): Promise<UsAppToPersonInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -383,9 +383,9 @@ export class UsAppToPersonContextImpl implements UsAppToPersonContext {
   ): Promise<ApiResponse<UsAppToPersonInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -744,7 +744,7 @@ export class UsAppToPersonInstance {
     this.privacyPolicyUrl = payload.privacy_policy_url;
     this.termsAndConditionsUrl = payload.terms_and_conditions_url;
 
-    this._solution = { messagingServiceSid, sid: sid || this.sid };
+    this._solution = { messagingServiceSid, sid: sid };
   }
 
   /**

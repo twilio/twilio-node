@@ -265,7 +265,7 @@ export class StepInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { flowSid, engagementSid, sid: sid || this.sid };
+    this._solution = { flowSid, engagementSid, sid: sid };
   }
 
   /**

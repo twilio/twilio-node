@@ -169,9 +169,9 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
   ): Promise<ConfiguredPluginInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -221,9 +221,9 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
   ): Promise<ApiResponse<ConfiguredPluginInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -326,10 +326,7 @@ export class ConfiguredPluginInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = {
-      configurationSid,
-      pluginSid: pluginSid || this.pluginSid,
-    };
+    this._solution = { configurationSid, pluginSid: pluginSid };
   }
 
   /**

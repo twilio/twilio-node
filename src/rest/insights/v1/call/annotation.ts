@@ -225,9 +225,9 @@ export class AnnotationContextImpl implements AnnotationContext {
   ): Promise<AnnotationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -285,9 +285,9 @@ export class AnnotationContextImpl implements AnnotationContext {
   ): Promise<ApiResponse<AnnotationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

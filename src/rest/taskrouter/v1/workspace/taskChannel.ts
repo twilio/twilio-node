@@ -329,9 +329,9 @@ export class TaskChannelContextImpl implements TaskChannelContext {
   ): Promise<TaskChannelInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -384,9 +384,9 @@ export class TaskChannelContextImpl implements TaskChannelContext {
   ): Promise<ApiResponse<TaskChannelInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -483,7 +483,7 @@ export class TaskChannelInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { workspaceSid, sid: sid || this.sid };
+    this._solution = { workspaceSid, sid: sid };
   }
 
   /**

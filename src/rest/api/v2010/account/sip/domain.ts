@@ -403,9 +403,9 @@ export class DomainContextImpl implements DomainContext {
   ): Promise<DomainInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -476,9 +476,9 @@ export class DomainContextImpl implements DomainContext {
   ): Promise<ApiResponse<DomainInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -618,7 +618,7 @@ export class DomainInstance {
     this.byocTrunkSid = payload.byoc_trunk_sid;
     this.emergencyCallerSid = payload.emergency_caller_sid;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**

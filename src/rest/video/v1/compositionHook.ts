@@ -562,7 +562,7 @@ export class CompositionHookInstance {
     this.statusCallbackMethod = payload.status_callback_method;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

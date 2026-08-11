@@ -314,7 +314,7 @@ export class NetworkAccessProfileNetworkInstance {
     this.identifiers = payload.identifiers;
     this.url = payload.url;
 
-    this._solution = { networkAccessProfileSid, sid: sid || this.sid };
+    this._solution = { networkAccessProfileSid, sid: sid };
   }
 
   /**

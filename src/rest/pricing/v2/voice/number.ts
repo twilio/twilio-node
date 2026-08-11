@@ -133,9 +133,9 @@ export class NumberContextImpl implements NumberContext {
   ): Promise<NumberInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -179,9 +179,9 @@ export class NumberContextImpl implements NumberContext {
   ): Promise<ApiResponse<NumberInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -278,9 +278,7 @@ export class NumberInstance {
     this.priceUnit = payload.price_unit;
     this.url = payload.url;
 
-    this._solution = {
-      destinationNumber: destinationNumber || this.destinationNumber,
-    };
+    this._solution = { destinationNumber: destinationNumber };
   }
 
   /**

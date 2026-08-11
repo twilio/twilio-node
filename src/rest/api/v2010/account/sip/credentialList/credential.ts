@@ -337,9 +337,9 @@ export class CredentialContextImpl implements CredentialContext {
   ): Promise<CredentialInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -388,9 +388,9 @@ export class CredentialContextImpl implements CredentialContext {
   ): Promise<ApiResponse<CredentialInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -478,7 +478,7 @@ export class CredentialInstance {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
 
-    this._solution = { accountSid, credentialListSid, sid: sid || this.sid };
+    this._solution = { accountSid, credentialListSid, sid: sid };
   }
 
   /**

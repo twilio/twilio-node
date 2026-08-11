@@ -344,9 +344,9 @@ export class UserConversationContextImpl implements UserConversationContext {
   ): Promise<UserConversationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -405,9 +405,9 @@ export class UserConversationContextImpl implements UserConversationContext {
   ): Promise<ApiResponse<UserConversationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -531,7 +531,7 @@ export class UserConversationInstance {
     this._solution = {
       chatServiceSid,
       userSid,
-      conversationSid: conversationSid || this.conversationSid,
+      conversationSid: conversationSid,
     };
   }
 

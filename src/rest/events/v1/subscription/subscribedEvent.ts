@@ -328,9 +328,9 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   ): Promise<SubscribedEventInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -382,9 +382,9 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   ): Promise<ApiResponse<SubscribedEventInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -467,7 +467,7 @@ export class SubscribedEventInstance {
     this.subscriptionSid = payload.subscription_sid;
     this.url = payload.url;
 
-    this._solution = { subscriptionSid, type: type || this.type };
+    this._solution = { subscriptionSid, type: type };
   }
 
   /**

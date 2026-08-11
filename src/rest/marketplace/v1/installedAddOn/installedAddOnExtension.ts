@@ -379,7 +379,7 @@ export class InstalledAddOnExtensionInstance {
     this.enabled = payload.enabled;
     this.url = payload.url;
 
-    this._solution = { installedAddOnSid, sid: sid || this.sid };
+    this._solution = { installedAddOnSid, sid: sid };
   }
 
   /**

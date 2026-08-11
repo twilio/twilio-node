@@ -22,10 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 export class ConversationsV2Address {
-  /**
-   * The channel for Communication.
-   */
-  "channel": string;
+  "channel": ConversationsV2Channel;
   /**
    * The address value formatted according to channel type: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\") - CHAT: Customer-defined string identifier
    */
@@ -41,6 +38,32 @@ export class ConversationsV2Address {
     this.channelId = payload["channelId"];
   }
 }
+
+/**
+ * Channel type for a Communication address.
+ */
+export type ConversationsV2Channel =
+  | "VOICE"
+  | "SMS"
+  | "RCS"
+  | "WHATSAPP"
+  | "CHAT";
+
+/**
+ * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+ */
+export type ConversationsV2ConversationGroupingType =
+  | "GROUP_BY_PROFILE"
+  | "GROUP_BY_PARTICIPANT_ADDRESSES"
+  | "GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE";
+
+/**
+ * Lifecycle status of a Conversation.
+ */
+export type ConversationsV2ConversationStatus =
+  | "ACTIVE"
+  | "INACTIVE"
+  | "CLOSED";
 
 /**
  * Configuration for Conversations V1 bridge. When set, messaging channels route through Conversations V1. Use this to integrate with existing Conversations V1 applications.
@@ -73,10 +96,7 @@ export class ConversationsV2Participant {
    * Participant display name.
    */
   "name": string;
-  /**
-   * Type of Participant in the Conversation.
-   */
-  "type"?: string;
+  "type"?: ConversationsV2ParticipantType;
   /**
    * Profile ID. Note: This field is only resolved for `CUSTOMER` participant types, not for `HUMAN_AGENT` or `AI_AGENT` participants.
    */
@@ -106,6 +126,16 @@ export class ConversationsV2Participant {
     this.updatedAt = payload["updatedAt"];
   }
 }
+
+/**
+ * Type of Participant in the Conversation.
+ */
+export type ConversationsV2ParticipantType =
+  | "HUMAN_AGENT"
+  | "CUSTOMER"
+  | "AI_AGENT"
+  | "AGENT"
+  | "UNKNOWN";
 
 /**
  * Default webhook configuration for Conversation-level events under this Configuration.
@@ -190,6 +220,9 @@ export class CreateConversationWithConfigRequestParticipants {
 }
 
 export class CreateConversationWithConfigRequestParticipantsAddresses {
+  /**
+   * Channel type for a Communication address.
+   */
   "channel": string;
   "address": string;
   "channelId"?: string;
@@ -213,10 +246,7 @@ export class ListConversationByAccount200ResponseConversationsConfiguration {
    * Human-readable description for the Configuration.
    */
   "description"?: string;
-  /**
-   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
-   */
-  "conversationGroupingType"?: string;
+  "conversationGroupingType"?: ConversationsV2ConversationGroupingType;
   /**
    * Memory Store ID for Profile resolution.
    */
@@ -258,7 +288,7 @@ export class PatchConversationByIdRequest {
    */
   "name"?: string;
   /**
-   * The state of the Conversation.
+   * Lifecycle status of a Conversation.
    */
   "status"?: string;
   "configuration"?: PatchConversationByIdRequestConfiguration;
@@ -290,7 +320,7 @@ export class UpdateConversationByIdRequest {
    */
   "name"?: string;
   /**
-   * The state of the Conversation.
+   * Lifecycle status of a Conversation.
    */
   "status": string;
 
@@ -580,20 +610,20 @@ export interface ConversationContext {
 }
 
 export interface ConversationContextSolution {
-  sid: string;
+  id: string;
 }
 
 export class ConversationContextImpl implements ConversationContext {
   protected _solution: ConversationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
-    if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+  constructor(protected _version: V2, id: string) {
+    if (!isValidPathParam(id)) {
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { sid };
-    this._uri = `/Conversations/${sid}`;
+    this._solution = { id };
+    this._uri = `/Conversations/${id}`;
   }
 
   remove(
@@ -630,7 +660,7 @@ export class ConversationContextImpl implements ConversationContext {
         new ConversationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
+          instance._solution.id
         )
     );
 
@@ -683,7 +713,7 @@ export class ConversationContextImpl implements ConversationContext {
           body: new ConversationInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.id
           ),
         })
       );
@@ -714,7 +744,7 @@ export class ConversationContextImpl implements ConversationContext {
         new ConversationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
+          instance._solution.id
         )
     );
 
@@ -749,7 +779,7 @@ export class ConversationContextImpl implements ConversationContext {
           body: new ConversationInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.id
           ),
         })
       );
@@ -803,7 +833,7 @@ export class ConversationContextImpl implements ConversationContext {
         new ConversationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
+          instance._solution.id
         )
     );
 
@@ -864,7 +894,7 @@ export class ConversationContextImpl implements ConversationContext {
           body: new ConversationInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.id
           ),
         })
       );
@@ -918,7 +948,7 @@ export class ConversationContextImpl implements ConversationContext {
         new ConversationInstance(
           operationVersion,
           payload,
-          instance._solution.sid
+          instance._solution.id
         )
     );
 
@@ -979,7 +1009,7 @@ export class ConversationContextImpl implements ConversationContext {
           body: new ConversationInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.id
           ),
         })
       );
@@ -1008,7 +1038,7 @@ export class ConversationContextImpl implements ConversationContext {
  * Nested model for ConversationsV2Address
  */
 export interface ConversationsV2Address {
-  channel: string;
+  channel: ConversationsV2Channel;
   address: string;
   channelId?: string;
 }
@@ -1028,7 +1058,7 @@ export interface ConversationsV2Participant {
   conversationId: string;
   accountId: string;
   name: string;
-  type?: string;
+  type?: ConversationsV2ParticipantType;
   profileId?: string;
   addresses?: Array<ConversationsV2Address>;
   createdAt?: Date;
@@ -1085,7 +1115,7 @@ export interface CreateConversationWithConfigRequestParticipantsAddresses {
 export interface ListConversationByAccount200ResponseConversationsConfiguration {
   displayName?: string;
   description?: string;
-  conversationGroupingType?: string;
+  conversationGroupingType?: ConversationsV2ConversationGroupingType;
   memoryStoreId?: string;
   channelSettings?: { [key: string]: any };
   statusCallbacks?: Array<ConversationsV2StatusCallbackConfig>;
@@ -1137,7 +1167,7 @@ interface ListConversationByAccount200ResponseConversations_ResponseResource {
   id: string;
   accountId: string;
   configurationId: string;
-  status?: string;
+  status?: ConversationsV2ConversationStatus;
   name?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -1159,7 +1189,7 @@ export class ConversationInstance {
   constructor(
     protected _version: V2,
     _payload: ConversationResource,
-    sid?: string
+    id?: string
   ) {
     const payload: any = _payload;
     this.statusUrl = payload.statusUrl;
@@ -1184,7 +1214,7 @@ export class ConversationInstance {
           )
         : null;
 
-    this._solution = { sid: sid };
+    this._solution = { id: id };
   }
 
   /**
@@ -1207,10 +1237,7 @@ export class ConversationInstance {
    * Configuration ID.
    */
   configurationId?: string;
-  /**
-   * Conversation status.
-   */
-  status?: string;
+  status?: ConversationsV2ConversationStatus;
   /**
    * Conversation name.
    */
@@ -1232,7 +1259,7 @@ export class ConversationInstance {
   private get _proxy(): ConversationContext {
     this._context =
       this._context ||
-      new ConversationContextImpl(this._version, this._solution.sid);
+      new ConversationContextImpl(this._version, this._solution.id);
     return this._context;
   }
 
@@ -1513,8 +1540,8 @@ export interface ConversationListInstance {
   _solution: ConversationSolution;
   _uri: string;
 
-  (sid: string): ConversationContext;
-  get(sid: string): ConversationContext;
+  (id: string): ConversationContext;
+  get(id: string): ConversationContext;
 
   /**
    * Create a ConversationInstance
@@ -1736,10 +1763,10 @@ export interface ConversationListInstance {
 export function ConversationListInstance(
   version: V2
 ): ConversationListInstance {
-  const instance = ((sid) => instance.get(sid)) as ConversationListInstance;
+  const instance = ((id) => instance.get(id)) as ConversationListInstance;
 
-  instance.get = function get(sid): ConversationContext {
-    return new ConversationContextImpl(version, sid);
+  instance.get = function get(id): ConversationContext {
+    return new ConversationContextImpl(version, id);
   };
 
   instance._version = version;

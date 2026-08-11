@@ -315,9 +315,9 @@ export class SigningKeyContextImpl implements SigningKeyContext {
   ): Promise<SigningKeyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -366,9 +366,9 @@ export class SigningKeyContextImpl implements SigningKeyContext {
   ): Promise<ApiResponse<SigningKeyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -449,7 +449,7 @@ export class SigningKeyInstance {
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   sid: string;

@@ -343,9 +343,9 @@ export class IpAddressContextImpl implements IpAddressContext {
   ): Promise<IpAddressInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -399,9 +399,9 @@ export class IpAddressContextImpl implements IpAddressContext {
   ): Promise<ApiResponse<IpAddressInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -498,11 +498,7 @@ export class IpAddressInstance {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
 
-    this._solution = {
-      accountSid,
-      ipAccessControlListSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { accountSid, ipAccessControlListSid, sid: sid };
   }
 
   /**

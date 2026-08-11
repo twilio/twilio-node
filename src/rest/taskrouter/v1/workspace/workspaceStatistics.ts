@@ -122,9 +122,9 @@ export class WorkspaceStatisticsContextImpl
   ): Promise<WorkspaceStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -181,9 +181,9 @@ export class WorkspaceStatisticsContextImpl
   ): Promise<ApiResponse<WorkspaceStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

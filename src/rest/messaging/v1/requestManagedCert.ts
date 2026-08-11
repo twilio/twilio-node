@@ -184,7 +184,7 @@ export class RequestManagedCertInstance {
     this.managed = payload.managed;
     this.requesting = payload.requesting;
 
-    this._solution = { domainSid: domainSid || this.domainSid };
+    this._solution = { domainSid: domainSid };
   }
 
   /**

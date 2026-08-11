@@ -131,6 +131,8 @@ export interface CallListInstanceCreateOptions {
   asyncAmdStatusCallback?: string;
   /** The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. */
   asyncAmdStatusCallbackMethod?: string;
+  /** The STIR/SHAKEN passport for this call, provided as a base64 encoded string. Multiple passports (at max 5) are comma separated and provided as base64 encoded string */
+  passports?: string;
   /** The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta) */
   byoc?: string;
   /** The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party\\\'s phone. (Branded Calls Beta) */
@@ -603,9 +605,9 @@ export class CallContextImpl implements CallContext {
   ): Promise<CallInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -664,9 +666,9 @@ export class CallContextImpl implements CallContext {
   ): Promise<ApiResponse<CallInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -804,7 +806,7 @@ export class CallInstance {
     this.uri = payload.uri;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -1417,6 +1419,8 @@ export function CallListInstance(
     if (params["asyncAmdStatusCallbackMethod"] !== undefined)
       data["AsyncAmdStatusCallbackMethod"] =
         params["asyncAmdStatusCallbackMethod"];
+    if (params["passports"] !== undefined)
+      data["Passports"] = params["passports"];
     if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
     if (params["callReason"] !== undefined)
       data["CallReason"] = params["callReason"];
@@ -1541,6 +1545,8 @@ export function CallListInstance(
     if (params["asyncAmdStatusCallbackMethod"] !== undefined)
       data["AsyncAmdStatusCallbackMethod"] =
         params["asyncAmdStatusCallbackMethod"];
+    if (params["passports"] !== undefined)
+      data["Passports"] = params["passports"];
     if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
     if (params["callReason"] !== undefined)
       data["CallReason"] = params["callReason"];

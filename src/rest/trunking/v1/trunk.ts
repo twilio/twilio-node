@@ -390,9 +390,9 @@ export class TrunkContextImpl implements TrunkContext {
   ): Promise<TrunkInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -447,9 +447,9 @@ export class TrunkContextImpl implements TrunkContext {
   ): Promise<ApiResponse<TrunkInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -566,7 +566,7 @@ export class TrunkInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -1043,9 +1043,9 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
   ): Promise<TrunkInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1098,9 +1098,9 @@ export function TrunkListInstance(version: V1): TrunkListInstance {
   ): Promise<ApiResponse<TrunkInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

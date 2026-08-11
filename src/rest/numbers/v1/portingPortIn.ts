@@ -517,9 +517,7 @@ export class PortingPortInInstance {
     this.supportTicketId = deserialize.integer(payload.support_ticket_id);
     this.signatureRequestUrl = payload.signature_request_url;
 
-    this._solution = {
-      portInRequestSid: portInRequestSid || this.portInRequestSid,
-    };
+    this._solution = { portInRequestSid: portInRequestSid };
   }
 
   /**

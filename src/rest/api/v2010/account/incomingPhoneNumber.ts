@@ -489,9 +489,9 @@ export class IncomingPhoneNumberContextImpl
   ): Promise<IncomingPhoneNumberInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -586,9 +586,9 @@ export class IncomingPhoneNumberContextImpl
   ): Promise<ApiResponse<IncomingPhoneNumberInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -774,7 +774,7 @@ export class IncomingPhoneNumberInstance {
     this.status = payload.status;
     this.type = payload.type;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -1405,9 +1405,9 @@ export function IncomingPhoneNumberListInstance(
   ): Promise<IncomingPhoneNumberInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1501,9 +1501,9 @@ export function IncomingPhoneNumberListInstance(
   ): Promise<ApiResponse<IncomingPhoneNumberInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

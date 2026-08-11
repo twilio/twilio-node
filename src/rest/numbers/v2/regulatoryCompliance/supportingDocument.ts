@@ -338,9 +338,9 @@ export class SupportingDocumentContextImpl
   ): Promise<SupportingDocumentInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -393,9 +393,9 @@ export class SupportingDocumentContextImpl
   ): Promise<ApiResponse<SupportingDocumentInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -492,7 +492,7 @@ export class SupportingDocumentInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

@@ -76,7 +76,7 @@ export class KnowledgeSourceTypes {
   "fileSize": number;
   "mimeType": SupportedFileMimeType;
   /**
-   * Presigned S3 URL for file upload (when status is SCHEDULED) or the permanent S3 location after upload completes. Use PUT method to upload the file to this URL when status is SCHEDULED.
+   * Presigned S3 URL for file upload (when status is SCHEDULED).  Use PUT method to upload the file to this URL when status is SCHEDULED.
    */
   "importUrl"?: string;
   /**
@@ -99,12 +99,11 @@ export class KnowledgeSourceTypes {
 }
 
 /**
- * Supported MIME types for knowledge file imports. Maximum file size for any file is 16MB (16 * 1024 * 1024 bytes). Extensions → MIME:   .csv → text/csv   .md → text/markdown   .mdx → text/mdx   .pdf → application/pdf   .tsv → text/tab-separated-values   .txt → text/plain
+ * Supported MIME types for knowledge file imports. Maximum file size for any file is 16MB (16 * 1024 * 1024 bytes). Extensions → MIME:   .csv → text/csv   .md → text/markdown   .pdf → application/pdf   .tsv → text/tab-separated-values   .txt → text/plain
  */
 export type SupportedFileMimeType =
   | "text/csv"
   | "text/markdown"
-  | "text/mdx"
   | "application/pdf"
   | "text/tab-separated-values"
   | "text/plain";

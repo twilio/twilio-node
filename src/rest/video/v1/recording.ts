@@ -356,7 +356,7 @@ export class RecordingInstance {
     this.statusCallbackMethod = payload.status_callback_method;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

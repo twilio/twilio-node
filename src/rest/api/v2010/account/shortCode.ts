@@ -271,9 +271,9 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   ): Promise<ShortCodeInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -331,9 +331,9 @@ export class ShortCodeContextImpl implements ShortCodeContext {
   ): Promise<ApiResponse<ShortCodeInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -439,7 +439,7 @@ export class ShortCodeInstance {
     this.smsUrl = payload.sms_url;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**

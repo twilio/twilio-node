@@ -193,9 +193,9 @@ export class TrunkContextImpl implements TrunkContext {
   ): Promise<TrunkInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -242,9 +242,9 @@ export class TrunkContextImpl implements TrunkContext {
   ): Promise<ApiResponse<TrunkInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -331,7 +331,7 @@ export class TrunkInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { sipTrunkDomain: sipTrunkDomain || this.sipTrunkDomain };
+    this._solution = { sipTrunkDomain: sipTrunkDomain };
   }
 
   /**

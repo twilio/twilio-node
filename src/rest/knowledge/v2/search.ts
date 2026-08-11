@@ -29,6 +29,22 @@ export class KnowledgeChunkResult {
    */
   "createdAt"?: Date;
   /**
+   * 0-based position of this chunk within its source document for a single ingestion run.
+   */
+  "chunkIndex"?: number;
+  /**
+   * Human-readable title of the source document. Web: HTML <title> from the crawled page. File: filename from Unstructured metadata. Text: knowledge name from the knowledge source.
+   */
+  "documentTitle"?: string;
+  /**
+   * Specific page URL this chunk was crawled from. Web sources only; null for File and Text sources.
+   */
+  "documentUrl"?: string;
+  /**
+   * Physical page number (1-based). PDF sources only; omitted for all other source types.
+   */
+  "documentNumber"?: number;
+  /**
    * The score associated with the chunk.
    */
   "score"?: number;
@@ -40,6 +56,10 @@ export class KnowledgeChunkResult {
   constructor(payload) {
     this.content = payload["content"];
     this.createdAt = payload["createdAt"];
+    this.chunkIndex = payload["chunkIndex"];
+    this.documentTitle = payload["documentTitle"];
+    this.documentUrl = payload["documentUrl"];
+    this.documentNumber = payload["documentNumber"];
     this.score = payload["score"];
     this.knowledgeId = payload["knowledgeId"];
   }
@@ -72,12 +92,20 @@ export class KnowledgeSearch {
 /**
  * Options to pass to create a SearchInstance
  */
-export interface SearchContextCreateOptions {
+export interface SearchListInstanceCreateOptions {
   /**  */
   knowledgeSearch?: KnowledgeSearch;
 }
 
-export interface SearchContext {
+export interface SearchSolution {
+  kbId: string;
+}
+
+export interface SearchListInstance {
+  _version: V2;
+  _solution: SearchSolution;
+  _uri: string;
+
   /**
    * Create a SearchInstance
    *
@@ -135,29 +163,26 @@ export interface SearchContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface SearchContextSolution {
-  kbId: string;
-}
-
-export class SearchContextImpl implements SearchContext {
-  protected _solution: SearchContextSolution;
-  protected _uri: string;
-
-  constructor(protected _version: V2, kbId: string) {
-    if (!isValidPathParam(kbId)) {
-      throw new Error("Parameter 'kbId' is not valid.");
-    }
-
-    this._solution = { kbId };
-    this._uri = `/KnowledgeBases/${kbId}/Search`;
+export function SearchListInstance(
+  version: V2,
+  kbId: string
+): SearchListInstance {
+  if (!isValidPathParam(kbId)) {
+    throw new Error("Parameter 'kbId' is not valid.");
   }
 
-  create(
+  const instance = {} as SearchListInstance;
+
+  instance._version = version;
+  instance._solution = { kbId };
+  instance._uri = `/KnowledgeBases/${kbId}/Search`;
+
+  instance.create = function create(
     params?:
       | KnowledgeSearch
-      | ((error: Error | null, item?: SearchInstance) => any),
+      | ((error: Error | null, items: SearchInstance) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: SearchInstance) => any
+    callback?: (error: Error | null, items: SearchInstance) => any
   ): Promise<SearchInstance> {
     if (params instanceof Function) {
       callback = params;
@@ -177,8 +202,7 @@ export class SearchContextImpl implements SearchContext {
     headers["Content-Type"] = "application/json";
     headers["Accept"] = "application/json";
 
-    const instance = this;
-    let operationVersion = instance._version,
+    let operationVersion = version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
@@ -196,14 +220,14 @@ export class SearchContextImpl implements SearchContext {
       callback
     );
     return operationPromise;
-  }
+  };
 
-  createWithHttpInfo(
+  instance.createWithHttpInfo = function createWithHttpInfo(
     params?:
       | KnowledgeSearch
-      | ((error: Error | null, item?: ApiResponse<SearchInstance>) => any),
+      | ((error: Error | null, items: ApiResponse<SearchInstance>) => any),
     headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
+    callback?: (error: Error | null, items: ApiResponse<SearchInstance>) => any
   ): Promise<ApiResponse<SearchInstance>> {
     if (params instanceof Function) {
       callback = params;
@@ -223,8 +247,7 @@ export class SearchContextImpl implements SearchContext {
     headers["Content-Type"] = "application/json";
     headers["Accept"] = "application/json";
 
-    const instance = this;
-    let operationVersion = instance._version;
+    let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
     let operationPromise = operationVersion
       .createWithResponseInfo<SearchResource>({
@@ -249,20 +272,20 @@ export class SearchContextImpl implements SearchContext {
       callback
     );
     return operationPromise;
-  }
+  };
 
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
+  instance.toJSON = function toJSON() {
+    return instance._solution;
+  };
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
+    return inspect(instance.toJSON(), options);
+  };
+
+  return instance;
 }
 
 interface SearchResource {
@@ -270,10 +293,7 @@ interface SearchResource {
 }
 
 export class SearchInstance {
-  protected _solution: SearchContextSolution;
-  protected _context?: SearchContext;
-
-  constructor(protected _version: V2, _payload: SearchResource, kbId?: string) {
+  constructor(protected _version: V2, _payload: SearchResource, kbId: string) {
     const payload = _payload;
     this.chunks =
       payload.chunks !== null && payload.chunks !== undefined
@@ -281,82 +301,9 @@ export class SearchInstance {
             (payload: any) => new KnowledgeChunkResult(payload)
           )
         : null;
-
-    this._solution = { kbId: kbId };
   }
 
   chunks: Array<KnowledgeChunkResult>;
-
-  private get _proxy(): SearchContext {
-    this._context =
-      this._context ||
-      new SearchContextImpl(this._version, this._solution.kbId);
-    return this._context;
-  }
-
-  /**
-   * Create a SearchInstance
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed SearchInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: SearchInstance) => any
-  ): Promise<SearchInstance>;
-  /**
-   * Create a SearchInstance
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed SearchInstance
-   */
-  create(
-    params: KnowledgeSearch,
-    headers?: any,
-    callback?: (error: Error | null, item?: SearchInstance) => any
-  ): Promise<SearchInstance>;
-
-  create(
-    params?: any,
-    callback?: (error: Error | null, item?: SearchInstance) => any
-  ): Promise<SearchInstance> {
-    return this._proxy.create(params, callback);
-  }
-
-  /**
-   * Create a SearchInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed SearchInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
-  ): Promise<ApiResponse<SearchInstance>>;
-  /**
-   * Create a SearchInstance and return HTTP info
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed SearchInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    params: KnowledgeSearch,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
-  ): Promise<ApiResponse<SearchInstance>>;
-
-  createWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<SearchInstance>) => any
-  ): Promise<ApiResponse<SearchInstance>> {
-    return this._proxy.createWithHttpInfo(params, callback);
-  }
 
   /**
    * Provide a user-friendly representation
@@ -372,46 +319,4 @@ export class SearchInstance {
   [inspect.custom](_depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
-}
-
-export interface SearchSolution {}
-
-export interface SearchListInstance {
-  _version: V2;
-  _solution: SearchSolution;
-  _uri: string;
-
-  (kbId: string): SearchContext;
-  get(kbId: string): SearchContext;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export function SearchListInstance(version: V2): SearchListInstance {
-  const instance = ((kbId) => instance.get(kbId)) as SearchListInstance;
-
-  instance.get = function get(kbId): SearchContext {
-    return new SearchContextImpl(version, kbId);
-  };
-
-  instance._version = version;
-  instance._solution = {};
-  instance._uri = ``;
-
-  instance.toJSON = function toJSON() {
-    return instance._solution;
-  };
-
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
-    return inspect(instance.toJSON(), options);
-  };
-
-  return instance;
 }

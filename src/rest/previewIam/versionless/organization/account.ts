@@ -224,10 +224,7 @@ export class AccountInstance {
     this.ownerSid = payload.owner_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
 
-    this._solution = {
-      organizationSid,
-      accountSid: accountSid || this.accountSid,
-    };
+    this._solution = { organizationSid, accountSid: accountSid };
   }
 
   /**

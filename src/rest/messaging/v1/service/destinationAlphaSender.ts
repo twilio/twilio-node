@@ -324,7 +324,7 @@ export class DestinationAlphaSenderInstance {
     this.url = payload.url;
     this.isoCountryCode = payload.iso_country_code;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**

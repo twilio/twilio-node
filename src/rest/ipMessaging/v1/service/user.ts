@@ -337,9 +337,9 @@ export class UserContextImpl implements UserContext {
   ): Promise<UserInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -388,9 +388,9 @@ export class UserContextImpl implements UserContext {
   ): Promise<ApiResponse<UserInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -496,7 +496,7 @@ export class UserInstance {
     this.links = payload.links;
     this.url = payload.url;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   sid: string;

@@ -218,9 +218,9 @@ export class FlexUserContextImpl implements FlexUserContext {
   ): Promise<FlexUserInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -270,9 +270,9 @@ export class FlexUserContextImpl implements FlexUserContext {
   ): Promise<ApiResponse<FlexUserInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -374,10 +374,7 @@ export class FlexUserInstance {
     this.version = deserialize.integer(payload.version);
     this.url = payload.url;
 
-    this._solution = {
-      instanceSid: instanceSid || this.instanceSid,
-      flexUserSid: flexUserSid || this.flexUserSid,
-    };
+    this._solution = { instanceSid: instanceSid, flexUserSid: flexUserSid };
   }
 
   /**

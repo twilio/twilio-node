@@ -157,9 +157,9 @@ export function ConversationWithParticipantsListInstance(
   ): Promise<ConversationWithParticipantsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -231,9 +231,9 @@ export function ConversationWithParticipantsListInstance(
   ): Promise<ApiResponse<ConversationWithParticipantsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

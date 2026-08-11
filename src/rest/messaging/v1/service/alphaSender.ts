@@ -303,7 +303,7 @@ export class AlphaSenderInstance {
     this.capabilities = payload.capabilities;
     this.url = payload.url;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**

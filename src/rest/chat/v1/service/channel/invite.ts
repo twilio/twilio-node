@@ -322,7 +322,7 @@ export class InviteInstance {
     this.createdBy = payload.created_by;
     this.url = payload.url;
 
-    this._solution = { serviceSid, channelSid, sid: sid || this.sid };
+    this._solution = { serviceSid, channelSid, sid: sid };
   }
 
   /**

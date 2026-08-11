@@ -229,9 +229,9 @@ export class ConferenceParticipantContextImpl
   ): Promise<ConferenceParticipantInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -282,9 +282,9 @@ export class ConferenceParticipantContextImpl
   ): Promise<ApiResponse<ConferenceParticipantInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -414,10 +414,7 @@ export class ConferenceParticipantInstance {
     this.metrics = payload.metrics;
     this.url = payload.url;
 
-    this._solution = {
-      conferenceSid,
-      participantSid: participantSid || this.participantSid,
-    };
+    this._solution = { conferenceSid, participantSid: participantSid };
   }
 
   /**

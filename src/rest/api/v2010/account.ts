@@ -492,9 +492,9 @@ export class AccountContextImpl implements AccountContext {
   ): Promise<AccountInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -536,9 +536,9 @@ export class AccountContextImpl implements AccountContext {
   ): Promise<ApiResponse<AccountInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -630,7 +630,7 @@ export class AccountInstance {
     this.type = payload.type;
     this.uri = payload.uri;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -1181,9 +1181,9 @@ export function AccountListInstance(version: V2010): AccountListInstance {
   ): Promise<AccountInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1222,9 +1222,9 @@ export function AccountListInstance(version: V2010): AccountListInstance {
   ): Promise<ApiResponse<AccountInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

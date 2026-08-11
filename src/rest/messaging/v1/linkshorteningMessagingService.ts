@@ -258,8 +258,8 @@ export class LinkshorteningMessagingServiceInstance {
     this.url = payload.url;
 
     this._solution = {
-      domainSid: domainSid || this.domainSid,
-      messagingServiceSid: messagingServiceSid || this.messagingServiceSid,
+      domainSid: domainSid,
+      messagingServiceSid: messagingServiceSid,
     };
   }
 

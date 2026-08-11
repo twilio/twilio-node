@@ -255,9 +255,9 @@ export class ApiKeyContextImpl implements ApiKeyContext {
   ): Promise<ApiKeyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -300,9 +300,9 @@ export class ApiKeyContextImpl implements ApiKeyContext {
   ): Promise<ApiResponse<ApiKeyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -379,7 +379,7 @@ export class ApiKeyInstance {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.policy = payload.policy;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

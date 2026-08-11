@@ -341,9 +341,9 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   ): Promise<SyncStreamInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -391,9 +391,9 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   ): Promise<ApiResponse<SyncStreamInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -485,7 +485,7 @@ export class SyncStreamInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -938,9 +938,9 @@ export function SyncStreamListInstance(
   ): Promise<SyncStreamInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -988,9 +988,9 @@ export function SyncStreamListInstance(
   ): Promise<ApiResponse<SyncStreamInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

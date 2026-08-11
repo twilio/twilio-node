@@ -132,9 +132,9 @@ export class WorkersCumulativeStatisticsContextImpl
   ): Promise<WorkersCumulativeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -189,9 +189,9 @@ export class WorkersCumulativeStatisticsContextImpl
   ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

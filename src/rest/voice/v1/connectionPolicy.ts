@@ -331,9 +331,9 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
   ): Promise<ConnectionPolicyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -384,9 +384,9 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
   ): Promise<ApiResponse<ConnectionPolicyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -471,7 +471,7 @@ export class ConnectionPolicyInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -919,9 +919,9 @@ export function ConnectionPolicyListInstance(
   ): Promise<ConnectionPolicyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -966,9 +966,9 @@ export function ConnectionPolicyListInstance(
   ): Promise<ApiResponse<ConnectionPolicyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

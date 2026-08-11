@@ -188,9 +188,9 @@ export class PluginConfigurationContextImpl
   ): Promise<PluginConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -239,9 +239,9 @@ export class PluginConfigurationContextImpl
   ): Promise<ApiResponse<PluginConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -326,7 +326,7 @@ export class PluginConfigurationInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

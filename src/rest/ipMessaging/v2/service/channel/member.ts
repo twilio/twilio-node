@@ -278,9 +278,9 @@ export class MemberContextImpl implements MemberContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -313,9 +313,9 @@ export class MemberContextImpl implements MemberContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -423,9 +423,9 @@ export class MemberContextImpl implements MemberContext {
   ): Promise<MemberInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -485,9 +485,9 @@ export class MemberContextImpl implements MemberContext {
   ): Promise<ApiResponse<MemberInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -603,7 +603,7 @@ export class MemberInstance {
     this.url = payload.url;
     this.attributes = payload.attributes;
 
-    this._solution = { serviceSid, channelSid, sid: sid || this.sid };
+    this._solution = { serviceSid, channelSid, sid: sid };
   }
 
   sid: string;

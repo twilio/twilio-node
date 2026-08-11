@@ -279,9 +279,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -314,9 +314,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -425,9 +425,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   ): Promise<ParticipantInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -494,9 +494,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   ): Promise<ApiResponse<ParticipantInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -613,7 +613,7 @@ export class ParticipantInstance {
     );
     this.lastReadTimestamp = payload.last_read_timestamp;
 
-    this._solution = { conversationSid, sid: sid || this.sid };
+    this._solution = { conversationSid, sid: sid };
   }
 
   /**
@@ -1103,9 +1103,9 @@ export function ParticipantListInstance(
   ): Promise<ParticipantInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1168,9 +1168,9 @@ export function ParticipantListInstance(
   ): Promise<ApiResponse<ParticipantInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

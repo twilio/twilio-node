@@ -58,6 +58,82 @@ export type CallSummariesProcessingStateRequest =
 
 export type CallSummariesSortBy = "start_time" | "end_time";
 
+export class CallSummaryAgentSessionSummary {
+  "sessionId"?: string;
+  "ttsLatencyMs"?: CallSummaryCrelayRateStats;
+  "sttLatencyMs"?: CallSummaryCrelayRateStats;
+  "networkLatencyMs"?: CallSummaryCrelayRateStats;
+  "timeToFirstAudioMs"?: CallSummaryCrelayRateStats;
+  "applicationLatencyMs"?: CallSummaryCrelayRateStats;
+  "tokens"?: CallSummaryCrelayTokenStats;
+  "words"?: CallSummaryCrelayWordStats;
+  "turns"?: number;
+  "interruptions"?: CallSummaryCrelayInterruptions;
+  "sessionState"?: CallSummaryCrelaySessionState;
+
+  constructor(payload) {
+    this.sessionId = payload["session_id"];
+    this.ttsLatencyMs = payload["tts_latency_ms"];
+    this.sttLatencyMs = payload["stt_latency_ms"];
+    this.networkLatencyMs = payload["network_latency_ms"];
+    this.timeToFirstAudioMs = payload["time_to_first_audio_ms"];
+    this.applicationLatencyMs = payload["application_latency_ms"];
+    this.tokens = payload["tokens"];
+    this.words = payload["words"];
+    this.turns = payload["turns"];
+    this.interruptions = payload["interruptions"];
+    this.sessionState = payload["session_state"];
+  }
+}
+
+export class CallSummaryCrelayInterruptions {
+  "customerToAgent"?: number;
+  "agentToCustomer"?: number;
+
+  constructor(payload) {
+    this.customerToAgent = payload["customer_to_agent"];
+    this.agentToCustomer = payload["agent_to_customer"];
+  }
+}
+
+export class CallSummaryCrelayRateStats {
+  "min"?: number;
+  "max"?: number;
+  "avg"?: number;
+
+  constructor(payload) {
+    this.min = payload["min"];
+    this.max = payload["max"];
+    this.avg = payload["avg"];
+  }
+}
+
+export type CallSummaryCrelaySessionState =
+  | "unknown"
+  | "failure"
+  | "ended"
+  | "hung_up";
+
+export class CallSummaryCrelayTokenStats {
+  "total"?: number;
+  "tokensPerSecond"?: CallSummaryCrelayRateStats;
+
+  constructor(payload) {
+    this.total = payload["total"];
+    this.tokensPerSecond = payload["tokens_per_second"];
+  }
+}
+
+export class CallSummaryCrelayWordStats {
+  "total"?: number;
+  "wordsPerMinute"?: CallSummaryCrelayRateStats;
+
+  constructor(payload) {
+    this.total = payload["total"];
+    this.wordsPerMinute = payload["words_per_minute"];
+  }
+}
+
 /**
  * Options to pass to each
  */
@@ -134,7 +210,7 @@ export interface CallSummariesListInstanceEachOptions {
   businessProfileBundleSid?: string;
   /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
   businessProfileType?: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 25, and the maximum is 25. */
   pageSize?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: CallSummariesInstance, done: (err?: Error) => void) => void;
@@ -220,7 +296,7 @@ export interface CallSummariesListInstanceOptions {
   businessProfileBundleSid?: string;
   /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
   businessProfileType?: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 25, and the maximum is 25. */
   pageSize?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
@@ -302,7 +378,7 @@ export interface CallSummariesListInstancePageOptions {
   businessProfileBundleSid?: string;
   /** A Business Profile Type of the calls. Is of type enum. One of \'primary\', \'secondary\'. */
   businessProfileType?: string;
-  /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
+  /** How many resources to return in each list page. The default is 25, and the maximum is 25. */
   pageSize?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
@@ -827,6 +903,7 @@ interface CallSummariesResource {
   properties: any;
   trust: any;
   annotation: any;
+  agent_session_summaries: Array<CallSummaryAgentSessionSummary>;
 }
 
 export class CallSummariesInstance {
@@ -854,6 +931,13 @@ export class CallSummariesInstance {
     this.properties = payload.properties;
     this.trust = payload.trust;
     this.annotation = payload.annotation;
+    this.agentSessionSummaries =
+      payload.agent_session_summaries !== null &&
+      payload.agent_session_summaries !== undefined
+        ? payload.agent_session_summaries.map(
+            (payload: any) => new CallSummaryAgentSessionSummary(payload)
+          )
+        : null;
   }
 
   /**
@@ -936,6 +1020,10 @@ export class CallSummariesInstance {
    * `object` Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#annotation-object) for the object properties.
    */
   annotation: any;
+  /**
+   * `array[object]` List of agent session summaries for conversation relay. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#conversation-relay-object) for the object properties.
+   */
+  agentSessionSummaries: Array<CallSummaryAgentSessionSummary>;
 
   /**
    * Provide a user-friendly representation
@@ -967,6 +1055,7 @@ export class CallSummariesInstance {
       properties: this.properties,
       trust: this.trust,
       annotation: this.annotation,
+      agentSessionSummaries: this.agentSessionSummaries,
     };
   }
 

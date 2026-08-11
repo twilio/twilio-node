@@ -211,7 +211,7 @@ export class AccessTokenInstance {
     this.ttl = deserialize.integer(payload.ttl);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**

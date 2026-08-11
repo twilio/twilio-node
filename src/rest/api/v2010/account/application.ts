@@ -389,9 +389,9 @@ export class ApplicationContextImpl implements ApplicationContext {
   ): Promise<ApplicationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -472,9 +472,9 @@ export class ApplicationContextImpl implements ApplicationContext {
   ): Promise<ApiResponse<ApplicationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -622,7 +622,7 @@ export class ApplicationInstance {
     this.publicApplicationConnectEnabled =
       payload.public_application_connect_enabled;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -1123,9 +1123,9 @@ export function ApplicationListInstance(
   ): Promise<ApplicationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1204,9 +1204,9 @@ export function ApplicationListInstance(
   ): Promise<ApiResponse<ApplicationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

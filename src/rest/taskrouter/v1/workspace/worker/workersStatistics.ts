@@ -124,9 +124,9 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
   ): Promise<WorkersStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -187,9 +187,9 @@ export class WorkersStatisticsContextImpl implements WorkersStatisticsContext {
   ): Promise<ApiResponse<WorkersStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

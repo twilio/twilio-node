@@ -336,9 +336,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   ): Promise<ParticipantInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -386,9 +386,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   ): Promise<ApiResponse<ParticipantInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -484,7 +484,7 @@ export class ParticipantInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { roomSid, sid: sid || this.sid };
+    this._solution = { roomSid, sid: sid };
   }
 
   /**

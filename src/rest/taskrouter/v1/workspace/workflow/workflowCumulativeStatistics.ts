@@ -143,9 +143,9 @@ export class WorkflowCumulativeStatisticsContextImpl
   ): Promise<WorkflowCumulativeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -203,9 +203,9 @@ export class WorkflowCumulativeStatisticsContextImpl
   ): Promise<ApiResponse<WorkflowCumulativeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

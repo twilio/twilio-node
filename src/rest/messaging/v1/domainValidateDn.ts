@@ -172,7 +172,7 @@ export class DomainValidateDnInstance {
     this.reason = payload.reason;
     this.url = payload.url;
 
-    this._solution = { domainSid: domainSid || this.domainSid };
+    this._solution = { domainSid: domainSid };
   }
 
   /**

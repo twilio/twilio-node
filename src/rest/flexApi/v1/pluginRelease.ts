@@ -167,9 +167,9 @@ export class PluginReleaseContextImpl implements PluginReleaseContext {
   ): Promise<PluginReleaseInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -218,9 +218,9 @@ export class PluginReleaseContextImpl implements PluginReleaseContext {
   ): Promise<ApiResponse<PluginReleaseInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -299,7 +299,7 @@ export class PluginReleaseInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

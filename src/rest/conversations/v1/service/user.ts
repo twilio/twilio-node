@@ -266,9 +266,9 @@ export class UserContextImpl implements UserContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -301,9 +301,9 @@ export class UserContextImpl implements UserContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -409,9 +409,9 @@ export class UserContextImpl implements UserContext {
   ): Promise<UserInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -462,9 +462,9 @@ export class UserContextImpl implements UserContext {
   ): Promise<ApiResponse<UserInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -568,7 +568,7 @@ export class UserInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { chatServiceSid, sid: sid || this.sid };
+    this._solution = { chatServiceSid, sid: sid };
   }
 
   /**

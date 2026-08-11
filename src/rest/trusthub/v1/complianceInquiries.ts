@@ -244,7 +244,7 @@ export class ComplianceInquiriesInstance {
     this.customerId = payload.customer_id;
     this.url = payload.url;
 
-    this._solution = { customerId: customerId || this.customerId };
+    this._solution = { customerId: customerId };
   }
 
   /**
@@ -430,9 +430,9 @@ export function ComplianceInquiriesListInstance(
   ): Promise<ComplianceInquiriesInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -481,9 +481,9 @@ export function ComplianceInquiriesListInstance(
   ): Promise<ApiResponse<ComplianceInquiriesInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

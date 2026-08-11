@@ -122,9 +122,9 @@ export function InsightsSettingsAnswerSetsListInstance(
   ): Promise<InsightsSettingsAnswerSetsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -168,9 +168,9 @@ export function InsightsSettingsAnswerSetsListInstance(
   ): Promise<ApiResponse<InsightsSettingsAnswerSetsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

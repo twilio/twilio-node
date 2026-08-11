@@ -289,9 +289,9 @@ export class SyncListItemContextImpl implements SyncListItemContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -324,9 +324,9 @@ export class SyncListItemContextImpl implements SyncListItemContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -437,9 +437,9 @@ export class SyncListItemContextImpl implements SyncListItemContext {
   ): Promise<SyncListItemInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -498,9 +498,9 @@ export class SyncListItemContextImpl implements SyncListItemContext {
   ): Promise<ApiResponse<SyncListItemInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -603,7 +603,7 @@ export class SyncListItemInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, listSid, index: index || this.index };
+    this._solution = { serviceSid, listSid, index: index };
   }
 
   /**

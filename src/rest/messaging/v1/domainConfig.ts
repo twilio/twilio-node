@@ -209,9 +209,9 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   ): Promise<DomainConfigInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -268,9 +268,9 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   ): Promise<ApiResponse<DomainConfigInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -363,7 +363,7 @@ export class DomainConfigInstance {
     this.url = payload.url;
     this.disableHttps = payload.disable_https;
 
-    this._solution = { domainSid: domainSid || this.domainSid };
+    this._solution = { domainSid: domainSid };
   }
 
   /**

@@ -33,6 +33,10 @@ export interface AuthorizeListInstanceFetchOptions {
   scope?: string;
   /**  */
   state?: string;
+  /**  */
+  codeChallenge?: string;
+  /**  */
+  codeChallengeMethod?: "S256";
 }
 
 export interface AuthorizeSolution {}
@@ -47,11 +51,9 @@ export interface AuthorizeListInstance {
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed AuthorizeInstance
+   * @returns Resolves to processed void
    */
-  fetch(
-    callback?: (error: Error | null, item?: AuthorizeInstance) => any
-  ): Promise<AuthorizeInstance>;
+  fetch(callback?: (error: Error | null, item?: void) => any): Promise<void>;
   /**
    * Fetch a AuthorizeInstance
    *
@@ -62,22 +64,19 @@ export interface AuthorizeListInstance {
    */
   fetch(
     params: AuthorizeListInstanceFetchOptions,
-    callback?: (error: Error | null, item?: AuthorizeInstance) => any
-  ): Promise<AuthorizeInstance>;
+    callback?: (error: Error | null, item?: void) => any
+  ): Promise<void>;
 
   /**
    * Fetch a AuthorizeInstance and return HTTP info
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed AuthorizeInstance with HTTP metadata
+   * @returns Resolves to processed void with HTTP metadata
    */
   fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AuthorizeInstance>
-    ) => any
-  ): Promise<ApiResponse<AuthorizeInstance>>;
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
+  ): Promise<ApiResponse<void>>;
   /**
    * Fetch a AuthorizeInstance and return HTTP info
    *
@@ -88,11 +87,8 @@ export interface AuthorizeListInstance {
    */
   fetchWithHttpInfo(
     params: AuthorizeListInstanceFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AuthorizeInstance>
-    ) => any
-  ): Promise<ApiResponse<AuthorizeInstance>>;
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
+  ): Promise<ApiResponse<void>>;
 
   /**
    * Provide a user-friendly representation
@@ -111,14 +107,14 @@ export function AuthorizeListInstance(version: V2): AuthorizeListInstance {
   instance.fetch = function fetch(
     params?:
       | AuthorizeListInstanceFetchOptions
-      | ((error: Error | null, items: AuthorizeInstance) => any),
-    callback?: (error: Error | null, items: AuthorizeInstance) => any
-  ): Promise<AuthorizeInstance> {
+      | ((error: Error | null, items: void) => any),
+    callback?: (error: Error | null, items: void) => any
+  ): Promise<void> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -131,6 +127,10 @@ export function AuthorizeListInstance(version: V2): AuthorizeListInstance {
       data["redirect_uri"] = params["redirectUri"];
     if (params["scope"] !== undefined) data["scope"] = params["scope"];
     if (params["state"] !== undefined) data["state"] = params["state"];
+    if (params["codeChallenge"] !== undefined)
+      data["code_challenge"] = params["codeChallenge"];
+    if (params["codeChallengeMethod"] !== undefined)
+      data["code_challenge_method"] = params["codeChallengeMethod"];
 
     const headers: any = {};
     headers["Accept"] = "application/json";
@@ -143,10 +143,6 @@ export function AuthorizeListInstance(version: V2): AuthorizeListInstance {
         headers,
       });
 
-    operationPromise = operationPromise.then(
-      (payload) => new AuthorizeInstance(operationVersion, payload)
-    );
-
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
       callback
@@ -157,17 +153,14 @@ export function AuthorizeListInstance(version: V2): AuthorizeListInstance {
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
     params?:
       | AuthorizeListInstanceFetchOptions
-      | ((error: Error | null, items: ApiResponse<AuthorizeInstance>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<AuthorizeInstance>
-    ) => any
-  ): Promise<ApiResponse<AuthorizeInstance>> {
+      | ((error: Error | null, items: ApiResponse<void>) => any),
+    callback?: (error: Error | null, items: ApiResponse<void>) => any
+  ): Promise<ApiResponse<void>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -180,23 +173,27 @@ export function AuthorizeListInstance(version: V2): AuthorizeListInstance {
       data["redirect_uri"] = params["redirectUri"];
     if (params["scope"] !== undefined) data["scope"] = params["scope"];
     if (params["state"] !== undefined) data["state"] = params["state"];
+    if (params["codeChallenge"] !== undefined)
+      data["code_challenge"] = params["codeChallenge"];
+    if (params["codeChallengeMethod"] !== undefined)
+      data["code_challenge_method"] = params["codeChallengeMethod"];
 
     const headers: any = {};
     headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    // CREATE, FETCH, UPDATE operations
+    // No response body — fire-and-forget operation
     let operationPromise = operationVersion
-      .fetchWithResponseInfo<AuthorizeResource>({
+      .fetchWithResponseInfo({
         uri: instance._uri,
         method: "get",
         params: data,
         headers,
       })
       .then(
-        (response): ApiResponse<AuthorizeInstance> => ({
+        (response): ApiResponse<void> => ({
           ...response,
-          body: new AuthorizeInstance(operationVersion, response.body),
+          body: undefined,
         })
       );
 

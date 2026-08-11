@@ -347,9 +347,9 @@ export class SyncMapContextImpl implements SyncMapContext {
   ): Promise<SyncMapInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -396,9 +396,9 @@ export class SyncMapContextImpl implements SyncMapContext {
   ): Promise<ApiResponse<SyncMapInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -494,7 +494,7 @@ export class SyncMapInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -941,9 +941,9 @@ export function SyncMapListInstance(
   ): Promise<SyncMapInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -990,9 +990,9 @@ export function SyncMapListInstance(
   ): Promise<ApiResponse<SyncMapInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

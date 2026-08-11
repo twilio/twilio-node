@@ -126,9 +126,9 @@ export class WorkspaceRealTimeStatisticsContextImpl
   ): Promise<WorkspaceRealTimeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -178,9 +178,9 @@ export class WorkspaceRealTimeStatisticsContextImpl
   ): Promise<ApiResponse<WorkspaceRealTimeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

@@ -367,7 +367,7 @@ export class MemberInstance {
     this.waitTime = deserialize.integer(payload.wait_time);
     this.queueSid = payload.queue_sid;
 
-    this._solution = { accountSid, queueSid, callSid: callSid || this.callSid };
+    this._solution = { accountSid, queueSid, callSid: callSid };
   }
 
   /**

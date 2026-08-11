@@ -446,7 +446,7 @@ export class InteractionChannelInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { interactionSid, sid: sid || this.sid };
+    this._solution = { interactionSid, sid: sid };
   }
 
   /**

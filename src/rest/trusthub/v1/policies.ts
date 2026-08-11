@@ -205,7 +205,7 @@ export class PoliciesInstance {
     this.requirements = payload.requirements;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

@@ -264,9 +264,9 @@ export class UserChannelContextImpl implements UserChannelContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -299,9 +299,9 @@ export class UserChannelContextImpl implements UserChannelContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -412,9 +412,9 @@ export class UserChannelContextImpl implements UserChannelContext {
   ): Promise<UserChannelInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -470,9 +470,9 @@ export class UserChannelContextImpl implements UserChannelContext {
   ): Promise<ApiResponse<UserChannelInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -579,11 +579,7 @@ export class UserChannelInstance {
     this.url = payload.url;
     this.notificationLevel = payload.notification_level;
 
-    this._solution = {
-      serviceSid,
-      userSid,
-      channelSid: channelSid || this.channelSid,
-    };
+    this._solution = { serviceSid, userSid, channelSid: channelSid };
   }
 
   /**

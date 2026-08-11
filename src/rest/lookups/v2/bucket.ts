@@ -288,9 +288,9 @@ export class BucketContextImpl implements BucketContext {
   ): Promise<BucketInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<RateLimitRequest> as RateLimitRequest;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<RateLimitRequest> as RateLimitRequest);
     }
 
     let data: any = {};
@@ -339,9 +339,9 @@ export class BucketContextImpl implements BucketContext {
   ): Promise<ApiResponse<BucketInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<RateLimitRequest> as RateLimitRequest;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<RateLimitRequest> as RateLimitRequest);
     }
 
     let data: any = {};
@@ -432,10 +432,7 @@ export class BucketInstance {
     this.owner = payload.owner;
     this.ttl = payload.ttl;
 
-    this._solution = {
-      field: field || this.field,
-      bucket: bucket || this.bucket,
-    };
+    this._solution = { field: field, bucket: bucket };
   }
 
   /**

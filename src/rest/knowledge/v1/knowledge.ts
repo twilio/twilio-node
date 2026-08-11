@@ -438,9 +438,12 @@ export class KnowledgeContextImpl implements KnowledgeContext {
   ): Promise<KnowledgeInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<KnowledgeV1ServiceUpdateKnowledgeRequest> as KnowledgeV1ServiceUpdateKnowledgeRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<KnowledgeV1ServiceUpdateKnowledgeRequest> as KnowledgeV1ServiceUpdateKnowledgeRequest);
     }
 
     let data: any = {};
@@ -487,9 +490,12 @@ export class KnowledgeContextImpl implements KnowledgeContext {
   ): Promise<ApiResponse<KnowledgeInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<KnowledgeV1ServiceUpdateKnowledgeRequest> as KnowledgeV1ServiceUpdateKnowledgeRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<KnowledgeV1ServiceUpdateKnowledgeRequest> as KnowledgeV1ServiceUpdateKnowledgeRequest);
     }
 
     let data: any = {};
@@ -580,7 +586,7 @@ export class KnowledgeInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { id: id || this.id };
+    this._solution = { id: id };
   }
 
   /**

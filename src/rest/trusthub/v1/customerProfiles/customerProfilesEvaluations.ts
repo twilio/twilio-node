@@ -253,7 +253,7 @@ export class CustomerProfilesEvaluationsInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { customerProfileSid, sid: sid || this.sid };
+    this._solution = { customerProfileSid, sid: sid };
   }
 
   /**

@@ -45,9 +45,9 @@ export interface MessageContextUpdateOptions {
   author?: string;
   /** The content of the message, can be up to 1,600 characters long. */
   body?: string;
-  /** The date that this resource was created. */
+  /** The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp. */
   dateCreated?: Date;
-  /** The date that this resource was last updated. `null` if the message has not been edited. */
+  /** The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp. */
   dateUpdated?: Date;
   /** A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
   attributes?: string;
@@ -65,9 +65,9 @@ export interface MessageListInstanceCreateOptions {
   author?: string;
   /** The content of the message, can be up to 1,600 characters long. */
   body?: string;
-  /** The date that this resource was created. */
+  /** The date that this resource was created. If you set this parameter, Twilio ignores any milliseconds in the timestamp. */
   dateCreated?: Date;
-  /** The date that this resource was last updated. `null` if the message has not been edited. */
+  /** The date that this resource was last updated. `null` if the message has not been edited. If you set this parameter, Twilio ignores any milliseconds in the timestamp. */
   dateUpdated?: Date;
   /** A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned. */
   attributes?: string;
@@ -290,9 +290,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -325,9 +325,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -433,9 +433,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<MessageInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -490,9 +490,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<ApiResponse<MessageInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -604,7 +604,7 @@ export class MessageInstance {
     this.links = payload.links;
     this.contentSid = payload.content_sid;
 
-    this._solution = { conversationSid, sid: sid || this.sid };
+    this._solution = { conversationSid, sid: sid };
   }
 
   /**
@@ -1098,9 +1098,9 @@ export function MessageListInstance(
   ): Promise<MessageInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1158,9 +1158,9 @@ export function MessageListInstance(
   ): Promise<ApiResponse<MessageInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

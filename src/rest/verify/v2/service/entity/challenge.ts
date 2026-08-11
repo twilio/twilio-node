@@ -337,9 +337,9 @@ export class ChallengeContextImpl implements ChallengeContext {
   ): Promise<ChallengeInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -391,9 +391,9 @@ export class ChallengeContextImpl implements ChallengeContext {
   ): Promise<ApiResponse<ChallengeInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -506,7 +506,7 @@ export class ChallengeInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, identity, sid: sid || this.sid };
+    this._solution = { serviceSid, identity, sid: sid };
   }
 
   /**

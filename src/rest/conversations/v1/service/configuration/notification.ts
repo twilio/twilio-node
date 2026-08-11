@@ -227,9 +227,9 @@ export class NotificationContextImpl implements NotificationContext {
   ): Promise<NotificationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -316,9 +316,9 @@ export class NotificationContextImpl implements NotificationContext {
   ): Promise<ApiResponse<NotificationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

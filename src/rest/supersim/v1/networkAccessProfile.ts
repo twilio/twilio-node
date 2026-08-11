@@ -272,9 +272,9 @@ export class NetworkAccessProfileContextImpl
   ): Promise<NetworkAccessProfileInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -325,9 +325,9 @@ export class NetworkAccessProfileContextImpl
   ): Promise<ApiResponse<NetworkAccessProfileInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -412,7 +412,7 @@ export class NetworkAccessProfileInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -838,9 +838,9 @@ export function NetworkAccessProfileListInstance(
   ): Promise<NetworkAccessProfileInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -887,9 +887,9 @@ export function NetworkAccessProfileListInstance(
   ): Promise<ApiResponse<NetworkAccessProfileInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

@@ -114,9 +114,9 @@ export class EncryptedSentencesContextImpl
   ): Promise<EncryptedSentencesInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -166,9 +166,9 @@ export class EncryptedSentencesContextImpl
   ): Promise<ApiResponse<EncryptedSentencesInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

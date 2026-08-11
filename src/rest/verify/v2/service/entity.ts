@@ -341,7 +341,7 @@ export class EntityInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, identity: identity || this.identity };
+    this._solution = { serviceSid, identity: identity };
   }
 
   /**

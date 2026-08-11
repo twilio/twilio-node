@@ -137,9 +137,9 @@ export function VerificationCheckListInstance(
   ): Promise<VerificationCheckInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -195,9 +195,9 @@ export function VerificationCheckListInstance(
   ): Promise<ApiResponse<VerificationCheckInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

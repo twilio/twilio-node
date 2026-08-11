@@ -181,9 +181,9 @@ export class OperatorResultContextImpl implements OperatorResultContext {
   ): Promise<OperatorResultInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -234,9 +234,9 @@ export class OperatorResultContextImpl implements OperatorResultContext {
   ): Promise<ApiResponse<OperatorResultInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -340,10 +340,7 @@ export class OperatorResultInstance {
     this.transcriptSid = payload.transcript_sid;
     this.url = payload.url;
 
-    this._solution = {
-      transcriptSid,
-      operatorSid: operatorSid || this.operatorSid,
-    };
+    this._solution = { transcriptSid, operatorSid: operatorSid };
   }
 
   operatorType: OperatorResultOperatorType;

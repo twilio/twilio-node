@@ -379,7 +379,7 @@ export class DomainCertsInstance {
     this.url = payload.url;
     this.certInValidation = payload.cert_in_validation;
 
-    this._solution = { domainSid: domainSid || this.domainSid };
+    this._solution = { domainSid: domainSid };
   }
 
   /**

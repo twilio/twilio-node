@@ -172,7 +172,7 @@ export class OperatorAttachmentsInstance {
     this.operatorSids = payload.operator_sids;
     this.url = payload.url;
 
-    this._solution = { serviceSid: serviceSid || this.serviceSid };
+    this._solution = { serviceSid: serviceSid };
   }
 
   /**

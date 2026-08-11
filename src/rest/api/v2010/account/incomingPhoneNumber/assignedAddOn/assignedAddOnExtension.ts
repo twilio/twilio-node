@@ -264,12 +264,7 @@ export class AssignedAddOnExtensionInstance {
     this.uri = payload.uri;
     this.enabled = payload.enabled;
 
-    this._solution = {
-      accountSid,
-      resourceSid,
-      assignedAddOnSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { accountSid, resourceSid, assignedAddOnSid, sid: sid };
   }
 
   /**

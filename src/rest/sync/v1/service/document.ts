@@ -347,9 +347,9 @@ export class DocumentContextImpl implements DocumentContext {
   ): Promise<DocumentInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -401,9 +401,9 @@ export class DocumentContextImpl implements DocumentContext {
   ): Promise<ApiResponse<DocumentInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -503,7 +503,7 @@ export class DocumentInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -966,9 +966,9 @@ export function DocumentListInstance(
   ): Promise<DocumentInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1018,9 +1018,9 @@ export function DocumentListInstance(
   ): Promise<ApiResponse<DocumentInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

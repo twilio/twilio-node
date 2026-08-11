@@ -328,9 +328,9 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   ): Promise<PhoneNumberInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -379,9 +379,9 @@ export class PhoneNumberContextImpl implements PhoneNumberContext {
   ): Promise<ApiResponse<PhoneNumberInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -478,7 +478,7 @@ export class PhoneNumberInstance {
     this.isReserved = payload.is_reserved;
     this.inUse = deserialize.integer(payload.in_use);
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -931,9 +931,9 @@ export function PhoneNumberListInstance(
   ): Promise<PhoneNumberInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -983,9 +983,9 @@ export function PhoneNumberListInstance(
   ): Promise<ApiResponse<PhoneNumberInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

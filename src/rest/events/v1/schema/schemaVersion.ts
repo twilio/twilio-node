@@ -223,7 +223,7 @@ export class SchemaVersionInstance {
     this.url = payload.url;
     this.raw = payload.raw;
 
-    this._solution = { id, schemaVersion: schemaVersion || this.schemaVersion };
+    this._solution = { id, schemaVersion: schemaVersion };
   }
 
   /**

@@ -276,7 +276,7 @@ export class RoleAssignmentInstance {
     this.moreInfo = payload.moreInfo;
     this.status = payload.status;
 
-    this._solution = { organizationSid, sid: sid || this.sid };
+    this._solution = { organizationSid, sid: sid };
   }
 
   /**

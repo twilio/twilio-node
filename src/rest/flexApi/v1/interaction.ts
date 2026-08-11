@@ -229,9 +229,9 @@ export class InteractionContextImpl implements InteractionContext {
   ): Promise<InteractionInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -279,9 +279,9 @@ export class InteractionContextImpl implements InteractionContext {
   ): Promise<ApiResponse<InteractionInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -364,7 +364,7 @@ export class InteractionInstance {
     this.interactionContextSid = payload.interaction_context_sid;
     this.webhookTtid = payload.webhook_ttid;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

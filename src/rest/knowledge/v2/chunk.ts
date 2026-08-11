@@ -409,11 +409,12 @@ interface ChunkPayload extends TokenPaginationPayload {
 interface ChunkResource {
   content: string;
   createdAt: Date;
+  chunkIndex: number;
+  documentTitle: string;
+  documentUrl: string;
+  documentNumber: number;
 }
 
-/**
- * Represents a processed content chunk extracted from knowledge source.  Chunks are smaller segments of content that have been parsed and indexed  for semantic search operations, containing the original text content.
- */
 export class ChunkInstance {
   constructor(
     protected _version: V2,
@@ -424,6 +425,10 @@ export class ChunkInstance {
     const payload = _payload;
     this.content = payload.content;
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
+    this.chunkIndex = deserialize.integer(payload.chunkIndex);
+    this.documentTitle = payload.documentTitle;
+    this.documentUrl = payload.documentUrl;
+    this.documentNumber = deserialize.integer(payload.documentNumber);
   }
 
   /**
@@ -434,6 +439,22 @@ export class ChunkInstance {
    * The date and time in GMT when the Chunk was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
    */
   createdAt: Date;
+  /**
+   * 0-based position of this chunk within its source document for a single ingestion run.
+   */
+  chunkIndex: number;
+  /**
+   * Human-readable title of the source document. Web: HTML <title> from the crawled page. File: filename from Unstructured metadata. Text: knowledge name from the knowledge source.
+   */
+  documentTitle: string;
+  /**
+   * Specific page URL this chunk was crawled from. Web sources only; null for File and Text sources.
+   */
+  documentUrl: string;
+  /**
+   * Physical page number (1-based). PDF sources only; omitted for all other source types.
+   */
+  documentNumber: number;
 
   /**
    * Provide a user-friendly representation
@@ -444,6 +465,10 @@ export class ChunkInstance {
     return {
       content: this.content,
       createdAt: this.createdAt,
+      chunkIndex: this.chunkIndex,
+      documentTitle: this.documentTitle,
+      documentUrl: this.documentUrl,
+      documentNumber: this.documentNumber,
     };
   }
 

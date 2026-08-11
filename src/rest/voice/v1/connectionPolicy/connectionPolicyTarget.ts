@@ -363,9 +363,9 @@ export class ConnectionPolicyTargetContextImpl
   ): Promise<ConnectionPolicyTargetInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -422,9 +422,9 @@ export class ConnectionPolicyTargetContextImpl
   ): Promise<ApiResponse<ConnectionPolicyTargetInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -524,7 +524,7 @@ export class ConnectionPolicyTargetInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { connectionPolicySid, sid: sid || this.sid };
+    this._solution = { connectionPolicySid, sid: sid };
   }
 
   /**

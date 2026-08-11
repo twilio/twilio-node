@@ -532,7 +532,7 @@ export class RecordingInstance {
     this.errorCode = deserialize.integer(payload.error_code);
     this.track = payload.track;
 
-    this._solution = { accountSid, callSid, sid: sid || this.sid };
+    this._solution = { accountSid, callSid, sid: sid };
   }
 
   /**
@@ -996,9 +996,9 @@ export function RecordingListInstance(
   ): Promise<RecordingInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1061,9 +1061,9 @@ export function RecordingListInstance(
   ): Promise<ApiResponse<RecordingInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

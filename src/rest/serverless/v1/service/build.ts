@@ -34,7 +34,8 @@ export type BuildRuntime =
   | "node16"
   | "node18"
   | "node20"
-  | "node22";
+  | "node22"
+  | "node24";
 
 /**
  * The status of the Build. Can be: `building`, `completed`, or `failed`.
@@ -345,7 +346,7 @@ export class BuildInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -715,9 +716,9 @@ export function BuildListInstance(
   ): Promise<BuildInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -772,9 +773,9 @@ export function BuildListInstance(
   ): Promise<ApiResponse<BuildInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

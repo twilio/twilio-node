@@ -339,9 +339,9 @@ export class VariableContextImpl implements VariableContext {
   ): Promise<VariableInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -391,9 +391,9 @@ export class VariableContextImpl implements VariableContext {
   ): Promise<ApiResponse<VariableInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -486,7 +486,7 @@ export class VariableInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { serviceSid, environmentSid, sid: sid || this.sid };
+    this._solution = { serviceSid, environmentSid, sid: sid };
   }
 
   /**

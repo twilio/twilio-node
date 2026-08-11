@@ -219,7 +219,7 @@ export class NetworkInstance {
     this.isoCountry = payload.iso_country;
     this.identifiers = payload.identifiers;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

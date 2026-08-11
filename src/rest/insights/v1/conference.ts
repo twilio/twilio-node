@@ -370,7 +370,7 @@ export class ConferenceInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { conferenceSid: conferenceSid || this.conferenceSid };
+    this._solution = { conferenceSid: conferenceSid };
   }
 
   /**

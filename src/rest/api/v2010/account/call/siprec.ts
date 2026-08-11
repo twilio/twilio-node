@@ -659,7 +659,7 @@ export class SiprecInstance {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
 
-    this._solution = { accountSid, callSid, sid: sid || this.sid };
+    this._solution = { accountSid, callSid, sid: sid };
   }
 
   /**
@@ -859,9 +859,9 @@ export function SiprecListInstance(
   ): Promise<SiprecInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1308,9 +1308,9 @@ export function SiprecListInstance(
   ): Promise<ApiResponse<SiprecInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

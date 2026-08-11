@@ -329,7 +329,7 @@ export class TrustProductsChannelEndpointAssignmentInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { trustProductSid, sid: sid || this.sid };
+    this._solution = { trustProductSid, sid: sid };
   }
 
   /**

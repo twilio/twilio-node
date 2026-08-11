@@ -19,8 +19,6 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-export type NewApiKeyKeytype = "restricted";
-
 /**
  * Options to pass to create a NewApiKeyInstance
  */
@@ -29,8 +27,8 @@ export interface NewApiKeyListInstanceCreateOptions {
   accountSid: string;
   /** A descriptive string that you create to describe the resource. It can be up to 64 characters long. */
   friendlyName?: string;
-  /**  */
-  keyType?: NewApiKeyKeytype;
+  /** The \\\\`KeyType\\\\` form parameter is used to specify the type of key you want to create.  **Default Behavior**: If \\\\`KeyType\\\\` is not specified, the API will generate a standard key.  **Restricted Key**: If \\\\`KeyType\\\\` is set to \\\\`restricted\\\\`, the API will create a new restricted key. In this case, a policy object is required to define the permissions. */
+  keyType?: string;
   /** The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys). */
   policy?: any;
 }

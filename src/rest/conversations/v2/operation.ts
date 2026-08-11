@@ -20,6 +20,14 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
+ * Lifecycle status of a long-running operation.
+ */
+export type ConversationsV2OperationStatusValue =
+  | "PENDING"
+  | "COMPLETED"
+  | "FAILED";
+
+/**
  * Error details if the operation failed. Follows RFC 9457 Problem Details.
  */
 export class FetchOperationStatus200ResponseError {
@@ -87,20 +95,20 @@ export interface OperationContext {
 }
 
 export interface OperationContextSolution {
-  sid: string;
+  id: string;
 }
 
 export class OperationContextImpl implements OperationContext {
   protected _solution: OperationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
-    if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+  constructor(protected _version: V2, id: string) {
+    if (!isValidPathParam(id)) {
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { sid };
-    this._uri = `/ControlPlane/Operations/${sid}`;
+    this._solution = { id };
+    this._uri = `/ControlPlane/Operations/${id}`;
   }
 
   fetch(
@@ -119,7 +127,7 @@ export class OperationContextImpl implements OperationContext {
 
     operationPromise = operationPromise.then(
       (payload) =>
-        new OperationInstance(operationVersion, payload, instance._solution.sid)
+        new OperationInstance(operationVersion, payload, instance._solution.id)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -153,7 +161,7 @@ export class OperationContextImpl implements OperationContext {
           body: new OperationInstance(
             operationVersion,
             response.body,
-            instance._solution.sid
+            instance._solution.id
           ),
         })
       );
@@ -181,7 +189,7 @@ export class OperationContextImpl implements OperationContext {
 
 interface OperationResource {
   operationId: string;
-  status: string;
+  status: ConversationsV2OperationStatusValue;
   createdAt: Date;
   completedAt: Date;
   statusUrl: string;
@@ -199,7 +207,7 @@ export class OperationInstance {
   constructor(
     protected _version: V2,
     _payload: OperationResource,
-    sid?: string
+    id?: string
   ) {
     const payload = _payload;
     this.operationId = payload.operationId;
@@ -213,17 +221,14 @@ export class OperationInstance {
         : null;
     this.related = payload.related;
 
-    this._solution = { sid: sid };
+    this._solution = { id: id };
   }
 
   /**
    * Unique identifier for the long-running operation.
    */
   operationId: string;
-  /**
-   * Current status of the operation.
-   */
-  status: string;
+  status: ConversationsV2OperationStatusValue;
   /**
    * Timestamp when the operation was created.
    */
@@ -245,7 +250,7 @@ export class OperationInstance {
   private get _proxy(): OperationContext {
     this._context =
       this._context ||
-      new OperationContextImpl(this._version, this._solution.sid);
+      new OperationContextImpl(this._version, this._solution.id);
     return this._context;
   }
 
@@ -307,8 +312,8 @@ export interface OperationListInstance {
   _solution: OperationSolution;
   _uri: string;
 
-  (sid: string): OperationContext;
-  get(sid: string): OperationContext;
+  (id: string): OperationContext;
+  get(id: string): OperationContext;
 
   /**
    * Provide a user-friendly representation
@@ -318,10 +323,10 @@ export interface OperationListInstance {
 }
 
 export function OperationListInstance(version: V2): OperationListInstance {
-  const instance = ((sid) => instance.get(sid)) as OperationListInstance;
+  const instance = ((id) => instance.get(id)) as OperationListInstance;
 
-  instance.get = function get(sid): OperationContext {
-    return new OperationContextImpl(version, sid);
+  instance.get = function get(id): OperationContext {
+    return new OperationContextImpl(version, id);
   };
 
   instance._version = version;

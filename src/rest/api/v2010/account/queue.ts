@@ -331,9 +331,9 @@ export class QueueContextImpl implements QueueContext {
   ): Promise<QueueInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -380,9 +380,9 @@ export class QueueContextImpl implements QueueContext {
   ): Promise<ApiResponse<QueueInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -474,7 +474,7 @@ export class QueueInstance {
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.maxSize = deserialize.integer(payload.max_size);
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**

@@ -295,7 +295,7 @@ export class VerificationAttemptInstance {
     this.channelData = payload.channel_data;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

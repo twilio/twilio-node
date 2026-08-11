@@ -249,9 +249,9 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
   ): Promise<LookupOverrideInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<OverridesRequest> as OverridesRequest;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<OverridesRequest> as OverridesRequest);
     }
 
     let data: any = {};
@@ -306,9 +306,9 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
   ): Promise<ApiResponse<LookupOverrideInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<OverridesRequest> as OverridesRequest;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<OverridesRequest> as OverridesRequest);
     }
 
     let data: any = {};
@@ -472,9 +472,9 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
   ): Promise<LookupOverrideInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<OverridesRequest> as OverridesRequest;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<OverridesRequest> as OverridesRequest);
     }
 
     let data: any = {};
@@ -529,9 +529,9 @@ export class LookupOverrideContextImpl implements LookupOverrideContext {
   ): Promise<ApiResponse<LookupOverrideInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<OverridesRequest> as OverridesRequest;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<OverridesRequest> as OverridesRequest);
     }
 
     let data: any = {};
@@ -636,10 +636,7 @@ export class LookupOverrideInstance {
     this.owner = payload.owner;
     this.ttl = payload.ttl;
 
-    this._solution = {
-      field: field || this.field,
-      phoneNumber: phoneNumber || this.phoneNumber,
-    };
+    this._solution = { field: field, phoneNumber: phoneNumber };
   }
 
   /**

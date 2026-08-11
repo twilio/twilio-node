@@ -321,12 +321,7 @@ export class MessageInteractionInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = {
-      serviceSid,
-      sessionSid,
-      participantSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { serviceSid, sessionSid, participantSid, sid: sid };
   }
 
   /**
@@ -760,9 +755,9 @@ export function MessageInteractionListInstance(
   ): Promise<MessageInteractionInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -815,9 +810,9 @@ export function MessageInteractionListInstance(
   ): Promise<ApiResponse<MessageInteractionInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

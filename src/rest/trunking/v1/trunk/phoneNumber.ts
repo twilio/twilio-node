@@ -349,7 +349,7 @@ export class PhoneNumberInstance {
     this.voiceMethod = payload.voice_method;
     this.voiceUrl = payload.voice_url;
 
-    this._solution = { trunkSid, sid: sid || this.sid };
+    this._solution = { trunkSid, sid: sid };
   }
 
   /**

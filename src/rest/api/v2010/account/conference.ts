@@ -348,9 +348,9 @@ export class ConferenceContextImpl implements ConferenceContext {
   ): Promise<ConferenceInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -402,9 +402,9 @@ export class ConferenceContextImpl implements ConferenceContext {
   ): Promise<ApiResponse<ConferenceInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -504,7 +504,7 @@ export class ConferenceInstance {
     this.reasonConferenceEnded = payload.reason_conference_ended;
     this.callSidEndingConference = payload.call_sid_ending_conference;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**

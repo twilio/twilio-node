@@ -186,7 +186,7 @@ export class BulkEligibilityInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateCompleted = deserialize.iso8601DateTime(payload.date_completed);
 
-    this._solution = { requestId: requestId || this.requestId };
+    this._solution = { requestId: requestId };
   }
 
   /**
@@ -366,9 +366,9 @@ export function BulkEligibilityListInstance(
   ): Promise<BulkEligibilityInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -416,9 +416,9 @@ export function BulkEligibilityListInstance(
   ): Promise<ApiResponse<BulkEligibilityInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};

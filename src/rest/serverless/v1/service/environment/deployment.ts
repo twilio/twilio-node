@@ -252,7 +252,7 @@ export class DeploymentInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { serviceSid, environmentSid, sid: sid || this.sid };
+    this._solution = { serviceSid, environmentSid, sid: sid };
   }
 
   /**
@@ -600,9 +600,9 @@ export function DeploymentListInstance(
   ): Promise<DeploymentInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -651,9 +651,9 @@ export function DeploymentListInstance(
   ): Promise<ApiResponse<DeploymentInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

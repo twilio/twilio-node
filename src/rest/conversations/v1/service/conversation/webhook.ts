@@ -350,9 +350,9 @@ export class WebhookContextImpl implements WebhookContext {
   ): Promise<WebhookInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -413,9 +413,9 @@ export class WebhookContextImpl implements WebhookContext {
   ): Promise<ApiResponse<WebhookInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -522,7 +522,7 @@ export class WebhookInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { chatServiceSid, conversationSid, sid: sid || this.sid };
+    this._solution = { chatServiceSid, conversationSid, sid: sid };
   }
 
   /**

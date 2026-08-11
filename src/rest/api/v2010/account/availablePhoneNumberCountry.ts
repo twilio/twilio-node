@@ -338,10 +338,7 @@ export class AvailablePhoneNumberCountryInstance {
     this.beta = payload.beta;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = {
-      accountSid,
-      countryCode: countryCode || this.countryCode,
-    };
+    this._solution = { accountSid, countryCode: countryCode };
   }
 
   /**

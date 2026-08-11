@@ -208,7 +208,7 @@ export class NumberInstance {
     this.priceUnit = payload.price_unit;
     this.url = payload.url;
 
-    this._solution = { number: number || this.number };
+    this._solution = { number: number };
   }
 
   /**

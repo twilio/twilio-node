@@ -284,9 +284,9 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -319,9 +319,9 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -362,9 +362,9 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
   ): Promise<SafelistInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -405,9 +405,9 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
   ): Promise<ApiResponse<SafelistInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

@@ -244,7 +244,7 @@ export class SafelistInstance {
     this.phoneNumber = payload.phone_number;
     this.url = payload.url;
 
-    this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
+    this._solution = { phoneNumber: phoneNumber };
   }
 
   /**

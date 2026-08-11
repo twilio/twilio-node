@@ -122,9 +122,9 @@ export class ChannelContextImpl implements ChannelContext {
   ): Promise<ChannelInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -173,9 +173,9 @@ export class ChannelContextImpl implements ChannelContext {
   ): Promise<ApiResponse<ChannelInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -277,10 +277,7 @@ export class ChannelInstance {
     this.messagingServiceSid = payload.messaging_service_sid;
     this.url = payload.url;
 
-    this._solution = {
-      serviceSid: serviceSid || this.serviceSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { serviceSid: serviceSid, sid: sid };
   }
 
   /**

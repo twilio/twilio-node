@@ -358,7 +358,7 @@ export class RoomRecordingInstance {
     this.roomSid = payload.room_sid;
     this.links = payload.links;
 
-    this._solution = { roomSid, sid: sid || this.sid };
+    this._solution = { roomSid, sid: sid };
   }
 
   /**

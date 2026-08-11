@@ -428,7 +428,7 @@ export class TranscriptInstance {
     this.encryptionCredentialSid = payload.encryption_credential_sid;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

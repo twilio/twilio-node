@@ -385,9 +385,9 @@ export class AddressContextImpl implements AddressContext {
   ): Promise<AddressInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -446,9 +446,9 @@ export class AddressContextImpl implements AddressContext {
   ): Promise<ApiResponse<AddressInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -566,7 +566,7 @@ export class AddressInstance {
     this.verified = payload.verified;
     this.streetSecondary = payload.street_secondary;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**

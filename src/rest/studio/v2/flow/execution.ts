@@ -505,7 +505,7 @@ export class ExecutionInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { flowSid, sid: sid || this.sid };
+    this._solution = { flowSid, sid: sid };
   }
 
   /**

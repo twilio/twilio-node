@@ -209,9 +209,9 @@ export class ExportConfigurationContextImpl
   ): Promise<ExportConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -266,9 +266,9 @@ export class ExportConfigurationContextImpl
   ): Promise<ApiResponse<ExportConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -351,7 +351,7 @@ export class ExportConfigurationInstance {
     this.resourceType = payload.resource_type;
     this.url = payload.url;
 
-    this._solution = { resourceType: resourceType || this.resourceType };
+    this._solution = { resourceType: resourceType };
   }
 
   /**

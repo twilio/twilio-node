@@ -106,9 +106,9 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
   ): Promise<InsightsUserRolesInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -152,9 +152,9 @@ export class InsightsUserRolesContextImpl implements InsightsUserRolesContext {
   ): Promise<ApiResponse<InsightsUserRolesInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

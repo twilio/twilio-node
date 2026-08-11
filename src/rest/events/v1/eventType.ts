@@ -229,7 +229,7 @@ export class EventTypeInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { type: type || this.type };
+    this._solution = { type: type };
   }
 
   /**

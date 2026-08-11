@@ -252,7 +252,7 @@ export class PublishedTrackInstance {
     this.kind = payload.kind;
     this.url = payload.url;
 
-    this._solution = { roomSid, participantSid, sid: sid || this.sid };
+    this._solution = { roomSid, participantSid, sid: sid };
   }
 
   /**

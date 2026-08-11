@@ -247,7 +247,7 @@ export class AssetVersionInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { serviceSid, assetSid, sid: sid || this.sid };
+    this._solution = { serviceSid, assetSid, sid: sid };
   }
 
   /**

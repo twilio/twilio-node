@@ -220,9 +220,9 @@ export class RecordingContextImpl implements RecordingContext {
   ): Promise<RecordingInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -270,9 +270,9 @@ export class RecordingContextImpl implements RecordingContext {
   ): Promise<ApiResponse<RecordingInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

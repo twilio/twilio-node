@@ -247,7 +247,7 @@ export class AlertInstance {
     this.requestHeaders = payload.request_headers;
     this.serviceSid = payload.service_sid;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

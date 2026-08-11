@@ -819,9 +819,12 @@ export class ReportContextImpl implements ReportContext {
   ): Promise<ReportInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest);
     }
 
     let data: any = {};
@@ -869,9 +872,12 @@ export class ReportContextImpl implements ReportContext {
   ): Promise<ApiResponse<ReportInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest);
     }
 
     let data: any = {};
@@ -1065,7 +1071,7 @@ export class ReportInstance {
         ? new AccountReport(payload.report)
         : null;
 
-    this._solution = { reportId: reportId || this.reportId };
+    this._solution = { reportId: reportId };
   }
 
   /**

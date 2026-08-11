@@ -315,7 +315,7 @@ export class InteractionChannelParticipantInstance {
     this.url = payload.url;
     this.routingProperties = payload.routing_properties;
 
-    this._solution = { interactionSid, channelSid, sid: sid || this.sid };
+    this._solution = { interactionSid, channelSid, sid: sid };
   }
 
   /**

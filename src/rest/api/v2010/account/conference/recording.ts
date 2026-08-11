@@ -510,7 +510,7 @@ export class RecordingInstance {
     this.encryptionDetails = payload.encryption_details;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, conferenceSid, sid: sid || this.sid };
+    this._solution = { accountSid, conferenceSid, sid: sid };
   }
 
   /**

@@ -113,9 +113,9 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
   ): Promise<EligibilityInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -160,9 +160,9 @@ export function EligibilityListInstance(version: V1): EligibilityListInstance {
   ): Promise<ApiResponse<EligibilityInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};

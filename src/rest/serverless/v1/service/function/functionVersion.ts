@@ -269,7 +269,7 @@ export class FunctionVersionInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, functionSid, sid: sid || this.sid };
+    this._solution = { serviceSid, functionSid, sid: sid };
   }
 
   /**

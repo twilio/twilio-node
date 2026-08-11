@@ -276,7 +276,7 @@ export class EsimProfileInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -631,9 +631,9 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
   ): Promise<EsimProfileInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -680,9 +680,9 @@ export function EsimProfileListInstance(version: V1): EsimProfileListInstance {
   ): Promise<ApiResponse<EsimProfileInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

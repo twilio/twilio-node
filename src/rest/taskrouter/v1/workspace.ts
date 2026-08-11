@@ -450,9 +450,9 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   ): Promise<WorkspaceInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -508,9 +508,9 @@ export class WorkspaceContextImpl implements WorkspaceContext {
   ): Promise<ApiResponse<WorkspaceInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -623,7 +623,7 @@ export class WorkspaceInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

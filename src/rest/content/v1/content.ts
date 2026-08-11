@@ -38,7 +38,7 @@ export type AuthenticationActionType = "COPY_CODE";
 
 export class CallToActionAction {
   "type": CallToActionActionType;
-  "title": string;
+  "title"?: string;
   "url"?: string;
   "phone"?: string;
   "code"?: string;
@@ -59,7 +59,8 @@ export type CallToActionActionType =
   | "PHONE_NUMBER"
   | "COPY_CODE"
   | "VOICE_CALL"
-  | "VOICE_CALL_REQUEST";
+  | "VOICE_CALL_REQUEST"
+  | "REQUEST_CONTACT_INFO";
 
 export class CardAction {
   "type": CardActionType;
@@ -921,7 +922,7 @@ export class ContentInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

@@ -341,9 +341,9 @@ export class ServiceContextImpl implements ServiceContext {
   ): Promise<ServiceInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -402,9 +402,9 @@ export class ServiceContextImpl implements ServiceContext {
   ): Promise<ApiResponse<ServiceInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -524,7 +524,7 @@ export class ServiceInstance {
     this.version = deserialize.integer(payload.version);
     this.encryptionCredentialSid = payload.encryption_credential_sid;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

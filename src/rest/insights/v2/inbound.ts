@@ -273,9 +273,12 @@ export class InboundContextImpl implements InboundContext {
   ): Promise<InboundInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
     }
 
     let data: any = {};
@@ -323,9 +326,12 @@ export class InboundContextImpl implements InboundContext {
   ): Promise<ApiResponse<InboundInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
     }
 
     let data: any = {};
@@ -427,7 +433,7 @@ export class InboundInstance {
         : null;
     this.silentCallsPercentage = payload.silent_calls_percentage;
 
-    this._solution = { reportId: reportId || this.reportId };
+    this._solution = { reportId: reportId };
   }
 
   /**

@@ -420,9 +420,9 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   ): Promise<HostedNumberOrderInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -489,9 +489,9 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   ): Promise<ApiResponse<HostedNumberOrderInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -626,7 +626,7 @@ export class HostedNumberOrderInstance {
     this.verificationCode = payload.verification_code;
     this.verificationCallSids = payload.verification_call_sids;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

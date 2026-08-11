@@ -250,9 +250,9 @@ export class InteractionTransferContextImpl
   ): Promise<InteractionTransferInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -308,9 +308,9 @@ export class InteractionTransferContextImpl
   ): Promise<ApiResponse<InteractionTransferInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -415,7 +415,7 @@ export class InteractionTransferInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { interactionSid, channelSid, sid: sid || this.sid };
+    this._solution = { interactionSid, channelSid, sid: sid };
   }
 
   /**
@@ -728,9 +728,9 @@ export function InteractionTransferListInstance(
   ): Promise<InteractionTransferInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -784,9 +784,9 @@ export function InteractionTransferListInstance(
   ): Promise<ApiResponse<InteractionTransferInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};

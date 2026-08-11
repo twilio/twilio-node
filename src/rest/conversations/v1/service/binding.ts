@@ -312,7 +312,7 @@ export class BindingInstance {
     this.messageTypes = payload.message_types;
     this.url = payload.url;
 
-    this._solution = { chatServiceSid, sid: sid || this.sid };
+    this._solution = { chatServiceSid, sid: sid };
   }
 
   /**

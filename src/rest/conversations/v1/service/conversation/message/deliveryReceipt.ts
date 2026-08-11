@@ -272,12 +272,7 @@ export class DeliveryReceiptInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = {
-      chatServiceSid,
-      conversationSid,
-      messageSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { chatServiceSid, conversationSid, messageSid, sid: sid };
   }
 
   /**

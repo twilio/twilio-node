@@ -267,9 +267,9 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
   ): Promise<TranscriptionsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -322,9 +322,9 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
   ): Promise<ApiResponse<TranscriptionsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -422,7 +422,7 @@ export class TranscriptionsInstance {
     this.url = payload.url;
     this.configuration = payload.configuration;
 
-    this._solution = { roomSid, ttid: ttid || this.ttid };
+    this._solution = { roomSid, ttid: ttid };
   }
 
   /**
@@ -870,9 +870,9 @@ export function TranscriptionsListInstance(
   ): Promise<TranscriptionsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -922,9 +922,9 @@ export function TranscriptionsListInstance(
   ): Promise<ApiResponse<TranscriptionsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

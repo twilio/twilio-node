@@ -20,6 +20,21 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
+ * Lifecycle status of an Action.
+ */
+export type ConversationsV2ActionStatus = "PENDING" | "COMPLETED" | "FAILED";
+
+/**
+ * Channel type for a Communication address.
+ */
+export type ConversationsV2Channel =
+  | "VOICE"
+  | "SMS"
+  | "RCS"
+  | "WHATSAPP"
+  | "CHAT";
+
+/**
  * Content for a SEND_MESSAGE action.
  */
 export class ConversationsV2SendMessageContent {
@@ -60,10 +75,7 @@ export class ConversationsV2SendMessageParticipant {
    * Explicit address formatted according to channel type.
    */
   "address"?: string;
-  /**
-   * Channel type for address resolution.
-   */
-  "channel"?: string;
+  "channel"?: ConversationsV2Channel;
 
   constructor(payload) {
     this.participantId = payload["participantId"];
@@ -251,7 +263,7 @@ export class ActionContextImpl implements ActionContext {
 interface ActionResource {
   id: string;
   type: string;
-  status: string;
+  status: ConversationsV2ActionStatus;
   conversationId: string;
   related: { [key: string]: string };
   createdAt: Date;
@@ -290,10 +302,7 @@ export class ActionInstance {
    * The type of action. Accepted values: SEND_MESSAGE.
    */
   type: string;
-  /**
-   * Current status of the Action. - PENDING: Action accepted, awaiting downstream confirmation - COMPLETED: Downstream backend confirmed the action - FAILED: Downstream backend reported a failure
-   */
-  status: string;
+  status: ConversationsV2ActionStatus;
   /**
    * The conversation this action belongs to.
    */

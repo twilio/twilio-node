@@ -394,9 +394,9 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   ): Promise<TrustProductsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -451,9 +451,9 @@ export class TrustProductsContextImpl implements TrustProductsContext {
   ): Promise<ApiResponse<TrustProductsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -554,7 +554,7 @@ export class TrustProductsInstance {
     this.links = payload.links;
     this.errors = payload.errors;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

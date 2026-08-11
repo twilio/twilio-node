@@ -327,7 +327,7 @@ export class UserBindingInstance {
     this.messageTypes = payload.message_types;
     this.url = payload.url;
 
-    this._solution = { serviceSid, userSid, sid: sid || this.sid };
+    this._solution = { serviceSid, userSid, sid: sid };
   }
 
   /**

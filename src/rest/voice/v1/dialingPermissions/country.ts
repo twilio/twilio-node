@@ -267,7 +267,7 @@ export class CountryInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { isoCode: isoCode || this.isoCode };
+    this._solution = { isoCode: isoCode };
   }
 
   /**

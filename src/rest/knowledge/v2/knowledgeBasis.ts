@@ -488,10 +488,27 @@ interface KnowledgeBasisPayload extends TokenPaginationPayload {
 }
 
 /**
+ * Response model for CreateKnowledgeBase202Response operations
+ */
+interface CreateKnowledgeBase202Response_ResponseResource {
+  message?: string;
+  statusUrl?: string;
+}
+
+/**
  * Response model for DeleteKnowledgeBase202Response operations
  */
 interface DeleteKnowledgeBase202Response_ResponseResource {
   message?: string;
+  statusUrl?: string;
+}
+
+/**
+ * Response model for UpdateKnowledgeBase202Response operations
+ */
+interface UpdateKnowledgeBase202Response_ResponseResource {
+  message?: string;
+  statusUrl?: string;
 }
 
 /**
@@ -508,29 +525,13 @@ interface KnowledgeBase_ResponseResource {
 }
 
 /**
- * Response model for CreateKnowledgeBase202Response operations
- */
-interface CreateKnowledgeBase202Response_ResponseResource {
-  message?: string;
-  statusUrl?: string;
-}
-
-/**
- * Response model for UpdateKnowledgeBase202Response operations
- */
-interface UpdateKnowledgeBase202Response_ResponseResource {
-  message?: string;
-  statusUrl?: string;
-}
-
-/**
  * Union type for all possible response models
  */
 type KnowledgeBasisResource =
-  | DeleteKnowledgeBase202Response_ResponseResource
-  | KnowledgeBase_ResponseResource
   | CreateKnowledgeBase202Response_ResponseResource
-  | UpdateKnowledgeBase202Response_ResponseResource;
+  | DeleteKnowledgeBase202Response_ResponseResource
+  | UpdateKnowledgeBase202Response_ResponseResource
+  | KnowledgeBase_ResponseResource;
 
 export class KnowledgeBasisInstance {
   protected _solution: KnowledgeBasisContextSolution;
@@ -543,6 +544,7 @@ export class KnowledgeBasisInstance {
   ) {
     const payload: any = _payload;
     this.message = payload.message;
+    this.statusUrl = payload.statusUrl;
     this.displayName = payload.displayName;
     this.description = payload.description;
     this.id = payload.id;
@@ -550,12 +552,15 @@ export class KnowledgeBasisInstance {
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
     this.version = deserialize.integer(payload.version);
-    this.statusUrl = payload.statusUrl;
 
     this._solution = { kbId: kbId };
   }
 
   message?: string;
+  /**
+   * URI to check operation status.
+   */
+  statusUrl?: string;
   /**
    * Provides a unique and addressable name to be assigned to this Knowledge Base. This name is assigned by the developer and can be used in addition to the ID. It is intended to be human-readable and unique within the account.
    */
@@ -584,10 +589,6 @@ export class KnowledgeBasisInstance {
    * The current version number of the Knowledge Base. Incremented on each successful mutable update.
    */
   version?: number;
-  /**
-   * URI to check operation status.
-   */
-  statusUrl?: string;
 
   private get _proxy(): KnowledgeBasisContext {
     this._context =
@@ -712,6 +713,7 @@ export class KnowledgeBasisInstance {
   toJSON() {
     return {
       message: this.message,
+      statusUrl: this.statusUrl,
       displayName: this.displayName,
       description: this.description,
       id: this.id,
@@ -719,7 +721,6 @@ export class KnowledgeBasisInstance {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       version: this.version,
-      statusUrl: this.statusUrl,
     };
   }
 

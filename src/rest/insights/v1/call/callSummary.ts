@@ -19,6 +19,82 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+export class CallSummaryAgentSessionSummary {
+  "sessionId"?: string;
+  "ttsLatencyMs"?: CallSummaryCrelayRateStats;
+  "sttLatencyMs"?: CallSummaryCrelayRateStats;
+  "networkLatencyMs"?: CallSummaryCrelayRateStats;
+  "timeToFirstAudioMs"?: CallSummaryCrelayRateStats;
+  "applicationLatencyMs"?: CallSummaryCrelayRateStats;
+  "tokens"?: CallSummaryCrelayTokenStats;
+  "words"?: CallSummaryCrelayWordStats;
+  "turns"?: number;
+  "interruptions"?: CallSummaryCrelayInterruptions;
+  "sessionState"?: CallSummaryCrelaySessionState;
+
+  constructor(payload) {
+    this.sessionId = payload["session_id"];
+    this.ttsLatencyMs = payload["tts_latency_ms"];
+    this.sttLatencyMs = payload["stt_latency_ms"];
+    this.networkLatencyMs = payload["network_latency_ms"];
+    this.timeToFirstAudioMs = payload["time_to_first_audio_ms"];
+    this.applicationLatencyMs = payload["application_latency_ms"];
+    this.tokens = payload["tokens"];
+    this.words = payload["words"];
+    this.turns = payload["turns"];
+    this.interruptions = payload["interruptions"];
+    this.sessionState = payload["session_state"];
+  }
+}
+
+export class CallSummaryCrelayInterruptions {
+  "customerToAgent"?: number;
+  "agentToCustomer"?: number;
+
+  constructor(payload) {
+    this.customerToAgent = payload["customer_to_agent"];
+    this.agentToCustomer = payload["agent_to_customer"];
+  }
+}
+
+export class CallSummaryCrelayRateStats {
+  "min"?: number;
+  "max"?: number;
+  "avg"?: number;
+
+  constructor(payload) {
+    this.min = payload["min"];
+    this.max = payload["max"];
+    this.avg = payload["avg"];
+  }
+}
+
+export type CallSummaryCrelaySessionState =
+  | "unknown"
+  | "failure"
+  | "ended"
+  | "hung_up";
+
+export class CallSummaryCrelayTokenStats {
+  "total"?: number;
+  "tokensPerSecond"?: CallSummaryCrelayRateStats;
+
+  constructor(payload) {
+    this.total = payload["total"];
+    this.tokensPerSecond = payload["tokens_per_second"];
+  }
+}
+
+export class CallSummaryCrelayWordStats {
+  "total"?: number;
+  "wordsPerMinute"?: CallSummaryCrelayRateStats;
+
+  constructor(payload) {
+    this.total = payload["total"];
+    this.wordsPerMinute = payload["words_per_minute"];
+  }
+}
+
 export type CallSummaryAnsweredBy =
   | "unknown"
   | "machine_start"
@@ -140,9 +216,9 @@ export class CallSummaryContextImpl implements CallSummaryContext {
   ): Promise<CallSummaryInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -189,9 +265,9 @@ export class CallSummaryContextImpl implements CallSummaryContext {
   ): Promise<ApiResponse<CallSummaryInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -270,6 +346,7 @@ interface CallSummaryResource {
   properties: any;
   trust: any;
   annotation: any;
+  agent_session_summaries: Array<CallSummaryAgentSessionSummary>;
 }
 
 export class CallSummaryInstance {
@@ -304,6 +381,13 @@ export class CallSummaryInstance {
     this.properties = payload.properties;
     this.trust = payload.trust;
     this.annotation = payload.annotation;
+    this.agentSessionSummaries =
+      payload.agent_session_summaries !== null &&
+      payload.agent_session_summaries !== undefined
+        ? payload.agent_session_summaries.map(
+            (payload: any) => new CallSummaryAgentSessionSummary(payload)
+          )
+        : null;
 
     this._solution = { callSid };
   }
@@ -388,6 +472,10 @@ export class CallSummaryInstance {
    * `object` Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#annotation-object) for the object properties.
    */
   annotation: any;
+  /**
+   * `object` List of session summaries for conversation relay. See [Details: Call Summary](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-summary#conversation-relay-object) for the object properties.
+   */
+  agentSessionSummaries: Array<CallSummaryAgentSessionSummary>;
 
   private get _proxy(): CallSummaryContext {
     this._context =
@@ -495,6 +583,7 @@ export class CallSummaryInstance {
       properties: this.properties,
       trust: this.trust,
       annotation: this.annotation,
+      agentSessionSummaries: this.agentSessionSummaries,
     };
   }
 

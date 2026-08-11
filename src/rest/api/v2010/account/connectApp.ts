@@ -334,9 +334,9 @@ export class ConnectAppContextImpl implements ConnectAppContext {
   ): Promise<ConnectAppInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -402,9 +402,9 @@ export class ConnectAppContextImpl implements ConnectAppContext {
   ): Promise<ApiResponse<ConnectAppInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -516,7 +516,7 @@ export class ConnectAppInstance {
     this.sid = payload.sid;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**

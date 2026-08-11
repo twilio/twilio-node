@@ -337,9 +337,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<MessageInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -387,9 +387,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<ApiResponse<MessageInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -491,7 +491,7 @@ export class MessageInstance {
     this.index = deserialize.integer(payload.index);
     this.url = payload.url;
 
-    this._solution = { serviceSid, channelSid, sid: sid || this.sid };
+    this._solution = { serviceSid, channelSid, sid: sid };
   }
 
   /**

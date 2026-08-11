@@ -418,9 +418,9 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   ): Promise<TaskQueueInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -479,9 +479,9 @@ export class TaskQueueContextImpl implements TaskQueueContext {
   ): Promise<ApiResponse<TaskQueueInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -594,7 +594,7 @@ export class TaskQueueInstance {
     this.workspaceSid = payload.workspace_sid;
     this.links = payload.links;
 
-    this._solution = { workspaceSid, sid: sid || this.sid };
+    this._solution = { workspaceSid, sid: sid };
   }
 
   /**

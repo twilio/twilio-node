@@ -364,9 +364,9 @@ export function QueryListInstance(version: V2): QueryListInstance {
   ): Promise<QueryInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<LookupRequest> as LookupRequest;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<LookupRequest> as LookupRequest);
     }
 
     let data: any = {};
@@ -408,9 +408,9 @@ export function QueryListInstance(version: V2): QueryListInstance {
   ): Promise<ApiResponse<QueryInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<LookupRequest> as LookupRequest;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<LookupRequest> as LookupRequest);
     }
 
     let data: any = {};

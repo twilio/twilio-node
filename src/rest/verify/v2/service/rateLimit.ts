@@ -341,9 +341,9 @@ export class RateLimitContextImpl implements RateLimitContext {
   ): Promise<RateLimitInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -392,9 +392,9 @@ export class RateLimitContextImpl implements RateLimitContext {
   ): Promise<ApiResponse<RateLimitInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -485,7 +485,7 @@ export class RateLimitInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**

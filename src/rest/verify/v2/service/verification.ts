@@ -394,7 +394,7 @@ export class VerificationInstance {
     this.sna = payload.sna;
     this.url = payload.url;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**

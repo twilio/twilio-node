@@ -318,7 +318,7 @@ export class MediaInstance {
     this.sid = payload.sid;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, messageSid, sid: sid || this.sid };
+    this._solution = { accountSid, messageSid, sid: sid };
   }
 
   /**

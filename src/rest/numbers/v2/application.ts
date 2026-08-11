@@ -515,7 +515,7 @@ export class ApplicationInstance {
     this.createdBy = payload.created_by;
     this.updatedBy = payload.updated_by;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

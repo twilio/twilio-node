@@ -291,9 +291,9 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -326,9 +326,9 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -439,9 +439,9 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   ): Promise<SyncMapItemInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -497,9 +497,9 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   ): Promise<ApiResponse<SyncMapItemInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -602,7 +602,7 @@ export class SyncMapItemInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, mapSid, key: key || this.key };
+    this._solution = { serviceSid, mapSid, key: key };
   }
 
   /**

@@ -135,9 +135,9 @@ export class WorkflowRealTimeStatisticsContextImpl
   ): Promise<WorkflowRealTimeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -188,9 +188,9 @@ export class WorkflowRealTimeStatisticsContextImpl
   ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

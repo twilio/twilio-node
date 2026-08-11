@@ -236,7 +236,7 @@ export class AvailableAddOnExtensionInstance {
     this.uniqueName = payload.unique_name;
     this.url = payload.url;
 
-    this._solution = { availableAddOnSid, sid: sid || this.sid };
+    this._solution = { availableAddOnSid, sid: sid };
   }
 
   /**

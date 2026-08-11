@@ -330,7 +330,7 @@ export class RoomInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { roomSid: roomSid || this.roomSid };
+    this._solution = { roomSid: roomSid };
   }
 
   /**

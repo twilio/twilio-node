@@ -343,9 +343,9 @@ export class FactorContextImpl implements FactorContext {
   ): Promise<FactorInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -409,9 +409,9 @@ export class FactorContextImpl implements FactorContext {
   ): Promise<ApiResponse<FactorInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -529,7 +529,7 @@ export class FactorInstance {
     this.metadata = payload.metadata;
     this.url = payload.url;
 
-    this._solution = { serviceSid, identity, sid: sid || this.sid };
+    this._solution = { serviceSid, identity, sid: sid };
   }
 
   /**

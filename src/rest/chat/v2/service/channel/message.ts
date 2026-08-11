@@ -280,9 +280,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -315,9 +315,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -425,9 +425,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<MessageInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -484,9 +484,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<ApiResponse<MessageInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -603,7 +603,7 @@ export class MessageInstance {
     this.media = payload.media;
     this.url = payload.url;
 
-    this._solution = { serviceSid, channelSid, sid: sid || this.sid };
+    this._solution = { serviceSid, channelSid, sid: sid };
   }
 
   /**
@@ -1102,9 +1102,9 @@ export function MessageListInstance(
   ): Promise<MessageInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1160,9 +1160,9 @@ export function MessageListInstance(
   ): Promise<ApiResponse<MessageInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

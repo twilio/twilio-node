@@ -330,9 +330,9 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   ): Promise<OutgoingCallerIdInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -384,9 +384,9 @@ export class OutgoingCallerIdContextImpl implements OutgoingCallerIdContext {
   ): Promise<ApiResponse<OutgoingCallerIdInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -473,7 +473,7 @@ export class OutgoingCallerIdInstance {
     this.phoneNumber = payload.phone_number;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**

@@ -137,9 +137,9 @@ export class VerificationAttemptsSummaryContextImpl
   ): Promise<VerificationAttemptsSummaryInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -197,9 +197,9 @@ export class VerificationAttemptsSummaryContextImpl
   ): Promise<ApiResponse<VerificationAttemptsSummaryInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};

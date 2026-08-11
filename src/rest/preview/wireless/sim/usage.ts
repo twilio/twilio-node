@@ -108,9 +108,9 @@ export class UsageContextImpl implements UsageContext {
   ): Promise<UsageInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -150,9 +150,9 @@ export class UsageContextImpl implements UsageContext {
   ): Promise<ApiResponse<UsageInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
