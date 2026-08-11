@@ -29,7 +29,12 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Verify version exists on npm
-        run: npm view "twilio@${{ inputs.version }}" version
+        run: npm view "twilio@${VERSION}" version
+        env:
+          VERSION: ${{ inputs.version }}
 
 #      - name: Deprecate version
-#        run: npm deprecate "twilio@${{ inputs.version }}" "${{ inputs.message }}"
+#        run: npm deprecate "twilio@${VERSION}" "${MESSAGE}"
+#        env:
+#          VERSION: ${{ inputs.version }}
+#          MESSAGE: ${{ inputs.message }}
