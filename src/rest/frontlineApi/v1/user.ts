@@ -122,7 +122,10 @@ export class UserContextImpl implements UserContext {
   protected _solution: UserContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -172,16 +175,14 @@ export class UserContextImpl implements UserContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<UserInstance> => ({
-          ...response,
-          body: new UserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<UserInstance> => ({
+        ...response,
+        body: new UserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -198,9 +199,9 @@ export class UserContextImpl implements UserContext {
   ): Promise<UserInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -245,9 +246,9 @@ export class UserContextImpl implements UserContext {
   ): Promise<ApiResponse<UserInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -273,16 +274,14 @@ export class UserContextImpl implements UserContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<UserInstance> => ({
-          ...response,
-          body: new UserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<UserInstance> => ({
+        ...response,
+        body: new UserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -321,7 +320,11 @@ export class UserInstance {
   protected _solution: UserContextSolution;
   protected _context?: UserContext;
 
-  constructor(protected _version: V1, payload: UserResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: UserResource,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.identity = payload.identity;
     this.friendlyName = payload.friendly_name;
@@ -330,7 +333,7 @@ export class UserInstance {
     this.isAvailable = payload.is_available;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

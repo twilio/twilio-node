@@ -147,7 +147,11 @@ export class EngagementContextImpl implements EngagementContext {
   protected _engagementContext?: EngagementContextListInstance;
   protected _steps?: StepListInstance;
 
-  constructor(protected _version: V1, flowSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    flowSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(flowSid)) {
       throw new Error("Parameter 'flowSid' is not valid.");
     }
@@ -212,12 +216,10 @@ export class EngagementContextImpl implements EngagementContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -275,17 +277,15 @@ export class EngagementContextImpl implements EngagementContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<EngagementInstance> => ({
-          ...response,
-          body: new EngagementInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<EngagementInstance> => ({
+        ...response,
+        body: new EngagementInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -348,7 +348,7 @@ export class EngagementInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { flowSid, sid: sid || this.sid };
+    this._solution = { flowSid, sid: sid };
   }
 
   /**
@@ -802,16 +802,14 @@ export function EngagementListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<EngagementInstance> => ({
-          ...response,
-          body: new EngagementInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<EngagementInstance> => ({
+        ...response,
+        body: new EngagementInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -911,17 +909,15 @@ export function EngagementListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<EngagementPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new EngagementPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<EngagementPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new EngagementPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

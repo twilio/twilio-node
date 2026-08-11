@@ -524,16 +524,14 @@ export function TollFreeListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TollFreeInstance> => ({
-          ...response,
-          body: new TollFreeInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<TollFreeInstance> => ({
+        ...response,
+        body: new TollFreeInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -647,17 +645,11 @@ export function TollFreeListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<TollFreePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new TollFreePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<TollFreePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TollFreePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

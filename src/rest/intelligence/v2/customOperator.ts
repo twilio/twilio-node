@@ -200,7 +200,10 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
   protected _solution: CustomOperatorContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -239,12 +242,10 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -301,16 +302,14 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomOperatorInstance> => ({
-          ...response,
-          body: new CustomOperatorInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomOperatorInstance> => ({
+        ...response,
+        body: new CustomOperatorInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -419,16 +418,14 @@ export class CustomOperatorContextImpl implements CustomOperatorContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomOperatorInstance> => ({
-          ...response,
-          body: new CustomOperatorInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomOperatorInstance> => ({
+        ...response,
+        body: new CustomOperatorInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -492,7 +489,7 @@ export class CustomOperatorInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -1008,12 +1005,10 @@ export function CustomOperatorListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomOperatorInstance> => ({
-          ...response,
-          body: new CustomOperatorInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<CustomOperatorInstance> => ({
+        ...response,
+        body: new CustomOperatorInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1124,17 +1119,15 @@ export function CustomOperatorListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CustomOperatorPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CustomOperatorPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomOperatorPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CustomOperatorPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

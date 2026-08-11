@@ -129,9 +129,9 @@ export function NotificationListInstance(
   ): Promise<NotificationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -182,9 +182,9 @@ export function NotificationListInstance(
   ): Promise<ApiResponse<NotificationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -204,18 +204,16 @@ export function NotificationListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<NotificationInstance> => ({
-          ...response,
-          body: new NotificationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.identity,
-            instance._solution.challengeSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<NotificationInstance> => ({
+        ...response,
+        body: new NotificationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.identity,
+          instance._solution.challengeSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

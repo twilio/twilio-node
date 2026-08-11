@@ -42,8 +42,7 @@ export type DependentHostedNumberOrderStatus =
  * The method used for verifying ownership of the number to be hosted. One of phone-call (default) or phone-bill.
  */
 export type DependentHostedNumberOrderVerificationType =
-  | "phone-call"
-  | "phone-bill";
+  "phone-call" | "phone-bill";
 
 /**
  * Options to pass to each
@@ -454,17 +453,15 @@ export function DependentHostedNumberOrderListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<DependentHostedNumberOrderPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new DependentHostedNumberOrderPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<DependentHostedNumberOrderPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new DependentHostedNumberOrderPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

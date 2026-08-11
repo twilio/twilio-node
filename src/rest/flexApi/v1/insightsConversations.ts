@@ -381,17 +381,15 @@ export function InsightsConversationsListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InsightsConversationsPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InsightsConversationsPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<InsightsConversationsPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InsightsConversationsPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -459,7 +457,10 @@ interface InsightsConversationsResource {
 }
 
 export class InsightsConversationsInstance {
-  constructor(protected _version: V1, payload: InsightsConversationsResource) {
+  constructor(
+    protected _version: V1,
+    payload: InsightsConversationsResource
+  ) {
     this.accountId = payload.account_id;
     this.conversationId = payload.conversation_id;
     this.segmentCount = deserialize.integer(payload.segment_count);

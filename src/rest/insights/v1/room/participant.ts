@@ -36,22 +36,10 @@ export type ParticipantEdgeLocation =
   | "tokyo";
 
 export type ParticipantRoomStatus =
-  | "in_progress"
-  | "connected"
-  | "completed"
-  | "disconnected";
+  "in_progress" | "connected" | "completed" | "disconnected";
 
 export type ParticipantTwilioRealm =
-  | "us1"
-  | "us2"
-  | "au1"
-  | "br1"
-  | "ie1"
-  | "jp1"
-  | "sg1"
-  | "in1"
-  | "de1"
-  | "gll";
+  "us1" | "us2" | "au1" | "br1" | "ie1" | "jp1" | "sg1" | "in1" | "de1" | "gll";
 
 /**
  * Options to pass to each
@@ -131,7 +119,11 @@ export class ParticipantContextImpl implements ParticipantContext {
   protected _solution: ParticipantContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, roomSid: string, participantSid: string) {
+  constructor(
+    protected _version: V1,
+    roomSid: string,
+    participantSid: string
+  ) {
     if (!isValidPathParam(roomSid)) {
       throw new Error("Parameter 'roomSid' is not valid.");
     }
@@ -193,17 +185,15 @@ export class ParticipantContextImpl implements ParticipantContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.roomSid,
-            instance._solution.participantSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.roomSid,
+          instance._solution.participantSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -278,10 +268,7 @@ export class ParticipantInstance {
     this.publisherInfo = payload.publisher_info;
     this.url = payload.url;
 
-    this._solution = {
-      roomSid,
-      participantSid: participantSid || this.participantSid,
-    };
+    this._solution = { roomSid, participantSid: participantSid };
   }
 
   /**
@@ -690,17 +677,15 @@ export function ParticipantListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ParticipantPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ParticipantPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ParticipantPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

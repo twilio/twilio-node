@@ -190,18 +190,16 @@ export class ExecutionStepContextImpl implements ExecutionStepContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ExecutionStepInstance> => ({
-          ...response,
-          body: new ExecutionStepInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.executionSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExecutionStepInstance> => ({
+        ...response,
+        body: new ExecutionStepInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.executionSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -271,7 +269,7 @@ export class ExecutionStepInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { flowSid, executionSid, sid: sid || this.sid };
+    this._solution = { flowSid, executionSid, sid: sid };
   }
 
   /**
@@ -711,17 +709,15 @@ export function ExecutionStepListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ExecutionStepPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ExecutionStepPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExecutionStepPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ExecutionStepPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

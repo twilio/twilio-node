@@ -163,7 +163,10 @@ export class RegulationContextImpl implements RegulationContext {
   protected _solution: RegulationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -180,9 +183,9 @@ export class RegulationContextImpl implements RegulationContext {
   ): Promise<RegulationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -229,9 +232,9 @@ export class RegulationContextImpl implements RegulationContext {
   ): Promise<ApiResponse<RegulationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -252,16 +255,14 @@ export class RegulationContextImpl implements RegulationContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<RegulationInstance> => ({
-          ...response,
-          body: new RegulationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<RegulationInstance> => ({
+        ...response,
+        body: new RegulationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -315,7 +316,7 @@ export class RegulationInstance {
     this.requirements = payload.requirements;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -722,17 +723,15 @@ export function RegulationListInstance(version: V2): RegulationListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<RegulationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new RegulationPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<RegulationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new RegulationPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

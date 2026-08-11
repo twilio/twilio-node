@@ -23,9 +23,7 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 export type AddressConfigurationAutoCreationType =
-  | "webhook"
-  | "studio"
-  | "default";
+  "webhook" | "studio" | "default";
 
 export type AddressConfigurationMethod = "get" | "post";
 
@@ -33,14 +31,7 @@ export type AddressConfigurationMethod = "get" | "post";
  * Type of Address, value can be `whatsapp` or `sms`.
  */
 export type AddressConfigurationType =
-  | "sms"
-  | "whatsapp"
-  | "messenger"
-  | "gbm"
-  | "email"
-  | "rcs"
-  | "apple"
-  | "chat";
+  "sms" | "whatsapp" | "messenger" | "gbm" | "email" | "rcs" | "apple" | "chat";
 
 /**
  * Options to pass to update a AddressConfigurationInstance
@@ -252,13 +243,14 @@ export interface AddressConfigurationContextSolution {
   sid: string;
 }
 
-export class AddressConfigurationContextImpl
-  implements AddressConfigurationContext
-{
+export class AddressConfigurationContextImpl implements AddressConfigurationContext {
   protected _solution: AddressConfigurationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -297,12 +289,10 @@ export class AddressConfigurationContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -359,16 +349,14 @@ export class AddressConfigurationContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AddressConfigurationInstance> => ({
-          ...response,
-          body: new AddressConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AddressConfigurationInstance> => ({
+        ...response,
+        body: new AddressConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -385,9 +373,9 @@ export class AddressConfigurationContextImpl
   ): Promise<AddressConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -461,9 +449,9 @@ export class AddressConfigurationContextImpl
   ): Promise<ApiResponse<AddressConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -508,16 +496,14 @@ export class AddressConfigurationContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<AddressConfigurationInstance> => ({
-          ...response,
-          body: new AddressConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AddressConfigurationInstance> => ({
+        ...response,
+        body: new AddressConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -577,7 +563,7 @@ export class AddressConfigurationInstance {
     this.url = payload.url;
     this.addressCountry = payload.address_country;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -1146,15 +1132,10 @@ export function AddressConfigurationListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<AddressConfigurationInstance> => ({
-          ...response,
-          body: new AddressConfigurationInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<AddressConfigurationInstance> => ({
+        ...response,
+        body: new AddressConfigurationInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1270,17 +1251,15 @@ export function AddressConfigurationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AddressConfigurationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AddressConfigurationPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<AddressConfigurationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AddressConfigurationPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

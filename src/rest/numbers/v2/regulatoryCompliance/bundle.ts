@@ -309,7 +309,10 @@ export class BundleContextImpl implements BundleContext {
   protected _itemAssignments?: ItemAssignmentListInstance;
   protected _replaceItems?: ReplaceItemsListInstance;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -376,12 +379,10 @@ export class BundleContextImpl implements BundleContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -431,16 +432,14 @@ export class BundleContextImpl implements BundleContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<BundleInstance> => ({
-          ...response,
-          body: new BundleInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<BundleInstance> => ({
+        ...response,
+        body: new BundleInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -457,9 +456,9 @@ export class BundleContextImpl implements BundleContext {
   ): Promise<BundleInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -504,9 +503,9 @@ export class BundleContextImpl implements BundleContext {
   ): Promise<ApiResponse<BundleInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -532,16 +531,14 @@ export class BundleContextImpl implements BundleContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BundleInstance> => ({
-          ...response,
-          body: new BundleInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<BundleInstance> => ({
+        ...response,
+        body: new BundleInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -587,7 +584,11 @@ export class BundleInstance {
   protected _solution: BundleContextSolution;
   protected _context?: BundleContext;
 
-  constructor(protected _version: V2, payload: BundleResource, sid?: string) {
+  constructor(
+    protected _version: V2,
+    payload: BundleResource,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.regulationSid = payload.regulation_sid;
@@ -601,7 +602,7 @@ export class BundleInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -1132,12 +1133,10 @@ export function BundleListInstance(version: V2): BundleListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BundleInstance> => ({
-          ...response,
-          body: new BundleInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<BundleInstance> => ({
+        ...response,
+        body: new BundleInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1296,13 +1295,11 @@ export function BundleListInstance(version: V2): BundleListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<BundlePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new BundlePage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<BundlePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new BundlePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -23,9 +23,7 @@ import { ApiResponse } from "../../../../../base/ApiResponse";
  * The status of the Transfer. Can be: `active`, `completed`, `failed`.
  */
 export type InteractionTransferTransferStatus =
-  | "active"
-  | "failed"
-  | "completed";
+  "active" | "failed" | "completed";
 
 /**
  * The type of the Transfer. Can be: `cold`, `warm`.
@@ -143,9 +141,7 @@ export interface InteractionTransferContextSolution {
   sid: string;
 }
 
-export class InteractionTransferContextImpl
-  implements InteractionTransferContext
-{
+export class InteractionTransferContextImpl implements InteractionTransferContext {
   protected _solution: InteractionTransferContextSolution;
   protected _uri: string;
 
@@ -221,18 +217,16 @@ export class InteractionTransferContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<InteractionTransferInstance> => ({
-          ...response,
-          body: new InteractionTransferInstance(
-            operationVersion,
-            response.body,
-            instance._solution.interactionSid,
-            instance._solution.channelSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InteractionTransferInstance> => ({
+        ...response,
+        body: new InteractionTransferInstance(
+          operationVersion,
+          response.body,
+          instance._solution.interactionSid,
+          instance._solution.channelSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -250,9 +244,9 @@ export class InteractionTransferContextImpl
   ): Promise<InteractionTransferInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -308,9 +302,9 @@ export class InteractionTransferContextImpl
   ): Promise<ApiResponse<InteractionTransferInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -334,18 +328,16 @@ export class InteractionTransferContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InteractionTransferInstance> => ({
-          ...response,
-          body: new InteractionTransferInstance(
-            operationVersion,
-            response.body,
-            instance._solution.interactionSid,
-            instance._solution.channelSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InteractionTransferInstance> => ({
+        ...response,
+        body: new InteractionTransferInstance(
+          operationVersion,
+          response.body,
+          instance._solution.interactionSid,
+          instance._solution.channelSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -415,7 +407,7 @@ export class InteractionTransferInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { interactionSid, channelSid, sid: sid || this.sid };
+    this._solution = { interactionSid, channelSid, sid: sid };
   }
 
   /**
@@ -728,9 +720,9 @@ export function InteractionTransferListInstance(
   ): Promise<InteractionTransferInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -784,9 +776,9 @@ export function InteractionTransferListInstance(
   ): Promise<ApiResponse<InteractionTransferInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -809,17 +801,15 @@ export function InteractionTransferListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InteractionTransferInstance> => ({
-          ...response,
-          body: new InteractionTransferInstance(
-            operationVersion,
-            response.body,
-            instance._solution.interactionSid,
-            instance._solution.channelSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InteractionTransferInstance> => ({
+        ...response,
+        body: new InteractionTransferInstance(
+          operationVersion,
+          response.body,
+          instance._solution.interactionSid,
+          instance._solution.channelSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

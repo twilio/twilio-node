@@ -100,7 +100,11 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
   protected _solution: SchemaVersionContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, id: string, schemaVersion: number) {
+  constructor(
+    protected _version: V1,
+    id: string,
+    schemaVersion: number
+  ) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -162,17 +166,15 @@ export class SchemaVersionContextImpl implements SchemaVersionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SchemaVersionInstance> => ({
-          ...response,
-          body: new SchemaVersionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.id,
-            instance._solution.schemaVersion
-          ),
-        })
-      );
+      .then((response): ApiResponse<SchemaVersionInstance> => ({
+        ...response,
+        body: new SchemaVersionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+          instance._solution.schemaVersion
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -223,7 +225,7 @@ export class SchemaVersionInstance {
     this.url = payload.url;
     this.raw = payload.raw;
 
-    this._solution = { id, schemaVersion: schemaVersion || this.schemaVersion };
+    this._solution = { id, schemaVersion: schemaVersion };
   }
 
   /**
@@ -602,17 +604,15 @@ export function SchemaVersionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SchemaVersionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SchemaVersionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<SchemaVersionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SchemaVersionPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

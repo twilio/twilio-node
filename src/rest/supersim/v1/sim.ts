@@ -203,7 +203,10 @@ export class SimContextImpl implements SimContext {
   protected _billingPeriods?: BillingPeriodListInstance;
   protected _simIpAddresses?: SimIpAddressListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -267,16 +270,14 @@ export class SimContextImpl implements SimContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SimInstance> => ({
-          ...response,
-          body: new SimInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<SimInstance> => ({
+        ...response,
+        body: new SimInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -293,9 +294,9 @@ export class SimContextImpl implements SimContext {
   ): Promise<SimInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -344,9 +345,9 @@ export class SimContextImpl implements SimContext {
   ): Promise<ApiResponse<SimInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -376,16 +377,14 @@ export class SimContextImpl implements SimContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SimInstance> => ({
-          ...response,
-          body: new SimInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<SimInstance> => ({
+        ...response,
+        body: new SimInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -429,7 +428,11 @@ export class SimInstance {
   protected _solution: SimContextSolution;
   protected _context?: SimContext;
 
-  constructor(protected _version: V1, payload: SimResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: SimResource,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
     this.accountSid = payload.account_sid;
@@ -441,7 +444,7 @@ export class SimInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -893,12 +896,10 @@ export function SimListInstance(version: V1): SimListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SimInstance> => ({
-          ...response,
-          body: new SimInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<SimInstance> => ({
+        ...response,
+        body: new SimInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1002,13 +1003,11 @@ export function SimListInstance(version: V1): SimListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SimPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SimPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<SimPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SimPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

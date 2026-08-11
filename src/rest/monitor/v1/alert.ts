@@ -114,7 +114,10 @@ export class AlertContextImpl implements AlertContext {
   protected _solution: AlertContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -164,16 +167,14 @@ export class AlertContextImpl implements AlertContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AlertInstance> => ({
-          ...response,
-          body: new AlertInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AlertInstance> => ({
+        ...response,
+        body: new AlertInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -226,7 +227,11 @@ export class AlertInstance {
   protected _solution: AlertContextSolution;
   protected _context?: AlertContext;
 
-  constructor(protected _version: V1, payload: AlertResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: AlertResource,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.alertText = payload.alert_text;
     this.apiVersion = payload.api_version;
@@ -247,7 +252,7 @@ export class AlertInstance {
     this.requestHeaders = payload.request_headers;
     this.serviceSid = payload.service_sid;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -659,13 +664,11 @@ export function AlertListInstance(version: V1): AlertListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AlertPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AlertPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<AlertPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AlertPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

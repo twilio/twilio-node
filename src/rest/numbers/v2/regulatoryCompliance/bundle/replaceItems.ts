@@ -183,16 +183,14 @@ export function ReplaceItemsListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ReplaceItemsInstance> => ({
-          ...response,
-          body: new ReplaceItemsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.bundleSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ReplaceItemsInstance> => ({
+        ...response,
+        body: new ReplaceItemsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.bundleSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

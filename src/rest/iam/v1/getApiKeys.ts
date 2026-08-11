@@ -306,17 +306,15 @@ export function GetApiKeysListInstance(version: V1): GetApiKeysListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<GetApiKeysPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new GetApiKeysPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<GetApiKeysPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new GetApiKeysPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -382,7 +380,10 @@ interface GetApiKeysResource {
 }
 
 export class GetApiKeysInstance {
-  constructor(protected _version: V1, payload: GetApiKeysResource) {
+  constructor(
+    protected _version: V1,
+    payload: GetApiKeysResource
+  ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);

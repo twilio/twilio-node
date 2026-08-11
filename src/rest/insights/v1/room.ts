@@ -41,26 +41,14 @@ export type RoomEdgeLocation =
 export type RoomEndReason = "room_ended_via_api" | "timeout";
 
 export type RoomProcessingState =
-  | "complete"
-  | "in_progress"
-  | "timeout"
-  | "not_started";
+  "complete" | "in_progress" | "timeout" | "not_started";
 
 export type RoomRoomStatus = "in_progress" | "completed";
 
 export type RoomRoomType = "go" | "peer_to_peer" | "group" | "group_small";
 
 export type RoomTwilioRealm =
-  | "us1"
-  | "us2"
-  | "au1"
-  | "br1"
-  | "ie1"
-  | "jp1"
-  | "sg1"
-  | "in1"
-  | "de1"
-  | "gll";
+  "us1" | "us2" | "au1" | "br1" | "ie1" | "jp1" | "sg1" | "in1" | "de1" | "gll";
 
 /**
  * Options to pass to each
@@ -170,7 +158,10 @@ export class RoomContextImpl implements RoomContext {
 
   protected _participants?: ParticipantListInstance;
 
-  constructor(protected _version: V1, roomSid: string) {
+  constructor(
+    protected _version: V1,
+    roomSid: string
+  ) {
     if (!isValidPathParam(roomSid)) {
       throw new Error("Parameter 'roomSid' is not valid.");
     }
@@ -227,16 +218,14 @@ export class RoomContextImpl implements RoomContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<RoomInstance> => ({
-          ...response,
-          body: new RoomInstance(
-            operationVersion,
-            response.body,
-            instance._solution.roomSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<RoomInstance> => ({
+        ...response,
+        body: new RoomInstance(
+          operationVersion,
+          response.body,
+          instance._solution.roomSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -296,7 +285,11 @@ export class RoomInstance {
   protected _solution: RoomContextSolution;
   protected _context?: RoomContext;
 
-  constructor(protected _version: V1, payload: RoomResource, roomSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: RoomResource,
+    roomSid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.roomSid = payload.room_sid;
     this.roomName = payload.room_name;
@@ -330,7 +323,7 @@ export class RoomInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { roomSid: roomSid || this.roomSid };
+    this._solution = { roomSid: roomSid };
   }
 
   /**
@@ -782,13 +775,11 @@ export function RoomListInstance(version: V1): RoomListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<RoomPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new RoomPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<RoomPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new RoomPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

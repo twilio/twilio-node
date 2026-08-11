@@ -115,13 +115,15 @@ export interface CustomerProfilesEvaluationsContextSolution {
   sid: string;
 }
 
-export class CustomerProfilesEvaluationsContextImpl
-  implements CustomerProfilesEvaluationsContext
-{
+export class CustomerProfilesEvaluationsContextImpl implements CustomerProfilesEvaluationsContext {
   protected _solution: CustomerProfilesEvaluationsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, customerProfileSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    customerProfileSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(customerProfileSid)) {
       throw new Error("Parameter 'customerProfileSid' is not valid.");
     }
@@ -186,17 +188,15 @@ export class CustomerProfilesEvaluationsContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomerProfilesEvaluationsInstance> => ({
-          ...response,
-          body: new CustomerProfilesEvaluationsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.customerProfileSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomerProfilesEvaluationsInstance> => ({
+        ...response,
+        body: new CustomerProfilesEvaluationsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.customerProfileSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -253,7 +253,7 @@ export class CustomerProfilesEvaluationsInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { customerProfileSid, sid: sid || this.sid };
+    this._solution = { customerProfileSid, sid: sid };
   }
 
   /**
@@ -680,16 +680,14 @@ export function CustomerProfilesEvaluationsListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CustomerProfilesEvaluationsInstance> => ({
-          ...response,
-          body: new CustomerProfilesEvaluationsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.customerProfileSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomerProfilesEvaluationsInstance> => ({
+        ...response,
+        body: new CustomerProfilesEvaluationsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.customerProfileSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -809,17 +807,15 @@ export function CustomerProfilesEvaluationsListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CustomerProfilesEvaluationsPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CustomerProfilesEvaluationsPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<CustomerProfilesEvaluationsPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CustomerProfilesEvaluationsPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

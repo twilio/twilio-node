@@ -423,13 +423,11 @@ export function ContentListInstance(version: V2): ContentListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ContentPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ContentPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<ContentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ContentPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -496,7 +494,10 @@ interface ContentResource {
 }
 
 export class ContentInstance {
-  constructor(protected _version: V2, payload: ContentResource) {
+  constructor(
+    protected _version: V2,
+    payload: ContentResource
+  ) {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.sid = payload.sid;

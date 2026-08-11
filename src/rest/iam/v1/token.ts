@@ -186,12 +186,10 @@ export function TokenListInstance(version: V1): TokenListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TokenInstance> => ({
-          ...response,
-          body: new TokenInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<TokenInstance> => ({
+        ...response,
+        body: new TokenInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -225,7 +223,10 @@ interface TokenResource {
 }
 
 export class TokenInstance {
-  constructor(protected _version: V1, payload: TokenResource) {
+  constructor(
+    protected _version: V1,
+    payload: TokenResource
+  ) {
     this.accessToken = payload.access_token;
     this.refreshToken = payload.refresh_token;
     this.idToken = payload.id_token;

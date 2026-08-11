@@ -197,7 +197,10 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
 
   protected _targets?: ConnectionPolicyTargetListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -243,12 +246,10 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -305,16 +306,14 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ConnectionPolicyInstance> => ({
-          ...response,
-          body: new ConnectionPolicyInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConnectionPolicyInstance> => ({
+        ...response,
+        body: new ConnectionPolicyInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -331,9 +330,9 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
   ): Promise<ConnectionPolicyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -384,9 +383,9 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
   ): Promise<ApiResponse<ConnectionPolicyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -408,16 +407,14 @@ export class ConnectionPolicyContextImpl implements ConnectionPolicyContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConnectionPolicyInstance> => ({
-          ...response,
-          body: new ConnectionPolicyInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConnectionPolicyInstance> => ({
+        ...response,
+        body: new ConnectionPolicyInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -471,7 +468,7 @@ export class ConnectionPolicyInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -919,9 +916,9 @@ export function ConnectionPolicyListInstance(
   ): Promise<ConnectionPolicyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -966,9 +963,9 @@ export function ConnectionPolicyListInstance(
   ): Promise<ApiResponse<ConnectionPolicyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -989,12 +986,10 @@ export function ConnectionPolicyListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConnectionPolicyInstance> => ({
-          ...response,
-          body: new ConnectionPolicyInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ConnectionPolicyInstance> => ({
+        ...response,
+        body: new ConnectionPolicyInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1100,17 +1095,15 @@ export function ConnectionPolicyListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ConnectionPolicyPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ConnectionPolicyPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConnectionPolicyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ConnectionPolicyPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

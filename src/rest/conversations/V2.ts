@@ -47,17 +47,17 @@ export default class V2 extends Version {
   }
 
   /** Accessor for communications resource - list operations */
-  communications(ConversationSid: string): CommunicationListInstance;
+  communications(ConversationId: string): CommunicationListInstance;
   /** Accessor for communications resource - instance operations */
-  communications(ConversationSid: string, sid: string): CommunicationContext;
+  communications(ConversationId: string, id: string): CommunicationContext;
   /** Implementation */
   communications(
-    ConversationSid: string,
-    sid?: string
+    ConversationId: string,
+    id?: string
   ): CommunicationListInstance | CommunicationContext {
-    const listInstance = CommunicationListInstance(this, ConversationSid);
-    if (sid !== undefined) {
-      return listInstance.get(sid);
+    const listInstance = CommunicationListInstance(this, ConversationId);
+    if (id !== undefined) {
+      return listInstance.get(id);
     }
     return listInstance;
   }
@@ -82,17 +82,17 @@ export default class V2 extends Version {
   }
 
   /** Accessor for participants resource - list operations */
-  participants(ConversationSid: string): ParticipantListInstance;
+  participants(ConversationId: string): ParticipantListInstance;
   /** Accessor for participants resource - instance operations */
-  participants(ConversationSid: string, sid: string): ParticipantContext;
+  participants(ConversationId: string, id: string): ParticipantContext;
   /** Implementation */
   participants(
-    ConversationSid: string,
-    sid?: string
+    ConversationId: string,
+    id?: string
   ): ParticipantListInstance | ParticipantContext {
-    const listInstance = ParticipantListInstance(this, ConversationSid);
-    if (sid !== undefined) {
-      return listInstance.get(sid);
+    const listInstance = ParticipantListInstance(this, ConversationId);
+    if (id !== undefined) {
+      return listInstance.get(id);
     }
     return listInstance;
   }

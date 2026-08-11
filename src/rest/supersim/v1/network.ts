@@ -114,7 +114,10 @@ export class NetworkContextImpl implements NetworkContext {
   protected _solution: NetworkContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -164,16 +167,14 @@ export class NetworkContextImpl implements NetworkContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<NetworkInstance> => ({
-          ...response,
-          body: new NetworkInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<NetworkInstance> => ({
+        ...response,
+        body: new NetworkInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -212,14 +213,18 @@ export class NetworkInstance {
   protected _solution: NetworkContextSolution;
   protected _context?: NetworkContext;
 
-  constructor(protected _version: V1, payload: NetworkResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: NetworkResource,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.url = payload.url;
     this.isoCountry = payload.iso_country;
     this.identifiers = payload.identifiers;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -568,13 +573,11 @@ export function NetworkListInstance(version: V1): NetworkListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<NetworkPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new NetworkPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<NetworkPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new NetworkPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -167,7 +167,11 @@ export class RoleContextImpl implements RoleContext {
   protected _solution: RoleContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -210,12 +214,10 @@ export class RoleContextImpl implements RoleContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -270,17 +272,15 @@ export class RoleContextImpl implements RoleContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<RoleInstance> => ({
-          ...response,
-          body: new RoleInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<RoleInstance> => ({
+        ...response,
+        body: new RoleInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -365,17 +365,15 @@ export class RoleContextImpl implements RoleContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<RoleInstance> => ({
-          ...response,
-          body: new RoleInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<RoleInstance> => ({
+        ...response,
+        body: new RoleInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -434,7 +432,7 @@ export class RoleInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   sid: string;
@@ -879,16 +877,14 @@ export function RoleListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<RoleInstance> => ({
-          ...response,
-          body: new RoleInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<RoleInstance> => ({
+        ...response,
+        body: new RoleInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -986,13 +982,11 @@ export function RoleListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<RolePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new RolePage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<RolePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new RolePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

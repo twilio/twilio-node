@@ -26,9 +26,7 @@ import { ApiResponse } from "../../../../../base/ApiResponse";
  * The status of the User on the Channel. Can be: `joined`, `invited`, or `not_participating`.
  */
 export type UserChannelChannelStatus =
-  | "joined"
-  | "invited"
-  | "not_participating";
+  "joined" | "invited" | "not_participating";
 
 /**
  * Options to pass to each
@@ -338,17 +336,15 @@ export function UserChannelListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<UserChannelPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new UserChannelPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<UserChannelPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new UserChannelPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

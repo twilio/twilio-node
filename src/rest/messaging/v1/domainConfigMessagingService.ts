@@ -59,13 +59,14 @@ export interface DomainConfigMessagingServiceContextSolution {
   messagingServiceSid: string;
 }
 
-export class DomainConfigMessagingServiceContextImpl
-  implements DomainConfigMessagingServiceContext
-{
+export class DomainConfigMessagingServiceContextImpl implements DomainConfigMessagingServiceContext {
   protected _solution: DomainConfigMessagingServiceContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, messagingServiceSid: string) {
+  constructor(
+    protected _version: V1,
+    messagingServiceSid: string
+  ) {
     if (!isValidPathParam(messagingServiceSid)) {
       throw new Error("Parameter 'messagingServiceSid' is not valid.");
     }
@@ -125,16 +126,14 @@ export class DomainConfigMessagingServiceContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<DomainConfigMessagingServiceInstance> => ({
-          ...response,
-          body: new DomainConfigMessagingServiceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.messagingServiceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DomainConfigMessagingServiceInstance> => ({
+        ...response,
+        body: new DomainConfigMessagingServiceInstance(
+          operationVersion,
+          response.body,
+          instance._solution.messagingServiceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -157,8 +156,7 @@ export class DomainConfigMessagingServiceContextImpl
   }
 }
 
-interface DomainConfigMessagingServicePayload
-  extends DomainConfigMessagingServiceResource {}
+interface DomainConfigMessagingServicePayload extends DomainConfigMessagingServiceResource {}
 
 interface DomainConfigMessagingServiceResource {
   domain_sid: string;
@@ -191,9 +189,7 @@ export class DomainConfigMessagingServiceInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = {
-      messagingServiceSid: messagingServiceSid || this.messagingServiceSid,
-    };
+    this._solution = { messagingServiceSid: messagingServiceSid };
   }
 
   /**

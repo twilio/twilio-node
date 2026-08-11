@@ -131,7 +131,10 @@ export class FlowContextImpl implements FlowContext {
   protected _engagements?: EngagementListInstance;
   protected _executions?: ExecutionListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -184,12 +187,10 @@ export class FlowContextImpl implements FlowContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -239,16 +240,14 @@ export class FlowContextImpl implements FlowContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<FlowInstance> => ({
-          ...response,
-          body: new FlowInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FlowInstance> => ({
+        ...response,
+        body: new FlowInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -291,7 +290,11 @@ export class FlowInstance {
   protected _solution: FlowContextSolution;
   protected _context?: FlowContext;
 
-  constructor(protected _version: V1, payload: FlowResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: FlowResource,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
@@ -302,7 +305,7 @@ export class FlowInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -691,13 +694,11 @@ export function FlowListInstance(version: V1): FlowListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<FlowPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new FlowPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<FlowPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FlowPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

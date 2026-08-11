@@ -197,7 +197,11 @@ export class SyncStreamContextImpl implements SyncStreamContext {
 
   protected _streamMessages?: StreamMessageListInstance;
 
-  constructor(protected _version: V1, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -251,12 +255,10 @@ export class SyncStreamContextImpl implements SyncStreamContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -314,17 +316,15 @@ export class SyncStreamContextImpl implements SyncStreamContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SyncStreamInstance> => ({
-          ...response,
-          body: new SyncStreamInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncStreamInstance> => ({
+        ...response,
+        body: new SyncStreamInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -341,9 +341,9 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   ): Promise<SyncStreamInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -391,9 +391,9 @@ export class SyncStreamContextImpl implements SyncStreamContext {
   ): Promise<ApiResponse<SyncStreamInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -414,17 +414,15 @@ export class SyncStreamContextImpl implements SyncStreamContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SyncStreamInstance> => ({
-          ...response,
-          body: new SyncStreamInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncStreamInstance> => ({
+        ...response,
+        body: new SyncStreamInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -485,7 +483,7 @@ export class SyncStreamInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -938,9 +936,9 @@ export function SyncStreamListInstance(
   ): Promise<SyncStreamInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -988,9 +986,9 @@ export function SyncStreamListInstance(
   ): Promise<ApiResponse<SyncStreamInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1012,16 +1010,14 @@ export function SyncStreamListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SyncStreamInstance> => ({
-          ...response,
-          body: new SyncStreamInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncStreamInstance> => ({
+        ...response,
+        body: new SyncStreamInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1121,17 +1117,15 @@ export function SyncStreamListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SyncStreamPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SyncStreamPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncStreamPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SyncStreamPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -38,10 +38,7 @@ export type MessageContentRetention = "retain" | "discard";
  * The direction of the message. Can be: `inbound` for incoming messages, `outbound-api` for messages created by the REST API, `outbound-call` for messages created during a call, or `outbound-reply` for messages created in response to an incoming message.
  */
 export type MessageDirection =
-  | "inbound"
-  | "outbound-api"
-  | "outbound-call"
-  | "outbound-reply";
+  "inbound" | "outbound-api" | "outbound-call" | "outbound-reply";
 
 /**
  * Include this parameter with a value of `disable` to skip any kind of risk check on the respective message request.
@@ -320,7 +317,11 @@ export class MessageContextImpl implements MessageContext {
   protected _feedback?: FeedbackListInstance;
   protected _media?: MediaListInstance;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -385,12 +386,10 @@ export class MessageContextImpl implements MessageContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -445,17 +444,15 @@ export class MessageContextImpl implements MessageContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<MessageInstance> => ({
-          ...response,
-          body: new MessageInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessageInstance> => ({
+        ...response,
+        body: new MessageInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -472,9 +469,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<MessageInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -520,9 +517,9 @@ export class MessageContextImpl implements MessageContext {
   ): Promise<ApiResponse<MessageInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -544,17 +541,15 @@ export class MessageContextImpl implements MessageContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MessageInstance> => ({
-          ...response,
-          body: new MessageInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessageInstance> => ({
+        ...response,
+        body: new MessageInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -635,7 +630,7 @@ export class MessageInstance {
     this.apiVersion = payload.api_version;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -1260,16 +1255,14 @@ export function MessageListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MessageInstance> => ({
-          ...response,
-          body: new MessageInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessageInstance> => ({
+        ...response,
+        body: new MessageInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1385,13 +1378,11 @@ export function MessageListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<MessagePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new MessagePage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<MessagePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new MessagePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

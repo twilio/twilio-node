@@ -58,9 +58,7 @@ export interface ExecutionStepContextContextSolution {
   stepSid: string;
 }
 
-export class ExecutionStepContextContextImpl
-  implements ExecutionStepContextContext
-{
+export class ExecutionStepContextContextImpl implements ExecutionStepContextContext {
   protected _solution: ExecutionStepContextContextSolution;
   protected _uri: string;
 
@@ -136,18 +134,16 @@ export class ExecutionStepContextContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ExecutionStepContextInstance> => ({
-          ...response,
-          body: new ExecutionStepContextInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.executionSid,
-            instance._solution.stepSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExecutionStepContextInstance> => ({
+        ...response,
+        body: new ExecutionStepContextInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.executionSid,
+          instance._solution.stepSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

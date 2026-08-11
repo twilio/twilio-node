@@ -205,12 +205,10 @@ export class AddOnResultContextImpl implements AddOnResultContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -269,18 +267,16 @@ export class AddOnResultContextImpl implements AddOnResultContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AddOnResultInstance> => ({
-          ...response,
-          body: new AddOnResultInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.referenceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AddOnResultInstance> => ({
+        ...response,
+        body: new AddOnResultInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.referenceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -342,7 +338,7 @@ export class AddOnResultInstance {
     this.referenceSid = payload.reference_sid;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = { accountSid, referenceSid, sid: sid || this.sid };
+    this._solution = { accountSid, referenceSid, sid: sid };
   }
 
   /**
@@ -761,17 +757,15 @@ export function AddOnResultListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AddOnResultPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AddOnResultPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<AddOnResultPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AddOnResultPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

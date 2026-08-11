@@ -171,15 +171,16 @@ export interface NetworkAccessProfileContextSolution {
   sid: string;
 }
 
-export class NetworkAccessProfileContextImpl
-  implements NetworkAccessProfileContext
-{
+export class NetworkAccessProfileContextImpl implements NetworkAccessProfileContext {
   protected _solution: NetworkAccessProfileContextSolution;
   protected _uri: string;
 
   protected _networks?: NetworkAccessProfileNetworkListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -246,16 +247,14 @@ export class NetworkAccessProfileContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<NetworkAccessProfileInstance> => ({
-          ...response,
-          body: new NetworkAccessProfileInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<NetworkAccessProfileInstance> => ({
+        ...response,
+        body: new NetworkAccessProfileInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -272,9 +271,9 @@ export class NetworkAccessProfileContextImpl
   ): Promise<NetworkAccessProfileInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -325,9 +324,9 @@ export class NetworkAccessProfileContextImpl
   ): Promise<ApiResponse<NetworkAccessProfileInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -349,16 +348,14 @@ export class NetworkAccessProfileContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<NetworkAccessProfileInstance> => ({
-          ...response,
-          body: new NetworkAccessProfileInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<NetworkAccessProfileInstance> => ({
+        ...response,
+        body: new NetworkAccessProfileInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -412,7 +409,7 @@ export class NetworkAccessProfileInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -838,9 +835,9 @@ export function NetworkAccessProfileListInstance(
   ): Promise<NetworkAccessProfileInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -887,9 +884,9 @@ export function NetworkAccessProfileListInstance(
   ): Promise<ApiResponse<NetworkAccessProfileInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -912,15 +909,10 @@ export function NetworkAccessProfileListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<NetworkAccessProfileInstance> => ({
-          ...response,
-          body: new NetworkAccessProfileInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<NetworkAccessProfileInstance> => ({
+        ...response,
+        body: new NetworkAccessProfileInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1034,17 +1026,15 @@ export function NetworkAccessProfileListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<NetworkAccessProfilePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new NetworkAccessProfilePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<NetworkAccessProfilePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new NetworkAccessProfilePage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

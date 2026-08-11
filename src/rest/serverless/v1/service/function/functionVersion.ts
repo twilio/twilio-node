@@ -198,18 +198,16 @@ export class FunctionVersionContextImpl implements FunctionVersionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<FunctionVersionInstance> => ({
-          ...response,
-          body: new FunctionVersionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.functionSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FunctionVersionInstance> => ({
+        ...response,
+        body: new FunctionVersionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.functionSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -269,7 +267,7 @@ export class FunctionVersionInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, functionSid, sid: sid || this.sid };
+    this._solution = { serviceSid, functionSid, sid: sid };
   }
 
   /**
@@ -683,17 +681,15 @@ export function FunctionVersionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<FunctionVersionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new FunctionVersionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<FunctionVersionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FunctionVersionPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -206,12 +206,10 @@ export class ParticipantContextImpl implements ParticipantContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -270,18 +268,16 @@ export class ParticipantContextImpl implements ParticipantContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sessionSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sessionSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -349,7 +345,7 @@ export class ParticipantInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, sessionSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sessionSid, sid: sid };
   }
 
   /**
@@ -813,17 +809,15 @@ export function ParticipantListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sessionSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sessionSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -923,17 +917,15 @@ export function ParticipantListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ParticipantPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ParticipantPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ParticipantPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -269,13 +269,14 @@ export interface InsightsQuestionnairesContextSolution {
   questionnaireSid: string;
 }
 
-export class InsightsQuestionnairesContextImpl
-  implements InsightsQuestionnairesContext
-{
+export class InsightsQuestionnairesContextImpl implements InsightsQuestionnairesContext {
   protected _solution: InsightsQuestionnairesContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, questionnaireSid: string) {
+  constructor(
+    protected _version: V1,
+    questionnaireSid: string
+  ) {
     if (!isValidPathParam(questionnaireSid)) {
       throw new Error("Parameter 'questionnaireSid' is not valid.");
     }
@@ -292,9 +293,9 @@ export class InsightsQuestionnairesContextImpl
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -327,9 +328,9 @@ export class InsightsQuestionnairesContextImpl
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -348,12 +349,10 @@ export class InsightsQuestionnairesContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -373,9 +372,9 @@ export class InsightsQuestionnairesContextImpl
   ): Promise<InsightsQuestionnairesInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -424,9 +423,9 @@ export class InsightsQuestionnairesContextImpl
   ): Promise<ApiResponse<InsightsQuestionnairesInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -446,16 +445,14 @@ export class InsightsQuestionnairesContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InsightsQuestionnairesInstance> => ({
-          ...response,
-          body: new InsightsQuestionnairesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.questionnaireSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InsightsQuestionnairesInstance> => ({
+        ...response,
+        body: new InsightsQuestionnairesInstance(
+          operationVersion,
+          response.body,
+          instance._solution.questionnaireSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -565,16 +562,14 @@ export class InsightsQuestionnairesContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InsightsQuestionnairesInstance> => ({
-          ...response,
-          body: new InsightsQuestionnairesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.questionnaireSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InsightsQuestionnairesInstance> => ({
+        ...response,
+        body: new InsightsQuestionnairesInstance(
+          operationVersion,
+          response.body,
+          instance._solution.questionnaireSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -628,9 +623,7 @@ export class InsightsQuestionnairesInstance {
     this.questions = payload.questions;
     this.url = payload.url;
 
-    this._solution = {
-      questionnaireSid: questionnaireSid || this.questionnaireSid,
-    };
+    this._solution = { questionnaireSid: questionnaireSid };
   }
 
   /**
@@ -1212,15 +1205,13 @@ export function InsightsQuestionnairesListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InsightsQuestionnairesInstance> => ({
-          ...response,
-          body: new InsightsQuestionnairesInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<InsightsQuestionnairesInstance> => ({
+        ...response,
+        body: new InsightsQuestionnairesInstance(
+          operationVersion,
+          response.body
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1342,17 +1333,15 @@ export function InsightsQuestionnairesListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InsightsQuestionnairesPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InsightsQuestionnairesPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<InsightsQuestionnairesPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InsightsQuestionnairesPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -144,7 +144,10 @@ export class ChannelContextImpl implements ChannelContext {
   protected _solution: ChannelContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -183,12 +186,10 @@ export class ChannelContextImpl implements ChannelContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -238,16 +239,14 @@ export class ChannelContextImpl implements ChannelContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ChannelInstance> => ({
-          ...response,
-          body: new ChannelInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ChannelInstance> => ({
+        ...response,
+        body: new ChannelInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -289,7 +288,11 @@ export class ChannelInstance {
   protected _solution: ChannelContextSolution;
   protected _context?: ChannelContext;
 
-  constructor(protected _version: V1, payload: ChannelResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ChannelResource,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.flexFlowSid = payload.flex_flow_sid;
     this.sid = payload.sid;
@@ -299,7 +302,7 @@ export class ChannelInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -760,12 +763,10 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ChannelInstance> => ({
-          ...response,
-          body: new ChannelInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ChannelInstance> => ({
+        ...response,
+        body: new ChannelInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -865,13 +866,11 @@ export function ChannelListInstance(version: V1): ChannelListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ChannelPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ChannelPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<ChannelPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ChannelPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

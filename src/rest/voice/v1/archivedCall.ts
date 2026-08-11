@@ -58,7 +58,11 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
   protected _solution: ArchivedCallContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, date: Date, sid: string) {
+  constructor(
+    protected _version: V1,
+    date: Date,
+    sid: string
+  ) {
     if (!isValidPathParam(date)) {
       throw new Error("Parameter 'date' is not valid.");
     }
@@ -101,12 +105,10 @@ export class ArchivedCallContextImpl implements ArchivedCallContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

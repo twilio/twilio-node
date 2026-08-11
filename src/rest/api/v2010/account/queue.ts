@@ -190,7 +190,11 @@ export class QueueContextImpl implements QueueContext {
 
   protected _members?: MemberListInstance;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -244,12 +248,10 @@ export class QueueContextImpl implements QueueContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -304,17 +306,15 @@ export class QueueContextImpl implements QueueContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<QueueInstance> => ({
-          ...response,
-          body: new QueueInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<QueueInstance> => ({
+        ...response,
+        body: new QueueInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -331,9 +331,9 @@ export class QueueContextImpl implements QueueContext {
   ): Promise<QueueInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -380,9 +380,9 @@ export class QueueContextImpl implements QueueContext {
   ): Promise<ApiResponse<QueueInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -405,17 +405,15 @@ export class QueueContextImpl implements QueueContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<QueueInstance> => ({
-          ...response,
-          body: new QueueInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<QueueInstance> => ({
+        ...response,
+        body: new QueueInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -474,7 +472,7 @@ export class QueueInstance {
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.maxSize = deserialize.integer(payload.max_size);
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -951,16 +949,14 @@ export function QueueListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<QueueInstance> => ({
-          ...response,
-          body: new QueueInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<QueueInstance> => ({
+        ...response,
+        body: new QueueInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1058,13 +1054,11 @@ export function QueueListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<QueuePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new QueuePage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<QueuePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new QueuePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

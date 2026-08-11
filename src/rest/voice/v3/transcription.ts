@@ -275,7 +275,10 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   protected _solution: TranscriptionContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V3, transcriptionId: string) {
+  constructor(
+    protected _version: V3,
+    transcriptionId: string
+  ) {
     if (!isValidPathParam(transcriptionId)) {
       throw new Error("Parameter 'transcriptionId' is not valid.");
     }
@@ -332,16 +335,14 @@ export class TranscriptionContextImpl implements TranscriptionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<TranscriptionInstance> => ({
-          ...response,
-          body: new TranscriptionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.transcriptionId
-          ),
-        })
-      );
+      .then((response): ApiResponse<TranscriptionInstance> => ({
+        ...response,
+        body: new TranscriptionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.transcriptionId
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -393,7 +394,7 @@ export interface VoiceV3TranscriptionResolvedConfiguration {
   speechModel?: string;
   language?: string;
   transcriptionStatusCallback?: VoiceV3TranscriptionTranscriptionStatusCallback;
-  conversationConfigurationId?: string;
+  conversationConfigurationId?: string | null;
   participantDefaults?: Array<VoiceV3TranscriptionResolvedConfigurationParticipantDefaults>;
 }
 
@@ -413,12 +414,12 @@ export interface VoiceV3TranscriptionTranscription {
   accountId: string;
   status: string;
   transcriptionConfigurationId: string;
-  mediaUrl?: string;
-  sourceId?: string;
+  mediaUrl?: string | null;
+  sourceId?: string | null;
   audioStartedAt?: Date;
-  conversationId?: string;
+  conversationId?: string | null;
   participants?: Array<VoiceV3TranscriptionParticipant>;
-  duration?: number;
+  duration?: number | null;
   resolvedConfiguration?: VoiceV3TranscriptionResolvedConfiguration;
   createdAt: Date;
   updatedAt: Date;
@@ -431,7 +432,7 @@ export interface VoiceV3TranscriptionTranscription {
 export interface VoiceV3TranscriptionTranscriptionStatusCallback {
   url?: string;
   method?: string;
-  events?: Array<string>;
+  events?: Array<string> | null;
 }
 
 /**
@@ -691,12 +692,10 @@ export function TranscriptionListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TranscriptionInstance> => ({
-          ...response,
-          body: new TranscriptionInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<TranscriptionInstance> => ({
+        ...response,
+        body: new TranscriptionInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

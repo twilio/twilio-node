@@ -19,6 +19,14 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+/**
+ * Options to pass to update a AuthTokenPromotionInstance
+ */
+export interface AuthTokenPromotionContextUpdateOptions {
+  /** Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts. */
+  suppressEmailNotification?: boolean;
+}
+
 export interface AuthTokenPromotionContext {
   /**
    * Update a AuthTokenPromotionInstance
@@ -28,6 +36,18 @@ export interface AuthTokenPromotionContext {
    * @returns Resolves to processed AuthTokenPromotionInstance
    */
   update(
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+  ): Promise<AuthTokenPromotionInstance>;
+  /**
+   * Update a AuthTokenPromotionInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AuthTokenPromotionInstance
+   */
+  update(
+    params: AuthTokenPromotionContextUpdateOptions,
     callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
   ): Promise<AuthTokenPromotionInstance>;
 
@@ -44,6 +64,21 @@ export interface AuthTokenPromotionContext {
       item?: ApiResponse<AuthTokenPromotionInstance>
     ) => any
   ): Promise<ApiResponse<AuthTokenPromotionInstance>>;
+  /**
+   * Update a AuthTokenPromotionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AuthTokenPromotionInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: AuthTokenPromotionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -54,9 +89,7 @@ export interface AuthTokenPromotionContext {
 
 export interface AuthTokenPromotionContextSolution {}
 
-export class AuthTokenPromotionContextImpl
-  implements AuthTokenPromotionContext
-{
+export class AuthTokenPromotionContextImpl implements AuthTokenPromotionContext {
   protected _solution: AuthTokenPromotionContextSolution;
   protected _uri: string;
 
@@ -66,9 +99,27 @@ export class AuthTokenPromotionContextImpl
   }
 
   update(
+    params?:
+      | AuthTokenPromotionContextUpdateOptions
+      | ((error: Error | null, item?: AuthTokenPromotionInstance) => any),
     callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
   ): Promise<AuthTokenPromotionInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {} as any;
+    } else {
+      params = params || ({} as any);
+    }
+
+    let data: any = {};
+
+    if (params["suppressEmailNotification"] !== undefined)
+      data["SuppressEmailNotification"] = serialize.bool(
+        params["suppressEmailNotification"]
+      );
+
     const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
     headers["Accept"] = "application/json";
 
     const instance = this;
@@ -76,6 +127,7 @@ export class AuthTokenPromotionContextImpl
       operationPromise = operationVersion.update({
         uri: instance._uri,
         method: "post",
+        data,
         headers,
       });
 
@@ -91,12 +143,33 @@ export class AuthTokenPromotionContextImpl
   }
 
   updateWithHttpInfo(
+    params?:
+      | AuthTokenPromotionContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<AuthTokenPromotionInstance>
+        ) => any),
     callback?: (
       error: Error | null,
       item?: ApiResponse<AuthTokenPromotionInstance>
     ) => any
   ): Promise<ApiResponse<AuthTokenPromotionInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {} as any;
+    } else {
+      params = params || ({} as any);
+    }
+
+    let data: any = {};
+
+    if (params["suppressEmailNotification"] !== undefined)
+      data["SuppressEmailNotification"] = serialize.bool(
+        params["suppressEmailNotification"]
+      );
+
     const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
     headers["Accept"] = "application/json";
 
     const instance = this;
@@ -106,14 +179,13 @@ export class AuthTokenPromotionContextImpl
       .updateWithResponseInfo<AuthTokenPromotionResource>({
         uri: instance._uri,
         method: "post",
+        data,
         headers,
       })
-      .then(
-        (response): ApiResponse<AuthTokenPromotionInstance> => ({
-          ...response,
-          body: new AuthTokenPromotionInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<AuthTokenPromotionInstance> => ({
+        ...response,
+        body: new AuthTokenPromotionInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -150,7 +222,10 @@ export class AuthTokenPromotionInstance {
   protected _solution: AuthTokenPromotionContextSolution;
   protected _context?: AuthTokenPromotionContext;
 
-  constructor(protected _version: V1, payload: AuthTokenPromotionResource) {
+  constructor(
+    protected _version: V1,
+    payload: AuthTokenPromotionResource
+  ) {
     this.accountSid = payload.account_sid;
     this.authToken = payload.auth_token;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
@@ -196,8 +271,25 @@ export class AuthTokenPromotionInstance {
    */
   update(
     callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+  ): Promise<AuthTokenPromotionInstance>;
+  /**
+   * Update a AuthTokenPromotionInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AuthTokenPromotionInstance
+   */
+  update(
+    params: AuthTokenPromotionContextUpdateOptions,
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+  ): Promise<AuthTokenPromotionInstance>;
+
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
   ): Promise<AuthTokenPromotionInstance> {
-    return this._proxy.update(callback);
+    return this._proxy.update(params, callback);
   }
 
   /**
@@ -212,8 +304,31 @@ export class AuthTokenPromotionInstance {
       error: Error | null,
       item?: ApiResponse<AuthTokenPromotionInstance>
     ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>>;
+  /**
+   * Update a AuthTokenPromotionInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed AuthTokenPromotionInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: AuthTokenPromotionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>>;
+
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
   ): Promise<ApiResponse<AuthTokenPromotionInstance>> {
-    return this._proxy.updateWithHttpInfo(callback);
+    return this._proxy.updateWithHttpInfo(params, callback);
   }
 
   /**

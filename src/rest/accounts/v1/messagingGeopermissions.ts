@@ -159,9 +159,9 @@ export function MessagingGeopermissionsListInstance(
   ): Promise<MessagingGeopermissionsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -206,9 +206,9 @@ export function MessagingGeopermissionsListInstance(
   ): Promise<ApiResponse<MessagingGeopermissionsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -228,15 +228,13 @@ export function MessagingGeopermissionsListInstance(
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MessagingGeopermissionsInstance> => ({
-          ...response,
-          body: new MessagingGeopermissionsInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessagingGeopermissionsInstance> => ({
+        ...response,
+        body: new MessagingGeopermissionsInstance(
+          operationVersion,
+          response.body
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -324,15 +322,13 @@ export function MessagingGeopermissionsListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MessagingGeopermissionsInstance> => ({
-          ...response,
-          body: new MessagingGeopermissionsInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessagingGeopermissionsInstance> => ({
+        ...response,
+        body: new MessagingGeopermissionsInstance(
+          operationVersion,
+          response.body
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -355,8 +351,7 @@ export function MessagingGeopermissionsListInstance(
   return instance;
 }
 
-interface MessagingGeopermissionsPayload
-  extends MessagingGeopermissionsResource {}
+interface MessagingGeopermissionsPayload extends MessagingGeopermissionsResource {}
 
 interface MessagingGeopermissionsResource {
   permissions: any;

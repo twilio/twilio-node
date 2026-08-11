@@ -293,7 +293,10 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   protected _solution: HostedNumberOrderContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: HostedNumbers, sid: string) {
+  constructor(
+    protected _version: HostedNumbers,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -332,12 +335,10 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -394,16 +395,14 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<HostedNumberOrderInstance> => ({
-          ...response,
-          body: new HostedNumberOrderInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<HostedNumberOrderInstance> => ({
+        ...response,
+        body: new HostedNumberOrderInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -420,9 +419,9 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   ): Promise<HostedNumberOrderInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -489,9 +488,9 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
   ): Promise<ApiResponse<HostedNumberOrderInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -529,16 +528,14 @@ export class HostedNumberOrderContextImpl implements HostedNumberOrderContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<HostedNumberOrderInstance> => ({
-          ...response,
-          body: new HostedNumberOrderInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<HostedNumberOrderInstance> => ({
+        ...response,
+        body: new HostedNumberOrderInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -626,7 +623,7 @@ export class HostedNumberOrderInstance {
     this.verificationCode = payload.verification_code;
     this.verificationCallSids = payload.verification_call_sids;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -1257,12 +1254,10 @@ export function HostedNumberOrderListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<HostedNumberOrderInstance> => ({
-          ...response,
-          body: new HostedNumberOrderInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<HostedNumberOrderInstance> => ({
+        ...response,
+        body: new HostedNumberOrderInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1390,17 +1385,15 @@ export function HostedNumberOrderListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<HostedNumberOrderPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new HostedNumberOrderPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<HostedNumberOrderPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new HostedNumberOrderPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

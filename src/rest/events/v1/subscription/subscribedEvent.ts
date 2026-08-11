@@ -195,7 +195,11 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   protected _solution: SubscribedEventContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, subscriptionSid: string, type: string) {
+  constructor(
+    protected _version: V1,
+    subscriptionSid: string,
+    type: string
+  ) {
     if (!isValidPathParam(subscriptionSid)) {
       throw new Error("Parameter 'subscriptionSid' is not valid.");
     }
@@ -238,12 +242,10 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -301,17 +303,15 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SubscribedEventInstance> => ({
-          ...response,
-          body: new SubscribedEventInstance(
-            operationVersion,
-            response.body,
-            instance._solution.subscriptionSid,
-            instance._solution.type
-          ),
-        })
-      );
+      .then((response): ApiResponse<SubscribedEventInstance> => ({
+        ...response,
+        body: new SubscribedEventInstance(
+          operationVersion,
+          response.body,
+          instance._solution.subscriptionSid,
+          instance._solution.type
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -328,9 +328,9 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   ): Promise<SubscribedEventInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -382,9 +382,9 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
   ): Promise<ApiResponse<SubscribedEventInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -406,17 +406,15 @@ export class SubscribedEventContextImpl implements SubscribedEventContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SubscribedEventInstance> => ({
-          ...response,
-          body: new SubscribedEventInstance(
-            operationVersion,
-            response.body,
-            instance._solution.subscriptionSid,
-            instance._solution.type
-          ),
-        })
-      );
+      .then((response): ApiResponse<SubscribedEventInstance> => ({
+        ...response,
+        body: new SubscribedEventInstance(
+          operationVersion,
+          response.body,
+          instance._solution.subscriptionSid,
+          instance._solution.type
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -467,7 +465,7 @@ export class SubscribedEventInstance {
     this.subscriptionSid = payload.subscription_sid;
     this.url = payload.url;
 
-    this._solution = { subscriptionSid, type: type || this.type };
+    this._solution = { subscriptionSid, type: type };
   }
 
   /**
@@ -959,16 +957,14 @@ export function SubscribedEventListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SubscribedEventInstance> => ({
-          ...response,
-          body: new SubscribedEventInstance(
-            operationVersion,
-            response.body,
-            instance._solution.subscriptionSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<SubscribedEventInstance> => ({
+        ...response,
+        body: new SubscribedEventInstance(
+          operationVersion,
+          response.body,
+          instance._solution.subscriptionSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1071,17 +1067,15 @@ export function SubscribedEventListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SubscribedEventPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SubscribedEventPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<SubscribedEventPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SubscribedEventPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

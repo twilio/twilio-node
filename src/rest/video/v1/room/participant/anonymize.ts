@@ -66,7 +66,11 @@ export class AnonymizeContextImpl implements AnonymizeContext {
   protected _solution: AnonymizeContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, roomSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    roomSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(roomSid)) {
       throw new Error("Parameter 'roomSid' is not valid.");
     }
@@ -128,17 +132,15 @@ export class AnonymizeContextImpl implements AnonymizeContext {
         method: "post",
         headers,
       })
-      .then(
-        (response): ApiResponse<AnonymizeInstance> => ({
-          ...response,
-          body: new AnonymizeInstance(
-            operationVersion,
-            response.body,
-            instance._solution.roomSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AnonymizeInstance> => ({
+        ...response,
+        body: new AnonymizeInstance(
+          operationVersion,
+          response.body,
+          instance._solution.roomSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -252,12 +252,10 @@ export class UserConversationContextImpl implements UserConversationContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -316,18 +314,16 @@ export class UserConversationContextImpl implements UserConversationContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<UserConversationInstance> => ({
-          ...response,
-          body: new UserConversationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.chatServiceSid,
-            instance._solution.userSid,
-            instance._solution.conversationSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<UserConversationInstance> => ({
+        ...response,
+        body: new UserConversationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.chatServiceSid,
+          instance._solution.userSid,
+          instance._solution.conversationSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -344,9 +340,9 @@ export class UserConversationContextImpl implements UserConversationContext {
   ): Promise<UserConversationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -405,9 +401,9 @@ export class UserConversationContextImpl implements UserConversationContext {
   ): Promise<ApiResponse<UserConversationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -435,18 +431,16 @@ export class UserConversationContextImpl implements UserConversationContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<UserConversationInstance> => ({
-          ...response,
-          body: new UserConversationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.chatServiceSid,
-            instance._solution.userSid,
-            instance._solution.conversationSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<UserConversationInstance> => ({
+        ...response,
+        body: new UserConversationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.chatServiceSid,
+          instance._solution.userSid,
+          instance._solution.conversationSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -531,7 +525,7 @@ export class UserConversationInstance {
     this._solution = {
       chatServiceSid,
       userSid,
-      conversationSid: conversationSid || this.conversationSid,
+      conversationSid: conversationSid,
     };
   }
 
@@ -1080,17 +1074,15 @@ export function UserConversationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<UserConversationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new UserConversationPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<UserConversationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new UserConversationPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

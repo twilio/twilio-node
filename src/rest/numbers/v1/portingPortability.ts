@@ -23,10 +23,7 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * The type of the requested phone number. One of `LOCAL`, `UNKNOWN`, `MOBILE`, `TOLL-FREE`.
  */
 export type PortingPortabilityNumberType =
-  | "LOCAL"
-  | "UNKNOWN"
-  | "MOBILE"
-  | "TOLL-FREE";
+  "LOCAL" | "UNKNOWN" | "MOBILE" | "TOLL-FREE";
 
 /**
  * Options to pass to fetch a PortingPortabilityInstance
@@ -102,13 +99,14 @@ export interface PortingPortabilityContextSolution {
   phoneNumber: string;
 }
 
-export class PortingPortabilityContextImpl
-  implements PortingPortabilityContext
-{
+export class PortingPortabilityContextImpl implements PortingPortabilityContext {
   protected _solution: PortingPortabilityContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, phoneNumber: string) {
+  constructor(
+    protected _version: V1,
+    phoneNumber: string
+  ) {
     if (!isValidPathParam(phoneNumber)) {
       throw new Error("Parameter 'phoneNumber' is not valid.");
     }
@@ -125,9 +123,9 @@ export class PortingPortabilityContextImpl
   ): Promise<PortingPortabilityInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -179,9 +177,9 @@ export class PortingPortabilityContextImpl
   ): Promise<ApiResponse<PortingPortabilityInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -204,16 +202,14 @@ export class PortingPortabilityContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PortingPortabilityInstance> => ({
-          ...response,
-          body: new PortingPortabilityInstance(
-            operationVersion,
-            response.body,
-            instance._solution.phoneNumber
-          ),
-        })
-      );
+      .then((response): ApiResponse<PortingPortabilityInstance> => ({
+        ...response,
+        body: new PortingPortabilityInstance(
+          operationVersion,
+          response.body,
+          instance._solution.phoneNumber
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -271,7 +267,7 @@ export class PortingPortabilityInstance {
     this.country = payload.country;
     this.url = payload.url;
 
-    this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
+    this._solution = { phoneNumber: phoneNumber };
   }
 
   /**

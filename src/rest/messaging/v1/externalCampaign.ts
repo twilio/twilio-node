@@ -180,12 +180,10 @@ export function ExternalCampaignListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ExternalCampaignInstance> => ({
-          ...response,
-          body: new ExternalCampaignInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ExternalCampaignInstance> => ({
+        ...response,
+        body: new ExternalCampaignInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -219,7 +217,10 @@ interface ExternalCampaignResource {
 }
 
 export class ExternalCampaignInstance {
-  constructor(protected _version: V1, payload: ExternalCampaignResource) {
+  constructor(
+    protected _version: V1,
+    payload: ExternalCampaignResource
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.campaignId = payload.campaign_id;

@@ -97,13 +97,14 @@ export interface PluginConfigurationArchiveContextSolution {
   sid: string;
 }
 
-export class PluginConfigurationArchiveContextImpl
-  implements PluginConfigurationArchiveContext
-{
+export class PluginConfigurationArchiveContextImpl implements PluginConfigurationArchiveContext {
   protected _solution: PluginConfigurationArchiveContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -126,9 +127,9 @@ export class PluginConfigurationArchiveContextImpl
   ): Promise<PluginConfigurationArchiveInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -177,9 +178,9 @@ export class PluginConfigurationArchiveContextImpl
   ): Promise<ApiResponse<PluginConfigurationArchiveInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -199,16 +200,14 @@ export class PluginConfigurationArchiveContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PluginConfigurationArchiveInstance> => ({
-          ...response,
-          body: new PluginConfigurationArchiveInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PluginConfigurationArchiveInstance> => ({
+        ...response,
+        body: new PluginConfigurationArchiveInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -231,8 +230,7 @@ export class PluginConfigurationArchiveContextImpl
   }
 }
 
-interface PluginConfigurationArchivePayload
-  extends PluginConfigurationArchiveResource {}
+interface PluginConfigurationArchivePayload extends PluginConfigurationArchiveResource {}
 
 interface PluginConfigurationArchiveResource {
   sid: string;
@@ -261,7 +259,7 @@ export class PluginConfigurationArchiveInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

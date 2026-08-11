@@ -11,9 +11,11 @@
 
 import Domain from "../base/Domain";
 import V2 from "./routes/V2";
+import V3 from "./routes/V3";
 
 class RoutesBase extends Domain {
   _v2?: V2;
+  _v3?: V3;
 
   /**
    * Initialize routes domain
@@ -27,6 +29,10 @@ class RoutesBase extends Domain {
   get v2(): V2 {
     this._v2 = this._v2 || new V2(this);
     return this._v2;
+  }
+  get v3(): V3 {
+    this._v3 = this._v3 || new V3(this);
+    return this._v3;
   }
 }
 

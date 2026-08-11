@@ -166,12 +166,10 @@ export class SettingsContextImpl implements SettingsContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SettingsInstance> => ({
-          ...response,
-          body: new SettingsInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<SettingsInstance> => ({
+        ...response,
+        body: new SettingsInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -188,9 +186,9 @@ export class SettingsContextImpl implements SettingsContext {
   ): Promise<SettingsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -235,9 +233,9 @@ export class SettingsContextImpl implements SettingsContext {
   ): Promise<ApiResponse<SettingsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -261,12 +259,10 @@ export class SettingsContextImpl implements SettingsContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SettingsInstance> => ({
-          ...response,
-          body: new SettingsInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<SettingsInstance> => ({
+        ...response,
+        body: new SettingsInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -300,7 +296,10 @@ export class SettingsInstance {
   protected _solution: SettingsContextSolution;
   protected _context?: SettingsContext;
 
-  constructor(protected _version: V1, payload: SettingsResource) {
+  constructor(
+    protected _version: V1,
+    payload: SettingsResource
+  ) {
     this.dialingPermissionsInheritance =
       payload.dialing_permissions_inheritance;
     this.url = payload.url;

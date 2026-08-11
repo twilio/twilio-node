@@ -120,7 +120,10 @@ export class NumberContextImpl implements NumberContext {
   protected _solution: NumberContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, destinationNumber: string) {
+  constructor(
+    protected _version: V2,
+    destinationNumber: string
+  ) {
     if (!isValidPathParam(destinationNumber)) {
       throw new Error("Parameter 'destinationNumber' is not valid.");
     }
@@ -137,9 +140,9 @@ export class NumberContextImpl implements NumberContext {
   ): Promise<NumberInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -183,9 +186,9 @@ export class NumberContextImpl implements NumberContext {
   ): Promise<ApiResponse<NumberInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -206,16 +209,14 @@ export class NumberContextImpl implements NumberContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<NumberInstance> => ({
-          ...response,
-          body: new NumberInstance(
-            operationVersion,
-            response.body,
-            instance._solution.destinationNumber
-          ),
-        })
-      );
+      .then((response): ApiResponse<NumberInstance> => ({
+        ...response,
+        body: new NumberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.destinationNumber
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -284,9 +285,7 @@ export class NumberInstance {
     this.priceUnit = payload.price_unit;
     this.url = payload.url;
 
-    this._solution = {
-      destinationNumber: destinationNumber || this.destinationNumber,
-    };
+    this._solution = { destinationNumber: destinationNumber };
   }
 
   /**

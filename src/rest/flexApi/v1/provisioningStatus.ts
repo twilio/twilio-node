@@ -23,10 +23,7 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * Email Provisioning Status
  */
 export type ProvisioningStatusStatus =
-  | "active"
-  | "in-progress"
-  | "not-configured"
-  | "failed";
+  "active" | "in-progress" | "not-configured" | "failed";
 
 export interface ProvisioningStatusContext {
   /**
@@ -63,9 +60,7 @@ export interface ProvisioningStatusContext {
 
 export interface ProvisioningStatusContextSolution {}
 
-export class ProvisioningStatusContextImpl
-  implements ProvisioningStatusContext
-{
+export class ProvisioningStatusContextImpl implements ProvisioningStatusContext {
   protected _solution: ProvisioningStatusContextSolution;
   protected _uri: string;
 
@@ -117,12 +112,10 @@ export class ProvisioningStatusContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ProvisioningStatusInstance> => ({
-          ...response,
-          body: new ProvisioningStatusInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ProvisioningStatusInstance> => ({
+        ...response,
+        body: new ProvisioningStatusInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -156,7 +149,10 @@ export class ProvisioningStatusInstance {
   protected _solution: ProvisioningStatusContextSolution;
   protected _context?: ProvisioningStatusContext;
 
-  constructor(protected _version: V1, payload: ProvisioningStatusResource) {
+  constructor(
+    protected _version: V1,
+    payload: ProvisioningStatusResource
+  ) {
     this.status = payload.status;
     this.url = payload.url;
 

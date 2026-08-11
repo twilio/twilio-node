@@ -207,12 +207,10 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<RecordingSettingsInstance> => ({
-          ...response,
-          body: new RecordingSettingsInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<RecordingSettingsInstance> => ({
+        ...response,
+        body: new RecordingSettingsInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -264,12 +262,10 @@ export class RecordingSettingsContextImpl implements RecordingSettingsContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<RecordingSettingsInstance> => ({
-          ...response,
-          body: new RecordingSettingsInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<RecordingSettingsInstance> => ({
+        ...response,
+        body: new RecordingSettingsInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -309,7 +305,10 @@ export class RecordingSettingsInstance {
   protected _solution: RecordingSettingsContextSolution;
   protected _context?: RecordingSettingsContext;
 
-  constructor(protected _version: V1, payload: RecordingSettingsResource) {
+  constructor(
+    protected _version: V1,
+    payload: RecordingSettingsResource
+  ) {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
     this.awsCredentialsSid = payload.aws_credentials_sid;

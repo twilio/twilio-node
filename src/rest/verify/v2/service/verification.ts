@@ -155,7 +155,11 @@ export class VerificationContextImpl implements VerificationContext {
   protected _solution: VerificationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -217,17 +221,15 @@ export class VerificationContextImpl implements VerificationContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<VerificationInstance> => ({
-          ...response,
-          body: new VerificationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<VerificationInstance> => ({
+        ...response,
+        body: new VerificationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -315,17 +317,15 @@ export class VerificationContextImpl implements VerificationContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<VerificationInstance> => ({
-          ...response,
-          body: new VerificationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<VerificationInstance> => ({
+        ...response,
+        body: new VerificationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -394,7 +394,7 @@ export class VerificationInstance {
     this.sna = payload.sna;
     this.url = payload.url;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -787,16 +787,14 @@ export function VerificationListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<VerificationInstance> => ({
-          ...response,
-          body: new VerificationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<VerificationInstance> => ({
+        ...response,
+        body: new VerificationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

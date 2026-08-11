@@ -275,12 +275,10 @@ export function HostedNumberOrderListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<HostedNumberOrderInstance> => ({
-          ...response,
-          body: new HostedNumberOrderInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<HostedNumberOrderInstance> => ({
+        ...response,
+        body: new HostedNumberOrderInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -330,7 +328,10 @@ interface HostedNumberOrderResource {
 }
 
 export class HostedNumberOrderInstance {
-  constructor(protected _version: V3, _payload: HostedNumberOrderResource) {
+  constructor(
+    protected _version: V3,
+    _payload: HostedNumberOrderResource
+  ) {
     const payload = _payload;
     this.sid = payload.sid;
     this.accountSid = payload.accountSid;

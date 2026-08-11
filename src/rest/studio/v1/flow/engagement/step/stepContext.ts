@@ -134,18 +134,16 @@ export class StepContextContextImpl implements StepContextContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<StepContextInstance> => ({
-          ...response,
-          body: new StepContextInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.engagementSid,
-            instance._solution.stepSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<StepContextInstance> => ({
+        ...response,
+        body: new StepContextInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.engagementSid,
+          instance._solution.stepSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -196,16 +196,14 @@ export function RecordingRulesListInstance(
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<RecordingRulesInstance> => ({
-          ...response,
-          body: new RecordingRulesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.roomSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<RecordingRulesInstance> => ({
+        ...response,
+        body: new RecordingRulesInstance(
+          operationVersion,
+          response.body,
+          instance._solution.roomSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -222,9 +220,9 @@ export function RecordingRulesListInstance(
   ): Promise<RecordingRulesInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -274,9 +272,9 @@ export function RecordingRulesListInstance(
   ): Promise<ApiResponse<RecordingRulesInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -297,16 +295,14 @@ export function RecordingRulesListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<RecordingRulesInstance> => ({
-          ...response,
-          body: new RecordingRulesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.roomSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<RecordingRulesInstance> => ({
+        ...response,
+        body: new RecordingRulesInstance(
+          operationVersion,
+          response.body,
+          instance._solution.roomSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

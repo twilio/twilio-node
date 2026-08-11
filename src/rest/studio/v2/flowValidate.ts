@@ -195,12 +195,10 @@ export function FlowValidateListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<FlowValidateInstance> => ({
-          ...response,
-          body: new FlowValidateInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<FlowValidateInstance> => ({
+        ...response,
+        body: new FlowValidateInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -230,7 +228,10 @@ interface FlowValidateResource {
 }
 
 export class FlowValidateInstance {
-  constructor(protected _version: V2, payload: FlowValidateResource) {
+  constructor(
+    protected _version: V2,
+    payload: FlowValidateResource
+  ) {
     this.valid = payload.valid;
   }
 

@@ -92,13 +92,15 @@ export interface PluginVersionArchiveContextSolution {
   sid: string;
 }
 
-export class PluginVersionArchiveContextImpl
-  implements PluginVersionArchiveContext
-{
+export class PluginVersionArchiveContextImpl implements PluginVersionArchiveContext {
   protected _solution: PluginVersionArchiveContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, pluginSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    pluginSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(pluginSid)) {
       throw new Error("Parameter 'pluginSid' is not valid.");
     }
@@ -119,9 +121,9 @@ export class PluginVersionArchiveContextImpl
   ): Promise<PluginVersionArchiveInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -171,9 +173,9 @@ export class PluginVersionArchiveContextImpl
   ): Promise<ApiResponse<PluginVersionArchiveInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -193,17 +195,15 @@ export class PluginVersionArchiveContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PluginVersionArchiveInstance> => ({
-          ...response,
-          body: new PluginVersionArchiveInstance(
-            operationVersion,
-            response.body,
-            instance._solution.pluginSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PluginVersionArchiveInstance> => ({
+        ...response,
+        body: new PluginVersionArchiveInstance(
+          operationVersion,
+          response.body,
+          instance._solution.pluginSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -262,10 +262,7 @@ export class PluginVersionArchiveInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = {
-      pluginSid: pluginSid || this.pluginSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { pluginSid: pluginSid, sid: sid };
   }
 
   /**

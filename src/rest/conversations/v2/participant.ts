@@ -22,10 +22,7 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 export class ConversationsV2Address {
-  /**
-   * The channel for Communication.
-   */
-  "channel": string;
+  "channel": ConversationsV2Channel;
   /**
    * The address value formatted according to channel type: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\") - CHAT: Customer-defined string identifier
    */
@@ -42,21 +39,22 @@ export class ConversationsV2Address {
   }
 }
 
-export class CreateParticipantInConversationRequest {
-  "name"?: string;
-  "type"?: string;
-  "profileId"?: string;
-  "addresses": Array<CreateParticipantInConversationRequestAddresses>;
+/**
+ * Channel type for a Communication address.
+ */
+export type ConversationsV2Channel =
+  "VOICE" | "SMS" | "RCS" | "WHATSAPP" | "CHAT";
 
-  constructor(payload) {
-    this.name = payload["name"];
-    this.type = payload["type"];
-    this.profileId = payload["profileId"];
-    this.addresses = payload["addresses"];
-  }
-}
+/**
+ * Type of Participant in the Conversation.
+ */
+export type ConversationsV2ParticipantType =
+  "HUMAN_AGENT" | "CUSTOMER" | "AI_AGENT" | "AGENT" | "UNKNOWN";
 
-export class CreateParticipantInConversationRequestAddresses {
+export class CreateConversationWithConfigRequestParticipantsAddresses {
+  /**
+   * Channel type for a Communication address.
+   */
   "channel": string;
   "address": string;
   "channelId"?: string;
@@ -68,11 +66,31 @@ export class CreateParticipantInConversationRequestAddresses {
   }
 }
 
-export class UpdateParticipantInConversationRequest {
+export class CreateParticipantInConversationRequest {
   "name"?: string;
+  /**
+   * Type of Participant in the Conversation.
+   */
   "type"?: string;
   "profileId"?: string;
-  "addresses"?: Array<CreateParticipantInConversationRequestAddresses>;
+  "addresses": Array<CreateConversationWithConfigRequestParticipantsAddresses>;
+
+  constructor(payload) {
+    this.name = payload["name"];
+    this.type = payload["type"];
+    this.profileId = payload["profileId"];
+    this.addresses = payload["addresses"];
+  }
+}
+
+export class UpdateParticipantInConversationRequest {
+  "name"?: string;
+  /**
+   * Type of Participant in the Conversation.
+   */
+  "type"?: string;
+  "profileId"?: string;
+  "addresses"?: Array<CreateConversationWithConfigRequestParticipantsAddresses>;
 
   constructor(payload) {
     this.name = payload["name"];
@@ -226,25 +244,29 @@ export interface ParticipantContext {
 }
 
 export interface ParticipantContextSolution {
-  conversationSid: string;
-  sid: string;
+  conversationId: string;
+  id: string;
 }
 
 export class ParticipantContextImpl implements ParticipantContext {
   protected _solution: ParticipantContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, conversationSid: string, sid: string) {
-    if (!isValidPathParam(conversationSid)) {
-      throw new Error("Parameter 'conversationSid' is not valid.");
+  constructor(
+    protected _version: V2,
+    conversationId: string,
+    id: string
+  ) {
+    if (!isValidPathParam(conversationId)) {
+      throw new Error("Parameter 'conversationId' is not valid.");
     }
 
-    if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+    if (!isValidPathParam(id)) {
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { conversationSid, sid };
-    this._uri = `/Conversations/${conversationSid}/Participants/${sid}`;
+    this._solution = { conversationId, id };
+    this._uri = `/Conversations/${conversationId}/Participants/${id}`;
   }
 
   fetch(
@@ -266,8 +288,8 @@ export class ParticipantContextImpl implements ParticipantContext {
         new ParticipantInstance(
           operationVersion,
           payload,
-          instance._solution.conversationSid,
-          instance._solution.sid
+          instance._solution.conversationId,
+          instance._solution.id
         )
     );
 
@@ -296,17 +318,15 @@ export class ParticipantContextImpl implements ParticipantContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conversationId,
+          instance._solution.id
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -357,8 +377,8 @@ export class ParticipantContextImpl implements ParticipantContext {
         new ParticipantInstance(
           operationVersion,
           payload,
-          instance._solution.conversationSid,
-          instance._solution.sid
+          instance._solution.conversationId,
+          instance._solution.id
         )
     );
 
@@ -410,17 +430,15 @@ export class ParticipantContextImpl implements ParticipantContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conversationId,
+          instance._solution.id
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -452,7 +470,7 @@ interface ParticipantResource {
   conversationId: string;
   accountId: string;
   name: string;
-  type: string;
+  type: ConversationsV2ParticipantType;
   profileId: string;
   addresses: Array<ConversationsV2Address>;
   createdAt: Date;
@@ -466,8 +484,8 @@ export class ParticipantInstance {
   constructor(
     protected _version: V2,
     _payload: ParticipantResource,
-    conversationSid: string,
-    sid?: string
+    conversationId: string,
+    id?: string
   ) {
     const payload = _payload;
     this.id = payload.id;
@@ -485,7 +503,7 @@ export class ParticipantInstance {
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
 
-    this._solution = { conversationSid, sid: sid };
+    this._solution = { conversationId, id: id };
   }
 
   /**
@@ -504,10 +522,7 @@ export class ParticipantInstance {
    * Participant display name.
    */
   name: string;
-  /**
-   * Type of Participant in the Conversation.
-   */
-  type: string;
+  type: ConversationsV2ParticipantType;
   /**
    * Profile ID. Note: This field is only resolved for `CUSTOMER` participant types, not for `HUMAN_AGENT` or `AI_AGENT` participants.
    */
@@ -530,8 +545,8 @@ export class ParticipantInstance {
       this._context ||
       new ParticipantContextImpl(
         this._version,
-        this._solution.conversationSid,
-        this._solution.sid
+        this._solution.conversationId,
+        this._solution.id
       );
     return this._context;
   }
@@ -663,7 +678,7 @@ export class ParticipantInstance {
 }
 
 export interface ParticipantSolution {
-  conversationSid: string;
+  conversationId: string;
 }
 
 export interface ParticipantListInstance {
@@ -671,8 +686,8 @@ export interface ParticipantListInstance {
   _solution: ParticipantSolution;
   _uri: string;
 
-  (sid: string): ParticipantContext;
-  get(sid: string): ParticipantContext;
+  (id: string): ParticipantContext;
+  get(id: string): ParticipantContext;
 
   /**
    * Create a ParticipantInstance
@@ -884,21 +899,21 @@ export interface ParticipantListInstance {
 
 export function ParticipantListInstance(
   version: V2,
-  conversationSid: string
+  conversationId: string
 ): ParticipantListInstance {
-  if (!isValidPathParam(conversationSid)) {
-    throw new Error("Parameter 'conversationSid' is not valid.");
+  if (!isValidPathParam(conversationId)) {
+    throw new Error("Parameter 'conversationId' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as ParticipantListInstance;
+  const instance = ((id) => instance.get(id)) as ParticipantListInstance;
 
-  instance.get = function get(sid): ParticipantContext {
-    return new ParticipantContextImpl(version, conversationSid, sid);
+  instance.get = function get(id): ParticipantContext {
+    return new ParticipantContextImpl(version, conversationId, id);
   };
 
   instance._version = version;
-  instance._solution = { conversationSid };
-  instance._uri = `/Conversations/${conversationSid}/Participants`;
+  instance._solution = { conversationId };
+  instance._uri = `/Conversations/${conversationId}/Participants`;
 
   instance.create = function create(
     params?:
@@ -941,7 +956,7 @@ export function ParticipantListInstance(
         new ParticipantInstance(
           operationVersion,
           payload,
-          instance._solution.conversationSid
+          instance._solution.conversationId
         )
     );
 
@@ -992,16 +1007,14 @@ export function ParticipantListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conversationId
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1111,19 +1124,17 @@ export function ParticipantListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ParticipantPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ParticipantPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ParticipantPage(
+          operationVersion,
+          response,
+          instance._uri,
+          data,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1215,7 +1226,7 @@ export class ParticipantPage extends TokenPage<
     return new ParticipantInstance(
       this._version,
       payload,
-      this._solution.conversationSid
+      this._solution.conversationId
     );
   }
 

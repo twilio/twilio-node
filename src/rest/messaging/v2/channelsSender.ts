@@ -303,12 +303,17 @@ export class MessagingV2ChannelsSenderRequestsCreate {
    * The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
    */
   "senderId": string | null;
+  /**
+   * Optional display label for the sender in the Twilio Console.
+   */
+  "friendlyName"?: string | null;
   "configuration"?: MessagingV2ChannelsSenderConfiguration | null;
   "webhook"?: MessagingV2ChannelsSenderWebhook | null;
   "profile"?: MessagingV2ChannelsSenderProfile | null;
 
   constructor(payload) {
     this.senderId = payload["sender_id"];
+    this.friendlyName = payload["friendly_name"];
     this.configuration = payload["configuration"];
     this.webhook = payload["webhook"];
     this.profile = payload["profile"];
@@ -316,11 +321,16 @@ export class MessagingV2ChannelsSenderRequestsCreate {
 }
 
 export class MessagingV2ChannelsSenderRequestsUpdate {
+  /**
+   * Optional display label for the sender in the Twilio Console.
+   */
+  "friendlyName"?: string | null;
   "configuration"?: MessagingV2ChannelsSenderConfiguration | null;
   "webhook"?: MessagingV2ChannelsSenderWebhook | null;
   "profile"?: MessagingV2ChannelsSenderProfile | null;
 
   constructor(payload) {
+    this.friendlyName = payload["friendly_name"];
     this.configuration = payload["configuration"];
     this.webhook = payload["webhook"];
     this.profile = payload["profile"];
@@ -433,10 +443,7 @@ export class MessagingV2RcsComplianceResponse {
  * The country-level status. Based on the aggregation of the carrier-level status.
  */
 export type MessagingV2RcsCountryStatus =
-  | "ONLINE"
-  | "OFFLINE"
-  | "TWILIO_REVIEW"
-  | "PENDING_VERIFICATION";
+  "ONLINE" | "OFFLINE" | "TWILIO_REVIEW" | "PENDING_VERIFICATION";
 
 /**
  * Options to pass to update a ChannelsSenderInstance
@@ -618,7 +625,10 @@ export class ChannelsSenderContextImpl implements ChannelsSenderContext {
   protected _solution: ChannelsSenderContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -657,12 +667,10 @@ export class ChannelsSenderContextImpl implements ChannelsSenderContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -719,16 +727,14 @@ export class ChannelsSenderContextImpl implements ChannelsSenderContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ChannelsSenderInstance> => ({
-          ...response,
-          body: new ChannelsSenderInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ChannelsSenderInstance> => ({
+        ...response,
+        body: new ChannelsSenderInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -746,9 +752,12 @@ export class ChannelsSenderContextImpl implements ChannelsSenderContext {
   ): Promise<ChannelsSenderInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<MessagingV2ChannelsSenderRequestsUpdate> as MessagingV2ChannelsSenderRequestsUpdate;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<MessagingV2ChannelsSenderRequestsUpdate> as MessagingV2ChannelsSenderRequestsUpdate);
     }
 
     let data: any = {};
@@ -802,9 +811,12 @@ export class ChannelsSenderContextImpl implements ChannelsSenderContext {
   ): Promise<ApiResponse<ChannelsSenderInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<MessagingV2ChannelsSenderRequestsUpdate> as MessagingV2ChannelsSenderRequestsUpdate;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<MessagingV2ChannelsSenderRequestsUpdate> as MessagingV2ChannelsSenderRequestsUpdate);
     }
 
     let data: any = {};
@@ -828,16 +840,14 @@ export class ChannelsSenderContextImpl implements ChannelsSenderContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ChannelsSenderInstance> => ({
-          ...response,
-          body: new ChannelsSenderInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ChannelsSenderInstance> => ({
+        ...response,
+        body: new ChannelsSenderInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -868,6 +878,7 @@ interface ChannelsSenderResource {
   sid: string;
   status: ChannelsSenderStatus;
   sender_id: string;
+  friendly_name: string;
   configuration: MessagingV2ChannelsSenderConfiguration;
   webhook: MessagingV2ChannelsSenderWebhook;
   profile: MessagingV2ChannelsSenderProfileGenericResponse;
@@ -889,6 +900,7 @@ export class ChannelsSenderInstance {
     this.sid = payload.sid;
     this.status = payload.status;
     this.senderId = payload.sender_id;
+    this.friendlyName = payload.friendly_name;
     this.configuration =
       payload.configuration !== null && payload.configuration !== undefined
         ? new MessagingV2ChannelsSenderConfiguration(payload.configuration)
@@ -918,7 +930,7 @@ export class ChannelsSenderInstance {
         : null;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -930,6 +942,10 @@ export class ChannelsSenderInstance {
    * The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
    */
   senderId: string;
+  /**
+   * Optional display label for the sender in the Twilio Console.
+   */
+  friendlyName: string;
   configuration: MessagingV2ChannelsSenderConfiguration;
   webhook: MessagingV2ChannelsSenderWebhook;
   profile: MessagingV2ChannelsSenderProfileGenericResponse;
@@ -1089,6 +1105,7 @@ export class ChannelsSenderInstance {
       sid: this.sid,
       status: this.status,
       senderId: this.senderId,
+      friendlyName: this.friendlyName,
       configuration: this.configuration,
       webhook: this.webhook,
       profile: this.profile,
@@ -1380,12 +1397,10 @@ export function ChannelsSenderListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ChannelsSenderInstance> => ({
-          ...response,
-          body: new ChannelsSenderInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ChannelsSenderInstance> => ({
+        ...response,
+        body: new ChannelsSenderInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1488,17 +1503,15 @@ export function ChannelsSenderListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ChannelsSenderPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ChannelsSenderPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ChannelsSenderPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ChannelsSenderPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

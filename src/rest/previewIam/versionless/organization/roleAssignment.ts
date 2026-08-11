@@ -210,12 +210,10 @@ export class RoleAssignmentContextImpl implements RoleAssignmentContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -276,7 +274,7 @@ export class RoleAssignmentInstance {
     this.moreInfo = payload.moreInfo;
     this.status = payload.status;
 
-    this._solution = { organizationSid, sid: sid || this.sid };
+    this._solution = { organizationSid, sid: sid };
   }
 
   /**
@@ -694,16 +692,14 @@ export function RoleAssignmentListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<RoleAssignmentInstance> => ({
-          ...response,
-          body: new RoleAssignmentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.organizationSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<RoleAssignmentInstance> => ({
+        ...response,
+        body: new RoleAssignmentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.organizationSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -818,17 +814,15 @@ export function RoleAssignmentListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<RoleAssignmentPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new RoleAssignmentPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<RoleAssignmentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new RoleAssignmentPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

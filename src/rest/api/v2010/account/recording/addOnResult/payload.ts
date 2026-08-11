@@ -196,12 +196,10 @@ export class PayloadContextImpl implements PayloadContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -258,19 +256,17 @@ export class PayloadContextImpl implements PayloadContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<PayloadInstance> => ({
-          ...response,
-          body: new PayloadInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.referenceSid,
-            instance._solution.addOnResultSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PayloadInstance> => ({
+        ...response,
+        body: new PayloadInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.referenceSid,
+          instance._solution.addOnResultSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -335,12 +331,7 @@ export class PayloadInstance {
     this.referenceSid = payload.reference_sid;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = {
-      accountSid,
-      referenceSid,
-      addOnResultSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { accountSid, referenceSid, addOnResultSid, sid: sid };
   }
 
   /**
@@ -777,13 +768,11 @@ export function PayloadListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<PayloadPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new PayloadPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<PayloadPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PayloadPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

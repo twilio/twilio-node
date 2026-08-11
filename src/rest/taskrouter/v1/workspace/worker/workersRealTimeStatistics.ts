@@ -97,13 +97,14 @@ export interface WorkersRealTimeStatisticsContextSolution {
   workspaceSid: string;
 }
 
-export class WorkersRealTimeStatisticsContextImpl
-  implements WorkersRealTimeStatisticsContext
-{
+export class WorkersRealTimeStatisticsContextImpl implements WorkersRealTimeStatisticsContext {
   protected _solution: WorkersRealTimeStatisticsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, workspaceSid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string
+  ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
     }
@@ -126,9 +127,9 @@ export class WorkersRealTimeStatisticsContextImpl
   ): Promise<WorkersRealTimeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -178,9 +179,9 @@ export class WorkersRealTimeStatisticsContextImpl
   ): Promise<ApiResponse<WorkersRealTimeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -201,16 +202,14 @@ export class WorkersRealTimeStatisticsContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkersRealTimeStatisticsInstance> => ({
-          ...response,
-          body: new WorkersRealTimeStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkersRealTimeStatisticsInstance> => ({
+        ...response,
+        body: new WorkersRealTimeStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -233,8 +232,7 @@ export class WorkersRealTimeStatisticsContextImpl
   }
 }
 
-interface WorkersRealTimeStatisticsPayload
-  extends WorkersRealTimeStatisticsResource {}
+interface WorkersRealTimeStatisticsPayload extends WorkersRealTimeStatisticsResource {}
 
 interface WorkersRealTimeStatisticsResource {
   account_sid: string;

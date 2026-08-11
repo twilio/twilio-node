@@ -19,6 +19,22 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+/**
+ * Options to pass to create a SecondaryAuthTokenInstance
+ */
+export interface SecondaryAuthTokenContextCreateOptions {
+  /** Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts. */
+  suppressEmailNotification?: boolean;
+}
+
+/**
+ * Options to pass to remove a SecondaryAuthTokenInstance
+ */
+export interface SecondaryAuthTokenContextRemoveOptions {
+  /** Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts. */
+  suppressEmailNotification?: boolean;
+}
+
 export interface SecondaryAuthTokenContext {
   /**
    * Create a SecondaryAuthTokenInstance
@@ -28,6 +44,18 @@ export interface SecondaryAuthTokenContext {
    * @returns Resolves to processed SecondaryAuthTokenInstance
    */
   create(
+    callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
+  ): Promise<SecondaryAuthTokenInstance>;
+  /**
+   * Create a SecondaryAuthTokenInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SecondaryAuthTokenInstance
+   */
+  create(
+    params: SecondaryAuthTokenContextCreateOptions,
     callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
   ): Promise<SecondaryAuthTokenInstance>;
 
@@ -44,6 +72,21 @@ export interface SecondaryAuthTokenContext {
       item?: ApiResponse<SecondaryAuthTokenInstance>
     ) => any
   ): Promise<ApiResponse<SecondaryAuthTokenInstance>>;
+  /**
+   * Create a SecondaryAuthTokenInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SecondaryAuthTokenInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: SecondaryAuthTokenContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SecondaryAuthTokenInstance>
+    ) => any
+  ): Promise<ApiResponse<SecondaryAuthTokenInstance>>;
 
   /**
    * Remove a SecondaryAuthTokenInstance
@@ -53,6 +96,18 @@ export interface SecondaryAuthTokenContext {
    * @returns Resolves to processed boolean
    */
   remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a SecondaryAuthTokenInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SecondaryAuthTokenInstance
+   */
+  remove(
+    params: SecondaryAuthTokenContextRemoveOptions,
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean>;
 
@@ -66,6 +121,18 @@ export interface SecondaryAuthTokenContext {
   removeWithHttpInfo(
     callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>>;
+  /**
+   * Remove a SecondaryAuthTokenInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SecondaryAuthTokenInstance with HTTP metadata
+   */
+  removeWithHttpInfo(
+    params: SecondaryAuthTokenContextRemoveOptions,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Provide a user-friendly representation
@@ -76,9 +143,7 @@ export interface SecondaryAuthTokenContext {
 
 export interface SecondaryAuthTokenContextSolution {}
 
-export class SecondaryAuthTokenContextImpl
-  implements SecondaryAuthTokenContext
-{
+export class SecondaryAuthTokenContextImpl implements SecondaryAuthTokenContext {
   protected _solution: SecondaryAuthTokenContextSolution;
   protected _uri: string;
 
@@ -88,9 +153,27 @@ export class SecondaryAuthTokenContextImpl
   }
 
   create(
+    params?:
+      | SecondaryAuthTokenContextCreateOptions
+      | ((error: Error | null, item?: SecondaryAuthTokenInstance) => any),
     callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
   ): Promise<SecondaryAuthTokenInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {} as any;
+    } else {
+      params = params || ({} as any);
+    }
+
+    let data: any = {};
+
+    if (params["suppressEmailNotification"] !== undefined)
+      data["SuppressEmailNotification"] = serialize.bool(
+        params["suppressEmailNotification"]
+      );
+
     const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
     headers["Accept"] = "application/json";
 
     const instance = this;
@@ -98,6 +181,7 @@ export class SecondaryAuthTokenContextImpl
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        data,
         headers,
       });
 
@@ -113,12 +197,33 @@ export class SecondaryAuthTokenContextImpl
   }
 
   createWithHttpInfo(
+    params?:
+      | SecondaryAuthTokenContextCreateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<SecondaryAuthTokenInstance>
+        ) => any),
     callback?: (
       error: Error | null,
       item?: ApiResponse<SecondaryAuthTokenInstance>
     ) => any
   ): Promise<ApiResponse<SecondaryAuthTokenInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {} as any;
+    } else {
+      params = params || ({} as any);
+    }
+
+    let data: any = {};
+
+    if (params["suppressEmailNotification"] !== undefined)
+      data["SuppressEmailNotification"] = serialize.bool(
+        params["suppressEmailNotification"]
+      );
+
     const headers: any = {};
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
     headers["Accept"] = "application/json";
 
     const instance = this;
@@ -128,14 +233,13 @@ export class SecondaryAuthTokenContextImpl
       .createWithResponseInfo<SecondaryAuthTokenResource>({
         uri: instance._uri,
         method: "post",
+        data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SecondaryAuthTokenInstance> => ({
-          ...response,
-          body: new SecondaryAuthTokenInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<SecondaryAuthTokenInstance> => ({
+        ...response,
+        body: new SecondaryAuthTokenInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -145,8 +249,25 @@ export class SecondaryAuthTokenContextImpl
   }
 
   remove(
+    params?:
+      | SecondaryAuthTokenContextRemoveOptions
+      | ((error: Error | null, item?: boolean) => any),
     callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {} as any;
+    } else {
+      params = params || ({} as any);
+    }
+
+    let data: any = {};
+
+    if (params["suppressEmailNotification"] !== undefined)
+      data["SuppressEmailNotification"] = serialize.bool(
+        params["suppressEmailNotification"]
+      );
+
     const headers: any = {};
 
     const instance = this;
@@ -154,6 +275,7 @@ export class SecondaryAuthTokenContextImpl
       operationPromise = operationVersion.remove({
         uri: instance._uri,
         method: "delete",
+        params: data,
         headers,
       });
 
@@ -165,21 +287,41 @@ export class SecondaryAuthTokenContextImpl
   }
 
   removeWithHttpInfo(
+    params?:
+      | SecondaryAuthTokenContextRemoveOptions
+      | ((error: Error | null, item?: ApiResponse<boolean>) => any),
     callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {} as any;
+    } else {
+      params = params || ({} as any);
+    }
+
+    let data: any = {};
+
+    if (params["suppressEmailNotification"] !== undefined)
+      data["SuppressEmailNotification"] = serialize.bool(
+        params["suppressEmailNotification"]
+      );
+
     const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .removeWithResponseInfo({
+        uri: instance._uri,
+        method: "delete",
+        params: data,
+        headers,
+      })
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -216,7 +358,10 @@ export class SecondaryAuthTokenInstance {
   protected _solution: SecondaryAuthTokenContextSolution;
   protected _context?: SecondaryAuthTokenContext;
 
-  constructor(protected _version: V1, payload: SecondaryAuthTokenResource) {
+  constructor(
+    protected _version: V1,
+    payload: SecondaryAuthTokenResource
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
@@ -262,8 +407,25 @@ export class SecondaryAuthTokenInstance {
    */
   create(
     callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
+  ): Promise<SecondaryAuthTokenInstance>;
+  /**
+   * Create a SecondaryAuthTokenInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SecondaryAuthTokenInstance
+   */
+  create(
+    params: SecondaryAuthTokenContextCreateOptions,
+    callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
+  ): Promise<SecondaryAuthTokenInstance>;
+
+  create(
+    params?: any,
+    callback?: (error: Error | null, item?: SecondaryAuthTokenInstance) => any
   ): Promise<SecondaryAuthTokenInstance> {
-    return this._proxy.create(callback);
+    return this._proxy.create(params, callback);
   }
 
   /**
@@ -278,8 +440,31 @@ export class SecondaryAuthTokenInstance {
       error: Error | null,
       item?: ApiResponse<SecondaryAuthTokenInstance>
     ) => any
+  ): Promise<ApiResponse<SecondaryAuthTokenInstance>>;
+  /**
+   * Create a SecondaryAuthTokenInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SecondaryAuthTokenInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: SecondaryAuthTokenContextCreateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SecondaryAuthTokenInstance>
+    ) => any
+  ): Promise<ApiResponse<SecondaryAuthTokenInstance>>;
+
+  createWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<SecondaryAuthTokenInstance>
+    ) => any
   ): Promise<ApiResponse<SecondaryAuthTokenInstance>> {
-    return this._proxy.createWithHttpInfo(callback);
+    return this._proxy.createWithHttpInfo(params, callback);
   }
 
   /**
@@ -291,8 +476,25 @@ export class SecondaryAuthTokenInstance {
    */
   remove(
     callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+  /**
+   * Remove a SecondaryAuthTokenInstance
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SecondaryAuthTokenInstance
+   */
+  remove(
+    params: SecondaryAuthTokenContextRemoveOptions,
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  remove(
+    params?: any,
+    callback?: (error: Error | null, item?: boolean) => any
   ): Promise<boolean> {
-    return this._proxy.remove(callback);
+    return this._proxy.remove(params, callback);
   }
 
   /**
@@ -304,8 +506,25 @@ export class SecondaryAuthTokenInstance {
    */
   removeWithHttpInfo(
     callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+  /**
+   * Remove a SecondaryAuthTokenInstance and return HTTP info
+   *
+   * @param params - Parameter for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed SecondaryAuthTokenInstance with HTTP metadata
+   */
+  removeWithHttpInfo(
+    params: SecondaryAuthTokenContextRemoveOptions,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  removeWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
   ): Promise<ApiResponse<boolean>> {
-    return this._proxy.removeWithHttpInfo(callback);
+    return this._proxy.removeWithHttpInfo(params, callback);
   }
 
   /**

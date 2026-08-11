@@ -31,23 +31,12 @@ export type ConferenceConferenceEndReason =
   | "participant_with_end_conference_on_exit_kicked";
 
 export type ConferenceConferenceStatus =
-  | "in_progress"
-  | "not_started"
-  | "completed"
-  | "summary_timeout";
+  "in_progress" | "not_started" | "completed" | "summary_timeout";
 
 export type ConferenceProcessingState = "complete" | "in_progress" | "timeout";
 
 export type ConferenceRegion =
-  | "us1"
-  | "us2"
-  | "au1"
-  | "br1"
-  | "ie1"
-  | "jp1"
-  | "sg1"
-  | "de1"
-  | "in1";
+  "us1" | "us2" | "au1" | "br1" | "ie1" | "jp1" | "sg1" | "de1" | "in1";
 
 export type ConferenceTag =
   | "invalid_requested_region"
@@ -204,7 +193,10 @@ export class ConferenceContextImpl implements ConferenceContext {
 
   protected _conferenceParticipants?: ConferenceParticipantListInstance;
 
-  constructor(protected _version: V1, conferenceSid: string) {
+  constructor(
+    protected _version: V1,
+    conferenceSid: string
+  ) {
     if (!isValidPathParam(conferenceSid)) {
       throw new Error("Parameter 'conferenceSid' is not valid.");
     }
@@ -271,16 +263,14 @@ export class ConferenceContextImpl implements ConferenceContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ConferenceInstance> => ({
-          ...response,
-          body: new ConferenceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conferenceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConferenceInstance> => ({
+        ...response,
+        body: new ConferenceInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conferenceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -370,7 +360,7 @@ export class ConferenceInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { conferenceSid: conferenceSid || this.conferenceSid };
+    this._solution = { conferenceSid: conferenceSid };
   }
 
   /**
@@ -833,17 +823,15 @@ export function ConferenceListInstance(version: V1): ConferenceListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ConferencePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ConferencePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConferencePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ConferencePage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

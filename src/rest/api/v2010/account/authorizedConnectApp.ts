@@ -104,9 +104,7 @@ export interface AuthorizedConnectAppContextSolution {
   connectAppSid: string;
 }
 
-export class AuthorizedConnectAppContextImpl
-  implements AuthorizedConnectAppContext
-{
+export class AuthorizedConnectAppContextImpl implements AuthorizedConnectAppContext {
   protected _solution: AuthorizedConnectAppContextSolution;
   protected _uri: string;
 
@@ -176,17 +174,15 @@ export class AuthorizedConnectAppContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AuthorizedConnectAppInstance> => ({
-          ...response,
-          body: new AuthorizedConnectAppInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.connectAppSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AuthorizedConnectAppInstance> => ({
+        ...response,
+        body: new AuthorizedConnectAppInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.connectAppSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -243,10 +239,7 @@ export class AuthorizedConnectAppInstance {
     this.permissions = payload.permissions;
     this.uri = payload.uri;
 
-    this._solution = {
-      accountSid,
-      connectAppSid: connectAppSid || this.connectAppSid,
-    };
+    this._solution = { accountSid, connectAppSid: connectAppSid };
   }
 
   /**
@@ -664,17 +657,15 @@ export function AuthorizedConnectAppListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AuthorizedConnectAppPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AuthorizedConnectAppPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<AuthorizedConnectAppPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AuthorizedConnectAppPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

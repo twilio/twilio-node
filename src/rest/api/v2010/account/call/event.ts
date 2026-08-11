@@ -322,13 +322,11 @@ export function EventListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<EventPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new EventPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<EventPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new EventPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

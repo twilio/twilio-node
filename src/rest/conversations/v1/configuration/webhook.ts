@@ -172,12 +172,10 @@ export class WebhookContextImpl implements WebhookContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<WebhookInstance> => ({
-          ...response,
-          body: new WebhookInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<WebhookInstance> => ({
+        ...response,
+        body: new WebhookInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -194,9 +192,9 @@ export class WebhookContextImpl implements WebhookContext {
   ): Promise<WebhookInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -242,9 +240,9 @@ export class WebhookContextImpl implements WebhookContext {
   ): Promise<ApiResponse<WebhookInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -272,12 +270,10 @@ export class WebhookContextImpl implements WebhookContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WebhookInstance> => ({
-          ...response,
-          body: new WebhookInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<WebhookInstance> => ({
+        ...response,
+        body: new WebhookInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -316,7 +312,10 @@ export class WebhookInstance {
   protected _solution: WebhookContextSolution;
   protected _context?: WebhookContext;
 
-  constructor(protected _version: V1, payload: WebhookResource) {
+  constructor(
+    protected _version: V1,
+    payload: WebhookResource
+  ) {
     this.accountSid = payload.account_sid;
     this.method = payload.method;
     this.filters = payload.filters;

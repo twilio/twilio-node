@@ -82,9 +82,7 @@ export interface PortingPortInPhoneNumberContextSolution {
   phoneNumberSid: string;
 }
 
-export class PortingPortInPhoneNumberContextImpl
-  implements PortingPortInPhoneNumberContext
-{
+export class PortingPortInPhoneNumberContextImpl implements PortingPortInPhoneNumberContext {
   protected _solution: PortingPortInPhoneNumberContextSolution;
   protected _uri: string;
 
@@ -135,12 +133,10 @@ export class PortingPortInPhoneNumberContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -201,17 +197,15 @@ export class PortingPortInPhoneNumberContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<PortingPortInPhoneNumberInstance> => ({
-          ...response,
-          body: new PortingPortInPhoneNumberInstance(
-            operationVersion,
-            response.body,
-            instance._solution.portInRequestSid,
-            instance._solution.phoneNumberSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PortingPortInPhoneNumberInstance> => ({
+        ...response,
+        body: new PortingPortInPhoneNumberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.portInRequestSid,
+          instance._solution.phoneNumberSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -234,8 +228,7 @@ export class PortingPortInPhoneNumberContextImpl
   }
 }
 
-interface PortingPortInPhoneNumberPayload
-  extends PortingPortInPhoneNumberResource {}
+interface PortingPortInPhoneNumberPayload extends PortingPortInPhoneNumberResource {}
 
 interface PortingPortInPhoneNumberResource {
   port_in_request_sid: string;
@@ -292,8 +285,8 @@ export class PortingPortInPhoneNumberInstance {
     this.portDate = deserialize.iso8601DateTime(payload.port_date);
 
     this._solution = {
-      portInRequestSid: portInRequestSid || this.portInRequestSid,
-      phoneNumberSid: phoneNumberSid || this.phoneNumberSid,
+      portInRequestSid: portInRequestSid,
+      phoneNumberSid: phoneNumberSid,
     };
   }
 

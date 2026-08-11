@@ -133,7 +133,11 @@ export class CredentialListContextImpl implements CredentialListContext {
   protected _solution: CredentialListContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, trunkSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    trunkSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(trunkSid)) {
       throw new Error("Parameter 'trunkSid' is not valid.");
     }
@@ -176,12 +180,10 @@ export class CredentialListContextImpl implements CredentialListContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -239,17 +241,15 @@ export class CredentialListContextImpl implements CredentialListContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CredentialListInstance> => ({
-          ...response,
-          body: new CredentialListInstance(
-            operationVersion,
-            response.body,
-            instance._solution.trunkSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CredentialListInstance> => ({
+        ...response,
+        body: new CredentialListInstance(
+          operationVersion,
+          response.body,
+          instance._solution.trunkSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -304,7 +304,7 @@ export class CredentialListInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { trunkSid, sid: sid || this.sid };
+    this._solution = { trunkSid, sid: sid };
   }
 
   /**
@@ -742,16 +742,14 @@ export function CredentialListListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CredentialListInstance> => ({
-          ...response,
-          body: new CredentialListInstance(
-            operationVersion,
-            response.body,
-            instance._solution.trunkSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CredentialListInstance> => ({
+        ...response,
+        body: new CredentialListInstance(
+          operationVersion,
+          response.body,
+          instance._solution.trunkSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -854,17 +852,15 @@ export function CredentialListListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CredentialListPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CredentialListPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<CredentialListPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CredentialListPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

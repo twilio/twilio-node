@@ -256,7 +256,11 @@ export class ApplicationContextImpl implements ApplicationContext {
   protected _solution: ApplicationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -299,12 +303,10 @@ export class ApplicationContextImpl implements ApplicationContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -362,17 +364,15 @@ export class ApplicationContextImpl implements ApplicationContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ApplicationInstance> => ({
-          ...response,
-          body: new ApplicationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ApplicationInstance> => ({
+        ...response,
+        body: new ApplicationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -389,9 +389,9 @@ export class ApplicationContextImpl implements ApplicationContext {
   ): Promise<ApplicationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -472,9 +472,9 @@ export class ApplicationContextImpl implements ApplicationContext {
   ): Promise<ApiResponse<ApplicationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -528,17 +528,15 @@ export class ApplicationContextImpl implements ApplicationContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ApplicationInstance> => ({
-          ...response,
-          body: new ApplicationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ApplicationInstance> => ({
+        ...response,
+        body: new ApplicationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -622,7 +620,7 @@ export class ApplicationInstance {
     this.publicApplicationConnectEnabled =
       payload.public_application_connect_enabled;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -1123,9 +1121,9 @@ export function ApplicationListInstance(
   ): Promise<ApplicationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1204,9 +1202,9 @@ export function ApplicationListInstance(
   ): Promise<ApiResponse<ApplicationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1259,16 +1257,14 @@ export function ApplicationListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ApplicationInstance> => ({
-          ...response,
-          body: new ApplicationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ApplicationInstance> => ({
+        ...response,
+        body: new ApplicationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1372,17 +1368,15 @@ export function ApplicationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ApplicationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ApplicationPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ApplicationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ApplicationPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

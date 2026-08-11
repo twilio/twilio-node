@@ -357,16 +357,15 @@ export function QueryListInstance(version: V2): QueryListInstance {
 
   instance.create = function create(
     params?:
-      | LookupRequest
-      | ((error: Error | null, items: QueryInstance) => any),
+      LookupRequest | ((error: Error | null, items: QueryInstance) => any),
     headers?: any,
     callback?: (error: Error | null, items: QueryInstance) => any
   ): Promise<QueryInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<LookupRequest> as LookupRequest;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<LookupRequest> as LookupRequest);
     }
 
     let data: any = {};
@@ -408,9 +407,9 @@ export function QueryListInstance(version: V2): QueryListInstance {
   ): Promise<ApiResponse<QueryInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<LookupRequest> as LookupRequest;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<LookupRequest> as LookupRequest);
     }
 
     let data: any = {};
@@ -433,12 +432,10 @@ export function QueryListInstance(version: V2): QueryListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<QueryInstance> => ({
-          ...response,
-          body: new QueryInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<QueryInstance> => ({
+        ...response,
+        body: new QueryInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -468,7 +465,10 @@ interface QueryResource {
 }
 
 export class QueryInstance {
-  constructor(protected _version: V2, payload: QueryResource) {
+  constructor(
+    protected _version: V2,
+    payload: QueryResource
+  ) {
     this.phoneNumbers =
       payload.phone_numbers !== null && payload.phone_numbers !== undefined
         ? payload.phone_numbers.map(

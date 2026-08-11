@@ -26,12 +26,7 @@ import { ApiResponse } from "../../../../../base/ApiResponse";
  * The status of the participant\'s call in a session. Can be: `queued`, `connecting`, `ringing`, `connected`, `complete`, or `failed`.
  */
 export type ParticipantStatus =
-  | "queued"
-  | "connecting"
-  | "ringing"
-  | "connected"
-  | "complete"
-  | "failed";
+  "queued" | "connecting" | "ringing" | "connected" | "complete" | "failed";
 
 /**
  * Options to pass to update a ParticipantInstance
@@ -165,10 +160,28 @@ export interface ParticipantListInstanceCreateOptions {
   trim?: string;
   /** A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call\\\'s call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call. */
   callToken?: string;
+  /** The STIR/SHAKEN passport for this call, provided as a base64 encoded string. Multiple passports (at max 5) are comma separated and provided as base64 encoded string */
+  passports?: string;
   /** The URL that we should use to deliver `push call notification`. */
   clientNotificationUrl?: string;
   /** The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address. */
   callerDisplayName?: string;
+  /** The emergency caller\\\'s GPS coordinates in decimal degrees format. Format: \\\"latitude longitude\\\" (space-separated) - Latitude: decimal degrees, range -90.0 to +90.0 (negative for South, positive for North) - Longitude: decimal degrees, range -180.0 to +180.0 (negative for West, positive for East) - Precision: up to 6 decimal places recommended for meter-level accuracy  Note: If the value exceeds 150 characters, only the first 150 characters will be used.  */
+  emergencyCallerPosition?: string;
+  /** The emergency caller\\\'s physical location description within a building or facility.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  emergencyCallerLocation?: string;
+  /** The emergency caller\\\'s organization or entity name.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  emergencyName?: string;
+  /** The emergency caller\\\'s street address including street number and street name.  Note: If the value exceeds 60 characters, only the first 60 characters will be used.  */
+  emergencyAddress?: string;
+  /** The emergency caller\\\'s postal code or ZIP code.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  emergencyZipCode?: string;
+  /** The emergency caller\\\'s city or municipality name. Should be the official city name as recognized by local authorities. Used in combination with state and country for emergency call routing.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  emergencyCity?: string;
+  /** The emergency caller\\\'s state or province.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  emergencyState?: string;
+  /** The emergency caller\\\'s country. Currently supported US and CA only.  Note: If the value exceeds 20 characters, only the first 20 characters will be used.  */
+  emergencyCountry?: string;
 }
 
 /**
@@ -394,12 +407,10 @@ export class ParticipantContextImpl implements ParticipantContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -458,18 +469,16 @@ export class ParticipantContextImpl implements ParticipantContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.conferenceSid,
-            instance._solution.callSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.conferenceSid,
+          instance._solution.callSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -486,9 +495,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   ): Promise<ParticipantInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -560,9 +569,9 @@ export class ParticipantContextImpl implements ParticipantContext {
   ): Promise<ApiResponse<ParticipantInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -606,18 +615,16 @@ export class ParticipantContextImpl implements ParticipantContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.conferenceSid,
-            instance._solution.callSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.conferenceSid,
+          instance._solution.callSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -689,11 +696,7 @@ export class ParticipantInstance {
     this.queueTime = payload.queue_time;
     this.uri = payload.uri;
 
-    this._solution = {
-      accountSid,
-      conferenceSid,
-      callSid: callSid || this.callSid,
-    };
+    this._solution = { accountSid, conferenceSid, callSid: callSid };
   }
 
   /**
@@ -1273,10 +1276,28 @@ export function ParticipantListInstance(
     if (params["trim"] !== undefined) data["Trim"] = params["trim"];
     if (params["callToken"] !== undefined)
       data["CallToken"] = params["callToken"];
+    if (params["passports"] !== undefined)
+      data["Passports"] = params["passports"];
     if (params["clientNotificationUrl"] !== undefined)
       data["ClientNotificationUrl"] = params["clientNotificationUrl"];
     if (params["callerDisplayName"] !== undefined)
       data["CallerDisplayName"] = params["callerDisplayName"];
+    if (params["emergencyCallerPosition"] !== undefined)
+      data["EmergencyCallerPosition"] = params["emergencyCallerPosition"];
+    if (params["emergencyCallerLocation"] !== undefined)
+      data["EmergencyCallerLocation"] = params["emergencyCallerLocation"];
+    if (params["emergencyName"] !== undefined)
+      data["EmergencyName"] = params["emergencyName"];
+    if (params["emergencyAddress"] !== undefined)
+      data["EmergencyAddress"] = params["emergencyAddress"];
+    if (params["emergencyZipCode"] !== undefined)
+      data["EmergencyZipCode"] = params["emergencyZipCode"];
+    if (params["emergencyCity"] !== undefined)
+      data["EmergencyCity"] = params["emergencyCity"];
+    if (params["emergencyState"] !== undefined)
+      data["EmergencyState"] = params["emergencyState"];
+    if (params["emergencyCountry"] !== undefined)
+      data["EmergencyCountry"] = params["emergencyCountry"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -1440,10 +1461,28 @@ export function ParticipantListInstance(
     if (params["trim"] !== undefined) data["Trim"] = params["trim"];
     if (params["callToken"] !== undefined)
       data["CallToken"] = params["callToken"];
+    if (params["passports"] !== undefined)
+      data["Passports"] = params["passports"];
     if (params["clientNotificationUrl"] !== undefined)
       data["ClientNotificationUrl"] = params["clientNotificationUrl"];
     if (params["callerDisplayName"] !== undefined)
       data["CallerDisplayName"] = params["callerDisplayName"];
+    if (params["emergencyCallerPosition"] !== undefined)
+      data["EmergencyCallerPosition"] = params["emergencyCallerPosition"];
+    if (params["emergencyCallerLocation"] !== undefined)
+      data["EmergencyCallerLocation"] = params["emergencyCallerLocation"];
+    if (params["emergencyName"] !== undefined)
+      data["EmergencyName"] = params["emergencyName"];
+    if (params["emergencyAddress"] !== undefined)
+      data["EmergencyAddress"] = params["emergencyAddress"];
+    if (params["emergencyZipCode"] !== undefined)
+      data["EmergencyZipCode"] = params["emergencyZipCode"];
+    if (params["emergencyCity"] !== undefined)
+      data["EmergencyCity"] = params["emergencyCity"];
+    if (params["emergencyState"] !== undefined)
+      data["EmergencyState"] = params["emergencyState"];
+    if (params["emergencyCountry"] !== undefined)
+      data["EmergencyCountry"] = params["emergencyCountry"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -1458,17 +1497,15 @@ export function ParticipantListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ParticipantInstance> => ({
-          ...response,
-          body: new ParticipantInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.conferenceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantInstance> => ({
+        ...response,
+        body: new ParticipantInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.conferenceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1580,17 +1617,15 @@ export function ParticipantListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ParticipantPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ParticipantPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ParticipantPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ParticipantPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

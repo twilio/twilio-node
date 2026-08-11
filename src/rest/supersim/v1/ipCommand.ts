@@ -156,7 +156,10 @@ export class IpCommandContextImpl implements IpCommandContext {
   protected _solution: IpCommandContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -209,16 +212,14 @@ export class IpCommandContextImpl implements IpCommandContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<IpCommandInstance> => ({
-          ...response,
-          body: new IpCommandInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<IpCommandInstance> => ({
+        ...response,
+        body: new IpCommandInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -284,7 +285,7 @@ export class IpCommandInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -704,12 +705,10 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<IpCommandInstance> => ({
-          ...response,
-          body: new IpCommandInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<IpCommandInstance> => ({
+        ...response,
+        body: new IpCommandInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -819,17 +818,11 @@ export function IpCommandListInstance(version: V1): IpCommandListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<IpCommandPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new IpCommandPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<IpCommandPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new IpCommandPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

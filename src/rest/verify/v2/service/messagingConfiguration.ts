@@ -174,13 +174,15 @@ export interface MessagingConfigurationContextSolution {
   country: string;
 }
 
-export class MessagingConfigurationContextImpl
-  implements MessagingConfigurationContext
-{
+export class MessagingConfigurationContextImpl implements MessagingConfigurationContext {
   protected _solution: MessagingConfigurationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, serviceSid: string, country: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string,
+    country: string
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -223,12 +225,10 @@ export class MessagingConfigurationContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -289,17 +289,15 @@ export class MessagingConfigurationContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<MessagingConfigurationInstance> => ({
-          ...response,
-          body: new MessagingConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.country
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessagingConfigurationInstance> => ({
+        ...response,
+        body: new MessagingConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.country
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -400,17 +398,15 @@ export class MessagingConfigurationContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MessagingConfigurationInstance> => ({
-          ...response,
-          body: new MessagingConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.country
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessagingConfigurationInstance> => ({
+        ...response,
+        body: new MessagingConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.country
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -465,7 +461,7 @@ export class MessagingConfigurationInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { serviceSid, country: country || this.country };
+    this._solution = { serviceSid, country: country };
   }
 
   /**
@@ -983,16 +979,14 @@ export function MessagingConfigurationListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MessagingConfigurationInstance> => ({
-          ...response,
-          body: new MessagingConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessagingConfigurationInstance> => ({
+        ...response,
+        body: new MessagingConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1106,17 +1100,15 @@ export function MessagingConfigurationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<MessagingConfigurationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new MessagingConfigurationPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessagingConfigurationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new MessagingConfigurationPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

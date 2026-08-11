@@ -138,13 +138,15 @@ export interface TrustProductsEntityAssignmentsContextSolution {
   sid: string;
 }
 
-export class TrustProductsEntityAssignmentsContextImpl
-  implements TrustProductsEntityAssignmentsContext
-{
+export class TrustProductsEntityAssignmentsContextImpl implements TrustProductsEntityAssignmentsContext {
   protected _solution: TrustProductsEntityAssignmentsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, trustProductSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    trustProductSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(trustProductSid)) {
       throw new Error("Parameter 'trustProductSid' is not valid.");
     }
@@ -187,12 +189,10 @@ export class TrustProductsEntityAssignmentsContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -316,7 +316,7 @@ export class TrustProductsEntityAssignmentsInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { trustProductSid, sid: sid || this.sid };
+    this._solution = { trustProductSid, sid: sid };
   }
 
   /**
@@ -904,17 +904,15 @@ export function TrustProductsEntityAssignmentsListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<TrustProductsEntityAssignmentsPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new TrustProductsEntityAssignmentsPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<TrustProductsEntityAssignmentsPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TrustProductsEntityAssignmentsPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

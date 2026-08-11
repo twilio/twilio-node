@@ -99,13 +99,14 @@ export interface WorkspaceStatisticsContextSolution {
   workspaceSid: string;
 }
 
-export class WorkspaceStatisticsContextImpl
-  implements WorkspaceStatisticsContext
-{
+export class WorkspaceStatisticsContextImpl implements WorkspaceStatisticsContext {
   protected _solution: WorkspaceStatisticsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, workspaceSid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string
+  ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
     }
@@ -122,9 +123,9 @@ export class WorkspaceStatisticsContextImpl
   ): Promise<WorkspaceStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -181,9 +182,9 @@ export class WorkspaceStatisticsContextImpl
   ): Promise<ApiResponse<WorkspaceStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -211,16 +212,14 @@ export class WorkspaceStatisticsContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkspaceStatisticsInstance> => ({
-          ...response,
-          body: new WorkspaceStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkspaceStatisticsInstance> => ({
+        ...response,
+        body: new WorkspaceStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

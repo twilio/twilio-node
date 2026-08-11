@@ -197,7 +197,10 @@ export class FleetContextImpl implements FleetContext {
   protected _solution: FleetContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -247,16 +250,14 @@ export class FleetContextImpl implements FleetContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<FleetInstance> => ({
-          ...response,
-          body: new FleetInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FleetInstance> => ({
+        ...response,
+        body: new FleetInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -273,9 +274,9 @@ export class FleetContextImpl implements FleetContext {
   ): Promise<FleetInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -328,9 +329,9 @@ export class FleetContextImpl implements FleetContext {
   ): Promise<ApiResponse<FleetInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -364,16 +365,14 @@ export class FleetContextImpl implements FleetContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<FleetInstance> => ({
-          ...response,
-          body: new FleetInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FleetInstance> => ({
+        ...response,
+        body: new FleetInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -422,7 +421,11 @@ export class FleetInstance {
   protected _solution: FleetContextSolution;
   protected _context?: FleetContext;
 
-  constructor(protected _version: V1, payload: FleetResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: FleetResource,
+    sid?: string
+  ) {
     this.accountSid = payload.account_sid;
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
@@ -439,7 +442,7 @@ export class FleetInstance {
     this.ipCommandsUrl = payload.ip_commands_url;
     this.ipCommandsMethod = payload.ip_commands_method;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -925,12 +928,10 @@ export function FleetListInstance(version: V1): FleetListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<FleetInstance> => ({
-          ...response,
-          body: new FleetInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<FleetInstance> => ({
+        ...response,
+        body: new FleetInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1032,13 +1033,11 @@ export function FleetListInstance(version: V1): FleetListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<FleetPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new FleetPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<FleetPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new FleetPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

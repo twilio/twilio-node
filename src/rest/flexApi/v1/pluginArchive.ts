@@ -95,7 +95,10 @@ export class PluginArchiveContextImpl implements PluginArchiveContext {
   protected _solution: PluginArchiveContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -112,9 +115,9 @@ export class PluginArchiveContextImpl implements PluginArchiveContext {
   ): Promise<PluginArchiveInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -163,9 +166,9 @@ export class PluginArchiveContextImpl implements PluginArchiveContext {
   ): Promise<ApiResponse<PluginArchiveInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -185,16 +188,14 @@ export class PluginArchiveContextImpl implements PluginArchiveContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PluginArchiveInstance> => ({
-          ...response,
-          body: new PluginArchiveInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PluginArchiveInstance> => ({
+        ...response,
+        body: new PluginArchiveInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -250,7 +251,7 @@ export class PluginArchiveInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**

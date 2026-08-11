@@ -185,16 +185,14 @@ export function ApprovalCreateListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ApprovalCreateInstance> => ({
-          ...response,
-          body: new ApprovalCreateInstance(
-            operationVersion,
-            response.body,
-            instance._solution.contentSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ApprovalCreateInstance> => ({
+        ...response,
+        body: new ApprovalCreateInstance(
+          operationVersion,
+          response.body,
+          instance._solution.contentSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

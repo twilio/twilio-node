@@ -163,9 +163,7 @@ export interface DocumentPermissionContextSolution {
   identity: string;
 }
 
-export class DocumentPermissionContextImpl
-  implements DocumentPermissionContext
-{
+export class DocumentPermissionContextImpl implements DocumentPermissionContext {
   protected _solution: DocumentPermissionContextSolution;
   protected _uri: string;
 
@@ -221,12 +219,10 @@ export class DocumentPermissionContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -285,18 +281,16 @@ export class DocumentPermissionContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<DocumentPermissionInstance> => ({
-          ...response,
-          body: new DocumentPermissionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.documentSid,
-            instance._solution.identity
-          ),
-        })
-      );
+      .then((response): ApiResponse<DocumentPermissionInstance> => ({
+        ...response,
+        body: new DocumentPermissionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.documentSid,
+          instance._solution.identity
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -409,18 +403,16 @@ export class DocumentPermissionContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<DocumentPermissionInstance> => ({
-          ...response,
-          body: new DocumentPermissionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.documentSid,
-            instance._solution.identity
-          ),
-        })
-      );
+      .then((response): ApiResponse<DocumentPermissionInstance> => ({
+        ...response,
+        body: new DocumentPermissionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.documentSid,
+          instance._solution.identity
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -478,11 +470,7 @@ export class DocumentPermissionInstance {
     this.manage = payload.manage;
     this.url = payload.url;
 
-    this._solution = {
-      serviceSid,
-      documentSid,
-      identity: identity || this.identity,
-    };
+    this._solution = { serviceSid, documentSid, identity: identity };
   }
 
   /**
@@ -974,17 +962,15 @@ export function DocumentPermissionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<DocumentPermissionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new DocumentPermissionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<DocumentPermissionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new DocumentPermissionPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

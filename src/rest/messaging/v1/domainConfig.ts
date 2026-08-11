@@ -126,7 +126,10 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   protected _solution: DomainConfigContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, domainSid: string) {
+  constructor(
+    protected _version: V1,
+    domainSid: string
+  ) {
     if (!isValidPathParam(domainSid)) {
       throw new Error("Parameter 'domainSid' is not valid.");
     }
@@ -183,16 +186,14 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<DomainConfigInstance> => ({
-          ...response,
-          body: new DomainConfigInstance(
-            operationVersion,
-            response.body,
-            instance._solution.domainSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DomainConfigInstance> => ({
+        ...response,
+        body: new DomainConfigInstance(
+          operationVersion,
+          response.body,
+          instance._solution.domainSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -209,9 +210,9 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   ): Promise<DomainConfigInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -268,9 +269,9 @@ export class DomainConfigContextImpl implements DomainConfigContext {
   ): Promise<ApiResponse<DomainConfigInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -298,16 +299,14 @@ export class DomainConfigContextImpl implements DomainConfigContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<DomainConfigInstance> => ({
-          ...response,
-          body: new DomainConfigInstance(
-            operationVersion,
-            response.body,
-            instance._solution.domainSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DomainConfigInstance> => ({
+        ...response,
+        body: new DomainConfigInstance(
+          operationVersion,
+          response.body,
+          instance._solution.domainSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -363,7 +362,7 @@ export class DomainConfigInstance {
     this.url = payload.url;
     this.disableHttps = payload.disable_https;
 
-    this._solution = { domainSid: domainSid || this.domainSid };
+    this._solution = { domainSid: domainSid };
   }
 
   /**

@@ -18,7 +18,7 @@ import { ChunkListInstance } from "./v2/chunk";
 import { KnowledgeListInstance, KnowledgeContext } from "./v2/knowledge";
 import { KnowledgeBasisListInstance } from "./v2/knowledgeBasis";
 import { OperationListInstance } from "./v2/operation";
-import { SearchListInstance, SearchContext } from "./v2/search";
+import { SearchListInstance } from "./v2/search";
 
 export default class V2 extends Version {
   /**
@@ -70,7 +70,7 @@ export default class V2 extends Version {
   }
 
   /** Accessor for search resource */
-  search(kbId: string): SearchContext {
-    return SearchListInstance(this)(kbId);
+  search(kbId: string): SearchListInstance {
+    return SearchListInstance(this, kbId);
   }
 }

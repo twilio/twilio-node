@@ -178,7 +178,11 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
   protected _solution: TranscriptionsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, roomSid: string, ttid: string) {
+  constructor(
+    protected _version: V1,
+    roomSid: string,
+    ttid: string
+  ) {
     if (!isValidPathParam(roomSid)) {
       throw new Error("Parameter 'roomSid' is not valid.");
     }
@@ -240,17 +244,15 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<TranscriptionsInstance> => ({
-          ...response,
-          body: new TranscriptionsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.roomSid,
-            instance._solution.ttid
-          ),
-        })
-      );
+      .then((response): ApiResponse<TranscriptionsInstance> => ({
+        ...response,
+        body: new TranscriptionsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.roomSid,
+          instance._solution.ttid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -267,9 +269,9 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
   ): Promise<TranscriptionsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -322,9 +324,9 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
   ): Promise<ApiResponse<TranscriptionsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -347,17 +349,15 @@ export class TranscriptionsContextImpl implements TranscriptionsContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TranscriptionsInstance> => ({
-          ...response,
-          body: new TranscriptionsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.roomSid,
-            instance._solution.ttid
-          ),
-        })
-      );
+      .then((response): ApiResponse<TranscriptionsInstance> => ({
+        ...response,
+        body: new TranscriptionsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.roomSid,
+          instance._solution.ttid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -422,7 +422,7 @@ export class TranscriptionsInstance {
     this.url = payload.url;
     this.configuration = payload.configuration;
 
-    this._solution = { roomSid, ttid: ttid || this.ttid };
+    this._solution = { roomSid, ttid: ttid };
   }
 
   /**
@@ -870,9 +870,9 @@ export function TranscriptionsListInstance(
   ): Promise<TranscriptionsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -922,9 +922,9 @@ export function TranscriptionsListInstance(
   ): Promise<ApiResponse<TranscriptionsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -945,16 +945,14 @@ export function TranscriptionsListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TranscriptionsInstance> => ({
-          ...response,
-          body: new TranscriptionsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.roomSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<TranscriptionsInstance> => ({
+        ...response,
+        body: new TranscriptionsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.roomSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1057,17 +1055,15 @@ export function TranscriptionsListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<TranscriptionsPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new TranscriptionsPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<TranscriptionsPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TranscriptionsPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

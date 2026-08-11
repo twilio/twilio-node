@@ -106,9 +106,7 @@ export interface TaskQueueCumulativeStatisticsContextSolution {
   taskQueueSid: string;
 }
 
-export class TaskQueueCumulativeStatisticsContextImpl
-  implements TaskQueueCumulativeStatisticsContext
-{
+export class TaskQueueCumulativeStatisticsContextImpl implements TaskQueueCumulativeStatisticsContext {
   protected _solution: TaskQueueCumulativeStatisticsContextSolution;
   protected _uri: string;
 
@@ -143,9 +141,9 @@ export class TaskQueueCumulativeStatisticsContextImpl
   ): Promise<TaskQueueCumulativeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -203,9 +201,9 @@ export class TaskQueueCumulativeStatisticsContextImpl
   ): Promise<ApiResponse<TaskQueueCumulativeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -233,17 +231,15 @@ export class TaskQueueCumulativeStatisticsContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TaskQueueCumulativeStatisticsInstance> => ({
-          ...response,
-          body: new TaskQueueCumulativeStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid,
-            instance._solution.taskQueueSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<TaskQueueCumulativeStatisticsInstance> => ({
+        ...response,
+        body: new TaskQueueCumulativeStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+          instance._solution.taskQueueSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -266,8 +262,7 @@ export class TaskQueueCumulativeStatisticsContextImpl
   }
 }
 
-interface TaskQueueCumulativeStatisticsPayload
-  extends TaskQueueCumulativeStatisticsResource {}
+interface TaskQueueCumulativeStatisticsPayload extends TaskQueueCumulativeStatisticsResource {}
 
 interface TaskQueueCumulativeStatisticsResource {
   account_sid: string;

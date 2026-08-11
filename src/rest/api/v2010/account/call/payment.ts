@@ -23,9 +23,7 @@ import { ApiResponse } from "../../../../../base/ApiResponse";
  * Type of bank account if payment source is ACH. One of `consumer-checking`, `consumer-savings`, or `commercial-checking`. The default value is `consumer-checking`.
  */
 export type PaymentBankAccountType =
-  | "consumer-checking"
-  | "consumer-savings"
-  | "commercial-checking";
+  "consumer-checking" | "consumer-savings" | "commercial-checking";
 
 /**
  * The piece of payment information that you wish the caller to enter. Must be one of `payment-card-number`, `expiration-date`, `security-code`, `postal-code`, `bank-routing-number`, `bank-account-number`, or their `-matcher` variants for input confirmation when `RequireMatchingInputs` is enabled.
@@ -292,18 +290,16 @@ export class PaymentContextImpl implements PaymentContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PaymentInstance> => ({
-          ...response,
-          body: new PaymentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.callSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PaymentInstance> => ({
+        ...response,
+        body: new PaymentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -355,7 +351,7 @@ export class PaymentInstance {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
 
-    this._solution = { accountSid, callSid, sid: sid || this.sid };
+    this._solution = { accountSid, callSid, sid: sid };
   }
 
   /**
@@ -689,17 +685,15 @@ export function PaymentListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PaymentInstance> => ({
-          ...response,
-          body: new PaymentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.callSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PaymentInstance> => ({
+        ...response,
+        body: new PaymentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.callSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

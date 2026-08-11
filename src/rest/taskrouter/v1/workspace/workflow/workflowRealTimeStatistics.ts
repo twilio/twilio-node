@@ -98,9 +98,7 @@ export interface WorkflowRealTimeStatisticsContextSolution {
   workflowSid: string;
 }
 
-export class WorkflowRealTimeStatisticsContextImpl
-  implements WorkflowRealTimeStatisticsContext
-{
+export class WorkflowRealTimeStatisticsContextImpl implements WorkflowRealTimeStatisticsContext {
   protected _solution: WorkflowRealTimeStatisticsContextSolution;
   protected _uri: string;
 
@@ -135,9 +133,9 @@ export class WorkflowRealTimeStatisticsContextImpl
   ): Promise<WorkflowRealTimeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -188,9 +186,9 @@ export class WorkflowRealTimeStatisticsContextImpl
   ): Promise<ApiResponse<WorkflowRealTimeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -211,17 +209,15 @@ export class WorkflowRealTimeStatisticsContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkflowRealTimeStatisticsInstance> => ({
-          ...response,
-          body: new WorkflowRealTimeStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid,
-            instance._solution.workflowSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkflowRealTimeStatisticsInstance> => ({
+        ...response,
+        body: new WorkflowRealTimeStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+          instance._solution.workflowSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -244,8 +240,7 @@ export class WorkflowRealTimeStatisticsContextImpl
   }
 }
 
-interface WorkflowRealTimeStatisticsPayload
-  extends WorkflowRealTimeStatisticsResource {}
+interface WorkflowRealTimeStatisticsPayload extends WorkflowRealTimeStatisticsResource {}
 
 interface WorkflowRealTimeStatisticsResource {
   account_sid: string;

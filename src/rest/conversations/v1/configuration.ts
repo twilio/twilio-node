@@ -173,12 +173,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ConfigurationInstance> => ({
+        ...response,
+        body: new ConfigurationInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -195,9 +193,9 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   ): Promise<ConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -249,9 +247,9 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   ): Promise<ApiResponse<ConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -279,12 +277,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ConfigurationInstance> => ({
+        ...response,
+        body: new ConfigurationInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -323,7 +319,10 @@ export class ConfigurationInstance {
   protected _solution: ConfigurationContextSolution;
   protected _context?: ConfigurationContext;
 
-  constructor(protected _version: V1, payload: ConfigurationResource) {
+  constructor(
+    protected _version: V1,
+    payload: ConfigurationResource
+  ) {
     this.accountSid = payload.account_sid;
     this.defaultChatServiceSid = payload.default_chat_service_sid;
     this.defaultMessagingServiceSid = payload.default_messaging_service_sid;

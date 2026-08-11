@@ -31,11 +31,7 @@ export type CompositionFormat = "mp4" | "webm";
  * The status of the composition. Can be: `enqueued`, `processing`, `completed`, `deleted` or `failed`. `enqueued` is the initial state and indicates that the composition request has been received and is scheduled for processing; `processing` indicates the composition is being processed; `completed` indicates the composition has been completed and is available for download; `deleted` means the composition media has been deleted from the system, but its metadata is still available for 30 days; `failed` indicates the composition failed to execute the media processing task.
  */
 export type CompositionStatus =
-  | "enqueued"
-  | "processing"
-  | "completed"
-  | "deleted"
-  | "failed";
+  "enqueued" | "processing" | "completed" | "deleted" | "failed";
 
 /**
  * Options to pass to create a CompositionInstance
@@ -184,7 +180,10 @@ export class CompositionContextImpl implements CompositionContext {
   protected _solution: CompositionContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -223,12 +222,10 @@ export class CompositionContextImpl implements CompositionContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -285,16 +282,14 @@ export class CompositionContextImpl implements CompositionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CompositionInstance> => ({
-          ...response,
-          body: new CompositionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CompositionInstance> => ({
+        ...response,
+        body: new CompositionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -376,7 +371,7 @@ export class CompositionInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -871,12 +866,10 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CompositionInstance> => ({
-          ...response,
-          body: new CompositionInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<CompositionInstance> => ({
+        ...response,
+        body: new CompositionInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -996,17 +989,15 @@ export function CompositionListInstance(version: V1): CompositionListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CompositionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CompositionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<CompositionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CompositionPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

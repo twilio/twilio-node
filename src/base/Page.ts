@@ -25,7 +25,7 @@ export default class Page<
   TVersion extends Version,
   TPayload extends TwilioResponsePayload,
   TResource,
-  TInstance
+  TInstance,
 > {
   nextPageUrl?: string;
   previousPageUrl?: string;
@@ -161,8 +161,7 @@ export default class Page<
    * or undefined if there isn't a nextPageUrl undefined.
    */
   nextPage():
-    | Promise<Page<TVersion, TPayload, TResource, TInstance>>
-    | undefined {
+    Promise<Page<TVersion, TPayload, TResource, TInstance>> | undefined {
     if (!this.nextPageUrl) {
       return undefined;
     }
@@ -190,8 +189,7 @@ export default class Page<
    * results, or undefined if there isn't a previousPageUrl undefined.
    */
   previousPage():
-    | Promise<Page<TVersion, TPayload, TResource, TInstance>>
-    | undefined {
+    Promise<Page<TVersion, TPayload, TResource, TInstance>> | undefined {
     if (!this.previousPageUrl) {
       return undefined;
     }

@@ -27,11 +27,7 @@ import { DependentHostedNumberOrderListInstance } from "./authorizationDocument/
  * Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
  */
 export type AuthorizationDocumentStatus =
-  | "opened"
-  | "signing"
-  | "signed"
-  | "canceled"
-  | "failed";
+  "opened" | "signing" | "signed" | "canceled" | "failed";
 
 /**
  * Options to pass to create a AuthorizationDocumentInstance
@@ -166,15 +162,16 @@ export interface AuthorizationDocumentContextSolution {
   sid: string;
 }
 
-export class AuthorizationDocumentContextImpl
-  implements AuthorizationDocumentContext
-{
+export class AuthorizationDocumentContextImpl implements AuthorizationDocumentContext {
   protected _solution: AuthorizationDocumentContextSolution;
   protected _uri: string;
 
   protected _dependentHostedNumberOrders?: DependentHostedNumberOrderListInstance;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -220,12 +217,10 @@ export class AuthorizationDocumentContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -285,16 +280,14 @@ export class AuthorizationDocumentContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AuthorizationDocumentInstance> => ({
-          ...response,
-          body: new AuthorizationDocumentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AuthorizationDocumentInstance> => ({
+        ...response,
+        body: new AuthorizationDocumentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -352,7 +345,7 @@ export class AuthorizationDocumentInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -858,15 +851,13 @@ export function AuthorizationDocumentListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<AuthorizationDocumentInstance> => ({
-          ...response,
-          body: new AuthorizationDocumentInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<AuthorizationDocumentInstance> => ({
+        ...response,
+        body: new AuthorizationDocumentInstance(
+          operationVersion,
+          response.body
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -984,17 +975,15 @@ export function AuthorizationDocumentListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AuthorizationDocumentPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AuthorizationDocumentPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<AuthorizationDocumentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AuthorizationDocumentPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

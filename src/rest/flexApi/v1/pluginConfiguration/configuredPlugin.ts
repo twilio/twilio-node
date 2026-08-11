@@ -169,9 +169,9 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
   ): Promise<ConfiguredPluginInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -221,9 +221,9 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
   ): Promise<ApiResponse<ConfiguredPluginInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -243,17 +243,15 @@ export class ConfiguredPluginContextImpl implements ConfiguredPluginContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConfiguredPluginInstance> => ({
-          ...response,
-          body: new ConfiguredPluginInstance(
-            operationVersion,
-            response.body,
-            instance._solution.configurationSid,
-            instance._solution.pluginSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConfiguredPluginInstance> => ({
+        ...response,
+        body: new ConfiguredPluginInstance(
+          operationVersion,
+          response.body,
+          instance._solution.configurationSid,
+          instance._solution.pluginSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -326,10 +324,7 @@ export class ConfiguredPluginInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = {
-      configurationSid,
-      pluginSid: pluginSid || this.pluginSid,
-    };
+    this._solution = { configurationSid, pluginSid: pluginSid };
   }
 
   /**
@@ -817,17 +812,15 @@ export function ConfiguredPluginListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ConfiguredPluginPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ConfiguredPluginPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConfiguredPluginPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ConfiguredPluginPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

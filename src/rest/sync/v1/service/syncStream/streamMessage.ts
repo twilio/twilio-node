@@ -169,17 +169,15 @@ export function StreamMessageListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<StreamMessageInstance> => ({
-          ...response,
-          body: new StreamMessageInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.streamSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<StreamMessageInstance> => ({
+        ...response,
+        body: new StreamMessageInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.streamSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

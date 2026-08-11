@@ -24,7 +24,7 @@ import { ApiResponse } from "../../../base/ApiResponse";
  */
 export class TypingIndicatorRequest {
   /**
-   * The messaging channel. Must be \"APPLE\".
+   * The messaging channel. Must be \"RCS\".
    */
   "channel": string;
   /**
@@ -32,15 +32,15 @@ export class TypingIndicatorRequest {
    */
   "messageId": string;
   /**
-   * The Apple Messages for Business identifier of the sender (business).
+   * The RCS agent identifier of the sender (business).
    */
   "from": string;
   /**
-   * The Apple Messages for Business identifier of the recipient (customer).
+   * The RCS recipient identifier in E.164 format prefixed with \"rcs:\".
    */
   "to": string;
   /**
-   * The type of typing event. \"START\" indicates the agent began typing, \"END\" indicates the agent stopped typing. Defaults to \"START\".
+   * The type of typing event. Currently only \"START\" is supported for RCS, indicating the agent began typing. Defaults to \"START\".
    */
   "event"?: string;
 
@@ -188,12 +188,10 @@ export function TypingIndicatorListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TypingIndicatorInstance> => ({
-          ...response,
-          body: new TypingIndicatorInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<TypingIndicatorInstance> => ({
+        ...response,
+        body: new TypingIndicatorInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -223,7 +221,10 @@ interface TypingIndicatorResource {
 }
 
 export class TypingIndicatorInstance {
-  constructor(protected _version: V3, payload: TypingIndicatorResource) {
+  constructor(
+    protected _version: V3,
+    payload: TypingIndicatorResource
+  ) {
     this.success = payload.success;
   }
 

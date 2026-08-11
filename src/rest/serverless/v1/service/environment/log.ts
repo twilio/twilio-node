@@ -185,18 +185,16 @@ export class LogContextImpl implements LogContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<LogInstance> => ({
-          ...response,
-          body: new LogInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.environmentSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<LogInstance> => ({
+        ...response,
+        body: new LogInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.environmentSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -262,7 +260,7 @@ export class LogInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { serviceSid, environmentSid, sid: sid || this.sid };
+    this._solution = { serviceSid, environmentSid, sid: sid };
   }
 
   /**
@@ -662,13 +660,11 @@ export function LogListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<LogPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new LogPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<LogPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new LogPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

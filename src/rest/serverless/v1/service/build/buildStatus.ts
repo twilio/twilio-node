@@ -66,7 +66,11 @@ export class BuildStatusContextImpl implements BuildStatusContext {
   protected _solution: BuildStatusContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -128,17 +132,15 @@ export class BuildStatusContextImpl implements BuildStatusContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<BuildStatusInstance> => ({
-          ...response,
-          body: new BuildStatusInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<BuildStatusInstance> => ({
+        ...response,
+        body: new BuildStatusInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

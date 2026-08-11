@@ -62,7 +62,10 @@ export class SchemaContextImpl implements SchemaContext {
 
   protected _versions?: SchemaVersionListInstance;
 
-  constructor(protected _version: V1, id: string) {
+  constructor(
+    protected _version: V1,
+    id: string
+  ) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -119,16 +122,14 @@ export class SchemaContextImpl implements SchemaContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SchemaInstance> => ({
-          ...response,
-          body: new SchemaInstance(
-            operationVersion,
-            response.body,
-            instance._solution.id
-          ),
-        })
-      );
+      .then((response): ApiResponse<SchemaInstance> => ({
+        ...response,
+        body: new SchemaInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -165,7 +166,11 @@ export class SchemaInstance {
   protected _solution: SchemaContextSolution;
   protected _context?: SchemaContext;
 
-  constructor(protected _version: V1, payload: SchemaResource, id?: string) {
+  constructor(
+    protected _version: V1,
+    payload: SchemaResource,
+    id?: string
+  ) {
     this.id = payload.id;
     this.url = payload.url;
     this.links = payload.links;
@@ -174,7 +179,7 @@ export class SchemaInstance {
     );
     this.latestVersion = deserialize.integer(payload.latest_version);
 
-    this._solution = { id: id || this.id };
+    this._solution = { id: id };
   }
 
   /**

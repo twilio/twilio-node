@@ -100,12 +100,10 @@ export function WebhookListInstance(version: V1): WebhookListInstance {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<WebhookInstance> => ({
-          ...response,
-          body: new WebhookInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<WebhookInstance> => ({
+        ...response,
+        body: new WebhookInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -140,7 +138,10 @@ interface WebhookResource {
 }
 
 export class WebhookInstance {
-  constructor(protected _version: V1, payload: WebhookResource) {
+  constructor(
+    protected _version: V1,
+    payload: WebhookResource
+  ) {
     this.url = payload.url;
     this.portInTargetUrl = payload.port_in_target_url;
     this.portOutTargetUrl = payload.port_out_target_url;

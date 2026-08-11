@@ -46,7 +46,10 @@ export class OrganizationContextImpl implements OrganizationContext {
   protected _roleAssignments?: RoleAssignmentListInstance;
   protected _users?: UserListInstance;
 
-  constructor(protected _version: Versionless, organizationSid: string) {
+  constructor(
+    protected _version: Versionless,
+    organizationSid: string
+  ) {
     if (!isValidPathParam(organizationSid)) {
       throw new Error("Parameter 'organizationSid' is not valid.");
     }

@@ -289,9 +289,9 @@ export class SyncListItemContextImpl implements SyncListItemContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -324,9 +324,9 @@ export class SyncListItemContextImpl implements SyncListItemContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -345,12 +345,10 @@ export class SyncListItemContextImpl implements SyncListItemContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -409,18 +407,16 @@ export class SyncListItemContextImpl implements SyncListItemContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SyncListItemInstance> => ({
-          ...response,
-          body: new SyncListItemInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.listSid,
-            instance._solution.index
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncListItemInstance> => ({
+        ...response,
+        body: new SyncListItemInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.listSid,
+          instance._solution.index
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -437,9 +433,9 @@ export class SyncListItemContextImpl implements SyncListItemContext {
   ): Promise<SyncListItemInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -498,9 +494,9 @@ export class SyncListItemContextImpl implements SyncListItemContext {
   ): Promise<ApiResponse<SyncListItemInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -528,18 +524,16 @@ export class SyncListItemContextImpl implements SyncListItemContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SyncListItemInstance> => ({
-          ...response,
-          body: new SyncListItemInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.listSid,
-            instance._solution.index
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncListItemInstance> => ({
+        ...response,
+        body: new SyncListItemInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.listSid,
+          instance._solution.index
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -603,7 +597,7 @@ export class SyncListItemInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, listSid, index: index || this.index };
+    this._solution = { serviceSid, listSid, index: index };
   }
 
   /**
@@ -1158,17 +1152,15 @@ export function SyncListItemListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SyncListItemInstance> => ({
-          ...response,
-          body: new SyncListItemInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.listSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncListItemInstance> => ({
+        ...response,
+        body: new SyncListItemInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.listSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1277,17 +1269,15 @@ export function SyncListItemListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SyncListItemPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SyncListItemPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncListItemPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SyncListItemPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

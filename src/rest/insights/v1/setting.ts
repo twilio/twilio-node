@@ -158,9 +158,9 @@ export class SettingContextImpl implements SettingContext {
   ): Promise<SettingInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -199,9 +199,9 @@ export class SettingContextImpl implements SettingContext {
   ): Promise<ApiResponse<SettingInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -222,12 +222,10 @@ export class SettingContextImpl implements SettingContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SettingInstance> => ({
-          ...response,
-          body: new SettingInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<SettingInstance> => ({
+        ...response,
+        body: new SettingInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -244,9 +242,9 @@ export class SettingContextImpl implements SettingContext {
   ): Promise<SettingInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -290,9 +288,9 @@ export class SettingContextImpl implements SettingContext {
   ): Promise<ApiResponse<SettingInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -318,12 +316,10 @@ export class SettingContextImpl implements SettingContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SettingInstance> => ({
-          ...response,
-          body: new SettingInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<SettingInstance> => ({
+        ...response,
+        body: new SettingInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -359,7 +355,10 @@ export class SettingInstance {
   protected _solution: SettingContextSolution;
   protected _context?: SettingContext;
 
-  constructor(protected _version: V1, payload: SettingResource) {
+  constructor(
+    protected _version: V1,
+    payload: SettingResource
+  ) {
     this.accountSid = payload.account_sid;
     this.advancedFeatures = payload.advanced_features;
     this.voiceTrace = payload.voice_trace;

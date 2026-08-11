@@ -154,12 +154,10 @@ export function BulkConsentsListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BulkConsentsInstance> => ({
-          ...response,
-          body: new BulkConsentsInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<BulkConsentsInstance> => ({
+        ...response,
+        body: new BulkConsentsInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -189,7 +187,10 @@ interface BulkConsentsResource {
 }
 
 export class BulkConsentsInstance {
-  constructor(protected _version: V1, payload: BulkConsentsResource) {
+  constructor(
+    protected _version: V1,
+    payload: BulkConsentsResource
+  ) {
     this.items = payload.items;
   }
 

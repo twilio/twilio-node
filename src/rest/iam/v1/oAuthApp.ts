@@ -25,6 +25,10 @@ export class IamV1AccountVendorOauthAppCreateRequest {
   "ownerSid"?: string | null;
   "description"?: string;
   "clientSid"?: string | null;
+  /**
+   * Determines how the client authenticates. Account OAuth apps on v1 only support \'client_secret_basic\'. For PKCE (none), use the v2 API.
+   */
+  "tokenEndpointAuthMethod"?: string;
   "policy"?: IamV1OrganizationVendoroauthappPolicy;
   "accessTokenTtl"?: number;
 
@@ -34,6 +38,7 @@ export class IamV1AccountVendorOauthAppCreateRequest {
     this.ownerSid = payload["owner_sid"];
     this.description = payload["description"];
     this.clientSid = payload["client_sid"];
+    this.tokenEndpointAuthMethod = payload["token_endpoint_auth_method"];
     this.policy = payload["policy"];
     this.accessTokenTtl = payload["access_token_ttl"];
   }
@@ -174,7 +179,10 @@ export class OAuthAppContextImpl implements OAuthAppContext {
   protected _solution: OAuthAppContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -213,12 +221,10 @@ export class OAuthAppContextImpl implements OAuthAppContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -301,16 +307,14 @@ export class OAuthAppContextImpl implements OAuthAppContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<OAuthAppInstance> => ({
-          ...response,
-          body: new OAuthAppInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<OAuthAppInstance> => ({
+        ...response,
+        body: new OAuthAppInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -342,6 +346,7 @@ interface OAuthAppResource {
   description: string;
   date_created: Date;
   created_by: string;
+  creator_sid: string;
   secret: string;
   status: string;
   policy: IamV1OrganizationVendoroauthappPolicy;
@@ -355,13 +360,18 @@ export class OAuthAppInstance {
   protected _solution: OAuthAppContextSolution;
   protected _context?: OAuthAppContext;
 
-  constructor(protected _version: V1, payload: OAuthAppResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: OAuthAppResource,
+    sid?: string
+  ) {
     this.type = payload.type;
     this.sid = payload.sid;
     this.friendlyName = payload.friendly_name;
     this.description = payload.description;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.createdBy = payload.created_by;
+    this.creatorSid = payload.creator_sid;
     this.secret = payload.secret;
     this.status = payload.status;
     this.policy =
@@ -373,7 +383,7 @@ export class OAuthAppInstance {
     this.message = payload.message;
     this.moreInfo = payload.more_info;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   type: string;
@@ -382,6 +392,10 @@ export class OAuthAppInstance {
   description: string;
   dateCreated: Date;
   createdBy: string;
+  /**
+   * The unique identifier (SID) of the user who created this OAuth app.
+   */
+  creatorSid: string;
   secret: string;
   status: string;
   policy: IamV1OrganizationVendoroauthappPolicy;
@@ -495,6 +509,7 @@ export class OAuthAppInstance {
       description: this.description,
       dateCreated: this.dateCreated,
       createdBy: this.createdBy,
+      creatorSid: this.creatorSid,
       secret: this.secret,
       status: this.status,
       policy: this.policy,
@@ -642,12 +657,10 @@ export function OAuthAppListInstance(version: V1): OAuthAppListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<OAuthAppInstance> => ({
-          ...response,
-          body: new OAuthAppInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<OAuthAppInstance> => ({
+        ...response,
+        body: new OAuthAppInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

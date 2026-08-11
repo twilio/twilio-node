@@ -61,13 +61,14 @@ export interface LinkshorteningMessagingServiceDomainAssociationContextSolution 
   messagingServiceSid: string;
 }
 
-export class LinkshorteningMessagingServiceDomainAssociationContextImpl
-  implements LinkshorteningMessagingServiceDomainAssociationContext
-{
+export class LinkshorteningMessagingServiceDomainAssociationContextImpl implements LinkshorteningMessagingServiceDomainAssociationContext {
   protected _solution: LinkshorteningMessagingServiceDomainAssociationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, messagingServiceSid: string) {
+  constructor(
+    protected _version: V1,
+    messagingServiceSid: string
+  ) {
     if (!isValidPathParam(messagingServiceSid)) {
       throw new Error("Parameter 'messagingServiceSid' is not valid.");
     }
@@ -161,8 +162,7 @@ export class LinkshorteningMessagingServiceDomainAssociationContextImpl
   }
 }
 
-interface LinkshorteningMessagingServiceDomainAssociationPayload
-  extends LinkshorteningMessagingServiceDomainAssociationResource {}
+interface LinkshorteningMessagingServiceDomainAssociationPayload extends LinkshorteningMessagingServiceDomainAssociationResource {}
 
 interface LinkshorteningMessagingServiceDomainAssociationResource {
   domain_sid: string;
@@ -183,9 +183,7 @@ export class LinkshorteningMessagingServiceDomainAssociationInstance {
     this.messagingServiceSid = payload.messaging_service_sid;
     this.url = payload.url;
 
-    this._solution = {
-      messagingServiceSid: messagingServiceSid || this.messagingServiceSid,
-    };
+    this._solution = { messagingServiceSid: messagingServiceSid };
   }
 
   /**

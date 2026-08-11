@@ -118,10 +118,7 @@ export class OperatorTrainingExample {
  * The lifecycle status of an Operator version.  Available values: - `PREVIEW`: Available but restricted to internal/testing visibility. Normal execution. - `ACTIVE`: Available for normal use. - `DEPRECATED`: Still executes normally, but a Warn event is emitted via the Watch product lifecycle system. Customers should migrate to a newer version. - `RETIRED`: Hard failure on execution. An Error is logged in Watch. Customers must manually update their Intelligence Configuration to a valid version.
  */
 export type OperatorVersionStatus =
-  | "PREVIEW"
-  | "ACTIVE"
-  | "DEPRECATED"
-  | "RETIRED";
+  "PREVIEW" | "ACTIVE" | "DEPRECATED" | "RETIRED";
 
 /**
  * Options to pass to each
@@ -200,7 +197,11 @@ export class VersionContextImpl implements VersionContext {
   protected _solution: VersionContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V3, id: string, versionParam: number) {
+  constructor(
+    protected _version: V3,
+    id: string,
+    versionParam: number
+  ) {
     if (!isValidPathParam(id)) {
       throw new Error("Parameter 'id' is not valid.");
     }
@@ -259,17 +260,15 @@ export class VersionContextImpl implements VersionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<VersionInstance> => ({
-          ...response,
-          body: new VersionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.id,
-            instance._solution.versionParam
-          ),
-        })
-      );
+      .then((response): ApiResponse<VersionInstance> => ({
+        ...response,
+        body: new VersionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.id,
+          instance._solution.versionParam
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -318,7 +317,7 @@ export interface OperatorContextMemory {
  */
 export interface OperatorParameter {
   type: string;
-  default?: any;
+  default?: any | null;
   required?: boolean;
   description?: string;
 }
@@ -821,19 +820,17 @@ export function VersionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<VersionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new VersionPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<VersionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new VersionPage(
+          operationVersion,
+          response,
+          instance._uri,
+          data,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

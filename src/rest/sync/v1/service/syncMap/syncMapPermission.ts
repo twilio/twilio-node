@@ -219,12 +219,10 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -283,18 +281,16 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SyncMapPermissionInstance> => ({
-          ...response,
-          body: new SyncMapPermissionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.mapSid,
-            instance._solution.identity
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncMapPermissionInstance> => ({
+        ...response,
+        body: new SyncMapPermissionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.mapSid,
+          instance._solution.identity
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -407,18 +403,16 @@ export class SyncMapPermissionContextImpl implements SyncMapPermissionContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SyncMapPermissionInstance> => ({
-          ...response,
-          body: new SyncMapPermissionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.mapSid,
-            instance._solution.identity
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncMapPermissionInstance> => ({
+        ...response,
+        body: new SyncMapPermissionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.mapSid,
+          instance._solution.identity
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -476,11 +470,7 @@ export class SyncMapPermissionInstance {
     this.manage = payload.manage;
     this.url = payload.url;
 
-    this._solution = {
-      serviceSid,
-      mapSid,
-      identity: identity || this.identity,
-    };
+    this._solution = { serviceSid, mapSid, identity: identity };
   }
 
   /**
@@ -968,17 +958,15 @@ export function SyncMapPermissionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SyncMapPermissionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SyncMapPermissionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncMapPermissionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SyncMapPermissionPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

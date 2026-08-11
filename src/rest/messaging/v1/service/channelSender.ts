@@ -177,12 +177,10 @@ export class ChannelSenderContextImpl implements ChannelSenderContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -240,17 +238,15 @@ export class ChannelSenderContextImpl implements ChannelSenderContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ChannelSenderInstance> => ({
-          ...response,
-          body: new ChannelSenderInstance(
-            operationVersion,
-            response.body,
-            instance._solution.messagingServiceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ChannelSenderInstance> => ({
+        ...response,
+        body: new ChannelSenderInstance(
+          operationVersion,
+          response.body,
+          instance._solution.messagingServiceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -309,7 +305,7 @@ export class ChannelSenderInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { messagingServiceSid, sid: sid || this.sid };
+    this._solution = { messagingServiceSid, sid: sid };
   }
 
   /**
@@ -747,16 +743,14 @@ export function ChannelSenderListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ChannelSenderInstance> => ({
-          ...response,
-          body: new ChannelSenderInstance(
-            operationVersion,
-            response.body,
-            instance._solution.messagingServiceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ChannelSenderInstance> => ({
+        ...response,
+        body: new ChannelSenderInstance(
+          operationVersion,
+          response.body,
+          instance._solution.messagingServiceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -859,17 +853,15 @@ export function ChannelSenderListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ChannelSenderPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ChannelSenderPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<ChannelSenderPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ChannelSenderPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

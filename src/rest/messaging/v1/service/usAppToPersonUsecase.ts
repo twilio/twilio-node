@@ -117,9 +117,9 @@ export function UsAppToPersonUsecaseListInstance(
   ): Promise<UsAppToPersonUsecaseInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -168,9 +168,9 @@ export function UsAppToPersonUsecaseListInstance(
   ): Promise<ApiResponse<UsAppToPersonUsecaseInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -190,16 +190,14 @@ export function UsAppToPersonUsecaseListInstance(
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<UsAppToPersonUsecaseInstance> => ({
-          ...response,
-          body: new UsAppToPersonUsecaseInstance(
-            operationVersion,
-            response.body,
-            instance._solution.messagingServiceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<UsAppToPersonUsecaseInstance> => ({
+        ...response,
+        body: new UsAppToPersonUsecaseInstance(
+          operationVersion,
+          response.body,
+          instance._solution.messagingServiceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

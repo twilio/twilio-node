@@ -162,16 +162,14 @@ export function SinkValidateListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SinkValidateInstance> => ({
-          ...response,
-          body: new SinkValidateInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<SinkValidateInstance> => ({
+        ...response,
+        body: new SinkValidateInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

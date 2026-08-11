@@ -160,12 +160,10 @@ export function BulkCountryUpdateListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BulkCountryUpdateInstance> => ({
-          ...response,
-          body: new BulkCountryUpdateInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<BulkCountryUpdateInstance> => ({
+        ...response,
+        body: new BulkCountryUpdateInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -196,7 +194,10 @@ interface BulkCountryUpdateResource {
 }
 
 export class BulkCountryUpdateInstance {
-  constructor(protected _version: V1, payload: BulkCountryUpdateResource) {
+  constructor(
+    protected _version: V1,
+    payload: BulkCountryUpdateResource
+  ) {
     this.updateCount = deserialize.integer(payload.update_count);
     this.updateRequest = payload.update_request;
   }

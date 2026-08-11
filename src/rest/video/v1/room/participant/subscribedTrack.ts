@@ -181,18 +181,16 @@ export class SubscribedTrackContextImpl implements SubscribedTrackContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SubscribedTrackInstance> => ({
-          ...response,
-          body: new SubscribedTrackInstance(
-            operationVersion,
-            response.body,
-            instance._solution.roomSid,
-            instance._solution.participantSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<SubscribedTrackInstance> => ({
+        ...response,
+        body: new SubscribedTrackInstance(
+          operationVersion,
+          response.body,
+          instance._solution.roomSid,
+          instance._solution.participantSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -254,7 +252,7 @@ export class SubscribedTrackInstance {
     this.kind = payload.kind;
     this.url = payload.url;
 
-    this._solution = { roomSid, participantSid, sid: sid || this.sid };
+    this._solution = { roomSid, participantSid, sid: sid };
   }
 
   /**
@@ -669,17 +667,15 @@ export function SubscribedTrackListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SubscribedTrackPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SubscribedTrackPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<SubscribedTrackPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SubscribedTrackPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

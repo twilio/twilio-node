@@ -325,17 +325,11 @@ export function TemplateListInstance(version: V2): TemplateListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<TemplatePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new TemplatePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<TemplatePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TemplatePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -397,7 +391,10 @@ interface TemplateResource {
 }
 
 export class TemplateInstance {
-  constructor(protected _version: V2, payload: TemplateResource) {
+  constructor(
+    protected _version: V2,
+    payload: TemplateResource
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;

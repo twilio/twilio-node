@@ -31,10 +31,7 @@ import { PhoneNumberCapabilities } from "../../../../interfaces";
  * Whether the phone number requires an [Address](https://www.twilio.com/docs/usage/api/address) registered with Twilio. Can be: `none`, `any`, `local`, or `foreign`.
  */
 export type IncomingPhoneNumberAddressRequirement =
-  | "none"
-  | "any"
-  | "local"
-  | "foreign";
+  "none" | "any" | "local" | "foreign";
 
 /**
  * The status of address registration with emergency services. A registered emergency address will be used during handling of emergency calls from this number.
@@ -337,15 +334,17 @@ export interface IncomingPhoneNumberContextSolution {
   sid: string;
 }
 
-export class IncomingPhoneNumberContextImpl
-  implements IncomingPhoneNumberContext
-{
+export class IncomingPhoneNumberContextImpl implements IncomingPhoneNumberContext {
   protected _solution: IncomingPhoneNumberContextSolution;
   protected _uri: string;
 
   protected _assignedAddOns?: AssignedAddOnListInstance;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -399,12 +398,10 @@ export class IncomingPhoneNumberContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -462,17 +459,15 @@ export class IncomingPhoneNumberContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<IncomingPhoneNumberInstance> => ({
-          ...response,
-          body: new IncomingPhoneNumberInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<IncomingPhoneNumberInstance> => ({
+        ...response,
+        body: new IncomingPhoneNumberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -489,9 +484,9 @@ export class IncomingPhoneNumberContextImpl
   ): Promise<IncomingPhoneNumberInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -586,9 +581,9 @@ export class IncomingPhoneNumberContextImpl
   ): Promise<ApiResponse<IncomingPhoneNumberInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -653,17 +648,15 @@ export class IncomingPhoneNumberContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<IncomingPhoneNumberInstance> => ({
-          ...response,
-          body: new IncomingPhoneNumberInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<IncomingPhoneNumberInstance> => ({
+        ...response,
+        body: new IncomingPhoneNumberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -774,7 +767,7 @@ export class IncomingPhoneNumberInstance {
     this.status = payload.status;
     this.type = payload.type;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -1405,9 +1398,9 @@ export function IncomingPhoneNumberListInstance(
   ): Promise<IncomingPhoneNumberInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1501,9 +1494,9 @@ export function IncomingPhoneNumberListInstance(
   ): Promise<ApiResponse<IncomingPhoneNumberInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -1568,16 +1561,14 @@ export function IncomingPhoneNumberListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<IncomingPhoneNumberInstance> => ({
-          ...response,
-          body: new IncomingPhoneNumberInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<IncomingPhoneNumberInstance> => ({
+        ...response,
+        body: new IncomingPhoneNumberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1705,17 +1696,15 @@ export function IncomingPhoneNumberListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<IncomingPhoneNumberPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new IncomingPhoneNumberPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<IncomingPhoneNumberPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new IncomingPhoneNumberPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

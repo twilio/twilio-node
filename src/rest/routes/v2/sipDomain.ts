@@ -122,7 +122,10 @@ export class SipDomainContextImpl implements SipDomainContext {
   protected _solution: SipDomainContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sipDomain: string) {
+  constructor(
+    protected _version: V2,
+    sipDomain: string
+  ) {
     if (!isValidPathParam(sipDomain)) {
       throw new Error("Parameter 'sipDomain' is not valid.");
     }
@@ -179,16 +182,14 @@ export class SipDomainContextImpl implements SipDomainContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SipDomainInstance> => ({
-          ...response,
-          body: new SipDomainInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sipDomain
-          ),
-        })
-      );
+      .then((response): ApiResponse<SipDomainInstance> => ({
+        ...response,
+        body: new SipDomainInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sipDomain
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -205,9 +206,9 @@ export class SipDomainContextImpl implements SipDomainContext {
   ): Promise<SipDomainInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -257,9 +258,9 @@ export class SipDomainContextImpl implements SipDomainContext {
   ): Promise<ApiResponse<SipDomainInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -283,16 +284,14 @@ export class SipDomainContextImpl implements SipDomainContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SipDomainInstance> => ({
-          ...response,
-          body: new SipDomainInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sipDomain
-          ),
-        })
-      );
+      .then((response): ApiResponse<SipDomainInstance> => ({
+        ...response,
+        body: new SipDomainInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sipDomain
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -346,7 +345,7 @@ export class SipDomainInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { sipDomain: sipDomain || this.sipDomain };
+    this._solution = { sipDomain: sipDomain };
   }
 
   sipDomain: string;

@@ -120,13 +120,14 @@ export interface ExportConfigurationContextSolution {
   resourceType: string;
 }
 
-export class ExportConfigurationContextImpl
-  implements ExportConfigurationContext
-{
+export class ExportConfigurationContextImpl implements ExportConfigurationContext {
   protected _solution: ExportConfigurationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, resourceType: string) {
+  constructor(
+    protected _version: V1,
+    resourceType: string
+  ) {
     if (!isValidPathParam(resourceType)) {
       throw new Error("Parameter 'resourceType' is not valid.");
     }
@@ -183,16 +184,14 @@ export class ExportConfigurationContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ExportConfigurationInstance> => ({
-          ...response,
-          body: new ExportConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.resourceType
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExportConfigurationInstance> => ({
+        ...response,
+        body: new ExportConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.resourceType
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -209,9 +208,9 @@ export class ExportConfigurationContextImpl
   ): Promise<ExportConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -266,9 +265,9 @@ export class ExportConfigurationContextImpl
   ): Promise<ApiResponse<ExportConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -294,16 +293,14 @@ export class ExportConfigurationContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ExportConfigurationInstance> => ({
-          ...response,
-          body: new ExportConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.resourceType
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExportConfigurationInstance> => ({
+        ...response,
+        body: new ExportConfigurationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.resourceType
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -351,7 +348,7 @@ export class ExportConfigurationInstance {
     this.resourceType = payload.resource_type;
     this.url = payload.url;
 
-    this._solution = { resourceType: resourceType || this.resourceType };
+    this._solution = { resourceType: resourceType };
   }
 
   /**

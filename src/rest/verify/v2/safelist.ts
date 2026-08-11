@@ -90,7 +90,10 @@ export class SafelistContextImpl implements SafelistContext {
   protected _solution: SafelistContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, phoneNumber: string) {
+  constructor(
+    protected _version: V2,
+    phoneNumber: string
+  ) {
     if (!isValidPathParam(phoneNumber)) {
       throw new Error("Parameter 'phoneNumber' is not valid.");
     }
@@ -129,12 +132,10 @@ export class SafelistContextImpl implements SafelistContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -191,16 +192,14 @@ export class SafelistContextImpl implements SafelistContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SafelistInstance> => ({
-          ...response,
-          body: new SafelistInstance(
-            operationVersion,
-            response.body,
-            instance._solution.phoneNumber
-          ),
-        })
-      );
+      .then((response): ApiResponse<SafelistInstance> => ({
+        ...response,
+        body: new SafelistInstance(
+          operationVersion,
+          response.body,
+          instance._solution.phoneNumber
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -244,7 +243,7 @@ export class SafelistInstance {
     this.phoneNumber = payload.phone_number;
     this.url = payload.url;
 
-    this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
+    this._solution = { phoneNumber: phoneNumber };
   }
 
   /**
@@ -469,12 +468,10 @@ export function SafelistListInstance(version: V2): SafelistListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SafelistInstance> => ({
-          ...response,
-          body: new SafelistInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<SafelistInstance> => ({
+        ...response,
+        body: new SafelistInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

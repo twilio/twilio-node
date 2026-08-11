@@ -101,9 +101,7 @@ export interface CompositionSettingsContext {
 
 export interface CompositionSettingsContextSolution {}
 
-export class CompositionSettingsContextImpl
-  implements CompositionSettingsContext
-{
+export class CompositionSettingsContextImpl implements CompositionSettingsContext {
   protected _solution: CompositionSettingsContextSolution;
   protected _uri: string;
 
@@ -209,15 +207,10 @@ export class CompositionSettingsContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CompositionSettingsInstance> => ({
-          ...response,
-          body: new CompositionSettingsInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<CompositionSettingsInstance> => ({
+        ...response,
+        body: new CompositionSettingsInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -269,15 +262,10 @@ export class CompositionSettingsContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CompositionSettingsInstance> => ({
-          ...response,
-          body: new CompositionSettingsInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<CompositionSettingsInstance> => ({
+        ...response,
+        body: new CompositionSettingsInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -317,7 +305,10 @@ export class CompositionSettingsInstance {
   protected _solution: CompositionSettingsContextSolution;
   protected _context?: CompositionSettingsContext;
 
-  constructor(protected _version: V1, payload: CompositionSettingsResource) {
+  constructor(
+    protected _version: V1,
+    payload: CompositionSettingsResource
+  ) {
     this.accountSid = payload.account_sid;
     this.friendlyName = payload.friendly_name;
     this.awsCredentialsSid = payload.aws_credentials_sid;

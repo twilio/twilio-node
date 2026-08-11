@@ -383,17 +383,15 @@ export function InsightsSegmentsListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InsightsSegmentsPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InsightsSegmentsPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<InsightsSegmentsPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InsightsSegmentsPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -479,7 +477,10 @@ interface InsightsSegmentsResource {
 }
 
 export class InsightsSegmentsInstance {
-  constructor(protected _version: V1, payload: InsightsSegmentsResource) {
+  constructor(
+    protected _version: V1,
+    payload: InsightsSegmentsResource
+  ) {
     this.segmentId = payload.segment_id;
     this.externalId = payload.external_id;
     this.queue = payload.queue;

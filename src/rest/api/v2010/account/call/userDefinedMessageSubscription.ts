@@ -67,9 +67,7 @@ export interface UserDefinedMessageSubscriptionContextSolution {
   sid: string;
 }
 
-export class UserDefinedMessageSubscriptionContextImpl
-  implements UserDefinedMessageSubscriptionContext
-{
+export class UserDefinedMessageSubscriptionContextImpl implements UserDefinedMessageSubscriptionContext {
   protected _solution: UserDefinedMessageSubscriptionContextSolution;
   protected _uri: string;
 
@@ -125,12 +123,10 @@ export class UserDefinedMessageSubscriptionContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -153,8 +149,7 @@ export class UserDefinedMessageSubscriptionContextImpl
   }
 }
 
-interface UserDefinedMessageSubscriptionPayload
-  extends UserDefinedMessageSubscriptionResource {}
+interface UserDefinedMessageSubscriptionPayload extends UserDefinedMessageSubscriptionResource {}
 
 interface UserDefinedMessageSubscriptionResource {
   account_sid: string;
@@ -181,7 +176,7 @@ export class UserDefinedMessageSubscriptionInstance {
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.uri = payload.uri;
 
-    this._solution = { accountSid, callSid, sid: sid || this.sid };
+    this._solution = { accountSid, callSid, sid: sid };
   }
 
   /**

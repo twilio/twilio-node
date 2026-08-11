@@ -128,9 +128,9 @@ export function FeedbackListInstance(
   ): Promise<FeedbackInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -177,9 +177,9 @@ export function FeedbackListInstance(
   ): Promise<ApiResponse<FeedbackInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -199,17 +199,15 @@ export function FeedbackListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<FeedbackInstance> => ({
-          ...response,
-          body: new FeedbackInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.messageSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FeedbackInstance> => ({
+        ...response,
+        body: new FeedbackInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.messageSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

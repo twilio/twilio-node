@@ -98,9 +98,7 @@ export interface TaskQueueRealTimeStatisticsContextSolution {
   taskQueueSid: string;
 }
 
-export class TaskQueueRealTimeStatisticsContextImpl
-  implements TaskQueueRealTimeStatisticsContext
-{
+export class TaskQueueRealTimeStatisticsContextImpl implements TaskQueueRealTimeStatisticsContext {
   protected _solution: TaskQueueRealTimeStatisticsContextSolution;
   protected _uri: string;
 
@@ -135,9 +133,9 @@ export class TaskQueueRealTimeStatisticsContextImpl
   ): Promise<TaskQueueRealTimeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -188,9 +186,9 @@ export class TaskQueueRealTimeStatisticsContextImpl
   ): Promise<ApiResponse<TaskQueueRealTimeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -211,17 +209,15 @@ export class TaskQueueRealTimeStatisticsContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TaskQueueRealTimeStatisticsInstance> => ({
-          ...response,
-          body: new TaskQueueRealTimeStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid,
-            instance._solution.taskQueueSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<TaskQueueRealTimeStatisticsInstance> => ({
+        ...response,
+        body: new TaskQueueRealTimeStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+          instance._solution.taskQueueSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -244,8 +240,7 @@ export class TaskQueueRealTimeStatisticsContextImpl
   }
 }
 
-interface TaskQueueRealTimeStatisticsPayload
-  extends TaskQueueRealTimeStatisticsResource {}
+interface TaskQueueRealTimeStatisticsPayload extends TaskQueueRealTimeStatisticsResource {}
 
 interface TaskQueueRealTimeStatisticsResource {
   account_sid: string;

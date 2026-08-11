@@ -142,9 +142,7 @@ export interface MessageInteractionContextSolution {
   sid: string;
 }
 
-export class MessageInteractionContextImpl
-  implements MessageInteractionContext
-{
+export class MessageInteractionContextImpl implements MessageInteractionContext {
   protected _solution: MessageInteractionContextSolution;
   protected _uri: string;
 
@@ -226,19 +224,17 @@ export class MessageInteractionContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<MessageInteractionInstance> => ({
-          ...response,
-          body: new MessageInteractionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sessionSid,
-            instance._solution.participantSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessageInteractionInstance> => ({
+        ...response,
+        body: new MessageInteractionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sessionSid,
+          instance._solution.participantSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -321,12 +317,7 @@ export class MessageInteractionInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = {
-      serviceSid,
-      sessionSid,
-      participantSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { serviceSid, sessionSid, participantSid, sid: sid };
   }
 
   /**
@@ -760,9 +751,9 @@ export function MessageInteractionListInstance(
   ): Promise<MessageInteractionInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -815,9 +806,9 @@ export function MessageInteractionListInstance(
   ): Promise<ApiResponse<MessageInteractionInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -839,18 +830,16 @@ export function MessageInteractionListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<MessageInteractionInstance> => ({
-          ...response,
-          body: new MessageInteractionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sessionSid,
-            instance._solution.participantSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessageInteractionInstance> => ({
+        ...response,
+        body: new MessageInteractionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sessionSid,
+          instance._solution.participantSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -964,17 +953,15 @@ export function MessageInteractionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<MessageInteractionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new MessageInteractionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<MessageInteractionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new MessageInteractionPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

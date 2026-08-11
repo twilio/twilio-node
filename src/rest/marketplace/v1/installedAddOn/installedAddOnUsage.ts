@@ -200,16 +200,14 @@ export function InstalledAddOnUsageListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InstalledAddOnUsageInstance> => ({
-          ...response,
-          body: new InstalledAddOnUsageInstance(
-            operationVersion,
-            response.body,
-            instance._solution.installedAddOnSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InstalledAddOnUsageInstance> => ({
+        ...response,
+        body: new InstalledAddOnUsageInstance(
+          operationVersion,
+          response.body,
+          instance._solution.installedAddOnSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

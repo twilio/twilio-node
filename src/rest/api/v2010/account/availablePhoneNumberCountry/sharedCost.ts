@@ -513,17 +513,15 @@ export function SharedCostListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SharedCostPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SharedCostPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<SharedCostPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SharedCostPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

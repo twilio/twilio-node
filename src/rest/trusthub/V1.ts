@@ -14,16 +14,22 @@
 
 import TrusthubBase from "../TrusthubBase";
 import Version from "../../base/Version";
+import { A2PBrandRegistrationListInstance } from "./v1/a2PBrandRegistration";
+import { A2PBrandRegistrationEmbeddedSessionListInstance } from "./v1/a2PBrandRegistrationEmbeddedSession";
+import { A2PCampaignRegistrationListInstance } from "./v1/a2PCampaignRegistration";
+import { A2PCampaignRegistrationEmbeddedSessionListInstance } from "./v1/a2PCampaignRegistrationEmbeddedSession";
 import { ComplianceInquiriesListInstance } from "./v1/complianceInquiries";
 import { ComplianceRegistrationInquiriesListInstance } from "./v1/complianceRegistrationInquiries";
 import { ComplianceTollfreeInquiriesListInstance } from "./v1/complianceTollfreeInquiries";
 import { CustomerProfilesListInstance } from "./v1/customerProfiles";
+import { CustomerProfilesProvisionalCopyListInstance } from "./v1/customerProfilesProvisionalCopy";
 import { EndUserListInstance } from "./v1/endUser";
 import { EndUserTypeListInstance } from "./v1/endUserType";
 import { PoliciesListInstance } from "./v1/policies";
 import { SupportingDocumentListInstance } from "./v1/supportingDocument";
 import { SupportingDocumentTypeListInstance } from "./v1/supportingDocumentType";
 import { TrustProductsListInstance } from "./v1/trustProducts";
+import { TrustProductsProvisionalCopyListInstance } from "./v1/trustProductsProvisionalCopy";
 
 export default class V1 extends Version {
   /**
@@ -35,6 +41,10 @@ export default class V1 extends Version {
     super(domain, "v1");
   }
 
+  /** a2PBrandRegistrations - { Twilio.Trusthub.V1.A2PBrandRegistrationListInstance } resource */
+  protected _a2PBrandRegistrations?: A2PBrandRegistrationListInstance;
+  /** a2PCampaignRegistrations - { Twilio.Trusthub.V1.A2PCampaignRegistrationListInstance } resource */
+  protected _a2PCampaignRegistrations?: A2PCampaignRegistrationListInstance;
   /** complianceInquiries - { Twilio.Trusthub.V1.ComplianceInquiriesListInstance } resource */
   protected _complianceInquiries?: ComplianceInquiriesListInstance;
   /** complianceRegistrationInquiries - { Twilio.Trusthub.V1.ComplianceRegistrationInquiriesListInstance } resource */
@@ -43,6 +53,8 @@ export default class V1 extends Version {
   protected _complianceTollfreeInquiries?: ComplianceTollfreeInquiriesListInstance;
   /** customerProfiles - { Twilio.Trusthub.V1.CustomerProfilesListInstance } resource */
   protected _customerProfiles?: CustomerProfilesListInstance;
+  /** customerProfilesProvisionalCopy - { Twilio.Trusthub.V1.CustomerProfilesProvisionalCopyListInstance } resource */
+  protected _customerProfilesProvisionalCopy?: CustomerProfilesProvisionalCopyListInstance;
   /** endUsers - { Twilio.Trusthub.V1.EndUserListInstance } resource */
   protected _endUsers?: EndUserListInstance;
   /** endUserTypes - { Twilio.Trusthub.V1.EndUserTypeListInstance } resource */
@@ -55,6 +67,37 @@ export default class V1 extends Version {
   protected _supportingDocumentTypes?: SupportingDocumentTypeListInstance;
   /** trustProducts - { Twilio.Trusthub.V1.TrustProductsListInstance } resource */
   protected _trustProducts?: TrustProductsListInstance;
+  /** trustProductsProvisionalCopy - { Twilio.Trusthub.V1.TrustProductsProvisionalCopyListInstance } resource */
+  protected _trustProductsProvisionalCopy?: TrustProductsProvisionalCopyListInstance;
+
+  /** Getter for a2PBrandRegistrations resource */
+  get a2PBrandRegistrations(): A2PBrandRegistrationListInstance {
+    this._a2PBrandRegistrations =
+      this._a2PBrandRegistrations || A2PBrandRegistrationListInstance(this);
+    return this._a2PBrandRegistrations;
+  }
+
+  /** Accessor for a2PBrandRegistrationEmbeddedSessions resource */
+  a2PBrandRegistrationEmbeddedSessions(
+    Id: string
+  ): A2PBrandRegistrationEmbeddedSessionListInstance {
+    return A2PBrandRegistrationEmbeddedSessionListInstance(this, Id);
+  }
+
+  /** Getter for a2PCampaignRegistrations resource */
+  get a2PCampaignRegistrations(): A2PCampaignRegistrationListInstance {
+    this._a2PCampaignRegistrations =
+      this._a2PCampaignRegistrations ||
+      A2PCampaignRegistrationListInstance(this);
+    return this._a2PCampaignRegistrations;
+  }
+
+  /** Accessor for a2PCampaignRegistrationEmbeddedSessions resource */
+  a2PCampaignRegistrationEmbeddedSessions(
+    Id: string
+  ): A2PCampaignRegistrationEmbeddedSessionListInstance {
+    return A2PCampaignRegistrationEmbeddedSessionListInstance(this, Id);
+  }
 
   /** Getter for complianceInquiries resource */
   get complianceInquiries(): ComplianceInquiriesListInstance {
@@ -84,6 +127,14 @@ export default class V1 extends Version {
     this._customerProfiles =
       this._customerProfiles || CustomerProfilesListInstance(this);
     return this._customerProfiles;
+  }
+
+  /** Getter for customerProfilesProvisionalCopy resource */
+  get customerProfilesProvisionalCopy(): CustomerProfilesProvisionalCopyListInstance {
+    this._customerProfilesProvisionalCopy =
+      this._customerProfilesProvisionalCopy ||
+      CustomerProfilesProvisionalCopyListInstance(this);
+    return this._customerProfilesProvisionalCopy;
   }
 
   /** Getter for endUsers resource */
@@ -123,5 +174,13 @@ export default class V1 extends Version {
     this._trustProducts =
       this._trustProducts || TrustProductsListInstance(this);
     return this._trustProducts;
+  }
+
+  /** Getter for trustProductsProvisionalCopy resource */
+  get trustProductsProvisionalCopy(): TrustProductsProvisionalCopyListInstance {
+    this._trustProductsProvisionalCopy =
+      this._trustProductsProvisionalCopy ||
+      TrustProductsProvisionalCopyListInstance(this);
+    return this._trustProductsProvisionalCopy;
   }
 }

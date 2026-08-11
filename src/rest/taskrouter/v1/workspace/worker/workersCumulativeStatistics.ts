@@ -103,13 +103,14 @@ export interface WorkersCumulativeStatisticsContextSolution {
   workspaceSid: string;
 }
 
-export class WorkersCumulativeStatisticsContextImpl
-  implements WorkersCumulativeStatisticsContext
-{
+export class WorkersCumulativeStatisticsContextImpl implements WorkersCumulativeStatisticsContext {
   protected _solution: WorkersCumulativeStatisticsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, workspaceSid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string
+  ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
     }
@@ -132,9 +133,9 @@ export class WorkersCumulativeStatisticsContextImpl
   ): Promise<WorkersCumulativeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -189,9 +190,9 @@ export class WorkersCumulativeStatisticsContextImpl
   ): Promise<ApiResponse<WorkersCumulativeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -217,16 +218,14 @@ export class WorkersCumulativeStatisticsContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkersCumulativeStatisticsInstance> => ({
-          ...response,
-          body: new WorkersCumulativeStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkersCumulativeStatisticsInstance> => ({
+        ...response,
+        body: new WorkersCumulativeStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -249,8 +248,7 @@ export class WorkersCumulativeStatisticsContextImpl
   }
 }
 
-interface WorkersCumulativeStatisticsPayload
-  extends WorkersCumulativeStatisticsResource {}
+interface WorkersCumulativeStatisticsPayload extends WorkersCumulativeStatisticsResource {}
 
 interface WorkersCumulativeStatisticsResource {
   account_sid: string;

@@ -56,13 +56,14 @@ export interface OperatorAttachmentsContextSolution {
   serviceSid: string;
 }
 
-export class OperatorAttachmentsContextImpl
-  implements OperatorAttachmentsContext
-{
+export class OperatorAttachmentsContextImpl implements OperatorAttachmentsContext {
   protected _solution: OperatorAttachmentsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, serviceSid: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -119,16 +120,14 @@ export class OperatorAttachmentsContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<OperatorAttachmentsInstance> => ({
-          ...response,
-          body: new OperatorAttachmentsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<OperatorAttachmentsInstance> => ({
+        ...response,
+        body: new OperatorAttachmentsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -172,7 +171,7 @@ export class OperatorAttachmentsInstance {
     this.operatorSids = payload.operator_sids;
     this.url = payload.url;
 
-    this._solution = { serviceSid: serviceSid || this.serviceSid };
+    this._solution = { serviceSid: serviceSid };
   }
 
   /**

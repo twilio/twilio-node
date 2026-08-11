@@ -173,7 +173,11 @@ export class KeyContextImpl implements KeyContext {
   protected _solution: KeyContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -216,12 +220,10 @@ export class KeyContextImpl implements KeyContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -276,17 +278,15 @@ export class KeyContextImpl implements KeyContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<KeyInstance> => ({
-          ...response,
-          body: new KeyInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<KeyInstance> => ({
+        ...response,
+        body: new KeyInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -303,9 +303,9 @@ export class KeyContextImpl implements KeyContext {
   ): Promise<KeyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -351,9 +351,9 @@ export class KeyContextImpl implements KeyContext {
   ): Promise<ApiResponse<KeyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -375,17 +375,15 @@ export class KeyContextImpl implements KeyContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<KeyInstance> => ({
-          ...response,
-          body: new KeyInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<KeyInstance> => ({
+        ...response,
+        body: new KeyInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -434,7 +432,7 @@ export class KeyInstance {
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -861,13 +859,11 @@ export function KeyListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<KeyPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new KeyPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<KeyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new KeyPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

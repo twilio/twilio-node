@@ -23,10 +23,7 @@ import { ApiResponse } from "../../../../base/ApiResponse";
  * Current state of this conversation. Can be either `initializing`, `active`, `inactive` or `closed` and defaults to `active`
  */
 export type ConversationWithParticipantsState =
-  | "initializing"
-  | "inactive"
-  | "active"
-  | "closed";
+  "initializing" | "inactive" | "active" | "closed";
 
 export type ConversationWithParticipantsWebhookEnabledType = "true" | "false";
 
@@ -164,9 +161,9 @@ export function ConversationWithParticipantsListInstance(
   ): Promise<ConversationWithParticipantsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -242,9 +239,9 @@ export function ConversationWithParticipantsListInstance(
   ): Promise<ApiResponse<ConversationWithParticipantsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -291,16 +288,14 @@ export function ConversationWithParticipantsListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConversationWithParticipantsInstance> => ({
-          ...response,
-          body: new ConversationWithParticipantsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.chatServiceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ConversationWithParticipantsInstance> => ({
+        ...response,
+        body: new ConversationWithParticipantsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.chatServiceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -323,8 +318,7 @@ export function ConversationWithParticipantsListInstance(
   return instance;
 }
 
-interface ConversationWithParticipantsPayload
-  extends ConversationWithParticipantsResource {}
+interface ConversationWithParticipantsPayload extends ConversationWithParticipantsResource {}
 
 interface ConversationWithParticipantsResource {
   account_sid: string;

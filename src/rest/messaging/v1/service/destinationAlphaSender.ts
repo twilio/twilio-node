@@ -140,13 +140,15 @@ export interface DestinationAlphaSenderContextSolution {
   sid: string;
 }
 
-export class DestinationAlphaSenderContextImpl
-  implements DestinationAlphaSenderContext
-{
+export class DestinationAlphaSenderContextImpl implements DestinationAlphaSenderContext {
   protected _solution: DestinationAlphaSenderContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V1,
+    serviceSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -189,12 +191,10 @@ export class DestinationAlphaSenderContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -255,17 +255,15 @@ export class DestinationAlphaSenderContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<DestinationAlphaSenderInstance> => ({
-          ...response,
-          body: new DestinationAlphaSenderInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DestinationAlphaSenderInstance> => ({
+        ...response,
+        body: new DestinationAlphaSenderInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -324,7 +322,7 @@ export class DestinationAlphaSenderInstance {
     this.url = payload.url;
     this.isoCountryCode = payload.iso_country_code;
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -782,16 +780,14 @@ export function DestinationAlphaSenderListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<DestinationAlphaSenderInstance> => ({
-          ...response,
-          body: new DestinationAlphaSenderInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DestinationAlphaSenderInstance> => ({
+        ...response,
+        body: new DestinationAlphaSenderInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -909,17 +905,15 @@ export function DestinationAlphaSenderListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<DestinationAlphaSenderPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new DestinationAlphaSenderPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<DestinationAlphaSenderPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new DestinationAlphaSenderPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

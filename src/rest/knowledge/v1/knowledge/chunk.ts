@@ -313,13 +313,11 @@ export function ChunkListInstance(version: V1, id: string): ChunkListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ChunkPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ChunkPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<ChunkPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ChunkPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -381,7 +379,11 @@ interface ChunkResource {
 }
 
 export class ChunkInstance {
-  constructor(protected _version: V1, payload: ChunkResource, id: string) {
+  constructor(
+    protected _version: V1,
+    payload: ChunkResource,
+    id: string
+  ) {
     this.accountSid = payload.account_sid;
     this.content = payload.content;
     this.metadata = payload.metadata;

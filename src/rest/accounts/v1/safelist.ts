@@ -262,12 +262,10 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SafelistInstance> => ({
-          ...response,
-          body: new SafelistInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<SafelistInstance> => ({
+        ...response,
+        body: new SafelistInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -284,9 +282,9 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -319,9 +317,9 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -340,12 +338,10 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -362,9 +358,9 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
   ): Promise<SafelistInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -405,9 +401,9 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
   ): Promise<ApiResponse<SafelistInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -427,12 +423,10 @@ export function SafelistListInstance(version: V1): SafelistListInstance {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SafelistInstance> => ({
-          ...response,
-          body: new SafelistInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<SafelistInstance> => ({
+        ...response,
+        body: new SafelistInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -463,7 +457,10 @@ interface SafelistResource {
 }
 
 export class SafelistInstance {
-  constructor(protected _version: V1, payload: SafelistResource) {
+  constructor(
+    protected _version: V1,
+    payload: SafelistResource
+  ) {
     this.sid = payload.sid;
     this.phoneNumber = payload.phone_number;
   }

@@ -512,16 +512,14 @@ export function LocalListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<LocalInstance> => ({
-          ...response,
-          body: new LocalInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<LocalInstance> => ({
+        ...response,
+        body: new LocalInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -633,13 +631,11 @@ export function LocalListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<LocalPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new LocalPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<LocalPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new LocalPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

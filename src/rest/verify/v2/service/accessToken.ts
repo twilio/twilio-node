@@ -80,7 +80,11 @@ export class AccessTokenContextImpl implements AccessTokenContext {
   protected _solution: AccessTokenContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V2,
+    serviceSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -142,17 +146,15 @@ export class AccessTokenContextImpl implements AccessTokenContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AccessTokenInstance> => ({
-          ...response,
-          body: new AccessTokenInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AccessTokenInstance> => ({
+        ...response,
+        body: new AccessTokenInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -211,7 +213,7 @@ export class AccessTokenInstance {
     this.ttl = deserialize.integer(payload.ttl);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
 
-    this._solution = { serviceSid, sid: sid || this.sid };
+    this._solution = { serviceSid, sid: sid };
   }
 
   /**
@@ -477,16 +479,14 @@ export function AccessTokenListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<AccessTokenInstance> => ({
-          ...response,
-          body: new AccessTokenInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AccessTokenInstance> => ({
+        ...response,
+        body: new AccessTokenInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

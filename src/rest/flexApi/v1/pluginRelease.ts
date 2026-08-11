@@ -150,7 +150,10 @@ export class PluginReleaseContextImpl implements PluginReleaseContext {
   protected _solution: PluginReleaseContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -167,9 +170,9 @@ export class PluginReleaseContextImpl implements PluginReleaseContext {
   ): Promise<PluginReleaseInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -218,9 +221,9 @@ export class PluginReleaseContextImpl implements PluginReleaseContext {
   ): Promise<ApiResponse<PluginReleaseInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -240,16 +243,14 @@ export class PluginReleaseContextImpl implements PluginReleaseContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PluginReleaseInstance> => ({
-          ...response,
-          body: new PluginReleaseInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PluginReleaseInstance> => ({
+        ...response,
+        body: new PluginReleaseInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -299,7 +300,7 @@ export class PluginReleaseInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -729,12 +730,10 @@ export function PluginReleaseListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PluginReleaseInstance> => ({
-          ...response,
-          body: new PluginReleaseInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<PluginReleaseInstance> => ({
+        ...response,
+        body: new PluginReleaseInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -841,17 +840,15 @@ export function PluginReleaseListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<PluginReleasePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new PluginReleasePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<PluginReleasePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PluginReleasePage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

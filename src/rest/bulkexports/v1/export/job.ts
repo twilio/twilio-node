@@ -79,7 +79,10 @@ export class JobContextImpl implements JobContext {
   protected _solution: JobContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, jobSid: string) {
+  constructor(
+    protected _version: V1,
+    jobSid: string
+  ) {
     if (!isValidPathParam(jobSid)) {
       throw new Error("Parameter 'jobSid' is not valid.");
     }
@@ -118,12 +121,10 @@ export class JobContextImpl implements JobContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -173,16 +174,14 @@ export class JobContextImpl implements JobContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<JobInstance> => ({
-          ...response,
-          body: new JobInstance(
-            operationVersion,
-            response.body,
-            instance._solution.jobSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<JobInstance> => ({
+        ...response,
+        body: new JobInstance(
+          operationVersion,
+          response.body,
+          instance._solution.jobSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -226,7 +225,11 @@ export class JobInstance {
   protected _solution: JobContextSolution;
   protected _context?: JobContext;
 
-  constructor(protected _version: V1, payload: JobResource, jobSid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: JobResource,
+    jobSid?: string
+  ) {
     this.resourceType = payload.resource_type;
     this.friendlyName = payload.friendly_name;
     this.details = payload.details;
@@ -240,7 +243,7 @@ export class JobInstance {
     this.jobQueuePosition = payload.job_queue_position;
     this.estimatedCompletionTime = payload.estimated_completion_time;
 
-    this._solution = { jobSid: jobSid || this.jobSid };
+    this._solution = { jobSid: jobSid };
   }
 
   /**

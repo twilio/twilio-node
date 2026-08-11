@@ -181,17 +181,15 @@ export class BrandVettingContextImpl implements BrandVettingContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<BrandVettingInstance> => ({
-          ...response,
-          body: new BrandVettingInstance(
-            operationVersion,
-            response.body,
-            instance._solution.brandSid,
-            instance._solution.brandVettingSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<BrandVettingInstance> => ({
+        ...response,
+        body: new BrandVettingInstance(
+          operationVersion,
+          response.body,
+          instance._solution.brandSid,
+          instance._solution.brandVettingSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -252,10 +250,7 @@ export class BrandVettingInstance {
     this.vettingProvider = payload.vetting_provider;
     this.url = payload.url;
 
-    this._solution = {
-      brandSid,
-      brandVettingSid: brandVettingSid || this.brandVettingSid,
-    };
+    this._solution = { brandSid, brandVettingSid: brandVettingSid };
   }
 
   /**
@@ -672,16 +667,14 @@ export function BrandVettingListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BrandVettingInstance> => ({
-          ...response,
-          body: new BrandVettingInstance(
-            operationVersion,
-            response.body,
-            instance._solution.brandSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<BrandVettingInstance> => ({
+        ...response,
+        body: new BrandVettingInstance(
+          operationVersion,
+          response.body,
+          instance._solution.brandSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -786,17 +779,15 @@ export function BrandVettingListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<BrandVettingPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new BrandVettingPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<BrandVettingPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new BrandVettingPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

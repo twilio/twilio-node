@@ -62,7 +62,10 @@ export class FormContextImpl implements FormContext {
   protected _solution: FormContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, formType: FormFormTypes) {
+  constructor(
+    protected _version: V2,
+    formType: FormFormTypes
+  ) {
     if (!isValidPathParam(formType)) {
       throw new Error("Parameter 'formType' is not valid.");
     }
@@ -112,16 +115,14 @@ export class FormContextImpl implements FormContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<FormInstance> => ({
-          ...response,
-          body: new FormInstance(
-            operationVersion,
-            response.body,
-            instance._solution.formType
-          ),
-        })
-      );
+      .then((response): ApiResponse<FormInstance> => ({
+        ...response,
+        body: new FormInstance(
+          operationVersion,
+          response.body,
+          instance._solution.formType
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -167,7 +168,7 @@ export class FormInstance {
     this.formMeta = payload.form_meta;
     this.url = payload.url;
 
-    this._solution = { formType: formType || this.formType };
+    this._solution = { formType: formType };
   }
 
   formType: FormFormTypes;

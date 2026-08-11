@@ -71,10 +71,7 @@ export type TollfreeVerificationOptInType =
  * The compliance status of the Tollfree Verification record.
  */
 export type TollfreeVerificationStatus =
-  | "PENDING_REVIEW"
-  | "IN_REVIEW"
-  | "TWILIO_APPROVED"
-  | "TWILIO_REJECTED";
+  "PENDING_REVIEW" | "IN_REVIEW" | "TWILIO_APPROVED" | "TWILIO_REJECTED";
 
 /**
  * The third-party political vetting provider.
@@ -417,13 +414,14 @@ export interface TollfreeVerificationContextSolution {
   sid: string;
 }
 
-export class TollfreeVerificationContextImpl
-  implements TollfreeVerificationContext
-{
+export class TollfreeVerificationContextImpl implements TollfreeVerificationContext {
   protected _solution: TollfreeVerificationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -462,12 +460,10 @@ export class TollfreeVerificationContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -524,16 +520,14 @@ export class TollfreeVerificationContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<TollfreeVerificationInstance> => ({
-          ...response,
-          body: new TollfreeVerificationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<TollfreeVerificationInstance> => ({
+        ...response,
+        body: new TollfreeVerificationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -550,9 +544,9 @@ export class TollfreeVerificationContextImpl
   ): Promise<TollfreeVerificationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -684,9 +678,9 @@ export class TollfreeVerificationContextImpl
   ): Promise<ApiResponse<TollfreeVerificationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -789,16 +783,14 @@ export class TollfreeVerificationContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TollfreeVerificationInstance> => ({
-          ...response,
-          body: new TollfreeVerificationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<TollfreeVerificationInstance> => ({
+        ...response,
+        body: new TollfreeVerificationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -948,7 +940,7 @@ export class TollfreeVerificationInstance {
       payload.vetting_id_expiration
     );
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -1973,15 +1965,10 @@ export function TollfreeVerificationListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TollfreeVerificationInstance> => ({
-          ...response,
-          body: new TollfreeVerificationInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<TollfreeVerificationInstance> => ({
+        ...response,
+        body: new TollfreeVerificationInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -2119,17 +2106,15 @@ export function TollfreeVerificationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<TollfreeVerificationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new TollfreeVerificationPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<TollfreeVerificationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new TollfreeVerificationPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -68,7 +68,10 @@ export class BulkEligibilityContextImpl implements BulkEligibilityContext {
   protected _solution: BulkEligibilityContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, requestId: string) {
+  constructor(
+    protected _version: V1,
+    requestId: string
+  ) {
     if (!isValidPathParam(requestId)) {
       throw new Error("Parameter 'requestId' is not valid.");
     }
@@ -125,16 +128,14 @@ export class BulkEligibilityContextImpl implements BulkEligibilityContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<BulkEligibilityInstance> => ({
-          ...response,
-          body: new BulkEligibilityInstance(
-            operationVersion,
-            response.body,
-            instance._solution.requestId
-          ),
-        })
-      );
+      .then((response): ApiResponse<BulkEligibilityInstance> => ({
+        ...response,
+        body: new BulkEligibilityInstance(
+          operationVersion,
+          response.body,
+          instance._solution.requestId
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -186,7 +187,7 @@ export class BulkEligibilityInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateCompleted = deserialize.iso8601DateTime(payload.date_completed);
 
-    this._solution = { requestId: requestId || this.requestId };
+    this._solution = { requestId: requestId };
   }
 
   /**
@@ -359,16 +360,15 @@ export function BulkEligibilityListInstance(
 
   instance.create = function create(
     params?:
-      | object
-      | ((error: Error | null, items: BulkEligibilityInstance) => any),
+      object | ((error: Error | null, items: BulkEligibilityInstance) => any),
     headers?: any,
     callback?: (error: Error | null, items: BulkEligibilityInstance) => any
   ): Promise<BulkEligibilityInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -416,9 +416,9 @@ export function BulkEligibilityListInstance(
   ): Promise<ApiResponse<BulkEligibilityInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -441,12 +441,10 @@ export function BulkEligibilityListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<BulkEligibilityInstance> => ({
-          ...response,
-          body: new BulkEligibilityInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<BulkEligibilityInstance> => ({
+        ...response,
+        body: new BulkEligibilityInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

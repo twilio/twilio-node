@@ -395,17 +395,15 @@ export function PortingAllPortInListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<PortingAllPortInPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new PortingAllPortInPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<PortingAllPortInPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PortingAllPortInPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -475,7 +473,10 @@ interface PortingAllPortInResource {
 }
 
 export class PortingAllPortInInstance {
-  constructor(protected _version: V1, payload: PortingAllPortInResource) {
+  constructor(
+    protected _version: V1,
+    payload: PortingAllPortInResource
+  ) {
     this.portInRequestSid = payload.port_in_request_sid;
     this.portInRequestStatus = payload.port_in_request_status;
     this.statusLastUpdatedTimestamp = payload.status_last_updated_timestamp;

@@ -255,7 +255,10 @@ export class InboundContextImpl implements InboundContext {
   protected _solution: InboundContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, reportId: string) {
+  constructor(
+    protected _version: V2,
+    reportId: string
+  ) {
     if (!isValidPathParam(reportId)) {
       throw new Error("Parameter 'reportId' is not valid.");
     }
@@ -273,9 +276,12 @@ export class InboundContextImpl implements InboundContext {
   ): Promise<InboundInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
     }
 
     let data: any = {};
@@ -323,9 +329,12 @@ export class InboundContextImpl implements InboundContext {
   ): Promise<ApiResponse<InboundInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
     }
 
     let data: any = {};
@@ -349,16 +358,14 @@ export class InboundContextImpl implements InboundContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InboundInstance> => ({
-          ...response,
-          body: new InboundInstance(
-            operationVersion,
-            response.body,
-            instance._solution.reportId
-          ),
-        })
-      );
+      .then((response): ApiResponse<InboundInstance> => ({
+        ...response,
+        body: new InboundInstance(
+          operationVersion,
+          response.body,
+          instance._solution.reportId
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -427,7 +434,7 @@ export class InboundInstance {
         : null;
     this.silentCallsPercentage = payload.silent_calls_percentage;
 
-    this._solution = { reportId: reportId || this.reportId };
+    this._solution = { reportId: reportId };
   }
 
   /**
@@ -832,13 +839,11 @@ export function InboundListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InboundPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InboundPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<InboundPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InboundPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

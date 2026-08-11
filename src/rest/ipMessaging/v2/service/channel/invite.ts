@@ -188,12 +188,10 @@ export class InviteContextImpl implements InviteContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -249,18 +247,16 @@ export class InviteContextImpl implements InviteContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<InviteInstance> => ({
-          ...response,
-          body: new InviteInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.channelSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InviteInstance> => ({
+        ...response,
+        body: new InviteInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.channelSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -322,7 +318,7 @@ export class InviteInstance {
     this.createdBy = payload.created_by;
     this.url = payload.url;
 
-    this._solution = { serviceSid, channelSid, sid: sid || this.sid };
+    this._solution = { serviceSid, channelSid, sid: sid };
   }
 
   sid: string;
@@ -715,17 +711,15 @@ export function InviteListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InviteInstance> => ({
-          ...response,
-          body: new InviteInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.channelSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InviteInstance> => ({
+        ...response,
+        body: new InviteInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.channelSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -828,13 +822,11 @@ export function InviteListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InvitePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InvitePage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<InvitePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InvitePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

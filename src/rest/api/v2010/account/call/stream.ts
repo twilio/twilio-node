@@ -594,18 +594,16 @@ export class StreamContextImpl implements StreamContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<StreamInstance> => ({
-          ...response,
-          body: new StreamInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.callSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<StreamInstance> => ({
+        ...response,
+        body: new StreamInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.callSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -659,7 +657,7 @@ export class StreamInstance {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
 
-    this._solution = { accountSid, callSid, sid: sid || this.sid };
+    this._solution = { accountSid, callSid, sid: sid };
   }
 
   /**
@@ -1709,17 +1707,15 @@ export function StreamListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<StreamInstance> => ({
-          ...response,
-          body: new StreamInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.callSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<StreamInstance> => ({
+        ...response,
+        body: new StreamInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.callSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

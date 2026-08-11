@@ -134,9 +134,9 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
   ): Promise<TaskQueueBulkRealTimeStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -189,9 +189,9 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
   ): Promise<ApiResponse<TaskQueueBulkRealTimeStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -246,8 +246,7 @@ export function TaskQueueBulkRealTimeStatisticsListInstance(
   return instance;
 }
 
-interface TaskQueueBulkRealTimeStatisticsPayload
-  extends TaskQueueBulkRealTimeStatisticsResource {}
+interface TaskQueueBulkRealTimeStatisticsPayload extends TaskQueueBulkRealTimeStatisticsResource {}
 
 interface TaskQueueBulkRealTimeStatisticsResource {
   account_sid: string;

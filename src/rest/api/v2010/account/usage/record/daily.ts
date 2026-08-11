@@ -354,13 +354,11 @@ export function DailyListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<DailyPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new DailyPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<DailyPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new DailyPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

@@ -160,17 +160,15 @@ export class AccountContextImpl implements AccountContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AccountInstance> => ({
-          ...response,
-          body: new AccountInstance(
-            operationVersion,
-            response.body,
-            instance._solution.organizationSid,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AccountInstance> => ({
+        ...response,
+        body: new AccountInstance(
+          operationVersion,
+          response.body,
+          instance._solution.organizationSid,
+          instance._solution.accountSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -224,10 +222,7 @@ export class AccountInstance {
     this.ownerSid = payload.owner_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
 
-    this._solution = {
-      organizationSid,
-      accountSid: accountSid || this.accountSid,
-    };
+    this._solution = { organizationSid, accountSid: accountSid };
   }
 
   /**
@@ -582,13 +577,11 @@ export function AccountListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AccountPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AccountPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<AccountPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AccountPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

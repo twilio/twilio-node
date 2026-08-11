@@ -175,9 +175,9 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   ): Promise<ConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -222,9 +222,9 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   ): Promise<ApiResponse<ConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -245,12 +245,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ConfigurationInstance> => ({
+        ...response,
+        body: new ConfigurationInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -261,16 +259,15 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
   update(
     params?:
-      | object
-      | ((error: Error | null, item?: ConfigurationInstance) => any),
+      object | ((error: Error | null, item?: ConfigurationInstance) => any),
     headers?: any,
     callback?: (error: Error | null, item?: ConfigurationInstance) => any
   ): Promise<ConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -319,9 +316,9 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   ): Promise<ApiResponse<ConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -345,12 +342,10 @@ export class ConfigurationContextImpl implements ConfigurationContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ConfigurationInstance> => ({
+        ...response,
+        body: new ConfigurationInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -431,7 +426,10 @@ export class ConfigurationInstance {
   protected _solution: ConfigurationContextSolution;
   protected _context?: ConfigurationContext;
 
-  constructor(protected _version: V1, payload: ConfigurationResource) {
+  constructor(
+    protected _version: V1,
+    payload: ConfigurationResource
+  ) {
     this.accountSid = payload.account_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);

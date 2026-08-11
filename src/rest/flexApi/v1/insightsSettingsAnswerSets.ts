@@ -122,9 +122,9 @@ export function InsightsSettingsAnswerSetsListInstance(
   ): Promise<InsightsSettingsAnswerSetsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -168,9 +168,9 @@ export function InsightsSettingsAnswerSetsListInstance(
   ): Promise<ApiResponse<InsightsSettingsAnswerSetsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -189,15 +189,13 @@ export function InsightsSettingsAnswerSetsListInstance(
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InsightsSettingsAnswerSetsInstance> => ({
-          ...response,
-          body: new InsightsSettingsAnswerSetsInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<InsightsSettingsAnswerSetsInstance> => ({
+        ...response,
+        body: new InsightsSettingsAnswerSetsInstance(
+          operationVersion,
+          response.body
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -220,8 +218,7 @@ export function InsightsSettingsAnswerSetsListInstance(
   return instance;
 }
 
-interface InsightsSettingsAnswerSetsPayload
-  extends InsightsSettingsAnswerSetsResource {}
+interface InsightsSettingsAnswerSetsPayload extends InsightsSettingsAnswerSetsResource {}
 
 interface InsightsSettingsAnswerSetsResource {
   account_sid: string;

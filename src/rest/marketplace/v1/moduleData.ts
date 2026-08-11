@@ -135,9 +135,9 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
   ): Promise<ModuleDataInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -181,9 +181,9 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
   ): Promise<ApiResponse<ModuleDataInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -206,12 +206,10 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ModuleDataInstance> => ({
-          ...response,
-          body: new ModuleDataInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ModuleDataInstance> => ({
+        ...response,
+        body: new ModuleDataInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -261,12 +259,10 @@ export function ModuleDataListInstance(version: V1): ModuleDataListInstance {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ModuleDataInstance> => ({
-          ...response,
-          body: new ModuleDataInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ModuleDataInstance> => ({
+        ...response,
+        body: new ModuleDataInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -305,7 +301,10 @@ interface ModuleDataResource {
 }
 
 export class ModuleDataInstance {
-  constructor(protected _version: V1, payload: ModuleDataResource) {
+  constructor(
+    protected _version: V1,
+    payload: ModuleDataResource
+  ) {
     this.url = payload.url;
     this.sid = payload.sid;
     this.description = payload.description;

@@ -127,9 +127,9 @@ export function PortingWebhookConfigurationListInstance(
   ): Promise<PortingWebhookConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -178,9 +178,9 @@ export function PortingWebhookConfigurationListInstance(
   ): Promise<ApiResponse<PortingWebhookConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as Partial<object> as object;
     } else {
-      params = params || {};
+      params = params || ({} as Partial<object> as object);
     }
 
     let data: any = {};
@@ -203,15 +203,13 @@ export function PortingWebhookConfigurationListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PortingWebhookConfigurationInstance> => ({
-          ...response,
-          body: new PortingWebhookConfigurationInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<PortingWebhookConfigurationInstance> => ({
+        ...response,
+        body: new PortingWebhookConfigurationInstance(
+          operationVersion,
+          response.body
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -234,8 +232,7 @@ export function PortingWebhookConfigurationListInstance(
   return instance;
 }
 
-interface PortingWebhookConfigurationPayload
-  extends PortingWebhookConfigurationResource {}
+interface PortingWebhookConfigurationPayload extends PortingWebhookConfigurationResource {}
 
 interface PortingWebhookConfigurationResource {
   url: string;

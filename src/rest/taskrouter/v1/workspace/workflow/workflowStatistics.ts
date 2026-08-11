@@ -100,9 +100,7 @@ export interface WorkflowStatisticsContextSolution {
   workflowSid: string;
 }
 
-export class WorkflowStatisticsContextImpl
-  implements WorkflowStatisticsContext
-{
+export class WorkflowStatisticsContextImpl implements WorkflowStatisticsContext {
   protected _solution: WorkflowStatisticsContextSolution;
   protected _uri: string;
 
@@ -131,9 +129,9 @@ export class WorkflowStatisticsContextImpl
   ): Promise<WorkflowStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -191,9 +189,9 @@ export class WorkflowStatisticsContextImpl
   ): Promise<ApiResponse<WorkflowStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -221,17 +219,15 @@ export class WorkflowStatisticsContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkflowStatisticsInstance> => ({
-          ...response,
-          body: new WorkflowStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid,
-            instance._solution.workflowSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkflowStatisticsInstance> => ({
+        ...response,
+        body: new WorkflowStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+          instance._solution.workflowSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

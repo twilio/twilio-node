@@ -111,9 +111,9 @@ export function NewKeyListInstance(
   ): Promise<NewKeyInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -157,9 +157,9 @@ export function NewKeyListInstance(
   ): Promise<ApiResponse<NewKeyInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -180,16 +180,14 @@ export function NewKeyListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<NewKeyInstance> => ({
-          ...response,
-          body: new NewKeyInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<NewKeyInstance> => ({
+        ...response,
+        body: new NewKeyInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

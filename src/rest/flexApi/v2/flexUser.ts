@@ -191,17 +191,15 @@ export class FlexUserContextImpl implements FlexUserContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<FlexUserInstance> => ({
-          ...response,
-          body: new FlexUserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.instanceSid,
-            instance._solution.flexUserSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FlexUserInstance> => ({
+        ...response,
+        body: new FlexUserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.instanceSid,
+          instance._solution.flexUserSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -218,9 +216,9 @@ export class FlexUserContextImpl implements FlexUserContext {
   ): Promise<FlexUserInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -270,9 +268,9 @@ export class FlexUserContextImpl implements FlexUserContext {
   ): Promise<ApiResponse<FlexUserInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -295,17 +293,15 @@ export class FlexUserContextImpl implements FlexUserContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<FlexUserInstance> => ({
-          ...response,
-          body: new FlexUserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.instanceSid,
-            instance._solution.flexUserSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FlexUserInstance> => ({
+        ...response,
+        body: new FlexUserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.instanceSid,
+          instance._solution.flexUserSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -374,10 +370,7 @@ export class FlexUserInstance {
     this.version = deserialize.integer(payload.version);
     this.url = payload.url;
 
-    this._solution = {
-      instanceSid: instanceSid || this.instanceSid,
-      flexUserSid: flexUserSid || this.flexUserSid,
-    };
+    this._solution = { instanceSid: instanceSid, flexUserSid: flexUserSid };
   }
 
   /**

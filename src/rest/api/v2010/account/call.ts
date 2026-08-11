@@ -131,6 +131,8 @@ export interface CallListInstanceCreateOptions {
   asyncAmdStatusCallback?: string;
   /** The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. */
   asyncAmdStatusCallbackMethod?: string;
+  /** The STIR/SHAKEN passport for this call, provided as a base64 encoded string. Multiple passports (at max 5) are comma separated and provided as base64 encoded string */
+  passports?: string;
   /** The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta) */
   byoc?: string;
   /** The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party\\\'s phone. (Branded Calls Beta) */
@@ -374,7 +376,11 @@ export class CallContextImpl implements CallContext {
   protected _userDefinedMessages?: UserDefinedMessageListInstance;
   protected _userDefinedMessageSubscriptions?: UserDefinedMessageSubscriptionListInstance;
 
-  constructor(protected _version: V2010, accountSid: string, sid: string) {
+  constructor(
+    protected _version: V2010,
+    accountSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(accountSid)) {
       throw new Error("Parameter 'accountSid' is not valid.");
     }
@@ -516,12 +522,10 @@ export class CallContextImpl implements CallContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -576,17 +580,15 @@ export class CallContextImpl implements CallContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CallInstance> => ({
-          ...response,
-          body: new CallInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CallInstance> => ({
+        ...response,
+        body: new CallInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -603,9 +605,9 @@ export class CallContextImpl implements CallContext {
   ): Promise<CallInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -664,9 +666,9 @@ export class CallContextImpl implements CallContext {
   ): Promise<ApiResponse<CallInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -701,17 +703,15 @@ export class CallContextImpl implements CallContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CallInstance> => ({
-          ...response,
-          body: new CallInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CallInstance> => ({
+        ...response,
+        body: new CallInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -804,7 +804,7 @@ export class CallInstance {
     this.uri = payload.uri;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = { accountSid, sid: sid || this.sid };
+    this._solution = { accountSid, sid: sid };
   }
 
   /**
@@ -1417,6 +1417,8 @@ export function CallListInstance(
     if (params["asyncAmdStatusCallbackMethod"] !== undefined)
       data["AsyncAmdStatusCallbackMethod"] =
         params["asyncAmdStatusCallbackMethod"];
+    if (params["passports"] !== undefined)
+      data["Passports"] = params["passports"];
     if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
     if (params["callReason"] !== undefined)
       data["CallReason"] = params["callReason"];
@@ -1541,6 +1543,8 @@ export function CallListInstance(
     if (params["asyncAmdStatusCallbackMethod"] !== undefined)
       data["AsyncAmdStatusCallbackMethod"] =
         params["asyncAmdStatusCallbackMethod"];
+    if (params["passports"] !== undefined)
+      data["Passports"] = params["passports"];
     if (params["byoc"] !== undefined) data["Byoc"] = params["byoc"];
     if (params["callReason"] !== undefined)
       data["CallReason"] = params["callReason"];
@@ -1571,16 +1575,14 @@ export function CallListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CallInstance> => ({
-          ...response,
-          body: new CallInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CallInstance> => ({
+        ...response,
+        body: new CallInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1712,13 +1714,11 @@ export function CallListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CallPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CallPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<CallPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CallPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

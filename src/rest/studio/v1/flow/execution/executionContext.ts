@@ -61,7 +61,11 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   protected _solution: ExecutionContextContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, flowSid: string, executionSid: string) {
+  constructor(
+    protected _version: V1,
+    flowSid: string,
+    executionSid: string
+  ) {
     if (!isValidPathParam(flowSid)) {
       throw new Error("Parameter 'flowSid' is not valid.");
     }
@@ -123,17 +127,15 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ExecutionContextInstance> => ({
-          ...response,
-          body: new ExecutionContextInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.executionSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ExecutionContextInstance> => ({
+        ...response,
+        body: new ExecutionContextInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.executionSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

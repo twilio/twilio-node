@@ -101,7 +101,11 @@ export class ChannelContextImpl implements ChannelContext {
   protected _solution: ChannelContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V3, serviceSid: string, sid: string) {
+  constructor(
+    protected _version: V3,
+    serviceSid: string,
+    sid: string
+  ) {
     if (!isValidPathParam(serviceSid)) {
       throw new Error("Parameter 'serviceSid' is not valid.");
     }
@@ -122,9 +126,9 @@ export class ChannelContextImpl implements ChannelContext {
   ): Promise<ChannelInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -173,9 +177,9 @@ export class ChannelContextImpl implements ChannelContext {
   ): Promise<ApiResponse<ChannelInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -200,17 +204,15 @@ export class ChannelContextImpl implements ChannelContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ChannelInstance> => ({
-          ...response,
-          body: new ChannelInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ChannelInstance> => ({
+        ...response,
+        body: new ChannelInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -277,10 +279,7 @@ export class ChannelInstance {
     this.messagingServiceSid = payload.messaging_service_sid;
     this.url = payload.url;
 
-    this._solution = {
-      serviceSid: serviceSid || this.serviceSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { serviceSid: serviceSid, sid: sid };
   }
 
   /**

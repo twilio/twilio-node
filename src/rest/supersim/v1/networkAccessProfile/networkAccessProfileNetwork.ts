@@ -132,9 +132,7 @@ export interface NetworkAccessProfileNetworkContextSolution {
   sid: string;
 }
 
-export class NetworkAccessProfileNetworkContextImpl
-  implements NetworkAccessProfileNetworkContext
-{
+export class NetworkAccessProfileNetworkContextImpl implements NetworkAccessProfileNetworkContext {
   protected _solution: NetworkAccessProfileNetworkContextSolution;
   protected _uri: string;
 
@@ -185,12 +183,10 @@ export class NetworkAccessProfileNetworkContextImpl
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -251,17 +247,15 @@ export class NetworkAccessProfileNetworkContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<NetworkAccessProfileNetworkInstance> => ({
-          ...response,
-          body: new NetworkAccessProfileNetworkInstance(
-            operationVersion,
-            response.body,
-            instance._solution.networkAccessProfileSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<NetworkAccessProfileNetworkInstance> => ({
+        ...response,
+        body: new NetworkAccessProfileNetworkInstance(
+          operationVersion,
+          response.body,
+          instance._solution.networkAccessProfileSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -314,7 +308,7 @@ export class NetworkAccessProfileNetworkInstance {
     this.identifiers = payload.identifiers;
     this.url = payload.url;
 
-    this._solution = { networkAccessProfileSid, sid: sid || this.sid };
+    this._solution = { networkAccessProfileSid, sid: sid };
   }
 
   /**
@@ -766,16 +760,14 @@ export function NetworkAccessProfileNetworkListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<NetworkAccessProfileNetworkInstance> => ({
-          ...response,
-          body: new NetworkAccessProfileNetworkInstance(
-            operationVersion,
-            response.body,
-            instance._solution.networkAccessProfileSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<NetworkAccessProfileNetworkInstance> => ({
+        ...response,
+        body: new NetworkAccessProfileNetworkInstance(
+          operationVersion,
+          response.body,
+          instance._solution.networkAccessProfileSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -895,17 +887,15 @@ export function NetworkAccessProfileNetworkListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<NetworkAccessProfileNetworkPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new NetworkAccessProfileNetworkPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<NetworkAccessProfileNetworkPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new NetworkAccessProfileNetworkPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

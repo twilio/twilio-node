@@ -211,7 +211,10 @@ export class PluginContextImpl implements PluginContext {
 
   protected _pluginVersions?: PluginVersionsListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -235,9 +238,9 @@ export class PluginContextImpl implements PluginContext {
   ): Promise<PluginInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -276,9 +279,9 @@ export class PluginContextImpl implements PluginContext {
   ): Promise<ApiResponse<PluginInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -298,16 +301,14 @@ export class PluginContextImpl implements PluginContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PluginInstance> => ({
-          ...response,
-          body: new PluginInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PluginInstance> => ({
+        ...response,
+        body: new PluginInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -324,9 +325,9 @@ export class PluginContextImpl implements PluginContext {
   ): Promise<PluginInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -371,9 +372,9 @@ export class PluginContextImpl implements PluginContext {
   ): Promise<ApiResponse<PluginInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -399,16 +400,14 @@ export class PluginContextImpl implements PluginContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PluginInstance> => ({
-          ...response,
-          body: new PluginInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<PluginInstance> => ({
+        ...response,
+        body: new PluginInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -452,7 +451,11 @@ export class PluginInstance {
   protected _solution: PluginContextSolution;
   protected _context?: PluginContext;
 
-  constructor(protected _version: V1, payload: PluginResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: PluginResource,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.accountSid = payload.account_sid;
     this.uniqueName = payload.unique_name;
@@ -464,7 +467,7 @@ export class PluginInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -942,12 +945,10 @@ export function PluginListInstance(version: V1): PluginListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<PluginInstance> => ({
-          ...response,
-          body: new PluginInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<PluginInstance> => ({
+        ...response,
+        body: new PluginInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1050,13 +1051,11 @@ export function PluginListInstance(version: V1): PluginListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<PluginPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new PluginPage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<PluginPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new PluginPage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

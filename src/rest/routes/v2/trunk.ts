@@ -113,7 +113,10 @@ export class TrunkContextImpl implements TrunkContext {
   protected _solution: TrunkContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sipTrunkDomain: string) {
+  constructor(
+    protected _version: V2,
+    sipTrunkDomain: string
+  ) {
     if (!isValidPathParam(sipTrunkDomain)) {
       throw new Error("Parameter 'sipTrunkDomain' is not valid.");
     }
@@ -167,16 +170,14 @@ export class TrunkContextImpl implements TrunkContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<TrunkInstance> => ({
-          ...response,
-          body: new TrunkInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sipTrunkDomain
-          ),
-        })
-      );
+      .then((response): ApiResponse<TrunkInstance> => ({
+        ...response,
+        body: new TrunkInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sipTrunkDomain
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -193,9 +194,9 @@ export class TrunkContextImpl implements TrunkContext {
   ): Promise<TrunkInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -242,9 +243,9 @@ export class TrunkContextImpl implements TrunkContext {
   ): Promise<ApiResponse<TrunkInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -268,16 +269,14 @@ export class TrunkContextImpl implements TrunkContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<TrunkInstance> => ({
-          ...response,
-          body: new TrunkInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sipTrunkDomain
-          ),
-        })
-      );
+      .then((response): ApiResponse<TrunkInstance> => ({
+        ...response,
+        body: new TrunkInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sipTrunkDomain
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -331,7 +330,7 @@ export class TrunkInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { sipTrunkDomain: sipTrunkDomain || this.sipTrunkDomain };
+    this._solution = { sipTrunkDomain: sipTrunkDomain };
   }
 
   /**

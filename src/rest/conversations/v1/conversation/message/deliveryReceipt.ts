@@ -26,11 +26,7 @@ import { ApiResponse } from "../../../../../base/ApiResponse";
  * The message delivery status, can be `read`, `failed`, `delivered`, `undelivered`, `sent` or null.
  */
 export type DeliveryReceiptDeliveryStatus =
-  | "read"
-  | "failed"
-  | "delivered"
-  | "undelivered"
-  | "sent";
+  "read" | "failed" | "delivered" | "undelivered" | "sent";
 
 /**
  * Options to pass to each
@@ -186,18 +182,16 @@ export class DeliveryReceiptContextImpl implements DeliveryReceiptContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<DeliveryReceiptInstance> => ({
-          ...response,
-          body: new DeliveryReceiptInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationSid,
-            instance._solution.messageSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DeliveryReceiptInstance> => ({
+        ...response,
+        body: new DeliveryReceiptInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conversationSid,
+          instance._solution.messageSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -261,7 +255,7 @@ export class DeliveryReceiptInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { conversationSid, messageSid, sid: sid || this.sid };
+    this._solution = { conversationSid, messageSid, sid: sid };
   }
 
   /**
@@ -681,17 +675,15 @@ export function DeliveryReceiptListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<DeliveryReceiptPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new DeliveryReceiptPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<DeliveryReceiptPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new DeliveryReceiptPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

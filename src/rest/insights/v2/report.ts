@@ -801,7 +801,10 @@ export class ReportContextImpl implements ReportContext {
   protected _solution: ReportContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, reportId: string) {
+  constructor(
+    protected _version: V2,
+    reportId: string
+  ) {
     if (!isValidPathParam(reportId)) {
       throw new Error("Parameter 'reportId' is not valid.");
     }
@@ -819,9 +822,12 @@ export class ReportContextImpl implements ReportContext {
   ): Promise<ReportInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest);
     }
 
     let data: any = {};
@@ -869,9 +875,12 @@ export class ReportContextImpl implements ReportContext {
   ): Promise<ApiResponse<ReportInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params =
+        {} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest;
     } else {
-      params = params || {};
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest);
     }
 
     let data: any = {};
@@ -895,16 +904,14 @@ export class ReportContextImpl implements ReportContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ReportInstance> => ({
-          ...response,
-          body: new ReportInstance(
-            operationVersion,
-            response.body,
-            instance._solution.reportId
-          ),
-        })
-      );
+      .then((response): ApiResponse<ReportInstance> => ({
+        ...response,
+        body: new ReportInstance(
+          operationVersion,
+          response.body,
+          instance._solution.reportId
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -958,16 +965,14 @@ export class ReportContextImpl implements ReportContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ReportInstance> => ({
-          ...response,
-          body: new ReportInstance(
-            operationVersion,
-            response.body,
-            instance._solution.reportId
-          ),
-        })
-      );
+      .then((response): ApiResponse<ReportInstance> => ({
+        ...response,
+        body: new ReportInstance(
+          operationVersion,
+          response.body,
+          instance._solution.reportId
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1065,7 +1070,7 @@ export class ReportInstance {
         ? new AccountReport(payload.report)
         : null;
 
-    this._solution = { reportId: reportId || this.reportId };
+    this._solution = { reportId: reportId };
   }
 
   /**

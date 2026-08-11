@@ -101,13 +101,14 @@ export interface SupportingDocumentTypeContextSolution {
   sid: string;
 }
 
-export class SupportingDocumentTypeContextImpl
-  implements SupportingDocumentTypeContext
-{
+export class SupportingDocumentTypeContextImpl implements SupportingDocumentTypeContext {
   protected _solution: SupportingDocumentTypeContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -167,16 +168,14 @@ export class SupportingDocumentTypeContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SupportingDocumentTypeInstance> => ({
-          ...response,
-          body: new SupportingDocumentTypeInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<SupportingDocumentTypeInstance> => ({
+        ...response,
+        body: new SupportingDocumentTypeInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -226,7 +225,7 @@ export class SupportingDocumentTypeInstance {
     this.fields = payload.fields;
     this.url = payload.url;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -617,17 +616,15 @@ export function SupportingDocumentTypeListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SupportingDocumentTypePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SupportingDocumentTypePage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<SupportingDocumentTypePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SupportingDocumentTypePage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

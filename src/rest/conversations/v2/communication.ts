@@ -34,6 +34,12 @@ export class ContentTranscriptionTranscription {
 }
 
 /**
+ * Channel type for a Communication address.
+ */
+export type ConversationsV2Channel =
+  "VOICE" | "SMS" | "RCS" | "WHATSAPP" | "CHAT";
+
+/**
  * Transcription metadata.
  */
 export class ConversationsV2ContentTranscriptionTranscription {
@@ -88,10 +94,7 @@ export class ConversationsV2ParticipantAddress {
    * The address value formatted according to channel type: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\") - CHAT: Customer-defined string identifier
    */
   "address": string;
-  /**
-   * Channel type for the Participant address.
-   */
-  "channel": string;
+  "channel": ConversationsV2Channel;
   /**
    * Participant ID associated with this address.
    */
@@ -104,22 +107,36 @@ export class ConversationsV2ParticipantAddress {
   }
 }
 
+/**
+ * Delivery status of a Communication to a recipient.
+ */
+export type ConversationsV2RecipientDeliveryStatus =
+  "INITIATED" | "IN_PROGRESS" | "DELIVERED" | "COMPLETED" | "FAILED";
+
 export class CreateCommunicationInConversationRequest {
   "author": CreateCommunicationInConversationRequestAuthor;
   "content": CreateCommunicationInConversationRequestContent;
   "channelId"?: string;
-  "recipients": Array<CreateCommunicationInConversationRequestAuthor>;
+  "recipients": Array<CreateCommunicationInConversationRequestRecipients>;
+  /**
+   * Timestamp when this Communication occurred. If omitted, the server uses the current time.
+   */
+  "occurredAt"?: Date;
 
   constructor(payload) {
     this.author = payload["author"];
     this.content = payload["content"];
     this.channelId = payload["channelId"];
     this.recipients = payload["recipients"];
+    this.occurredAt = payload["occurredAt"];
   }
 }
 
 export class CreateCommunicationInConversationRequestAuthor {
   "address": string;
+  /**
+   * Channel type for a Communication address.
+   */
   "channel": string;
   "participantId"?: string;
 
@@ -142,6 +159,21 @@ export class CreateCommunicationInConversationRequestContent {
     this.type = payload["type"];
     this.text = payload["text"];
     this.transcription = payload["transcription"];
+  }
+}
+
+export class CreateCommunicationInConversationRequestRecipients {
+  "address": string;
+  /**
+   * Channel type for a Communication address.
+   */
+  "channel": string;
+  "participantId"?: string;
+
+  constructor(payload) {
+    this.address = payload["address"];
+    this.channel = payload["channel"];
+    this.participantId = payload["participantId"];
   }
 }
 
@@ -171,18 +203,12 @@ export class ListCommunicationByConversation200ResponseCommunicationsRecipients 
    * The address value formatted according to channel type: - SMS/VOICE: E.164 phone number (such as \"+18005550100\") - WHATSAPP: Phone number with whatsapp prefix (such as \"whatsapp:+18005550100\") - RCS: Sender ID or phone number with rcs prefix (such as \"rcs:brand_acme_agent\" or \"rcs:+18005550100\") - CHAT: Customer-defined string identifier
    */
   "address": string;
-  /**
-   * Channel type for the Participant address.
-   */
-  "channel": string;
+  "channel": ConversationsV2Channel;
   /**
    * Participant ID associated with this address.
    */
   "participantId"?: string;
-  /**
-   * Delivery status of the Communication to this recipient.
-   */
-  "deliveryStatus"?: string;
+  "deliveryStatus"?: ConversationsV2RecipientDeliveryStatus;
 
   constructor(payload) {
     this.address = payload["address"];
@@ -278,25 +304,29 @@ export interface CommunicationContext {
 }
 
 export interface CommunicationContextSolution {
-  conversationSid: string;
-  sid: string;
+  conversationId: string;
+  id: string;
 }
 
 export class CommunicationContextImpl implements CommunicationContext {
   protected _solution: CommunicationContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, conversationSid: string, sid: string) {
-    if (!isValidPathParam(conversationSid)) {
-      throw new Error("Parameter 'conversationSid' is not valid.");
+  constructor(
+    protected _version: V2,
+    conversationId: string,
+    id: string
+  ) {
+    if (!isValidPathParam(conversationId)) {
+      throw new Error("Parameter 'conversationId' is not valid.");
     }
 
-    if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+    if (!isValidPathParam(id)) {
+      throw new Error("Parameter 'id' is not valid.");
     }
 
-    this._solution = { conversationSid, sid };
-    this._uri = `/Conversations/${conversationSid}/Communications/${sid}`;
+    this._solution = { conversationId, id };
+    this._uri = `/Conversations/${conversationId}/Communications/${id}`;
   }
 
   fetch(
@@ -318,8 +348,8 @@ export class CommunicationContextImpl implements CommunicationContext {
         new CommunicationInstance(
           operationVersion,
           payload,
-          instance._solution.conversationSid,
-          instance._solution.sid
+          instance._solution.conversationId,
+          instance._solution.id
         )
     );
 
@@ -348,17 +378,15 @@ export class CommunicationContextImpl implements CommunicationContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<CommunicationInstance> => ({
-          ...response,
-          body: new CommunicationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CommunicationInstance> => ({
+        ...response,
+        body: new CommunicationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conversationId,
+          instance._solution.id
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -406,8 +434,8 @@ export class CommunicationInstance {
   constructor(
     protected _version: V2,
     _payload: CommunicationResource,
-    conversationSid: string,
-    sid?: string
+    conversationId: string,
+    id?: string
   ) {
     const payload = _payload;
     this.id = payload.id;
@@ -438,7 +466,7 @@ export class CommunicationInstance {
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
     this.occurredAt = deserialize.iso8601DateTime(payload.occurredAt);
 
-    this._solution = { conversationSid, sid: sid };
+    this._solution = { conversationId, id: id };
   }
 
   /**
@@ -485,8 +513,8 @@ export class CommunicationInstance {
       this._context ||
       new CommunicationContextImpl(
         this._version,
-        this._solution.conversationSid,
-        this._solution.sid
+        this._solution.conversationId,
+        this._solution.id
       );
     return this._context;
   }
@@ -547,7 +575,7 @@ export class CommunicationInstance {
 }
 
 export interface CommunicationSolution {
-  conversationSid: string;
+  conversationId: string;
 }
 
 export interface CommunicationListInstance {
@@ -555,8 +583,8 @@ export interface CommunicationListInstance {
   _solution: CommunicationSolution;
   _uri: string;
 
-  (sid: string): CommunicationContext;
-  get(sid: string): CommunicationContext;
+  (id: string): CommunicationContext;
+  get(id: string): CommunicationContext;
 
   /**
    * Create a CommunicationInstance
@@ -789,21 +817,21 @@ export interface CommunicationListInstance {
 
 export function CommunicationListInstance(
   version: V2,
-  conversationSid: string
+  conversationId: string
 ): CommunicationListInstance {
-  if (!isValidPathParam(conversationSid)) {
-    throw new Error("Parameter 'conversationSid' is not valid.");
+  if (!isValidPathParam(conversationId)) {
+    throw new Error("Parameter 'conversationId' is not valid.");
   }
 
-  const instance = ((sid) => instance.get(sid)) as CommunicationListInstance;
+  const instance = ((id) => instance.get(id)) as CommunicationListInstance;
 
-  instance.get = function get(sid): CommunicationContext {
-    return new CommunicationContextImpl(version, conversationSid, sid);
+  instance.get = function get(id): CommunicationContext {
+    return new CommunicationContextImpl(version, conversationId, id);
   };
 
   instance._version = version;
-  instance._solution = { conversationSid };
-  instance._uri = `/Conversations/${conversationSid}/Communications`;
+  instance._solution = { conversationId };
+  instance._uri = `/Conversations/${conversationId}/Communications`;
 
   instance.create = function create(
     params?:
@@ -846,7 +874,7 @@ export function CommunicationListInstance(
         new CommunicationInstance(
           operationVersion,
           payload,
-          instance._solution.conversationSid
+          instance._solution.conversationId
         )
     );
 
@@ -900,16 +928,14 @@ export function CommunicationListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<CommunicationInstance> => ({
-          ...response,
-          body: new CommunicationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.conversationSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<CommunicationInstance> => ({
+        ...response,
+        body: new CommunicationInstance(
+          operationVersion,
+          response.body,
+          instance._solution.conversationId
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1026,19 +1052,17 @@ export function CommunicationListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<CommunicationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new CommunicationPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<CommunicationPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CommunicationPage(
+          operationVersion,
+          response,
+          instance._uri,
+          data,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1130,7 +1154,7 @@ export class CommunicationPage extends TokenPage<
     return new CommunicationInstance(
       this._version,
       payload,
-      this._solution.conversationSid
+      this._solution.conversationId
     );
   }
 

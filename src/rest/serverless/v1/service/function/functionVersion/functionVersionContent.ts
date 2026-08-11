@@ -61,9 +61,7 @@ export interface FunctionVersionContentContextSolution {
   sid: string;
 }
 
-export class FunctionVersionContentContextImpl
-  implements FunctionVersionContentContext
-{
+export class FunctionVersionContentContextImpl implements FunctionVersionContentContext {
   protected _solution: FunctionVersionContentContextSolution;
   protected _uri: string;
 
@@ -142,18 +140,16 @@ export class FunctionVersionContentContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<FunctionVersionContentInstance> => ({
-          ...response,
-          body: new FunctionVersionContentInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.functionSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FunctionVersionContentInstance> => ({
+        ...response,
+        body: new FunctionVersionContentInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.functionSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -176,8 +172,7 @@ export class FunctionVersionContentContextImpl
   }
 }
 
-interface FunctionVersionContentPayload
-  extends FunctionVersionContentResource {}
+interface FunctionVersionContentPayload extends FunctionVersionContentResource {}
 
 interface FunctionVersionContentResource {
   sid: string;

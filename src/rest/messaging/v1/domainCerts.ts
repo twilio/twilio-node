@@ -119,7 +119,10 @@ export class DomainCertsContextImpl implements DomainCertsContext {
   protected _solution: DomainCertsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, domainSid: string) {
+  constructor(
+    protected _version: V1,
+    domainSid: string
+  ) {
     if (!isValidPathParam(domainSid)) {
       throw new Error("Parameter 'domainSid' is not valid.");
     }
@@ -158,12 +161,10 @@ export class DomainCertsContextImpl implements DomainCertsContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -220,16 +221,14 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<DomainCertsInstance> => ({
-          ...response,
-          body: new DomainCertsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.domainSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DomainCertsInstance> => ({
+        ...response,
+        body: new DomainCertsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.domainSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -316,16 +315,14 @@ export class DomainCertsContextImpl implements DomainCertsContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<DomainCertsInstance> => ({
-          ...response,
-          body: new DomainCertsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.domainSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<DomainCertsInstance> => ({
+        ...response,
+        body: new DomainCertsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.domainSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -379,7 +376,7 @@ export class DomainCertsInstance {
     this.url = payload.url;
     this.certInValidation = payload.cert_in_validation;
 
-    this._solution = { domainSid: domainSid || this.domainSid };
+    this._solution = { domainSid: domainSid };
   }
 
   /**

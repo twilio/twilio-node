@@ -91,13 +91,14 @@ export interface EncryptedSentencesContextSolution {
   transcriptSid: string;
 }
 
-export class EncryptedSentencesContextImpl
-  implements EncryptedSentencesContext
-{
+export class EncryptedSentencesContextImpl implements EncryptedSentencesContext {
   protected _solution: EncryptedSentencesContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, transcriptSid: string) {
+  constructor(
+    protected _version: V2,
+    transcriptSid: string
+  ) {
     if (!isValidPathParam(transcriptSid)) {
       throw new Error("Parameter 'transcriptSid' is not valid.");
     }
@@ -114,9 +115,9 @@ export class EncryptedSentencesContextImpl
   ): Promise<EncryptedSentencesInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -166,9 +167,9 @@ export class EncryptedSentencesContextImpl
   ): Promise<ApiResponse<EncryptedSentencesInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -189,16 +190,14 @@ export class EncryptedSentencesContextImpl
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<EncryptedSentencesInstance> => ({
-          ...response,
-          body: new EncryptedSentencesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.transcriptSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<EncryptedSentencesInstance> => ({
+        ...response,
+        body: new EncryptedSentencesInstance(
+          operationVersion,
+          response.body,
+          instance._solution.transcriptSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

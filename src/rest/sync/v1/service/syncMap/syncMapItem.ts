@@ -291,9 +291,9 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   ): Promise<boolean> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -326,9 +326,9 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   ): Promise<ApiResponse<boolean>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -347,12 +347,10 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -411,18 +409,16 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<SyncMapItemInstance> => ({
-          ...response,
-          body: new SyncMapItemInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.mapSid,
-            instance._solution.key
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncMapItemInstance> => ({
+        ...response,
+        body: new SyncMapItemInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.mapSid,
+          instance._solution.key
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -439,9 +435,9 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   ): Promise<SyncMapItemInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -497,9 +493,9 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
   ): Promise<ApiResponse<SyncMapItemInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -527,18 +523,16 @@ export class SyncMapItemContextImpl implements SyncMapItemContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SyncMapItemInstance> => ({
-          ...response,
-          body: new SyncMapItemInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.mapSid,
-            instance._solution.key
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncMapItemInstance> => ({
+        ...response,
+        body: new SyncMapItemInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.mapSid,
+          instance._solution.key
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -602,7 +596,7 @@ export class SyncMapItemInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, mapSid, key: key || this.key };
+    this._solution = { serviceSid, mapSid, key: key };
   }
 
   /**
@@ -1160,17 +1154,15 @@ export function SyncMapItemListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<SyncMapItemInstance> => ({
-          ...response,
-          body: new SyncMapItemInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.mapSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncMapItemInstance> => ({
+        ...response,
+        body: new SyncMapItemInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.mapSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1276,17 +1268,15 @@ export function SyncMapItemListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<SyncMapItemPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new SyncMapItemPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<SyncMapItemPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new SyncMapItemPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

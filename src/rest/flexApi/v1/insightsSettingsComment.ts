@@ -119,9 +119,9 @@ export function InsightsSettingsCommentListInstance(
   ): Promise<InsightsSettingsCommentInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -165,9 +165,9 @@ export function InsightsSettingsCommentListInstance(
   ): Promise<ApiResponse<InsightsSettingsCommentInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -186,15 +186,13 @@ export function InsightsSettingsCommentListInstance(
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InsightsSettingsCommentInstance> => ({
-          ...response,
-          body: new InsightsSettingsCommentInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<InsightsSettingsCommentInstance> => ({
+        ...response,
+        body: new InsightsSettingsCommentInstance(
+          operationVersion,
+          response.body
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -217,8 +215,7 @@ export function InsightsSettingsCommentListInstance(
   return instance;
 }
 
-interface InsightsSettingsCommentPayload
-  extends InsightsSettingsCommentResource {}
+interface InsightsSettingsCommentPayload extends InsightsSettingsCommentResource {}
 
 interface InsightsSettingsCommentResource {
   account_sid: string;

@@ -139,7 +139,10 @@ export class InteractionContextImpl implements InteractionContext {
 
   protected _channels?: InteractionChannelListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -203,16 +206,14 @@ export class InteractionContextImpl implements InteractionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<InteractionInstance> => ({
-          ...response,
-          body: new InteractionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InteractionInstance> => ({
+        ...response,
+        body: new InteractionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -229,9 +230,9 @@ export class InteractionContextImpl implements InteractionContext {
   ): Promise<InteractionInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -279,9 +280,9 @@ export class InteractionContextImpl implements InteractionContext {
   ): Promise<ApiResponse<InteractionInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -303,16 +304,14 @@ export class InteractionContextImpl implements InteractionContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InteractionInstance> => ({
-          ...response,
-          body: new InteractionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<InteractionInstance> => ({
+        ...response,
+        body: new InteractionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -364,7 +363,7 @@ export class InteractionInstance {
     this.interactionContextSid = payload.interaction_context_sid;
     this.webhookTtid = payload.webhook_ttid;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -658,12 +657,10 @@ export function InteractionListInstance(version: V1): InteractionListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InteractionInstance> => ({
-          ...response,
-          body: new InteractionInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<InteractionInstance> => ({
+        ...response,
+        body: new InteractionInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

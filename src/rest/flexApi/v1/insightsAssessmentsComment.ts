@@ -480,15 +480,13 @@ export function InsightsAssessmentsCommentListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<InsightsAssessmentsCommentInstance> => ({
-          ...response,
-          body: new InsightsAssessmentsCommentInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<InsightsAssessmentsCommentInstance> => ({
+        ...response,
+        body: new InsightsAssessmentsCommentInstance(
+          operationVersion,
+          response.body
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -618,17 +616,15 @@ export function InsightsAssessmentsCommentListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InsightsAssessmentsCommentPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InsightsAssessmentsCommentPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<InsightsAssessmentsCommentPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new InsightsAssessmentsCommentPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

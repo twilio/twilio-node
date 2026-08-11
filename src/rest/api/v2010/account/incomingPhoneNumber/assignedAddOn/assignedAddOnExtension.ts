@@ -104,9 +104,7 @@ export interface AssignedAddOnExtensionContextSolution {
   sid: string;
 }
 
-export class AssignedAddOnExtensionContextImpl
-  implements AssignedAddOnExtensionContext
-{
+export class AssignedAddOnExtensionContextImpl implements AssignedAddOnExtensionContext {
   protected _solution: AssignedAddOnExtensionContextSolution;
   protected _uri: string;
 
@@ -191,19 +189,17 @@ export class AssignedAddOnExtensionContextImpl
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AssignedAddOnExtensionInstance> => ({
-          ...response,
-          body: new AssignedAddOnExtensionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid,
-            instance._solution.resourceSid,
-            instance._solution.assignedAddOnSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AssignedAddOnExtensionInstance> => ({
+        ...response,
+        body: new AssignedAddOnExtensionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.accountSid,
+          instance._solution.resourceSid,
+          instance._solution.assignedAddOnSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -264,12 +260,7 @@ export class AssignedAddOnExtensionInstance {
     this.uri = payload.uri;
     this.enabled = payload.enabled;
 
-    this._solution = {
-      accountSid,
-      resourceSid,
-      assignedAddOnSid,
-      sid: sid || this.sid,
-    };
+    this._solution = { accountSid, resourceSid, assignedAddOnSid, sid: sid };
   }
 
   /**
@@ -711,17 +702,15 @@ export function AssignedAddOnExtensionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AssignedAddOnExtensionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AssignedAddOnExtensionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<AssignedAddOnExtensionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AssignedAddOnExtensionPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

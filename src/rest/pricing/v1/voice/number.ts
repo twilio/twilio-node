@@ -85,7 +85,10 @@ export class NumberContextImpl implements NumberContext {
   protected _solution: NumberContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, number: string) {
+  constructor(
+    protected _version: V1,
+    number: string
+  ) {
     if (!isValidPathParam(number)) {
       throw new Error("Parameter 'number' is not valid.");
     }
@@ -135,16 +138,14 @@ export class NumberContextImpl implements NumberContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<NumberInstance> => ({
-          ...response,
-          body: new NumberInstance(
-            operationVersion,
-            response.body,
-            instance._solution.number
-          ),
-        })
-      );
+      .then((response): ApiResponse<NumberInstance> => ({
+        ...response,
+        body: new NumberInstance(
+          operationVersion,
+          response.body,
+          instance._solution.number
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -208,7 +209,7 @@ export class NumberInstance {
     this.priceUnit = payload.price_unit;
     this.url = payload.url;
 
-    this._solution = { number: number || this.number };
+    this._solution = { number: number };
   }
 
   /**

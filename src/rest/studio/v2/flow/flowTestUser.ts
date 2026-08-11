@@ -97,7 +97,10 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
   protected _solution: FlowTestUserContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V2, sid: string) {
+  constructor(
+    protected _version: V2,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -154,16 +157,14 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<FlowTestUserInstance> => ({
-          ...response,
-          body: new FlowTestUserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FlowTestUserInstance> => ({
+        ...response,
+        body: new FlowTestUserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -250,16 +251,14 @@ export class FlowTestUserContextImpl implements FlowTestUserContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<FlowTestUserInstance> => ({
-          ...response,
-          body: new FlowTestUserInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<FlowTestUserInstance> => ({
+        ...response,
+        body: new FlowTestUserInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

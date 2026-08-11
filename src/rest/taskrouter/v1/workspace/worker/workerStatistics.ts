@@ -102,7 +102,11 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
   protected _solution: WorkerStatisticsContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, workspaceSid: string, workerSid: string) {
+  constructor(
+    protected _version: V1,
+    workspaceSid: string,
+    workerSid: string
+  ) {
     if (!isValidPathParam(workspaceSid)) {
       throw new Error("Parameter 'workspaceSid' is not valid.");
     }
@@ -123,9 +127,9 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
   ): Promise<WorkerStatisticsInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -181,9 +185,9 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
   ): Promise<ApiResponse<WorkerStatisticsInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -209,17 +213,15 @@ export class WorkerStatisticsContextImpl implements WorkerStatisticsContext {
         params: data,
         headers,
       })
-      .then(
-        (response): ApiResponse<WorkerStatisticsInstance> => ({
-          ...response,
-          body: new WorkerStatisticsInstance(
-            operationVersion,
-            response.body,
-            instance._solution.workspaceSid,
-            instance._solution.workerSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<WorkerStatisticsInstance> => ({
+        ...response,
+        body: new WorkerStatisticsInstance(
+          operationVersion,
+          response.body,
+          instance._solution.workspaceSid,
+          instance._solution.workerSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

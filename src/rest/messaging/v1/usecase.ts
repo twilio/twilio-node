@@ -100,12 +100,10 @@ export function UsecaseListInstance(version: V1): UsecaseListInstance {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<UsecaseInstance> => ({
-          ...response,
-          body: new UsecaseInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<UsecaseInstance> => ({
+        ...response,
+        body: new UsecaseInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -135,7 +133,10 @@ interface UsecaseResource {
 }
 
 export class UsecaseInstance {
-  constructor(protected _version: V1, payload: UsecaseResource) {
+  constructor(
+    protected _version: V1,
+    payload: UsecaseResource
+  ) {
     this.usecases = payload.usecases;
   }
 

@@ -178,18 +178,16 @@ export class AssetVersionContextImpl implements AssetVersionContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<AssetVersionInstance> => ({
-          ...response,
-          body: new AssetVersionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid,
-            instance._solution.assetSid,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<AssetVersionInstance> => ({
+        ...response,
+        body: new AssetVersionInstance(
+          operationVersion,
+          response.body,
+          instance._solution.serviceSid,
+          instance._solution.assetSid,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -247,7 +245,7 @@ export class AssetVersionInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { serviceSid, assetSid, sid: sid || this.sid };
+    this._solution = { serviceSid, assetSid, sid: sid };
   }
 
   /**
@@ -635,17 +633,15 @@ export function AssetVersionListInstance(
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<AssetVersionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new AssetVersionPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+      .then((response): ApiResponse<AssetVersionPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AssetVersionPage(
+          operationVersion,
+          response,
+          instance._solution
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

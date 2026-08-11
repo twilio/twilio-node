@@ -82,13 +82,14 @@ export interface ComplianceInquiriesContextSolution {
   customerId: string;
 }
 
-export class ComplianceInquiriesContextImpl
-  implements ComplianceInquiriesContext
-{
+export class ComplianceInquiriesContextImpl implements ComplianceInquiriesContext {
   protected _solution: ComplianceInquiriesContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, customerId: string) {
+  constructor(
+    protected _version: V1,
+    customerId: string
+  ) {
     if (!isValidPathParam(customerId)) {
       throw new Error("Parameter 'customerId' is not valid.");
     }
@@ -189,16 +190,14 @@ export class ComplianceInquiriesContextImpl
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ComplianceInquiriesInstance> => ({
-          ...response,
-          body: new ComplianceInquiriesInstance(
-            operationVersion,
-            response.body,
-            instance._solution.customerId
-          ),
-        })
-      );
+      .then((response): ApiResponse<ComplianceInquiriesInstance> => ({
+        ...response,
+        body: new ComplianceInquiriesInstance(
+          operationVersion,
+          response.body,
+          instance._solution.customerId
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -244,7 +243,7 @@ export class ComplianceInquiriesInstance {
     this.customerId = payload.customer_id;
     this.url = payload.url;
 
-    this._solution = { customerId: customerId || this.customerId };
+    this._solution = { customerId: customerId };
   }
 
   /**
@@ -430,9 +429,9 @@ export function ComplianceInquiriesListInstance(
   ): Promise<ComplianceInquiriesInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -481,9 +480,9 @@ export function ComplianceInquiriesListInstance(
   ): Promise<ApiResponse<ComplianceInquiriesInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -508,15 +507,10 @@ export function ComplianceInquiriesListInstance(
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ComplianceInquiriesInstance> => ({
-          ...response,
-          body: new ComplianceInquiriesInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+      .then((response): ApiResponse<ComplianceInquiriesInstance> => ({
+        ...response,
+        body: new ComplianceInquiriesInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

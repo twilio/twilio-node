@@ -61,7 +61,11 @@ export class EngagementContextContextImpl implements EngagementContextContext {
   protected _solution: EngagementContextContextSolution;
   protected _uri: string;
 
-  constructor(protected _version: V1, flowSid: string, engagementSid: string) {
+  constructor(
+    protected _version: V1,
+    flowSid: string,
+    engagementSid: string
+  ) {
     if (!isValidPathParam(flowSid)) {
       throw new Error("Parameter 'flowSid' is not valid.");
     }
@@ -123,17 +127,15 @@ export class EngagementContextContextImpl implements EngagementContextContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<EngagementContextInstance> => ({
-          ...response,
-          body: new EngagementContextInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.engagementSid
-          ),
-        })
-      );
+      .then((response): ApiResponse<EngagementContextInstance> => ({
+        ...response,
+        body: new EngagementContextInstance(
+          operationVersion,
+          response.body,
+          instance._solution.flowSid,
+          instance._solution.engagementSid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,

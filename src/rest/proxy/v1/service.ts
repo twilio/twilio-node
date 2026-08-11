@@ -28,10 +28,7 @@ import { SessionListInstance } from "./service/session";
  * Where a proxy number must be located relative to the participant identifier. Can be: `country`, `area-code`, or `extended-area-code`. The default value is `country` and more specific areas than `country` are only available in North America.
  */
 export type ServiceGeoMatchLevel =
-  | "area-code"
-  | "overlay"
-  | "radius"
-  | "country";
+  "area-code" | "overlay" | "radius" | "country";
 
 /**
  * The preference for Proxy Number selection in the Service instance. Can be: `prefer-sticky` or `avoid-sticky`. `prefer-sticky` means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not fail if that Proxy Number cannot be used.  `avoid-sticky` means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number.
@@ -230,7 +227,10 @@ export class ServiceContextImpl implements ServiceContext {
   protected _phoneNumbers?: PhoneNumberListInstance;
   protected _sessions?: SessionListInstance;
 
-  constructor(protected _version: V1, sid: string) {
+  constructor(
+    protected _version: V1,
+    sid: string
+  ) {
     if (!isValidPathParam(sid)) {
       throw new Error("Parameter 'sid' is not valid.");
     }
@@ -282,12 +282,10 @@ export class ServiceContextImpl implements ServiceContext {
     // DELETE operation - returns boolean based on status code
     let operationPromise = operationVersion
       .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+      .then((response): ApiResponse<boolean> => ({
+        ...response,
+        body: response.statusCode === 204,
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -337,16 +335,14 @@ export class ServiceContextImpl implements ServiceContext {
         method: "get",
         headers,
       })
-      .then(
-        (response): ApiResponse<ServiceInstance> => ({
-          ...response,
-          body: new ServiceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ServiceInstance> => ({
+        ...response,
+        body: new ServiceInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -363,9 +359,9 @@ export class ServiceContextImpl implements ServiceContext {
   ): Promise<ServiceInstance> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -420,9 +416,9 @@ export class ServiceContextImpl implements ServiceContext {
   ): Promise<ApiResponse<ServiceInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params = {};
+      params = {} as any;
     } else {
-      params = params || {};
+      params = params || ({} as any);
     }
 
     let data: any = {};
@@ -458,16 +454,14 @@ export class ServiceContextImpl implements ServiceContext {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ServiceInstance> => ({
-          ...response,
-          body: new ServiceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.sid
-          ),
-        })
-      );
+      .then((response): ApiResponse<ServiceInstance> => ({
+        ...response,
+        body: new ServiceInstance(
+          operationVersion,
+          response.body,
+          instance._solution.sid
+        ),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -515,7 +509,11 @@ export class ServiceInstance {
   protected _solution: ServiceContextSolution;
   protected _context?: ServiceContext;
 
-  constructor(protected _version: V1, payload: ServiceResource, sid?: string) {
+  constructor(
+    protected _version: V1,
+    payload: ServiceResource,
+    sid?: string
+  ) {
     this.sid = payload.sid;
     this.uniqueName = payload.unique_name;
     this.accountSid = payload.account_sid;
@@ -531,7 +529,7 @@ export class ServiceInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid || this.sid };
+    this._solution = { sid: sid };
   }
 
   /**
@@ -1042,12 +1040,10 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
         data,
         headers,
       })
-      .then(
-        (response): ApiResponse<ServiceInstance> => ({
-          ...response,
-          body: new ServiceInstance(operationVersion, response.body),
-        })
-      );
+      .then((response): ApiResponse<ServiceInstance> => ({
+        ...response,
+        body: new ServiceInstance(operationVersion, response.body),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
@@ -1147,13 +1143,11 @@ export function ServiceListInstance(version: V1): ServiceListInstance {
     // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
       .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ServicePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ServicePage(operationVersion, response, instance._solution),
-        })
-      );
+      .then((response): ApiResponse<ServicePage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ServicePage(operationVersion, response, instance._solution),
+      }));
 
     operationPromise = instance._version.setPromiseCallback(
       operationPromise,
