@@ -101,5 +101,37 @@ describe("webhooks", () => {
         expect(result).toBe(true);
       });
     });
+
+    describe("when the signature is derived from an URL with a query param containing a single quote and a space encoded as +", () => {
+      it("should return true when the target url is identical to the signed url", () => {
+        const serverUrl = "https://example.com/path?name=William+O'hara";
+        const targetUrl = "https://example.com/path?name=William+O'hara";
+
+        const signature = getExpectedTwilioSignature(authToken, serverUrl, {});
+        const result = validateRequest(authToken, signature, targetUrl, {});
+
+        expect(result).toBe(true);
+      });
+
+      it("should return true when the target url contains the port", () => {
+        const serverUrl = "https://example.com/path?name=William+O'hara";
+        const targetUrl = "https://example.com:443/path?name=William+O'hara";
+
+        const signature = getExpectedTwilioSignature(authToken, serverUrl, {});
+        const result = validateRequest(authToken, signature, targetUrl, {});
+
+        expect(result).toBe(true);
+      });
+
+      it("should return true when the target url does not contain the port", () => {
+        const serverUrl = "https://example.com:443/path?name=William+O'hara";
+        const targetUrl = "https://example.com/path?name=William+O'hara";
+
+        const signature = getExpectedTwilioSignature(authToken, serverUrl, {});
+        const result = validateRequest(authToken, signature, targetUrl, {});
+
+        expect(result).toBe(true);
+      });
+    });
   });
 });
