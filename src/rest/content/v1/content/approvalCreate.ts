@@ -31,10 +31,15 @@ export class ContentApprovalRequest {
    * A WhatsApp recognized template category.
    */
   "category": string;
+  /**
+   * Time-to-live in seconds for attempting to send a message with this Content
+   */
+  "sendTtlSeconds"?: number;
 
   constructor(payload) {
     this.name = payload["name"];
     this.category = payload["category"];
+    this.sendTtlSeconds = payload["send_ttl_seconds"];
   }
 }
 
@@ -226,6 +231,7 @@ interface ApprovalCreateResource {
   status: string;
   rejection_reason: string;
   allow_category_change: boolean;
+  send_ttl_seconds: number;
 }
 
 export class ApprovalCreateInstance {
@@ -240,6 +246,7 @@ export class ApprovalCreateInstance {
     this.status = payload.status;
     this.rejectionReason = payload.rejection_reason;
     this.allowCategoryChange = payload.allow_category_change;
+    this.sendTtlSeconds = payload.send_ttl_seconds;
   }
 
   name: string;
@@ -248,6 +255,10 @@ export class ApprovalCreateInstance {
   status: string;
   rejectionReason: string;
   allowCategoryChange: boolean;
+  /**
+   * Time-to-live in seconds for attempting to send a message with this Content
+   */
+  sendTtlSeconds: number;
 
   /**
    * Provide a user-friendly representation
@@ -262,6 +273,7 @@ export class ApprovalCreateInstance {
       status: this.status,
       rejectionReason: this.rejectionReason,
       allowCategoryChange: this.allowCategoryChange,
+      sendTtlSeconds: this.sendTtlSeconds,
     };
   }
 

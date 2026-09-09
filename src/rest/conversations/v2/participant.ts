@@ -47,7 +47,8 @@ export type ConversationsV2Channel =
   | "SMS"
   | "RCS"
   | "WHATSAPP"
-  | "CHAT";
+  | "CHAT"
+  | "VIDEO";
 
 /**
  * Type of Participant in the Conversation.

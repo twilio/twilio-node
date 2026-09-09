@@ -126,6 +126,8 @@ export interface MessageListInstanceCreateOptions {
   /** For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template\\\'s default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used. */
   contentVariables?: string;
   /**  */
+  messageIntent?: string;
+  /**  */
   riskCheck?: MessageRiskCheck;
   /** The sender\\\'s Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service\\\'s Sender Pool) or you can provide a specific sender from your Sender Pool. */
   from?: string;
@@ -1143,6 +1145,8 @@ export function MessageListInstance(
       data["SendAsMms"] = serialize.bool(params["sendAsMms"]);
     if (params["contentVariables"] !== undefined)
       data["ContentVariables"] = params["contentVariables"];
+    if (params["messageIntent"] !== undefined)
+      data["MessageIntent"] = params["messageIntent"];
     if (params["riskCheck"] !== undefined)
       data["RiskCheck"] = params["riskCheck"];
     if (params["from"] !== undefined) data["From"] = params["from"];
@@ -1234,6 +1238,8 @@ export function MessageListInstance(
       data["SendAsMms"] = serialize.bool(params["sendAsMms"]);
     if (params["contentVariables"] !== undefined)
       data["ContentVariables"] = params["contentVariables"];
+    if (params["messageIntent"] !== undefined)
+      data["MessageIntent"] = params["messageIntent"];
     if (params["riskCheck"] !== undefined)
       data["RiskCheck"] = params["riskCheck"];
     if (params["from"] !== undefined) data["From"] = params["from"];

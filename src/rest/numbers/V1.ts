@@ -25,6 +25,10 @@ import { PortingWebhookConfigurationListInstance } from "./v1/portingWebhookConf
 import { PortingWebhookConfigurationDeleteListInstance } from "./v1/portingWebhookConfigurationDelete";
 import { SenderIdRegistrationListInstance } from "./v1/senderIdRegistration";
 import { SigningRequestConfigurationListInstance } from "./v1/signingRequestConfiguration";
+import { SmsVerificationListInstance } from "./v1/smsVerification";
+import { SmsVerificationCheckListInstance } from "./v1/smsVerificationCheck";
+import { VoiceVerificationListInstance } from "./v1/voiceVerification";
+import { VoiceVerificationCheckListInstance } from "./v1/voiceVerificationCheck";
 import { WebhookListInstance } from "./v1/webhook";
 
 export default class V1 extends Version {
@@ -57,6 +61,14 @@ export default class V1 extends Version {
   protected _senderIdRegistrations?: SenderIdRegistrationListInstance;
   /** signingRequestConfigurations - { Twilio.Numbers.V1.SigningRequestConfigurationListInstance } resource */
   protected _signingRequestConfigurations?: SigningRequestConfigurationListInstance;
+  /** smsVerifications - { Twilio.Numbers.V1.SmsVerificationListInstance } resource */
+  protected _smsVerifications?: SmsVerificationListInstance;
+  /** smsVerificationChecks - { Twilio.Numbers.V1.SmsVerificationCheckListInstance } resource */
+  protected _smsVerificationChecks?: SmsVerificationCheckListInstance;
+  /** voiceVerifications - { Twilio.Numbers.V1.VoiceVerificationListInstance } resource */
+  protected _voiceVerifications?: VoiceVerificationListInstance;
+  /** voiceVerificationChecks - { Twilio.Numbers.V1.VoiceVerificationCheckListInstance } resource */
+  protected _voiceVerificationChecks?: VoiceVerificationCheckListInstance;
   /** webhook - { Twilio.Numbers.V1.WebhookListInstance } resource */
   protected _webhook?: WebhookListInstance;
 
@@ -136,6 +148,34 @@ export default class V1 extends Version {
       this._signingRequestConfigurations ||
       SigningRequestConfigurationListInstance(this);
     return this._signingRequestConfigurations;
+  }
+
+  /** Getter for smsVerifications resource */
+  get smsVerifications(): SmsVerificationListInstance {
+    this._smsVerifications =
+      this._smsVerifications || SmsVerificationListInstance(this);
+    return this._smsVerifications;
+  }
+
+  /** Getter for smsVerificationChecks resource */
+  get smsVerificationChecks(): SmsVerificationCheckListInstance {
+    this._smsVerificationChecks =
+      this._smsVerificationChecks || SmsVerificationCheckListInstance(this);
+    return this._smsVerificationChecks;
+  }
+
+  /** Getter for voiceVerifications resource */
+  get voiceVerifications(): VoiceVerificationListInstance {
+    this._voiceVerifications =
+      this._voiceVerifications || VoiceVerificationListInstance(this);
+    return this._voiceVerifications;
+  }
+
+  /** Getter for voiceVerificationChecks resource */
+  get voiceVerificationChecks(): VoiceVerificationCheckListInstance {
+    this._voiceVerificationChecks =
+      this._voiceVerificationChecks || VoiceVerificationCheckListInstance(this);
+    return this._voiceVerificationChecks;
   }
 
   /** Getter for webhook resource */

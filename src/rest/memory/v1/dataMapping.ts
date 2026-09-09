@@ -84,7 +84,7 @@ export class DataMappingFromTypes {
    */
   "type": string;
   /**
-   * The list of CSV column names that serve as the source fields.
+   * The list of ingress column names that serve as the source fields.
    */
   "columns": Array<string>;
   /**
@@ -121,7 +121,10 @@ export class DataMappingToTraits {
 /**
  * The type of data mapping defining how data flows into the Memory Store.
  */
-export type DataMappingType = "CSV" | "DATASET";
+export type DataMappingType =
+  | "INGRESS"
+  | "DATASET_CLOUDAPP"
+  | "DATASET_WAREHOUSE";
 
 /**
  * Maps a field from a source to a Trait in the Memory Store.

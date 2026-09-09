@@ -34,10 +34,20 @@ export class CreatePasskeysChallengeRequest {
  */
 export interface NewChallengeContextCreateOptions {
   /**  */
-  createPasskeysChallengeRequest: CreatePasskeysChallengeRequest;
+  createPasskeysChallengeRequest?: CreatePasskeysChallengeRequest;
 }
 
 export interface NewChallengeContext {
+  /**
+   * Create a NewChallengeInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewChallengeInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: NewChallengeInstance) => any
+  ): Promise<NewChallengeInstance>;
   /**
    * Create a NewChallengeInstance
    *
@@ -53,6 +63,19 @@ export interface NewChallengeContext {
     callback?: (error: Error | null, item?: NewChallengeInstance) => any
   ): Promise<NewChallengeInstance>;
 
+  /**
+   * Create a NewChallengeInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewChallengeInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewChallengeInstance>
+    ) => any
+  ): Promise<ApiResponse<NewChallengeInstance>>;
   /**
    * Create a NewChallengeInstance and return HTTP info
    *
@@ -96,12 +119,20 @@ export class NewChallengeContextImpl implements NewChallengeContext {
   }
 
   create(
-    params: CreatePasskeysChallengeRequest,
+    params?:
+      | CreatePasskeysChallengeRequest
+      | ((error: Error | null, item?: NewChallengeInstance) => any),
     headers?: any,
     callback?: (error: Error | null, item?: NewChallengeInstance) => any
   ): Promise<NewChallengeInstance> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
+    if (params instanceof Function) {
+      callback = params;
+      params =
+        {} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest;
+    } else {
+      params =
+        params ||
+        ({} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest);
     }
 
     let data: any = {};
@@ -141,15 +172,26 @@ export class NewChallengeContextImpl implements NewChallengeContext {
   }
 
   createWithHttpInfo(
-    params: CreatePasskeysChallengeRequest,
+    params?:
+      | CreatePasskeysChallengeRequest
+      | ((
+          error: Error | null,
+          item?: ApiResponse<NewChallengeInstance>
+        ) => any),
     headers?: any,
     callback?: (
       error: Error | null,
       item?: ApiResponse<NewChallengeInstance>
     ) => any
   ): Promise<ApiResponse<NewChallengeInstance>> {
-    if (params === null || params === undefined) {
-      throw new Error('Required parameter "params" missing.');
+    if (params instanceof Function) {
+      callback = params;
+      params =
+        {} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest;
+    } else {
+      params =
+        params ||
+        ({} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest);
     }
 
     let data: any = {};
@@ -348,6 +390,16 @@ export class NewChallengeInstance {
   /**
    * Create a NewChallengeInstance
    *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewChallengeInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: NewChallengeInstance) => any
+  ): Promise<NewChallengeInstance>;
+  /**
+   * Create a NewChallengeInstance
+   *
    * @param params - Body for request
    * @param headers - header params for request
    * @param callback - Callback to handle processed record
@@ -367,6 +419,19 @@ export class NewChallengeInstance {
     return this._proxy.create(params, callback);
   }
 
+  /**
+   * Create a NewChallengeInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed NewChallengeInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<NewChallengeInstance>
+    ) => any
+  ): Promise<ApiResponse<NewChallengeInstance>>;
   /**
    * Create a NewChallengeInstance and return HTTP info
    *

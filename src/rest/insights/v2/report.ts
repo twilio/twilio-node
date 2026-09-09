@@ -462,65 +462,6 @@ export class InsightsV2CreateAccountReportRequestTimeRange {
   }
 }
 
-/**
- * Percentage of calls made in each state.
- */
-export class InsightsV2InboundPhoneNumberReportCallStatePercentage {
-  /**
-   * Percentage of completed inbound calls.
-   */
-  "completed"?: number;
-  /**
-   * Percentage of failed inbound calls.
-   */
-  "fail"?: number;
-  /**
-   * Percentage of busy inbound calls.
-   */
-  "busy"?: number;
-  /**
-   * Percentage of no-answer inbound calls.
-   */
-  "noanswer"?: number;
-  /**
-   * Percentage of canceled inbound calls.
-   */
-  "canceled"?: number;
-
-  constructor(payload) {
-    this.completed = payload["completed"];
-    this.fail = payload["fail"];
-    this.busy = payload["busy"];
-    this.noanswer = payload["noanswer"];
-    this.canceled = payload["canceled"];
-  }
-}
-
-/**
- * Number of calls made in answering machine detection (AMD) enabled.
- */
-export class InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection {
-  /**
-   * Total number of calls with answering machine detection (AMD) enabled.
-   */
-  "totalCalls"?: number;
-  /**
-   * Percentage of calls marked as answered by human.
-   */
-  "answeredByHumanPercentage"?: number;
-  /**
-   * Percentage of calls marked as answered by machined related like the following: `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `fax`
-   */
-  "answeredByMachinePercentage"?: number;
-
-  constructor(payload) {
-    this.totalCalls = payload["total_calls"];
-    this.answeredByHumanPercentage = payload["answered_by_human_percentage"];
-    this.answeredByMachinePercentage =
-      payload["answered_by_machine_percentage"];
-  }
-}
-
 export class ReportFilter {
   /**
    * The name of the filter \'call_state\', \'call_direction\', \'call_type\', \'twilio_regions\', \'caller_country_code\', \'callee_country_code\', \'silent\'
@@ -708,62 +649,12 @@ export class VoiceIntegrityCallsPerBundle {
 /**
  * Options to pass to create a ReportInstance
  */
-export interface ReportContextCreateOptions {
+export interface ReportListInstanceCreateOptions {
   /**  */
   insightsV2CreateAccountReportRequest?: InsightsV2CreateAccountReportRequest;
 }
 
 export interface ReportContext {
-  /**
-   * Create a ReportInstance
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed ReportInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ReportInstance) => any
-  ): Promise<ReportInstance>;
-  /**
-   * Create a ReportInstance
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed ReportInstance
-   */
-  create(
-    params: InsightsV2CreateAccountReportRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ReportInstance) => any
-  ): Promise<ReportInstance>;
-
-  /**
-   * Create a ReportInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed ReportInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
-  ): Promise<ApiResponse<ReportInstance>>;
-  /**
-   * Create a ReportInstance and return HTTP info
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed ReportInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    params: InsightsV2CreateAccountReportRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
-  ): Promise<ApiResponse<ReportInstance>>;
-
   /**
    * Fetch a ReportInstance
    *
@@ -808,115 +699,6 @@ export class ReportContextImpl implements ReportContext {
 
     this._solution = { reportId };
     this._uri = `/Voice/Reports/${reportId}`;
-  }
-
-  create(
-    params?:
-      | InsightsV2CreateAccountReportRequest
-      | ((error: Error | null, item?: ReportInstance) => any),
-    headers?: any,
-    callback?: (error: Error | null, item?: ReportInstance) => any
-  ): Promise<ReportInstance> {
-    if (params instanceof Function) {
-      callback = params;
-      params =
-        {} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest;
-    } else {
-      params =
-        params ||
-        ({} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest);
-    }
-
-    let data: any = {};
-
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
-    }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
-
-    const instance = this;
-    let operationVersion = instance._version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
-
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ReportInstance(
-          operationVersion,
-          payload,
-          instance._solution.reportId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
-  }
-
-  createWithHttpInfo(
-    params?:
-      | InsightsV2CreateAccountReportRequest
-      | ((error: Error | null, item?: ApiResponse<ReportInstance>) => any),
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
-  ): Promise<ApiResponse<ReportInstance>> {
-    if (params instanceof Function) {
-      callback = params;
-      params =
-        {} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest;
-    } else {
-      params =
-        params ||
-        ({} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest);
-    }
-
-    let data: any = {};
-
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
-    }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
-
-    const instance = this;
-    let operationVersion = instance._version;
-    // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ReportResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ReportInstance> => ({
-          ...response,
-          body: new ReportInstance(
-            operationVersion,
-            response.body,
-            instance._solution.reportId
-          ),
-        })
-      );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
   }
 
   fetch(
@@ -1004,18 +786,6 @@ interface ReportResource {
   status: ReportStatus;
   request_meta: ReportMetadata;
   url: string;
-  handle: string;
-  total_calls: number;
-  call_answer_score: number;
-  call_state_percentage: InsightsV2InboundPhoneNumberReportCallStatePercentage;
-  silent_calls_percentage: number;
-  calls_by_device_type: { [key: string]: number };
-  answer_rate_device_type: { [key: string]: number };
-  blocked_calls_by_carrier: Array<CountyCarrierValue>;
-  short_duration_calls_percentage: number;
-  long_duration_calls_percentage: number;
-  potential_robocalls_percentage: number;
-  answering_machine_detection: InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection;
   report: AccountReport;
 }
 
@@ -1036,36 +806,6 @@ export class ReportInstance {
         ? new ReportMetadata(payload.request_meta)
         : null;
     this.url = payload.url;
-    this.handle = payload.handle;
-    this.totalCalls = deserialize.integer(payload.total_calls);
-    this.callAnswerScore = payload.call_answer_score;
-    this.callStatePercentage =
-      payload.call_state_percentage !== null &&
-      payload.call_state_percentage !== undefined
-        ? new InsightsV2InboundPhoneNumberReportCallStatePercentage(
-            payload.call_state_percentage
-          )
-        : null;
-    this.silentCallsPercentage = payload.silent_calls_percentage;
-    this.callsByDeviceType = payload.calls_by_device_type;
-    this.answerRateDeviceType = payload.answer_rate_device_type;
-    this.blockedCallsByCarrier =
-      payload.blocked_calls_by_carrier !== null &&
-      payload.blocked_calls_by_carrier !== undefined
-        ? payload.blocked_calls_by_carrier.map(
-            (payload: any) => new CountyCarrierValue(payload)
-          )
-        : null;
-    this.shortDurationCallsPercentage = payload.short_duration_calls_percentage;
-    this.longDurationCallsPercentage = payload.long_duration_calls_percentage;
-    this.potentialRobocallsPercentage = payload.potential_robocalls_percentage;
-    this.answeringMachineDetection =
-      payload.answering_machine_detection !== null &&
-      payload.answering_machine_detection !== undefined
-        ? new InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection(
-            payload.answering_machine_detection
-          )
-        : null;
     this.report =
       payload.report !== null && payload.report !== undefined
         ? new AccountReport(payload.report)
@@ -1088,48 +828,6 @@ export class ReportInstance {
    * The URL of this resource.
    */
   url: string;
-  /**
-   * Inbound phone number handle represented in the report.
-   */
-  handle: string;
-  /**
-   * Total number of calls made with the given handle during the report period.
-   */
-  totalCalls: number;
-  /**
-   * The call answer score measures customers behavior to the delivered calls. The score is a value between 0 and 100, where 100 indicates that all calls were successfully answered.
-   */
-  callAnswerScore: number;
-  callStatePercentage: InsightsV2InboundPhoneNumberReportCallStatePercentage;
-  /**
-   * Percentage of inbound calls with silence tags over total outbound calls. A silent tag is indicative of a connectivity issue or muted audio.
-   */
-  silentCallsPercentage: number;
-  /**
-   * Number of calls made with each device type. `voip`, `mobile`, `landline`, `unknown`
-   */
-  callsByDeviceType: { [key: string]: number };
-  /**
-   * Answer rate for each device type. `voip`, `mobile`, `landline`, `unknown`
-   */
-  answerRateDeviceType: { [key: string]: number };
-  /**
-   * Percentage of blocked calls by carrier per country.
-   */
-  blockedCallsByCarrier: Array<CountyCarrierValue>;
-  /**
-   * Percentage of completed outbound calls under 10 seconds (PSTN Short call tags); More than 15% is typically low trust measured.
-   */
-  shortDurationCallsPercentage: number;
-  /**
-   * Percentage of long duration calls ( >= 60 seconds)
-   */
-  longDurationCallsPercentage: number;
-  /**
-   * Percentage of completed outbound calls to unassigned or unallocated phone numbers.
-   */
-  potentialRobocallsPercentage: number;
-  answeringMachineDetection: InsightsV2OutboundPhoneNumberReportAnsweringMachineDetection;
   report: AccountReport;
 
   private get _proxy(): ReportContext {
@@ -1137,70 +835,6 @@ export class ReportInstance {
       this._context ||
       new ReportContextImpl(this._version, this._solution.reportId);
     return this._context;
-  }
-
-  /**
-   * Create a ReportInstance
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed ReportInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: ReportInstance) => any
-  ): Promise<ReportInstance>;
-  /**
-   * Create a ReportInstance
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed ReportInstance
-   */
-  create(
-    params: InsightsV2CreateAccountReportRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ReportInstance) => any
-  ): Promise<ReportInstance>;
-
-  create(
-    params?: any,
-    callback?: (error: Error | null, item?: ReportInstance) => any
-  ): Promise<ReportInstance> {
-    return this._proxy.create(params, callback);
-  }
-
-  /**
-   * Create a ReportInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed ReportInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
-  ): Promise<ApiResponse<ReportInstance>>;
-  /**
-   * Create a ReportInstance and return HTTP info
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed ReportInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    params: InsightsV2CreateAccountReportRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
-  ): Promise<ApiResponse<ReportInstance>>;
-
-  createWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
-  ): Promise<ApiResponse<ReportInstance>> {
-    return this._proxy.createWithHttpInfo(params, callback);
   }
 
   /**
@@ -1241,18 +875,6 @@ export class ReportInstance {
       status: this.status,
       requestMeta: this.requestMeta,
       url: this.url,
-      handle: this.handle,
-      totalCalls: this.totalCalls,
-      callAnswerScore: this.callAnswerScore,
-      callStatePercentage: this.callStatePercentage,
-      silentCallsPercentage: this.silentCallsPercentage,
-      callsByDeviceType: this.callsByDeviceType,
-      answerRateDeviceType: this.answerRateDeviceType,
-      blockedCallsByCarrier: this.blockedCallsByCarrier,
-      shortDurationCallsPercentage: this.shortDurationCallsPercentage,
-      longDurationCallsPercentage: this.longDurationCallsPercentage,
-      potentialRobocallsPercentage: this.potentialRobocallsPercentage,
-      answeringMachineDetection: this.answeringMachineDetection,
       report: this.report,
     };
   }
@@ -1273,6 +895,56 @@ export interface ReportListInstance {
   get(reportId: string): ReportContext;
 
   /**
+   * Create a ReportInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ReportInstance
+   */
+  create(
+    callback?: (error: Error | null, item?: ReportInstance) => any
+  ): Promise<ReportInstance>;
+  /**
+   * Create a ReportInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ReportInstance
+   */
+  create(
+    params: InsightsV2CreateAccountReportRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ReportInstance) => any
+  ): Promise<ReportInstance>;
+
+  /**
+   * Create a ReportInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ReportInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
+  ): Promise<ApiResponse<ReportInstance>>;
+  /**
+   * Create a ReportInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ReportInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: InsightsV2CreateAccountReportRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<ReportInstance>) => any
+  ): Promise<ApiResponse<ReportInstance>>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -1288,7 +960,105 @@ export function ReportListInstance(version: V2): ReportListInstance {
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = ``;
+  instance._uri = `/Voice/Reports`;
+
+  instance.create = function create(
+    params?:
+      | InsightsV2CreateAccountReportRequest
+      | ((error: Error | null, items: ReportInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, items: ReportInstance) => any
+  ): Promise<ReportInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params =
+        {} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest;
+    } else {
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest);
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version,
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) => new ReportInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | InsightsV2CreateAccountReportRequest
+      | ((error: Error | null, items: ApiResponse<ReportInstance>) => any),
+    headers?: any,
+    callback?: (error: Error | null, items: ApiResponse<ReportInstance>) => any
+  ): Promise<ApiResponse<ReportInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params =
+        {} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest;
+    } else {
+      params =
+        params ||
+        ({} as Partial<InsightsV2CreateAccountReportRequest> as InsightsV2CreateAccountReportRequest);
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ReportResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ReportInstance> => ({
+          ...response,
+          body: new ReportInstance(operationVersion, response.body),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;

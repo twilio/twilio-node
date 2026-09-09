@@ -23,10 +23,10 @@ import { ApiResponse } from "../../../base/ApiResponse";
  * Options to pass to create a TokenInstance
  */
 export interface TokenListInstanceCreateOptions {
+  /** Grant type is a credential representing resource owner\\\'s authorization which can be used by client to obtain access token. */
+  grantType: string;
   /** Optional Account SID to perform on behalf of requests. */
   accountSid?: string;
-  /** Grant type is a credential representing resource owner\\\'s authorization which can be used by client to obtain access token. */
-  grantType?: string;
   /** A 34 character string that uniquely identifies this OAuth App. */
   clientId?: string;
   /** The credential for confidential OAuth App. */
@@ -55,16 +55,6 @@ export interface TokenListInstance {
   /**
    * Create a TokenInstance
    *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed TokenInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: TokenInstance) => any
-  ): Promise<TokenInstance>;
-  /**
-   * Create a TokenInstance
-   *
    * @param params - Parameter for request
    * @param callback - Callback to handle processed record
    *
@@ -75,16 +65,6 @@ export interface TokenListInstance {
     callback?: (error: Error | null, item?: TokenInstance) => any
   ): Promise<TokenInstance>;
 
-  /**
-   * Create a TokenInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed TokenInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<TokenInstance>) => any
-  ): Promise<ApiResponse<TokenInstance>>;
   /**
    * Create a TokenInstance and return HTTP info
    *
@@ -113,16 +93,15 @@ export function TokenListInstance(version: V2): TokenListInstance {
   instance._uri = `/token`;
 
   instance.create = function create(
-    params?:
-      | TokenListInstanceCreateOptions
-      | ((error: Error | null, items: TokenInstance) => any),
+    params: TokenListInstanceCreateOptions,
     callback?: (error: Error | null, items: TokenInstance) => any
   ): Promise<TokenInstance> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {} as any;
-    } else {
-      params = params || ({} as any);
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["grantType"] === null || params["grantType"] === undefined) {
+      throw new Error("Required parameter \"params['grantType']\" missing.");
     }
 
     let data: any = {};
@@ -130,8 +109,7 @@ export function TokenListInstance(version: V2): TokenListInstance {
     if (params["accountSid"] !== undefined)
       data["account_sid"] = params["accountSid"];
 
-    if (params["grantType"] !== undefined)
-      data["grant_type"] = params["grantType"];
+    data["grant_type"] = params["grantType"];
     if (params["clientId"] !== undefined)
       data["client_id"] = params["clientId"];
     if (params["clientSecret"] !== undefined)
@@ -170,16 +148,15 @@ export function TokenListInstance(version: V2): TokenListInstance {
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
-    params?:
-      | TokenListInstanceCreateOptions
-      | ((error: Error | null, items: ApiResponse<TokenInstance>) => any),
+    params: TokenListInstanceCreateOptions,
     callback?: (error: Error | null, items: ApiResponse<TokenInstance>) => any
   ): Promise<ApiResponse<TokenInstance>> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {} as any;
-    } else {
-      params = params || ({} as any);
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    if (params["grantType"] === null || params["grantType"] === undefined) {
+      throw new Error("Required parameter \"params['grantType']\" missing.");
     }
 
     let data: any = {};
@@ -187,8 +164,7 @@ export function TokenListInstance(version: V2): TokenListInstance {
     if (params["accountSid"] !== undefined)
       data["account_sid"] = params["accountSid"];
 
-    if (params["grantType"] !== undefined)
-      data["grant_type"] = params["grantType"];
+    data["grant_type"] = params["grantType"];
     if (params["clientId"] !== undefined)
       data["client_id"] = params["clientId"];
     if (params["clientSecret"] !== undefined)

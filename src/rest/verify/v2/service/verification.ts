@@ -70,10 +70,12 @@ export interface VerificationListInstanceCreateOptions {
   channelConfiguration?: any;
   /** Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`. */
   appHash?: string;
-  /** The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only. */
+  /** The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only. If the `Templates` parameter is also provided, `Templates` takes precedence over this parameter. */
   templateSid?: string;
   /** A stringified JSON object in which the keys are the template\\\'s special variables and the values are the variables substitutions. */
   templateCustomSubstitutions?: string;
+  /** A stringified JSON array of template entries, ordered by preference. Each entry is an object with the following fields: `sid` (string, required, matching `^HJ[0-9a-fA-F]{32}$`) — the SID of the message [template](https://www.twilio.com/docs/verify/api/templates) to apply; and `substitutions` (object, optional) — a key-value map in which the keys are the template\\\'s special variables and the values are their substitution values. The array may contain up to 10 entries. If provided, `Templates` takes precedence over `TemplateSid` and `TemplateCustomSubstitutions`. */
+  templates?: string;
   /** Strongly encouraged if using the auto channel. The IP address of the client\\\'s device. If provided, it has to be a valid IPv4 or IPv6 address. */
   deviceIp?: string;
   /** An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification. */
@@ -681,6 +683,8 @@ export function VerificationListInstance(
     if (params["templateCustomSubstitutions"] !== undefined)
       data["TemplateCustomSubstitutions"] =
         params["templateCustomSubstitutions"];
+    if (params["templates"] !== undefined)
+      data["Templates"] = params["templates"];
     if (params["deviceIp"] !== undefined) data["DeviceIp"] = params["deviceIp"];
     if (params["enableSnaClientToken"] !== undefined)
       data["EnableSnaClientToken"] = serialize.bool(
@@ -765,6 +769,8 @@ export function VerificationListInstance(
     if (params["templateCustomSubstitutions"] !== undefined)
       data["TemplateCustomSubstitutions"] =
         params["templateCustomSubstitutions"];
+    if (params["templates"] !== undefined)
+      data["Templates"] = params["templates"];
     if (params["deviceIp"] !== undefined) data["DeviceIp"] = params["deviceIp"];
     if (params["enableSnaClientToken"] !== undefined)
       data["EnableSnaClientToken"] = serialize.bool(
