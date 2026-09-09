@@ -1,0 +1,12 @@
+if git diff --cached --name-only | grep -q '^package-lock\.json$'; then
+  if grep -qE 'https://[^"[:space:]]+/artifactory/api/npm/[^/"]+/' package-lock.json; then
+    # A committed lockfile must only reference public registry hosts (enforced in CI by
+    # npm-lockfile-hygiene) - rewrite before it lands in the commit.
+    sed -E -i.bak 's#https://[^"[:space:]]+/artifactory/api/npm/[^/"]+/#https://registry.npmjs.org/#g' package-lock.json
+    rm -f package-lock.json.bak
+    git add package-lock.json
+    echo "pre-commit: rewrote internal registry URLs in package-lock.json to registry.npmjs.org"
+  fi
+fi
+
+make test

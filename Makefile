@@ -1,9 +1,12 @@
-.PHONY: test-install install test test-docker docs clean prettier
+.PHONY: githooks test-install install test test-docker docs clean prettier
+
+githooks:
+	ln -sf ../../githooks/pre-commit .git/hooks/pre-commit
 
 test-install:
 	npm install --only=dev
 
-install:
+install: githooks
 	@node --version || (echo "Node is not installed, please install Node >= 14"; exit 1);
 	rm -f package-lock.json
 	npm install
