@@ -43,6 +43,54 @@ export class KnowledgeCore {
 }
 
 /**
+ * Groups error instances by error type/title.
+ */
+export class KnowledgeErrorGroup {
+  /**
+   * The error type or reason (e.g., \"404 Not Found\", \"500 Internal Server Error\").
+   */
+  "title": string;
+  /**
+   * Array of error instances for this error title. Required when an error group is present.
+   */
+  "instances": Array<KnowledgeErrorInstance>;
+
+  constructor(payload) {
+    this.title = payload["title"];
+    this.instances = payload["instances"];
+  }
+}
+
+/**
+ * Represents a single error instance for a specific URL or resource.
+ */
+export class KnowledgeErrorInstance {
+  /**
+   * A URI reference identifying the problem type, resolving to human-readable documentation (e.g., https://www.twilio.com/docs/api/errors/420018).
+   */
+  "type": string;
+  /**
+   * Twilio-specific numeric error code for programmatic handling.
+   */
+  "code": number;
+  /**
+   * The specific URL or resource that caused the error.
+   */
+  "instance": string;
+  /**
+   * Detailed explanation of the error.
+   */
+  "detail"?: string;
+
+  constructor(payload) {
+    this.type = payload["type"];
+    this.code = payload["code"];
+    this.instance = payload["instance"];
+    this.detail = payload["detail"];
+  }
+}
+
+/**
  * Details specific to the knowledge source type. Each knowledge source type has  its own set of configuration parameters and source specific properties.
  */
 export class KnowledgeSourceTypes {
@@ -67,6 +115,10 @@ export class KnowledgeSourceTypes {
    */
   "crawlPeriod"?: string;
   /**
+   * Processing errors encountered during web crawling, grouped by title. Array of error groups, where each group has a title and list of error instances. Only present when crawl errors occurred.
+   */
+  "errors"?: Array<KnowledgeErrorGroup>;
+  /**
    * Name of the file to be uploaded
    */
   "fileName": string;
@@ -90,6 +142,7 @@ export class KnowledgeSourceTypes {
     this.url = payload["url"];
     this.crawlDepth = payload["crawlDepth"];
     this.crawlPeriod = payload["crawlPeriod"];
+    this.errors = payload["errors"];
     this.fileName = payload["fileName"];
     this.fileSize = payload["fileSize"];
     this.mimeType = payload["mimeType"];

@@ -41,7 +41,8 @@ export type ConversationsV2Channel =
   | "SMS"
   | "RCS"
   | "WHATSAPP"
-  | "CHAT";
+  | "CHAT"
+  | "VIDEO";
 
 /**
  * Transcription metadata.
@@ -112,12 +113,13 @@ export class ConversationsV2ParticipantAddress {
 }
 
 /**
- * Delivery status of a Communication to a recipient.
+ * Delivery status of a Communication to a recipient. - INITIATED: Communication is initiated to be sent at a future time - IN_PROGRESS: Communication is in the process of being sent - DELIVERED: Provider confirms the Communication has been delivered - READ: Recipient has read the Communication (channels that support read receipts, e.g. WhatsApp, RCS) - FAILED: Communication could not be sent or delivered - COMPLETED: Deprecated and unused. Never emitted; do not rely on this value.
  */
 export type ConversationsV2RecipientDeliveryStatus =
   | "INITIATED"
   | "IN_PROGRESS"
   | "DELIVERED"
+  | "READ"
   | "COMPLETED"
   | "FAILED";
 

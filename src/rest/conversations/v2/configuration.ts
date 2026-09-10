@@ -242,6 +242,77 @@ export class CreateConfigurationRequestStatusCallbacks {
   }
 }
 
+export class PatchConfigurationRequest {
+  /**
+   * A human-readable name for the configuration. Limited to 32 characters.
+   */
+  "displayName"?: string | null;
+  /**
+   * Human-readable description for the configuration.
+   */
+  "description"?: string | null;
+  /**
+   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+   */
+  "conversationGroupingType"?: string;
+  /**
+   * The Memory Store ID for profile resolution.
+   */
+  "memoryStoreId"?: string | null;
+  /**
+   * Channel-specific settings to merge onto the existing channelSettings map. A channel key mapped to a value replaces that channel\'s settings; a channel key explicitly mapped to null removes it; an omitted channel key is left untouched.
+   */
+  "channelSettings"?: {
+    [key: string]: PatchConfigurationRequestChannelSettingsValue;
+  };
+  "statusCallbacks"?: Array<UpdateConfigurationRequestStatusCallbacks> | null;
+  /**
+   * A list of Conversational Intelligence configuration IDs.
+   */
+  "intelligenceConfigurationIds"?: Array<string> | null;
+  /**
+   * Whether memory extraction is enabled for conversations under this configuration.
+   */
+  "memoryExtractionEnabled"?: boolean | null;
+  "conversationsV1Bridge"?: PatchConfigurationRequestConversationsV1Bridge | null;
+
+  constructor(payload) {
+    this.displayName = payload["displayName"];
+    this.description = payload["description"];
+    this.conversationGroupingType = payload["conversationGroupingType"];
+    this.memoryStoreId = payload["memoryStoreId"];
+    this.channelSettings = payload["channelSettings"];
+    this.statusCallbacks = payload["statusCallbacks"];
+    this.intelligenceConfigurationIds = payload["intelligenceConfigurationIds"];
+    this.memoryExtractionEnabled = payload["memoryExtractionEnabled"];
+    this.conversationsV1Bridge = payload["conversationsV1Bridge"];
+  }
+}
+
+export class PatchConfigurationRequestChannelSettingsValue {
+  "statusTimeouts"?: UpdateConfigurationRequestChannelSettingsValueStatusTimeouts;
+  "captureRules"?: Array<UpdateConfigurationRequestChannelSettingsValueCaptureRules>;
+
+  constructor(payload) {
+    this.statusTimeouts = payload["statusTimeouts"];
+    this.captureRules = payload["captureRules"];
+  }
+}
+
+/**
+ * Configuration for Conversations V1 bridge. When set, messaging channels route through Conversations V1. Use this to integrate with existing Conversations V1 applications.
+ */
+export class PatchConfigurationRequestConversationsV1Bridge {
+  /**
+   * The Conversations V1 Service SID (IS prefix). One configuration per V1 Service SID.
+   */
+  "serviceId": string;
+
+  constructor(payload) {
+    this.serviceId = payload["serviceId"];
+  }
+}
+
 export class UpdateConfigurationRequest {
   /**
    * A human-readable name for the configuration. Limited to 32 characters.
@@ -334,6 +405,16 @@ export class UpdateConfigurationRequestStatusCallbacks {
 export interface ConfigurationContextRemoveOptions {
   /** Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL. */
   idempotencyKey?: string;
+}
+
+/**
+ * Options to pass to patch a ConfigurationInstance
+ */
+export interface ConfigurationContextPatchOptions {
+  /** Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL. */
+  idempotencyKey?: string;
+  /** The partial configuration update. */
+  patchConfigurationRequest?: PatchConfigurationRequest;
 }
 
 /**
@@ -472,6 +553,62 @@ export interface ConfigurationContext {
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
   fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
+
+  /**
+   * Patch a ConfigurationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance
+   */
+  patch(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+  /**
+   * Patch a ConfigurationInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance
+   */
+  patch(
+    params: PatchConfigurationRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+
+  /**
+   * Patch a ConfigurationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  patchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
+  /**
+   * Patch a ConfigurationInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  patchWithHttpInfo(
+    params: PatchConfigurationRequest,
+    headers?: any,
     callback?: (
       error: Error | null,
       item?: ApiResponse<ConfigurationInstance>
@@ -723,6 +860,121 @@ export class ConfigurationContextImpl implements ConfigurationContext {
     return operationPromise;
   }
 
+  patch(
+    params?:
+      | PatchConfigurationRequest
+      | ((error: Error | null, item?: ConfigurationInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
+    if (params instanceof Function) {
+      callback = params;
+      params =
+        {} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest;
+    } else {
+      params =
+        params ||
+        ({} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest);
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.patch({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConfigurationInstance(
+          operationVersion,
+          payload,
+          instance._solution.id
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  patchWithHttpInfo(
+    params?:
+      | PatchConfigurationRequest
+      | ((
+          error: Error | null,
+          item?: ApiResponse<ConfigurationInstance>
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>> {
+    if (params instanceof Function) {
+      callback = params;
+      params =
+        {} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest;
+    } else {
+      params =
+        params ||
+        ({} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest);
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .patchWithResponseInfo<ConfigurationResource>({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ConfigurationInstance> => ({
+          ...response,
+          body: new ConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.id
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
   update(
     params?:
       | UpdateConfigurationRequest
@@ -946,6 +1198,38 @@ export interface CreateConfigurationRequestConversationsV1Bridge {
 export interface CreateConfigurationRequestStatusCallbacks {
   url: string;
   method?: string;
+}
+
+/**
+ * Nested model for PatchConfigurationRequest
+ */
+export interface PatchConfigurationRequest {
+  displayName?: string | null;
+  description?: string | null;
+  conversationGroupingType?: string;
+  memoryStoreId?: string | null;
+  channelSettings?: {
+    [key: string]: PatchConfigurationRequestChannelSettingsValue;
+  };
+  statusCallbacks?: Array<UpdateConfigurationRequestStatusCallbacks> | null;
+  intelligenceConfigurationIds?: Array<string> | null;
+  memoryExtractionEnabled?: boolean | null;
+  conversationsV1Bridge?: PatchConfigurationRequestConversationsV1Bridge | null;
+}
+
+/**
+ * Nested model for PatchConfigurationRequestChannelSettingsValue
+ */
+export interface PatchConfigurationRequestChannelSettingsValue {
+  statusTimeouts?: UpdateConfigurationRequestChannelSettingsValueStatusTimeouts;
+  captureRules?: Array<UpdateConfigurationRequestChannelSettingsValueCaptureRules>;
+}
+
+/**
+ * Nested model for PatchConfigurationRequestConversationsV1Bridge
+ */
+export interface PatchConfigurationRequestConversationsV1Bridge {
+  serviceId: string;
 }
 
 /**
@@ -1237,6 +1521,79 @@ export class ConfigurationInstance {
     ) => any
   ): Promise<ApiResponse<ConfigurationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
+   * Patch a ConfigurationInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance
+   */
+  patch(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+  /**
+   * Patch a ConfigurationInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance
+   */
+  patch(
+    params: PatchConfigurationRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
+
+  patch(
+    params?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
+    return this._proxy.patch(params, callback);
+  }
+
+  /**
+   * Patch a ConfigurationInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  patchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
+  /**
+   * Patch a ConfigurationInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ConfigurationInstance with HTTP metadata
+   */
+  patchWithHttpInfo(
+    params: PatchConfigurationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
+
+  patchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>> {
+    return this._proxy.patchWithHttpInfo(params, callback);
   }
 
   /**

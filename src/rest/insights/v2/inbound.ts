@@ -22,37 +22,6 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-export class InsightsV2CreatePhoneNumbersReportRequest {
-  "timeRange"?: InsightsV2CreatePhoneNumbersReportRequestTimeRange;
-  "filters"?: Array<PhoneNumberReportFilter>;
-  /**
-   * The number of max available top Phone Numbers to generate.
-   */
-  "size"?: number;
-
-  constructor(payload) {
-    this.timeRange = payload["time_range"];
-    this.filters = payload["filters"];
-    this.size = payload["size"];
-  }
-}
-
-export class InsightsV2CreatePhoneNumbersReportRequestTimeRange {
-  /**
-   * Start date time of the report
-   */
-  "startDatetime"?: Date;
-  /**
-   * End date time of the report
-   */
-  "endDatetime"?: Date;
-
-  constructor(payload) {
-    this.startDatetime = payload["start_datetime"];
-    this.endDatetime = payload["end_datetime"];
-  }
-}
-
 /**
  * Percentage of calls made in each state.
  */
@@ -85,72 +54,6 @@ export class InsightsV2InboundPhoneNumberReportCallStatePercentage {
     this.noanswer = payload["noanswer"];
     this.canceled = payload["canceled"];
   }
-}
-
-export class PhoneNumberReportFilter {
-  /**
-   * The name of the filter
-   */
-  "key"?: string;
-  /**
-   * List of supported filter values for the field name
-   */
-  "values"?: Array<string>;
-
-  constructor(payload) {
-    this.key = payload["key"];
-    this.values = payload["values"];
-  }
-}
-
-export class ReportFilter {
-  /**
-   * The name of the filter \'call_state\', \'call_direction\', \'call_type\', \'twilio_regions\', \'caller_country_code\', \'callee_country_code\', \'silent\'
-   */
-  "key"?: string;
-  /**
-   * List of supported filter values for the field name
-   */
-  "values"?: Array<string>;
-
-  constructor(payload) {
-    this.key = payload["key"];
-    this.values = payload["values"];
-  }
-}
-
-export class ReportMetadata {
-  /**
-   * Start date time of the report
-   */
-  "startDatetime"?: Date;
-  /**
-   * End date time of the report
-   */
-  "endDatetime"?: Date;
-  /**
-   * Filter values applied to the report
-   */
-  "filters"?: Array<ReportFilter>;
-
-  constructor(payload) {
-    this.startDatetime = payload["start_datetime"];
-    this.endDatetime = payload["end_datetime"];
-    this.filters = payload["filters"];
-  }
-}
-
-/**
- * The status of the report.
- */
-export type ReportStatus = "created" | "running" | "completed";
-
-/**
- * Options to pass to create a InboundInstance
- */
-export interface InboundContextCreateOptions {
-  /**  */
-  insightsV2CreatePhoneNumbersReportRequest?: InsightsV2CreatePhoneNumbersReportRequest;
 }
 
 /**
@@ -189,381 +92,6 @@ export interface InboundListInstancePageOptions {
   pageToken?: string;
 }
 
-export interface InboundContext {
-  /**
-   * Create a InboundInstance
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InboundInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: InboundInstance) => any
-  ): Promise<InboundInstance>;
-  /**
-   * Create a InboundInstance
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InboundInstance
-   */
-  create(
-    params: InsightsV2CreatePhoneNumbersReportRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: InboundInstance) => any
-  ): Promise<InboundInstance>;
-
-  /**
-   * Create a InboundInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InboundInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
-  ): Promise<ApiResponse<InboundInstance>>;
-  /**
-   * Create a InboundInstance and return HTTP info
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InboundInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    params: InsightsV2CreatePhoneNumbersReportRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
-  ): Promise<ApiResponse<InboundInstance>>;
-
-  /**
-   * Provide a user-friendly representation
-   */
-  toJSON(): any;
-  [inspect.custom](_depth: any, options: InspectOptions): any;
-}
-
-export interface InboundContextSolution {
-  reportId: string;
-}
-
-export class InboundContextImpl implements InboundContext {
-  protected _solution: InboundContextSolution;
-  protected _uri: string;
-
-  constructor(protected _version: V2, reportId: string) {
-    if (!isValidPathParam(reportId)) {
-      throw new Error("Parameter 'reportId' is not valid.");
-    }
-
-    this._solution = { reportId };
-    this._uri = `/Voice/Reports/PhoneNumbers/Inbound`;
-  }
-
-  create(
-    params?:
-      | InsightsV2CreatePhoneNumbersReportRequest
-      | ((error: Error | null, item?: InboundInstance) => any),
-    headers?: any,
-    callback?: (error: Error | null, item?: InboundInstance) => any
-  ): Promise<InboundInstance> {
-    if (params instanceof Function) {
-      callback = params;
-      params =
-        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
-    } else {
-      params =
-        params ||
-        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
-    }
-
-    let data: any = {};
-
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
-    }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
-
-    const instance = this;
-    let operationVersion = instance._version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
-
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InboundInstance(
-          operationVersion,
-          payload,
-          instance._solution.reportId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
-  }
-
-  createWithHttpInfo(
-    params?:
-      | InsightsV2CreatePhoneNumbersReportRequest
-      | ((error: Error | null, item?: ApiResponse<InboundInstance>) => any),
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
-  ): Promise<ApiResponse<InboundInstance>> {
-    if (params instanceof Function) {
-      callback = params;
-      params =
-        {} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest;
-    } else {
-      params =
-        params ||
-        ({} as Partial<InsightsV2CreatePhoneNumbersReportRequest> as InsightsV2CreatePhoneNumbersReportRequest);
-    }
-
-    let data: any = {};
-
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
-    }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
-
-    const instance = this;
-    let operationVersion = instance._version;
-    // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<InboundResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<InboundInstance> => ({
-          ...response,
-          body: new InboundInstance(
-            operationVersion,
-            response.body,
-            instance._solution.reportId
-          ),
-        })
-      );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
-    return operationPromise;
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return this._solution;
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
-interface InboundPayload extends TwilioResponsePayload {
-  reports: InboundResource[];
-}
-
-interface InboundResource {
-  account_sid: string;
-  report_id: string;
-  status: ReportStatus;
-  request_meta: ReportMetadata;
-  url: string;
-  handle: string;
-  total_calls: number;
-  call_answer_score: number;
-  call_state_percentage: InsightsV2InboundPhoneNumberReportCallStatePercentage;
-  silent_calls_percentage: number;
-}
-
-export class InboundInstance {
-  protected _solution: InboundContextSolution;
-  protected _context?: InboundContext;
-
-  constructor(
-    protected _version: V2,
-    payload: InboundResource,
-    reportId?: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.reportId = payload.report_id;
-    this.status = payload.status;
-    this.requestMeta =
-      payload.request_meta !== null && payload.request_meta !== undefined
-        ? new ReportMetadata(payload.request_meta)
-        : null;
-    this.url = payload.url;
-    this.handle = payload.handle;
-    this.totalCalls = deserialize.integer(payload.total_calls);
-    this.callAnswerScore = payload.call_answer_score;
-    this.callStatePercentage =
-      payload.call_state_percentage !== null &&
-      payload.call_state_percentage !== undefined
-        ? new InsightsV2InboundPhoneNumberReportCallStatePercentage(
-            payload.call_state_percentage
-          )
-        : null;
-    this.silentCallsPercentage = payload.silent_calls_percentage;
-
-    this._solution = { reportId: reportId };
-  }
-
-  /**
-   * The unique SID identifier of the Account.
-   */
-  accountSid: string;
-  /**
-   * The report identifier as Voice Insights Report TTID.
-   */
-  reportId: string;
-  status: ReportStatus;
-  requestMeta: ReportMetadata;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
-  /**
-   * Inbound phone number handle represented in the report.
-   */
-  handle: string;
-  /**
-   * Total number of calls made with the given handle during the report period.
-   */
-  totalCalls: number;
-  /**
-   * The call answer score measures customers behavior to the delivered calls. The score is a value between 0 and 100, where 100 indicates that all calls were successfully answered.
-   */
-  callAnswerScore: number;
-  callStatePercentage: InsightsV2InboundPhoneNumberReportCallStatePercentage;
-  /**
-   * Percentage of inbound calls with silence tags over total outbound calls. A silent tag is indicative of a connectivity issue or muted audio.
-   */
-  silentCallsPercentage: number;
-
-  private get _proxy(): InboundContext {
-    this._context =
-      this._context ||
-      new InboundContextImpl(this._version, this._solution.reportId);
-    return this._context;
-  }
-
-  /**
-   * Create a InboundInstance
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InboundInstance
-   */
-  create(
-    callback?: (error: Error | null, item?: InboundInstance) => any
-  ): Promise<InboundInstance>;
-  /**
-   * Create a InboundInstance
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InboundInstance
-   */
-  create(
-    params: InsightsV2CreatePhoneNumbersReportRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: InboundInstance) => any
-  ): Promise<InboundInstance>;
-
-  create(
-    params?: any,
-    callback?: (error: Error | null, item?: InboundInstance) => any
-  ): Promise<InboundInstance> {
-    return this._proxy.create(params, callback);
-  }
-
-  /**
-   * Create a InboundInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InboundInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
-  ): Promise<ApiResponse<InboundInstance>>;
-  /**
-   * Create a InboundInstance and return HTTP info
-   *
-   * @param params - Body for request
-   * @param headers - header params for request
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed InboundInstance with HTTP metadata
-   */
-  createWithHttpInfo(
-    params: InsightsV2CreatePhoneNumbersReportRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
-  ): Promise<ApiResponse<InboundInstance>>;
-
-  createWithHttpInfo(
-    params?: any,
-    callback?: (error: Error | null, item?: ApiResponse<InboundInstance>) => any
-  ): Promise<ApiResponse<InboundInstance>> {
-    return this._proxy.createWithHttpInfo(params, callback);
-  }
-
-  /**
-   * Provide a user-friendly representation
-   *
-   * @returns Object
-   */
-  toJSON() {
-    return {
-      accountSid: this.accountSid,
-      reportId: this.reportId,
-      status: this.status,
-      requestMeta: this.requestMeta,
-      url: this.url,
-      handle: this.handle,
-      totalCalls: this.totalCalls,
-      callAnswerScore: this.callAnswerScore,
-      callStatePercentage: this.callStatePercentage,
-      silentCallsPercentage: this.silentCallsPercentage,
-    };
-  }
-
-  [inspect.custom](_depth: any, options: InspectOptions) {
-    return inspect(this.toJSON(), options);
-  }
-}
-
 export interface InboundSolution {
   reportId: string;
 }
@@ -572,9 +100,6 @@ export interface InboundListInstance {
   _version: V2;
   _solution: InboundSolution;
   _uri: string;
-
-  (reportId: string): InboundContext;
-  get(reportId: string): InboundContext;
 
   /**
    * Streams InboundInstance records from the API.
@@ -736,12 +261,7 @@ export function InboundListInstance(
     throw new Error("Parameter 'reportId' is not valid.");
   }
 
-  const instance = ((reportId) =>
-    instance.get(reportId)) as InboundListInstance;
-
-  instance.get = function get(reportId): InboundContext {
-    return new InboundContextImpl(version, reportId);
-  };
+  const instance = {} as InboundListInstance;
 
   instance._version = version;
   instance._solution = { reportId };
@@ -891,6 +411,75 @@ export function InboundListInstance(
   };
 
   return instance;
+}
+
+interface InboundPayload extends TwilioResponsePayload {
+  reports: InboundResource[];
+}
+
+interface InboundResource {
+  handle: string;
+  total_calls: number;
+  call_answer_score: number;
+  call_state_percentage: InsightsV2InboundPhoneNumberReportCallStatePercentage;
+  silent_calls_percentage: number;
+}
+
+export class InboundInstance {
+  constructor(
+    protected _version: V2,
+    payload: InboundResource,
+    reportId?: string
+  ) {
+    this.handle = payload.handle;
+    this.totalCalls = deserialize.integer(payload.total_calls);
+    this.callAnswerScore = payload.call_answer_score;
+    this.callStatePercentage =
+      payload.call_state_percentage !== null &&
+      payload.call_state_percentage !== undefined
+        ? new InsightsV2InboundPhoneNumberReportCallStatePercentage(
+            payload.call_state_percentage
+          )
+        : null;
+    this.silentCallsPercentage = payload.silent_calls_percentage;
+  }
+
+  /**
+   * Inbound phone number handle represented in the report.
+   */
+  handle: string;
+  /**
+   * Total number of calls made with the given handle during the report period.
+   */
+  totalCalls: number;
+  /**
+   * The call answer score measures customers behavior to the delivered calls. The score is a value between 0 and 100, where 100 indicates that all calls were successfully answered.
+   */
+  callAnswerScore: number;
+  callStatePercentage: InsightsV2InboundPhoneNumberReportCallStatePercentage;
+  /**
+   * Percentage of inbound calls with silence tags over total outbound calls. A silent tag is indicative of a connectivity issue or muted audio.
+   */
+  silentCallsPercentage: number;
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      handle: this.handle,
+      totalCalls: this.totalCalls,
+      callAnswerScore: this.callAnswerScore,
+      callStatePercentage: this.callStatePercentage,
+      silentCallsPercentage: this.silentCallsPercentage,
+    };
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
 }
 
 export class InboundPage extends Page<

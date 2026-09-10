@@ -47,7 +47,8 @@ export type ConversationsV2Channel =
   | "SMS"
   | "RCS"
   | "WHATSAPP"
-  | "CHAT";
+  | "CHAT"
+  | "VIDEO";
 
 /**
  * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
@@ -95,7 +96,7 @@ export class ConversationsV2Participant {
   /**
    * Participant display name.
    */
-  "name": string;
+  "name"?: string | null;
   "type"?: ConversationsV2ParticipantType;
   /**
    * Profile ID. Note: This field is only resolved for `CUSTOMER` participant types, not for `HUMAN_AGENT` or `AI_AGENT` participants.
@@ -286,7 +287,7 @@ export class PatchConversationByIdRequest {
   /**
    * The name of the Conversation.
    */
-  "name"?: string;
+  "name"?: string | null;
   /**
    * Lifecycle status of a Conversation.
    */
@@ -307,7 +308,7 @@ export class PatchConversationByIdRequestConfiguration {
   /**
    * List of webhook configurations for this conversation. Send an empty array to clear all callbacks and stop webhook delivery.
    */
-  "statusCallbacks"?: Array<ConversationsV2StatusCallbackConfig>;
+  "statusCallbacks"?: Array<ConversationsV2StatusCallbackConfig> | null;
 
   constructor(payload) {
     this.statusCallbacks = payload["statusCallbacks"];
@@ -1057,7 +1058,7 @@ export interface ConversationsV2Participant {
   id: string;
   conversationId: string;
   accountId: string;
-  name: string;
+  name?: string | null;
   type?: ConversationsV2ParticipantType;
   profileId?: string;
   addresses?: Array<ConversationsV2Address>;
@@ -1128,7 +1129,7 @@ export interface ListConversationByAccount200ResponseConversationsConfiguration 
  * Nested model for PatchConversationByIdRequest
  */
 export interface PatchConversationByIdRequest {
-  name?: string;
+  name?: string | null;
   status?: string;
   configuration?: PatchConversationByIdRequestConfiguration;
 }
@@ -1137,7 +1138,7 @@ export interface PatchConversationByIdRequest {
  * Nested model for PatchConversationByIdRequestConfiguration
  */
 export interface PatchConversationByIdRequestConfiguration {
-  statusCallbacks?: Array<ConversationsV2StatusCallbackConfig>;
+  statusCallbacks?: Array<ConversationsV2StatusCallbackConfig> | null;
 }
 
 /**

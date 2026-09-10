@@ -15,7 +15,9 @@
 import InsightsBase from "../InsightsBase";
 import Version from "../../base/Version";
 import { InboundListInstance } from "./v2/inbound";
+import { InboundReportListInstance } from "./v2/inboundReport";
 import { OutboundListInstance } from "./v2/outbound";
+import { OutboundReportListInstance } from "./v2/outboundReport";
 import { ReportListInstance } from "./v2/report";
 
 export default class V2 extends Version {
@@ -28,6 +30,10 @@ export default class V2 extends Version {
     super(domain, "v2");
   }
 
+  /** inboundReports - { Twilio.Insights.V2.InboundReportListInstance } resource */
+  protected _inboundReports?: InboundReportListInstance;
+  /** outboundReports - { Twilio.Insights.V2.OutboundReportListInstance } resource */
+  protected _outboundReports?: OutboundReportListInstance;
   /** reports - { Twilio.Insights.V2.ReportListInstance } resource */
   protected _reports?: ReportListInstance;
 
@@ -36,9 +42,23 @@ export default class V2 extends Version {
     return InboundListInstance(this, reportId);
   }
 
+  /** Getter for inboundReports resource */
+  get inboundReports(): InboundReportListInstance {
+    this._inboundReports =
+      this._inboundReports || InboundReportListInstance(this);
+    return this._inboundReports;
+  }
+
   /** Accessor for outbound resource */
   outbound(reportId: string): OutboundListInstance {
     return OutboundListInstance(this, reportId);
+  }
+
+  /** Getter for outboundReports resource */
+  get outboundReports(): OutboundReportListInstance {
+    this._outboundReports =
+      this._outboundReports || OutboundReportListInstance(this);
+    return this._outboundReports;
   }
 
   /** Getter for reports resource */

@@ -32,7 +32,8 @@ export type ConversationsV2Channel =
   | "SMS"
   | "RCS"
   | "WHATSAPP"
-  | "CHAT";
+  | "CHAT"
+  | "VIDEO";
 
 /**
  * Content for a SEND_MESSAGE action.
