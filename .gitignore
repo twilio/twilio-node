@@ -16,9 +16,6 @@ pids
 ### NPM modules ###
 node_modules
 
-### Spec and test coverage ###
-spec
-
 ### Test coverage ###
 coverage
 
