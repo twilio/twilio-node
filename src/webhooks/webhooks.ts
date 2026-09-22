@@ -105,6 +105,43 @@ function removePort(parsedUrl: URL): string {
   return parsedUrl.toString();
 }
 
+/**
+ Utility function to add or remove the port on a URL string without rebuilding
+ it from a parsed URL object, so the path and query string keep the exact
+ characters Twilio signed
+
+ @param url - The raw URL string that Twilio requested on your server
+ @param parsedUrl - The same URL, already parsed, used to read the protocol
+ @returns URL without its port if it had one, or with the standard port for its
+ protocol if it did not
+ */
+function togglePortPreservingEncoding(url: string, parsedUrl: URL): string {
+  const match = /^([a-z][a-z0-9+.-]*:\/\/)([^/?#]*)/i.exec(url);
+
+  if (!match) {
+    return url;
+  }
+
+  const [prefix, scheme, authority] = match;
+  const rest = url.slice(prefix.length);
+
+  const userInfoEnd = authority.lastIndexOf("@");
+  const userInfo =
+    userInfoEnd === -1 ? "" : authority.slice(0, userInfoEnd + 1);
+  const hostWithPort = authority.slice(userInfoEnd + 1);
+
+  // A colon delimits the port only when it comes after the closing bracket of
+  // an IPv6 literal, or when there is no IPv6 literal at all
+  const ipv6End = hostWithPort.lastIndexOf("]");
+  const portStart = hostWithPort.indexOf(":", ipv6End === -1 ? 0 : ipv6End);
+  const host =
+    portStart === -1 ? hostWithPort : hostWithPort.slice(0, portStart);
+  const port =
+    portStart === -1 ? (parsedUrl.protocol === "https:" ? ":443" : ":80") : "";
+
+  return scheme + userInfo + host + port + rest;
+}
+
 function withLegacyQuerystring(url: string): string {
   const parsedUrl = new URL(url);
 
@@ -194,6 +231,35 @@ export function validateRequest(
 ): boolean {
   twilioHeader = twilioHeader || "";
   const urlObject = new URL(url);
+
+  /*
+   *  Check the url exactly as it was received first, since that is the string
+   *  Twilio signed. Every variant below is rebuilt from `new URL()`, which
+   *  percent-encodes characters the back end leaves alone (`'` becomes `%27`),
+   *  and the legacy querystring round trip rewrites `+` as `%20`, so none of
+   *  them can reproduce a url containing those characters
+   */
+  const isValidSignatureWithReceivedUrl = validateSignatureWithUrl(
+    authToken,
+    twilioHeader,
+    url,
+    params
+  );
+
+  if (isValidSignatureWithReceivedUrl) {
+    return true;
+  }
+
+  const isValidSignatureWithReceivedUrlAndTogglePort = validateSignatureWithUrl(
+    authToken,
+    twilioHeader,
+    togglePortPreservingEncoding(url, urlObject),
+    params
+  );
+
+  if (isValidSignatureWithReceivedUrlAndTogglePort) {
+    return true;
+  }
 
   /*
    *  Check signature of the url with and without the port number
