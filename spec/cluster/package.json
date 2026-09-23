@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "jest": "^29.4.3",
+    "jest": "^30.0.0",
     "localtunnel": "^2.0.2",
     "twilio": "../../package"
   },
