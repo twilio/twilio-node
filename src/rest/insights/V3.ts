@@ -14,6 +14,8 @@
 
 import InsightsBase from "../InsightsBase";
 import Version from "../../base/Version";
+import { CapacityListInstance } from "./v3/capacity";
+import { CustomFieldMappingListInstance } from "./v3/customFieldMapping";
 import { MetadataListInstance } from "./v3/metadata";
 import { QueryListInstance } from "./v3/query";
 import { QueryJobListInstance } from "./v3/queryJob";
@@ -28,12 +30,29 @@ export default class V3 extends Version {
     super(domain, "v3");
   }
 
+  /** capacity - { Twilio.Insights.V3.CapacityListInstance } resource */
+  protected _capacity?: CapacityListInstance;
+  /** customFieldMappings - { Twilio.Insights.V3.CustomFieldMappingListInstance } resource */
+  protected _customFieldMappings?: CustomFieldMappingListInstance;
   /** metadata - { Twilio.Insights.V3.MetadataListInstance } resource */
   protected _metadata?: MetadataListInstance;
   /** query - { Twilio.Insights.V3.QueryListInstance } resource */
   protected _query?: QueryListInstance;
   /** queryJobs - { Twilio.Insights.V3.QueryJobListInstance } resource */
   protected _queryJobs?: QueryJobListInstance;
+
+  /** Getter for capacity resource */
+  get capacity(): CapacityListInstance {
+    this._capacity = this._capacity || CapacityListInstance(this);
+    return this._capacity;
+  }
+
+  /** Getter for customFieldMappings resource */
+  get customFieldMappings(): CustomFieldMappingListInstance {
+    this._customFieldMappings =
+      this._customFieldMappings || CustomFieldMappingListInstance(this);
+    return this._customFieldMappings;
+  }
 
   /** Getter for metadata resource */
   get metadata(): MetadataListInstance {

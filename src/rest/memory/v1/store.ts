@@ -77,10 +77,10 @@ export class ServiceRequest {
  * Options to pass to patch a StoreInstance
  */
 export interface StoreContextPatchOptions {
+  /**  */
+  patchStoreRequest: PatchStoreRequest;
   /** Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource\'s current Entity Tag (ETag) matches the one provided, preventing accidental overwrites. */
   ifMatch?: string;
-  /**  */
-  patchStoreRequest?: PatchStoreRequest;
 }
 
 /**
@@ -183,16 +183,6 @@ export interface StoreContext {
   /**
    * Patch a StoreInstance
    *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed StoreInstance
-   */
-  patch(
-    callback?: (error: Error | null, item?: StoreInstance) => any
-  ): Promise<StoreInstance>;
-  /**
-   * Patch a StoreInstance
-   *
    * @param params - Body for request
    * @param headers - header params for request
    * @param callback - Callback to handle processed record
@@ -205,16 +195,6 @@ export interface StoreContext {
     callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance>;
 
-  /**
-   * Patch a StoreInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed StoreInstance with HTTP metadata
-   */
-  patchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
-  ): Promise<ApiResponse<StoreInstance>>;
   /**
    * Patch a StoreInstance and return HTTP info
    *
@@ -373,18 +353,12 @@ export class StoreContextImpl implements StoreContext {
   }
 
   patch(
-    params?:
-      | PatchStoreRequest
-      | ((error: Error | null, item?: StoreInstance) => any),
+    params: PatchStoreRequest,
     headers?: any,
     callback?: (error: Error | null, item?: StoreInstance) => any
   ): Promise<StoreInstance> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {} as Partial<PatchStoreRequest> as PatchStoreRequest;
-    } else {
-      params =
-        params || ({} as Partial<PatchStoreRequest> as PatchStoreRequest);
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
@@ -420,18 +394,12 @@ export class StoreContextImpl implements StoreContext {
   }
 
   patchWithHttpInfo(
-    params?:
-      | PatchStoreRequest
-      | ((error: Error | null, item?: ApiResponse<StoreInstance>) => any),
+    params: PatchStoreRequest,
     headers?: any,
     callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
   ): Promise<ApiResponse<StoreInstance>> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {} as Partial<PatchStoreRequest> as PatchStoreRequest;
-    } else {
-      params =
-        params || ({} as Partial<PatchStoreRequest> as PatchStoreRequest);
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
@@ -694,16 +662,6 @@ export class StoreInstance {
   /**
    * Patch a StoreInstance
    *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed StoreInstance
-   */
-  patch(
-    callback?: (error: Error | null, item?: StoreInstance) => any
-  ): Promise<StoreInstance>;
-  /**
-   * Patch a StoreInstance
-   *
    * @param params - Body for request
    * @param headers - header params for request
    * @param callback - Callback to handle processed record
@@ -723,16 +681,6 @@ export class StoreInstance {
     return this._proxy.patch(params, callback);
   }
 
-  /**
-   * Patch a StoreInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed StoreInstance with HTTP metadata
-   */
-  patchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<StoreInstance>) => any
-  ): Promise<ApiResponse<StoreInstance>>;
   /**
    * Patch a StoreInstance and return HTTP info
    *

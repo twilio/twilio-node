@@ -2016,10 +2016,14 @@ namespace VoiceResponse {
    * Attributes to pass to stream
    */
   export interface StreamAttributes {
+    /** audioFormat - Required Audio Format */
+    audioFormat?: string;
     /** connectorName - Unique name for Stream Connector */
     connectorName?: string;
     /** name - Friendly name given to the Stream */
     name?: string;
+    /** sampleRate - Sample Rate for HD Codec */
+    sampleRate?: string;
     /** statusCallback - Status Callback URL */
     statusCallback?: string;
     /** statusCallbackMethod - Status Callback URL method */
@@ -2124,10 +2128,14 @@ namespace VoiceResponse {
    * Attributes to pass to stream
    */
   export interface StreamAttributes {
+    /** audioFormat - Required Audio Format */
+    audioFormat?: string;
     /** connectorName - Unique name for Stream Connector */
     connectorName?: string;
     /** name - Friendly name given to the Stream */
     name?: string;
+    /** sampleRate - Sample Rate for HD Codec */
+    sampleRate?: string;
     /** statusCallback - Status Callback URL */
     statusCallback?: string;
     /** statusCallbackMethod - Status Callback URL method */
@@ -3064,10 +3072,14 @@ namespace VoiceResponse {
    * Attributes to pass to stream
    */
   export interface StreamAttributes {
+    /** audioFormat - Required Audio Format */
+    audioFormat?: string;
     /** connectorName - Unique name for Stream Connector */
     connectorName?: string;
     /** name - Friendly name given to the Stream */
     name?: string;
+    /** sampleRate - Sample Rate for HD Codec */
+    sampleRate?: string;
     /** statusCallback - Status Callback URL */
     statusCallback?: string;
     /** statusCallbackMethod - Status Callback URL method */

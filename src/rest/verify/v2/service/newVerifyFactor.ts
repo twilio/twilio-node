@@ -334,7 +334,7 @@ export class NewVerifyFactorInstance {
    */
   config: any;
   /**
-   * Custom metadata associated with the factor.
+   * Metadata associated with the factor. For `passkeys` factors, it contains the `aaguid` of the authenticator once the factor is verified, and `date_last_approved` (ISO 8601) once the factor has been used to approve a challenge.
    */
   metadata: any;
   /**
