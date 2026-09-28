@@ -50,7 +50,7 @@ export class CreateDataMappingInput {
 }
 
 /**
- * Writable fields of a data mapping. Used directly as the PATCH request body (all fields optional). Composed into CreateDataMappingInput via allOf.
+ * Writable fields of a data mapping. Every field is optional here; the PATCH request body wraps this schema and requires at least one. Composed into CreateDataMappingInput via allOf.
  */
 export class DataMappingCore {
   /**
@@ -154,10 +154,10 @@ export class MappingTraitItem {
  * Options to pass to patch a DataMappingInstance
  */
 export interface DataMappingContextPatchOptions {
+  /**  */
+  dataMappingCore: DataMappingCore;
   /** Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource\'s current Entity Tag (ETag) matches the one provided, preventing accidental overwrites. */
   ifMatch?: string;
-  /**  */
-  dataMappingCore?: DataMappingCore;
 }
 
 /**
@@ -272,16 +272,6 @@ export interface DataMappingContext {
   /**
    * Patch a DataMappingInstance
    *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed DataMappingInstance
-   */
-  patch(
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance>;
-  /**
-   * Patch a DataMappingInstance
-   *
    * @param params - Body for request
    * @param headers - header params for request
    * @param callback - Callback to handle processed record
@@ -294,19 +284,6 @@ export interface DataMappingContext {
     callback?: (error: Error | null, item?: DataMappingInstance) => any
   ): Promise<DataMappingInstance>;
 
-  /**
-   * Patch a DataMappingInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed DataMappingInstance with HTTP metadata
-   */
-  patchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>>;
   /**
    * Patch a DataMappingInstance and return HTTP info
    *
@@ -491,17 +468,12 @@ export class DataMappingContextImpl implements DataMappingContext {
   }
 
   patch(
-    params?:
-      | DataMappingCore
-      | ((error: Error | null, item?: DataMappingInstance) => any),
+    params: DataMappingCore,
     headers?: any,
     callback?: (error: Error | null, item?: DataMappingInstance) => any
   ): Promise<DataMappingInstance> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {} as Partial<DataMappingCore> as DataMappingCore;
-    } else {
-      params = params || ({} as Partial<DataMappingCore> as DataMappingCore);
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
@@ -542,20 +514,15 @@ export class DataMappingContextImpl implements DataMappingContext {
   }
 
   patchWithHttpInfo(
-    params?:
-      | DataMappingCore
-      | ((error: Error | null, item?: ApiResponse<DataMappingInstance>) => any),
+    params: DataMappingCore,
     headers?: any,
     callback?: (
       error: Error | null,
       item?: ApiResponse<DataMappingInstance>
     ) => any
   ): Promise<ApiResponse<DataMappingInstance>> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {} as Partial<DataMappingCore> as DataMappingCore;
-    } else {
-      params = params || ({} as Partial<DataMappingCore> as DataMappingCore);
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
@@ -850,16 +817,6 @@ export class DataMappingInstance {
   /**
    * Patch a DataMappingInstance
    *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed DataMappingInstance
-   */
-  patch(
-    callback?: (error: Error | null, item?: DataMappingInstance) => any
-  ): Promise<DataMappingInstance>;
-  /**
-   * Patch a DataMappingInstance
-   *
    * @param params - Body for request
    * @param headers - header params for request
    * @param callback - Callback to handle processed record
@@ -879,19 +836,6 @@ export class DataMappingInstance {
     return this._proxy.patch(params, callback);
   }
 
-  /**
-   * Patch a DataMappingInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed DataMappingInstance with HTTP metadata
-   */
-  patchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<DataMappingInstance>
-    ) => any
-  ): Promise<ApiResponse<DataMappingInstance>>;
   /**
    * Patch a DataMappingInstance and return HTTP info
    *
