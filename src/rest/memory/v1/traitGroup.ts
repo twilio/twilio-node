@@ -249,10 +249,10 @@ export interface TraitGroupContextFetchOptions {
  * Options to pass to patch a TraitGroupInstance
  */
 export interface TraitGroupContextPatchOptions {
+  /**  */
+  patchTraitGroupRequest: PatchTraitGroupRequest;
   /** Allows for optimistic concurrency control by making the request conditional. Server will only act if the resource\'s current Entity Tag (ETag) matches the one provided, preventing accidental overwrites. */
   ifMatch?: string;
-  /**  */
-  patchTraitGroupRequest?: PatchTraitGroupRequest;
 }
 
 /**
@@ -394,16 +394,6 @@ export interface TraitGroupContext {
   /**
    * Patch a TraitGroupInstance
    *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed TraitGroupInstance
-   */
-  patch(
-    callback?: (error: Error | null, item?: TraitGroupInstance) => any
-  ): Promise<TraitGroupInstance>;
-  /**
-   * Patch a TraitGroupInstance
-   *
    * @param params - Body for request
    * @param headers - header params for request
    * @param callback - Callback to handle processed record
@@ -416,19 +406,6 @@ export interface TraitGroupContext {
     callback?: (error: Error | null, item?: TraitGroupInstance) => any
   ): Promise<TraitGroupInstance>;
 
-  /**
-   * Patch a TraitGroupInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed TraitGroupInstance with HTTP metadata
-   */
-  patchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TraitGroupInstance>
-    ) => any
-  ): Promise<ApiResponse<TraitGroupInstance>>;
   /**
    * Patch a TraitGroupInstance and return HTTP info
    *
@@ -653,19 +630,12 @@ export class TraitGroupContextImpl implements TraitGroupContext {
   }
 
   patch(
-    params?:
-      | PatchTraitGroupRequest
-      | ((error: Error | null, item?: TraitGroupInstance) => any),
+    params: PatchTraitGroupRequest,
     headers?: any,
     callback?: (error: Error | null, item?: TraitGroupInstance) => any
   ): Promise<TraitGroupInstance> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {} as Partial<PatchTraitGroupRequest> as PatchTraitGroupRequest;
-    } else {
-      params =
-        params ||
-        ({} as Partial<PatchTraitGroupRequest> as PatchTraitGroupRequest);
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
@@ -706,22 +676,15 @@ export class TraitGroupContextImpl implements TraitGroupContext {
   }
 
   patchWithHttpInfo(
-    params?:
-      | PatchTraitGroupRequest
-      | ((error: Error | null, item?: ApiResponse<TraitGroupInstance>) => any),
+    params: PatchTraitGroupRequest,
     headers?: any,
     callback?: (
       error: Error | null,
       item?: ApiResponse<TraitGroupInstance>
     ) => any
   ): Promise<ApiResponse<TraitGroupInstance>> {
-    if (params instanceof Function) {
-      callback = params;
-      params = {} as Partial<PatchTraitGroupRequest> as PatchTraitGroupRequest;
-    } else {
-      params =
-        params ||
-        ({} as Partial<PatchTraitGroupRequest> as PatchTraitGroupRequest);
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
@@ -1079,16 +1042,6 @@ export class TraitGroupInstance {
   /**
    * Patch a TraitGroupInstance
    *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed TraitGroupInstance
-   */
-  patch(
-    callback?: (error: Error | null, item?: TraitGroupInstance) => any
-  ): Promise<TraitGroupInstance>;
-  /**
-   * Patch a TraitGroupInstance
-   *
    * @param params - Body for request
    * @param headers - header params for request
    * @param callback - Callback to handle processed record
@@ -1108,19 +1061,6 @@ export class TraitGroupInstance {
     return this._proxy.patch(params, callback);
   }
 
-  /**
-   * Patch a TraitGroupInstance and return HTTP info
-   *
-   * @param callback - Callback to handle processed record
-   *
-   * @returns Resolves to processed TraitGroupInstance with HTTP metadata
-   */
-  patchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TraitGroupInstance>
-    ) => any
-  ): Promise<ApiResponse<TraitGroupInstance>>;
   /**
    * Patch a TraitGroupInstance and return HTTP info
    *
