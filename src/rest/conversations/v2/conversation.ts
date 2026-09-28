@@ -21,6 +21,20 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+/**
+ * A Workflow associated with a Conversation.
+ */
+export class ConversationWorkflow {
+  /**
+   * The Studio Flow to run.
+   */
+  "flowId": string;
+
+  constructor(payload) {
+    this.flowId = payload["flowId"];
+  }
+}
+
 export class ConversationsV2Address {
   "channel": ConversationsV2Channel;
   /**
@@ -171,12 +185,17 @@ export class CreateConversationWithConfigRequest {
    * Optional list of Participants to create with the Conversation.
    */
   "participants"?: Array<CreateConversationWithConfigRequestParticipants>;
+  /**
+   * Optional customer-managed key-value metadata for this Conversation. Maximum 8 entries; keys up to 128 characters allowing alphanumeric characters, periods, underscores, and dashes; values up to 512 characters.
+   */
+  "metadata"?: { [key: string]: string };
 
   constructor(payload) {
     this.configurationId = payload["configurationId"];
     this.name = payload["name"];
     this.configuration = payload["configuration"];
     this.participants = payload["participants"];
+    this.metadata = payload["metadata"];
   }
 }
 
@@ -188,9 +207,14 @@ export class CreateConversationWithConfigRequestConfiguration {
    * A list of Conversational Intelligence configuration IDs.
    */
   "intelligenceConfigurationIds"?: Array<string>;
+  /**
+   * The Workflows to associate with this Conversation. Overrides the Configuration\'s own.
+   */
+  "workflows"?: Array<ConversationWorkflow>;
 
   constructor(payload) {
     this.intelligenceConfigurationIds = payload["intelligenceConfigurationIds"];
+    this.workflows = payload["workflows"];
   }
 }
 
@@ -293,11 +317,16 @@ export class PatchConversationByIdRequest {
    */
   "status"?: string;
   "configuration"?: PatchConversationByIdRequestConfiguration;
+  /**
+   * Merge patch for customer-managed metadata (max 8 entries after merge). Provided keys are added or updated; keys set to null are removed; keys not mentioned are preserved.
+   */
+  "metadata"?: { [key: string]: string | null };
 
   constructor(payload) {
     this.name = payload["name"];
     this.status = payload["status"];
     this.configuration = payload["configuration"];
+    this.metadata = payload["metadata"];
   }
 }
 
@@ -324,10 +353,15 @@ export class UpdateConversationByIdRequest {
    * Lifecycle status of a Conversation.
    */
   "status": string;
+  /**
+   * Customer-managed key-value metadata for this Conversation. Maximum 8 entries; keys up to 128 characters allowing alphanumeric characters, periods, underscores, and dashes; values up to 512 characters.
+   */
+  "metadata"?: { [key: string]: string };
 
   constructor(payload) {
     this.name = payload["name"];
     this.status = payload["status"];
+    this.metadata = payload["metadata"];
   }
 }
 
@@ -1036,6 +1070,13 @@ export class ConversationContextImpl implements ConversationContext {
   }
 }
 /**
+ * Nested model for ConversationWorkflow
+ */
+export interface ConversationWorkflow {
+  flowId: string;
+}
+
+/**
  * Nested model for ConversationsV2Address
  */
 export interface ConversationsV2Address {
@@ -1082,6 +1123,7 @@ export interface CreateConversationWithConfigRequest {
   name?: string;
   configuration?: CreateConversationWithConfigRequestConfiguration;
   participants?: Array<CreateConversationWithConfigRequestParticipants>;
+  metadata?: { [key: string]: string };
 }
 
 /**
@@ -1089,6 +1131,7 @@ export interface CreateConversationWithConfigRequest {
  */
 export interface CreateConversationWithConfigRequestConfiguration {
   intelligenceConfigurationIds?: Array<string>;
+  workflows?: Array<ConversationWorkflow>;
 }
 
 /**
@@ -1132,6 +1175,7 @@ export interface PatchConversationByIdRequest {
   name?: string | null;
   status?: string;
   configuration?: PatchConversationByIdRequestConfiguration;
+  metadata?: { [key: string]: string | null };
 }
 
 /**
@@ -1147,6 +1191,7 @@ export interface PatchConversationByIdRequestConfiguration {
 export interface UpdateConversationByIdRequest {
   name?: string;
   status: string;
+  metadata?: { [key: string]: string };
 }
 
 interface ConversationPayload extends TokenPaginationPayload {
@@ -1173,7 +1218,9 @@ interface ListConversationByAccount200ResponseConversations_ResponseResource {
   createdAt?: Date;
   updatedAt?: Date;
   configuration?: ListConversationByAccount200ResponseConversationsConfiguration;
+  metadata?: { [key: string]: string };
   participants?: Array<ConversationsV2Participant>;
+  actionId?: string;
 }
 
 /**
@@ -1208,12 +1255,14 @@ export class ConversationInstance {
             payload.configuration
           )
         : null;
+    this.metadata = payload.metadata;
     this.participants =
       payload.participants !== null && payload.participants !== undefined
         ? payload.participants.map(
             (payload: any) => new ConversationsV2Participant(payload)
           )
         : null;
+    this.actionId = payload.actionId;
 
     this._solution = { id: id };
   }
@@ -1253,9 +1302,17 @@ export class ConversationInstance {
   updatedAt?: Date;
   configuration?: ListConversationByAccount200ResponseConversationsConfiguration;
   /**
+   * Customer-managed key-value pairs. Maximum 8 entries; keys up to 128 characters allowing alphanumeric characters, periods, underscores, and dashes; values up to 512 characters.
+   */
+  metadata?: { [key: string]: string };
+  /**
    * Participants in this Conversation.
    */
   participants?: Array<ConversationsV2Participant>;
+  /**
+   * The Action created for the request\'s `action`, present only on the create response that dispatched one. Poll `GET /v2/Conversations/{ConversationId}/Actions/{ActionId}` for its status.
+   */
+  actionId?: string;
 
   private get _proxy(): ConversationContext {
     this._context =
@@ -1525,7 +1582,9 @@ export class ConversationInstance {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       configuration: this.configuration,
+      metadata: this.metadata,
       participants: this.participants,
+      actionId: this.actionId,
     };
   }
 

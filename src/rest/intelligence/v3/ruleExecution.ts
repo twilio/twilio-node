@@ -32,11 +32,43 @@ export class CreateRuleExecutionRequest {
    * The Conversation identifier to execute the Rule against.
    */
   "conversationId": string;
+  "rule"?: RuleOverride;
 
   constructor(payload) {
     this.intelligenceConfigurationId = payload["intelligenceConfigurationId"];
     this.ruleId = payload["ruleId"];
     this.conversationId = payload["conversationId"];
+    this.rule = payload["rule"];
+  }
+}
+
+export class OperatorOverride {
+  /**
+   * The operator id (as configured in the stored rule) to override.
+   */
+  "id": string;
+  /**
+   * Parameter overrides merged into the stored operator\'s parameters.
+   */
+  "parameters": { [key: string]: any };
+
+  constructor(payload) {
+    this.id = payload["id"];
+    this.parameters = payload["parameters"];
+  }
+}
+
+/**
+ * Optional per-execution overrides applied to the stored rule before execution. When omitted, the stored rule executes unchanged. Only operators[].parameters is overridable; any other field is not part of this schema and is ignored.
+ */
+export class RuleOverride {
+  /**
+   * Operator parameter overrides, merged key-by-key into the stored operator\'s parameters (override wins on matching keys; unspecified keys retain their stored values). Operators in the stored rule not referenced here execute with their stored parameters unchanged.
+   */
+  "operators": Array<OperatorOverride>;
+
+  constructor(payload) {
+    this.operators = payload["operators"];
   }
 }
 

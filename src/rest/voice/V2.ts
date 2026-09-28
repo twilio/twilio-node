@@ -17,6 +17,7 @@ import Version from "../../base/Version";
 import { AccountDefaultConfigurationListInstance } from "./v2/accountDefaultConfiguration";
 import { ConfigurationListInstance } from "./v2/configuration";
 import { RecordingListInstance } from "./v2/recording";
+import { RecordingAccountDefaultConfigurationListInstance } from "./v2/recordingAccountDefaultConfiguration";
 import { TranscriptionListInstance } from "./v2/transcription";
 import { TypeListInstance } from "./v2/type";
 
@@ -36,6 +37,8 @@ export default class V2 extends Version {
   protected _configurations?: ConfigurationListInstance;
   /** recording - { Twilio.Voice.V2.RecordingListInstance } resource */
   protected _recording?: RecordingListInstance;
+  /** recordingAccountDefaultConfiguration - { Twilio.Voice.V2.RecordingAccountDefaultConfigurationListInstance } resource */
+  protected _recordingAccountDefaultConfiguration?: RecordingAccountDefaultConfigurationListInstance;
   /** transcription - { Twilio.Voice.V2.TranscriptionListInstance } resource */
   protected _transcription?: TranscriptionListInstance;
   /** type - { Twilio.Voice.V2.TypeListInstance } resource */
@@ -60,6 +63,14 @@ export default class V2 extends Version {
   get recording(): RecordingListInstance {
     this._recording = this._recording || RecordingListInstance(this);
     return this._recording;
+  }
+
+  /** Getter for recordingAccountDefaultConfiguration resource */
+  get recordingAccountDefaultConfiguration(): RecordingAccountDefaultConfigurationListInstance {
+    this._recordingAccountDefaultConfiguration =
+      this._recordingAccountDefaultConfiguration ||
+      RecordingAccountDefaultConfigurationListInstance(this);
+    return this._recordingAccountDefaultConfiguration;
   }
 
   /** Getter for transcription resource */
