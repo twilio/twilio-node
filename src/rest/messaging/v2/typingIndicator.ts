@@ -99,9 +99,9 @@ export function TypingIndicatorListInstance(
 
     let data: any = {};
 
-    data["channel"] = params["channel"];
+    data["Channel"] = params["channel"];
 
-    data["messageId"] = params["messageId"];
+    data["MessageId"] = params["messageId"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
@@ -147,9 +147,9 @@ export function TypingIndicatorListInstance(
 
     let data: any = {};
 
-    data["channel"] = params["channel"];
+    data["Channel"] = params["channel"];
 
-    data["messageId"] = params["messageId"];
+    data["MessageId"] = params["messageId"];
 
     const headers: any = {};
     headers["Content-Type"] = "application/x-www-form-urlencoded";
