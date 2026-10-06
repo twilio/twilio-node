@@ -19,6 +19,35 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+export class NumbersV1SmsVerificationCheckRequest {
+  /**
+   * The phone number being verified in E.164 format.
+   */
+  "to": string;
+  /**
+   * The 6 character verification code to check.
+   */
+  "verificationCode": string;
+  /**
+   * A human-readable name for the caller ID.
+   */
+  "friendlyName"?: string;
+
+  constructor(payload) {
+    this.to = payload["to"];
+    this.verificationCode = payload["verification_code"];
+    this.friendlyName = payload["friendly_name"];
+  }
+}
+
+/**
+ * Options to pass to create a SmsVerificationCheckInstance
+ */
+export interface SmsVerificationCheckListInstanceCreateOptions {
+  /**  */
+  numbersV1SmsVerificationCheckRequest: NumbersV1SmsVerificationCheckRequest;
+}
+
 export interface SmsVerificationCheckSolution {}
 
 export interface SmsVerificationCheckListInstance {
@@ -29,22 +58,30 @@ export interface SmsVerificationCheckListInstance {
   /**
    * Create a SmsVerificationCheckInstance
    *
+   * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed SmsVerificationCheckInstance
    */
   create(
+    params: NumbersV1SmsVerificationCheckRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: SmsVerificationCheckInstance) => any
   ): Promise<SmsVerificationCheckInstance>;
 
   /**
    * Create a SmsVerificationCheckInstance and return HTTP info
    *
+   * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed SmsVerificationCheckInstance with HTTP metadata
    */
   createWithHttpInfo(
+    params: NumbersV1SmsVerificationCheckRequest,
+    headers?: any,
     callback?: (
       error: Error | null,
       item?: ApiResponse<SmsVerificationCheckInstance>
@@ -68,15 +105,30 @@ export function SmsVerificationCheckListInstance(
   instance._uri = `/CallerIds/SmsVerificationChecks`;
 
   instance.create = function create(
+    params: NumbersV1SmsVerificationCheckRequest,
+    headers?: any,
     callback?: (error: Error | null, items: SmsVerificationCheckInstance) => any
   ): Promise<SmsVerificationCheckInstance> {
-    const headers: any = {};
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
     headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        data,
         headers,
       });
 
@@ -92,12 +144,26 @@ export function SmsVerificationCheckListInstance(
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
+    params: NumbersV1SmsVerificationCheckRequest,
+    headers?: any,
     callback?: (
       error: Error | null,
       items: ApiResponse<SmsVerificationCheckInstance>
     ) => any
   ): Promise<ApiResponse<SmsVerificationCheckInstance>> {
-    const headers: any = {};
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
     headers["Accept"] = "application/json";
 
     let operationVersion = version;
@@ -106,6 +172,7 @@ export function SmsVerificationCheckListInstance(
       .createWithResponseInfo<SmsVerificationCheckResource>({
         uri: instance._uri,
         method: "post",
+        data,
         headers,
       })
       .then(
