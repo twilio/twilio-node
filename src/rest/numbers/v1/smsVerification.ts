@@ -19,6 +19,27 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+export class NumbersV1SmsVerificationRequest {
+  /**
+   * The phone number to verify in E.164 format.
+   */
+  "to": string;
+  /**
+   * The locale for the verification SMS message.
+   */
+  "locale"?: string;
+  /**
+   * A human-readable name for the caller ID.
+   */
+  "friendlyName"?: string;
+
+  constructor(payload) {
+    this.to = payload["to"];
+    this.locale = payload["locale"];
+    this.friendlyName = payload["friendly_name"];
+  }
+}
+
 export class NumbersV1SmsVerificationSendCodeAttempts {
   "attemptSid"?: string;
   "time"?: string;
@@ -27,6 +48,14 @@ export class NumbersV1SmsVerificationSendCodeAttempts {
     this.attemptSid = payload["attemptSid"];
     this.time = payload["time"];
   }
+}
+
+/**
+ * Options to pass to create a SmsVerificationInstance
+ */
+export interface SmsVerificationListInstanceCreateOptions {
+  /**  */
+  numbersV1SmsVerificationRequest: NumbersV1SmsVerificationRequest;
 }
 
 export interface SmsVerificationSolution {}
@@ -39,22 +68,30 @@ export interface SmsVerificationListInstance {
   /**
    * Create a SmsVerificationInstance
    *
+   * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed SmsVerificationInstance
    */
   create(
+    params: NumbersV1SmsVerificationRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: SmsVerificationInstance) => any
   ): Promise<SmsVerificationInstance>;
 
   /**
    * Create a SmsVerificationInstance and return HTTP info
    *
+   * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed SmsVerificationInstance with HTTP metadata
    */
   createWithHttpInfo(
+    params: NumbersV1SmsVerificationRequest,
+    headers?: any,
     callback?: (
       error: Error | null,
       item?: ApiResponse<SmsVerificationInstance>
@@ -78,15 +115,30 @@ export function SmsVerificationListInstance(
   instance._uri = `/CallerIds/SmsVerifications`;
 
   instance.create = function create(
+    params: NumbersV1SmsVerificationRequest,
+    headers?: any,
     callback?: (error: Error | null, items: SmsVerificationInstance) => any
   ): Promise<SmsVerificationInstance> {
-    const headers: any = {};
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
     headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        data,
         headers,
       });
 
@@ -102,12 +154,26 @@ export function SmsVerificationListInstance(
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
+    params: NumbersV1SmsVerificationRequest,
+    headers?: any,
     callback?: (
       error: Error | null,
       items: ApiResponse<SmsVerificationInstance>
     ) => any
   ): Promise<ApiResponse<SmsVerificationInstance>> {
-    const headers: any = {};
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
     headers["Accept"] = "application/json";
 
     let operationVersion = version;
@@ -116,6 +182,7 @@ export function SmsVerificationListInstance(
       .createWithResponseInfo<SmsVerificationResource>({
         uri: instance._uri,
         method: "post",
+        data,
         headers,
       })
       .then(
