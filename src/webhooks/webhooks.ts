@@ -1,4 +1,3 @@
-const scmp = require("scmp");
 import crypto from "crypto";
 import urllib from "url";
 import { IncomingHttpHeaders } from "http2";
@@ -257,7 +256,10 @@ function validateSignatureWithUrl(
     params
   );
 
-  return scmp(Buffer.from(twilioHeader), Buffer.from(signatureWithoutPort));
+  return safeCompare(
+    Buffer.from(twilioHeader),
+    Buffer.from(signatureWithoutPort)
+  );
 }
 
 export function validateBody(
@@ -265,7 +267,16 @@ export function validateBody(
   bodyHash: any[] | string | Buffer
 ): boolean {
   var expectedHash = getExpectedBodyHash(body);
-  return scmp(Buffer.from(bodyHash), Buffer.from(expectedHash));
+  return safeCompare(Buffer.from(bodyHash), Buffer.from(expectedHash));
+}
+
+/**
+ * Constant-time Buffer comparison. crypto.timingSafeEqual throws on a length
+ * mismatch, so check that first; returning early is safe because the expected
+ * signature/hash length is fixed by the algorithm and not secret.
+ */
+function safeCompare(a: Buffer, b: Buffer): boolean {
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
 
 /**

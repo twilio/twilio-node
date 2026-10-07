@@ -1,4 +1,9 @@
-import { getExpectedTwilioSignature, validateRequest } from "../../../src";
+import {
+  getExpectedBodyHash,
+  getExpectedTwilioSignature,
+  validateBody,
+  validateRequest,
+} from "../../../src";
 
 describe("webhooks", () => {
   const authToken = "s3cr3t";
@@ -100,6 +105,70 @@ describe("webhooks", () => {
 
         expect(result).toBe(true);
       });
+    });
+
+    describe("signature comparison", () => {
+      const url = "https://example.com/path?test=param";
+
+      it("should return false when the signature differs only in its last character", () => {
+        const signature = getExpectedTwilioSignature(authToken, url, {});
+        const tampered =
+          signature.slice(0, -1) + (signature.endsWith("A") ? "B" : "A");
+
+        expect(validateRequest(authToken, tampered, url, {})).toBe(false);
+      });
+
+      it("should return false without throwing when the signature is shorter than expected", () => {
+        const signature = getExpectedTwilioSignature(authToken, url, {});
+
+        expect(() =>
+          validateRequest(authToken, signature.slice(0, -1), url, {})
+        ).not.toThrow();
+        expect(
+          validateRequest(authToken, signature.slice(0, -1), url, {})
+        ).toBe(false);
+      });
+
+      it("should return false without throwing when the signature is longer than expected", () => {
+        const signature = getExpectedTwilioSignature(authToken, url, {});
+
+        expect(validateRequest(authToken, signature + "=", url, {})).toBe(
+          false
+        );
+      });
+
+      it("should return false when the signature is empty", () => {
+        expect(validateRequest(authToken, "", url, {})).toBe(false);
+      });
+    });
+  });
+
+  describe("validateBody()", () => {
+    const body = '{"property": "value", "boolean": true}';
+
+    it("should return true when the hash matches the body", () => {
+      expect(validateBody(body, getExpectedBodyHash(body))).toBe(true);
+    });
+
+    it("should return false when a same-length hash does not match", () => {
+      const hash = getExpectedBodyHash(body);
+      const tampered = hash.slice(0, -1) + (hash.endsWith("0") ? "1" : "0");
+
+      expect(validateBody(body, tampered)).toBe(false);
+    });
+
+    it("should return false without throwing when the hash length differs", () => {
+      const hash = getExpectedBodyHash(body);
+
+      expect(validateBody(body, hash.slice(0, -1))).toBe(false);
+      expect(validateBody(body, hash + "0")).toBe(false);
+      expect(validateBody(body, "")).toBe(false);
+    });
+
+    it("should accept the hash as a Buffer", () => {
+      expect(validateBody(body, Buffer.from(getExpectedBodyHash(body)))).toBe(
+        true
+      );
     });
   });
 });
