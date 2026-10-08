@@ -474,7 +474,7 @@ export class QueueInstance {
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.maxSize = deserialize.integer(payload.max_size);
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

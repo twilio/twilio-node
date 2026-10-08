@@ -626,7 +626,7 @@ export class HostedNumberOrderInstance {
     this.verificationCode = payload.verification_code;
     this.verificationCallSids = payload.verification_call_sids;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

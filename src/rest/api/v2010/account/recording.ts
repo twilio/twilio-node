@@ -474,7 +474,7 @@ export class RecordingInstance {
     this.subresourceUris = payload.subresource_uris;
     this.mediaUrl = payload.media_url;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

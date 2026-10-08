@@ -292,7 +292,9 @@ export class TrustProductsProvisionalCopyInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { trustProductSid: trustProductSid };
+    this._solution = {
+      trustProductSid: trustProductSid || this.trustProductSid,
+    };
   }
 
   /**

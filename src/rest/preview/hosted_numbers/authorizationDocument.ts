@@ -126,6 +126,28 @@ export interface AuthorizationDocumentContext {
   dependentHostedNumberOrders: DependentHostedNumberOrderListInstance;
 
   /**
+   * Remove a AuthorizationDocumentInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
+
+  /**
+   * Remove a AuthorizationDocumentInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
+
+  /**
    * Fetch a AuthorizationDocumentInstance
    *
    * @param callback - Callback to handle processed record
@@ -244,6 +266,50 @@ export class AuthorizationDocumentContextImpl
       this._dependentHostedNumberOrders ||
       DependentHostedNumberOrderListInstance(this._version, this._solution.sid);
     return this._dependentHostedNumberOrders;
+  }
+
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // DELETE operation - returns boolean based on status code
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
   }
 
   fetch(
@@ -496,7 +562,7 @@ export class AuthorizationDocumentInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**
@@ -532,6 +598,32 @@ export class AuthorizationDocumentInstance {
       this._context ||
       new AuthorizationDocumentContextImpl(this._version, this._solution.sid);
     return this._context;
+  }
+
+  /**
+   * Remove a AuthorizationDocumentInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean
+   */
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    return this._proxy.remove(callback);
+  }
+
+  /**
+   * Remove a AuthorizationDocumentInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed boolean with HTTP metadata
+   */
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    return this._proxy.removeWithHttpInfo(callback);
   }
 
   /**

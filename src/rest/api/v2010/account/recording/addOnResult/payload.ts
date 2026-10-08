@@ -335,7 +335,12 @@ export class PayloadInstance {
     this.referenceSid = payload.reference_sid;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = { accountSid, referenceSid, addOnResultSid, sid: sid };
+    this._solution = {
+      accountSid,
+      referenceSid,
+      addOnResultSid,
+      sid: sid || this.sid,
+    };
   }
 
   /**

@@ -774,7 +774,7 @@ export class IncomingPhoneNumberInstance {
     this.status = payload.status;
     this.type = payload.type;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

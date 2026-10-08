@@ -594,7 +594,7 @@ export class TaskQueueInstance {
     this.workspaceSid = payload.workspace_sid;
     this.links = payload.links;
 
-    this._solution = { workspaceSid, sid: sid };
+    this._solution = { workspaceSid, sid: sid || this.sid };
   }
 
   /**

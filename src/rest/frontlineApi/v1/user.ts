@@ -330,7 +330,7 @@ export class UserInstance {
     this.isAvailable = payload.is_available;
     this.url = payload.url;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

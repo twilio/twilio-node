@@ -346,7 +346,7 @@ export class PhoneNumberInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { phoneNumber: phoneNumber };
+    this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
   }
 
   /**

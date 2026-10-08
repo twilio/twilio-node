@@ -278,7 +278,10 @@ export class ParticipantInstance {
     this.publisherInfo = payload.publisher_info;
     this.url = payload.url;
 
-    this._solution = { roomSid, participantSid: participantSid };
+    this._solution = {
+      roomSid,
+      participantSid: participantSid || this.participantSid,
+    };
   }
 
   /**

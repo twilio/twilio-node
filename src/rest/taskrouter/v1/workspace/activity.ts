@@ -481,7 +481,7 @@ export class ActivityInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { workspaceSid, sid: sid };
+    this._solution = { workspaceSid, sid: sid || this.sid };
   }
 
   /**

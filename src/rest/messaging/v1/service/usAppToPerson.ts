@@ -744,7 +744,7 @@ export class UsAppToPersonInstance {
     this.privacyPolicyUrl = payload.privacy_policy_url;
     this.termsAndConditionsUrl = payload.terms_and_conditions_url;
 
-    this._solution = { messagingServiceSid, sid: sid };
+    this._solution = { messagingServiceSid, sid: sid || this.sid };
   }
 
   /**

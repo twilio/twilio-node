@@ -196,7 +196,7 @@ export class DayInstance {
     this.friendlyName = payload.friendly_name;
     this.resourceType = payload.resource_type;
 
-    this._solution = { resourceType, day: day };
+    this._solution = { resourceType, day: day || this.day };
   }
 
   redirectTo: string;

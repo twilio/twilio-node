@@ -71,7 +71,7 @@ export interface ConferenceListInstanceEachOptions {
   dateUpdatedAfter?: Date;
   /** The string that identifies the Conference resources to read. */
   friendlyName?: string;
-  /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. */
+  /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. Starting from September 30th, 2026, the default is `in-progress`. To read completed conferences, set `Status` to `completed`. */
   status?: ConferenceStatus;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -101,7 +101,7 @@ export interface ConferenceListInstanceOptions {
   dateUpdatedAfter?: Date;
   /** The string that identifies the Conference resources to read. */
   friendlyName?: string;
-  /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. */
+  /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. Starting from September 30th, 2026, the default is `in-progress`. To read completed conferences, set `Status` to `completed`. */
   status?: ConferenceStatus;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -127,7 +127,7 @@ export interface ConferenceListInstancePageOptions {
   dateUpdatedAfter?: Date;
   /** The string that identifies the Conference resources to read. */
   friendlyName?: string;
-  /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. */
+  /** The status of the resources to read. Can be: `init`, `in-progress`, or `completed`. Starting from September 30th, 2026, the default is `in-progress`. To read completed conferences, set `Status` to `completed`. */
   status?: ConferenceStatus;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
   pageSize?: number;
@@ -504,7 +504,7 @@ export class ConferenceInstance {
     this.reasonConferenceEnded = payload.reason_conference_ended;
     this.callSidEndingConference = payload.call_sid_ending_conference;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

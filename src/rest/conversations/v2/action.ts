@@ -270,6 +270,7 @@ interface ActionResource {
   createdAt: Date;
   updatedAt: Date;
   completedAt: Date;
+  failureReason: string;
 }
 
 export class ActionInstance {
@@ -291,6 +292,7 @@ export class ActionInstance {
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
     this.completedAt = deserialize.iso8601DateTime(payload.completedAt);
+    this.failureReason = payload.failureReason;
 
     this._solution = { conversationId, actionId: actionId };
   }
@@ -300,7 +302,7 @@ export class ActionInstance {
    */
   id: string;
   /**
-   * The type of action. Accepted values: SEND_MESSAGE.
+   * The type of action: action-send-message or action-start-flow.
    */
   type: string;
   status: ConversationsV2ActionStatus;
@@ -309,7 +311,7 @@ export class ActionInstance {
    */
   conversationId: string;
   /**
-   * Named identifiers from downstream. For SEND_MESSAGE: - messageSid: The downstream message SID (present when PENDING or COMPLETED) - communicationId: The Communication ID (present when COMPLETED)
+   * Named identifiers from downstream. For SEND_MESSAGE: - messageSid: The downstream message SID (present when PENDING or COMPLETED) - communicationId: The Communication ID (present when COMPLETED) For START_FLOW: - executionSid: The Studio Flow execution SID (present when COMPLETED)
    */
   related: { [key: string]: string };
   /**
@@ -324,6 +326,10 @@ export class ActionInstance {
    * Timestamp when the action reached a terminal status.
    */
   completedAt: Date;
+  /**
+   * Human-readable failure reason. Null unless status is FAILED.
+   */
+  failureReason: string;
 
   private get _proxy(): ActionContext {
     this._context =
@@ -377,6 +383,7 @@ export class ActionInstance {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       completedAt: this.completedAt,
+      failureReason: this.failureReason,
     };
   }
 

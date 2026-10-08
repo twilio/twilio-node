@@ -531,7 +531,7 @@ export class UserConversationInstance {
     this._solution = {
       chatServiceSid,
       userSid,
-      conversationSid: conversationSid,
+      conversationSid: conversationSid || this.conversationSid,
     };
   }
 

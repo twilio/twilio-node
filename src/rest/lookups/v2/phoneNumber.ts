@@ -515,7 +515,7 @@ export class PhoneNumberInstance {
     this.preFill = payload.pre_fill;
     this.url = payload.url;
 
-    this._solution = { phoneNumber: phoneNumber };
+    this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
   }
 
   /**

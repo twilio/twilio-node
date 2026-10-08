@@ -425,7 +425,7 @@ export class WorkerChannelInstance {
     this.workspaceSid = payload.workspace_sid;
     this.url = payload.url;
 
-    this._solution = { workspaceSid, workerSid, sid: sid };
+    this._solution = { workspaceSid, workerSid, sid: sid || this.sid };
   }
 
   /**

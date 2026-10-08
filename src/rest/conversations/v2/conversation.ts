@@ -208,12 +208,23 @@ export class CreateConversationWithConfigRequestConfiguration {
    */
   "intelligenceConfigurationIds"?: Array<string>;
   /**
+   * A list of Trait Extraction Strategy IDs.
+   */
+  "traitExtractionStrategyIds"?: Array<string>;
+  /**
+   * A list of Observation Extraction Strategy IDs.
+   */
+  "observationExtractionStrategyIds"?: Array<string>;
+  /**
    * The Workflows to associate with this Conversation. Overrides the Configuration\'s own.
    */
   "workflows"?: Array<ConversationWorkflow>;
 
   constructor(payload) {
     this.intelligenceConfigurationIds = payload["intelligenceConfigurationIds"];
+    this.traitExtractionStrategyIds = payload["traitExtractionStrategyIds"];
+    this.observationExtractionStrategyIds =
+      payload["observationExtractionStrategyIds"];
     this.workflows = payload["workflows"];
   }
 }
@@ -289,6 +300,14 @@ export class ListConversationByAccount200ResponseConversationsConfiguration {
    */
   "intelligenceConfigurationIds"?: Array<string>;
   /**
+   * A list of Trait Extraction Strategy IDs.
+   */
+  "traitExtractionStrategyIds"?: Array<string>;
+  /**
+   * A list of Observation Extraction Strategy IDs.
+   */
+  "observationExtractionStrategyIds"?: Array<string>;
+  /**
    * Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
    */
   "memoryExtractionEnabled"?: boolean;
@@ -302,6 +321,9 @@ export class ListConversationByAccount200ResponseConversationsConfiguration {
     this.channelSettings = payload["channelSettings"];
     this.statusCallbacks = payload["statusCallbacks"];
     this.intelligenceConfigurationIds = payload["intelligenceConfigurationIds"];
+    this.traitExtractionStrategyIds = payload["traitExtractionStrategyIds"];
+    this.observationExtractionStrategyIds =
+      payload["observationExtractionStrategyIds"];
     this.memoryExtractionEnabled = payload["memoryExtractionEnabled"];
     this.conversationsV1Bridge = payload["conversationsV1Bridge"];
   }
@@ -1131,6 +1153,8 @@ export interface CreateConversationWithConfigRequest {
  */
 export interface CreateConversationWithConfigRequestConfiguration {
   intelligenceConfigurationIds?: Array<string>;
+  traitExtractionStrategyIds?: Array<string>;
+  observationExtractionStrategyIds?: Array<string>;
   workflows?: Array<ConversationWorkflow>;
 }
 
@@ -1164,6 +1188,8 @@ export interface ListConversationByAccount200ResponseConversationsConfiguration 
   channelSettings?: { [key: string]: any };
   statusCallbacks?: Array<ConversationsV2StatusCallbackConfig>;
   intelligenceConfigurationIds?: Array<string>;
+  traitExtractionStrategyIds?: Array<string>;
+  observationExtractionStrategyIds?: Array<string>;
   memoryExtractionEnabled?: boolean;
   conversationsV1Bridge?: ConversationsV2ConversationsV1Bridge;
 }

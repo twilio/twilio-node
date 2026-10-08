@@ -806,7 +806,7 @@ export class CallInstance {
     this.uri = payload.uri;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

@@ -228,7 +228,7 @@ export class RecallObservationInfo {
    */
   "occurredAt": Date;
   /**
-   * The source system that generated this observation. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+   * The source system that generated this observation. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
    */
   "source": string;
   /**
@@ -269,7 +269,7 @@ export class RecallObservationInfo {
  */
 export class RecallSummaryInfo {
   /**
-   * The source system that generated the summary. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+   * The source system that generated the summary. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
    */
   "source"?: string;
   /**

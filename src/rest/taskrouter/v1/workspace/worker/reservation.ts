@@ -782,7 +782,7 @@ export class ReservationInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { workspaceSid, workerSid, sid: sid };
+    this._solution = { workspaceSid, workerSid, sid: sid || this.sid };
   }
 
   /**

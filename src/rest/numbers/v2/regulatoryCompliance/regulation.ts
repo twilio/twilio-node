@@ -315,7 +315,7 @@ export class RegulationInstance {
     this.requirements = payload.requirements;
     this.url = payload.url;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

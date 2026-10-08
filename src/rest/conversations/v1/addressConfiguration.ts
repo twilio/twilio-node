@@ -577,7 +577,7 @@ export class AddressConfigurationInstance {
     this.url = payload.url;
     this.addressCountry = payload.address_country;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

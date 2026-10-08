@@ -374,7 +374,10 @@ export class FlexUserInstance {
     this.version = deserialize.integer(payload.version);
     this.url = payload.url;
 
-    this._solution = { instanceSid: instanceSid, flexUserSid: flexUserSid };
+    this._solution = {
+      instanceSid: instanceSid || this.instanceSid,
+      flexUserSid: flexUserSid || this.flexUserSid,
+    };
   }
 
   /**

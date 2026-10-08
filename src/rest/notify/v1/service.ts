@@ -599,7 +599,7 @@ export class ServiceInstance {
     this.deliveryCallbackUrl = payload.delivery_callback_url;
     this.deliveryCallbackEnabled = payload.delivery_callback_enabled;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

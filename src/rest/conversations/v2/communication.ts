@@ -127,6 +127,10 @@ export class CreateCommunicationInConversationRequest {
   "author": CreateCommunicationInConversationRequestAuthor;
   "content": CreateCommunicationInConversationRequestContent;
   "channelId"?: string;
+  /**
+   * External resource identifier for this Communication (e.g. MessageSid for SMS/RCS/WhatsApp, TranscriptionSid + MessageIndex for Voice). If a Communication with the same resourceId already exists in the Conversation, it is updated instead of a new one being created.
+   */
+  "resourceId"?: string;
   "recipients": Array<CreateCommunicationInConversationRequestRecipients>;
   /**
    * Timestamp when this Communication occurred. If omitted, the server uses the current time.
@@ -137,6 +141,7 @@ export class CreateCommunicationInConversationRequest {
     this.author = payload["author"];
     this.content = payload["content"];
     this.channelId = payload["channelId"];
+    this.resourceId = payload["resourceId"];
     this.recipients = payload["recipients"];
     this.occurredAt = payload["occurredAt"];
   }

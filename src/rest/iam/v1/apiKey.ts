@@ -379,7 +379,7 @@ export class ApiKeyInstance {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.policy = payload.policy;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

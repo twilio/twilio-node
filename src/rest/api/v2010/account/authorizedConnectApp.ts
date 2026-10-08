@@ -243,7 +243,10 @@ export class AuthorizedConnectAppInstance {
     this.permissions = payload.permissions;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, connectAppSid: connectAppSid };
+    this._solution = {
+      accountSid,
+      connectAppSid: connectAppSid || this.connectAppSid,
+    };
   }
 
   /**

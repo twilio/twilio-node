@@ -691,7 +691,7 @@ export class TaskInstance {
     this.ignoreCapacity = payload.ignore_capacity;
     this.routingTarget = payload.routing_target;
 
-    this._solution = { workspaceSid, sid: sid };
+    this._solution = { workspaceSid, sid: sid || this.sid };
   }
 
   /**

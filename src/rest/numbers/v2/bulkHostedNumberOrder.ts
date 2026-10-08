@@ -279,7 +279,7 @@ export class BulkHostedNumberOrderInstance {
     this.totalCount = deserialize.integer(payload.total_count);
     this.results = payload.results;
 
-    this._solution = { bulkHostingSid: bulkHostingSid };
+    this._solution = { bulkHostingSid: bulkHostingSid || this.bulkHostingSid };
   }
 
   /**

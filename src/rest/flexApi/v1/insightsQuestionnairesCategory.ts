@@ -420,7 +420,7 @@ export class InsightsQuestionnairesCategoryInstance {
     this.name = payload.name;
     this.url = payload.url;
 
-    this._solution = { categorySid: categorySid };
+    this._solution = { categorySid: categorySid || this.categorySid };
   }
 
   /**
