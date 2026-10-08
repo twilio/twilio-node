@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import TokenPage, { TokenPaginationPayload } from "../../../base/TokenPage";
 import Response from "../../../http/response";
@@ -20,6 +21,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
+
 
 /**
  * Defines a capture rule with from and to addresses. Supports wildcard `*` for omnidirectional matching.
@@ -36,7 +38,7 @@ export class ConversationsV2CaptureRule {
   /**
    * Additional matching criteria for the capture rule. For voice calls, can include `callType` (`PSTN`, `SIP`, and similar).
    */
-  "metadata"?: { [key: string]: string };
+  "metadata"?: { [key: string]: string; };
 
   constructor(payload) {
     this.from = payload["from"];
@@ -44,6 +46,7 @@ export class ConversationsV2CaptureRule {
     this.metadata = payload["metadata"];
   }
 }
+
 
 /**
  * Configuration settings for a specific channel type.
@@ -61,13 +64,11 @@ export class ConversationsV2ChannelSetting {
   }
 }
 
+
 /**
- * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+ * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice. 
  */
-export type ConversationsV2ConversationGroupingType =
-  | "GROUP_BY_PROFILE"
-  | "GROUP_BY_PARTICIPANT_ADDRESSES"
-  | "GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE";
+export type ConversationsV2ConversationGroupingType = 'GROUP_BY_PROFILE'|'GROUP_BY_PARTICIPANT_ADDRESSES'|'GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE';
 
 /**
  * Configuration for Conversations V1 bridge. When set, messaging channels route through Conversations V1. Use this to integrate with existing Conversations V1 applications.
@@ -82,6 +83,7 @@ export class ConversationsV2ConversationsV1Bridge {
     this.serviceId = payload["serviceId"];
   }
 }
+
 
 /**
  * Default webhook configuration for Conversation-level events under this Configuration.
@@ -102,6 +104,7 @@ export class ConversationsV2StatusCallbackConfig {
   }
 }
 
+
 /**
  * Timeout settings for channel status transitions.
  */
@@ -121,6 +124,7 @@ export class ConversationsV2StatusTimeouts {
   }
 }
 
+
 export class CreateConfigurationRequest {
   /**
    * A human-readable name for the configuration. Limited to 32 characters.
@@ -131,16 +135,14 @@ export class CreateConfigurationRequest {
    */
   "description": string;
   /**
-   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice. 
    */
   "conversationGroupingType": string;
   /**
    * The memory store ID that Conversation Orchestrator uses for profile resolution.
    */
   "memoryStoreId": string;
-  "channelSettings"?: {
-    [key: string]: CreateConfigurationRequestChannelSettingsValue;
-  };
+  "channelSettings"?: { [key: string]: CreateConfigurationRequestChannelSettingsValue; };
   /**
    * A list of webhook configurations.
    */
@@ -168,6 +170,7 @@ export class CreateConfigurationRequest {
   }
 }
 
+
 export class CreateConfigurationRequestChannelSettingsValue {
   "statusTimeouts"?: CreateConfigurationRequestChannelSettingsValueStatusTimeouts;
   "captureRules"?: Array<CreateConfigurationRequestChannelSettingsValueCaptureRules>;
@@ -178,6 +181,7 @@ export class CreateConfigurationRequestChannelSettingsValue {
   }
 }
 
+
 export class CreateConfigurationRequestChannelSettingsValueCaptureRules {
   /**
    * The from address. Use \'*\' for wildcard.
@@ -187,7 +191,7 @@ export class CreateConfigurationRequestChannelSettingsValueCaptureRules {
    * The to address. Use \'*\' for wildcard.
    */
   "to": string;
-  "metadata"?: { [key: string]: string };
+  "metadata"?: { [key: string]: string; };
 
   constructor(payload) {
     this.from = payload["from"];
@@ -195,6 +199,7 @@ export class CreateConfigurationRequestChannelSettingsValueCaptureRules {
     this.metadata = payload["metadata"];
   }
 }
+
 
 export class CreateConfigurationRequestChannelSettingsValueStatusTimeouts {
   /**
@@ -212,6 +217,7 @@ export class CreateConfigurationRequestChannelSettingsValueStatusTimeouts {
   }
 }
 
+
 /**
  * Configuration for Conversations V1 bridge. When set, messaging channels route through Conversations V1. Use this to integrate with existing Conversations V1 applications.
  */
@@ -225,6 +231,7 @@ export class CreateConfigurationRequestConversationsV1Bridge {
     this.serviceId = payload["serviceId"];
   }
 }
+
 
 export class CreateConfigurationRequestStatusCallbacks {
   /**
@@ -242,6 +249,7 @@ export class CreateConfigurationRequestStatusCallbacks {
   }
 }
 
+
 export class PatchConfigurationRequest {
   /**
    * A human-readable name for the configuration. Limited to 32 characters.
@@ -252,7 +260,7 @@ export class PatchConfigurationRequest {
    */
   "description"?: string | null;
   /**
-   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice. 
    */
   "conversationGroupingType"?: string;
   /**
@@ -262,9 +270,7 @@ export class PatchConfigurationRequest {
   /**
    * Channel-specific settings to merge onto the existing channelSettings map. A channel key mapped to a value replaces that channel\'s settings; a channel key explicitly mapped to null removes it; an omitted channel key is left untouched.
    */
-  "channelSettings"?: {
-    [key: string]: PatchConfigurationRequestChannelSettingsValue;
-  };
+  "channelSettings"?: { [key: string]: PatchConfigurationRequestChannelSettingsValue; };
   "statusCallbacks"?: Array<UpdateConfigurationRequestStatusCallbacks> | null;
   /**
    * A list of Conversational Intelligence configuration IDs.
@@ -289,6 +295,7 @@ export class PatchConfigurationRequest {
   }
 }
 
+
 export class PatchConfigurationRequestChannelSettingsValue {
   "statusTimeouts"?: UpdateConfigurationRequestChannelSettingsValueStatusTimeouts;
   "captureRules"?: Array<UpdateConfigurationRequestChannelSettingsValueCaptureRules>;
@@ -298,6 +305,7 @@ export class PatchConfigurationRequestChannelSettingsValue {
     this.captureRules = payload["captureRules"];
   }
 }
+
 
 /**
  * Configuration for Conversations V1 bridge. When set, messaging channels route through Conversations V1. Use this to integrate with existing Conversations V1 applications.
@@ -313,6 +321,7 @@ export class PatchConfigurationRequestConversationsV1Bridge {
   }
 }
 
+
 export class UpdateConfigurationRequest {
   /**
    * A human-readable name for the configuration. Limited to 32 characters.
@@ -323,16 +332,14 @@ export class UpdateConfigurationRequest {
    */
   "description": string;
   /**
-   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice. 
    */
   "conversationGroupingType": string;
   /**
    * The Memory Store ID for profile resolution.
    */
   "memoryStoreId": string;
-  "channelSettings": {
-    [key: string]: UpdateConfigurationRequestChannelSettingsValue;
-  };
+  "channelSettings": { [key: string]: UpdateConfigurationRequestChannelSettingsValue; };
   "statusCallbacks"?: Array<UpdateConfigurationRequestStatusCallbacks>;
   /**
    * A list of Conversational Intelligence configuration IDs.
@@ -357,6 +364,7 @@ export class UpdateConfigurationRequest {
   }
 }
 
+
 export class UpdateConfigurationRequestChannelSettingsValue {
   "statusTimeouts"?: UpdateConfigurationRequestChannelSettingsValueStatusTimeouts;
   "captureRules"?: Array<UpdateConfigurationRequestChannelSettingsValueCaptureRules>;
@@ -367,10 +375,11 @@ export class UpdateConfigurationRequestChannelSettingsValue {
   }
 }
 
+
 export class UpdateConfigurationRequestChannelSettingsValueCaptureRules {
   "from": string;
   "to": string;
-  "metadata"?: { [key: string]: string };
+  "metadata"?: { [key: string]: string; };
 
   constructor(payload) {
     this.from = payload["from"];
@@ -378,6 +387,7 @@ export class UpdateConfigurationRequestChannelSettingsValueCaptureRules {
     this.metadata = payload["metadata"];
   }
 }
+
 
 export class UpdateConfigurationRequestChannelSettingsValueStatusTimeouts {
   "inactive"?: number;
@@ -389,6 +399,7 @@ export class UpdateConfigurationRequestChannelSettingsValueStatusTimeouts {
   }
 }
 
+
 export class UpdateConfigurationRequestStatusCallbacks {
   "url": string;
   "method"?: string;
@@ -399,22 +410,25 @@ export class UpdateConfigurationRequestStatusCallbacks {
   }
 }
 
+
+
 /**
  * Options to pass to remove a ConfigurationInstance
  */
 export interface ConfigurationContextRemoveOptions {
   /** Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL. */
-  idempotencyKey?: string;
+  "idempotencyKey"?: string;
 }
+
 
 /**
  * Options to pass to patch a ConfigurationInstance
  */
 export interface ConfigurationContextPatchOptions {
   /** Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL. */
-  idempotencyKey?: string;
+  "idempotencyKey"?: string;
   /** The partial configuration update. */
-  patchConfigurationRequest?: PatchConfigurationRequest;
+  "patchConfigurationRequest"?: PatchConfigurationRequest;
 }
 
 /**
@@ -422,9 +436,9 @@ export interface ConfigurationContextPatchOptions {
  */
 export interface ConfigurationContextUpdateOptions {
   /** Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL. */
-  idempotencyKey?: string;
+  "idempotencyKey"?: string;
   /** The configuration to update */
-  updateConfigurationRequest?: UpdateConfigurationRequest;
+  "updateConfigurationRequest"?: UpdateConfigurationRequest;
 }
 
 /**
@@ -432,9 +446,9 @@ export interface ConfigurationContextUpdateOptions {
  */
 export interface ConfigurationListInstanceCreateOptions {
   /** Client-generated UUID key to ensure idempotent behavior. Submitting the same key returns the original response without creating a duplicate operation. Keys are scoped to account + region with a 24-hour TTL. */
-  idempotencyKey?: string;
+  "idempotencyKey"?: string;
   /** The configuration to create */
-  createConfigurationRequest?: CreateConfigurationRequest;
+  "createConfigurationRequest"?: CreateConfigurationRequest;
 }
 
 /**
@@ -442,11 +456,11 @@ export interface ConfigurationListInstanceCreateOptions {
  */
 export interface ConfigurationListInstanceEachOptions {
   /** Maximum number of items to return in a single response */
-  pageSize?: number;
+  "pageSize"?: number;
   /** A URL-safe, base64-encoded token representing the page of results to return */
-  pageToken?: string;
+  "pageToken"?: string;
   /** Filter configurations by Memory Store ID */
-  memoryStoreId?: string;
+  "memoryStoreId"?: string;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ConfigurationInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -460,28 +474,31 @@ export interface ConfigurationListInstanceEachOptions {
  */
 export interface ConfigurationListInstanceOptions {
   /** Maximum number of items to return in a single response */
-  pageSize?: number;
+  "pageSize"?: number;
   /** A URL-safe, base64-encoded token representing the page of results to return */
-  pageToken?: string;
+  "pageToken"?: string;
   /** Filter configurations by Memory Store ID */
-  memoryStoreId?: string;
+  "memoryStoreId"?: string;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface ConfigurationListInstancePageOptions {
   /** Maximum number of items to return in a single response */
-  pageSize?: number;
+  "pageSize"?: number;
   /** A URL-safe, base64-encoded token representing the page of results to return */
-  pageToken?: string;
+  "pageToken"?: string;
   /** Filter configurations by Memory Store ID */
-  memoryStoreId?: string;
+  "memoryStoreId"?: string;
 }
 
+
 export interface ConfigurationContext {
+
   /**
    * Remove a ConfigurationInstance
    *
@@ -489,9 +506,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  remove(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  remove(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Remove a ConfigurationInstance
    *
@@ -500,10 +515,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  remove(
-    params: ConfigurationContextRemoveOptions,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  remove(params: ConfigurationContextRemoveOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
   /**
    * Remove a ConfigurationInstance and return HTTP info
@@ -512,12 +524,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Remove a ConfigurationInstance and return HTTP info
    *
@@ -526,13 +533,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  removeWithHttpInfo(
-    params: ConfigurationContextRemoveOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  removeWithHttpInfo(params: ConfigurationContextRemoveOptions, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
 
   /**
    * Fetch a ConfigurationInstance
@@ -541,9 +542,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
 
   /**
    * Fetch a ConfigurationInstance and return HTTP info
@@ -552,12 +551,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>
 
   /**
    * Patch a ConfigurationInstance
@@ -566,9 +560,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  patch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  patch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Patch a ConfigurationInstance
    *
@@ -578,11 +570,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  patch(
-    params: PatchConfigurationRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  patch(params: PatchConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
   /**
    * Patch a ConfigurationInstance and return HTTP info
@@ -591,12 +579,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  patchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  patchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Patch a ConfigurationInstance and return HTTP info
    *
@@ -606,14 +589,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  patchWithHttpInfo(
-    params: PatchConfigurationRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  patchWithHttpInfo(params: PatchConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
 
   /**
    * Update a ConfigurationInstance
@@ -622,9 +598,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
    *
@@ -634,11 +608,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    params: UpdateConfigurationRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(params: UpdateConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
   /**
    * Update a ConfigurationInstance and return HTTP info
@@ -647,12 +617,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Update a ConfigurationInstance and return HTTP info
    *
@@ -662,14 +627,7 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: UpdateConfigurationRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  updateWithHttpInfo(params: UpdateConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -679,415 +637,259 @@ export interface ConfigurationContext {
 }
 
 export interface ConfigurationContextSolution {
-  id: string;
+  "id": string;
 }
 
 export class ConfigurationContextImpl implements ConfigurationContext {
   protected _solution: ConfigurationContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V2, id: string) {
     if (!isValidPathParam(id)) {
-      throw new Error("Parameter 'id' is not valid.");
+      throw new Error('Parameter \'id\' is not valid.');
     }
 
-    this._solution = { id };
+    this._solution = { id,  };
     this._uri = `/ControlPlane/Configurations/${id}`;
   }
 
-  remove(
-    params?:
-      | ConfigurationContextRemoveOptions
-      | ((error: Error | null, item?: ConfigurationInstance) => any),
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
-    if (params instanceof Function) {
+  remove(params?: ConfigurationContextRemoveOptions | ((error: Error | null, item?: ConfigurationInstance) => any),callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || ({} as any);
+      params = params || {} as any;
     }
 
     let data: any = {};
 
+    
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["idempotencyKey"] !== undefined)
-      headers["Idempotency-Key"] = params["idempotencyKey"];
+    headers["Accept"] = "application/json"
+    if (params["idempotencyKey"] !== undefined) headers["Idempotency-Key"] = params["idempotencyKey"];
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "delete",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "delete", params: data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload, instance._solution.id));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConfigurationInstance(
-          operationVersion,
-          payload,
-          instance._solution.id
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    params?:
-      | ConfigurationContextRemoveOptions
-      | ((
-          error: Error | null,
-          item?: ApiResponse<ConfigurationInstance>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
-    if (params instanceof Function) {
+  removeWithHttpInfo(params?: ConfigurationContextRemoveOptions | ((error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>> {
+      if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || ({} as any);
+      params = params || {} as any;
     }
 
     let data: any = {};
 
+    
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["idempotencyKey"] !== undefined)
-      headers["Idempotency-Key"] = params["idempotencyKey"];
+    headers["Accept"] = "application/json"
+    if (params["idempotencyKey"] !== undefined) headers["Idempotency-Key"] = params["idempotencyKey"];
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation that returns a response model
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ConfigurationResource>({
-        uri: instance._uri,
-        method: "delete",
-        params: data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.id
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ConfigurationResource>({ uri: instance._uri, method: "delete", params: data, headers}).then((response) : ApiResponse<ConfigurationInstance> => ({
+      ...response,
+      body: new ConfigurationInstance(operationVersion, response.body, instance._solution.id)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload, instance._solution.id));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConfigurationInstance(
-          operationVersion,
-          payload,
-          instance._solution.id
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ConfigurationResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.id
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ConfigurationResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ConfigurationInstance> => ({
+      ...response,
+      body: new ConfigurationInstance(operationVersion, response.body, instance._solution.id)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  patch(
-    params?:
-      | PatchConfigurationRequest
-      | ((error: Error | null, item?: ConfigurationInstance) => any),
-    headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
-    if (params instanceof Function) {
+  patch(params?: PatchConfigurationRequest | ((error: Error | null, item?: ConfigurationInstance) => any), headers?: any,callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest;
+      params = {} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest);
+      params = params || {} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.patch({
-        uri: instance._uri,
-        method: "patch",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.patch({ uri: instance._uri, method: "patch", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload, instance._solution.id));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConfigurationInstance(
-          operationVersion,
-          payload,
-          instance._solution.id
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  patchWithHttpInfo(
-    params?:
-      | PatchConfigurationRequest
-      | ((
-          error: Error | null,
-          item?: ApiResponse<ConfigurationInstance>
-        ) => any),
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
-    if (params instanceof Function) {
+  patchWithHttpInfo(params?: PatchConfigurationRequest | ((error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest;
+      params = {} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest);
+      params = params || {} as Partial<PatchConfigurationRequest> as PatchConfigurationRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .patchWithResponseInfo<ConfigurationResource>({
-        uri: instance._uri,
-        method: "patch",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.id
-          ),
-        })
-      );
+    let operationPromise = operationVersion.patchWithResponseInfo<ConfigurationResource>({ uri: instance._uri, method: "patch", data, headers}).then((response) : ApiResponse<ConfigurationInstance> => ({
+      ...response,
+      body: new ConfigurationInstance(operationVersion, response.body, instance._solution.id)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | UpdateConfigurationRequest
-      | ((error: Error | null, item?: ConfigurationInstance) => any),
-    headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
-    if (params instanceof Function) {
+  update(params?: UpdateConfigurationRequest | ((error: Error | null, item?: ConfigurationInstance) => any), headers?: any,callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<UpdateConfigurationRequest> as UpdateConfigurationRequest;
+      params = {} as Partial<UpdateConfigurationRequest> as UpdateConfigurationRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<UpdateConfigurationRequest> as UpdateConfigurationRequest);
+      params = params || {} as Partial<UpdateConfigurationRequest> as UpdateConfigurationRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "put",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload, instance._solution.id));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConfigurationInstance(
-          operationVersion,
-          payload,
-          instance._solution.id
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | UpdateConfigurationRequest
-      | ((
-          error: Error | null,
-          item?: ApiResponse<ConfigurationInstance>
-        ) => any),
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: UpdateConfigurationRequest | ((error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<UpdateConfigurationRequest> as UpdateConfigurationRequest;
+      params = {} as Partial<UpdateConfigurationRequest> as UpdateConfigurationRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<UpdateConfigurationRequest> as UpdateConfigurationRequest);
+      params = params || {} as Partial<UpdateConfigurationRequest> as UpdateConfigurationRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<ConfigurationResource>({
-        uri: instance._uri,
-        method: "put",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(
-            operationVersion,
-            response.body,
-            instance._solution.id
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<ConfigurationResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<ConfigurationInstance> => ({
+      ...response,
+      body: new ConfigurationInstance(operationVersion, response.body, instance._solution.id)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -1109,7 +911,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 export interface ConversationsV2CaptureRule {
   from: string;
   to: string;
-  metadata?: { [key: string]: string };
+  metadata?: { [key: string]: string; };
 }
 
 /**
@@ -1151,9 +953,7 @@ export interface CreateConfigurationRequest {
   description: string;
   conversationGroupingType: string;
   memoryStoreId: string;
-  channelSettings?: {
-    [key: string]: CreateConfigurationRequestChannelSettingsValue;
-  };
+  channelSettings?: { [key: string]: CreateConfigurationRequestChannelSettingsValue; };
   statusCallbacks?: Array<CreateConfigurationRequestStatusCallbacks>;
   intelligenceConfigurationIds?: Array<string>;
   memoryExtractionEnabled?: boolean;
@@ -1174,7 +974,7 @@ export interface CreateConfigurationRequestChannelSettingsValue {
 export interface CreateConfigurationRequestChannelSettingsValueCaptureRules {
   from: string;
   to: string;
-  metadata?: { [key: string]: string };
+  metadata?: { [key: string]: string; };
 }
 
 /**
@@ -1208,9 +1008,7 @@ export interface PatchConfigurationRequest {
   description?: string | null;
   conversationGroupingType?: string;
   memoryStoreId?: string | null;
-  channelSettings?: {
-    [key: string]: PatchConfigurationRequestChannelSettingsValue;
-  };
+  channelSettings?: { [key: string]: PatchConfigurationRequestChannelSettingsValue; };
   statusCallbacks?: Array<UpdateConfigurationRequestStatusCallbacks> | null;
   intelligenceConfigurationIds?: Array<string> | null;
   memoryExtractionEnabled?: boolean | null;
@@ -1240,9 +1038,7 @@ export interface UpdateConfigurationRequest {
   description: string;
   conversationGroupingType: string;
   memoryStoreId: string;
-  channelSettings: {
-    [key: string]: UpdateConfigurationRequestChannelSettingsValue;
-  };
+  channelSettings: { [key: string]: UpdateConfigurationRequestChannelSettingsValue; };
   statusCallbacks?: Array<UpdateConfigurationRequestStatusCallbacks>;
   intelligenceConfigurationIds?: Array<string>;
   memoryExtractionEnabled?: boolean;
@@ -1263,7 +1059,7 @@ export interface UpdateConfigurationRequestChannelSettingsValue {
 export interface UpdateConfigurationRequestChannelSettingsValueCaptureRules {
   from: string;
   to: string;
-  metadata?: { [key: string]: string };
+  metadata?: { [key: string]: string; };
 }
 
 /**
@@ -1282,8 +1078,10 @@ export interface UpdateConfigurationRequestStatusCallbacks {
   method?: string;
 }
 
-interface ConfigurationPayload extends TokenPaginationPayload {
-  configurations: ConfigurationResource[];
+
+
+  interface ConfigurationPayload extends TokenPaginationPayload {
+    configurations: ConfigurationResource[];
 }
 
 /**
@@ -1295,9 +1093,11 @@ interface ListConfiguration200ResponseConfigurations_ResponseResource {
   description: string;
   conversationGroupingType: ConversationsV2ConversationGroupingType;
   memoryStoreId: string;
-  channelSettings?: { [key: string]: ConversationsV2ChannelSetting };
+  channelSettings?: { [key: string]: ConversationsV2ChannelSetting; };
   statusCallbacks?: Array<ConversationsV2StatusCallbackConfig>;
   intelligenceConfigurationIds?: Array<string>;
+  traitExtractionStrategyIds?: Array<string>;
+  observationExtractionStrategyIds?: Array<string>;
   memoryExtractionEnabled?: boolean;
   conversationsV1Bridge?: ConversationsV2ConversationsV1Bridge;
   createdAt?: Date;
@@ -1310,15 +1110,13 @@ interface ListConfiguration200ResponseConfigurations_ResponseResource {
  */
 interface CreateConfiguration202Response_ResponseResource {
   statusUrl: string;
-  related?: { [key: string]: string };
+  related?: { [key: string]: string; };
 }
 
 /**
  * Union type for all possible response models
  */
-type ConfigurationResource =
-  | ListConfiguration200ResponseConfigurations_ResponseResource
-  | CreateConfiguration202Response_ResponseResource;
+type ConfigurationResource = ListConfiguration200ResponseConfigurations_ResponseResource | CreateConfiguration202Response_ResponseResource;
 
 /**
  * Slim response for an accepted long-running operation.
@@ -1327,40 +1125,29 @@ export class ConfigurationInstance {
   protected _solution: ConfigurationContextSolution;
   protected _context?: ConfigurationContext;
 
-  constructor(
-    protected _version: V2,
-    _payload: ConfigurationResource,
-    id?: string
-  ) {
+  constructor(protected _version: V2, _payload: ConfigurationResource, id?: string) {
     const payload: any = _payload;
-    this.id = payload.id;
-    this.displayName = payload.displayName;
-    this.description = payload.description;
+    this.id = (payload.id);
+    this.displayName = (payload.displayName);
+    this.description = (payload.description);
     this.conversationGroupingType = payload.conversationGroupingType;
-    this.memoryStoreId = payload.memoryStoreId;
+    this.memoryStoreId = (payload.memoryStoreId);
     this.channelSettings = payload.channelSettings;
-    this.statusCallbacks =
-      payload.statusCallbacks !== null && payload.statusCallbacks !== undefined
-        ? payload.statusCallbacks.map(
-            (payload: any) => new ConversationsV2StatusCallbackConfig(payload)
-          )
-        : null;
-    this.intelligenceConfigurationIds = payload.intelligenceConfigurationIds;
-    this.memoryExtractionEnabled = payload.memoryExtractionEnabled;
-    this.conversationsV1Bridge =
-      payload.conversationsV1Bridge !== null &&
-      payload.conversationsV1Bridge !== undefined
-        ? new ConversationsV2ConversationsV1Bridge(
-            payload.conversationsV1Bridge
-          )
-        : null;
+    this.statusCallbacks =  payload.statusCallbacks !== null && payload.statusCallbacks !== undefined ? payload.statusCallbacks.map(
+      (payload: any) => new ConversationsV2StatusCallbackConfig(payload)
+    ) : null;
+    this.intelligenceConfigurationIds = (payload.intelligenceConfigurationIds);
+    this.traitExtractionStrategyIds = (payload.traitExtractionStrategyIds);
+    this.observationExtractionStrategyIds = (payload.observationExtractionStrategyIds);
+    this.memoryExtractionEnabled = (payload.memoryExtractionEnabled);
+    this.conversationsV1Bridge = payload.conversationsV1Bridge !== null && payload.conversationsV1Bridge !== undefined ? new ConversationsV2ConversationsV1Bridge(payload.conversationsV1Bridge) : null;
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
-    this.version = payload.version;
-    this.statusUrl = payload.statusUrl;
-    this.related = payload.related;
+    this.version = (payload.version);
+    this.statusUrl = (payload.statusUrl);
+    this.related = (payload.related);
 
-    this._solution = { id: id };
+    this._solution = { id: id,  };
   }
 
   /**
@@ -1383,7 +1170,7 @@ export class ConfigurationInstance {
   /**
    * Channel-specific configuration settings by channel type. Keys should be valid channel types (`VOICE`, `SMS`, `RCS`, `WHATSAPP`, `CHAT`).
    */
-  channelSettings?: { [key: string]: ConversationsV2ChannelSetting };
+  channelSettings?: { [key: string]: ConversationsV2ChannelSetting; };
   /**
    * List of default webhook configurations applied to Conversations under this Configuration.
    */
@@ -1392,6 +1179,14 @@ export class ConfigurationInstance {
    * A list of Conversational Intelligence configuration IDs.
    */
   intelligenceConfigurationIds?: Array<string>;
+  /**
+   * A list of Trait Extraction Strategy IDs.
+   */
+  traitExtractionStrategyIds?: Array<string>;
+  /**
+   * A list of Observation Extraction Strategy IDs.
+   */
+  observationExtractionStrategyIds?: Array<string>;
   /**
    * Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
    */
@@ -1414,14 +1209,12 @@ export class ConfigurationInstance {
    */
   statusUrl?: string;
   /**
-   * Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId
+   * Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId 
    */
-  related?: { [key: string]: string };
+  related?: { [key: string]: string; };
 
   private get _proxy(): ConfigurationContext {
-    this._context =
-      this._context ||
-      new ConfigurationContextImpl(this._version, this._solution.id);
+    this._context = this._context || new ConfigurationContextImpl(this._version, this._solution.id);
     return this._context;
   }
 
@@ -1432,9 +1225,7 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  remove(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  remove(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Remove a ConfigurationInstance
    *
@@ -1443,15 +1234,10 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  remove(
-    params: ConfigurationContextRemoveOptions,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  remove(params: ConfigurationContextRemoveOptions, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
-  remove(
-    params?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
+    remove(params?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
+    {
     return this._proxy.remove(params, callback);
   }
 
@@ -1462,12 +1248,7 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Remove a ConfigurationInstance and return HTTP info
    *
@@ -1476,21 +1257,10 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  removeWithHttpInfo(
-    params: ConfigurationContextRemoveOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  removeWithHttpInfo(params: ConfigurationContextRemoveOptions, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
 
-  removeWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
+    removeWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>
+    {
     return this._proxy.removeWithHttpInfo(params, callback);
   }
 
@@ -1501,9 +1271,9 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
+  fetch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -1514,12 +1284,9 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -1530,9 +1297,7 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  patch(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  patch(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Patch a ConfigurationInstance
    *
@@ -1542,16 +1307,10 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  patch(
-    params: PatchConfigurationRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  patch(params: PatchConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
-  patch(
-    params?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
+    patch(params?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
+    {
     return this._proxy.patch(params, callback);
   }
 
@@ -1562,12 +1321,7 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  patchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  patchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Patch a ConfigurationInstance and return HTTP info
    *
@@ -1577,22 +1331,10 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  patchWithHttpInfo(
-    params: PatchConfigurationRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  patchWithHttpInfo(params: PatchConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
 
-  patchWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
+    patchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>
+    {
     return this._proxy.patchWithHttpInfo(params, callback);
   }
 
@@ -1603,9 +1345,7 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Update a ConfigurationInstance
    *
@@ -1615,16 +1355,10 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  update(
-    params: UpdateConfigurationRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  update(params: UpdateConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -1635,12 +1369,7 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Update a ConfigurationInstance and return HTTP info
    *
@@ -1650,22 +1379,10 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: UpdateConfigurationRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  updateWithHttpInfo(params: UpdateConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -1684,6 +1401,8 @@ export class ConfigurationInstance {
       channelSettings: this.channelSettings,
       statusCallbacks: this.statusCallbacks,
       intelligenceConfigurationIds: this.intelligenceConfigurationIds,
+      traitExtractionStrategyIds: this.traitExtractionStrategyIds,
+      observationExtractionStrategyIds: this.observationExtractionStrategyIds,
       memoryExtractionEnabled: this.memoryExtractionEnabled,
       conversationsV1Bridge: this.conversationsV1Bridge,
       createdAt: this.createdAt,
@@ -1699,15 +1418,26 @@ export class ConfigurationInstance {
   }
 }
 
-export interface ConfigurationSolution {}
+
+export interface ConfigurationSolution {
+}
 
 export interface ConfigurationListInstance {
   _version: V2;
   _solution: ConfigurationSolution;
   _uri: string;
 
-  (id: string): ConfigurationContext;
-  get(id: string): ConfigurationContext;
+  (id: string, ): ConfigurationContext;
+  get(id: string, ): ConfigurationContext;
+
+
+
+
+
+
+
+
+
 
   /**
    * Create a ConfigurationInstance
@@ -1716,9 +1446,7 @@ export interface ConfigurationListInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  create(
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  create(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
   /**
    * Create a ConfigurationInstance
    *
@@ -1728,11 +1456,7 @@ export interface ConfigurationListInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  create(
-    params: CreateConfigurationRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance>;
+  create(params: CreateConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
 
   /**
    * Create a ConfigurationInstance and return HTTP info
@@ -1741,12 +1465,7 @@ export interface ConfigurationListInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Create a ConfigurationInstance and return HTTP info
    *
@@ -1756,14 +1475,10 @@ export interface ConfigurationListInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CreateConfigurationRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>>;
+  createWithHttpInfo(params: CreateConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
+
+
+
 
   /**
    * Streams ConfigurationInstance records from the API.
@@ -1780,19 +1495,8 @@ export interface ConfigurationListInstance {
    * @param { ConfigurationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: ConfigurationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: ConfigurationListInstanceEachOptions,
-    callback?: (
-      item: ConfigurationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: ConfigurationInstance, done: (err?: Error) => void) => void): void;
+  each(params: ConfigurationListInstanceEachOptions, callback?: (item: ConfigurationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams ConfigurationInstance records from the API with HTTP metadata captured per page.
    *
@@ -1808,19 +1512,8 @@ export interface ConfigurationListInstance {
    * @param { ConfigurationListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: ConfigurationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: ConfigurationListInstanceEachOptions,
-    callback?: (
-      item: ConfigurationInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: ConfigurationInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: ConfigurationListInstanceEachOptions, callback?: (item: ConfigurationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ConfigurationInstance records from the API.
    *
@@ -1829,10 +1522,7 @@ export interface ConfigurationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ConfigurationPage) => any
-  ): Promise<ConfigurationPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage>;
   /**
    * Retrieve a single target page of ConfigurationInstance records from the API with HTTP metadata.
    *
@@ -1841,13 +1531,7 @@ export interface ConfigurationListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ConfigurationPage>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ConfigurationPage>) => any): Promise<ApiResponse<ConfigurationPage>>;
   /**
    * Lists ConfigurationInstance records from the API as a list.
    *
@@ -1857,13 +1541,8 @@ export interface ConfigurationListInstance {
    * @param { ConfigurationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: ConfigurationInstance[]) => any
-  ): Promise<ConfigurationInstance[]>;
-  list(
-    params: ConfigurationListInstanceOptions,
-    callback?: (error: Error | null, items: ConfigurationInstance[]) => any
-  ): Promise<ConfigurationInstance[]>;
+  list(callback?: (error: Error | null, items: ConfigurationInstance[]) => any): Promise<ConfigurationInstance[]>;
+  list(params: ConfigurationListInstanceOptions, callback?: (error: Error | null, items: ConfigurationInstance[]) => any): Promise<ConfigurationInstance[]>;
   /**
    * Lists ConfigurationInstance records from the API as a list with HTTP metadata.
    *
@@ -1875,19 +1554,8 @@ export interface ConfigurationListInstance {
    * @param { ConfigurationListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ConfigurationInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance[]>>;
-  listWithHttpInfo(
-    params: ConfigurationListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ConfigurationInstance[]>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ConfigurationInstance[]>) => any): Promise<ApiResponse<ConfigurationInstance[]>>;
+  listWithHttpInfo(params: ConfigurationListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<ConfigurationInstance[]>) => any): Promise<ApiResponse<ConfigurationInstance[]>>;
   /**
    * Retrieve a single page of ConfigurationInstance records from the API.
    *
@@ -1899,13 +1567,8 @@ export interface ConfigurationListInstance {
    * @param { ConfigurationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: ConfigurationPage) => any
-  ): Promise<ConfigurationPage>;
-  page(
-    params: ConfigurationListInstancePageOptions,
-    callback?: (error: Error | null, items: ConfigurationPage) => any
-  ): Promise<ConfigurationPage>;
+  page(callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage>;
+  page(params: ConfigurationListInstancePageOptions, callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage>;
   /**
    * Retrieve a single page of ConfigurationInstance records from the API with HTTP metadata.
    *
@@ -1917,19 +1580,9 @@ export interface ConfigurationListInstance {
    * @param { ConfigurationListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ConfigurationPage>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationPage>>;
-  pageWithHttpInfo(
-    params: ConfigurationListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ConfigurationPage>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ConfigurationPage>) => any): Promise<ApiResponse<ConfigurationPage>>;
+  pageWithHttpInfo(params: ConfigurationListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ConfigurationPage>) => any): Promise<ApiResponse<ConfigurationPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -1938,129 +1591,85 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ConfigurationListInstance(
-  version: V2
-): ConfigurationListInstance {
-  const instance = ((id) => instance.get(id)) as ConfigurationListInstance;
+export function ConfigurationListInstance(version: V2): ConfigurationListInstance {
+  const instance = ((id, ) => instance.get(id, )) as ConfigurationListInstance;
 
-  instance.get = function get(id): ConfigurationContext {
+  instance.get = function get(id, ): ConfigurationContext {
     return new ConfigurationContextImpl(version, id);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/ControlPlane/Configurations`;
 
-  instance.create = function create(
-    params?:
-      | CreateConfigurationRequest
-      | ((error: Error | null, items: ConfigurationInstance) => any),
-    headers?: any,
-    callback?: (error: Error | null, items: ConfigurationInstance) => any
-  ): Promise<ConfigurationInstance> {
+  instance.create = function create(params?: CreateConfigurationRequest | ((error: Error | null, items: ConfigurationInstance) => any), headers?: any, callback?: (error: Error | null, items: ConfigurationInstance) => any): Promise<ConfigurationInstance> {
     if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<CreateConfigurationRequest> as CreateConfigurationRequest;
+      params = {} as Partial<CreateConfigurationRequest> as CreateConfigurationRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<CreateConfigurationRequest> as CreateConfigurationRequest);
+      params = params || {} as Partial<CreateConfigurationRequest> as CreateConfigurationRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new ConfigurationInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params?:
-      | CreateConfigurationRequest
-      | ((
-          error: Error | null,
-          items: ApiResponse<ConfigurationInstance>
-        ) => any),
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ConfigurationInstance>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params?: CreateConfigurationRequest | ((error: Error | null, items: ApiResponse<ConfigurationInstance>) => any), headers?: any, callback?: (error: Error | null, items: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<CreateConfigurationRequest> as CreateConfigurationRequest;
+      params = {} as Partial<CreateConfigurationRequest> as CreateConfigurationRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<CreateConfigurationRequest> as CreateConfigurationRequest);
+      params = params || {} as Partial<CreateConfigurationRequest> as CreateConfigurationRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<ConfigurationResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ConfigurationInstance> => ({
-          ...response,
-          body: new ConfigurationInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<ConfigurationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ConfigurationInstance> => ({
+      ...response,
+      body: new ConfigurationInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | ConfigurationListInstancePageOptions
-      | ((error: Error | null, items: ConfigurationPage) => any),
-    callback?: (error: Error | null, items: ConfigurationPage) => any
-  ): Promise<ConfigurationPage> {
+
+    }
+
+  instance.page = function page(params?: ConfigurationListInstancePageOptions | ((error: Error | null, items: ConfigurationPage) => any), callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -2070,75 +1679,46 @@ export function ConfigurationListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-      data["pageToken"] = params["pageToken"];
+    data["pageToken"] = params["pageToken"];
     if (params["memoryStoreId"] !== undefined)
-      data["memoryStoreId"] = params["memoryStoreId"];
+    data["memoryStoreId"] = params["memoryStoreId"];
 
+    
+    
+    
+
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
-
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ConfigurationPage(
-          operationVersion,
-          payload,
-          instance._uri,
-          data,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new ConfigurationPage(operationVersion, payload, instance._uri, data, instance._solution));
+    
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ConfigurationPage) => any
-  ): Promise<ConfigurationPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new ConfigurationPage(
-          instance._version,
-          payload,
-          instance._uri,
-          {},
-          instance._solution
-        )
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ConfigurationPage) => any): Promise<ConfigurationPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new ConfigurationPage(instance._version, payload, instance._uri, {}, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | ConfigurationListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<ConfigurationPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ConfigurationPage>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ConfigurationListInstancePageOptions | ((error: Error | null, items: ApiResponse<ConfigurationPage>) => any), callback?: (error: Error | null, items: ApiResponse<ConfigurationPage>) => any): Promise<ApiResponse<ConfigurationPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -2148,126 +1728,96 @@ export function ConfigurationListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-      data["pageToken"] = params["pageToken"];
+    data["pageToken"] = params["pageToken"];
     if (params["memoryStoreId"] !== undefined)
-      data["memoryStoreId"] = params["memoryStoreId"];
+    data["memoryStoreId"] = params["memoryStoreId"];
 
+    
+    
+    
+
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<ConfigurationPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new ConfigurationPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ConfigurationPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ConfigurationPage(operationVersion, response, instance._uri, data, instance._solution)
+    }));
+    
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<ConfigurationPage>
-    ) => any
-  ): Promise<ApiResponse<ConfigurationPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ConfigurationPage>) => any): Promise<ApiResponse<ConfigurationPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<ConfigurationPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new ConfigurationPage(
-          instance._version,
-          response,
-          instance._uri,
-          {},
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<ConfigurationPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new ConfigurationPage(instance._version, response, instance._uri, {}, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class ConfigurationPage extends TokenPage<
-  V2,
-  ConfigurationPayload,
-  ConfigurationResource,
-  ConfigurationInstance
-> {
-  /**
-   * Initialize the ConfigurationPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param uri - URI of the resource
-   * @param params - Query parameters
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2,
-    response: Response<string>,
-    uri: string,
-    params: any,
-    solution: ConfigurationSolution
-  ) {
+export class ConfigurationPage extends TokenPage<V2, ConfigurationPayload, ConfigurationResource, ConfigurationInstance> {
+/**
+* Initialize the ConfigurationPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param uri - URI of the resource
+* @param params - Query parameters
+* @param solution - Path solution
+*/
+constructor(version: V2, response: Response<string>, uri: string, params: any, solution: ConfigurationSolution) {
     super(version, response, uri, params, solution);
-  }
+    }
 
-  /**
-   * Build an instance of ConfigurationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ConfigurationResource): ConfigurationInstance {
-    return new ConfigurationInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of ConfigurationInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: ConfigurationResource): ConfigurationInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new ConfigurationInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

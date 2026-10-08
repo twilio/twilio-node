@@ -67,15 +67,13 @@ export default class V1 extends Version {
 
   /** Getter for brandRegistrations resource */
   get brandRegistrations(): BrandRegistrationListInstance {
-    this._brandRegistrations =
-      this._brandRegistrations || BrandRegistrationListInstance(this);
+    this._brandRegistrations = this._brandRegistrations || BrandRegistrationListInstance(this);
     return this._brandRegistrations;
   }
 
   /** Getter for deactivations resource */
   get deactivations(): DeactivationsListInstance {
-    this._deactivations =
-      this._deactivations || DeactivationsListInstance(this);
+    this._deactivations = this._deactivations || DeactivationsListInstance(this);
     return this._deactivations;
   }
 
@@ -93,46 +91,37 @@ export default class V1 extends Version {
 
   /** Getter for domainConfigMessagingService resource */
   get domainConfigMessagingService(): DomainConfigMessagingServiceListInstance {
-    this._domainConfigMessagingService =
-      this._domainConfigMessagingService ||
-      DomainConfigMessagingServiceListInstance(this);
+    this._domainConfigMessagingService = this._domainConfigMessagingService || DomainConfigMessagingServiceListInstance(this);
     return this._domainConfigMessagingService;
   }
 
   /** Getter for domainValidateDns resource */
   get domainValidateDns(): DomainValidateDnListInstance {
-    this._domainValidateDns =
-      this._domainValidateDns || DomainValidateDnListInstance(this);
+    this._domainValidateDns = this._domainValidateDns || DomainValidateDnListInstance(this);
     return this._domainValidateDns;
   }
 
   /** Getter for externalCampaign resource */
   get externalCampaign(): ExternalCampaignListInstance {
-    this._externalCampaign =
-      this._externalCampaign || ExternalCampaignListInstance(this);
+    this._externalCampaign = this._externalCampaign || ExternalCampaignListInstance(this);
     return this._externalCampaign;
   }
 
   /** Getter for linkshorteningMessagingService resource */
   get linkshorteningMessagingService(): LinkshorteningMessagingServiceListInstance {
-    this._linkshorteningMessagingService =
-      this._linkshorteningMessagingService ||
-      LinkshorteningMessagingServiceListInstance(this);
+    this._linkshorteningMessagingService = this._linkshorteningMessagingService || LinkshorteningMessagingServiceListInstance(this);
     return this._linkshorteningMessagingService;
   }
 
   /** Getter for linkshorteningMessagingServiceDomainAssociation resource */
   get linkshorteningMessagingServiceDomainAssociation(): LinkshorteningMessagingServiceDomainAssociationListInstance {
-    this._linkshorteningMessagingServiceDomainAssociation =
-      this._linkshorteningMessagingServiceDomainAssociation ||
-      LinkshorteningMessagingServiceDomainAssociationListInstance(this);
+    this._linkshorteningMessagingServiceDomainAssociation = this._linkshorteningMessagingServiceDomainAssociation || LinkshorteningMessagingServiceDomainAssociationListInstance(this);
     return this._linkshorteningMessagingServiceDomainAssociation;
   }
 
   /** Getter for requestManagedCert resource */
   get requestManagedCert(): RequestManagedCertListInstance {
-    this._requestManagedCert =
-      this._requestManagedCert || RequestManagedCertListInstance(this);
+    this._requestManagedCert = this._requestManagedCert || RequestManagedCertListInstance(this);
     return this._requestManagedCert;
   }
 
@@ -144,8 +133,7 @@ export default class V1 extends Version {
 
   /** Getter for tollfreeVerifications resource */
   get tollfreeVerifications(): TollfreeVerificationListInstance {
-    this._tollfreeVerifications =
-      this._tollfreeVerifications || TollfreeVerificationListInstance(this);
+    this._tollfreeVerifications = this._tollfreeVerifications || TollfreeVerificationListInstance(this);
     return this._tollfreeVerifications;
   }
 
@@ -154,4 +142,5 @@ export default class V1 extends Version {
     this._usecases = this._usecases || UsecaseListInstance(this);
     return this._usecases;
   }
+
 }

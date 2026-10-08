@@ -14,6 +14,7 @@
 
 import RoutesBase from "../RoutesBase";
 import Version from "../../base/Version";
+import { IsoCountryCodeListInstance, IsoCountryCodeContext } from "./v3/isoCountryCode";
 import { PhoneNumberListInstance } from "./v3/phoneNumber";
 
 export default class V3 extends Version {
@@ -29,9 +30,15 @@ export default class V3 extends Version {
   /** phoneNumbers - { Twilio.Routes.V3.PhoneNumberListInstance } resource */
   protected _phoneNumbers?: PhoneNumberListInstance;
 
+  /** Accessor for isoCountryCode resource */
+  isoCountryCode(isoCountryCode: string, shortCode: string): IsoCountryCodeContext {
+    return IsoCountryCodeListInstance(this)(isoCountryCode, shortCode);
+  }
+
   /** Getter for phoneNumbers resource */
   get phoneNumbers(): PhoneNumberListInstance {
     this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this);
     return this._phoneNumbers;
   }
+
 }

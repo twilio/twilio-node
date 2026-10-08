@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,28 +20,34 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to fetch a AuthorizeInstance
  */
 export interface AuthorizeListInstanceFetchOptions {
   /** Response Type */
-  responseType?: string;
+  "responseType"?: string;
   /** The Client Identifier */
-  clientId?: string;
+  "clientId"?: string;
   /** The url to which response will be redirected to */
-  redirectUri?: string;
+  "redirectUri"?: string;
   /** The scope of the access request */
-  scope?: string;
+  "scope"?: string;
   /** An opaque value which can be used to maintain state between the request and callback */
-  state?: string;
+  "state"?: string;
 }
 
-export interface AuthorizeSolution {}
+
+export interface AuthorizeSolution {
+}
 
 export interface AuthorizeListInstance {
   _version: V1;
   _solution: AuthorizeSolution;
   _uri: string;
+
+
 
   /**
    * Fetch a AuthorizeInstance
@@ -58,10 +65,7 @@ export interface AuthorizeListInstance {
    *
    * @returns Resolves to processed AuthorizeInstance
    */
-  fetch(
-    params: AuthorizeListInstanceFetchOptions,
-    callback?: (error: Error | null, item?: void) => any
-  ): Promise<void>;
+  fetch(params: AuthorizeListInstanceFetchOptions, callback?: (error: Error | null, item?: void) => any): Promise<void>;
 
   /**
    * Fetch a AuthorizeInstance and return HTTP info
@@ -70,9 +74,7 @@ export interface AuthorizeListInstance {
    *
    * @returns Resolves to processed void with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any
-  ): Promise<ApiResponse<void>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<void>) => any): Promise<ApiResponse<void>>;
   /**
    * Fetch a AuthorizeInstance and return HTTP info
    *
@@ -81,10 +83,9 @@ export interface AuthorizeListInstance {
    *
    * @returns Resolves to processed AuthorizeInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    params: AuthorizeListInstanceFetchOptions,
-    callback?: (error: Error | null, item?: ApiResponse<void>) => any
-  ): Promise<ApiResponse<void>>;
+  fetchWithHttpInfo(params: AuthorizeListInstanceFetchOptions, callback?: (error: Error | null, item?: ApiResponse<void>) => any): Promise<ApiResponse<void>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -97,122 +98,112 @@ export function AuthorizeListInstance(version: V1): AuthorizeListInstance {
   const instance = {} as AuthorizeListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/authorize`;
 
-  instance.fetch = function fetch(
-    params?:
-      | AuthorizeListInstanceFetchOptions
-      | ((error: Error | null, items: void) => any),
-    callback?: (error: Error | null, items: void) => any
-  ): Promise<void> {
+  instance.fetch = function fetch(params?: AuthorizeListInstanceFetchOptions | ((error: Error | null, items: void) => any), callback?: (error: Error | null, items: void) => any): Promise<void> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || ({} as any);
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["responseType"] !== undefined)
-      data["ResponseType"] = params["responseType"];
-    if (params["clientId"] !== undefined) data["ClientId"] = params["clientId"];
+        if (params["responseType"] !== undefined)
+    data["ResponseType"] = params["responseType"];
+    if (params["clientId"] !== undefined)
+    data["ClientId"] = params["clientId"];
     if (params["redirectUri"] !== undefined)
-      data["RedirectUri"] = params["redirectUri"];
-    if (params["scope"] !== undefined) data["Scope"] = params["scope"];
-    if (params["state"] !== undefined) data["State"] = params["state"];
+    data["RedirectUri"] = params["redirectUri"];
+    if (params["scope"] !== undefined)
+    data["Scope"] = params["scope"];
+    if (params["state"] !== undefined)
+    data["State"] = params["state"];
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
-    params?:
-      | AuthorizeListInstanceFetchOptions
-      | ((error: Error | null, items: ApiResponse<void>) => any),
-    callback?: (error: Error | null, items: ApiResponse<void>) => any
-  ): Promise<ApiResponse<void>> {
+
+    }
+
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(params?: AuthorizeListInstanceFetchOptions | ((error: Error | null, items: ApiResponse<void>) => any), callback?: (error: Error | null, items: ApiResponse<void>) => any): Promise<ApiResponse<void>> {
     if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || ({} as any);
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["responseType"] !== undefined)
-      data["ResponseType"] = params["responseType"];
-    if (params["clientId"] !== undefined) data["ClientId"] = params["clientId"];
+        if (params["responseType"] !== undefined)
+    data["ResponseType"] = params["responseType"];
+    if (params["clientId"] !== undefined)
+    data["ClientId"] = params["clientId"];
     if (params["redirectUri"] !== undefined)
-      data["RedirectUri"] = params["redirectUri"];
-    if (params["scope"] !== undefined) data["Scope"] = params["scope"];
-    if (params["state"] !== undefined) data["State"] = params["state"];
+    data["RedirectUri"] = params["redirectUri"];
+    if (params["scope"] !== undefined)
+    data["Scope"] = params["scope"];
+    if (params["state"] !== undefined)
+    data["State"] = params["state"];
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // No response body — fire-and-forget operation
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<void> => ({
-          ...response,
-          body: undefined,
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<void> => ({
+      ...response,
+      body: undefined
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface AuthorizePayload extends AuthorizeResource {}
+  interface AuthorizePayload extends AuthorizeResource {}
 
 interface AuthorizeResource {
   redirect_to: string;
 }
 
 export class AuthorizeInstance {
+
   constructor(protected _version: V1, payload: AuthorizeResource) {
-    this.redirectTo = payload.redirect_to;
+    
+    this.redirectTo = (payload.redirect_to);
+
   }
 
   /**
@@ -235,3 +226,5 @@ export class AuthorizeInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

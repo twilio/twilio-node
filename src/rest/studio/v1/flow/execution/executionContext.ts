@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
@@ -19,7 +20,11 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
+
+
+
 export interface ExecutionContextContext {
+
   /**
    * Fetch a ExecutionContextInstance
    *
@@ -27,9 +32,7 @@ export interface ExecutionContextContext {
    *
    * @returns Resolves to processed ExecutionContextInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ExecutionContextInstance) => any
-  ): Promise<ExecutionContextInstance>;
+  fetch(callback?: (error: Error | null, item?: ExecutionContextInstance) => any): Promise<ExecutionContextInstance>
 
   /**
    * Fetch a ExecutionContextInstance and return HTTP info
@@ -38,12 +41,7 @@ export interface ExecutionContextContext {
    *
    * @returns Resolves to processed ExecutionContextInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ExecutionContextInstance>
-    ) => any
-  ): Promise<ApiResponse<ExecutionContextInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ExecutionContextInstance>) => any): Promise<ApiResponse<ExecutionContextInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -53,93 +51,61 @@ export interface ExecutionContextContext {
 }
 
 export interface ExecutionContextContextSolution {
-  flowSid: string;
-  executionSid: string;
+  "flowSid": string;
+  "executionSid": string;
 }
 
 export class ExecutionContextContextImpl implements ExecutionContextContext {
   protected _solution: ExecutionContextContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, flowSid: string, executionSid: string) {
     if (!isValidPathParam(flowSid)) {
-      throw new Error("Parameter 'flowSid' is not valid.");
+      throw new Error('Parameter \'flowSid\' is not valid.');
     }
 
     if (!isValidPathParam(executionSid)) {
-      throw new Error("Parameter 'executionSid' is not valid.");
+      throw new Error('Parameter \'executionSid\' is not valid.');
     }
 
-    this._solution = { flowSid, executionSid };
+    this._solution = { flowSid, executionSid,  };
     this._uri = `/Flows/${flowSid}/Executions/${executionSid}/Context`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: ExecutionContextInstance) => any
-  ): Promise<ExecutionContextInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: ExecutionContextInstance) => any): Promise<ExecutionContextInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new ExecutionContextInstance(operationVersion, payload, instance._solution.flowSid, instance._solution.executionSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ExecutionContextInstance(
-          operationVersion,
-          payload,
-          instance._solution.flowSid,
-          instance._solution.executionSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ExecutionContextInstance>
-    ) => any
-  ): Promise<ApiResponse<ExecutionContextInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ExecutionContextInstance>) => any): Promise<ApiResponse<ExecutionContextInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<ExecutionContextResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ExecutionContextInstance> => ({
-          ...response,
-          body: new ExecutionContextInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.executionSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<ExecutionContextResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ExecutionContextInstance> => ({
+      ...response,
+      body: new ExecutionContextInstance(operationVersion, response.body, instance._solution.flowSid, instance._solution.executionSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -156,7 +122,8 @@ export class ExecutionContextContextImpl implements ExecutionContextContext {
   }
 }
 
-interface ExecutionContextPayload extends ExecutionContextResource {}
+
+  interface ExecutionContextPayload extends ExecutionContextResource {}
 
 interface ExecutionContextResource {
   account_sid: string;
@@ -170,19 +137,15 @@ export class ExecutionContextInstance {
   protected _solution: ExecutionContextContextSolution;
   protected _context?: ExecutionContextContext;
 
-  constructor(
-    protected _version: V1,
-    payload: ExecutionContextResource,
-    flowSid: string,
-    executionSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.context = payload.context;
-    this.flowSid = payload.flow_sid;
-    this.executionSid = payload.execution_sid;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: ExecutionContextResource, flowSid: string, executionSid: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.context = (payload.context);
+    this.flowSid = (payload.flow_sid);
+    this.executionSid = (payload.execution_sid);
+    this.url = (payload.url);
 
-    this._solution = { flowSid, executionSid };
+    this._solution = { flowSid, executionSid,  };
   }
 
   /**
@@ -207,13 +170,7 @@ export class ExecutionContextInstance {
   url: string;
 
   private get _proxy(): ExecutionContextContext {
-    this._context =
-      this._context ||
-      new ExecutionContextContextImpl(
-        this._version,
-        this._solution.flowSid,
-        this._solution.executionSid
-      );
+    this._context = this._context || new ExecutionContextContextImpl(this._version, this._solution.flowSid, this._solution.executionSid);
     return this._context;
   }
 
@@ -224,9 +181,9 @@ export class ExecutionContextInstance {
    *
    * @returns Resolves to processed ExecutionContextInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: ExecutionContextInstance) => any
-  ): Promise<ExecutionContextInstance> {
+  fetch(callback?: (error: Error | null, item?: ExecutionContextInstance) => any): Promise<ExecutionContextInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -237,12 +194,9 @@ export class ExecutionContextInstance {
    *
    * @returns Resolves to processed ExecutionContextInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ExecutionContextInstance>
-    ) => any
-  ): Promise<ApiResponse<ExecutionContextInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ExecutionContextInstance>) => any): Promise<ApiResponse<ExecutionContextInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -266,6 +220,7 @@ export class ExecutionContextInstance {
   }
 }
 
+
 export interface ExecutionContextSolution {
   flowSid: string;
   executionSid: string;
@@ -279,6 +234,9 @@ export interface ExecutionContextListInstance {
   (): ExecutionContextContext;
   get(): ExecutionContextContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -286,39 +244,34 @@ export interface ExecutionContextListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ExecutionContextListInstance(
-  version: V1,
-  flowSid: string,
-  executionSid: string
-): ExecutionContextListInstance {
+export function ExecutionContextListInstance(version: V1, flowSid: string, executionSid: string): ExecutionContextListInstance {
   if (!isValidPathParam(flowSid)) {
-    throw new Error("Parameter 'flowSid' is not valid.");
+    throw new Error('Parameter \'flowSid\' is not valid.');
   }
 
   if (!isValidPathParam(executionSid)) {
-    throw new Error("Parameter 'executionSid' is not valid.");
+    throw new Error('Parameter \'executionSid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as ExecutionContextListInstance;
 
   instance.get = function get(): ExecutionContextContext {
     return new ExecutionContextContextImpl(version, flowSid, executionSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { flowSid, executionSid };
+  instance._solution = { flowSid, executionSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

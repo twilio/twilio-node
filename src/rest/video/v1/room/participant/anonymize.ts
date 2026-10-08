@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../V1";
 const deserialize = require("../../../../../base/deserialize");
@@ -19,12 +20,16 @@ const serialize = require("../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 
+
 /**
  * The status of the Participant. Can be: `connected` or `disconnected`.
  */
-export type AnonymizeStatus = "connected" | "disconnected";
+export type AnonymizeStatus = 'connected'|'disconnected';
+
+
 
 export interface AnonymizeContext {
+
   /**
    * Update a AnonymizeInstance
    *
@@ -32,9 +37,7 @@ export interface AnonymizeContext {
    *
    * @returns Resolves to processed AnonymizeInstance
    */
-  update(
-    callback?: (error: Error | null, item?: AnonymizeInstance) => any
-  ): Promise<AnonymizeInstance>;
+  update(callback?: (error: Error | null, item?: AnonymizeInstance) => any): Promise<AnonymizeInstance>
 
   /**
    * Update a AnonymizeInstance and return HTTP info
@@ -43,12 +46,7 @@ export interface AnonymizeContext {
    *
    * @returns Resolves to processed AnonymizeInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AnonymizeInstance>
-    ) => any
-  ): Promise<ApiResponse<AnonymizeInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AnonymizeInstance>) => any): Promise<ApiResponse<AnonymizeInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -58,93 +56,61 @@ export interface AnonymizeContext {
 }
 
 export interface AnonymizeContextSolution {
-  roomSid: string;
-  sid: string;
+  "roomSid": string;
+  "sid": string;
 }
 
 export class AnonymizeContextImpl implements AnonymizeContext {
   protected _solution: AnonymizeContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, roomSid: string, sid: string) {
     if (!isValidPathParam(roomSid)) {
-      throw new Error("Parameter 'roomSid' is not valid.");
+      throw new Error('Parameter \'roomSid\' is not valid.');
     }
 
     if (!isValidPathParam(sid)) {
-      throw new Error("Parameter 'sid' is not valid.");
+      throw new Error('Parameter \'sid\' is not valid.');
     }
 
-    this._solution = { roomSid, sid };
+    this._solution = { roomSid, sid,  };
     this._uri = `/Rooms/${roomSid}/Participants/${sid}/Anonymize`;
   }
 
-  update(
-    callback?: (error: Error | null, item?: AnonymizeInstance) => any
-  ): Promise<AnonymizeInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  update(callback?: (error: Error | null, item?: AnonymizeInstance) => any): Promise<AnonymizeInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", headers});
+    
+    operationPromise = operationPromise.then(payload => new AnonymizeInstance(operationVersion, payload, instance._solution.roomSid, instance._solution.sid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new AnonymizeInstance(
-          operationVersion,
-          payload,
-          instance._solution.roomSid,
-          instance._solution.sid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AnonymizeInstance>
-    ) => any
-  ): Promise<ApiResponse<AnonymizeInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AnonymizeInstance>) => any): Promise<ApiResponse<AnonymizeInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<AnonymizeResource>({
-        uri: instance._uri,
-        method: "post",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<AnonymizeInstance> => ({
-          ...response,
-          body: new AnonymizeInstance(
-            operationVersion,
-            response.body,
-            instance._solution.roomSid,
-            instance._solution.sid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<AnonymizeResource>({ uri: instance._uri, method: "post", headers}).then((response) : ApiResponse<AnonymizeInstance> => ({
+      ...response,
+      body: new AnonymizeInstance(operationVersion, response.body, instance._solution.roomSid, instance._solution.sid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -161,7 +127,8 @@ export class AnonymizeContextImpl implements AnonymizeContext {
   }
 }
 
-interface AnonymizePayload extends AnonymizeResource {}
+
+  interface AnonymizePayload extends AnonymizeResource {}
 
 interface AnonymizeResource {
   sid: string;
@@ -181,25 +148,21 @@ export class AnonymizeInstance {
   protected _solution: AnonymizeContextSolution;
   protected _context?: AnonymizeContext;
 
-  constructor(
-    protected _version: V1,
-    payload: AnonymizeResource,
-    roomSid: string,
-    sid: string
-  ) {
-    this.sid = payload.sid;
-    this.roomSid = payload.room_sid;
-    this.accountSid = payload.account_sid;
+  constructor(protected _version: V1, payload: AnonymizeResource, roomSid: string, sid: string) {
+    
+    this.sid = (payload.sid);
+    this.roomSid = (payload.room_sid);
+    this.accountSid = (payload.account_sid);
     this.status = payload.status;
-    this.identity = payload.identity;
+    this.identity = (payload.identity);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.duration = deserialize.integer(payload.duration);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { roomSid, sid };
+    this._solution = { roomSid, sid,  };
   }
 
   /**
@@ -245,13 +208,7 @@ export class AnonymizeInstance {
   url: string;
 
   private get _proxy(): AnonymizeContext {
-    this._context =
-      this._context ||
-      new AnonymizeContextImpl(
-        this._version,
-        this._solution.roomSid,
-        this._solution.sid
-      );
+    this._context = this._context || new AnonymizeContextImpl(this._version, this._solution.roomSid, this._solution.sid);
     return this._context;
   }
 
@@ -262,9 +219,9 @@ export class AnonymizeInstance {
    *
    * @returns Resolves to processed AnonymizeInstance
    */
-  update(
-    callback?: (error: Error | null, item?: AnonymizeInstance) => any
-  ): Promise<AnonymizeInstance> {
+  update(callback?: (error: Error | null, item?: AnonymizeInstance) => any): Promise<AnonymizeInstance>
+
+    {
     return this._proxy.update(callback);
   }
 
@@ -275,12 +232,9 @@ export class AnonymizeInstance {
    *
    * @returns Resolves to processed AnonymizeInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<AnonymizeInstance>
-    ) => any
-  ): Promise<ApiResponse<AnonymizeInstance>> {
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AnonymizeInstance>) => any): Promise<ApiResponse<AnonymizeInstance>>
+
+    {
     return this._proxy.updateWithHttpInfo(callback);
   }
 
@@ -310,6 +264,7 @@ export class AnonymizeInstance {
   }
 }
 
+
 export interface AnonymizeSolution {
   roomSid: string;
   sid: string;
@@ -323,6 +278,9 @@ export interface AnonymizeListInstance {
   (): AnonymizeContext;
   get(): AnonymizeContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -330,39 +288,34 @@ export interface AnonymizeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AnonymizeListInstance(
-  version: V1,
-  roomSid: string,
-  sid: string
-): AnonymizeListInstance {
+export function AnonymizeListInstance(version: V1, roomSid: string, sid: string): AnonymizeListInstance {
   if (!isValidPathParam(roomSid)) {
-    throw new Error("Parameter 'roomSid' is not valid.");
+    throw new Error('Parameter \'roomSid\' is not valid.');
   }
 
   if (!isValidPathParam(sid)) {
-    throw new Error("Parameter 'sid' is not valid.");
+    throw new Error('Parameter \'sid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as AnonymizeListInstance;
 
   instance.get = function get(): AnonymizeContext {
     return new AnonymizeContextImpl(version, roomSid, sid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { roomSid, sid };
+  instance._solution = { roomSid, sid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

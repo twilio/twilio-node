@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,37 +20,72 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-export interface SmsVerificationCheckSolution {}
+
+export class NumbersV1SmsVerificationCheckRequest {
+  /**
+   * The phone number being verified in E.164 format.
+   */
+  "to": string;
+  /**
+   * The 6 character verification code to check.
+   */
+  "verificationCode": string;
+  /**
+   * A human-readable name for the caller ID.
+   */
+  "friendlyName"?: string;
+
+  constructor(payload) {
+    this.to = payload["to"];
+    this.verificationCode = payload["verification_code"];
+    this.friendlyName = payload["friendly_name"];
+  }
+}
+
+
+
+/**
+ * Options to pass to create a SmsVerificationCheckInstance
+ */
+export interface SmsVerificationCheckListInstanceCreateOptions {
+  /**  */
+  "numbersV1SmsVerificationCheckRequest": NumbersV1SmsVerificationCheckRequest;
+}
+
+
+export interface SmsVerificationCheckSolution {
+}
 
 export interface SmsVerificationCheckListInstance {
   _version: V1;
   _solution: SmsVerificationCheckSolution;
   _uri: string;
 
+
+
   /**
    * Create a SmsVerificationCheckInstance
    *
+   * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed SmsVerificationCheckInstance
    */
-  create(
-    callback?: (error: Error | null, item?: SmsVerificationCheckInstance) => any
-  ): Promise<SmsVerificationCheckInstance>;
+  create(params: NumbersV1SmsVerificationCheckRequest, headers?: any, callback?: (error: Error | null, item?: SmsVerificationCheckInstance) => any): Promise<SmsVerificationCheckInstance>;
 
   /**
    * Create a SmsVerificationCheckInstance and return HTTP info
    *
+   * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed SmsVerificationCheckInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<SmsVerificationCheckInstance>
-    ) => any
-  ): Promise<ApiResponse<SmsVerificationCheckInstance>>;
+  createWithHttpInfo(params: NumbersV1SmsVerificationCheckRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<SmsVerificationCheckInstance>) => any): Promise<ApiResponse<SmsVerificationCheckInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -58,88 +94,86 @@ export interface SmsVerificationCheckListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function SmsVerificationCheckListInstance(
-  version: V1
-): SmsVerificationCheckListInstance {
+export function SmsVerificationCheckListInstance(version: V1): SmsVerificationCheckListInstance {
   const instance = {} as SmsVerificationCheckListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/CallerIds/SmsVerificationChecks`;
 
-  instance.create = function create(
-    callback?: (error: Error | null, items: SmsVerificationCheckInstance) => any
-  ): Promise<SmsVerificationCheckInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  instance.create = function create(params: NumbersV1SmsVerificationCheckRequest, headers?: any, callback?: (error: Error | null, items: SmsVerificationCheckInstance) => any): Promise<SmsVerificationCheckInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
+    }
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new SmsVerificationCheckInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new SmsVerificationCheckInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<SmsVerificationCheckInstance>
-    ) => any
-  ): Promise<ApiResponse<SmsVerificationCheckInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: NumbersV1SmsVerificationCheckRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<SmsVerificationCheckInstance>) => any): Promise<ApiResponse<SmsVerificationCheckInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
+    }
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<SmsVerificationCheckResource>({
-        uri: instance._uri,
-        method: "post",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<SmsVerificationCheckInstance> => ({
-          ...response,
-          body: new SmsVerificationCheckInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<SmsVerificationCheckResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<SmsVerificationCheckInstance> => ({
+      ...response,
+      body: new SmsVerificationCheckInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface SmsVerificationCheckPayload extends SmsVerificationCheckResource {}
+  interface SmsVerificationCheckPayload extends SmsVerificationCheckResource {}
 
 interface SmsVerificationCheckResource {
   to: string;
@@ -149,11 +183,14 @@ interface SmsVerificationCheckResource {
 }
 
 export class SmsVerificationCheckInstance {
+
   constructor(protected _version: V1, payload: SmsVerificationCheckResource) {
-    this.to = payload.to;
-    this.verificationSid = payload.verificationSid;
-    this.status = payload.status;
-    this.callerIdSid = payload.callerIdSid;
+    
+    this.to = (payload.to);
+    this.verificationSid = (payload.verificationSid);
+    this.status = (payload.status);
+    this.callerIdSid = (payload.callerIdSid);
+
   }
 
   /**
@@ -191,3 +228,5 @@ export class SmsVerificationCheckInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

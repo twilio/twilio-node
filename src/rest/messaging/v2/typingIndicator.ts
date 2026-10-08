@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -19,22 +20,28 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to create a TypingIndicatorInstance
  */
 export interface TypingIndicatorListInstanceCreateOptions {
   /** Shared channel identifier */
-  channel: string;
+  "channel": string;
   /** Message SID that identifies the conversation thread for the typing indicator. Must be a valid Twilio Message SID (SM*) or Media SID (MM*) from an existing WhatsApp conversation.  */
-  messageId: string;
+  "messageId": string;
 }
 
-export interface TypingIndicatorSolution {}
+
+export interface TypingIndicatorSolution {
+}
 
 export interface TypingIndicatorListInstance {
   _version: V2;
   _solution: TypingIndicatorSolution;
   _uri: string;
+
+
 
   /**
    * Create a TypingIndicatorInstance
@@ -44,10 +51,7 @@ export interface TypingIndicatorListInstance {
    *
    * @returns Resolves to processed TypingIndicatorInstance
    */
-  create(
-    params: TypingIndicatorListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: TypingIndicatorInstance) => any
-  ): Promise<TypingIndicatorInstance>;
+  create(params: TypingIndicatorListInstanceCreateOptions, callback?: (error: Error | null, item?: TypingIndicatorInstance) => any): Promise<TypingIndicatorInstance>;
 
   /**
    * Create a TypingIndicatorInstance and return HTTP info
@@ -57,13 +61,9 @@ export interface TypingIndicatorListInstance {
    *
    * @returns Resolves to processed TypingIndicatorInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: TypingIndicatorListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TypingIndicatorInstance>
-    ) => any
-  ): Promise<ApiResponse<TypingIndicatorInstance>>;
+  createWithHttpInfo(params: TypingIndicatorListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<TypingIndicatorInstance>) => any): Promise<ApiResponse<TypingIndicatorInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -72,135 +72,117 @@ export interface TypingIndicatorListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function TypingIndicatorListInstance(
-  version: V2
-): TypingIndicatorListInstance {
+export function TypingIndicatorListInstance(version: V2): TypingIndicatorListInstance {
   const instance = {} as TypingIndicatorListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Indicators/Typing.json`;
 
-  instance.create = function create(
-    params: TypingIndicatorListInstanceCreateOptions,
-    callback?: (error: Error | null, items: TypingIndicatorInstance) => any
-  ): Promise<TypingIndicatorInstance> {
+  instance.create = function create(params: TypingIndicatorListInstanceCreateOptions, callback?: (error: Error | null, items: TypingIndicatorInstance) => any): Promise<TypingIndicatorInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["channel"] === null || params["channel"] === undefined) {
-      throw new Error("Required parameter \"params['channel']\" missing.");
+      throw new Error('Required parameter "params[\'channel\']" missing.');
     }
 
     if (params["messageId"] === null || params["messageId"] === undefined) {
-      throw new Error("Required parameter \"params['messageId']\" missing.");
+      throw new Error('Required parameter "params[\'messageId\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["channel"] = params["channel"];
-
+    
     data["messageId"] = params["messageId"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new TypingIndicatorInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new TypingIndicatorInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: TypingIndicatorListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TypingIndicatorInstance>
-    ) => any
-  ): Promise<ApiResponse<TypingIndicatorInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: TypingIndicatorListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<TypingIndicatorInstance>) => any): Promise<ApiResponse<TypingIndicatorInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["channel"] === null || params["channel"] === undefined) {
-      throw new Error("Required parameter \"params['channel']\" missing.");
+      throw new Error('Required parameter "params[\'channel\']" missing.');
     }
 
     if (params["messageId"] === null || params["messageId"] === undefined) {
-      throw new Error("Required parameter \"params['messageId']\" missing.");
+      throw new Error('Required parameter "params[\'messageId\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["channel"] = params["channel"];
-
+    
     data["messageId"] = params["messageId"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<TypingIndicatorResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<TypingIndicatorInstance> => ({
-          ...response,
-          body: new TypingIndicatorInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<TypingIndicatorResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<TypingIndicatorInstance> => ({
+      ...response,
+      body: new TypingIndicatorInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface TypingIndicatorPayload extends TypingIndicatorResource {}
+  interface TypingIndicatorPayload extends TypingIndicatorResource {}
 
 interface TypingIndicatorResource {
   success: boolean;
 }
 
 export class TypingIndicatorInstance {
+
   constructor(protected _version: V2, payload: TypingIndicatorResource) {
-    this.success = payload.success;
+    
+    this.success = (payload.success);
+
   }
 
   /**
@@ -223,3 +205,5 @@ export class TypingIndicatorInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

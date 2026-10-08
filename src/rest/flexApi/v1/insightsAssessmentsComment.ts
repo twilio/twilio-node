@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../base/Page";
@@ -22,24 +23,26 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to create a InsightsAssessmentsCommentInstance
  */
 export interface InsightsAssessmentsCommentListInstanceCreateOptions {
   /** The ID of the category */
-  categoryId: string;
+  "categoryId": string;
   /** The name of the category */
-  categoryName: string;
+  "categoryName": string;
   /** The Assessment comment. */
-  comment: string;
+  "comment": string;
   /** The id of the segment. */
-  segmentId: string;
+  "segmentId": string;
   /** The id of the agent. */
-  agentId: string;
+  "agentId": string;
   /** The offset */
-  offset: number;
+  "offset": number;
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
 }
 
 /**
@@ -47,18 +50,15 @@ export interface InsightsAssessmentsCommentListInstanceCreateOptions {
  */
 export interface InsightsAssessmentsCommentListInstanceEachOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** The id of the segment. */
-  segmentId?: string;
+  "segmentId"?: string;
   /** The id of the agent. */
-  agentId?: string;
+  "agentId"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
-  callback?: (
-    item: InsightsAssessmentsCommentInstance,
-    done: (err?: Error) => void
-  ) => void;
+  callback?: (item: InsightsAssessmentsCommentInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
   done?: Function;
   /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
@@ -70,41 +70,47 @@ export interface InsightsAssessmentsCommentListInstanceEachOptions {
  */
 export interface InsightsAssessmentsCommentListInstanceOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** The id of the segment. */
-  segmentId?: string;
+  "segmentId"?: string;
   /** The id of the agent. */
-  agentId?: string;
+  "agentId"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface InsightsAssessmentsCommentListInstancePageOptions {
   /** The Authorization HTTP request header */
-  authorization?: string;
+  "authorization"?: string;
   /** The id of the segment. */
-  segmentId?: string;
+  "segmentId"?: string;
   /** The id of the agent. */
-  agentId?: string;
+  "agentId"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
 
-export interface InsightsAssessmentsCommentSolution {}
+
+
+export interface InsightsAssessmentsCommentSolution {
+}
 
 export interface InsightsAssessmentsCommentListInstance {
   _version: V1;
   _solution: InsightsAssessmentsCommentSolution;
   _uri: string;
+
+
 
   /**
    * Create a InsightsAssessmentsCommentInstance
@@ -114,13 +120,7 @@ export interface InsightsAssessmentsCommentListInstance {
    *
    * @returns Resolves to processed InsightsAssessmentsCommentInstance
    */
-  create(
-    params: InsightsAssessmentsCommentListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: InsightsAssessmentsCommentInstance
-    ) => any
-  ): Promise<InsightsAssessmentsCommentInstance>;
+  create(params: InsightsAssessmentsCommentListInstanceCreateOptions, callback?: (error: Error | null, item?: InsightsAssessmentsCommentInstance) => any): Promise<InsightsAssessmentsCommentInstance>;
 
   /**
    * Create a InsightsAssessmentsCommentInstance and return HTTP info
@@ -130,13 +130,10 @@ export interface InsightsAssessmentsCommentListInstance {
    *
    * @returns Resolves to processed InsightsAssessmentsCommentInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: InsightsAssessmentsCommentListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InsightsAssessmentsCommentInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsAssessmentsCommentInstance>>;
+  createWithHttpInfo(params: InsightsAssessmentsCommentListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<InsightsAssessmentsCommentInstance>) => any): Promise<ApiResponse<InsightsAssessmentsCommentInstance>>;
+
+
+
 
   /**
    * Streams InsightsAssessmentsCommentInstance records from the API.
@@ -153,19 +150,8 @@ export interface InsightsAssessmentsCommentListInstance {
    * @param { InsightsAssessmentsCommentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: InsightsAssessmentsCommentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: InsightsAssessmentsCommentListInstanceEachOptions,
-    callback?: (
-      item: InsightsAssessmentsCommentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: InsightsAssessmentsCommentInstance, done: (err?: Error) => void) => void): void;
+  each(params: InsightsAssessmentsCommentListInstanceEachOptions, callback?: (item: InsightsAssessmentsCommentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams InsightsAssessmentsCommentInstance records from the API with HTTP metadata captured per page.
    *
@@ -181,19 +167,8 @@ export interface InsightsAssessmentsCommentListInstance {
    * @param { InsightsAssessmentsCommentListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: InsightsAssessmentsCommentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: InsightsAssessmentsCommentListInstanceEachOptions,
-    callback?: (
-      item: InsightsAssessmentsCommentInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: InsightsAssessmentsCommentInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: InsightsAssessmentsCommentListInstanceEachOptions, callback?: (item: InsightsAssessmentsCommentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of InsightsAssessmentsCommentInstance records from the API.
    *
@@ -202,13 +177,7 @@ export interface InsightsAssessmentsCommentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: InsightsAssessmentsCommentPage
-    ) => any
-  ): Promise<InsightsAssessmentsCommentPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: InsightsAssessmentsCommentPage) => any): Promise<InsightsAssessmentsCommentPage>;
   /**
    * Retrieve a single target page of InsightsAssessmentsCommentInstance records from the API with HTTP metadata.
    *
@@ -217,13 +186,7 @@ export interface InsightsAssessmentsCommentListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<InsightsAssessmentsCommentPage>) => any): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
   /**
    * Lists InsightsAssessmentsCommentInstance records from the API as a list.
    *
@@ -233,19 +196,8 @@ export interface InsightsAssessmentsCommentListInstance {
    * @param { InsightsAssessmentsCommentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (
-      error: Error | null,
-      items: InsightsAssessmentsCommentInstance[]
-    ) => any
-  ): Promise<InsightsAssessmentsCommentInstance[]>;
-  list(
-    params: InsightsAssessmentsCommentListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: InsightsAssessmentsCommentInstance[]
-    ) => any
-  ): Promise<InsightsAssessmentsCommentInstance[]>;
+  list(callback?: (error: Error | null, items: InsightsAssessmentsCommentInstance[]) => any): Promise<InsightsAssessmentsCommentInstance[]>;
+  list(params: InsightsAssessmentsCommentListInstanceOptions, callback?: (error: Error | null, items: InsightsAssessmentsCommentInstance[]) => any): Promise<InsightsAssessmentsCommentInstance[]>;
   /**
    * Lists InsightsAssessmentsCommentInstance records from the API as a list with HTTP metadata.
    *
@@ -257,19 +209,8 @@ export interface InsightsAssessmentsCommentListInstance {
    * @param { InsightsAssessmentsCommentListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentInstance[]>
-    ) => any
-  ): Promise<ApiResponse<InsightsAssessmentsCommentInstance[]>>;
-  listWithHttpInfo(
-    params: InsightsAssessmentsCommentListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentInstance[]>
-    ) => any
-  ): Promise<ApiResponse<InsightsAssessmentsCommentInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<InsightsAssessmentsCommentInstance[]>) => any): Promise<ApiResponse<InsightsAssessmentsCommentInstance[]>>;
+  listWithHttpInfo(params: InsightsAssessmentsCommentListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<InsightsAssessmentsCommentInstance[]>) => any): Promise<ApiResponse<InsightsAssessmentsCommentInstance[]>>;
   /**
    * Retrieve a single page of InsightsAssessmentsCommentInstance records from the API.
    *
@@ -281,19 +222,8 @@ export interface InsightsAssessmentsCommentListInstance {
    * @param { InsightsAssessmentsCommentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (
-      error: Error | null,
-      items: InsightsAssessmentsCommentPage
-    ) => any
-  ): Promise<InsightsAssessmentsCommentPage>;
-  page(
-    params: InsightsAssessmentsCommentListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: InsightsAssessmentsCommentPage
-    ) => any
-  ): Promise<InsightsAssessmentsCommentPage>;
+  page(callback?: (error: Error | null, items: InsightsAssessmentsCommentPage) => any): Promise<InsightsAssessmentsCommentPage>;
+  page(params: InsightsAssessmentsCommentListInstancePageOptions, callback?: (error: Error | null, items: InsightsAssessmentsCommentPage) => any): Promise<InsightsAssessmentsCommentPage>;
   /**
    * Retrieve a single page of InsightsAssessmentsCommentInstance records from the API with HTTP metadata.
    *
@@ -305,19 +235,9 @@ export interface InsightsAssessmentsCommentListInstance {
    * @param { InsightsAssessmentsCommentListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
-  pageWithHttpInfo(
-    params: InsightsAssessmentsCommentListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<InsightsAssessmentsCommentPage>) => any): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
+  pageWithHttpInfo(params: InsightsAssessmentsCommentListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<InsightsAssessmentsCommentPage>) => any): Promise<ApiResponse<InsightsAssessmentsCommentPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -326,186 +246,145 @@ export interface InsightsAssessmentsCommentListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InsightsAssessmentsCommentListInstance(
-  version: V1
-): InsightsAssessmentsCommentListInstance {
+export function InsightsAssessmentsCommentListInstance(version: V1): InsightsAssessmentsCommentListInstance {
   const instance = {} as InsightsAssessmentsCommentListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Insights/QualityManagement/Assessments/Comments`;
 
-  instance.create = function create(
-    params: InsightsAssessmentsCommentListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: InsightsAssessmentsCommentInstance
-    ) => any
-  ): Promise<InsightsAssessmentsCommentInstance> {
+  instance.create = function create(params: InsightsAssessmentsCommentListInstanceCreateOptions, callback?: (error: Error | null, items: InsightsAssessmentsCommentInstance) => any): Promise<InsightsAssessmentsCommentInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["categoryId"] === null || params["categoryId"] === undefined) {
-      throw new Error("Required parameter \"params['categoryId']\" missing.");
+      throw new Error('Required parameter "params[\'categoryId\']" missing.');
     }
 
-    if (
-      params["categoryName"] === null ||
-      params["categoryName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['categoryName']\" missing.");
+    if (params["categoryName"] === null || params["categoryName"] === undefined) {
+      throw new Error('Required parameter "params[\'categoryName\']" missing.');
     }
 
     if (params["comment"] === null || params["comment"] === undefined) {
-      throw new Error("Required parameter \"params['comment']\" missing.");
+      throw new Error('Required parameter "params[\'comment\']" missing.');
     }
 
     if (params["segmentId"] === null || params["segmentId"] === undefined) {
-      throw new Error("Required parameter \"params['segmentId']\" missing.");
+      throw new Error('Required parameter "params[\'segmentId\']" missing.');
     }
 
     if (params["agentId"] === null || params["agentId"] === undefined) {
-      throw new Error("Required parameter \"params['agentId']\" missing.");
+      throw new Error('Required parameter "params[\'agentId\']" missing.');
     }
 
     if (params["offset"] === null || params["offset"] === undefined) {
-      throw new Error("Required parameter \"params['offset']\" missing.");
+      throw new Error('Required parameter "params[\'offset\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["CategoryId"] = params["categoryId"];
-
+    
     data["CategoryName"] = params["categoryName"];
-
+    
     data["Comment"] = params["comment"];
-
+    
     data["SegmentId"] = params["segmentId"];
-
+    
     data["AgentId"] = params["agentId"];
-
+    
     data["Offset"] = params["offset"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new InsightsAssessmentsCommentInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsAssessmentsCommentInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: InsightsAssessmentsCommentListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentInstance>
-    ) => any
-  ): Promise<ApiResponse<InsightsAssessmentsCommentInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: InsightsAssessmentsCommentListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<InsightsAssessmentsCommentInstance>) => any): Promise<ApiResponse<InsightsAssessmentsCommentInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["categoryId"] === null || params["categoryId"] === undefined) {
-      throw new Error("Required parameter \"params['categoryId']\" missing.");
+      throw new Error('Required parameter "params[\'categoryId\']" missing.');
     }
 
-    if (
-      params["categoryName"] === null ||
-      params["categoryName"] === undefined
-    ) {
-      throw new Error("Required parameter \"params['categoryName']\" missing.");
+    if (params["categoryName"] === null || params["categoryName"] === undefined) {
+      throw new Error('Required parameter "params[\'categoryName\']" missing.');
     }
 
     if (params["comment"] === null || params["comment"] === undefined) {
-      throw new Error("Required parameter \"params['comment']\" missing.");
+      throw new Error('Required parameter "params[\'comment\']" missing.');
     }
 
     if (params["segmentId"] === null || params["segmentId"] === undefined) {
-      throw new Error("Required parameter \"params['segmentId']\" missing.");
+      throw new Error('Required parameter "params[\'segmentId\']" missing.');
     }
 
     if (params["agentId"] === null || params["agentId"] === undefined) {
-      throw new Error("Required parameter \"params['agentId']\" missing.");
+      throw new Error('Required parameter "params[\'agentId\']" missing.');
     }
 
     if (params["offset"] === null || params["offset"] === undefined) {
-      throw new Error("Required parameter \"params['offset']\" missing.");
+      throw new Error('Required parameter "params[\'offset\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["CategoryId"] = params["categoryId"];
-
+    
     data["CategoryName"] = params["categoryName"];
-
+    
     data["Comment"] = params["comment"];
-
+    
     data["SegmentId"] = params["segmentId"];
-
+    
     data["AgentId"] = params["agentId"];
-
+    
     data["Offset"] = params["offset"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<InsightsAssessmentsCommentResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<InsightsAssessmentsCommentInstance> => ({
-          ...response,
-          body: new InsightsAssessmentsCommentInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<InsightsAssessmentsCommentResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<InsightsAssessmentsCommentInstance> => ({
+      ...response,
+      body: new InsightsAssessmentsCommentInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | InsightsAssessmentsCommentListInstancePageOptions
-      | ((error: Error | null, items: InsightsAssessmentsCommentPage) => any),
-    callback?: (
-      error: Error | null,
-      items: InsightsAssessmentsCommentPage
-    ) => any
-  ): Promise<InsightsAssessmentsCommentPage> {
+
+    }
+
+  instance.page = function page(params?: InsightsAssessmentsCommentListInstancePageOptions | ((error: Error | null, items: InsightsAssessmentsCommentPage) => any), callback?: (error: Error | null, items: InsightsAssessmentsCommentPage) => any): Promise<InsightsAssessmentsCommentPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -515,81 +394,49 @@ export function InsightsAssessmentsCommentListInstance(
 
     let data: any = {};
 
-    if (params["segmentId"] !== undefined)
-      data["SegmentId"] = params["segmentId"];
-    if (params["agentId"] !== undefined) data["AgentId"] = params["agentId"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["segmentId"] !== undefined)
+    data["SegmentId"] = params["segmentId"];
+    if (params["agentId"] !== undefined)
+    data["AgentId"] = params["agentId"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new InsightsAssessmentsCommentPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InsightsAssessmentsCommentPage(
-          operationVersion,
-          payload,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: InsightsAssessmentsCommentPage
-    ) => any
-  ): Promise<InsightsAssessmentsCommentPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new InsightsAssessmentsCommentPage(
-          instance._version,
-          payload,
-          instance._solution
-        )
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: InsightsAssessmentsCommentPage) => any): Promise<InsightsAssessmentsCommentPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new InsightsAssessmentsCommentPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | InsightsAssessmentsCommentListInstancePageOptions
-      | ((
-          error: Error | null,
-          items: ApiResponse<InsightsAssessmentsCommentPage>
-        ) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InsightsAssessmentsCommentPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsAssessmentsCommentPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: InsightsAssessmentsCommentListInstancePageOptions | ((error: Error | null, items: ApiResponse<InsightsAssessmentsCommentPage>) => any), callback?: (error: Error | null, items: ApiResponse<InsightsAssessmentsCommentPage>) => any): Promise<ApiResponse<InsightsAssessmentsCommentPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -599,93 +446,72 @@ export function InsightsAssessmentsCommentListInstance(
 
     let data: any = {};
 
-    if (params["segmentId"] !== undefined)
-      data["SegmentId"] = params["segmentId"];
-    if (params["agentId"] !== undefined) data["AgentId"] = params["agentId"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["segmentId"] !== undefined)
+    data["SegmentId"] = params["segmentId"];
+    if (params["agentId"] !== undefined)
+    data["AgentId"] = params["agentId"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
-    if (params["authorization"] !== undefined)
-      headers["Authorization"] = params["authorization"];
+    headers["Accept"] = "application/json"
+    if (params["authorization"] !== undefined) headers["Authorization"] = params["authorization"];
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<InsightsAssessmentsCommentPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new InsightsAssessmentsCommentPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<InsightsAssessmentsCommentPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new InsightsAssessmentsCommentPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<InsightsAssessmentsCommentPage>
-    ) => any
-  ): Promise<ApiResponse<InsightsAssessmentsCommentPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<InsightsAssessmentsCommentPage>) => any): Promise<ApiResponse<InsightsAssessmentsCommentPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<InsightsAssessmentsCommentPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new InsightsAssessmentsCommentPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<InsightsAssessmentsCommentPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new InsightsAssessmentsCommentPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface InsightsAssessmentsCommentPayload extends TwilioResponsePayload {
-  comments: InsightsAssessmentsCommentResource[];
+  interface InsightsAssessmentsCommentPayload extends TwilioResponsePayload {
+    comments: InsightsAssessmentsCommentResource[];
 }
 
 interface InsightsAssessmentsCommentResource {
@@ -704,22 +530,22 @@ interface InsightsAssessmentsCommentResource {
 }
 
 export class InsightsAssessmentsCommentInstance {
-  constructor(
-    protected _version: V1,
-    payload: InsightsAssessmentsCommentResource
-  ) {
-    this.accountSid = payload.account_sid;
-    this.assessmentSid = payload.assessment_sid;
-    this.comment = payload.comment;
-    this.offset = payload.offset;
-    this.report = payload.report;
-    this.weight = payload.weight;
-    this.agentId = payload.agent_id;
-    this.segmentId = payload.segment_id;
-    this.userName = payload.user_name;
-    this.userEmail = payload.user_email;
-    this.timestamp = payload.timestamp;
-    this.url = payload.url;
+
+  constructor(protected _version: V1, payload: InsightsAssessmentsCommentResource) {
+    
+    this.accountSid = (payload.account_sid);
+    this.assessmentSid = (payload.assessment_sid);
+    this.comment = (payload.comment);
+    this.offset = (payload.offset);
+    this.report = (payload.report);
+    this.weight = (payload.weight);
+    this.agentId = (payload.agent_id);
+    this.segmentId = (payload.segment_id);
+    this.userName = (payload.user_name);
+    this.userEmail = (payload.user_email);
+    this.timestamp = (payload.timestamp);
+    this.url = (payload.url);
+
   }
 
   /**
@@ -739,7 +565,7 @@ export class InsightsAssessmentsCommentInstance {
    */
   offset: string;
   /**
-   * The flag indicating if this assessment is part of report
+   * The flag indicating if this assessment is part of report 
    */
   report: boolean;
   /**
@@ -795,39 +621,33 @@ export class InsightsAssessmentsCommentInstance {
   }
 }
 
-export class InsightsAssessmentsCommentPage extends Page<
-  V1,
-  InsightsAssessmentsCommentPayload,
-  InsightsAssessmentsCommentResource,
-  InsightsAssessmentsCommentInstance
-> {
-  /**
-   * Initialize the InsightsAssessmentsCommentPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: InsightsAssessmentsCommentSolution
-  ) {
+export class InsightsAssessmentsCommentPage extends Page<V1, InsightsAssessmentsCommentPayload, InsightsAssessmentsCommentResource, InsightsAssessmentsCommentInstance> {
+/**
+* Initialize the InsightsAssessmentsCommentPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: InsightsAssessmentsCommentSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of InsightsAssessmentsCommentInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(
-    payload: InsightsAssessmentsCommentResource
-  ): InsightsAssessmentsCommentInstance {
-    return new InsightsAssessmentsCommentInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of InsightsAssessmentsCommentInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: InsightsAssessmentsCommentResource): InsightsAssessmentsCommentInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new InsightsAssessmentsCommentInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

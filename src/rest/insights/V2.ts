@@ -44,8 +44,7 @@ export default class V2 extends Version {
 
   /** Getter for inboundReports resource */
   get inboundReports(): InboundReportListInstance {
-    this._inboundReports =
-      this._inboundReports || InboundReportListInstance(this);
+    this._inboundReports = this._inboundReports || InboundReportListInstance(this);
     return this._inboundReports;
   }
 
@@ -56,8 +55,7 @@ export default class V2 extends Version {
 
   /** Getter for outboundReports resource */
   get outboundReports(): OutboundReportListInstance {
-    this._outboundReports =
-      this._outboundReports || OutboundReportListInstance(this);
+    this._outboundReports = this._outboundReports || OutboundReportListInstance(this);
     return this._outboundReports;
   }
 
@@ -66,4 +64,5 @@ export default class V2 extends Version {
     this._reports = this._reports || ReportListInstance(this);
     return this._reports;
   }
+
 }

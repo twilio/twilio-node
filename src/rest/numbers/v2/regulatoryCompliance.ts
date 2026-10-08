@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -25,17 +26,22 @@ import { RegulationListInstance } from "./regulatoryCompliance/regulation";
 import { SupportingDocumentListInstance } from "./regulatoryCompliance/supportingDocument";
 import { SupportingDocumentTypeListInstance } from "./regulatoryCompliance/supportingDocumentType";
 
+
 /**
  * The type of End User the regulation requires - can be `individual` or `business`.
  */
-export type RegulatoryComplianceEndUserType = "individual" | "business";
+export type RegulatoryComplianceEndUserType = 'individual'|'business';
 
-export interface RegulatoryComplianceSolution {}
+
+
+export interface RegulatoryComplianceSolution {
+}
 
 export interface RegulatoryComplianceListInstance {
   _version: V2;
   _solution: RegulatoryComplianceSolution;
   _uri: string;
+
 
   _bundles?: BundleListInstance;
   bundles: BundleListInstance;
@@ -57,13 +63,11 @@ export interface RegulatoryComplianceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function RegulatoryComplianceListInstance(
-  version: V2
-): RegulatoryComplianceListInstance {
+export function RegulatoryComplianceListInstance(version: V2): RegulatoryComplianceListInstance {
   const instance = {} as RegulatoryComplianceListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/RegulatoryCompliance`;
 
   Object.defineProperty(instance, "bundles", {
@@ -72,7 +76,7 @@ export function RegulatoryComplianceListInstance(
         instance._bundles = BundleListInstance(instance._version);
       }
       return instance._bundles;
-    },
+    }
   });
 
   Object.defineProperty(instance, "endUsers", {
@@ -81,7 +85,7 @@ export function RegulatoryComplianceListInstance(
         instance._endUsers = EndUserListInstance(instance._version);
       }
       return instance._endUsers;
-    },
+    }
   });
 
   Object.defineProperty(instance, "endUserTypes", {
@@ -90,7 +94,7 @@ export function RegulatoryComplianceListInstance(
         instance._endUserTypes = EndUserTypeListInstance(instance._version);
       }
       return instance._endUserTypes;
-    },
+    }
   });
 
   Object.defineProperty(instance, "regulations", {
@@ -99,41 +103,36 @@ export function RegulatoryComplianceListInstance(
         instance._regulations = RegulationListInstance(instance._version);
       }
       return instance._regulations;
-    },
+    }
   });
 
   Object.defineProperty(instance, "supportingDocuments", {
     get: function supportingDocuments() {
       if (!instance._supportingDocuments) {
-        instance._supportingDocuments = SupportingDocumentListInstance(
-          instance._version
-        );
+        instance._supportingDocuments = SupportingDocumentListInstance(instance._version);
       }
       return instance._supportingDocuments;
-    },
+    }
   });
 
   Object.defineProperty(instance, "supportingDocumentTypes", {
     get: function supportingDocumentTypes() {
       if (!instance._supportingDocumentTypes) {
-        instance._supportingDocumentTypes = SupportingDocumentTypeListInstance(
-          instance._version
-        );
+        instance._supportingDocumentTypes = SupportingDocumentTypeListInstance(instance._version);
       }
       return instance._supportingDocumentTypes;
-    },
+    }
   });
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

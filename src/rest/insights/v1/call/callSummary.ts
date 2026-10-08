@@ -12,12 +12,14 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
+
 
 export class CallSummaryAgentSessionSummary {
   "sessionId"?: string;
@@ -47,6 +49,7 @@ export class CallSummaryAgentSessionSummary {
   }
 }
 
+
 export class CallSummaryCrelayInterruptions {
   "customerToAgent"?: number;
   "agentToCustomer"?: number;
@@ -56,6 +59,7 @@ export class CallSummaryCrelayInterruptions {
     this.agentToCustomer = payload["agent_to_customer"];
   }
 }
+
 
 export class CallSummaryCrelayRateStats {
   "min"?: number;
@@ -69,11 +73,8 @@ export class CallSummaryCrelayRateStats {
   }
 }
 
-export type CallSummaryCrelaySessionState =
-  | "unknown"
-  | "failure"
-  | "ended"
-  | "hung_up";
+
+export type CallSummaryCrelaySessionState = 'unknown'|'failure'|'ended'|'hung_up';
 
 export class CallSummaryCrelayTokenStats {
   "total"?: number;
@@ -85,6 +86,7 @@ export class CallSummaryCrelayTokenStats {
   }
 }
 
+
 export class CallSummaryCrelayWordStats {
   "total"?: number;
   "wordsPerMinute"?: CallSummaryCrelayRateStats;
@@ -95,43 +97,26 @@ export class CallSummaryCrelayWordStats {
   }
 }
 
-export type CallSummaryAnsweredBy =
-  | "unknown"
-  | "machine_start"
-  | "machine_end_beep"
-  | "machine_end_silence"
-  | "machine_end_other"
-  | "human"
-  | "fax";
 
-export type CallSummaryCallState =
-  | "ringing"
-  | "completed"
-  | "busy"
-  | "fail"
-  | "noanswer"
-  | "canceled"
-  | "answered"
-  | "undialed";
+export type CallSummaryAnsweredBy = 'unknown'|'machine_start'|'machine_end_beep'|'machine_end_silence'|'machine_end_other'|'human'|'fax';
 
-export type CallSummaryCallType =
-  | "carrier"
-  | "sip"
-  | "trunking"
-  | "client"
-  | "whatsapp";
+export type CallSummaryCallState = 'ringing'|'completed'|'busy'|'fail'|'noanswer'|'canceled'|'answered'|'undialed';
 
-export type CallSummaryProcessingState = "complete" | "partial";
+export type CallSummaryCallType = 'carrier'|'sip'|'trunking'|'client'|'whatsapp';
+
+export type CallSummaryProcessingState = 'complete'|'partial';
+
 
 /**
  * Options to pass to fetch a CallSummaryInstance
  */
 export interface CallSummaryContextFetchOptions {
   /** The Processing State of this Call Summary. One of `complete`, `partial` or `all`. */
-  processingState?: CallSummaryProcessingState;
+  "processingState"?: CallSummaryProcessingState;
 }
 
 export interface CallSummaryContext {
+
   /**
    * Fetch a CallSummaryInstance
    *
@@ -139,9 +124,7 @@ export interface CallSummaryContext {
    *
    * @returns Resolves to processed CallSummaryInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
-  ): Promise<CallSummaryInstance>;
+  fetch(callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
   /**
    * Fetch a CallSummaryInstance
    *
@@ -150,10 +133,7 @@ export interface CallSummaryContext {
    *
    * @returns Resolves to processed CallSummaryInstance
    */
-  fetch(
-    params: CallSummaryContextFetchOptions,
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
-  ): Promise<CallSummaryInstance>;
+  fetch(params: CallSummaryContextFetchOptions, callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
 
   /**
    * Fetch a CallSummaryInstance and return HTTP info
@@ -162,12 +142,7 @@ export interface CallSummaryContext {
    *
    * @returns Resolves to processed CallSummaryInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<CallSummaryInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CallSummaryInstance>) => any): Promise<ApiResponse<CallSummaryInstance>>;
   /**
    * Fetch a CallSummaryInstance and return HTTP info
    *
@@ -176,13 +151,7 @@ export interface CallSummaryContext {
    *
    * @returns Resolves to processed CallSummaryInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    params: CallSummaryContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<CallSummaryInstance>>;
+  fetchWithHttpInfo(params: CallSummaryContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<CallSummaryInstance>) => any): Promise<ApiResponse<CallSummaryInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -192,118 +161,88 @@ export interface CallSummaryContext {
 }
 
 export interface CallSummaryContextSolution {
-  callSid: string;
+  "callSid": string;
 }
 
 export class CallSummaryContextImpl implements CallSummaryContext {
   protected _solution: CallSummaryContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, callSid: string) {
     if (!isValidPathParam(callSid)) {
-      throw new Error("Parameter 'callSid' is not valid.");
+      throw new Error('Parameter \'callSid\' is not valid.');
     }
 
-    this._solution = { callSid };
+    this._solution = { callSid,  };
     this._uri = `/Voice/${callSid}/Summary`;
   }
 
-  fetch(
-    params?:
-      | CallSummaryContextFetchOptions
-      | ((error: Error | null, item?: CallSummaryInstance) => any),
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
-  ): Promise<CallSummaryInstance> {
-    if (params instanceof Function) {
+  fetch(params?: CallSummaryContextFetchOptions | ((error: Error | null, item?: CallSummaryInstance) => any),callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance> {
+      if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || ({} as any);
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["processingState"] !== undefined)
-      data["ProcessingState"] = params["processingState"];
+        if (params["processingState"] !== undefined)
+    data["ProcessingState"] = params["processingState"];
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", params: data, headers});
+    
+    operationPromise = operationPromise.then(payload => new CallSummaryInstance(operationVersion, payload, instance._solution.callSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new CallSummaryInstance(
-          operationVersion,
-          payload,
-          instance._solution.callSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    params?:
-      | CallSummaryContextFetchOptions
-      | ((error: Error | null, item?: ApiResponse<CallSummaryInstance>) => any),
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<CallSummaryInstance>> {
-    if (params instanceof Function) {
+  fetchWithHttpInfo(params?: CallSummaryContextFetchOptions | ((error: Error | null, item?: ApiResponse<CallSummaryInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<CallSummaryInstance>) => any): Promise<ApiResponse<CallSummaryInstance>> {
+      if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || ({} as any);
+      params = params || {} as any;
     }
 
     let data: any = {};
 
-    if (params["processingState"] !== undefined)
-      data["ProcessingState"] = params["processingState"];
+        if (params["processingState"] !== undefined)
+    data["ProcessingState"] = params["processingState"];
 
+    
+    
+    
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<CallSummaryResource>({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<CallSummaryInstance> => ({
-          ...response,
-          body: new CallSummaryInstance(
-            operationVersion,
-            response.body,
-            instance._solution.callSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<CallSummaryResource>({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<CallSummaryInstance> => ({
+      ...response,
+      body: new CallSummaryInstance(operationVersion, response.body, instance._solution.callSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -320,7 +259,8 @@ export class CallSummaryContextImpl implements CallSummaryContext {
   }
 }
 
-interface CallSummaryPayload extends CallSummaryResource {}
+
+  interface CallSummaryPayload extends CallSummaryResource {}
 
 interface CallSummaryResource {
   account_sid: string;
@@ -353,13 +293,10 @@ export class CallSummaryInstance {
   protected _solution: CallSummaryContextSolution;
   protected _context?: CallSummaryContext;
 
-  constructor(
-    protected _version: V1,
-    payload: CallSummaryResource,
-    callSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.callSid = payload.call_sid;
+  constructor(protected _version: V1, payload: CallSummaryResource, callSid: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.callSid = (payload.call_sid);
     this.callType = payload.call_type;
     this.callState = payload.call_state;
     this.answeredBy = payload.answered_by;
@@ -369,27 +306,23 @@ export class CallSummaryInstance {
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.duration = deserialize.integer(payload.duration);
     this.connectDuration = deserialize.integer(payload.connect_duration);
-    this.from = payload.from;
-    this.to = payload.to;
-    this.carrierEdge = payload.carrier_edge;
-    this.clientEdge = payload.client_edge;
-    this.sdkEdge = payload.sdk_edge;
-    this.sipEdge = payload.sip_edge;
-    this.tags = payload.tags;
-    this.url = payload.url;
-    this.attributes = payload.attributes;
-    this.properties = payload.properties;
-    this.trust = payload.trust;
-    this.annotation = payload.annotation;
-    this.agentSessionSummaries =
-      payload.agent_session_summaries !== null &&
-      payload.agent_session_summaries !== undefined
-        ? payload.agent_session_summaries.map(
-            (payload: any) => new CallSummaryAgentSessionSummary(payload)
-          )
-        : null;
+    this.from = (payload.from);
+    this.to = (payload.to);
+    this.carrierEdge = (payload.carrier_edge);
+    this.clientEdge = (payload.client_edge);
+    this.sdkEdge = (payload.sdk_edge);
+    this.sipEdge = (payload.sip_edge);
+    this.tags = (payload.tags);
+    this.url = (payload.url);
+    this.attributes = (payload.attributes);
+    this.properties = (payload.properties);
+    this.trust = (payload.trust);
+    this.annotation = (payload.annotation);
+    this.agentSessionSummaries =  payload.agent_session_summaries !== null && payload.agent_session_summaries !== undefined ? payload.agent_session_summaries.map(
+      (payload: any) => new CallSummaryAgentSessionSummary(payload)
+    ) : null;
 
-    this._solution = { callSid };
+    this._solution = { callSid,  };
   }
 
   /**
@@ -449,7 +382,7 @@ export class CallSummaryInstance {
    */
   sipEdge: any;
   /**
-   * Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
+   * [Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags) that Voice Insights analysis applies to calls. They indicate a condition that may influence the subjective experience of call audio quality.
    */
   tags: Array<string>;
   /**
@@ -478,9 +411,7 @@ export class CallSummaryInstance {
   agentSessionSummaries: Array<CallSummaryAgentSessionSummary>;
 
   private get _proxy(): CallSummaryContext {
-    this._context =
-      this._context ||
-      new CallSummaryContextImpl(this._version, this._solution.callSid);
+    this._context = this._context || new CallSummaryContextImpl(this._version, this._solution.callSid);
     return this._context;
   }
 
@@ -491,9 +422,7 @@ export class CallSummaryInstance {
    *
    * @returns Resolves to processed CallSummaryInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
-  ): Promise<CallSummaryInstance>;
+  fetch(callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
   /**
    * Fetch a CallSummaryInstance
    *
@@ -502,15 +431,10 @@ export class CallSummaryInstance {
    *
    * @returns Resolves to processed CallSummaryInstance
    */
-  fetch(
-    params: CallSummaryContextFetchOptions,
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
-  ): Promise<CallSummaryInstance>;
+  fetch(params: CallSummaryContextFetchOptions, callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance>;
 
-  fetch(
-    params?: any,
-    callback?: (error: Error | null, item?: CallSummaryInstance) => any
-  ): Promise<CallSummaryInstance> {
+    fetch(params?: any, callback?: (error: Error | null, item?: CallSummaryInstance) => any): Promise<CallSummaryInstance>
+    {
     return this._proxy.fetch(params, callback);
   }
 
@@ -521,12 +445,7 @@ export class CallSummaryInstance {
    *
    * @returns Resolves to processed CallSummaryInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<CallSummaryInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<CallSummaryInstance>) => any): Promise<ApiResponse<CallSummaryInstance>>;
   /**
    * Fetch a CallSummaryInstance and return HTTP info
    *
@@ -535,21 +454,10 @@ export class CallSummaryInstance {
    *
    * @returns Resolves to processed CallSummaryInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    params: CallSummaryContextFetchOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<CallSummaryInstance>>;
+  fetchWithHttpInfo(params: CallSummaryContextFetchOptions, callback?: (error: Error | null, item?: ApiResponse<CallSummaryInstance>) => any): Promise<ApiResponse<CallSummaryInstance>>;
 
-  fetchWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<CallSummaryInstance>
-    ) => any
-  ): Promise<ApiResponse<CallSummaryInstance>> {
+    fetchWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<CallSummaryInstance>) => any): Promise<ApiResponse<CallSummaryInstance>>
+    {
     return this._proxy.fetchWithHttpInfo(params, callback);
   }
 
@@ -592,6 +500,7 @@ export class CallSummaryInstance {
   }
 }
 
+
 export interface CallSummarySolution {
   callSid: string;
 }
@@ -604,6 +513,9 @@ export interface CallSummaryListInstance {
   (): CallSummaryContext;
   get(): CallSummaryContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -611,34 +523,30 @@ export interface CallSummaryListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function CallSummaryListInstance(
-  version: V1,
-  callSid: string
-): CallSummaryListInstance {
+export function CallSummaryListInstance(version: V1, callSid: string): CallSummaryListInstance {
   if (!isValidPathParam(callSid)) {
-    throw new Error("Parameter 'callSid' is not valid.");
+    throw new Error('Parameter \'callSid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as CallSummaryListInstance;
 
   instance.get = function get(): CallSummaryContext {
     return new CallSummaryContextImpl(version, callSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { callSid };
+  instance._solution = { callSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

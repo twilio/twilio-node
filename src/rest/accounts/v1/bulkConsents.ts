@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,20 +20,26 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
 /**
  * Options to pass to create a BulkConsentsInstance
  */
 export interface BulkConsentsListInstanceCreateOptions {
   /** This is a list of objects that describes a contact\\\'s opt-in status. Each object contains the following fields: `contact_id`, which must be a string representing phone number in [E.164 format](https://www.twilio.com/docs/glossary/what-e164); `correlation_id`, a unique 32-character UUID used to uniquely map the request item with the response item; `sender_id`, which can be either a valid messaging service SID or a from phone number; `status`, a string representing the consent status. Can be one of [`opt-in`, `opt-out`]; `source`, a string indicating the medium through which the consent was collected. Can be one of [`website`, `offline`, `opt-in-message`, `opt-out-message`, `others`]; `date_of_consent`, an optional datetime string field in ISO-8601 format that captures the exact date and time when the user gave or revoked consent. If not provided, it will be empty. */
-  items: Array<any>;
+  "items": Array<any>;
 }
 
-export interface BulkConsentsSolution {}
+
+export interface BulkConsentsSolution {
+}
 
 export interface BulkConsentsListInstance {
   _version: V1;
   _solution: BulkConsentsSolution;
   _uri: string;
+
+
 
   /**
    * Create a BulkConsentsInstance
@@ -42,10 +49,7 @@ export interface BulkConsentsListInstance {
    *
    * @returns Resolves to processed BulkConsentsInstance
    */
-  create(
-    params: BulkConsentsListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: BulkConsentsInstance) => any
-  ): Promise<BulkConsentsInstance>;
+  create(params: BulkConsentsListInstanceCreateOptions, callback?: (error: Error | null, item?: BulkConsentsInstance) => any): Promise<BulkConsentsInstance>;
 
   /**
    * Create a BulkConsentsInstance and return HTTP info
@@ -55,13 +59,9 @@ export interface BulkConsentsListInstance {
    *
    * @returns Resolves to processed BulkConsentsInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: BulkConsentsListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<BulkConsentsInstance>
-    ) => any
-  ): Promise<ApiResponse<BulkConsentsInstance>>;
+  createWithHttpInfo(params: BulkConsentsListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<BulkConsentsInstance>) => any): Promise<ApiResponse<BulkConsentsInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -70,127 +70,105 @@ export interface BulkConsentsListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BulkConsentsListInstance(
-  version: V1
-): BulkConsentsListInstance {
+export function BulkConsentsListInstance(version: V1): BulkConsentsListInstance {
   const instance = {} as BulkConsentsListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Consents/Bulk`;
 
-  instance.create = function create(
-    params: BulkConsentsListInstanceCreateOptions,
-    callback?: (error: Error | null, items: BulkConsentsInstance) => any
-  ): Promise<BulkConsentsInstance> {
+  instance.create = function create(params: BulkConsentsListInstanceCreateOptions, callback?: (error: Error | null, items: BulkConsentsInstance) => any): Promise<BulkConsentsInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["items"] === null || params["items"] === undefined) {
-      throw new Error("Required parameter \"params['items']\" missing.");
+      throw new Error('Required parameter "params[\'items\']" missing.');
     }
 
     let data: any = {};
 
-    data["Items"] = serialize.map(params["items"], (e: any) =>
-      serialize.object(e)
-    );
+    
+        
+    data["Items"] = serialize.map(params["items"], (e: any) => serialize.object(e));
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new BulkConsentsInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new BulkConsentsInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: BulkConsentsListInstanceCreateOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BulkConsentsInstance>
-    ) => any
-  ): Promise<ApiResponse<BulkConsentsInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: BulkConsentsListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<BulkConsentsInstance>) => any): Promise<ApiResponse<BulkConsentsInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["items"] === null || params["items"] === undefined) {
-      throw new Error("Required parameter \"params['items']\" missing.");
+      throw new Error('Required parameter "params[\'items\']" missing.');
     }
 
     let data: any = {};
 
-    data["Items"] = serialize.map(params["items"], (e: any) =>
-      serialize.object(e)
-    );
+    
+        
+    data["Items"] = serialize.map(params["items"], (e: any) => serialize.object(e));
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<BulkConsentsResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<BulkConsentsInstance> => ({
-          ...response,
-          body: new BulkConsentsInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<BulkConsentsResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<BulkConsentsInstance> => ({
+      ...response,
+      body: new BulkConsentsInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface BulkConsentsPayload extends BulkConsentsResource {}
+  interface BulkConsentsPayload extends BulkConsentsResource {}
 
 interface BulkConsentsResource {
   items: any;
 }
 
 export class BulkConsentsInstance {
+
   constructor(protected _version: V1, payload: BulkConsentsResource) {
-    this.items = payload.items;
+    
+    this.items = (payload.items);
+
   }
 
   /**
@@ -213,3 +191,5 @@ export class BulkConsentsInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

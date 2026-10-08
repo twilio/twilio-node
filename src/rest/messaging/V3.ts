@@ -31,8 +31,8 @@ export default class V3 extends Version {
 
   /** Getter for typingIndicator resource */
   get typingIndicator(): TypingIndicatorListInstance {
-    this._typingIndicator =
-      this._typingIndicator || TypingIndicatorListInstance(this);
+    this._typingIndicator = this._typingIndicator || TypingIndicatorListInstance(this);
     return this._typingIndicator;
   }
+
 }

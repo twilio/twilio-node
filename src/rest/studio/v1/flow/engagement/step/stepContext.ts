@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../../../V1";
 const deserialize = require("../../../../../../base/deserialize");
@@ -19,7 +20,11 @@ const serialize = require("../../../../../../base/serialize");
 import { isValidPathParam } from "../../../../../../base/utility";
 import { ApiResponse } from "../../../../../../base/ApiResponse";
 
+
+
+
 export interface StepContextContext {
+
   /**
    * Fetch a StepContextInstance
    *
@@ -27,9 +32,7 @@ export interface StepContextContext {
    *
    * @returns Resolves to processed StepContextInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: StepContextInstance) => any
-  ): Promise<StepContextInstance>;
+  fetch(callback?: (error: Error | null, item?: StepContextInstance) => any): Promise<StepContextInstance>
 
   /**
    * Fetch a StepContextInstance and return HTTP info
@@ -38,12 +41,7 @@ export interface StepContextContext {
    *
    * @returns Resolves to processed StepContextInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<StepContextInstance>
-    ) => any
-  ): Promise<ApiResponse<StepContextInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<StepContextInstance>) => any): Promise<ApiResponse<StepContextInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -53,105 +51,66 @@ export interface StepContextContext {
 }
 
 export interface StepContextContextSolution {
-  flowSid: string;
-  engagementSid: string;
-  stepSid: string;
+  "flowSid": string;
+  "engagementSid": string;
+  "stepSid": string;
 }
 
 export class StepContextContextImpl implements StepContextContext {
   protected _solution: StepContextContextSolution;
   protected _uri: string;
 
-  constructor(
-    protected _version: V1,
-    flowSid: string,
-    engagementSid: string,
-    stepSid: string
-  ) {
+
+  constructor(protected _version: V1, flowSid: string, engagementSid: string, stepSid: string) {
     if (!isValidPathParam(flowSid)) {
-      throw new Error("Parameter 'flowSid' is not valid.");
+      throw new Error('Parameter \'flowSid\' is not valid.');
     }
 
     if (!isValidPathParam(engagementSid)) {
-      throw new Error("Parameter 'engagementSid' is not valid.");
+      throw new Error('Parameter \'engagementSid\' is not valid.');
     }
 
     if (!isValidPathParam(stepSid)) {
-      throw new Error("Parameter 'stepSid' is not valid.");
+      throw new Error('Parameter \'stepSid\' is not valid.');
     }
 
-    this._solution = { flowSid, engagementSid, stepSid };
+    this._solution = { flowSid, engagementSid, stepSid,  };
     this._uri = `/Flows/${flowSid}/Engagements/${engagementSid}/Steps/${stepSid}/Context`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: StepContextInstance) => any
-  ): Promise<StepContextInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: StepContextInstance) => any): Promise<StepContextInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new StepContextInstance(operationVersion, payload, instance._solution.flowSid, instance._solution.engagementSid, instance._solution.stepSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new StepContextInstance(
-          operationVersion,
-          payload,
-          instance._solution.flowSid,
-          instance._solution.engagementSid,
-          instance._solution.stepSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<StepContextInstance>
-    ) => any
-  ): Promise<ApiResponse<StepContextInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<StepContextInstance>) => any): Promise<ApiResponse<StepContextInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<StepContextResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<StepContextInstance> => ({
-          ...response,
-          body: new StepContextInstance(
-            operationVersion,
-            response.body,
-            instance._solution.flowSid,
-            instance._solution.engagementSid,
-            instance._solution.stepSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<StepContextResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<StepContextInstance> => ({
+      ...response,
+      body: new StepContextInstance(operationVersion, response.body, instance._solution.flowSid, instance._solution.engagementSid, instance._solution.stepSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -168,7 +127,8 @@ export class StepContextContextImpl implements StepContextContext {
   }
 }
 
-interface StepContextPayload extends StepContextResource {}
+
+  interface StepContextPayload extends StepContextResource {}
 
 interface StepContextResource {
   account_sid: string;
@@ -183,21 +143,16 @@ export class StepContextInstance {
   protected _solution: StepContextContextSolution;
   protected _context?: StepContextContext;
 
-  constructor(
-    protected _version: V1,
-    payload: StepContextResource,
-    flowSid: string,
-    engagementSid: string,
-    stepSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.context = payload.context;
-    this.engagementSid = payload.engagement_sid;
-    this.flowSid = payload.flow_sid;
-    this.stepSid = payload.step_sid;
-    this.url = payload.url;
+  constructor(protected _version: V1, payload: StepContextResource, flowSid: string, engagementSid: string, stepSid: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.context = (payload.context);
+    this.engagementSid = (payload.engagement_sid);
+    this.flowSid = (payload.flow_sid);
+    this.stepSid = (payload.step_sid);
+    this.url = (payload.url);
 
-    this._solution = { flowSid, engagementSid, stepSid };
+    this._solution = { flowSid, engagementSid, stepSid,  };
   }
 
   /**
@@ -226,14 +181,7 @@ export class StepContextInstance {
   url: string;
 
   private get _proxy(): StepContextContext {
-    this._context =
-      this._context ||
-      new StepContextContextImpl(
-        this._version,
-        this._solution.flowSid,
-        this._solution.engagementSid,
-        this._solution.stepSid
-      );
+    this._context = this._context || new StepContextContextImpl(this._version, this._solution.flowSid, this._solution.engagementSid, this._solution.stepSid);
     return this._context;
   }
 
@@ -244,9 +192,9 @@ export class StepContextInstance {
    *
    * @returns Resolves to processed StepContextInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: StepContextInstance) => any
-  ): Promise<StepContextInstance> {
+  fetch(callback?: (error: Error | null, item?: StepContextInstance) => any): Promise<StepContextInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -257,12 +205,9 @@ export class StepContextInstance {
    *
    * @returns Resolves to processed StepContextInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<StepContextInstance>
-    ) => any
-  ): Promise<ApiResponse<StepContextInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<StepContextInstance>) => any): Promise<ApiResponse<StepContextInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -287,6 +232,7 @@ export class StepContextInstance {
   }
 }
 
+
 export interface StepContextSolution {
   flowSid: string;
   engagementSid: string;
@@ -301,6 +247,9 @@ export interface StepContextListInstance {
   (): StepContextContext;
   get(): StepContextContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -308,44 +257,38 @@ export interface StepContextListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function StepContextListInstance(
-  version: V1,
-  flowSid: string,
-  engagementSid: string,
-  stepSid: string
-): StepContextListInstance {
+export function StepContextListInstance(version: V1, flowSid: string, engagementSid: string, stepSid: string): StepContextListInstance {
   if (!isValidPathParam(flowSid)) {
-    throw new Error("Parameter 'flowSid' is not valid.");
+    throw new Error('Parameter \'flowSid\' is not valid.');
   }
 
   if (!isValidPathParam(engagementSid)) {
-    throw new Error("Parameter 'engagementSid' is not valid.");
+    throw new Error('Parameter \'engagementSid\' is not valid.');
   }
 
   if (!isValidPathParam(stepSid)) {
-    throw new Error("Parameter 'stepSid' is not valid.");
+    throw new Error('Parameter \'stepSid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as StepContextListInstance;
 
   instance.get = function get(): StepContextContext {
     return new StepContextContextImpl(version, flowSid, engagementSid, stepSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { flowSid, engagementSid, stepSid };
+  instance._solution = { flowSid, engagementSid, stepSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

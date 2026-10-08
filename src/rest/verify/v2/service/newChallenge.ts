@@ -12,12 +12,14 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
+
 
 export class CreatePasskeysChallengeRequest {
   "identity"?: string;
@@ -29,15 +31,18 @@ export class CreatePasskeysChallengeRequest {
   }
 }
 
+
+
 /**
  * Options to pass to create a NewChallengeInstance
  */
 export interface NewChallengeContextCreateOptions {
   /**  */
-  createPasskeysChallengeRequest?: CreatePasskeysChallengeRequest;
+  "createPasskeysChallengeRequest"?: CreatePasskeysChallengeRequest;
 }
 
 export interface NewChallengeContext {
+
   /**
    * Create a NewChallengeInstance
    *
@@ -45,9 +50,7 @@ export interface NewChallengeContext {
    *
    * @returns Resolves to processed NewChallengeInstance
    */
-  create(
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
-  ): Promise<NewChallengeInstance>;
+  create(callback?: (error: Error | null, item?: NewChallengeInstance) => any): Promise<NewChallengeInstance>;
   /**
    * Create a NewChallengeInstance
    *
@@ -57,11 +60,7 @@ export interface NewChallengeContext {
    *
    * @returns Resolves to processed NewChallengeInstance
    */
-  create(
-    params: CreatePasskeysChallengeRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
-  ): Promise<NewChallengeInstance>;
+  create(params: CreatePasskeysChallengeRequest, headers?: any, callback?: (error: Error | null, item?: NewChallengeInstance) => any): Promise<NewChallengeInstance>;
 
   /**
    * Create a NewChallengeInstance and return HTTP info
@@ -70,12 +69,7 @@ export interface NewChallengeContext {
    *
    * @returns Resolves to processed NewChallengeInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NewChallengeInstance>
-    ) => any
-  ): Promise<ApiResponse<NewChallengeInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<NewChallengeInstance>) => any): Promise<ApiResponse<NewChallengeInstance>>;
   /**
    * Create a NewChallengeInstance and return HTTP info
    *
@@ -85,14 +79,7 @@ export interface NewChallengeContext {
    *
    * @returns Resolves to processed NewChallengeInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CreatePasskeysChallengeRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NewChallengeInstance>
-    ) => any
-  ): Promise<ApiResponse<NewChallengeInstance>>;
+  createWithHttpInfo(params: CreatePasskeysChallengeRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<NewChallengeInstance>) => any): Promise<ApiResponse<NewChallengeInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -102,135 +89,90 @@ export interface NewChallengeContext {
 }
 
 export interface NewChallengeContextSolution {
-  serviceSid: string;
+  "serviceSid": string;
 }
 
 export class NewChallengeContextImpl implements NewChallengeContext {
   protected _solution: NewChallengeContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V2, serviceSid: string) {
     if (!isValidPathParam(serviceSid)) {
-      throw new Error("Parameter 'serviceSid' is not valid.");
+      throw new Error('Parameter \'serviceSid\' is not valid.');
     }
 
-    this._solution = { serviceSid };
+    this._solution = { serviceSid,  };
     this._uri = `/Services/${serviceSid}/Passkeys/Challenges`;
   }
 
-  create(
-    params?:
-      | CreatePasskeysChallengeRequest
-      | ((error: Error | null, item?: NewChallengeInstance) => any),
-    headers?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
-  ): Promise<NewChallengeInstance> {
-    if (params instanceof Function) {
+  create(params?: CreatePasskeysChallengeRequest | ((error: Error | null, item?: NewChallengeInstance) => any), headers?: any,callback?: (error: Error | null, item?: NewChallengeInstance) => any): Promise<NewChallengeInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest;
+      params = {} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest);
+      params = params || {} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new NewChallengeInstance(operationVersion, payload, instance._solution.serviceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new NewChallengeInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  createWithHttpInfo(
-    params?:
-      | CreatePasskeysChallengeRequest
-      | ((
-          error: Error | null,
-          item?: ApiResponse<NewChallengeInstance>
-        ) => any),
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NewChallengeInstance>
-    ) => any
-  ): Promise<ApiResponse<NewChallengeInstance>> {
-    if (params instanceof Function) {
+  createWithHttpInfo(params?: CreatePasskeysChallengeRequest | ((error: Error | null, item?: ApiResponse<NewChallengeInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<NewChallengeInstance>) => any): Promise<ApiResponse<NewChallengeInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest;
+      params = {} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest);
+      params = params || {} as Partial<CreatePasskeysChallengeRequest> as CreatePasskeysChallengeRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<NewChallengeResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<NewChallengeInstance> => ({
-          ...response,
-          body: new NewChallengeInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<NewChallengeResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<NewChallengeInstance> => ({
+      ...response,
+      body: new NewChallengeInstance(operationVersion, response.body, instance._solution.serviceSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -247,7 +189,8 @@ export class NewChallengeContextImpl implements NewChallengeContext {
   }
 }
 
-interface NewChallengePayload extends NewChallengeResource {}
+
+  interface NewChallengePayload extends NewChallengeResource {}
 
 interface NewChallengeResource {
   sid: string;
@@ -275,32 +218,29 @@ export class NewChallengeInstance {
   protected _solution: NewChallengeContextSolution;
   protected _context?: NewChallengeContext;
 
-  constructor(
-    protected _version: V2,
-    payload: NewChallengeResource,
-    serviceSid: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.entitySid = payload.entity_sid;
-    this.identity = payload.identity;
-    this.factorSid = payload.factor_sid;
+  constructor(protected _version: V2, payload: NewChallengeResource, serviceSid: string) {
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.entitySid = (payload.entity_sid);
+    this.identity = (payload.identity);
+    this.factorSid = (payload.factor_sid);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.dateResponded = deserialize.iso8601DateTime(payload.date_responded);
     this.expirationDate = deserialize.iso8601DateTime(payload.expiration_date);
-    this.status = payload.status;
-    this.respondedReason = payload.responded_reason;
-    this.details = payload.details;
-    this.hiddenDetails = payload.hidden_details;
-    this.metadata = payload.metadata;
-    this.factorType = payload.factor_type;
-    this.url = payload.url;
-    this.links = payload.links;
-    this.options = payload.options;
+    this.status = (payload.status);
+    this.respondedReason = (payload.responded_reason);
+    this.details = (payload.details);
+    this.hiddenDetails = (payload.hidden_details);
+    this.metadata = (payload.metadata);
+    this.factorType = (payload.factor_type);
+    this.url = (payload.url);
+    this.links = (payload.links);
+    this.options = (payload.options);
 
-    this._solution = { serviceSid };
+    this._solution = { serviceSid,  };
   }
 
   /**
@@ -381,9 +321,7 @@ export class NewChallengeInstance {
   options: Record<string, object>;
 
   private get _proxy(): NewChallengeContext {
-    this._context =
-      this._context ||
-      new NewChallengeContextImpl(this._version, this._solution.serviceSid);
+    this._context = this._context || new NewChallengeContextImpl(this._version, this._solution.serviceSid);
     return this._context;
   }
 
@@ -394,9 +332,7 @@ export class NewChallengeInstance {
    *
    * @returns Resolves to processed NewChallengeInstance
    */
-  create(
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
-  ): Promise<NewChallengeInstance>;
+  create(callback?: (error: Error | null, item?: NewChallengeInstance) => any): Promise<NewChallengeInstance>;
   /**
    * Create a NewChallengeInstance
    *
@@ -406,16 +342,10 @@ export class NewChallengeInstance {
    *
    * @returns Resolves to processed NewChallengeInstance
    */
-  create(
-    params: CreatePasskeysChallengeRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
-  ): Promise<NewChallengeInstance>;
+  create(params: CreatePasskeysChallengeRequest, headers?: any, callback?: (error: Error | null, item?: NewChallengeInstance) => any): Promise<NewChallengeInstance>;
 
-  create(
-    params?: any,
-    callback?: (error: Error | null, item?: NewChallengeInstance) => any
-  ): Promise<NewChallengeInstance> {
+    create(params?: any, callback?: (error: Error | null, item?: NewChallengeInstance) => any): Promise<NewChallengeInstance>
+    {
     return this._proxy.create(params, callback);
   }
 
@@ -426,12 +356,7 @@ export class NewChallengeInstance {
    *
    * @returns Resolves to processed NewChallengeInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NewChallengeInstance>
-    ) => any
-  ): Promise<ApiResponse<NewChallengeInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<NewChallengeInstance>) => any): Promise<ApiResponse<NewChallengeInstance>>;
   /**
    * Create a NewChallengeInstance and return HTTP info
    *
@@ -441,22 +366,10 @@ export class NewChallengeInstance {
    *
    * @returns Resolves to processed NewChallengeInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CreatePasskeysChallengeRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NewChallengeInstance>
-    ) => any
-  ): Promise<ApiResponse<NewChallengeInstance>>;
+  createWithHttpInfo(params: CreatePasskeysChallengeRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<NewChallengeInstance>) => any): Promise<ApiResponse<NewChallengeInstance>>;
 
-  createWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<NewChallengeInstance>
-    ) => any
-  ): Promise<ApiResponse<NewChallengeInstance>> {
+    createWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<NewChallengeInstance>) => any): Promise<ApiResponse<NewChallengeInstance>>
+    {
     return this._proxy.createWithHttpInfo(params, callback);
   }
 
@@ -494,6 +407,7 @@ export class NewChallengeInstance {
   }
 }
 
+
 export interface NewChallengeSolution {
   serviceSid: string;
 }
@@ -506,6 +420,9 @@ export interface NewChallengeListInstance {
   (): NewChallengeContext;
   get(): NewChallengeContext;
 
+
+
+
   /**
    * Provide a user-friendly representation
    */
@@ -513,34 +430,30 @@ export interface NewChallengeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function NewChallengeListInstance(
-  version: V2,
-  serviceSid: string
-): NewChallengeListInstance {
+export function NewChallengeListInstance(version: V2, serviceSid: string): NewChallengeListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   const instance = (() => instance.get()) as NewChallengeListInstance;
 
   instance.get = function get(): NewChallengeContext {
     return new NewChallengeContextImpl(version, serviceSid);
-  };
+  }
 
   instance._version = version;
-  instance._solution = { serviceSid };
+  instance._solution = { serviceSid,  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

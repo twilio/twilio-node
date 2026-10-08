@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import TokenPage, { TokenPaginationPayload } from "../../../base/TokenPage";
 import Response from "../../../http/response";
@@ -20,6 +21,7 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
+
 
 export class CreateV3TranscriptionsRequest {
   /**
@@ -31,11 +33,11 @@ export class CreateV3TranscriptionsRequest {
    */
   "inputSource"?: string;
   /**
-   * The SID or TTID of the source audio to transcribe (e.g. a Twilio Recording SID). When provided, audioStartedAt is inferred from the recording\'s start time and does not need to be supplied by the caller.
+   * The SID or TTID of the source audio to transcribe (e.g. a Twilio Recording SID). When provided, audioStartedAt is inferred from the recording\'s start time and does not need to be supplied by the caller. 
    */
   "sourceId": string;
   /**
-   * Participants in the conversation. If omitted or partially specified, defaults from the transcription configuration will be applied.
+   * Participants in the conversation. If omitted or partially specified, defaults from the transcription configuration will be applied. 
    */
   "participants"?: Array<VoiceV3TranscriptionParticipant>;
   /**
@@ -57,13 +59,14 @@ export class CreateV3TranscriptionsRequest {
   }
 }
 
+
 export class VoiceV3TranscriptionParticipant {
   /**
    * The role of this participant in the conversation.
    */
   "type"?: string;
   /**
-   * The phone number or identifier for this participant (E.164 format for phone numbers). Used to correlate this participant with their profile and conversation history.
+   * The phone number or identifier for this participant (E.164 format for phone numbers). Used to correlate this participant with their profile and conversation history. 
    */
   "address"?: string;
   /**
@@ -82,6 +85,7 @@ export class VoiceV3TranscriptionParticipant {
     this.audioChannelIndex = payload["audioChannelIndex"];
   }
 }
+
 
 export class VoiceV3TranscriptionResolvedConfiguration {
   /**
@@ -116,6 +120,7 @@ export class VoiceV3TranscriptionResolvedConfiguration {
   }
 }
 
+
 export class VoiceV3TranscriptionResolvedConfigurationParticipantDefaults {
   /**
    * One-based index of the audio channel
@@ -131,6 +136,7 @@ export class VoiceV3TranscriptionResolvedConfigurationParticipantDefaults {
     this.type = payload["type"];
   }
 }
+
 
 export class VoiceV3TranscriptionTranscription {
   /**
@@ -158,7 +164,7 @@ export class VoiceV3TranscriptionTranscription {
    */
   "sourceId"?: string | null;
   /**
-   * The call/recording start time. When the transcription was created using a sourceId, this value is inferred from the recording resource\'s start time. When created using a mediaUrl, this reflects the value supplied by the caller.
+   * The call/recording start time. When the transcription was created using a sourceId, this value is inferred from the recording resource\'s start time. When created using a mediaUrl, this reflects the value supplied by the caller. 
    */
   "audioStartedAt"?: Date;
   /**
@@ -187,7 +193,7 @@ export class VoiceV3TranscriptionTranscription {
    */
   "url": string;
   /**
-   * Absolute URLs of resources related to this Transcription. Includes `conversation`, the Conversations API resource for this Transcription\'s `conversationId`, once the transcript has been stored. Omitted entirely when there is no related resource to link to.
+   * Absolute URLs of resources related to this Transcription. Includes `conversation`, the Conversations API resource for this Transcription\'s `conversationId`, once the transcript has been stored. Omitted entirely when there is no related resource to link to. 
    */
   "links"?: Record<string, string> | null;
 
@@ -210,6 +216,7 @@ export class VoiceV3TranscriptionTranscription {
   }
 }
 
+
 export class VoiceV3TranscriptionTranscriptionStatusCallback {
   /**
    * The URL to call when transcription status changes
@@ -231,14 +238,17 @@ export class VoiceV3TranscriptionTranscriptionStatusCallback {
   }
 }
 
+
+
+
 /**
  * Options to pass to create a TranscriptionInstance
  */
 export interface TranscriptionListInstanceCreateOptions {
   /**  */
-  createV3TranscriptionsRequest: CreateV3TranscriptionsRequest;
+  "createV3TranscriptionsRequest": CreateV3TranscriptionsRequest;
   /** A unique key to ensure idempotency. We recommend using UUID v7. Requests with the same key within the idempotency window return the original response. */
-  idempotencyKey?: string;
+  "idempotencyKey"?: string;
 }
 
 /**
@@ -246,19 +256,19 @@ export interface TranscriptionListInstanceCreateOptions {
  */
 export interface TranscriptionListInstanceEachOptions {
   /** Only include transcriptions created at or after this time (inclusive) */
-  createdAfter?: Date;
+  "createdAfter"?: Date;
   /** Only include transcriptions created strictly before this time (exclusive) */
-  createdBefore?: Date;
+  "createdBefore"?: Date;
   /** Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US. */
-  languageCode?: string;
+  "languageCode"?: string;
   /** Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400. */
-  sourceId?: string;
+  "sourceId"?: string;
   /** Only include transcriptions in this status */
-  status?: "PENDING" | "RUNNING" | "COMPLETED" | "FAILED";
+  "status"?: 'PENDING' | 'RUNNING' | 'COMPLETED' | 'FAILED';
   /** Number of results per page. This endpoint caps at 100, which is lower than the shared pagination component\'s ceiling and matches what the service enforces. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Opaque cursor for retrieving the next or previous page of results */
-  pageToken?: string;
+  "pageToken"?: string;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -272,44 +282,47 @@ export interface TranscriptionListInstanceEachOptions {
  */
 export interface TranscriptionListInstanceOptions {
   /** Only include transcriptions created at or after this time (inclusive) */
-  createdAfter?: Date;
+  "createdAfter"?: Date;
   /** Only include transcriptions created strictly before this time (exclusive) */
-  createdBefore?: Date;
+  "createdBefore"?: Date;
   /** Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US. */
-  languageCode?: string;
+  "languageCode"?: string;
   /** Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400. */
-  sourceId?: string;
+  "sourceId"?: string;
   /** Only include transcriptions in this status */
-  status?: "PENDING" | "RUNNING" | "COMPLETED" | "FAILED";
+  "status"?: 'PENDING' | 'RUNNING' | 'COMPLETED' | 'FAILED';
   /** Number of results per page. This endpoint caps at 100, which is lower than the shared pagination component\'s ceiling and matches what the service enforces. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Opaque cursor for retrieving the next or previous page of results */
-  pageToken?: string;
+  "pageToken"?: string;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface TranscriptionListInstancePageOptions {
   /** Only include transcriptions created at or after this time (inclusive) */
-  createdAfter?: Date;
+  "createdAfter"?: Date;
   /** Only include transcriptions created strictly before this time (exclusive) */
-  createdBefore?: Date;
+  "createdBefore"?: Date;
   /** Only include transcriptions whose resolved language matches this value exactly. The comparison is case sensitive, so use the stored form, for example en-US. */
-  languageCode?: string;
+  "languageCode"?: string;
   /** Only include transcriptions for this source audio. Must be a Recording SID in lowercase hex; anything else is rejected with a 400. */
-  sourceId?: string;
+  "sourceId"?: string;
   /** Only include transcriptions in this status */
-  status?: "PENDING" | "RUNNING" | "COMPLETED" | "FAILED";
+  "status"?: 'PENDING' | 'RUNNING' | 'COMPLETED' | 'FAILED';
   /** Number of results per page. This endpoint caps at 100, which is lower than the shared pagination component\'s ceiling and matches what the service enforces. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Opaque cursor for retrieving the next or previous page of results */
-  pageToken?: string;
+  "pageToken"?: string;
 }
 
+
 export interface TranscriptionContext {
+
   /**
    * Fetch a TranscriptionInstance
    *
@@ -317,9 +330,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  fetch(callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>
 
   /**
    * Fetch a TranscriptionInstance and return HTTP info
@@ -328,12 +339,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -343,86 +349,56 @@ export interface TranscriptionContext {
 }
 
 export interface TranscriptionContextSolution {
-  transcriptionId: string;
+  "transcriptionId": string;
 }
 
 export class TranscriptionContextImpl implements TranscriptionContext {
   protected _solution: TranscriptionContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V3, transcriptionId: string) {
     if (!isValidPathParam(transcriptionId)) {
-      throw new Error("Parameter 'transcriptionId' is not valid.");
+      throw new Error('Parameter \'transcriptionId\' is not valid.');
     }
 
-    this._solution = { transcriptionId };
+    this._solution = { transcriptionId,  };
     this._uri = `/Transcriptions/${transcriptionId}`;
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new TranscriptionInstance(operationVersion, payload, instance._solution.transcriptionId));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TranscriptionInstance(
-          operationVersion,
-          payload,
-          instance._solution.transcriptionId
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<TranscriptionResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<TranscriptionInstance> => ({
-          ...response,
-          body: new TranscriptionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.transcriptionId
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<TranscriptionResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<TranscriptionInstance> => ({
+      ...response,
+      body: new TranscriptionInstance(operationVersion, response.body, instance._solution.transcriptionId)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -510,8 +486,10 @@ export interface VoiceV3TranscriptionTranscriptionStatusCallback {
   events?: Array<string> | null;
 }
 
-interface TranscriptionPayload extends TokenPaginationPayload {
-  transcriptions: TranscriptionResource[];
+
+
+  interface TranscriptionPayload extends TokenPaginationPayload {
+    transcriptions: TranscriptionResource[];
 }
 
 /**
@@ -557,66 +535,47 @@ interface VoiceV3TranscriptionTranscription_ResponseResource {
 /**
  * Union type for all possible response models
  */
-type TranscriptionResource =
-  | VoiceV3TranscriptionLongRunningOperation202Response_ResponseResource
-  | VoiceV3TranscriptionLongRunningOperationResponse_ResponseResource
-  | VoiceV3TranscriptionTranscription_ResponseResource;
+type TranscriptionResource = VoiceV3TranscriptionLongRunningOperation202Response_ResponseResource | VoiceV3TranscriptionLongRunningOperationResponse_ResponseResource | VoiceV3TranscriptionTranscription_ResponseResource;
 
 /**
- * Response envelope for long-running operations (202 Accepted pattern). Returned immediately on acceptance and on each status poll. Extensible to allow additional fields in future versions.
+ * Response envelope for long-running operations (202 Accepted pattern). Returned immediately on acceptance and on each status poll. Extensible to allow additional fields in future versions. 
  */
 export class TranscriptionInstance {
   protected _solution: TranscriptionContextSolution;
   protected _context?: TranscriptionContext;
 
-  constructor(
-    protected _version: V3,
-    _payload: TranscriptionResource,
-    transcriptionId?: string
-  ) {
+  constructor(protected _version: V3, _payload: TranscriptionResource, transcriptionId?: string) {
     const payload: any = _payload;
-    this.status = payload.status;
-    this.statusUrl = payload.statusUrl;
-    this.transcription =
-      payload.transcription !== null && payload.transcription !== undefined
-        ? new VoiceV3TranscriptionTranscription(payload.transcription)
-        : null;
-    this.operationId = payload.operationId;
-    this.id = payload.id;
-    this.accountId = payload.accountId;
-    this.transcriptionConfigurationId = payload.transcriptionConfigurationId;
-    this.mediaUrl = payload.mediaUrl;
-    this.sourceId = payload.sourceId;
+    this.status = (payload.status);
+    this.statusUrl = (payload.statusUrl);
+    this.transcription = payload.transcription !== null && payload.transcription !== undefined ? new VoiceV3TranscriptionTranscription(payload.transcription) : null;
+    this.operationId = (payload.operationId);
+    this.id = (payload.id);
+    this.accountId = (payload.accountId);
+    this.transcriptionConfigurationId = (payload.transcriptionConfigurationId);
+    this.mediaUrl = (payload.mediaUrl);
+    this.sourceId = (payload.sourceId);
     this.audioStartedAt = deserialize.iso8601DateTime(payload.audioStartedAt);
-    this.conversationId = payload.conversationId;
-    this.participants =
-      payload.participants !== null && payload.participants !== undefined
-        ? payload.participants.map(
-            (payload: any) => new VoiceV3TranscriptionParticipant(payload)
-          )
-        : null;
+    this.conversationId = (payload.conversationId);
+    this.participants =  payload.participants !== null && payload.participants !== undefined ? payload.participants.map(
+      (payload: any) => new VoiceV3TranscriptionParticipant(payload)
+    ) : null;
     this.duration = deserialize.integer(payload.duration);
-    this.resolvedConfiguration =
-      payload.resolvedConfiguration !== null &&
-      payload.resolvedConfiguration !== undefined
-        ? new VoiceV3TranscriptionResolvedConfiguration(
-            payload.resolvedConfiguration
-          )
-        : null;
+    this.resolvedConfiguration = payload.resolvedConfiguration !== null && payload.resolvedConfiguration !== undefined ? new VoiceV3TranscriptionResolvedConfiguration(payload.resolvedConfiguration) : null;
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
-    this.url = payload.url;
-    this.links = payload.links;
+    this.url = (payload.url);
+    this.links = (payload.links);
 
-    this._solution = { transcriptionId: transcriptionId };
+    this._solution = { transcriptionId: transcriptionId,  };
   }
 
   /**
-   * Current status of the long-running operation. PENDING: accepted but not yet started. RUNNING: currently in progress. COMPLETED: successfully completed. FAILED: failed and cannot be completed.
+   * Current status of the long-running operation. PENDING: accepted but not yet started. RUNNING: currently in progress. COMPLETED: successfully completed. FAILED: failed and cannot be completed. 
    */
   status?: string;
   /**
-   * URI to poll for operation status. Mirrors the Location response header. Provided as a body field for programmatic access by JSON-parsing clients (RFC 9110 Section 15.3.3).
+   * URI to poll for operation status. Mirrors the Location response header. Provided as a body field for programmatic access by JSON-parsing clients (RFC 9110 Section 15.3.3). 
    */
   statusUrl?: string;
   transcription?: VoiceV3TranscriptionTranscription;
@@ -645,7 +604,7 @@ export class TranscriptionInstance {
    */
   sourceId?: string;
   /**
-   * The call/recording start time. When the transcription was created using a sourceId, this value is inferred from the recording resource\'s start time. When created using a mediaUrl, this reflects the value supplied by the caller.
+   * The call/recording start time. When the transcription was created using a sourceId, this value is inferred from the recording resource\'s start time. When created using a mediaUrl, this reflects the value supplied by the caller. 
    */
   audioStartedAt?: Date;
   /**
@@ -674,17 +633,12 @@ export class TranscriptionInstance {
    */
   url?: string;
   /**
-   * Absolute URLs of resources related to this Transcription. Includes `conversation`, the Conversations API resource for this Transcription\'s `conversationId`, once the transcript has been stored. Omitted entirely when there is no related resource to link to.
+   * Absolute URLs of resources related to this Transcription. Includes `conversation`, the Conversations API resource for this Transcription\'s `conversationId`, once the transcript has been stored. Omitted entirely when there is no related resource to link to. 
    */
   links?: Record<string, string>;
 
   private get _proxy(): TranscriptionContext {
-    this._context =
-      this._context ||
-      new TranscriptionContextImpl(
-        this._version,
-        this._solution.transcriptionId
-      );
+    this._context = this._context || new TranscriptionContextImpl(this._version, this._solution.transcriptionId);
     return this._context;
   }
 
@@ -695,9 +649,9 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance> {
+  fetch(callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -708,12 +662,9 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -750,15 +701,20 @@ export class TranscriptionInstance {
   }
 }
 
-export interface TranscriptionSolution {}
+
+export interface TranscriptionSolution {
+}
 
 export interface TranscriptionListInstance {
   _version: V3;
   _solution: TranscriptionSolution;
   _uri: string;
 
-  (transcriptionId: string): TranscriptionContext;
-  get(transcriptionId: string): TranscriptionContext;
+  (transcriptionId: string, ): TranscriptionContext;
+  get(transcriptionId: string, ): TranscriptionContext;
+
+
+
 
   /**
    * Create a TranscriptionInstance
@@ -769,11 +725,7 @@ export interface TranscriptionListInstance {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  create(
-    params: CreateV3TranscriptionsRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  create(params: CreateV3TranscriptionsRequest, headers?: any, callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
 
   /**
    * Create a TranscriptionInstance and return HTTP info
@@ -784,14 +736,10 @@ export interface TranscriptionListInstance {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: CreateV3TranscriptionsRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  createWithHttpInfo(params: CreateV3TranscriptionsRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>;
+
+
+
 
   /**
    * Streams TranscriptionInstance records from the API.
@@ -808,19 +756,8 @@ export interface TranscriptionListInstance {
    * @param { TranscriptionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: TranscriptionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: TranscriptionListInstanceEachOptions,
-    callback?: (
-      item: TranscriptionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void): void;
+  each(params: TranscriptionListInstanceEachOptions, callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams TranscriptionInstance records from the API with HTTP metadata captured per page.
    *
@@ -836,19 +773,8 @@ export interface TranscriptionListInstance {
    * @param { TranscriptionListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: TranscriptionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: TranscriptionListInstanceEachOptions,
-    callback?: (
-      item: TranscriptionInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: TranscriptionListInstanceEachOptions, callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of TranscriptionInstance records from the API.
    *
@@ -857,10 +783,7 @@ export interface TranscriptionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: TranscriptionPage) => any
-  ): Promise<TranscriptionPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: TranscriptionPage) => any): Promise<TranscriptionPage>;
   /**
    * Retrieve a single target page of TranscriptionInstance records from the API with HTTP metadata.
    *
@@ -869,13 +792,7 @@ export interface TranscriptionListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TranscriptionPage>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<TranscriptionPage>) => any): Promise<ApiResponse<TranscriptionPage>>;
   /**
    * Lists TranscriptionInstance records from the API as a list.
    *
@@ -885,13 +802,8 @@ export interface TranscriptionListInstance {
    * @param { TranscriptionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: TranscriptionInstance[]) => any
-  ): Promise<TranscriptionInstance[]>;
-  list(
-    params: TranscriptionListInstanceOptions,
-    callback?: (error: Error | null, items: TranscriptionInstance[]) => any
-  ): Promise<TranscriptionInstance[]>;
+  list(callback?: (error: Error | null, items: TranscriptionInstance[]) => any): Promise<TranscriptionInstance[]>;
+  list(params: TranscriptionListInstanceOptions, callback?: (error: Error | null, items: TranscriptionInstance[]) => any): Promise<TranscriptionInstance[]>;
   /**
    * Lists TranscriptionInstance records from the API as a list with HTTP metadata.
    *
@@ -903,19 +815,8 @@ export interface TranscriptionListInstance {
    * @param { TranscriptionListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TranscriptionInstance[]>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance[]>>;
-  listWithHttpInfo(
-    params: TranscriptionListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TranscriptionInstance[]>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<TranscriptionInstance[]>) => any): Promise<ApiResponse<TranscriptionInstance[]>>;
+  listWithHttpInfo(params: TranscriptionListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<TranscriptionInstance[]>) => any): Promise<ApiResponse<TranscriptionInstance[]>>;
   /**
    * Retrieve a single page of TranscriptionInstance records from the API.
    *
@@ -927,13 +828,8 @@ export interface TranscriptionListInstance {
    * @param { TranscriptionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: TranscriptionPage) => any
-  ): Promise<TranscriptionPage>;
-  page(
-    params: TranscriptionListInstancePageOptions,
-    callback?: (error: Error | null, items: TranscriptionPage) => any
-  ): Promise<TranscriptionPage>;
+  page(callback?: (error: Error | null, items: TranscriptionPage) => any): Promise<TranscriptionPage>;
+  page(params: TranscriptionListInstancePageOptions, callback?: (error: Error | null, items: TranscriptionPage) => any): Promise<TranscriptionPage>;
   /**
    * Retrieve a single page of TranscriptionInstance records from the API with HTTP metadata.
    *
@@ -945,19 +841,9 @@ export interface TranscriptionListInstance {
    * @param { TranscriptionListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TranscriptionPage>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionPage>>;
-  pageWithHttpInfo(
-    params: TranscriptionListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TranscriptionPage>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<TranscriptionPage>) => any): Promise<ApiResponse<TranscriptionPage>>;
+  pageWithHttpInfo(params: TranscriptionListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<TranscriptionPage>) => any): Promise<ApiResponse<TranscriptionPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -966,111 +852,79 @@ export interface TranscriptionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function TranscriptionListInstance(
-  version: V3
-): TranscriptionListInstance {
-  const instance = ((transcriptionId) =>
-    instance.get(transcriptionId)) as TranscriptionListInstance;
+export function TranscriptionListInstance(version: V3): TranscriptionListInstance {
+  const instance = ((transcriptionId, ) => instance.get(transcriptionId, )) as TranscriptionListInstance;
 
-  instance.get = function get(transcriptionId): TranscriptionContext {
+  instance.get = function get(transcriptionId, ): TranscriptionContext {
     return new TranscriptionContextImpl(version, transcriptionId);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Transcriptions`;
 
-  instance.create = function create(
-    params: CreateV3TranscriptionsRequest,
-    headers?: any,
-    callback?: (error: Error | null, items: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance> {
+  instance.create = function create(params: CreateV3TranscriptionsRequest, headers?: any, callback?: (error: Error | null, items: TranscriptionInstance) => any): Promise<TranscriptionInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new TranscriptionInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new TranscriptionInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: CreateV3TranscriptionsRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: CreateV3TranscriptionsRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<TranscriptionResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<TranscriptionInstance> => ({
-          ...response,
-          body: new TranscriptionInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<TranscriptionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<TranscriptionInstance> => ({
+      ...response,
+      body: new TranscriptionInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | TranscriptionListInstancePageOptions
-      | ((error: Error | null, items: TranscriptionPage) => any),
-    callback?: (error: Error | null, items: TranscriptionPage) => any
-  ): Promise<TranscriptionPage> {
+
+    }
+
+  instance.page = function page(params?: TranscriptionListInstancePageOptions | ((error: Error | null, items: TranscriptionPage) => any), callback?: (error: Error | null, items: TranscriptionPage) => any): Promise<TranscriptionPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1080,83 +934,54 @@ export function TranscriptionListInstance(
 
     let data: any = {};
 
-    if (params["createdAfter"] !== undefined)
-      data["createdAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
+        if (params["createdAfter"] !== undefined)
+    data["createdAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
     if (params["createdBefore"] !== undefined)
-      data["createdBefore"] = serialize.iso8601DateTime(
-        params["createdBefore"]
-      );
+    data["createdBefore"] = serialize.iso8601DateTime(params["createdBefore"]);
     if (params["languageCode"] !== undefined)
-      data["languageCode"] = params["languageCode"];
-    if (params["sourceId"] !== undefined) data["sourceId"] = params["sourceId"];
-    if (params["status"] !== undefined) data["status"] = params["status"];
-    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
+    data["languageCode"] = params["languageCode"];
+    if (params["sourceId"] !== undefined)
+    data["sourceId"] = params["sourceId"];
+    if (params["status"] !== undefined)
+    data["status"] = params["status"];
+    if (params["pageSize"] !== undefined)
+    data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-      data["pageToken"] = params["pageToken"];
+    data["pageToken"] = params["pageToken"];
 
+    
+    
+    
+
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
-
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TranscriptionPage(
-          operationVersion,
-          payload,
-          instance._uri,
-          data,
-          instance._solution
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new TranscriptionPage(operationVersion, payload, instance._uri, data, instance._solution));
+    
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: TranscriptionPage) => any
-  ): Promise<TranscriptionPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new TranscriptionPage(
-          instance._version,
-          payload,
-          instance._uri,
-          {},
-          instance._solution
-        )
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: TranscriptionPage) => any): Promise<TranscriptionPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new TranscriptionPage(instance._version, payload, instance._uri, {}, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | TranscriptionListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<TranscriptionPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TranscriptionPage>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: TranscriptionListInstancePageOptions | ((error: Error | null, items: ApiResponse<TranscriptionPage>) => any), callback?: (error: Error | null, items: ApiResponse<TranscriptionPage>) => any): Promise<ApiResponse<TranscriptionPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -1166,134 +991,104 @@ export function TranscriptionListInstance(
 
     let data: any = {};
 
-    if (params["createdAfter"] !== undefined)
-      data["createdAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
+        if (params["createdAfter"] !== undefined)
+    data["createdAfter"] = serialize.iso8601DateTime(params["createdAfter"]);
     if (params["createdBefore"] !== undefined)
-      data["createdBefore"] = serialize.iso8601DateTime(
-        params["createdBefore"]
-      );
+    data["createdBefore"] = serialize.iso8601DateTime(params["createdBefore"]);
     if (params["languageCode"] !== undefined)
-      data["languageCode"] = params["languageCode"];
-    if (params["sourceId"] !== undefined) data["sourceId"] = params["sourceId"];
-    if (params["status"] !== undefined) data["status"] = params["status"];
-    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
+    data["languageCode"] = params["languageCode"];
+    if (params["sourceId"] !== undefined)
+    data["sourceId"] = params["sourceId"];
+    if (params["status"] !== undefined)
+    data["status"] = params["status"];
+    if (params["pageSize"] !== undefined)
+    data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-      data["pageToken"] = params["pageToken"];
+    data["pageToken"] = params["pageToken"];
 
+    
+    
+    
+
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<TranscriptionPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new TranscriptionPage(
-            operationVersion,
-            response,
-            instance._uri,
-            data,
-            instance._solution
-          ),
-        })
-      );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<TranscriptionPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new TranscriptionPage(operationVersion, response, instance._uri, data, instance._solution)
+    }));
+    
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<TranscriptionPage>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<TranscriptionPage>) => any): Promise<ApiResponse<TranscriptionPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<TranscriptionPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new TranscriptionPage(
-          instance._version,
-          response,
-          instance._uri,
-          {},
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<TranscriptionPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new TranscriptionPage(instance._version, response, instance._uri, {}, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-export class TranscriptionPage extends TokenPage<
-  V3,
-  TranscriptionPayload,
-  TranscriptionResource,
-  TranscriptionInstance
-> {
-  /**
-   * Initialize the TranscriptionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param uri - URI of the resource
-   * @param params - Query parameters
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V3,
-    response: Response<string>,
-    uri: string,
-    params: any,
-    solution: TranscriptionSolution
-  ) {
+export class TranscriptionPage extends TokenPage<V3, TranscriptionPayload, TranscriptionResource, TranscriptionInstance> {
+/**
+* Initialize the TranscriptionPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param uri - URI of the resource
+* @param params - Query parameters
+* @param solution - Path solution
+*/
+constructor(version: V3, response: Response<string>, uri: string, params: any, solution: TranscriptionSolution) {
     super(version, response, uri, params, solution);
-  }
+    }
 
-  /**
-   * Build an instance of TranscriptionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TranscriptionResource): TranscriptionInstance {
-    return new TranscriptionInstance(this._version, payload);
-  }
+    /**
+    * Build an instance of TranscriptionInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: TranscriptionResource): TranscriptionInstance {
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    return new TranscriptionInstance(
+    this._version,
+    payload,
+    );
+    }
+
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

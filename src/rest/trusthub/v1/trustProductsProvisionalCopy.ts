@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -19,7 +20,12 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+
+
+
+
 export interface TrustProductsProvisionalCopyContext {
+
   /**
    * Create a TrustProductsProvisionalCopyInstance
    *
@@ -27,12 +33,7 @@ export interface TrustProductsProvisionalCopyContext {
    *
    * @returns Resolves to processed TrustProductsProvisionalCopyInstance
    */
-  create(
-    callback?: (
-      error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance
-    ) => any
-  ): Promise<TrustProductsProvisionalCopyInstance>;
+  create(callback?: (error: Error | null, item?: TrustProductsProvisionalCopyInstance) => any): Promise<TrustProductsProvisionalCopyInstance>
 
   /**
    * Create a TrustProductsProvisionalCopyInstance and return HTTP info
@@ -41,12 +42,7 @@ export interface TrustProductsProvisionalCopyContext {
    *
    * @returns Resolves to processed TrustProductsProvisionalCopyInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrustProductsProvisionalCopyInstance>) => any): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>>
 
   /**
    * Fetch a TrustProductsProvisionalCopyInstance
@@ -55,12 +51,7 @@ export interface TrustProductsProvisionalCopyContext {
    *
    * @returns Resolves to processed TrustProductsProvisionalCopyInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance
-    ) => any
-  ): Promise<TrustProductsProvisionalCopyInstance>;
+  fetch(callback?: (error: Error | null, item?: TrustProductsProvisionalCopyInstance) => any): Promise<TrustProductsProvisionalCopyInstance>
 
   /**
    * Fetch a TrustProductsProvisionalCopyInstance and return HTTP info
@@ -69,12 +60,7 @@ export interface TrustProductsProvisionalCopyContext {
    *
    * @returns Resolves to processed TrustProductsProvisionalCopyInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrustProductsProvisionalCopyInstance>) => any): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>>
 
   /**
    * Provide a user-friendly representation
@@ -84,160 +70,91 @@ export interface TrustProductsProvisionalCopyContext {
 }
 
 export interface TrustProductsProvisionalCopyContextSolution {
-  trustProductSid: string;
+  "trustProductSid": string;
 }
 
-export class TrustProductsProvisionalCopyContextImpl
-  implements TrustProductsProvisionalCopyContext
-{
+export class TrustProductsProvisionalCopyContextImpl implements TrustProductsProvisionalCopyContext {
   protected _solution: TrustProductsProvisionalCopyContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V1, trustProductSid: string) {
     if (!isValidPathParam(trustProductSid)) {
-      throw new Error("Parameter 'trustProductSid' is not valid.");
+      throw new Error('Parameter \'trustProductSid\' is not valid.');
     }
 
-    this._solution = { trustProductSid };
+    this._solution = { trustProductSid,  };
     this._uri = `/TrustProducts/${trustProductSid}/ProvisionalCopy`;
   }
 
-  create(
-    callback?: (
-      error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance
-    ) => any
-  ): Promise<TrustProductsProvisionalCopyInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  create(callback?: (error: Error | null, item?: TrustProductsProvisionalCopyInstance) => any): Promise<TrustProductsProvisionalCopyInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", headers});
+    
+    operationPromise = operationPromise.then(payload => new TrustProductsProvisionalCopyInstance(operationVersion, payload, instance._solution.trustProductSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TrustProductsProvisionalCopyInstance(
-          operationVersion,
-          payload,
-          instance._solution.trustProductSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrustProductsProvisionalCopyInstance>) => any): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<TrustProductsProvisionalCopyResource>({
-        uri: instance._uri,
-        method: "post",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<TrustProductsProvisionalCopyInstance> => ({
-          ...response,
-          body: new TrustProductsProvisionalCopyInstance(
-            operationVersion,
-            response.body,
-            instance._solution.trustProductSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<TrustProductsProvisionalCopyResource>({ uri: instance._uri, method: "post", headers}).then((response) : ApiResponse<TrustProductsProvisionalCopyInstance> => ({
+      ...response,
+      body: new TrustProductsProvisionalCopyInstance(operationVersion, response.body, instance._solution.trustProductSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance
-    ) => any
-  ): Promise<TrustProductsProvisionalCopyInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: TrustProductsProvisionalCopyInstance) => any): Promise<TrustProductsProvisionalCopyInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new TrustProductsProvisionalCopyInstance(operationVersion, payload, instance._solution.trustProductSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TrustProductsProvisionalCopyInstance(
-          operationVersion,
-          payload,
-          instance._solution.trustProductSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrustProductsProvisionalCopyInstance>) => any): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<TrustProductsProvisionalCopyResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<TrustProductsProvisionalCopyInstance> => ({
-          ...response,
-          body: new TrustProductsProvisionalCopyInstance(
-            operationVersion,
-            response.body,
-            instance._solution.trustProductSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<TrustProductsProvisionalCopyResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<TrustProductsProvisionalCopyInstance> => ({
+      ...response,
+      body: new TrustProductsProvisionalCopyInstance(operationVersion, response.body, instance._solution.trustProductSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -254,8 +171,8 @@ export class TrustProductsProvisionalCopyContextImpl
   }
 }
 
-interface TrustProductsProvisionalCopyPayload
-  extends TrustProductsProvisionalCopyResource {}
+
+  interface TrustProductsProvisionalCopyPayload extends TrustProductsProvisionalCopyResource {}
 
 interface TrustProductsProvisionalCopyResource {
   trust_product_sid: string;
@@ -275,24 +192,21 @@ export class TrustProductsProvisionalCopyInstance {
   protected _solution: TrustProductsProvisionalCopyContextSolution;
   protected _context?: TrustProductsProvisionalCopyContext;
 
-  constructor(
-    protected _version: V1,
-    payload: TrustProductsProvisionalCopyResource,
-    trustProductSid?: string
-  ) {
-    this.trustProductSid = payload.trust_product_sid;
-    this.accountSid = payload.account_sid;
-    this.policySid = payload.policy_sid;
-    this.friendlyName = payload.friendly_name;
-    this.status = payload.status;
-    this.email = payload.email;
-    this.statusCallback = payload.status_callback;
+  constructor(protected _version: V1, payload: TrustProductsProvisionalCopyResource, trustProductSid?: string) {
+    
+    this.trustProductSid = (payload.trust_product_sid);
+    this.accountSid = (payload.account_sid);
+    this.policySid = (payload.policy_sid);
+    this.friendlyName = (payload.friendly_name);
+    this.status = (payload.status);
+    this.email = (payload.email);
+    this.statusCallback = (payload.status_callback);
     this.validUntil = deserialize.iso8601DateTime(payload.valid_until);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = payload.url;
+    this.url = (payload.url);
 
-    this._solution = { trustProductSid: trustProductSid };
+    this._solution = { trustProductSid: trustProductSid || this.trustProductSid,  };
   }
 
   /**
@@ -341,12 +255,7 @@ export class TrustProductsProvisionalCopyInstance {
   url: string;
 
   private get _proxy(): TrustProductsProvisionalCopyContext {
-    this._context =
-      this._context ||
-      new TrustProductsProvisionalCopyContextImpl(
-        this._version,
-        this._solution.trustProductSid
-      );
+    this._context = this._context || new TrustProductsProvisionalCopyContextImpl(this._version, this._solution.trustProductSid);
     return this._context;
   }
 
@@ -357,12 +266,9 @@ export class TrustProductsProvisionalCopyInstance {
    *
    * @returns Resolves to processed TrustProductsProvisionalCopyInstance
    */
-  create(
-    callback?: (
-      error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance
-    ) => any
-  ): Promise<TrustProductsProvisionalCopyInstance> {
+  create(callback?: (error: Error | null, item?: TrustProductsProvisionalCopyInstance) => any): Promise<TrustProductsProvisionalCopyInstance>
+
+    {
     return this._proxy.create(callback);
   }
 
@@ -373,12 +279,9 @@ export class TrustProductsProvisionalCopyInstance {
    *
    * @returns Resolves to processed TrustProductsProvisionalCopyInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>> {
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrustProductsProvisionalCopyInstance>) => any): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>>
+
+    {
     return this._proxy.createWithHttpInfo(callback);
   }
 
@@ -389,12 +292,9 @@ export class TrustProductsProvisionalCopyInstance {
    *
    * @returns Resolves to processed TrustProductsProvisionalCopyInstance
    */
-  fetch(
-    callback?: (
-      error: Error | null,
-      item?: TrustProductsProvisionalCopyInstance
-    ) => any
-  ): Promise<TrustProductsProvisionalCopyInstance> {
+  fetch(callback?: (error: Error | null, item?: TrustProductsProvisionalCopyInstance) => any): Promise<TrustProductsProvisionalCopyInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -405,12 +305,9 @@ export class TrustProductsProvisionalCopyInstance {
    *
    * @returns Resolves to processed TrustProductsProvisionalCopyInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TrustProductsProvisionalCopyInstance>
-    ) => any
-  ): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TrustProductsProvisionalCopyInstance>) => any): Promise<ApiResponse<TrustProductsProvisionalCopyInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -440,15 +337,22 @@ export class TrustProductsProvisionalCopyInstance {
   }
 }
 
-export interface TrustProductsProvisionalCopySolution {}
+
+export interface TrustProductsProvisionalCopySolution {
+}
 
 export interface TrustProductsProvisionalCopyListInstance {
   _version: V1;
   _solution: TrustProductsProvisionalCopySolution;
   _uri: string;
 
-  (trustProductSid: string): TrustProductsProvisionalCopyContext;
-  get(trustProductSid: string): TrustProductsProvisionalCopyContext;
+  (trustProductSid: string, ): TrustProductsProvisionalCopyContext;
+  get(trustProductSid: string, ): TrustProductsProvisionalCopyContext;
+
+
+
+
+
 
   /**
    * Provide a user-friendly representation
@@ -457,35 +361,26 @@ export interface TrustProductsProvisionalCopyListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function TrustProductsProvisionalCopyListInstance(
-  version: V1
-): TrustProductsProvisionalCopyListInstance {
-  const instance = ((trustProductSid) =>
-    instance.get(trustProductSid)) as TrustProductsProvisionalCopyListInstance;
+export function TrustProductsProvisionalCopyListInstance(version: V1): TrustProductsProvisionalCopyListInstance {
+  const instance = ((trustProductSid, ) => instance.get(trustProductSid, )) as TrustProductsProvisionalCopyListInstance;
 
-  instance.get = function get(
-    trustProductSid
-  ): TrustProductsProvisionalCopyContext {
-    return new TrustProductsProvisionalCopyContextImpl(
-      version,
-      trustProductSid
-    );
-  };
+  instance.get = function get(trustProductSid, ): TrustProductsProvisionalCopyContext {
+    return new TrustProductsProvisionalCopyContextImpl(version, trustProductSid);
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

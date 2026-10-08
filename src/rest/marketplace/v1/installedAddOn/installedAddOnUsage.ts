@@ -12,12 +12,14 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
+
 
 export class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
   /**
@@ -31,6 +33,7 @@ export class MarketplaceV1InstalledAddOnInstalledAddOnUsage {
     this.billableItems = payload["billable_items"];
   }
 }
+
 
 export class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
   /**
@@ -53,13 +56,16 @@ export class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems {
   }
 }
 
+
+
 /**
  * Options to pass to create a InstalledAddOnUsageInstance
  */
 export interface InstalledAddOnUsageListInstanceCreateOptions {
   /**  */
-  marketplaceV1InstalledAddOnInstalledAddOnUsage: MarketplaceV1InstalledAddOnInstalledAddOnUsage;
+  "marketplaceV1InstalledAddOnInstalledAddOnUsage": MarketplaceV1InstalledAddOnInstalledAddOnUsage;
 }
+
 
 export interface InstalledAddOnUsageSolution {
   installedAddOnSid: string;
@@ -70,6 +76,8 @@ export interface InstalledAddOnUsageListInstance {
   _solution: InstalledAddOnUsageSolution;
   _uri: string;
 
+
+
   /**
    * Create a InstalledAddOnUsageInstance
    *
@@ -79,11 +87,7 @@ export interface InstalledAddOnUsageListInstance {
    *
    * @returns Resolves to processed InstalledAddOnUsageInstance
    */
-  create(
-    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
-    headers?: any,
-    callback?: (error: Error | null, item?: InstalledAddOnUsageInstance) => any
-  ): Promise<InstalledAddOnUsageInstance>;
+  create(params: MarketplaceV1InstalledAddOnInstalledAddOnUsage, headers?: any, callback?: (error: Error | null, item?: InstalledAddOnUsageInstance) => any): Promise<InstalledAddOnUsageInstance>;
 
   /**
    * Create a InstalledAddOnUsageInstance and return HTTP info
@@ -94,14 +98,9 @@ export interface InstalledAddOnUsageListInstance {
    *
    * @returns Resolves to processed InstalledAddOnUsageInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<InstalledAddOnUsageInstance>
-    ) => any
-  ): Promise<ApiResponse<InstalledAddOnUsageInstance>>;
+  createWithHttpInfo(params: MarketplaceV1InstalledAddOnInstalledAddOnUsage, headers?: any, callback?: (error: Error | null, item?: ApiResponse<InstalledAddOnUsageInstance>) => any): Promise<ApiResponse<InstalledAddOnUsageInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -110,129 +109,90 @@ export interface InstalledAddOnUsageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function InstalledAddOnUsageListInstance(
-  version: V1,
-  installedAddOnSid: string
-): InstalledAddOnUsageListInstance {
+export function InstalledAddOnUsageListInstance(version: V1, installedAddOnSid: string): InstalledAddOnUsageListInstance {
   if (!isValidPathParam(installedAddOnSid)) {
-    throw new Error("Parameter 'installedAddOnSid' is not valid.");
+    throw new Error('Parameter \'installedAddOnSid\' is not valid.');
   }
 
   const instance = {} as InstalledAddOnUsageListInstance;
 
   instance._version = version;
-  instance._solution = { installedAddOnSid };
+  instance._solution = { installedAddOnSid,  };
   instance._uri = `/InstalledAddOns/${installedAddOnSid}/Usage`;
 
-  instance.create = function create(
-    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
-    headers?: any,
-    callback?: (error: Error | null, items: InstalledAddOnUsageInstance) => any
-  ): Promise<InstalledAddOnUsageInstance> {
+  instance.create = function create(params: MarketplaceV1InstalledAddOnInstalledAddOnUsage, headers?: any, callback?: (error: Error | null, items: InstalledAddOnUsageInstance) => any): Promise<InstalledAddOnUsageInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new InstalledAddOnUsageInstance(operationVersion, payload, instance._solution.installedAddOnSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new InstalledAddOnUsageInstance(
-          operationVersion,
-          payload,
-          instance._solution.installedAddOnSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<InstalledAddOnUsageInstance>
-    ) => any
-  ): Promise<ApiResponse<InstalledAddOnUsageInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: MarketplaceV1InstalledAddOnInstalledAddOnUsage, headers?: any, callback?: (error: Error | null, items: ApiResponse<InstalledAddOnUsageInstance>) => any): Promise<ApiResponse<InstalledAddOnUsageInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<InstalledAddOnUsageResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<InstalledAddOnUsageInstance> => ({
-          ...response,
-          body: new InstalledAddOnUsageInstance(
-            operationVersion,
-            response.body,
-            instance._solution.installedAddOnSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<InstalledAddOnUsageResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<InstalledAddOnUsageInstance> => ({
+      ...response,
+      body: new InstalledAddOnUsageInstance(operationVersion, response.body, instance._solution.installedAddOnSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface InstalledAddOnUsagePayload extends InstalledAddOnUsageResource {}
+  interface InstalledAddOnUsagePayload extends InstalledAddOnUsageResource {}
 
 interface InstalledAddOnUsageResource {
   total_submitted: number;
@@ -240,21 +200,14 @@ interface InstalledAddOnUsageResource {
 }
 
 export class InstalledAddOnUsageInstance {
-  constructor(
-    protected _version: V1,
-    payload: InstalledAddOnUsageResource,
-    installedAddOnSid: string
-  ) {
-    this.totalSubmitted = payload.total_submitted;
-    this.billableItems =
-      payload.billable_items !== null && payload.billable_items !== undefined
-        ? payload.billable_items.map(
-            (payload: any) =>
-              new MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(
-                payload
-              )
-          )
-        : null;
+
+  constructor(protected _version: V1, payload: InstalledAddOnUsageResource, installedAddOnSid: string) {
+    
+    this.totalSubmitted = (payload.total_submitted);
+    this.billableItems =  payload.billable_items !== null && payload.billable_items !== undefined ? payload.billable_items.map(
+      (payload: any) => new MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(payload)
+    ) : null;
+
   }
 
   /**
@@ -279,3 +232,5 @@ export class InstalledAddOnUsageInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

@@ -12,12 +12,14 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
+
 
 export class ApprovePasskeysChallengeRequest {
   /**
@@ -46,6 +48,7 @@ export class ApprovePasskeysChallengeRequest {
     this.response = payload["response"];
   }
 }
+
 
 /**
  * The result of a WebAuthn authentication via a `navigator.credentials.get()` request, as specified in [AuthenticatorAttestationResponse](https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAttestationResponse).
@@ -76,13 +79,16 @@ export class ApprovePasskeysChallengeRequestResponse {
   }
 }
 
+
+
 /**
  * Options to pass to update a ApproveChallengeInstance
  */
 export interface ApproveChallengeListInstanceUpdateOptions {
   /**  */
-  approvePasskeysChallengeRequest: ApprovePasskeysChallengeRequest;
+  "approvePasskeysChallengeRequest": ApprovePasskeysChallengeRequest;
 }
+
 
 export interface ApproveChallengeSolution {
   serviceSid: string;
@@ -93,6 +99,8 @@ export interface ApproveChallengeListInstance {
   _solution: ApproveChallengeSolution;
   _uri: string;
 
+
+
   /**
    * Update a ApproveChallengeInstance
    *
@@ -102,11 +110,7 @@ export interface ApproveChallengeListInstance {
    *
    * @returns Resolves to processed ApproveChallengeInstance
    */
-  update(
-    params: ApprovePasskeysChallengeRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: ApproveChallengeInstance) => any
-  ): Promise<ApproveChallengeInstance>;
+  update(params: ApprovePasskeysChallengeRequest, headers?: any, callback?: (error: Error | null, item?: ApproveChallengeInstance) => any): Promise<ApproveChallengeInstance>;
 
   /**
    * Update a ApproveChallengeInstance and return HTTP info
@@ -117,14 +121,9 @@ export interface ApproveChallengeListInstance {
    *
    * @returns Resolves to processed ApproveChallengeInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: ApprovePasskeysChallengeRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<ApproveChallengeInstance>
-    ) => any
-  ): Promise<ApiResponse<ApproveChallengeInstance>>;
+  updateWithHttpInfo(params: ApprovePasskeysChallengeRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ApproveChallengeInstance>) => any): Promise<ApiResponse<ApproveChallengeInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -133,129 +132,90 @@ export interface ApproveChallengeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ApproveChallengeListInstance(
-  version: V2,
-  serviceSid: string
-): ApproveChallengeListInstance {
+export function ApproveChallengeListInstance(version: V2, serviceSid: string): ApproveChallengeListInstance {
   if (!isValidPathParam(serviceSid)) {
-    throw new Error("Parameter 'serviceSid' is not valid.");
+    throw new Error('Parameter \'serviceSid\' is not valid.');
   }
 
   const instance = {} as ApproveChallengeListInstance;
 
   instance._version = version;
-  instance._solution = { serviceSid };
+  instance._solution = { serviceSid,  };
   instance._uri = `/Services/${serviceSid}/Passkeys/ApproveChallenge`;
 
-  instance.update = function update(
-    params: ApprovePasskeysChallengeRequest,
-    headers?: any,
-    callback?: (error: Error | null, items: ApproveChallengeInstance) => any
-  ): Promise<ApproveChallengeInstance> {
+  instance.update = function update(params: ApprovePasskeysChallengeRequest, headers?: any, callback?: (error: Error | null, items: ApproveChallengeInstance) => any): Promise<ApproveChallengeInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new ApproveChallengeInstance(operationVersion, payload, instance._solution.serviceSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new ApproveChallengeInstance(
-          operationVersion,
-          payload,
-          instance._solution.serviceSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.updateWithHttpInfo = function updateWithHttpInfo(
-    params: ApprovePasskeysChallengeRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<ApproveChallengeInstance>
-    ) => any
-  ): Promise<ApiResponse<ApproveChallengeInstance>> {
+
+    }
+
+  instance.updateWithHttpInfo = function updateWithHttpInfo(params: ApprovePasskeysChallengeRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<ApproveChallengeInstance>) => any): Promise<ApiResponse<ApproveChallengeInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<ApproveChallengeResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<ApproveChallengeInstance> => ({
-          ...response,
-          body: new ApproveChallengeInstance(
-            operationVersion,
-            response.body,
-            instance._solution.serviceSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<ApproveChallengeResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ApproveChallengeInstance> => ({
+      ...response,
+      body: new ApproveChallengeInstance(operationVersion, response.body, instance._solution.serviceSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface ApproveChallengePayload extends ApproveChallengeResource {}
+  interface ApproveChallengePayload extends ApproveChallengeResource {}
 
 interface ApproveChallengeResource {
   sid: string;
@@ -280,30 +240,29 @@ interface ApproveChallengeResource {
 }
 
 export class ApproveChallengeInstance {
-  constructor(
-    protected _version: V2,
-    payload: ApproveChallengeResource,
-    serviceSid: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.serviceSid = payload.service_sid;
-    this.entitySid = payload.entity_sid;
-    this.identity = payload.identity;
-    this.factorSid = payload.factor_sid;
+
+  constructor(protected _version: V2, payload: ApproveChallengeResource, serviceSid: string) {
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.serviceSid = (payload.service_sid);
+    this.entitySid = (payload.entity_sid);
+    this.identity = (payload.identity);
+    this.factorSid = (payload.factor_sid);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.dateResponded = deserialize.iso8601DateTime(payload.date_responded);
     this.expirationDate = deserialize.iso8601DateTime(payload.expiration_date);
-    this.status = payload.status;
-    this.respondedReason = payload.responded_reason;
-    this.details = payload.details;
-    this.hiddenDetails = payload.hidden_details;
-    this.metadata = payload.metadata;
-    this.factorType = payload.factor_type;
-    this.url = payload.url;
-    this.links = payload.links;
-    this.options = payload.options;
+    this.status = (payload.status);
+    this.respondedReason = (payload.responded_reason);
+    this.details = (payload.details);
+    this.hiddenDetails = (payload.hidden_details);
+    this.metadata = (payload.metadata);
+    this.factorType = (payload.factor_type);
+    this.url = (payload.url);
+    this.links = (payload.links);
+    this.options = (payload.options);
+
   }
 
   /**
@@ -416,3 +375,5 @@ export class ApproveChallengeInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

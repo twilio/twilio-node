@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../base/Page";
@@ -22,17 +23,19 @@ const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
 
+
 /**
  * The type of Billing Period. Can be `ready` or `active`.
  */
-export type BillingPeriodBpType = "ready" | "active";
+export type BillingPeriodBpType = 'ready'|'active';
+
 
 /**
  * Options to pass to each
  */
 export interface BillingPeriodListInstanceEachOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: BillingPeriodInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -46,22 +49,25 @@ export interface BillingPeriodListInstanceEachOptions {
  */
 export interface BillingPeriodListInstanceOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface BillingPeriodListInstancePageOptions {
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface BillingPeriodSolution {
   simSid: string;
@@ -71,6 +77,9 @@ export interface BillingPeriodListInstance {
   _version: V1;
   _solution: BillingPeriodSolution;
   _uri: string;
+
+
+
 
   /**
    * Streams BillingPeriodInstance records from the API.
@@ -87,19 +96,8 @@ export interface BillingPeriodListInstance {
    * @param { BillingPeriodListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (
-      item: BillingPeriodInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  each(
-    params: BillingPeriodListInstanceEachOptions,
-    callback?: (
-      item: BillingPeriodInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  each(callback?: (item: BillingPeriodInstance, done: (err?: Error) => void) => void): void;
+  each(params: BillingPeriodListInstanceEachOptions, callback?: (item: BillingPeriodInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams BillingPeriodInstance records from the API with HTTP metadata captured per page.
    *
@@ -115,19 +113,8 @@ export interface BillingPeriodListInstance {
    * @param { BillingPeriodListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (
-      item: BillingPeriodInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
-  eachWithHttpInfo(
-    params: BillingPeriodListInstanceEachOptions,
-    callback?: (
-      item: BillingPeriodInstance,
-      done: (err?: Error) => void
-    ) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: BillingPeriodInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: BillingPeriodListInstanceEachOptions, callback?: (item: BillingPeriodInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of BillingPeriodInstance records from the API.
    *
@@ -136,10 +123,7 @@ export interface BillingPeriodListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: BillingPeriodPage) => any
-  ): Promise<BillingPeriodPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: BillingPeriodPage) => any): Promise<BillingPeriodPage>;
   /**
    * Retrieve a single target page of BillingPeriodInstance records from the API with HTTP metadata.
    *
@@ -148,13 +132,7 @@ export interface BillingPeriodListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BillingPeriodPage>
-    ) => any
-  ): Promise<ApiResponse<BillingPeriodPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<BillingPeriodPage>) => any): Promise<ApiResponse<BillingPeriodPage>>;
   /**
    * Lists BillingPeriodInstance records from the API as a list.
    *
@@ -164,13 +142,8 @@ export interface BillingPeriodListInstance {
    * @param { BillingPeriodListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
-  ): Promise<BillingPeriodInstance[]>;
-  list(
-    params: BillingPeriodListInstanceOptions,
-    callback?: (error: Error | null, items: BillingPeriodInstance[]) => any
-  ): Promise<BillingPeriodInstance[]>;
+  list(callback?: (error: Error | null, items: BillingPeriodInstance[]) => any): Promise<BillingPeriodInstance[]>;
+  list(params: BillingPeriodListInstanceOptions, callback?: (error: Error | null, items: BillingPeriodInstance[]) => any): Promise<BillingPeriodInstance[]>;
   /**
    * Lists BillingPeriodInstance records from the API as a list with HTTP metadata.
    *
@@ -182,19 +155,8 @@ export interface BillingPeriodListInstance {
    * @param { BillingPeriodListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BillingPeriodInstance[]>
-    ) => any
-  ): Promise<ApiResponse<BillingPeriodInstance[]>>;
-  listWithHttpInfo(
-    params: BillingPeriodListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BillingPeriodInstance[]>
-    ) => any
-  ): Promise<ApiResponse<BillingPeriodInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<BillingPeriodInstance[]>) => any): Promise<ApiResponse<BillingPeriodInstance[]>>;
+  listWithHttpInfo(params: BillingPeriodListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<BillingPeriodInstance[]>) => any): Promise<ApiResponse<BillingPeriodInstance[]>>;
   /**
    * Retrieve a single page of BillingPeriodInstance records from the API.
    *
@@ -206,13 +168,8 @@ export interface BillingPeriodListInstance {
    * @param { BillingPeriodListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: BillingPeriodPage) => any
-  ): Promise<BillingPeriodPage>;
-  page(
-    params: BillingPeriodListInstancePageOptions,
-    callback?: (error: Error | null, items: BillingPeriodPage) => any
-  ): Promise<BillingPeriodPage>;
+  page(callback?: (error: Error | null, items: BillingPeriodPage) => any): Promise<BillingPeriodPage>;
+  page(params: BillingPeriodListInstancePageOptions, callback?: (error: Error | null, items: BillingPeriodPage) => any): Promise<BillingPeriodPage>;
   /**
    * Retrieve a single page of BillingPeriodInstance records from the API with HTTP metadata.
    *
@@ -224,19 +181,9 @@ export interface BillingPeriodListInstance {
    * @param { BillingPeriodListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BillingPeriodPage>
-    ) => any
-  ): Promise<ApiResponse<BillingPeriodPage>>;
-  pageWithHttpInfo(
-    params: BillingPeriodListInstancePageOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BillingPeriodPage>
-    ) => any
-  ): Promise<ApiResponse<BillingPeriodPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<BillingPeriodPage>) => any): Promise<ApiResponse<BillingPeriodPage>>;
+  pageWithHttpInfo(params: BillingPeriodListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<BillingPeriodPage>) => any): Promise<ApiResponse<BillingPeriodPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -245,26 +192,18 @@ export interface BillingPeriodListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BillingPeriodListInstance(
-  version: V1,
-  simSid: string
-): BillingPeriodListInstance {
+export function BillingPeriodListInstance(version: V1, simSid: string): BillingPeriodListInstance {
   if (!isValidPathParam(simSid)) {
-    throw new Error("Parameter 'simSid' is not valid.");
+    throw new Error('Parameter \'simSid\' is not valid.');
   }
 
   const instance = {} as BillingPeriodListInstance;
 
   instance._version = version;
-  instance._solution = { simSid };
+  instance._solution = { simSid,  };
   instance._uri = `/Sims/${simSid}/BillingPeriods`;
 
-  instance.page = function page(
-    params?:
-      | BillingPeriodListInstancePageOptions
-      | ((error: Error | null, items: BillingPeriodPage) => any),
-    callback?: (error: Error | null, items: BillingPeriodPage) => any
-  ): Promise<BillingPeriodPage> {
+  instance.page = function page(params?: BillingPeriodListInstancePageOptions | ((error: Error | null, items: BillingPeriodPage) => any), callback?: (error: Error | null, items: BillingPeriodPage) => any): Promise<BillingPeriodPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -274,62 +213,44 @@ export function BillingPeriodListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new BillingPeriodPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BillingPeriodPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: BillingPeriodPage) => any
-  ): Promise<BillingPeriodPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new BillingPeriodPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: BillingPeriodPage) => any): Promise<BillingPeriodPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new BillingPeriodPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | BillingPeriodListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<BillingPeriodPage>) => any),
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<BillingPeriodPage>
-    ) => any
-  ): Promise<ApiResponse<BillingPeriodPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: BillingPeriodListInstancePageOptions | ((error: Error | null, items: ApiResponse<BillingPeriodPage>) => any), callback?: (error: Error | null, items: ApiResponse<BillingPeriodPage>) => any): Promise<ApiResponse<BillingPeriodPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -339,88 +260,67 @@ export function BillingPeriodListInstance(
 
     let data: any = {};
 
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+        if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<BillingPeriodPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new BillingPeriodPage(
-            operationVersion,
-            response,
-            instance._solution
-          ),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<BillingPeriodPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new BillingPeriodPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (
-      error: Error | null,
-      items?: ApiResponse<BillingPeriodPage>
-    ) => any
-  ): Promise<ApiResponse<BillingPeriodPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<BillingPeriodPage>) => any): Promise<ApiResponse<BillingPeriodPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<BillingPeriodPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new BillingPeriodPage(
-          instance._version,
-          response,
-          instance._solution
-        ),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<BillingPeriodPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new BillingPeriodPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface BillingPeriodPayload extends TwilioResponsePayload {
-  billing_periods: BillingPeriodResource[];
+  interface BillingPeriodPayload extends TwilioResponsePayload {
+    billing_periods: BillingPeriodResource[];
 }
 
 interface BillingPeriodResource {
@@ -435,19 +335,18 @@ interface BillingPeriodResource {
 }
 
 export class BillingPeriodInstance {
-  constructor(
-    protected _version: V1,
-    payload: BillingPeriodResource,
-    simSid: string
-  ) {
-    this.sid = payload.sid;
-    this.accountSid = payload.account_sid;
-    this.simSid = payload.sim_sid;
+
+  constructor(protected _version: V1, payload: BillingPeriodResource, simSid: string) {
+    
+    this.sid = (payload.sid);
+    this.accountSid = (payload.account_sid);
+    this.simSid = (payload.sim_sid);
     this.startTime = deserialize.iso8601DateTime(payload.start_time);
     this.endTime = deserialize.iso8601DateTime(payload.end_time);
     this.periodType = payload.period_type;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
+
   }
 
   /**
@@ -503,41 +402,34 @@ export class BillingPeriodInstance {
   }
 }
 
-export class BillingPeriodPage extends Page<
-  V1,
-  BillingPeriodPayload,
-  BillingPeriodResource,
-  BillingPeriodInstance
-> {
-  /**
-   * Initialize the BillingPeriodPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V1,
-    response: Response<string>,
-    solution: BillingPeriodSolution
-  ) {
+export class BillingPeriodPage extends Page<V1, BillingPeriodPayload, BillingPeriodResource, BillingPeriodInstance> {
+/**
+* Initialize the BillingPeriodPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V1, response: Response<string>, solution: BillingPeriodSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of BillingPeriodInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: BillingPeriodResource): BillingPeriodInstance {
+    /**
+    * Build an instance of BillingPeriodInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: BillingPeriodResource): BillingPeriodInstance {
+
     return new BillingPeriodInstance(
-      this._version,
-      payload,
-      this._solution.simSid
+    this._version,
+    payload,
+        this._solution.simSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

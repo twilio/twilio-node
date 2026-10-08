@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -30,20 +31,22 @@ import { TodayListInstance } from "./record/today";
 import { YearlyListInstance } from "./record/yearly";
 import { YesterdayListInstance } from "./record/yesterday";
 
+
+
 /**
  * Options to pass to each
  */
 export interface RecordListInstanceEachOptions {
   /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
-  category?: string;
+  "category"?: string;
   /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account. */
-  includeSubaccounts?: boolean;
+  "includeSubaccounts"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: RecordInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -57,38 +60,41 @@ export interface RecordListInstanceEachOptions {
  */
 export interface RecordListInstanceOptions {
   /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
-  category?: string;
+  "category"?: string;
   /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account. */
-  includeSubaccounts?: boolean;
+  "includeSubaccounts"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface RecordListInstancePageOptions {
   /** The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved. */
-  category?: string;
+  "category"?: string;
   /** Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date. */
-  startDate?: Date;
+  "startDate"?: Date;
   /** Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date. */
-  endDate?: Date;
+  "endDate"?: Date;
   /** Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account. */
-  includeSubaccounts?: boolean;
+  "includeSubaccounts"?: boolean;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface RecordSolution {
   accountSid: string;
@@ -98,6 +104,7 @@ export interface RecordListInstance {
   _version: V2010;
   _solution: RecordSolution;
   _uri: string;
+
 
   _allTime?: AllTimeListInstance;
   allTime: AllTimeListInstance;
@@ -116,6 +123,7 @@ export interface RecordListInstance {
   _yesterday?: YesterdayListInstance;
   yesterday: YesterdayListInstance;
 
+
   /**
    * Streams RecordInstance records from the API.
    *
@@ -131,13 +139,8 @@ export interface RecordListInstance {
    * @param { RecordListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: RecordInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: RecordListInstanceEachOptions,
-    callback?: (item: RecordInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: RecordInstance, done: (err?: Error) => void) => void): void;
+  each(params: RecordListInstanceEachOptions, callback?: (item: RecordInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams RecordInstance records from the API with HTTP metadata captured per page.
    *
@@ -153,13 +156,8 @@ export interface RecordListInstance {
    * @param { RecordListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: RecordInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: RecordListInstanceEachOptions,
-    callback?: (item: RecordInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: RecordInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: RecordListInstanceEachOptions, callback?: (item: RecordInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of RecordInstance records from the API.
    *
@@ -168,10 +166,7 @@ export interface RecordListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: RecordPage) => any
-  ): Promise<RecordPage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: RecordPage) => any): Promise<RecordPage>;
   /**
    * Retrieve a single target page of RecordInstance records from the API with HTTP metadata.
    *
@@ -180,10 +175,7 @@ export interface RecordListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any
-  ): Promise<ApiResponse<RecordPage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any): Promise<ApiResponse<RecordPage>>;
   /**
    * Lists RecordInstance records from the API as a list.
    *
@@ -193,13 +185,8 @@ export interface RecordListInstance {
    * @param { RecordListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: RecordInstance[]) => any
-  ): Promise<RecordInstance[]>;
-  list(
-    params: RecordListInstanceOptions,
-    callback?: (error: Error | null, items: RecordInstance[]) => any
-  ): Promise<RecordInstance[]>;
+  list(callback?: (error: Error | null, items: RecordInstance[]) => any): Promise<RecordInstance[]>;
+  list(params: RecordListInstanceOptions, callback?: (error: Error | null, items: RecordInstance[]) => any): Promise<RecordInstance[]>;
   /**
    * Lists RecordInstance records from the API as a list with HTTP metadata.
    *
@@ -211,19 +198,8 @@ export interface RecordListInstance {
    * @param { RecordListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<RecordInstance[]>
-    ) => any
-  ): Promise<ApiResponse<RecordInstance[]>>;
-  listWithHttpInfo(
-    params: RecordListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<RecordInstance[]>
-    ) => any
-  ): Promise<ApiResponse<RecordInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<RecordInstance[]>) => any): Promise<ApiResponse<RecordInstance[]>>;
+  listWithHttpInfo(params: RecordListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<RecordInstance[]>) => any): Promise<ApiResponse<RecordInstance[]>>;
   /**
    * Retrieve a single page of RecordInstance records from the API.
    *
@@ -235,13 +211,8 @@ export interface RecordListInstance {
    * @param { RecordListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: RecordPage) => any
-  ): Promise<RecordPage>;
-  page(
-    params: RecordListInstancePageOptions,
-    callback?: (error: Error | null, items: RecordPage) => any
-  ): Promise<RecordPage>;
+  page(callback?: (error: Error | null, items: RecordPage) => any): Promise<RecordPage>;
+  page(params: RecordListInstancePageOptions, callback?: (error: Error | null, items: RecordPage) => any): Promise<RecordPage>;
   /**
    * Retrieve a single page of RecordInstance records from the API with HTTP metadata.
    *
@@ -253,13 +224,9 @@ export interface RecordListInstance {
    * @param { RecordListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any
-  ): Promise<ApiResponse<RecordPage>>;
-  pageWithHttpInfo(
-    params: RecordListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any
-  ): Promise<ApiResponse<RecordPage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any): Promise<ApiResponse<RecordPage>>;
+  pageWithHttpInfo(params: RecordListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any): Promise<ApiResponse<RecordPage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -268,122 +235,90 @@ export interface RecordListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function RecordListInstance(
-  version: V2010,
-  accountSid: string
-): RecordListInstance {
+export function RecordListInstance(version: V2010, accountSid: string): RecordListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   const instance = {} as RecordListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid };
+  instance._solution = { accountSid,  };
   instance._uri = `/Accounts/${accountSid}/Usage/Records.json`;
 
   Object.defineProperty(instance, "allTime", {
     get: function allTime() {
       if (!instance._allTime) {
-        instance._allTime = AllTimeListInstance(
-          instance._version,
-          instance._solution.accountSid
-        );
+        instance._allTime = AllTimeListInstance(instance._version, instance._solution.accountSid);
       }
       return instance._allTime;
-    },
+    }
   });
 
   Object.defineProperty(instance, "daily", {
     get: function daily() {
       if (!instance._daily) {
-        instance._daily = DailyListInstance(
-          instance._version,
-          instance._solution.accountSid
-        );
+        instance._daily = DailyListInstance(instance._version, instance._solution.accountSid);
       }
       return instance._daily;
-    },
+    }
   });
 
   Object.defineProperty(instance, "lastMonth", {
     get: function lastMonth() {
       if (!instance._lastMonth) {
-        instance._lastMonth = LastMonthListInstance(
-          instance._version,
-          instance._solution.accountSid
-        );
+        instance._lastMonth = LastMonthListInstance(instance._version, instance._solution.accountSid);
       }
       return instance._lastMonth;
-    },
+    }
   });
 
   Object.defineProperty(instance, "monthly", {
     get: function monthly() {
       if (!instance._monthly) {
-        instance._monthly = MonthlyListInstance(
-          instance._version,
-          instance._solution.accountSid
-        );
+        instance._monthly = MonthlyListInstance(instance._version, instance._solution.accountSid);
       }
       return instance._monthly;
-    },
+    }
   });
 
   Object.defineProperty(instance, "thisMonth", {
     get: function thisMonth() {
       if (!instance._thisMonth) {
-        instance._thisMonth = ThisMonthListInstance(
-          instance._version,
-          instance._solution.accountSid
-        );
+        instance._thisMonth = ThisMonthListInstance(instance._version, instance._solution.accountSid);
       }
       return instance._thisMonth;
-    },
+    }
   });
 
   Object.defineProperty(instance, "today", {
     get: function today() {
       if (!instance._today) {
-        instance._today = TodayListInstance(
-          instance._version,
-          instance._solution.accountSid
-        );
+        instance._today = TodayListInstance(instance._version, instance._solution.accountSid);
       }
       return instance._today;
-    },
+    }
   });
 
   Object.defineProperty(instance, "yearly", {
     get: function yearly() {
       if (!instance._yearly) {
-        instance._yearly = YearlyListInstance(
-          instance._version,
-          instance._solution.accountSid
-        );
+        instance._yearly = YearlyListInstance(instance._version, instance._solution.accountSid);
       }
       return instance._yearly;
-    },
+    }
   });
 
   Object.defineProperty(instance, "yesterday", {
     get: function yesterday() {
       if (!instance._yesterday) {
-        instance._yesterday = YesterdayListInstance(
-          instance._version,
-          instance._solution.accountSid
-        );
+        instance._yesterday = YesterdayListInstance(instance._version, instance._solution.accountSid);
       }
       return instance._yesterday;
-    },
+    }
   });
 
-  instance.page = function page(
-    params?:
-      | RecordListInstancePageOptions
-      | ((error: Error | null, items: RecordPage) => any),
-    callback?: (error: Error | null, items: RecordPage) => any
-  ): Promise<RecordPage> {
+  instance.page = function page(params?: RecordListInstancePageOptions | ((error: Error | null, items: RecordPage) => any), callback?: (error: Error | null, items: RecordPage) => any): Promise<RecordPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -393,65 +328,52 @@ export function RecordListInstance(
 
     let data: any = {};
 
-    if (params["category"] !== undefined) data["Category"] = params["category"];
+        if (params["category"] !== undefined)
+    data["Category"] = params["category"];
     if (params["startDate"] !== undefined)
-      data["StartDate"] = serialize.iso8601Date(params["startDate"]);
+    data["StartDate"] = serialize.iso8601Date(params["startDate"]);
     if (params["endDate"] !== undefined)
-      data["EndDate"] = serialize.iso8601Date(params["endDate"]);
+    data["EndDate"] = serialize.iso8601Date(params["endDate"]);
     if (params["includeSubaccounts"] !== undefined)
-      data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new RecordPage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new RecordPage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: RecordPage) => any
-  ): Promise<RecordPage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new RecordPage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: RecordPage) => any): Promise<RecordPage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new RecordPage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | RecordListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<RecordPage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any
-  ): Promise<ApiResponse<RecordPage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: RecordListInstancePageOptions | ((error: Error | null, items: ApiResponse<RecordPage>) => any), callback?: (error: Error | null, items: ApiResponse<RecordPage>) => any): Promise<ApiResponse<RecordPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -461,84 +383,75 @@ export function RecordListInstance(
 
     let data: any = {};
 
-    if (params["category"] !== undefined) data["Category"] = params["category"];
+        if (params["category"] !== undefined)
+    data["Category"] = params["category"];
     if (params["startDate"] !== undefined)
-      data["StartDate"] = serialize.iso8601Date(params["startDate"]);
+    data["StartDate"] = serialize.iso8601Date(params["startDate"]);
     if (params["endDate"] !== undefined)
-      data["EndDate"] = serialize.iso8601Date(params["endDate"]);
+    data["EndDate"] = serialize.iso8601Date(params["endDate"]);
     if (params["includeSubaccounts"] !== undefined)
-      data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["IncludeSubaccounts"] = serialize.bool(params["includeSubaccounts"]);
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<RecordPage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new RecordPage(operationVersion, response, instance._solution),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<RecordPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new RecordPage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<RecordPage>) => any
-  ): Promise<ApiResponse<RecordPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<RecordPage>) => any): Promise<ApiResponse<RecordPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<RecordPage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new RecordPage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<RecordPage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new RecordPage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface RecordPayload extends TwilioResponsePayload {
-  usage_records: RecordResource[];
+  interface RecordPayload extends TwilioResponsePayload {
+    usage_records: RecordResource[];
 }
 
 interface RecordResource {
@@ -560,26 +473,25 @@ interface RecordResource {
 }
 
 export class RecordInstance {
-  constructor(
-    protected _version: V2010,
-    payload: RecordResource,
-    accountSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.apiVersion = payload.api_version;
-    this.asOf = payload.as_of;
-    this.category = payload.category;
-    this.count = payload.count;
-    this.countUnit = payload.count_unit;
-    this.description = payload.description;
+
+  constructor(protected _version: V2010, payload: RecordResource, accountSid: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.apiVersion = (payload.api_version);
+    this.asOf = (payload.as_of);
+    this.category = (payload.category);
+    this.count = (payload.count);
+    this.countUnit = (payload.count_unit);
+    this.description = (payload.description);
     this.endDate = deserialize.iso8601Date(payload.end_date);
-    this.price = payload.price;
-    this.priceUnit = payload.price_unit;
+    this.price = (payload.price);
+    this.priceUnit = (payload.price_unit);
     this.startDate = deserialize.iso8601Date(payload.start_date);
-    this.subresourceUris = payload.subresource_uris;
-    this.uri = payload.uri;
-    this.usage = payload.usage;
-    this.usageUnit = payload.usage_unit;
+    this.subresourceUris = (payload.subresource_uris);
+    this.uri = (payload.uri);
+    this.usage = (payload.usage);
+    this.usageUnit = (payload.usage_unit);
+
   }
 
   /**
@@ -673,41 +585,34 @@ export class RecordInstance {
   }
 }
 
-export class RecordPage extends Page<
-  V2010,
-  RecordPayload,
-  RecordResource,
-  RecordInstance
-> {
-  /**
-   * Initialize the RecordPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2010,
-    response: Response<string>,
-    solution: RecordSolution
-  ) {
+export class RecordPage extends Page<V2010, RecordPayload, RecordResource, RecordInstance> {
+/**
+* Initialize the RecordPage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: RecordSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of RecordInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RecordResource): RecordInstance {
+    /**
+    * Build an instance of RecordInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: RecordResource): RecordInstance {
+
     return new RecordInstance(
-      this._version,
-      payload,
-      this._solution.accountSid
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

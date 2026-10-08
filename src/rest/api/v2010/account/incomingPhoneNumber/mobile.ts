@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 
 import Page, { TwilioResponsePayload } from "../../../../../base/Page";
@@ -23,79 +24,75 @@ import { isValidPathParam } from "../../../../../base/utility";
 import { ApiResponse } from "../../../../../base/ApiResponse";
 import { PhoneNumberCapabilities } from "../../../../../interfaces";
 
+
 /**
  * Whether the phone number requires an [Address](https://www.twilio.com/docs/usage/api/address) registered with Twilio. Can be: `none`, `any`, `local`, or `foreign`.
  */
-export type MobileAddressRequirement = "none" | "any" | "local" | "foreign";
+export type MobileAddressRequirement = 'none'|'any'|'local'|'foreign';
 
 /**
  * The status of address registration with emergency services. A registered emergency address will be used during handling of emergency calls from this number.
  */
-export type MobileEmergencyAddressStatus =
-  | "registered"
-  | "unregistered"
-  | "pending-registration"
-  | "registration-failure"
-  | "pending-unregistration"
-  | "unregistration-failure";
+export type MobileEmergencyAddressStatus = 'registered'|'unregistered'|'pending-registration'|'registration-failure'|'pending-unregistration'|'unregistration-failure';
 
 /**
  * The parameter displays if emergency calling is enabled for this number. Active numbers may place emergency calls by dialing valid emergency numbers for the country.
  */
-export type MobileEmergencyStatus = "Active" | "Inactive";
+export type MobileEmergencyStatus = 'Active'|'Inactive';
 
-export type MobileVoiceReceiveMode = "voice" | "fax";
+export type MobileVoiceReceiveMode = 'voice'|'fax';
+
 
 /**
  * Options to pass to create a MobileInstance
  */
 export interface MobileListInstanceCreateOptions {
   /** The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234. */
-  phoneNumber: string;
+  "phoneNumber": string;
   /** The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`. */
-  apiVersion?: string;
+  "apiVersion"?: string;
   /** A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, the is a formatted version of the phone number. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those of the application. */
-  smsApplicationSid?: string;
+  "smsApplicationSid"?: string;
   /** The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`. */
-  smsFallbackMethod?: string;
+  "smsFallbackMethod"?: string;
   /** The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`. */
-  smsFallbackUrl?: string;
+  "smsFallbackUrl"?: string;
   /** The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`. */
-  smsMethod?: string;
+  "smsMethod"?: string;
   /** The URL we should call when the new phone number receives an incoming SMS message. */
-  smsUrl?: string;
+  "smsUrl"?: string;
   /** The URL we should call using the `status_callback_method` to send status information to your application. */
-  statusCallback?: string;
+  "statusCallback"?: string;
   /** The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`. */
-  statusCallbackMethod?: string;
+  "statusCallbackMethod"?: string;
   /** The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa. */
-  voiceApplicationSid?: string;
+  "voiceApplicationSid"?: string;
   /** Whether to lookup the caller\\\'s name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`. */
-  voiceCallerIdLookup?: boolean;
+  "voiceCallerIdLookup"?: boolean;
   /** The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`. */
-  voiceFallbackMethod?: string;
+  "voiceFallbackMethod"?: string;
   /** The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`. */
-  voiceFallbackUrl?: string;
+  "voiceFallbackUrl"?: string;
   /** The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`. */
-  voiceMethod?: string;
+  "voiceMethod"?: string;
   /** The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set. */
-  voiceUrl?: string;
+  "voiceUrl"?: string;
   /** The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations. */
-  identitySid?: string;
+  "identitySid"?: string;
   /** The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations. */
-  addressSid?: string;
+  "addressSid"?: string;
   /**  */
-  emergencyStatus?: MobileEmergencyStatus;
+  "emergencyStatus"?: MobileEmergencyStatus;
   /** The SID of the emergency address configuration to use for emergency calling from the new phone number. */
-  emergencyAddressSid?: string;
+  "emergencyAddressSid"?: string;
   /** The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa. */
-  trunkSid?: string;
+  "trunkSid"?: string;
   /**  */
-  voiceReceiveMode?: MobileVoiceReceiveMode;
+  "voiceReceiveMode"?: MobileVoiceReceiveMode;
   /** The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations. */
-  bundleSid?: string;
+  "bundleSid"?: string;
 }
 
 /**
@@ -103,15 +100,15 @@ export interface MobileListInstanceCreateOptions {
  */
 export interface MobileListInstanceEachOptions {
   /** Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
-  beta?: boolean;
+  "beta"?: boolean;
   /** A string that identifies the resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit. */
-  phoneNumber?: string;
+  "phoneNumber"?: string;
   /** Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included. */
-  origin?: string;
+  "origin"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: MobileInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -125,38 +122,41 @@ export interface MobileListInstanceEachOptions {
  */
 export interface MobileListInstanceOptions {
   /** Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
-  beta?: boolean;
+  "beta"?: boolean;
   /** A string that identifies the resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit. */
-  phoneNumber?: string;
+  "phoneNumber"?: string;
   /** Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included. */
-  origin?: string;
+  "origin"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
+
 
 /**
  * Options to pass to page
  */
 export interface MobileListInstancePageOptions {
   /** Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`. */
-  beta?: boolean;
+  "beta"?: boolean;
   /** A string that identifies the resources to read. */
-  friendlyName?: string;
+  "friendlyName"?: string;
   /** The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use \'*\' as a wildcard for any digit. */
-  phoneNumber?: string;
+  "phoneNumber"?: string;
   /** Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included. */
-  origin?: string;
+  "origin"?: string;
   /** How many resources to return in each list page. The default is 50, and the maximum is 1000. */
-  pageSize?: number;
+  "pageSize"?: number;
   /** Page Number, this value is simply for client state */
   pageNumber?: number;
   /** PageToken provided by the API */
   pageToken?: string;
 }
+
+
 
 export interface MobileSolution {
   accountSid: string;
@@ -167,6 +167,8 @@ export interface MobileListInstance {
   _solution: MobileSolution;
   _uri: string;
 
+
+
   /**
    * Create a MobileInstance
    *
@@ -175,10 +177,7 @@ export interface MobileListInstance {
    *
    * @returns Resolves to processed MobileInstance
    */
-  create(
-    params: MobileListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: MobileInstance) => any
-  ): Promise<MobileInstance>;
+  create(params: MobileListInstanceCreateOptions, callback?: (error: Error | null, item?: MobileInstance) => any): Promise<MobileInstance>;
 
   /**
    * Create a MobileInstance and return HTTP info
@@ -188,10 +187,10 @@ export interface MobileListInstance {
    *
    * @returns Resolves to processed MobileInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: MobileListInstanceCreateOptions,
-    callback?: (error: Error | null, item?: ApiResponse<MobileInstance>) => any
-  ): Promise<ApiResponse<MobileInstance>>;
+  createWithHttpInfo(params: MobileListInstanceCreateOptions, callback?: (error: Error | null, item?: ApiResponse<MobileInstance>) => any): Promise<ApiResponse<MobileInstance>>;
+
+
+
 
   /**
    * Streams MobileInstance records from the API.
@@ -208,13 +207,8 @@ export interface MobileListInstance {
    * @param { MobileListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  each(
-    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
-  ): void;
-  each(
-    params: MobileListInstanceEachOptions,
-    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
-  ): void;
+  each(callback?: (item: MobileInstance, done: (err?: Error) => void) => void): void;
+  each(params: MobileListInstanceEachOptions, callback?: (item: MobileInstance, done: (err?: Error) => void) => void): void;
   /**
    * Streams MobileInstance records from the API with HTTP metadata captured per page.
    *
@@ -230,13 +224,8 @@ export interface MobileListInstance {
    * @param { MobileListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(
-    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
-  ): void;
-  eachWithHttpInfo(
-    params: MobileListInstanceEachOptions,
-    callback?: (item: MobileInstance, done: (err?: Error) => void) => void
-  ): void;
+  eachWithHttpInfo(callback?: (item: MobileInstance, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(params: MobileListInstanceEachOptions, callback?: (item: MobileInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of MobileInstance records from the API.
    *
@@ -245,10 +234,7 @@ export interface MobileListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage>;
+  getPage(targetUrl: string, callback?: (error: Error | null, items: MobilePage) => any): Promise<MobilePage>;
   /**
    * Retrieve a single target page of MobileInstance records from the API with HTTP metadata.
    *
@@ -257,10 +243,7 @@ export interface MobileListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any
-  ): Promise<ApiResponse<MobilePage>>;
+  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any): Promise<ApiResponse<MobilePage>>;
   /**
    * Lists MobileInstance records from the API as a list.
    *
@@ -270,13 +253,8 @@ export interface MobileListInstance {
    * @param { MobileListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(
-    callback?: (error: Error | null, items: MobileInstance[]) => any
-  ): Promise<MobileInstance[]>;
-  list(
-    params: MobileListInstanceOptions,
-    callback?: (error: Error | null, items: MobileInstance[]) => any
-  ): Promise<MobileInstance[]>;
+  list(callback?: (error: Error | null, items: MobileInstance[]) => any): Promise<MobileInstance[]>;
+  list(params: MobileListInstanceOptions, callback?: (error: Error | null, items: MobileInstance[]) => any): Promise<MobileInstance[]>;
   /**
    * Lists MobileInstance records from the API as a list with HTTP metadata.
    *
@@ -288,19 +266,8 @@ export interface MobileListInstance {
    * @param { MobileListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<MobileInstance[]>
-    ) => any
-  ): Promise<ApiResponse<MobileInstance[]>>;
-  listWithHttpInfo(
-    params: MobileListInstanceOptions,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<MobileInstance[]>
-    ) => any
-  ): Promise<ApiResponse<MobileInstance[]>>;
+  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<MobileInstance[]>) => any): Promise<ApiResponse<MobileInstance[]>>;
+  listWithHttpInfo(params: MobileListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<MobileInstance[]>) => any): Promise<ApiResponse<MobileInstance[]>>;
   /**
    * Retrieve a single page of MobileInstance records from the API.
    *
@@ -312,13 +279,8 @@ export interface MobileListInstance {
    * @param { MobileListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage>;
-  page(
-    params: MobileListInstancePageOptions,
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage>;
+  page(callback?: (error: Error | null, items: MobilePage) => any): Promise<MobilePage>;
+  page(params: MobileListInstancePageOptions, callback?: (error: Error | null, items: MobilePage) => any): Promise<MobilePage>;
   /**
    * Retrieve a single page of MobileInstance records from the API with HTTP metadata.
    *
@@ -330,13 +292,9 @@ export interface MobileListInstance {
    * @param { MobileListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any
-  ): Promise<ApiResponse<MobilePage>>;
-  pageWithHttpInfo(
-    params: MobileListInstancePageOptions,
-    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any
-  ): Promise<ApiResponse<MobilePage>>;
+  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any): Promise<ApiResponse<MobilePage>>;
+  pageWithHttpInfo(params: MobileListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any): Promise<ApiResponse<MobilePage>>;
+
 
   /**
    * Provide a user-friendly representation
@@ -345,203 +303,175 @@ export interface MobileListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function MobileListInstance(
-  version: V2010,
-  accountSid: string
-): MobileListInstance {
+export function MobileListInstance(version: V2010, accountSid: string): MobileListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   const instance = {} as MobileListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid };
+  instance._solution = { accountSid,  };
   instance._uri = `/Accounts/${accountSid}/IncomingPhoneNumbers/Mobile.json`;
 
-  instance.create = function create(
-    params: MobileListInstanceCreateOptions,
-    callback?: (error: Error | null, items: MobileInstance) => any
-  ): Promise<MobileInstance> {
+  instance.create = function create(params: MobileListInstanceCreateOptions, callback?: (error: Error | null, items: MobileInstance) => any): Promise<MobileInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
-      throw new Error("Required parameter \"params['phoneNumber']\" missing.");
+      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["PhoneNumber"] = params["phoneNumber"];
     if (params["apiVersion"] !== undefined)
-      data["ApiVersion"] = params["apiVersion"];
+    data["ApiVersion"] = params["apiVersion"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["smsApplicationSid"] !== undefined)
-      data["SmsApplicationSid"] = params["smsApplicationSid"];
+    data["SmsApplicationSid"] = params["smsApplicationSid"];
     if (params["smsFallbackMethod"] !== undefined)
-      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsMethod"] !== undefined)
-      data["SmsMethod"] = params["smsMethod"];
-    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
+    data["SmsMethod"] = params["smsMethod"];
+    if (params["smsUrl"] !== undefined)
+    data["SmsUrl"] = params["smsUrl"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceApplicationSid"] !== undefined)
-      data["VoiceApplicationSid"] = params["voiceApplicationSid"];
+    data["VoiceApplicationSid"] = params["voiceApplicationSid"];
     if (params["voiceCallerIdLookup"] !== undefined)
-      data["VoiceCallerIdLookup"] = serialize.bool(
-        params["voiceCallerIdLookup"]
-      );
+    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
     if (params["voiceFallbackMethod"] !== undefined)
-      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceMethod"] !== undefined)
-      data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
+    data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceUrl"] !== undefined)
+    data["VoiceUrl"] = params["voiceUrl"];
     if (params["identitySid"] !== undefined)
-      data["IdentitySid"] = params["identitySid"];
+    data["IdentitySid"] = params["identitySid"];
     if (params["addressSid"] !== undefined)
-      data["AddressSid"] = params["addressSid"];
+    data["AddressSid"] = params["addressSid"];
     if (params["emergencyStatus"] !== undefined)
-      data["EmergencyStatus"] = params["emergencyStatus"];
+    data["EmergencyStatus"] = params["emergencyStatus"];
     if (params["emergencyAddressSid"] !== undefined)
-      data["EmergencyAddressSid"] = params["emergencyAddressSid"];
-    if (params["trunkSid"] !== undefined) data["TrunkSid"] = params["trunkSid"];
+    data["EmergencyAddressSid"] = params["emergencyAddressSid"];
+    if (params["trunkSid"] !== undefined)
+    data["TrunkSid"] = params["trunkSid"];
     if (params["voiceReceiveMode"] !== undefined)
-      data["VoiceReceiveMode"] = params["voiceReceiveMode"];
+    data["VoiceReceiveMode"] = params["voiceReceiveMode"];
     if (params["bundleSid"] !== undefined)
-      data["BundleSid"] = params["bundleSid"];
+    data["BundleSid"] = params["bundleSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new MobileInstance(operationVersion, payload, instance._solution.accountSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new MobileInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: MobileListInstanceCreateOptions,
-    callback?: (error: Error | null, items: ApiResponse<MobileInstance>) => any
-  ): Promise<ApiResponse<MobileInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: MobileListInstanceCreateOptions, callback?: (error: Error | null, items: ApiResponse<MobileInstance>) => any): Promise<ApiResponse<MobileInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     if (params["phoneNumber"] === null || params["phoneNumber"] === undefined) {
-      throw new Error("Required parameter \"params['phoneNumber']\" missing.");
+      throw new Error('Required parameter "params[\'phoneNumber\']" missing.');
     }
 
     let data: any = {};
 
+    
+        
     data["PhoneNumber"] = params["phoneNumber"];
     if (params["apiVersion"] !== undefined)
-      data["ApiVersion"] = params["apiVersion"];
+    data["ApiVersion"] = params["apiVersion"];
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["smsApplicationSid"] !== undefined)
-      data["SmsApplicationSid"] = params["smsApplicationSid"];
+    data["SmsApplicationSid"] = params["smsApplicationSid"];
     if (params["smsFallbackMethod"] !== undefined)
-      data["SmsFallbackMethod"] = params["smsFallbackMethod"];
+    data["SmsFallbackMethod"] = params["smsFallbackMethod"];
     if (params["smsFallbackUrl"] !== undefined)
-      data["SmsFallbackUrl"] = params["smsFallbackUrl"];
+    data["SmsFallbackUrl"] = params["smsFallbackUrl"];
     if (params["smsMethod"] !== undefined)
-      data["SmsMethod"] = params["smsMethod"];
-    if (params["smsUrl"] !== undefined) data["SmsUrl"] = params["smsUrl"];
+    data["SmsMethod"] = params["smsMethod"];
+    if (params["smsUrl"] !== undefined)
+    data["SmsUrl"] = params["smsUrl"];
     if (params["statusCallback"] !== undefined)
-      data["StatusCallback"] = params["statusCallback"];
+    data["StatusCallback"] = params["statusCallback"];
     if (params["statusCallbackMethod"] !== undefined)
-      data["StatusCallbackMethod"] = params["statusCallbackMethod"];
+    data["StatusCallbackMethod"] = params["statusCallbackMethod"];
     if (params["voiceApplicationSid"] !== undefined)
-      data["VoiceApplicationSid"] = params["voiceApplicationSid"];
+    data["VoiceApplicationSid"] = params["voiceApplicationSid"];
     if (params["voiceCallerIdLookup"] !== undefined)
-      data["VoiceCallerIdLookup"] = serialize.bool(
-        params["voiceCallerIdLookup"]
-      );
+    data["VoiceCallerIdLookup"] = serialize.bool(params["voiceCallerIdLookup"]);
     if (params["voiceFallbackMethod"] !== undefined)
-      data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
+    data["VoiceFallbackMethod"] = params["voiceFallbackMethod"];
     if (params["voiceFallbackUrl"] !== undefined)
-      data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
+    data["VoiceFallbackUrl"] = params["voiceFallbackUrl"];
     if (params["voiceMethod"] !== undefined)
-      data["VoiceMethod"] = params["voiceMethod"];
-    if (params["voiceUrl"] !== undefined) data["VoiceUrl"] = params["voiceUrl"];
+    data["VoiceMethod"] = params["voiceMethod"];
+    if (params["voiceUrl"] !== undefined)
+    data["VoiceUrl"] = params["voiceUrl"];
     if (params["identitySid"] !== undefined)
-      data["IdentitySid"] = params["identitySid"];
+    data["IdentitySid"] = params["identitySid"];
     if (params["addressSid"] !== undefined)
-      data["AddressSid"] = params["addressSid"];
+    data["AddressSid"] = params["addressSid"];
     if (params["emergencyStatus"] !== undefined)
-      data["EmergencyStatus"] = params["emergencyStatus"];
+    data["EmergencyStatus"] = params["emergencyStatus"];
     if (params["emergencyAddressSid"] !== undefined)
-      data["EmergencyAddressSid"] = params["emergencyAddressSid"];
-    if (params["trunkSid"] !== undefined) data["TrunkSid"] = params["trunkSid"];
+    data["EmergencyAddressSid"] = params["emergencyAddressSid"];
+    if (params["trunkSid"] !== undefined)
+    data["TrunkSid"] = params["trunkSid"];
     if (params["voiceReceiveMode"] !== undefined)
-      data["VoiceReceiveMode"] = params["voiceReceiveMode"];
+    data["VoiceReceiveMode"] = params["voiceReceiveMode"];
     if (params["bundleSid"] !== undefined)
-      data["BundleSid"] = params["bundleSid"];
+    data["BundleSid"] = params["bundleSid"];
 
+    
+    
+    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded";
-    headers["Accept"] = "application/json";
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<MobileResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<MobileInstance> => ({
-          ...response,
-          body: new MobileInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<MobileResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<MobileInstance> => ({
+      ...response,
+      body: new MobileInstance(operationVersion, response.body, instance._solution.accountSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.page = function page(
-    params?:
-      | MobileListInstancePageOptions
-      | ((error: Error | null, items: MobilePage) => any),
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage> {
+
+    }
+
+  instance.page = function page(params?: MobileListInstancePageOptions | ((error: Error | null, items: MobilePage) => any), callback?: (error: Error | null, items: MobilePage) => any): Promise<MobilePage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -551,65 +481,52 @@ export function MobileListInstance(
 
     let data: any = {};
 
-    if (params["beta"] !== undefined)
-      data["Beta"] = serialize.bool(params["beta"]);
+        if (params["beta"] !== undefined)
+    data["Beta"] = serialize.bool(params["beta"]);
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["phoneNumber"] !== undefined)
-      data["PhoneNumber"] = params["phoneNumber"];
-    if (params["origin"] !== undefined) data["Origin"] = params["origin"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["PhoneNumber"] = params["phoneNumber"];
+    if (params["origin"] !== undefined)
+    data["Origin"] = params["origin"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.page({
-        uri: instance._uri,
-        method: "get",
-        params: data,
-        headers,
-      });
+        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
+    
+    
+    operationPromise = operationPromise.then(payload => new MobilePage(operationVersion, payload, instance._solution));
 
-    operationPromise = operationPromise.then(
-      (payload) => new MobilePage(operationVersion, payload, instance._solution)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
 
+  
   instance.list = instance._version.list;
+  
 
-  instance.getPage = function getPage(
-    targetUrl: string,
-    callback?: (error: Error | null, items: MobilePage) => any
-  ): Promise<MobilePage> {
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
-    let pagePromise = operationPromise.then(
-      (payload) =>
-        new MobilePage(instance._version, payload, instance._solution)
-    );
+  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: MobilePage) => any): Promise<MobilePage> {
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    let pagePromise = operationPromise.then(payload => new MobilePage(instance._version, payload, instance._solution));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
 
-  instance.pageWithHttpInfo = function pageWithHttpInfo(
-    params?:
-      | MobileListInstancePageOptions
-      | ((error: Error | null, items: ApiResponse<MobilePage>) => any),
-    callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any
-  ): Promise<ApiResponse<MobilePage>> {
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: MobileListInstancePageOptions | ((error: Error | null, items: ApiResponse<MobilePage>) => any), callback?: (error: Error | null, items: ApiResponse<MobilePage>) => any): Promise<ApiResponse<MobilePage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -619,84 +536,75 @@ export function MobileListInstance(
 
     let data: any = {};
 
-    if (params["beta"] !== undefined)
-      data["Beta"] = serialize.bool(params["beta"]);
+        if (params["beta"] !== undefined)
+    data["Beta"] = serialize.bool(params["beta"]);
     if (params["friendlyName"] !== undefined)
-      data["FriendlyName"] = params["friendlyName"];
+    data["FriendlyName"] = params["friendlyName"];
     if (params["phoneNumber"] !== undefined)
-      data["PhoneNumber"] = params["phoneNumber"];
-    if (params["origin"] !== undefined) data["Origin"] = params["origin"];
-    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+    data["PhoneNumber"] = params["phoneNumber"];
+    if (params["origin"] !== undefined)
+    data["Origin"] = params["origin"];
+    if (params["pageSize"] !== undefined)
+    data["PageSize"] = params["pageSize"];
 
+    
+    
+    
     if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
     if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
 
+    
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
-
+    
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion
-      .page({ uri: instance._uri, method: "get", params: data, headers })
-      .then(
-        (response): ApiResponse<MobilePage> => ({
-          statusCode: response.statusCode,
-          headers: response.headers,
-          body: new MobilePage(operationVersion, response, instance._solution),
-        })
-      );
+    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<MobilePage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new MobilePage(operationVersion, response, instance._solution)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+  }
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
-
+  
   instance.list = instance._version.list;
   instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
-    targetUrl: string,
-    callback?: (error: Error | null, items?: ApiResponse<MobilePage>) => any
-  ): Promise<ApiResponse<MobilePage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<MobilePage>) => any): Promise<ApiResponse<MobilePage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({
-      method: "get",
-      uri: targetUrl,
-    });
+    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
 
-    let pagePromise = operationPromise.then(
-      (response): ApiResponse<MobilePage> => ({
-        statusCode: response.statusCode,
-        headers: response.headers,
-        body: new MobilePage(instance._version, response, instance._solution),
-      })
-    );
+    let pagePromise = operationPromise.then((response): ApiResponse<MobilePage> => ({
+      statusCode: response.statusCode,
+      headers: response.headers,
+      body: new MobilePage(instance._version, response, instance._solution)
+    }));
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  };
+  }
+
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface MobilePayload extends TwilioResponsePayload {
-  incoming_phone_numbers: MobileResource[];
+  interface MobilePayload extends TwilioResponsePayload {
+    incoming_phone_numbers: MobileResource[];
 }
 
 interface MobileResource {
@@ -737,45 +645,44 @@ interface MobileResource {
 }
 
 export class MobileInstance {
-  constructor(
-    protected _version: V2010,
-    payload: MobileResource,
-    accountSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.addressSid = payload.address_sid;
+
+  constructor(protected _version: V2010, payload: MobileResource, accountSid: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.addressSid = (payload.address_sid);
     this.addressRequirements = payload.address_requirements;
-    this.apiVersion = payload.api_version;
-    this.beta = payload.beta;
-    this.capabilities = payload.capabilities;
+    this.apiVersion = (payload.api_version);
+    this.beta = (payload.beta);
+    this.capabilities = (payload.capabilities);
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
-    this.friendlyName = payload.friendly_name;
-    this.identitySid = payload.identity_sid;
-    this.phoneNumber = payload.phone_number;
-    this.origin = payload.origin;
-    this.sid = payload.sid;
-    this.smsApplicationSid = payload.sms_application_sid;
-    this.smsFallbackMethod = payload.sms_fallback_method;
-    this.smsFallbackUrl = payload.sms_fallback_url;
-    this.smsMethod = payload.sms_method;
-    this.smsUrl = payload.sms_url;
-    this.statusCallback = payload.status_callback;
-    this.statusCallbackMethod = payload.status_callback_method;
-    this.trunkSid = payload.trunk_sid;
-    this.uri = payload.uri;
+    this.friendlyName = (payload.friendly_name);
+    this.identitySid = (payload.identity_sid);
+    this.phoneNumber = (payload.phone_number);
+    this.origin = (payload.origin);
+    this.sid = (payload.sid);
+    this.smsApplicationSid = (payload.sms_application_sid);
+    this.smsFallbackMethod = (payload.sms_fallback_method);
+    this.smsFallbackUrl = (payload.sms_fallback_url);
+    this.smsMethod = (payload.sms_method);
+    this.smsUrl = (payload.sms_url);
+    this.statusCallback = (payload.status_callback);
+    this.statusCallbackMethod = (payload.status_callback_method);
+    this.trunkSid = (payload.trunk_sid);
+    this.uri = (payload.uri);
     this.voiceReceiveMode = payload.voice_receive_mode;
-    this.voiceApplicationSid = payload.voice_application_sid;
-    this.voiceCallerIdLookup = payload.voice_caller_id_lookup;
-    this.voiceFallbackMethod = payload.voice_fallback_method;
-    this.voiceFallbackUrl = payload.voice_fallback_url;
-    this.voiceMethod = payload.voice_method;
-    this.voiceUrl = payload.voice_url;
+    this.voiceApplicationSid = (payload.voice_application_sid);
+    this.voiceCallerIdLookup = (payload.voice_caller_id_lookup);
+    this.voiceFallbackMethod = (payload.voice_fallback_method);
+    this.voiceFallbackUrl = (payload.voice_fallback_url);
+    this.voiceMethod = (payload.voice_method);
+    this.voiceUrl = (payload.voice_url);
     this.emergencyStatus = payload.emergency_status;
-    this.emergencyAddressSid = payload.emergency_address_sid;
+    this.emergencyAddressSid = (payload.emergency_address_sid);
     this.emergencyAddressStatus = payload.emergency_address_status;
-    this.bundleSid = payload.bundle_sid;
-    this.status = payload.status;
+    this.bundleSid = (payload.bundle_sid);
+    this.status = (payload.status);
+
   }
 
   /**
@@ -946,41 +853,34 @@ export class MobileInstance {
   }
 }
 
-export class MobilePage extends Page<
-  V2010,
-  MobilePayload,
-  MobileResource,
-  MobileInstance
-> {
-  /**
-   * Initialize the MobilePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(
-    version: V2010,
-    response: Response<string>,
-    solution: MobileSolution
-  ) {
+export class MobilePage extends Page<V2010, MobilePayload, MobileResource, MobileInstance> {
+/**
+* Initialize the MobilePage
+*
+* @param version - Version of the resource
+* @param response - Response from the API
+* @param solution - Path solution
+*/
+constructor(version: V2010, response: Response<string>, solution: MobileSolution) {
     super(version, response, solution);
-  }
+    }
 
-  /**
-   * Build an instance of MobileInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MobileResource): MobileInstance {
+    /**
+    * Build an instance of MobileInstance
+    *
+    * @param payload - Payload response from the API
+    */
+    getInstance(payload: MobileResource): MobileInstance {
+
     return new MobileInstance(
-      this._version,
-      payload,
-      this._solution.accountSid
+    this._version,
+    payload,
+        this._solution.accountSid,
     );
-  }
+    }
 
-  [inspect.custom](depth: any, options: InspectOptions) {
+    [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-  }
-}
+    }
+    }
+

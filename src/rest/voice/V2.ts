@@ -46,16 +46,13 @@ export default class V2 extends Version {
 
   /** Getter for accountDefaultConfiguration resource */
   get accountDefaultConfiguration(): AccountDefaultConfigurationListInstance {
-    this._accountDefaultConfiguration =
-      this._accountDefaultConfiguration ||
-      AccountDefaultConfigurationListInstance(this);
+    this._accountDefaultConfiguration = this._accountDefaultConfiguration || AccountDefaultConfigurationListInstance(this);
     return this._accountDefaultConfiguration;
   }
 
   /** Getter for configurations resource */
   get configurations(): ConfigurationListInstance {
-    this._configurations =
-      this._configurations || ConfigurationListInstance(this);
+    this._configurations = this._configurations || ConfigurationListInstance(this);
     return this._configurations;
   }
 
@@ -67,16 +64,13 @@ export default class V2 extends Version {
 
   /** Getter for recordingAccountDefaultConfiguration resource */
   get recordingAccountDefaultConfiguration(): RecordingAccountDefaultConfigurationListInstance {
-    this._recordingAccountDefaultConfiguration =
-      this._recordingAccountDefaultConfiguration ||
-      RecordingAccountDefaultConfigurationListInstance(this);
+    this._recordingAccountDefaultConfiguration = this._recordingAccountDefaultConfiguration || RecordingAccountDefaultConfigurationListInstance(this);
     return this._recordingAccountDefaultConfiguration;
   }
 
   /** Getter for transcription resource */
   get transcription(): TranscriptionListInstance {
-    this._transcription =
-      this._transcription || TranscriptionListInstance(this);
+    this._transcription = this._transcription || TranscriptionListInstance(this);
     return this._transcription;
   }
 
@@ -85,4 +79,5 @@ export default class V2 extends Version {
     this._type = this._type || TypeListInstance(this);
     return this._type;
   }
+
 }

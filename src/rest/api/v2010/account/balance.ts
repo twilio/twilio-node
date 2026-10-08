@@ -12,12 +12,17 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
+
+
+
+
 
 export interface BalanceSolution {
   accountSid: string;
@@ -28,6 +33,8 @@ export interface BalanceListInstance {
   _solution: BalanceSolution;
   _uri: string;
 
+
+
   /**
    * Fetch a BalanceInstance
    *
@@ -35,9 +42,7 @@ export interface BalanceListInstance {
    *
    * @returns Resolves to processed BalanceInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: BalanceInstance) => any
-  ): Promise<BalanceInstance>;
+  fetch(callback?: (error: Error | null, item?: BalanceInstance) => any): Promise<BalanceInstance>
 
   /**
    * Fetch a BalanceInstance and return HTTP info
@@ -46,9 +51,9 @@ export interface BalanceListInstance {
    *
    * @returns Resolves to processed BalanceInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<BalanceInstance>) => any
-  ): Promise<ApiResponse<BalanceInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<BalanceInstance>) => any): Promise<ApiResponse<BalanceInstance>>
+
+
 
   /**
    * Provide a user-friendly representation
@@ -57,96 +62,62 @@ export interface BalanceListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function BalanceListInstance(
-  version: V2010,
-  accountSid: string
-): BalanceListInstance {
+export function BalanceListInstance(version: V2010, accountSid: string): BalanceListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   const instance = {} as BalanceListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid };
+  instance._solution = { accountSid,  };
   instance._uri = `/Accounts/${accountSid}/Balance.json`;
 
-  instance.fetch = function fetch(
-    callback?: (error: Error | null, items: BalanceInstance) => any
-  ): Promise<BalanceInstance> {
+  instance.fetch = function fetch( callback?: (error: Error | null, items: BalanceInstance) => any): Promise<BalanceInstance> {
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new BalanceInstance(operationVersion, payload, instance._solution.accountSid));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new BalanceInstance(
-          operationVersion,
-          payload,
-          instance._solution.accountSid
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
-    callback?: (error: Error | null, items: ApiResponse<BalanceInstance>) => any
-  ): Promise<ApiResponse<BalanceInstance>> {
+
+    }
+
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo( callback?: (error: Error | null, items: ApiResponse<BalanceInstance>) => any): Promise<ApiResponse<BalanceInstance>> {
     const headers: any = {};
-    headers["Accept"] = "application/json";
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<BalanceResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<BalanceInstance> => ({
-          ...response,
-          body: new BalanceInstance(
-            operationVersion,
-            response.body,
-            instance._solution.accountSid
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<BalanceResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<BalanceInstance> => ({
+      ...response,
+      body: new BalanceInstance(operationVersion, response.body, instance._solution.accountSid)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface BalancePayload extends BalanceResource {}
+  interface BalancePayload extends BalanceResource {}
 
 interface BalanceResource {
   account_sid: string;
@@ -155,14 +126,13 @@ interface BalanceResource {
 }
 
 export class BalanceInstance {
-  constructor(
-    protected _version: V2010,
-    payload: BalanceResource,
-    accountSid: string
-  ) {
-    this.accountSid = payload.account_sid;
-    this.balance = payload.balance;
-    this.currency = payload.currency;
+
+  constructor(protected _version: V2010, payload: BalanceResource, accountSid: string) {
+    
+    this.accountSid = (payload.account_sid);
+    this.balance = (payload.balance);
+    this.currency = (payload.currency);
+
   }
 
   /**
@@ -195,3 +165,5 @@ export class BalanceInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

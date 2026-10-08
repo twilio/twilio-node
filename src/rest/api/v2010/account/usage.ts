@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2010 from "../../V2010";
 const deserialize = require("../../../../base/deserialize");
@@ -21,6 +22,9 @@ import { ApiResponse } from "../../../../base/ApiResponse";
 import { RecordListInstance } from "./usage/record";
 import { TriggerListInstance } from "./usage/trigger";
 
+
+
+
 export interface UsageSolution {
   accountSid: string;
 }
@@ -29,6 +33,7 @@ export interface UsageListInstance {
   _version: V2010;
   _solution: UsageSolution;
   _uri: string;
+
 
   _records?: RecordListInstance;
   records: RecordListInstance;
@@ -42,54 +47,44 @@ export interface UsageListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function UsageListInstance(
-  version: V2010,
-  accountSid: string
-): UsageListInstance {
+export function UsageListInstance(version: V2010, accountSid: string): UsageListInstance {
   if (!isValidPathParam(accountSid)) {
-    throw new Error("Parameter 'accountSid' is not valid.");
+    throw new Error('Parameter \'accountSid\' is not valid.');
   }
 
   const instance = {} as UsageListInstance;
 
   instance._version = version;
-  instance._solution = { accountSid };
+  instance._solution = { accountSid,  };
   instance._uri = `/Accounts/${accountSid}/Usage.json`;
 
   Object.defineProperty(instance, "records", {
     get: function records() {
       if (!instance._records) {
-        instance._records = RecordListInstance(
-          instance._version,
-          instance._solution.accountSid
-        );
+        instance._records = RecordListInstance(instance._version, instance._solution.accountSid);
       }
       return instance._records;
-    },
+    }
   });
 
   Object.defineProperty(instance, "triggers", {
     get: function triggers() {
       if (!instance._triggers) {
-        instance._triggers = TriggerListInstance(
-          instance._version,
-          instance._solution.accountSid
-        );
+        instance._triggers = TriggerListInstance(instance._version, instance._solution.accountSid);
       }
       return instance._triggers;
-    },
+    }
   });
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+

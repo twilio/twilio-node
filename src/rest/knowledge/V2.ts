@@ -45,10 +45,7 @@ export default class V2 extends Version {
   /** Accessor for knowledge resource - instance operations */
   knowledge(kbId: string, knowledgeId: string): KnowledgeContext;
   /** Implementation */
-  knowledge(
-    kbId: string,
-    knowledgeId?: string
-  ): KnowledgeListInstance | KnowledgeContext {
+  knowledge(kbId: string, knowledgeId?: string): KnowledgeListInstance | KnowledgeContext {
     const listInstance = KnowledgeListInstance(this, kbId);
     if (knowledgeId !== undefined) {
       return listInstance.get(knowledgeId);
@@ -58,8 +55,7 @@ export default class V2 extends Version {
 
   /** Getter for knowledgeBases resource */
   get knowledgeBases(): KnowledgeBasisListInstance {
-    this._knowledgeBases =
-      this._knowledgeBases || KnowledgeBasisListInstance(this);
+    this._knowledgeBases = this._knowledgeBases || KnowledgeBasisListInstance(this);
     return this._knowledgeBases;
   }
 
@@ -73,4 +69,5 @@ export default class V2 extends Version {
   search(kbId: string): SearchListInstance {
     return SearchListInstance(this, kbId);
   }
+
 }

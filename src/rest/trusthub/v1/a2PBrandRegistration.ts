@@ -12,12 +12,14 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
+
 
 export class TrusthubV1A2pBrandRegistrationRequest {
   /**
@@ -139,8 +141,7 @@ export class TrusthubV1A2pBrandRegistrationRequest {
     this.friendlyName = payload["friendlyName"];
     this.notificationEmail = payload["notificationEmail"];
     this.businessName = payload["businessName"];
-    this.businessRegistrationAuthority =
-      payload["businessRegistrationAuthority"];
+    this.businessRegistrationAuthority = payload["businessRegistrationAuthority"];
     this.businessRegistrationNumber = payload["businessRegistrationNumber"];
     this.businessIndustry = payload["businessIndustry"];
     this.businessWebsite = payload["businessWebsite"];
@@ -159,29 +160,33 @@ export class TrusthubV1A2pBrandRegistrationRequest {
     this.businessContactLastName = payload["businessContactLastName"];
     this.businessContactEmail = payload["businessContactEmail"];
     this.businessContactPhone = payload["businessContactPhone"];
-    this.authorizedContactVerificationEmail =
-      payload["authorizedContactVerificationEmail"];
-    this.authorizedContactMobilePhoneNumberE164 =
-      payload["authorizedContactMobilePhoneNumberE164"];
+    this.authorizedContactVerificationEmail = payload["authorizedContactVerificationEmail"];
+    this.authorizedContactMobilePhoneNumberE164 = payload["authorizedContactMobilePhoneNumberE164"];
     this.isTest = payload["isTest"];
     this.skipAutomaticSecVet = payload["skipAutomaticSecVet"];
   }
 }
+
+
 
 /**
  * Options to pass to create a A2PBrandRegistrationInstance
  */
 export interface A2PBrandRegistrationListInstanceCreateOptions {
   /**  */
-  trusthubV1A2PBrandRegistrationRequest: TrusthubV1A2pBrandRegistrationRequest;
+  "trusthubV1A2PBrandRegistrationRequest": TrusthubV1A2pBrandRegistrationRequest;
 }
 
-export interface A2PBrandRegistrationSolution {}
+
+export interface A2PBrandRegistrationSolution {
+}
 
 export interface A2PBrandRegistrationListInstance {
   _version: V1;
   _solution: A2PBrandRegistrationSolution;
   _uri: string;
+
+
 
   /**
    * Create a A2PBrandRegistrationInstance
@@ -192,11 +197,7 @@ export interface A2PBrandRegistrationListInstance {
    *
    * @returns Resolves to processed A2PBrandRegistrationInstance
    */
-  create(
-    params: TrusthubV1A2pBrandRegistrationRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: A2PBrandRegistrationInstance) => any
-  ): Promise<A2PBrandRegistrationInstance>;
+  create(params: TrusthubV1A2pBrandRegistrationRequest, headers?: any, callback?: (error: Error | null, item?: A2PBrandRegistrationInstance) => any): Promise<A2PBrandRegistrationInstance>;
 
   /**
    * Create a A2PBrandRegistrationInstance and return HTTP info
@@ -207,14 +208,9 @@ export interface A2PBrandRegistrationListInstance {
    *
    * @returns Resolves to processed A2PBrandRegistrationInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: TrusthubV1A2pBrandRegistrationRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<A2PBrandRegistrationInstance>
-    ) => any
-  ): Promise<ApiResponse<A2PBrandRegistrationInstance>>;
+  createWithHttpInfo(params: TrusthubV1A2pBrandRegistrationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<A2PBrandRegistrationInstance>) => any): Promise<ApiResponse<A2PBrandRegistrationInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -223,118 +219,86 @@ export interface A2PBrandRegistrationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function A2PBrandRegistrationListInstance(
-  version: V1
-): A2PBrandRegistrationListInstance {
+export function A2PBrandRegistrationListInstance(version: V1): A2PBrandRegistrationListInstance {
   const instance = {} as A2PBrandRegistrationListInstance;
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/A2PBrandRegistrations`;
 
-  instance.create = function create(
-    params: TrusthubV1A2pBrandRegistrationRequest,
-    headers?: any,
-    callback?: (error: Error | null, items: A2PBrandRegistrationInstance) => any
-  ): Promise<A2PBrandRegistrationInstance> {
+  instance.create = function create(params: TrusthubV1A2pBrandRegistrationRequest, headers?: any, callback?: (error: Error | null, items: A2PBrandRegistrationInstance) => any): Promise<A2PBrandRegistrationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new A2PBrandRegistrationInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new A2PBrandRegistrationInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params: TrusthubV1A2pBrandRegistrationRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<A2PBrandRegistrationInstance>
-    ) => any
-  ): Promise<ApiResponse<A2PBrandRegistrationInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params: TrusthubV1A2pBrandRegistrationRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<A2PBrandRegistrationInstance>) => any): Promise<ApiResponse<A2PBrandRegistrationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<A2PBrandRegistrationResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<A2PBrandRegistrationInstance> => ({
-          ...response,
-          body: new A2PBrandRegistrationInstance(
-            operationVersion,
-            response.body
-          ),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<A2PBrandRegistrationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<A2PBrandRegistrationInstance> => ({
+      ...response,
+      body: new A2PBrandRegistrationInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
 
-interface A2PBrandRegistrationPayload extends A2PBrandRegistrationResource {}
+  interface A2PBrandRegistrationPayload extends A2PBrandRegistrationResource {}
 
 interface A2PBrandRegistrationResource {
   id: string;
@@ -343,10 +307,13 @@ interface A2PBrandRegistrationResource {
 }
 
 export class A2PBrandRegistrationInstance {
+
   constructor(protected _version: V1, payload: A2PBrandRegistrationResource) {
-    this.id = payload.id;
-    this.sessionId = payload.sessionId;
-    this.sessionToken = payload.sessionToken;
+    
+    this.id = (payload.id);
+    this.sessionId = (payload.sessionId);
+    this.sessionToken = (payload.sessionToken);
+
   }
 
   /**
@@ -379,3 +346,5 @@ export class A2PBrandRegistrationInstance {
     return inspect(this.toJSON(), options);
   }
 }
+
+

@@ -79,15 +79,13 @@ export default class V1 extends Version {
 
   /** Getter for networkAccessProfiles resource */
   get networkAccessProfiles(): NetworkAccessProfileListInstance {
-    this._networkAccessProfiles =
-      this._networkAccessProfiles || NetworkAccessProfileListInstance(this);
+    this._networkAccessProfiles = this._networkAccessProfiles || NetworkAccessProfileListInstance(this);
     return this._networkAccessProfiles;
   }
 
   /** Getter for settingsUpdates resource */
   get settingsUpdates(): SettingsUpdateListInstance {
-    this._settingsUpdates =
-      this._settingsUpdates || SettingsUpdateListInstance(this);
+    this._settingsUpdates = this._settingsUpdates || SettingsUpdateListInstance(this);
     return this._settingsUpdates;
   }
 
@@ -108,4 +106,5 @@ export default class V1 extends Version {
     this._usageRecords = this._usageRecords || UsageRecordListInstance(this);
     return this._usageRecords;
   }
+
 }

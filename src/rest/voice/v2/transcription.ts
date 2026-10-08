@@ -12,12 +12,14 @@
  * Do not edit the class manually.
  */
 
+
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
+
 
 /**
  * Configuration for Twilio Voice Transcription Service. Either transcriptionStatusCallback or conversationConfigurationId (or both) must be provided.
@@ -60,6 +62,7 @@ export class VoiceV2ConfigurationTranscriptionConfiguration {
   }
 }
 
+
 /**
  * Default participant role and channel mapping for diarization and implicit participant creation.
  */
@@ -78,6 +81,7 @@ export class VoiceV2ConfigurationTranscriptionParticipantDefault {
     this.type = payload["type"];
   }
 }
+
 
 /**
  * Request body for creating or updating a Transcription Configuration.
@@ -100,6 +104,7 @@ export class VoiceV2ConfigurationTranscriptionRequest {
   }
 }
 
+
 /**
  * Callback configuration for notifications when transcription is complete.
  */
@@ -119,12 +124,16 @@ export class VoiceV2ConfigurationTranscriptionStatusCallback {
   }
 }
 
+
+
+
+
 /**
  * Options to pass to update a TranscriptionInstance
  */
 export interface TranscriptionContextUpdateOptions {
   /**  */
-  voiceV2ConfigurationTranscriptionRequest?: VoiceV2ConfigurationTranscriptionRequest;
+  "voiceV2ConfigurationTranscriptionRequest"?: VoiceV2ConfigurationTranscriptionRequest;
 }
 
 /**
@@ -132,10 +141,11 @@ export interface TranscriptionContextUpdateOptions {
  */
 export interface TranscriptionListInstanceCreateOptions {
   /**  */
-  voiceV2ConfigurationTranscriptionRequest?: VoiceV2ConfigurationTranscriptionRequest;
+  "voiceV2ConfigurationTranscriptionRequest"?: VoiceV2ConfigurationTranscriptionRequest;
 }
 
 export interface TranscriptionContext {
+
   /**
    * Remove a TranscriptionInstance
    *
@@ -143,9 +153,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean>;
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
 
   /**
    * Remove a TranscriptionInstance and return HTTP info
@@ -154,9 +162,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>>;
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
 
   /**
    * Fetch a TranscriptionInstance
@@ -165,9 +171,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  fetch(callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>
 
   /**
    * Fetch a TranscriptionInstance and return HTTP info
@@ -176,12 +180,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>
 
   /**
    * Update a TranscriptionInstance
@@ -190,9 +189,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  update(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  update(callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
   /**
    * Update a TranscriptionInstance
    *
@@ -202,11 +199,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  update(
-    params: VoiceV2ConfigurationTranscriptionRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  update(params: VoiceV2ConfigurationTranscriptionRequest, headers?: any, callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
 
   /**
    * Update a TranscriptionInstance and return HTTP info
@@ -215,12 +208,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>;
   /**
    * Update a TranscriptionInstance and return HTTP info
    *
@@ -230,14 +218,7 @@ export interface TranscriptionContext {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: VoiceV2ConfigurationTranscriptionRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  updateWithHttpInfo(params: VoiceV2ConfigurationTranscriptionRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -247,245 +228,156 @@ export interface TranscriptionContext {
 }
 
 export interface TranscriptionContextSolution {
-  idOrUniqueName: string;
+  "idOrUniqueName": string;
 }
 
 export class TranscriptionContextImpl implements TranscriptionContext {
   protected _solution: TranscriptionContextSolution;
   protected _uri: string;
 
+
   constructor(protected _version: V2, idOrUniqueName: string) {
     if (!isValidPathParam(idOrUniqueName)) {
-      throw new Error("Parameter 'idOrUniqueName' is not valid.");
+      throw new Error('Parameter \'idOrUniqueName\' is not valid.');
     }
 
-    this._solution = { idOrUniqueName };
+    this._solution = { idOrUniqueName,  };
     this._uri = `/Configurations/Transcription/${idOrUniqueName}`;
   }
 
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
-    const headers: any = {};
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.remove({
-        uri: instance._uri,
-        method: "delete",
-        headers,
-      });
+        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
+    
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
-    const headers: any = {};
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
+      const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion
-      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
-      .then(
-        (response): ApiResponse<boolean> => ({
-          ...response,
-          body: response.statusCode === 204,
-        })
-      );
+    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
+      ...response,
+      body: response.statusCode === 204
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetch(callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.fetch({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      });
+        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
+    
+    operationPromise = operationPromise.then(payload => new TranscriptionInstance(operationVersion, payload, instance._solution.idOrUniqueName));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TranscriptionInstance(
-          operationVersion,
-          payload,
-          instance._solution.idOrUniqueName
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>> {
-    const headers: any = {};
-    headers["Accept"] = "application/json";
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>> {
+      const headers: any = {};
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .fetchWithResponseInfo<TranscriptionResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
-      .then(
-        (response): ApiResponse<TranscriptionInstance> => ({
-          ...response,
-          body: new TranscriptionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.idOrUniqueName
-          ),
-        })
-      );
+    let operationPromise = operationVersion.fetchWithResponseInfo<TranscriptionResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<TranscriptionInstance> => ({
+      ...response,
+      body: new TranscriptionInstance(operationVersion, response.body, instance._solution.idOrUniqueName)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  update(
-    params?:
-      | VoiceV2ConfigurationTranscriptionRequest
-      | ((error: Error | null, item?: TranscriptionInstance) => any),
-    headers?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance> {
-    if (params instanceof Function) {
+  update(params?: VoiceV2ConfigurationTranscriptionRequest | ((error: Error | null, item?: TranscriptionInstance) => any), headers?: any,callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance> {
+      if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
+      params = {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest);
+      params = params || {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version,
-      operationPromise = operationVersion.update({
-        uri: instance._uri,
-        method: "put",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new TranscriptionInstance(operationVersion, payload, instance._solution.idOrUniqueName));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) =>
-        new TranscriptionInstance(
-          operationVersion,
-          payload,
-          instance._solution.idOrUniqueName
-        )
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
-  updateWithHttpInfo(
-    params?:
-      | VoiceV2ConfigurationTranscriptionRequest
-      | ((
-          error: Error | null,
-          item?: ApiResponse<TranscriptionInstance>
-        ) => any),
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>> {
-    if (params instanceof Function) {
+  updateWithHttpInfo(params?: VoiceV2ConfigurationTranscriptionRequest | ((error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>> {
+      if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
+      params = {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest);
+      params = params || {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .updateWithResponseInfo<TranscriptionResource>({
-        uri: instance._uri,
-        method: "put",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<TranscriptionInstance> => ({
-          ...response,
-          body: new TranscriptionInstance(
-            operationVersion,
-            response.body,
-            instance._solution.idOrUniqueName
-          ),
-        })
-      );
+    let operationPromise = operationVersion.updateWithResponseInfo<TranscriptionResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<TranscriptionInstance> => ({
+      ...response,
+      body: new TranscriptionInstance(operationVersion, response.body, instance._solution.idOrUniqueName)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
+
+
   }
 
   /**
@@ -502,7 +394,8 @@ export class TranscriptionContextImpl implements TranscriptionContext {
   }
 }
 
-interface TranscriptionPayload extends TranscriptionResource {}
+
+  interface TranscriptionPayload extends TranscriptionResource {}
 
 interface TranscriptionResource {
   id: string;
@@ -525,29 +418,21 @@ export class TranscriptionInstance {
   protected _solution: TranscriptionContextSolution;
   protected _context?: TranscriptionContext;
 
-  constructor(
-    protected _version: V2,
-    payload: TranscriptionResource,
-    idOrUniqueName?: string
-  ) {
-    this.id = payload.id;
-    this.accountSid = payload.account_sid;
-    this.uniqueName = payload.unique_name;
-    this.description = payload.description;
+  constructor(protected _version: V2, payload: TranscriptionResource, idOrUniqueName?: string) {
+    
+    this.id = (payload.id);
+    this.accountSid = (payload.account_sid);
+    this.uniqueName = (payload.unique_name);
+    this.description = (payload.description);
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.configuration =
-      payload.configuration !== null && payload.configuration !== undefined
-        ? new VoiceV2ConfigurationTranscriptionConfiguration(
-            payload.configuration
-          )
-        : null;
-    this.message = payload.message;
-    this.code = payload.code;
-    this.status = payload.status;
-    this.moreInfo = payload.more_info;
+    this.configuration = payload.configuration !== null && payload.configuration !== undefined ? new VoiceV2ConfigurationTranscriptionConfiguration(payload.configuration) : null;
+    this.message = (payload.message);
+    this.code = (payload.code);
+    this.status = (payload.status);
+    this.moreInfo = (payload.more_info);
 
-    this._solution = { idOrUniqueName: idOrUniqueName };
+    this._solution = { idOrUniqueName: idOrUniqueName,  };
   }
 
   /**
@@ -587,12 +472,7 @@ export class TranscriptionInstance {
   moreInfo: string;
 
   private get _proxy(): TranscriptionContext {
-    this._context =
-      this._context ||
-      new TranscriptionContextImpl(
-        this._version,
-        this._solution.idOrUniqueName
-      );
+    this._context = this._context || new TranscriptionContextImpl(this._version, this._solution.idOrUniqueName);
     return this._context;
   }
 
@@ -603,9 +483,9 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(
-    callback?: (error: Error | null, item?: boolean) => any
-  ): Promise<boolean> {
+  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+
+    {
     return this._proxy.remove(callback);
   }
 
@@ -616,9 +496,9 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(
-    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
-  ): Promise<ApiResponse<boolean>> {
+  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+
+    {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -629,9 +509,9 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  fetch(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance> {
+  fetch(callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>
+
+    {
     return this._proxy.fetch(callback);
   }
 
@@ -642,12 +522,9 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  fetchWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>> {
+  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>
+
+    {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -658,9 +535,7 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  update(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  update(callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
   /**
    * Update a TranscriptionInstance
    *
@@ -670,16 +545,10 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  update(
-    params: VoiceV2ConfigurationTranscriptionRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  update(params: VoiceV2ConfigurationTranscriptionRequest, headers?: any, callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
 
-  update(
-    params?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance> {
+    update(params?: any, callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>
+    {
     return this._proxy.update(params, callback);
   }
 
@@ -690,12 +559,7 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>;
   /**
    * Update a TranscriptionInstance and return HTTP info
    *
@@ -705,22 +569,10 @@ export class TranscriptionInstance {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  updateWithHttpInfo(
-    params: VoiceV2ConfigurationTranscriptionRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  updateWithHttpInfo(params: VoiceV2ConfigurationTranscriptionRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>;
 
-  updateWithHttpInfo(
-    params?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>> {
+    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>
+    {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -750,15 +602,24 @@ export class TranscriptionInstance {
   }
 }
 
-export interface TranscriptionSolution {}
+
+export interface TranscriptionSolution {
+}
 
 export interface TranscriptionListInstance {
   _version: V2;
   _solution: TranscriptionSolution;
   _uri: string;
 
-  (idOrUniqueName: string): TranscriptionContext;
-  get(idOrUniqueName: string): TranscriptionContext;
+  (idOrUniqueName: string, ): TranscriptionContext;
+  get(idOrUniqueName: string, ): TranscriptionContext;
+
+
+
+
+
+
+
 
   /**
    * Create a TranscriptionInstance
@@ -767,9 +628,7 @@ export interface TranscriptionListInstance {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  create(
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  create(callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
   /**
    * Create a TranscriptionInstance
    *
@@ -779,11 +638,7 @@ export interface TranscriptionListInstance {
    *
    * @returns Resolves to processed TranscriptionInstance
    */
-  create(
-    params: VoiceV2ConfigurationTranscriptionRequest,
-    headers?: any,
-    callback?: (error: Error | null, item?: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance>;
+  create(params: VoiceV2ConfigurationTranscriptionRequest, headers?: any, callback?: (error: Error | null, item?: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
 
   /**
    * Create a TranscriptionInstance and return HTTP info
@@ -792,12 +647,7 @@ export interface TranscriptionListInstance {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>;
   /**
    * Create a TranscriptionInstance and return HTTP info
    *
@@ -807,14 +657,9 @@ export interface TranscriptionListInstance {
    *
    * @returns Resolves to processed TranscriptionInstance with HTTP metadata
    */
-  createWithHttpInfo(
-    params: VoiceV2ConfigurationTranscriptionRequest,
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      item?: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>>;
+  createWithHttpInfo(params: VoiceV2ConfigurationTranscriptionRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>>;
+
+
 
   /**
    * Provide a user-friendly representation
@@ -823,134 +668,93 @@ export interface TranscriptionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function TranscriptionListInstance(
-  version: V2
-): TranscriptionListInstance {
-  const instance = ((idOrUniqueName) =>
-    instance.get(idOrUniqueName)) as TranscriptionListInstance;
+export function TranscriptionListInstance(version: V2): TranscriptionListInstance {
+  const instance = ((idOrUniqueName, ) => instance.get(idOrUniqueName, )) as TranscriptionListInstance;
 
-  instance.get = function get(idOrUniqueName): TranscriptionContext {
+  instance.get = function get(idOrUniqueName, ): TranscriptionContext {
     return new TranscriptionContextImpl(version, idOrUniqueName);
-  };
+  }
 
   instance._version = version;
-  instance._solution = {};
+  instance._solution = {  };
   instance._uri = `/Configurations/Transcription`;
 
-  instance.create = function create(
-    params?:
-      | VoiceV2ConfigurationTranscriptionRequest
-      | ((error: Error | null, items: TranscriptionInstance) => any),
-    headers?: any,
-    callback?: (error: Error | null, items: TranscriptionInstance) => any
-  ): Promise<TranscriptionInstance> {
+  instance.create = function create(params?: VoiceV2ConfigurationTranscriptionRequest | ((error: Error | null, items: TranscriptionInstance) => any), headers?: any, callback?: (error: Error | null, items: TranscriptionInstance) => any): Promise<TranscriptionInstance> {
     if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
+      params = {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest);
+      params = params || {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version,
-      operationPromise = operationVersion.create({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      });
+        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
+    
+    operationPromise = operationPromise.then(payload => new TranscriptionInstance(operationVersion, payload));
+    
 
-    operationPromise = operationPromise.then(
-      (payload) => new TranscriptionInstance(operationVersion, payload)
-    );
-
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
 
-  instance.createWithHttpInfo = function createWithHttpInfo(
-    params?:
-      | VoiceV2ConfigurationTranscriptionRequest
-      | ((
-          error: Error | null,
-          items: ApiResponse<TranscriptionInstance>
-        ) => any),
-    headers?: any,
-    callback?: (
-      error: Error | null,
-      items: ApiResponse<TranscriptionInstance>
-    ) => any
-  ): Promise<ApiResponse<TranscriptionInstance>> {
+
+    }
+
+  instance.createWithHttpInfo = function createWithHttpInfo(params?: VoiceV2ConfigurationTranscriptionRequest | ((error: Error | null, items: ApiResponse<TranscriptionInstance>) => any), headers?: any, callback?: (error: Error | null, items: ApiResponse<TranscriptionInstance>) => any): Promise<ApiResponse<TranscriptionInstance>> {
     if (params instanceof Function) {
       callback = params;
-      params =
-        {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
+      params = {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
     } else {
-      params =
-        params ||
-        ({} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest);
+      params = params || {} as Partial<VoiceV2ConfigurationTranscriptionRequest> as VoiceV2ConfigurationTranscriptionRequest;
     }
 
     let data: any = {};
 
-    data = params;
-
-    if (headers === null || headers === undefined) {
-      headers = {};
+    
+    
+    data = params
+    
+    if(headers === null || headers === undefined) {
+        headers = {};
     }
-
-    headers["Content-Type"] = "application/json";
-    headers["Accept"] = "application/json";
+    
+    headers["Content-Type"] = "application/json"
+    headers["Accept"] = "application/json"
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion
-      .createWithResponseInfo<TranscriptionResource>({
-        uri: instance._uri,
-        method: "post",
-        data,
-        headers,
-      })
-      .then(
-        (response): ApiResponse<TranscriptionInstance> => ({
-          ...response,
-          body: new TranscriptionInstance(operationVersion, response.body),
-        })
-      );
+    let operationPromise = operationVersion.createWithResponseInfo<TranscriptionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<TranscriptionInstance> => ({
+      ...response,
+      body: new TranscriptionInstance(operationVersion, response.body)
+    }));
 
-    operationPromise = instance._version.setPromiseCallback(
-      operationPromise,
-      callback
-    );
+    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
     return operationPromise;
-  };
+
+
+    }
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  };
+  }
 
-  instance[inspect.custom] = function inspectImpl(
-    _depth: any,
-    options: InspectOptions
-  ) {
+  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
     return inspect(instance.toJSON(), options);
-  };
+  }
 
   return instance;
 }
+
+
