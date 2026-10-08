@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 /**
  * Request to create or update an account-wide default Recording configuration.
@@ -36,7 +34,6 @@ export class VoiceV2AccountDefaultConfigurationRecordingRequest {
     this.configuration = payload["configuration"];
   }
 }
-
 
 /**
  * The composition configuration for recordings.
@@ -62,7 +59,6 @@ export class VoiceV2ConfigurationRecordingCompositionPolicy {
   }
 }
 
-
 /**
  * Configuration for Twilio Voice Recording Service.
  */
@@ -83,11 +79,11 @@ export class VoiceV2ConfigurationRecordingConfiguration {
     this.configurationType = payload["configurationType"];
     this.compositionPolicy = payload["compositionPolicy"];
     this.callRecordingStatusCallback = payload["callRecordingStatusCallback"];
-    this.conferenceRecordingStatusCallback = payload["conferenceRecordingStatusCallback"];
+    this.conferenceRecordingStatusCallback =
+      payload["conferenceRecordingStatusCallback"];
     this.features = payload["features"];
   }
 }
-
 
 /**
  * A feature to apply to a recording.
@@ -113,7 +109,6 @@ export class VoiceV2ConfigurationRecordingFeature {
   }
 }
 
-
 /**
  * Callback configuration for a recording status.
  */
@@ -138,28 +133,23 @@ export class VoiceV2ConfigurationRecordingStatusCallback {
   }
 }
 
-
-
 /**
  * Options to pass to create a RecordingAccountDefaultConfigurationInstance
  */
 export interface RecordingAccountDefaultConfigurationContextCreateOptions {
   /**  */
-  "voiceV2AccountDefaultConfigurationRecordingRequest"?: VoiceV2AccountDefaultConfigurationRecordingRequest;
+  voiceV2AccountDefaultConfigurationRecordingRequest?: VoiceV2AccountDefaultConfigurationRecordingRequest;
 }
-
-
 
 /**
  * Options to pass to update a RecordingAccountDefaultConfigurationInstance
  */
 export interface RecordingAccountDefaultConfigurationContextUpdateOptions {
   /**  */
-  "voiceV2AccountDefaultConfigurationRecordingRequest"?: VoiceV2AccountDefaultConfigurationRecordingRequest;
+  voiceV2AccountDefaultConfigurationRecordingRequest?: VoiceV2AccountDefaultConfigurationRecordingRequest;
 }
 
 export interface RecordingAccountDefaultConfigurationContext {
-
   /**
    * Create a RecordingAccountDefaultConfigurationInstance
    *
@@ -167,7 +157,12 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance
    */
-  create(callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>;
+  create(
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance>;
   /**
    * Create a RecordingAccountDefaultConfigurationInstance
    *
@@ -177,7 +172,14 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance
    */
-  create(params: VoiceV2AccountDefaultConfigurationRecordingRequest, headers?: any, callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>;
+  create(
+    params: VoiceV2AccountDefaultConfigurationRecordingRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance>;
 
   /**
    * Create a RecordingAccountDefaultConfigurationInstance and return HTTP info
@@ -186,7 +188,12 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
   /**
    * Create a RecordingAccountDefaultConfigurationInstance and return HTTP info
    *
@@ -196,7 +203,14 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(params: VoiceV2AccountDefaultConfigurationRecordingRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
+  createWithHttpInfo(
+    params: VoiceV2AccountDefaultConfigurationRecordingRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
 
   /**
    * Remove a RecordingAccountDefaultConfigurationInstance
@@ -205,7 +219,9 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean>;
 
   /**
    * Remove a RecordingAccountDefaultConfigurationInstance and return HTTP info
@@ -214,7 +230,9 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>>;
 
   /**
    * Fetch a RecordingAccountDefaultConfigurationInstance
@@ -223,7 +241,12 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance>;
 
   /**
    * Fetch a RecordingAccountDefaultConfigurationInstance and return HTTP info
@@ -232,7 +255,12 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
 
   /**
    * Update a RecordingAccountDefaultConfigurationInstance
@@ -241,7 +269,12 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance
    */
-  update(callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>;
+  update(
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance>;
   /**
    * Update a RecordingAccountDefaultConfigurationInstance
    *
@@ -251,7 +284,14 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance
    */
-  update(params: VoiceV2AccountDefaultConfigurationRecordingRequest, headers?: any, callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>;
+  update(
+    params: VoiceV2AccountDefaultConfigurationRecordingRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance>;
 
   /**
    * Update a RecordingAccountDefaultConfigurationInstance and return HTTP info
@@ -260,7 +300,12 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
   /**
    * Update a RecordingAccountDefaultConfigurationInstance and return HTTP info
    *
@@ -270,7 +315,14 @@ export interface RecordingAccountDefaultConfigurationContext {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: VoiceV2AccountDefaultConfigurationRecordingRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
+  updateWithHttpInfo(
+    params: VoiceV2AccountDefaultConfigurationRecordingRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -279,221 +331,372 @@ export interface RecordingAccountDefaultConfigurationContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface RecordingAccountDefaultConfigurationContextSolution {
-}
+export interface RecordingAccountDefaultConfigurationContextSolution {}
 
-export class RecordingAccountDefaultConfigurationContextImpl implements RecordingAccountDefaultConfigurationContext {
+export class RecordingAccountDefaultConfigurationContextImpl
+  implements RecordingAccountDefaultConfigurationContext
+{
   protected _solution: RecordingAccountDefaultConfigurationContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V2) {
-    this._solution = {  };
+    this._solution = {};
     this._uri = `/AccountDefaultConfiguration/Recording`;
   }
 
-  create(params?: VoiceV2AccountDefaultConfigurationRecordingRequest | ((error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any), headers?: any,callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance> {
-      if (params instanceof Function) {
+  create(
+    params?:
+      | VoiceV2AccountDefaultConfigurationRecordingRequest
+      | ((
+          error: Error | null,
+          item?: RecordingAccountDefaultConfigurationInstance
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
+      params =
+        {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
     } else {
-      params = params || {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new RecordingAccountDefaultConfigurationInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RecordingAccountDefaultConfigurationInstance(
+          operationVersion,
+          payload
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  createWithHttpInfo(params?: VoiceV2AccountDefaultConfigurationRecordingRequest | ((error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>> {
-      if (params instanceof Function) {
+  createWithHttpInfo(
+    params?:
+      | VoiceV2AccountDefaultConfigurationRecordingRequest
+      | ((
+          error: Error | null,
+          item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
+      params =
+        {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
     } else {
-      params = params || {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<RecordingAccountDefaultConfigurationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<RecordingAccountDefaultConfigurationInstance> => ({
-      ...response,
-      body: new RecordingAccountDefaultConfigurationInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<RecordingAccountDefaultConfigurationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (
+          response
+        ): ApiResponse<RecordingAccountDefaultConfigurationInstance> => ({
+          ...response,
+          body: new RecordingAccountDefaultConfigurationInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean> {
-      const headers: any = {};
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.remove({ uri: instance._uri, method: "delete", headers});
-    
+      operationPromise = operationVersion.remove({
+        uri: instance._uri,
+        method: "delete",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>> {
-      const headers: any = {};
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
+    const headers: any = {};
 
     const instance = this;
     let operationVersion = instance._version;
     // DELETE operation - returns boolean based on status code
-    let operationPromise = operationVersion.removeWithResponseInfo({ uri: instance._uri, method: "delete", headers}).then((response) : ApiResponse<boolean> => ({
-      ...response,
-      body: response.statusCode === 204
-    }));
+    let operationPromise = operationVersion
+      .removeWithResponseInfo({ uri: instance._uri, method: "delete", headers })
+      .then(
+        (response): ApiResponse<boolean> => ({
+          ...response,
+          body: response.statusCode === 204,
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  fetch(callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new RecordingAccountDefaultConfigurationInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RecordingAccountDefaultConfigurationInstance(
+          operationVersion,
+          payload
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<RecordingAccountDefaultConfigurationResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<RecordingAccountDefaultConfigurationInstance> => ({
-      ...response,
-      body: new RecordingAccountDefaultConfigurationInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<RecordingAccountDefaultConfigurationResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (
+          response
+        ): ApiResponse<RecordingAccountDefaultConfigurationInstance> => ({
+          ...response,
+          body: new RecordingAccountDefaultConfigurationInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: VoiceV2AccountDefaultConfigurationRecordingRequest | ((error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any), headers?: any,callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | VoiceV2AccountDefaultConfigurationRecordingRequest
+      | ((
+          error: Error | null,
+          item?: RecordingAccountDefaultConfigurationInstance
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
+      params =
+        {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
     } else {
-      params = params || {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "put", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new RecordingAccountDefaultConfigurationInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new RecordingAccountDefaultConfigurationInstance(
+          operationVersion,
+          payload
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: VoiceV2AccountDefaultConfigurationRecordingRequest | ((error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | VoiceV2AccountDefaultConfigurationRecordingRequest
+      | ((
+          error: Error | null,
+          item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
+      params =
+        {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
     } else {
-      params = params || {} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2AccountDefaultConfigurationRecordingRequest> as VoiceV2AccountDefaultConfigurationRecordingRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<RecordingAccountDefaultConfigurationResource>({ uri: instance._uri, method: "put", data, headers}).then((response) : ApiResponse<RecordingAccountDefaultConfigurationInstance> => ({
-      ...response,
-      body: new RecordingAccountDefaultConfigurationInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<RecordingAccountDefaultConfigurationResource>({
+        uri: instance._uri,
+        method: "put",
+        data,
+        headers,
+      })
+      .then(
+        (
+          response
+        ): ApiResponse<RecordingAccountDefaultConfigurationInstance> => ({
+          ...response,
+          body: new RecordingAccountDefaultConfigurationInstance(
+            operationVersion,
+            response.body
+          ),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -510,8 +713,8 @@ export class RecordingAccountDefaultConfigurationContextImpl implements Recordin
   }
 }
 
-
-  interface RecordingAccountDefaultConfigurationPayload extends RecordingAccountDefaultConfigurationResource {}
+interface RecordingAccountDefaultConfigurationPayload
+  extends RecordingAccountDefaultConfigurationResource {}
 
 interface RecordingAccountDefaultConfigurationResource {
   account_sid: string;
@@ -532,19 +735,24 @@ export class RecordingAccountDefaultConfigurationInstance {
   protected _solution: RecordingAccountDefaultConfigurationContextSolution;
   protected _context?: RecordingAccountDefaultConfigurationContext;
 
-  constructor(protected _version: V2, payload: RecordingAccountDefaultConfigurationResource) {
-    
-    this.accountSid = (payload.account_sid);
-    this.description = (payload.description);
+  constructor(
+    protected _version: V2,
+    payload: RecordingAccountDefaultConfigurationResource
+  ) {
+    this.accountSid = payload.account_sid;
+    this.description = payload.description;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.configuration = payload.configuration !== null && payload.configuration !== undefined ? new VoiceV2ConfigurationRecordingConfiguration(payload.configuration) : null;
-    this.message = (payload.message);
-    this.code = (payload.code);
-    this.status = (payload.status);
-    this.moreInfo = (payload.more_info);
+    this.configuration =
+      payload.configuration !== null && payload.configuration !== undefined
+        ? new VoiceV2ConfigurationRecordingConfiguration(payload.configuration)
+        : null;
+    this.message = payload.message;
+    this.code = payload.code;
+    this.status = payload.status;
+    this.moreInfo = payload.more_info;
 
-    this._solution = {  };
+    this._solution = {};
   }
 
   /**
@@ -582,7 +790,9 @@ export class RecordingAccountDefaultConfigurationInstance {
   moreInfo: string;
 
   private get _proxy(): RecordingAccountDefaultConfigurationContext {
-    this._context = this._context || new RecordingAccountDefaultConfigurationContextImpl(this._version);
+    this._context =
+      this._context ||
+      new RecordingAccountDefaultConfigurationContextImpl(this._version);
     return this._context;
   }
 
@@ -593,7 +803,12 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance
    */
-  create(callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>;
+  create(
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance>;
   /**
    * Create a RecordingAccountDefaultConfigurationInstance
    *
@@ -603,10 +818,22 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance
    */
-  create(params: VoiceV2AccountDefaultConfigurationRecordingRequest, headers?: any, callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>;
+  create(
+    params: VoiceV2AccountDefaultConfigurationRecordingRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance>;
 
-    create(params?: any, callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>
-    {
+  create(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance> {
     return this._proxy.create(params, callback);
   }
 
@@ -617,7 +844,12 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
   /**
    * Create a RecordingAccountDefaultConfigurationInstance and return HTTP info
    *
@@ -627,10 +859,22 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(params: VoiceV2AccountDefaultConfigurationRecordingRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
+  createWithHttpInfo(
+    params: VoiceV2AccountDefaultConfigurationRecordingRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
 
-    createWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>
-    {
+  createWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
 
@@ -641,9 +885,9 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed boolean
    */
-  remove(callback?: (error: Error | null, item?: boolean) => any): Promise<boolean>
-
-    {
+  remove(
+    callback?: (error: Error | null, item?: boolean) => any
+  ): Promise<boolean> {
     return this._proxy.remove(callback);
   }
 
@@ -654,9 +898,9 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed boolean with HTTP metadata
    */
-  removeWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<boolean>) => any): Promise<ApiResponse<boolean>>
-
-    {
+  removeWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<boolean>) => any
+  ): Promise<ApiResponse<boolean>> {
     return this._proxy.removeWithHttpInfo(callback);
   }
 
@@ -667,9 +911,12 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance
    */
-  fetch(callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>
-
-    {
+  fetch(
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -680,9 +927,12 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -693,7 +943,12 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance
    */
-  update(callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>;
+  update(
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance>;
   /**
    * Update a RecordingAccountDefaultConfigurationInstance
    *
@@ -703,10 +958,22 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance
    */
-  update(params: VoiceV2AccountDefaultConfigurationRecordingRequest, headers?: any, callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>;
+  update(
+    params: VoiceV2AccountDefaultConfigurationRecordingRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: RecordingAccountDefaultConfigurationInstance) => any): Promise<RecordingAccountDefaultConfigurationInstance>
-    {
+  update(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: RecordingAccountDefaultConfigurationInstance
+    ) => any
+  ): Promise<RecordingAccountDefaultConfigurationInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -717,7 +984,12 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
   /**
    * Update a RecordingAccountDefaultConfigurationInstance and return HTTP info
    *
@@ -727,10 +999,22 @@ export class RecordingAccountDefaultConfigurationInstance {
    *
    * @returns Resolves to processed RecordingAccountDefaultConfigurationInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: VoiceV2AccountDefaultConfigurationRecordingRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
+  updateWithHttpInfo(
+    params: VoiceV2AccountDefaultConfigurationRecordingRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>) => any): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<RecordingAccountDefaultConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<RecordingAccountDefaultConfigurationInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -758,9 +1042,7 @@ export class RecordingAccountDefaultConfigurationInstance {
   }
 }
 
-
-export interface RecordingAccountDefaultConfigurationSolution {
-}
+export interface RecordingAccountDefaultConfigurationSolution {}
 
 export interface RecordingAccountDefaultConfigurationListInstance {
   _version: V2;
@@ -770,15 +1052,6 @@ export interface RecordingAccountDefaultConfigurationListInstance {
   (): RecordingAccountDefaultConfigurationContext;
   get(): RecordingAccountDefaultConfigurationContext;
 
-
-
-
-
-
-
-
-
-
   /**
    * Provide a user-friendly representation
    */
@@ -786,26 +1059,30 @@ export interface RecordingAccountDefaultConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function RecordingAccountDefaultConfigurationListInstance(version: V2): RecordingAccountDefaultConfigurationListInstance {
-  const instance = (() => instance.get()) as RecordingAccountDefaultConfigurationListInstance;
+export function RecordingAccountDefaultConfigurationListInstance(
+  version: V2
+): RecordingAccountDefaultConfigurationListInstance {
+  const instance = (() =>
+    instance.get()) as RecordingAccountDefaultConfigurationListInstance;
 
   instance.get = function get(): RecordingAccountDefaultConfigurationContext {
     return new RecordingAccountDefaultConfigurationContextImpl(version);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../../V1";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
-
 
 /**
  * Content approval request body
@@ -45,16 +43,13 @@ export class ContentApprovalRequest {
   }
 }
 
-
-
 /**
  * Options to pass to create a ApprovalCreateInstance
  */
 export interface ApprovalCreateListInstanceCreateOptions {
   /**  */
-  "contentApprovalRequest": ContentApprovalRequest;
+  contentApprovalRequest: ContentApprovalRequest;
 }
-
 
 export interface ApprovalCreateSolution {
   contentSid: string;
@@ -65,8 +60,6 @@ export interface ApprovalCreateListInstance {
   _solution: ApprovalCreateSolution;
   _uri: string;
 
-
-
   /**
    * Create a ApprovalCreateInstance
    *
@@ -76,7 +69,11 @@ export interface ApprovalCreateListInstance {
    *
    * @returns Resolves to processed ApprovalCreateInstance
    */
-  create(params: ContentApprovalRequest, headers?: any, callback?: (error: Error | null, item?: ApprovalCreateInstance) => any): Promise<ApprovalCreateInstance>;
+  create(
+    params: ContentApprovalRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApprovalCreateInstance) => any
+  ): Promise<ApprovalCreateInstance>;
 
   /**
    * Create a ApprovalCreateInstance and return HTTP info
@@ -87,9 +84,14 @@ export interface ApprovalCreateListInstance {
    *
    * @returns Resolves to processed ApprovalCreateInstance with HTTP metadata
    */
-  createWithHttpInfo(params: ContentApprovalRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ApprovalCreateInstance>) => any): Promise<ApiResponse<ApprovalCreateInstance>>;
-
-
+  createWithHttpInfo(
+    params: ContentApprovalRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApprovalCreateInstance>
+    ) => any
+  ): Promise<ApiResponse<ApprovalCreateInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -98,90 +100,129 @@ export interface ApprovalCreateListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ApprovalCreateListInstance(version: V1, contentSid: string): ApprovalCreateListInstance {
+export function ApprovalCreateListInstance(
+  version: V1,
+  contentSid: string
+): ApprovalCreateListInstance {
   if (!isValidPathParam(contentSid)) {
-    throw new Error('Parameter \'contentSid\' is not valid.');
+    throw new Error("Parameter 'contentSid' is not valid.");
   }
 
   const instance = {} as ApprovalCreateListInstance;
 
   instance._version = version;
-  instance._solution = { contentSid,  };
+  instance._solution = { contentSid };
   instance._uri = `/Content/${contentSid}/ApprovalRequests/whatsapp`;
 
-  instance.create = function create(params: ContentApprovalRequest, headers?: any, callback?: (error: Error | null, items: ApprovalCreateInstance) => any): Promise<ApprovalCreateInstance> {
+  instance.create = function create(
+    params: ContentApprovalRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: ApprovalCreateInstance) => any
+  ): Promise<ApprovalCreateInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ApprovalCreateInstance(operationVersion, payload, instance._solution.contentSid));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ApprovalCreateInstance(
+          operationVersion,
+          payload,
+          instance._solution.contentSid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: ContentApprovalRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<ApprovalCreateInstance>) => any): Promise<ApiResponse<ApprovalCreateInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ContentApprovalRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApprovalCreateInstance>
+    ) => any
+  ): Promise<ApiResponse<ApprovalCreateInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<ApprovalCreateResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ApprovalCreateInstance> => ({
-      ...response,
-      body: new ApprovalCreateInstance(operationVersion, response.body, instance._solution.contentSid)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ApprovalCreateResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ApprovalCreateInstance> => ({
+          ...response,
+          body: new ApprovalCreateInstance(
+            operationVersion,
+            response.body,
+            instance._solution.contentSid
+          ),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface ApprovalCreatePayload extends ApprovalCreateResource {}
+interface ApprovalCreatePayload extends ApprovalCreateResource {}
 
 interface ApprovalCreateResource {
   name: string;
@@ -194,17 +235,18 @@ interface ApprovalCreateResource {
 }
 
 export class ApprovalCreateInstance {
-
-  constructor(protected _version: V1, payload: ApprovalCreateResource, contentSid: string) {
-    
-    this.name = (payload.name);
-    this.category = (payload.category);
-    this.contentType = (payload.content_type);
-    this.status = (payload.status);
-    this.rejectionReason = (payload.rejection_reason);
-    this.allowCategoryChange = (payload.allow_category_change);
-    this.sendTtlSeconds = (payload.send_ttl_seconds);
-
+  constructor(
+    protected _version: V1,
+    payload: ApprovalCreateResource,
+    contentSid: string
+  ) {
+    this.name = payload.name;
+    this.category = payload.category;
+    this.contentType = payload.content_type;
+    this.status = payload.status;
+    this.rejectionReason = payload.rejection_reason;
+    this.allowCategoryChange = payload.allow_category_change;
+    this.sendTtlSeconds = payload.send_ttl_seconds;
   }
 
   name: string;
@@ -239,5 +281,3 @@ export class ApprovalCreateInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../../V2";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
-
 
 export class DefaultConfigurationRequest {
   "configurationId"?: string;
@@ -29,17 +27,13 @@ export class DefaultConfigurationRequest {
   }
 }
 
-
-
 /**
  * Options to pass to create a DefaultInstance
  */
 export interface DefaultListInstanceCreateOptions {
   /**  */
-  "defaultConfigurationRequest"?: DefaultConfigurationRequest;
+  defaultConfigurationRequest?: DefaultConfigurationRequest;
 }
-
-
 
 export interface DefaultSolution {
   type: string;
@@ -49,8 +43,6 @@ export interface DefaultListInstance {
   _version: V2;
   _solution: DefaultSolution;
   _uri: string;
-
-
 
   /**
    * Create a DefaultInstance
@@ -69,7 +61,11 @@ export interface DefaultListInstance {
    *
    * @returns Resolves to processed DefaultInstance
    */
-  create(params: DefaultConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: void) => any): Promise<void>;
+  create(
+    params: DefaultConfigurationRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: void) => any
+  ): Promise<void>;
 
   /**
    * Create a DefaultInstance and return HTTP info
@@ -78,7 +74,9 @@ export interface DefaultListInstance {
    *
    * @returns Resolves to processed void with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<void>) => any): Promise<ApiResponse<void>>;
+  createWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
+  ): Promise<ApiResponse<void>>;
   /**
    * Create a DefaultInstance and return HTTP info
    *
@@ -88,9 +86,11 @@ export interface DefaultListInstance {
    *
    * @returns Resolves to processed DefaultInstance with HTTP metadata
    */
-  createWithHttpInfo(params: DefaultConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<void>) => any): Promise<ApiResponse<void>>;
-
-
+  createWithHttpInfo(
+    params: DefaultConfigurationRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<void>) => any
+  ): Promise<ApiResponse<void>>;
 
   /**
    * Fetch a DefaultInstance
@@ -99,7 +99,9 @@ export interface DefaultListInstance {
    *
    * @returns Resolves to processed DefaultInstance
    */
-  fetch(callback?: (error: Error | null, item?: DefaultInstance) => any): Promise<DefaultInstance>
+  fetch(
+    callback?: (error: Error | null, item?: DefaultInstance) => any
+  ): Promise<DefaultInstance>;
 
   /**
    * Fetch a DefaultInstance and return HTTP info
@@ -108,9 +110,9 @@ export interface DefaultListInstance {
    *
    * @returns Resolves to processed DefaultInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<DefaultInstance>) => any): Promise<ApiResponse<DefaultInstance>>
-
-
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<DefaultInstance>) => any
+  ): Promise<ApiResponse<DefaultInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -119,128 +121,186 @@ export interface DefaultListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function DefaultListInstance(version: V2, type: string): DefaultListInstance {
+export function DefaultListInstance(
+  version: V2,
+  type: string
+): DefaultListInstance {
   if (!isValidPathParam(type)) {
-    throw new Error('Parameter \'type\' is not valid.');
+    throw new Error("Parameter 'type' is not valid.");
   }
 
   const instance = {} as DefaultListInstance;
 
   instance._version = version;
-  instance._solution = { type,  };
+  instance._solution = { type };
   instance._uri = `/Configurations/${type}/Default`;
 
-  instance.create = function create(params?: DefaultConfigurationRequest | ((error: Error | null, items: void) => any), headers?: any, callback?: (error: Error | null, items: void) => any): Promise<void> {
+  instance.create = function create(
+    params?:
+      | DefaultConfigurationRequest
+      | ((error: Error | null, items: void) => any),
+    headers?: any,
+    callback?: (error: Error | null, items: void) => any
+  ): Promise<void> {
     if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<DefaultConfigurationRequest> as DefaultConfigurationRequest;
+      params =
+        {} as Partial<DefaultConfigurationRequest> as DefaultConfigurationRequest;
     } else {
-      params = params || {} as Partial<DefaultConfigurationRequest> as DefaultConfigurationRequest;
+      params =
+        params ||
+        ({} as Partial<DefaultConfigurationRequest> as DefaultConfigurationRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params?: DefaultConfigurationRequest | ((error: Error | null, items: ApiResponse<void>) => any), headers?: any, callback?: (error: Error | null, items: ApiResponse<void>) => any): Promise<ApiResponse<void>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params?:
+      | DefaultConfigurationRequest
+      | ((error: Error | null, items: ApiResponse<void>) => any),
+    headers?: any,
+    callback?: (error: Error | null, items: ApiResponse<void>) => any
+  ): Promise<ApiResponse<void>> {
     if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<DefaultConfigurationRequest> as DefaultConfigurationRequest;
+      params =
+        {} as Partial<DefaultConfigurationRequest> as DefaultConfigurationRequest;
     } else {
-      params = params || {} as Partial<DefaultConfigurationRequest> as DefaultConfigurationRequest;
+      params =
+        params ||
+        ({} as Partial<DefaultConfigurationRequest> as DefaultConfigurationRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // No response body — fire-and-forget operation
-    let operationPromise = operationVersion.createWithResponseInfo({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<void> => ({
-      ...response,
-      body: undefined
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<void> => ({
+          ...response,
+          body: undefined,
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.fetch = function fetch( callback?: (error: Error | null, items: DefaultInstance) => any): Promise<DefaultInstance> {
+  instance.fetch = function fetch(
+    callback?: (error: Error | null, items: DefaultInstance) => any
+  ): Promise<DefaultInstance> {
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new DefaultInstance(operationVersion, payload, instance._solution.type));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new DefaultInstance(operationVersion, payload, instance._solution.type)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.fetchWithHttpInfo = function fetchWithHttpInfo( callback?: (error: Error | null, items: ApiResponse<DefaultInstance>) => any): Promise<ApiResponse<DefaultInstance>> {
+  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<DefaultInstance>) => any
+  ): Promise<ApiResponse<DefaultInstance>> {
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<DefaultResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<DefaultInstance> => ({
-      ...response,
-      body: new DefaultInstance(operationVersion, response.body, instance._solution.type)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<DefaultResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<DefaultInstance> => ({
+          ...response,
+          body: new DefaultInstance(
+            operationVersion,
+            response.body,
+            instance._solution.type
+          ),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface DefaultPayload extends DefaultResource {}
+interface DefaultPayload extends DefaultResource {}
 
 interface DefaultResource {
   message: string;
@@ -260,21 +320,18 @@ interface DefaultResource {
  * Twilio error response
  */
 export class DefaultInstance {
-
   constructor(protected _version: V2, payload: DefaultResource, type: string) {
-    
-    this.message = (payload.message);
-    this.code = (payload.code);
-    this.status = (payload.status);
-    this.moreInfo = (payload.more_info);
-    this.id = (payload.id);
-    this.accountSid = (payload.account_sid);
-    this.uniqueName = (payload.unique_name);
-    this.description = (payload.description);
+    this.message = payload.message;
+    this.code = payload.code;
+    this.status = payload.status;
+    this.moreInfo = payload.more_info;
+    this.id = payload.id;
+    this.accountSid = payload.account_sid;
+    this.uniqueName = payload.unique_name;
+    this.description = payload.description;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.configuration = (payload.configuration);
-
+    this.configuration = payload.configuration;
   }
 
   /**
@@ -338,5 +395,3 @@ export class DefaultInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

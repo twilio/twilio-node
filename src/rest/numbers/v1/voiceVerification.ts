@@ -12,14 +12,12 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 export class NumbersV1VoiceVerificationRequest {
   /**
@@ -67,26 +65,20 @@ export class NumbersV1VoiceVerificationRequest {
   }
 }
 
-
-
 /**
  * Options to pass to create a VoiceVerificationInstance
  */
 export interface VoiceVerificationListInstanceCreateOptions {
   /**  */
-  "numbersV1VoiceVerificationRequest": NumbersV1VoiceVerificationRequest;
+  numbersV1VoiceVerificationRequest: NumbersV1VoiceVerificationRequest;
 }
 
-
-export interface VoiceVerificationSolution {
-}
+export interface VoiceVerificationSolution {}
 
 export interface VoiceVerificationListInstance {
   _version: V1;
   _solution: VoiceVerificationSolution;
   _uri: string;
-
-
 
   /**
    * Create a VoiceVerificationInstance
@@ -97,7 +89,11 @@ export interface VoiceVerificationListInstance {
    *
    * @returns Resolves to processed VoiceVerificationInstance
    */
-  create(params: NumbersV1VoiceVerificationRequest, headers?: any, callback?: (error: Error | null, item?: VoiceVerificationInstance) => any): Promise<VoiceVerificationInstance>;
+  create(
+    params: NumbersV1VoiceVerificationRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: VoiceVerificationInstance) => any
+  ): Promise<VoiceVerificationInstance>;
 
   /**
    * Create a VoiceVerificationInstance and return HTTP info
@@ -108,9 +104,14 @@ export interface VoiceVerificationListInstance {
    *
    * @returns Resolves to processed VoiceVerificationInstance with HTTP metadata
    */
-  createWithHttpInfo(params: NumbersV1VoiceVerificationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<VoiceVerificationInstance>) => any): Promise<ApiResponse<VoiceVerificationInstance>>;
-
-
+  createWithHttpInfo(
+    params: NumbersV1VoiceVerificationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<VoiceVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<VoiceVerificationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -119,86 +120,115 @@ export interface VoiceVerificationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function VoiceVerificationListInstance(version: V1): VoiceVerificationListInstance {
+export function VoiceVerificationListInstance(
+  version: V1
+): VoiceVerificationListInstance {
   const instance = {} as VoiceVerificationListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/CallerIds/VoiceVerifications`;
 
-  instance.create = function create(params: NumbersV1VoiceVerificationRequest, headers?: any, callback?: (error: Error | null, items: VoiceVerificationInstance) => any): Promise<VoiceVerificationInstance> {
+  instance.create = function create(
+    params: NumbersV1VoiceVerificationRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: VoiceVerificationInstance) => any
+  ): Promise<VoiceVerificationInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new VoiceVerificationInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new VoiceVerificationInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: NumbersV1VoiceVerificationRequest, headers?: any, callback?: (error: Error | null, items: ApiResponse<VoiceVerificationInstance>) => any): Promise<ApiResponse<VoiceVerificationInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: NumbersV1VoiceVerificationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<VoiceVerificationInstance>
+    ) => any
+  ): Promise<ApiResponse<VoiceVerificationInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<VoiceVerificationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<VoiceVerificationInstance> => ({
-      ...response,
-      body: new VoiceVerificationInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<VoiceVerificationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<VoiceVerificationInstance> => ({
+          ...response,
+          body: new VoiceVerificationInstance(operationVersion, response.body),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
-    }
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-  interface VoiceVerificationPayload extends VoiceVerificationResource {}
+interface VoiceVerificationPayload extends VoiceVerificationResource {}
 
 interface VoiceVerificationResource {
   accountSid: string;
@@ -209,15 +239,12 @@ interface VoiceVerificationResource {
 }
 
 export class VoiceVerificationInstance {
-
   constructor(protected _version: V1, payload: VoiceVerificationResource) {
-    
-    this.accountSid = (payload.accountSid);
-    this.phoneNumber = (payload.phoneNumber);
-    this.friendlyName = (payload.friendlyName);
-    this.validationCode = (payload.validationCode);
-    this.callSid = (payload.callSid);
-
+    this.accountSid = payload.accountSid;
+    this.phoneNumber = payload.phoneNumber;
+    this.friendlyName = payload.friendlyName;
+    this.validationCode = payload.validationCode;
+    this.callSid = payload.callSid;
   }
 
   /**
@@ -260,5 +287,3 @@ export class VoiceVerificationInstance {
     return inspect(this.toJSON(), options);
   }
 }
-
-

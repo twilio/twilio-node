@@ -14,7 +14,10 @@
 
 import RoutesBase from "../RoutesBase";
 import Version from "../../base/Version";
-import { IsoCountryCodeListInstance, IsoCountryCodeContext } from "./v3/isoCountryCode";
+import {
+  IsoCountryCodeListInstance,
+  IsoCountryCodeContext,
+} from "./v3/isoCountryCode";
 import { PhoneNumberListInstance } from "./v3/phoneNumber";
 
 export default class V3 extends Version {
@@ -31,7 +34,10 @@ export default class V3 extends Version {
   protected _phoneNumbers?: PhoneNumberListInstance;
 
   /** Accessor for isoCountryCode resource */
-  isoCountryCode(isoCountryCode: string, shortCode: string): IsoCountryCodeContext {
+  isoCountryCode(
+    isoCountryCode: string,
+    shortCode: string
+  ): IsoCountryCodeContext {
     return IsoCountryCodeListInstance(this)(isoCountryCode, shortCode);
   }
 
@@ -40,5 +46,4 @@ export default class V3 extends Version {
     this._phoneNumbers = this._phoneNumbers || PhoneNumberListInstance(this);
     return this._phoneNumbers;
   }
-
 }

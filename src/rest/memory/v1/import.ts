@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import TokenPage, { TokenPaginationPayload } from "../../../base/TokenPage";
 import Response from "../../../http/response";
@@ -21,7 +20,6 @@ const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
-
 
 /**
  * Mapping of a CSV header column to the trait fields
@@ -47,7 +45,6 @@ export class ColumnMappingItem {
   }
 }
 
-
 export class CreateProfilesImportV2Request {
   /**
    * The name of the file to generate a presigned URL
@@ -69,7 +66,6 @@ export class CreateProfilesImportV2Request {
   }
 }
 
-
 /**
  * Summary statistics of the import operation
  */
@@ -89,7 +85,6 @@ export class FetchProfileImportV2200ResponseSummary {
   }
 }
 
-
 export class ListProfileImportsV2200ResponseMeta {
   "key"?: any | null;
   "pageSize"?: number;
@@ -104,15 +99,12 @@ export class ListProfileImportsV2200ResponseMeta {
   }
 }
 
-
-
-
 /**
  * Options to pass to create a ImportInstance
  */
 export interface ImportListInstanceCreateOptions {
   /**  */
-  "createProfilesImportV2Request": CreateProfilesImportV2Request;
+  createProfilesImportV2Request: CreateProfilesImportV2Request;
 }
 
 /**
@@ -120,11 +112,11 @@ export interface ImportListInstanceCreateOptions {
  */
 export interface ImportListInstanceEachOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  "orderBy"?: 'ASC' | 'DESC';
+  orderBy?: "ASC" | "DESC";
   /** Function to process each record. If this and a positional callback are passed, this one will be used */
   callback?: (item: ImportInstance, done: (err?: Error) => void) => void;
   /** Function to be called upon completion of streaming */
@@ -138,31 +130,28 @@ export interface ImportListInstanceEachOptions {
  */
 export interface ImportListInstanceOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  "orderBy"?: 'ASC' | 'DESC';
+  orderBy?: "ASC" | "DESC";
   /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
   limit?: number;
 }
-
 
 /**
  * Options to pass to page
  */
 export interface ImportListInstancePageOptions {
   /** The maximum number of items to return per page, maximum of 1000. */
-  "pageSize"?: number;
+  pageSize?: number;
   /** The token for the page of results to retrieve. */
-  "pageToken"?: string;
+  pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
-  "orderBy"?: 'ASC' | 'DESC';
+  orderBy?: "ASC" | "DESC";
 }
 
-
 export interface ImportContext {
-
   /**
    * Fetch a ImportInstance
    *
@@ -170,7 +159,9 @@ export interface ImportContext {
    *
    * @returns Resolves to processed ImportInstance
    */
-  fetch(callback?: (error: Error | null, item?: ImportInstance) => any): Promise<ImportInstance>
+  fetch(
+    callback?: (error: Error | null, item?: ImportInstance) => any
+  ): Promise<ImportInstance>;
 
   /**
    * Fetch a ImportInstance and return HTTP info
@@ -179,7 +170,9 @@ export interface ImportContext {
    *
    * @returns Resolves to processed ImportInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any): Promise<ApiResponse<ImportInstance>>
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any
+  ): Promise<ApiResponse<ImportInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -189,61 +182,90 @@ export interface ImportContext {
 }
 
 export interface ImportContextSolution {
-  "storeId": string;
-  "importId": string;
+  storeId: string;
+  importId: string;
 }
 
 export class ImportContextImpl implements ImportContext {
   protected _solution: ImportContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V1, storeId: string, importId: string) {
     if (!isValidPathParam(storeId)) {
-      throw new Error('Parameter \'storeId\' is not valid.');
+      throw new Error("Parameter 'storeId' is not valid.");
     }
 
     if (!isValidPathParam(importId)) {
-      throw new Error('Parameter \'importId\' is not valid.');
+      throw new Error("Parameter 'importId' is not valid.");
     }
 
-    this._solution = { storeId, importId,  };
+    this._solution = { storeId, importId };
     this._uri = `/Stores/${storeId}/Profiles/Imports/${importId}`;
   }
 
-  fetch(callback?: (error: Error | null, item?: ImportInstance) => any): Promise<ImportInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: ImportInstance) => any
+  ): Promise<ImportInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new ImportInstance(operationVersion, payload, instance._solution.storeId, instance._solution.importId));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ImportInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId,
+          instance._solution.importId
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any): Promise<ApiResponse<ImportInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any
+  ): Promise<ApiResponse<ImportInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<ImportResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<ImportInstance> => ({
-      ...response,
-      body: new ImportInstance(operationVersion, response.body, instance._solution.storeId, instance._solution.importId)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<ImportResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ImportInstance> => ({
+          ...response,
+          body: new ImportInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId,
+            instance._solution.importId
+          ),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -295,10 +317,8 @@ export interface ListProfileImportsV2200ResponseMeta {
   previousToken?: string;
 }
 
-
-
-  interface ImportPayload extends TokenPaginationPayload {
-    imports: string[];
+interface ImportPayload extends TokenPaginationPayload {
+  imports: string[];
 }
 
 /**
@@ -333,29 +353,46 @@ interface CreateProfilesImportV2201Response_ResponseResource {
 /**
  * Union type for all possible response models
  */
-type ImportResource = FetchProfileImportV2200Response_ResponseResource | ListProfileImportsV2200Response_ResponseResource | CreateProfilesImportV2201Response_ResponseResource;
+type ImportResource =
+  | FetchProfileImportV2200Response_ResponseResource
+  | ListProfileImportsV2200Response_ResponseResource
+  | CreateProfilesImportV2201Response_ResponseResource;
 
 export class ImportInstance {
   protected _solution: ImportContextSolution;
   protected _context?: ImportContext;
 
-  constructor(protected _version: V1, _payload: ImportResource, storeId: string, importId?: string) {
+  constructor(
+    protected _version: V1,
+    _payload: ImportResource,
+    storeId: string,
+    importId?: string
+  ) {
     const payload: any = _payload;
-    this.status = (payload.status);
-    this.filename = (payload.filename);
+    this.status = payload.status;
+    this.filename = payload.filename;
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
     this.fileSize = deserialize.integer(payload.fileSize);
-    this.columnMappings =  payload.columnMappings !== null && payload.columnMappings !== undefined ? payload.columnMappings.map(
-      (payload: any) => new ColumnMappingItem(payload)
-    ) : null;
-    this.summary = payload.summary !== null && payload.summary !== undefined ? new FetchProfileImportV2200ResponseSummary(payload.summary) : null;
-    this.imports = (payload.imports);
-    this.meta = payload.meta !== null && payload.meta !== undefined ? new ListProfileImportsV2200ResponseMeta(payload.meta) : null;
-    this.importId = (payload.importId);
-    this.url = (payload.url);
+    this.columnMappings =
+      payload.columnMappings !== null && payload.columnMappings !== undefined
+        ? payload.columnMappings.map(
+            (payload: any) => new ColumnMappingItem(payload)
+          )
+        : null;
+    this.summary =
+      payload.summary !== null && payload.summary !== undefined
+        ? new FetchProfileImportV2200ResponseSummary(payload.summary)
+        : null;
+    this.imports = payload.imports;
+    this.meta =
+      payload.meta !== null && payload.meta !== undefined
+        ? new ListProfileImportsV2200ResponseMeta(payload.meta)
+        : null;
+    this.importId = payload.importId;
+    this.url = payload.url;
 
-    this._solution = { storeId, importId: importId,  };
+    this._solution = { storeId, importId: importId };
   }
 
   /**
@@ -395,7 +432,13 @@ export class ImportInstance {
   url?: string;
 
   private get _proxy(): ImportContext {
-    this._context = this._context || new ImportContextImpl(this._version, this._solution.storeId, this._solution.importId);
+    this._context =
+      this._context ||
+      new ImportContextImpl(
+        this._version,
+        this._solution.storeId,
+        this._solution.importId
+      );
     return this._context;
   }
 
@@ -406,9 +449,9 @@ export class ImportInstance {
    *
    * @returns Resolves to processed ImportInstance
    */
-  fetch(callback?: (error: Error | null, item?: ImportInstance) => any): Promise<ImportInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: ImportInstance) => any
+  ): Promise<ImportInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -419,9 +462,9 @@ export class ImportInstance {
    *
    * @returns Resolves to processed ImportInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any): Promise<ApiResponse<ImportInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any
+  ): Promise<ApiResponse<ImportInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -451,7 +494,6 @@ export class ImportInstance {
   }
 }
 
-
 export interface ImportSolution {
   storeId: string;
 }
@@ -461,11 +503,8 @@ export interface ImportListInstance {
   _solution: ImportSolution;
   _uri: string;
 
-  (importId: string, ): ImportContext;
-  get(importId: string, ): ImportContext;
-
-
-
+  (importId: string): ImportContext;
+  get(importId: string): ImportContext;
 
   /**
    * Create a ImportInstance
@@ -476,7 +515,11 @@ export interface ImportListInstance {
    *
    * @returns Resolves to processed ImportInstance
    */
-  create(params: CreateProfilesImportV2Request, headers?: any, callback?: (error: Error | null, item?: ImportInstance) => any): Promise<ImportInstance>;
+  create(
+    params: CreateProfilesImportV2Request,
+    headers?: any,
+    callback?: (error: Error | null, item?: ImportInstance) => any
+  ): Promise<ImportInstance>;
 
   /**
    * Create a ImportInstance and return HTTP info
@@ -487,10 +530,11 @@ export interface ImportListInstance {
    *
    * @returns Resolves to processed ImportInstance with HTTP metadata
    */
-  createWithHttpInfo(params: CreateProfilesImportV2Request, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any): Promise<ApiResponse<ImportInstance>>;
-
-
-
+  createWithHttpInfo(
+    params: CreateProfilesImportV2Request,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<ImportInstance>) => any
+  ): Promise<ApiResponse<ImportInstance>>;
 
   /**
    * Streams ImportInstance records from the API.
@@ -508,7 +552,10 @@ export interface ImportListInstance {
    * @param { function } [callback] - Function to process each record
    */
   each(callback?: (item: string, done: (err?: Error) => void) => void): void;
-  each(params: ImportListInstanceEachOptions, callback?: (item: string, done: (err?: Error) => void) => void): void;
+  each(
+    params: ImportListInstanceEachOptions,
+    callback?: (item: string, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Streams ImportInstance records from the API with HTTP metadata captured per page.
    *
@@ -524,8 +571,13 @@ export interface ImportListInstance {
    * @param { ImportListInstanceEachOptions } [params] - Options for request
    * @param { function } [callback] - Function to process each record
    */
-  eachWithHttpInfo(callback?: (item: string, done: (err?: Error) => void) => void): void;
-  eachWithHttpInfo(params: ImportListInstanceEachOptions, callback?: (item: string, done: (err?: Error) => void) => void): void;
+  eachWithHttpInfo(
+    callback?: (item: string, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: ImportListInstanceEachOptions,
+    callback?: (item: string, done: (err?: Error) => void) => void
+  ): void;
   /**
    * Retrieve a single target page of ImportInstance records from the API.
    *
@@ -534,7 +586,10 @@ export interface ImportListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records
    */
-  getPage(targetUrl: string, callback?: (error: Error | null, items: ImportPage) => any): Promise<ImportPage>;
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ImportPage) => any
+  ): Promise<ImportPage>;
   /**
    * Retrieve a single target page of ImportInstance records from the API with HTTP metadata.
    *
@@ -543,7 +598,10 @@ export interface ImportListInstance {
    * @param { string } [targetUrl] - API-generated URL for the requested results page
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items: ApiResponse<ImportPage>) => any): Promise<ApiResponse<ImportPage>>;
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<ImportPage>) => any
+  ): Promise<ApiResponse<ImportPage>>;
   /**
    * Lists ImportInstance records from the API as a list.
    *
@@ -553,8 +611,13 @@ export interface ImportListInstance {
    * @param { ImportListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  list(callback?: (error: Error | null, items: string[]) => any): Promise<string[]>;
-  list(params: ImportListInstanceOptions, callback?: (error: Error | null, items: string[]) => any): Promise<string[]>;
+  list(
+    callback?: (error: Error | null, items: string[]) => any
+  ): Promise<string[]>;
+  list(
+    params: ImportListInstanceOptions,
+    callback?: (error: Error | null, items: string[]) => any
+  ): Promise<string[]>;
   /**
    * Lists ImportInstance records from the API as a list with HTTP metadata.
    *
@@ -566,8 +629,13 @@ export interface ImportListInstance {
    * @param { ImportListInstanceOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  listWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<string[]>) => any): Promise<ApiResponse<string[]>>;
-  listWithHttpInfo(params: ImportListInstanceOptions, callback?: (error: Error | null, items: ApiResponse<string[]>) => any): Promise<ApiResponse<string[]>>;
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any
+  ): Promise<ApiResponse<string[]>>;
+  listWithHttpInfo(
+    params: ImportListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any
+  ): Promise<ApiResponse<string[]>>;
   /**
    * Retrieve a single page of ImportInstance records from the API.
    *
@@ -579,8 +647,13 @@ export interface ImportListInstance {
    * @param { ImportListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records
    */
-  page(callback?: (error: Error | null, items: ImportPage) => any): Promise<ImportPage>;
-  page(params: ImportListInstancePageOptions, callback?: (error: Error | null, items: ImportPage) => any): Promise<ImportPage>;
+  page(
+    callback?: (error: Error | null, items: ImportPage) => any
+  ): Promise<ImportPage>;
+  page(
+    params: ImportListInstancePageOptions,
+    callback?: (error: Error | null, items: ImportPage) => any
+  ): Promise<ImportPage>;
   /**
    * Retrieve a single page of ImportInstance records from the API with HTTP metadata.
    *
@@ -592,9 +665,13 @@ export interface ImportListInstance {
    * @param { ImportListInstancePageOptions } [params] - Options for request
    * @param { function } [callback] - Callback to handle list of records with metadata
    */
-  pageWithHttpInfo(callback?: (error: Error | null, items: ApiResponse<ImportPage>) => any): Promise<ApiResponse<ImportPage>>;
-  pageWithHttpInfo(params: ImportListInstancePageOptions, callback?: (error: Error | null, items: ApiResponse<ImportPage>) => any): Promise<ApiResponse<ImportPage>>;
-
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<ImportPage>) => any
+  ): Promise<ApiResponse<ImportPage>>;
+  pageWithHttpInfo(
+    params: ImportListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<ImportPage>) => any
+  ): Promise<ApiResponse<ImportPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -603,83 +680,121 @@ export interface ImportListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ImportListInstance(version: V1, storeId: string): ImportListInstance {
+export function ImportListInstance(
+  version: V1,
+  storeId: string
+): ImportListInstance {
   if (!isValidPathParam(storeId)) {
-    throw new Error('Parameter \'storeId\' is not valid.');
+    throw new Error("Parameter 'storeId' is not valid.");
   }
 
-  const instance = ((importId, ) => instance.get(importId, )) as ImportListInstance;
+  const instance = ((importId) => instance.get(importId)) as ImportListInstance;
 
-  instance.get = function get(importId, ): ImportContext {
+  instance.get = function get(importId): ImportContext {
     return new ImportContextImpl(version, storeId, importId);
-  }
+  };
 
   instance._version = version;
-  instance._solution = { storeId,  };
+  instance._solution = { storeId };
   instance._uri = `/Stores/${storeId}/Profiles/Imports`;
 
-  instance.create = function create(params: CreateProfilesImportV2Request, headers?: any, callback?: (error: Error | null, items: ImportInstance) => any): Promise<ImportInstance> {
+  instance.create = function create(
+    params: CreateProfilesImportV2Request,
+    headers?: any,
+    callback?: (error: Error | null, items: ImportInstance) => any
+  ): Promise<ImportInstance> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ImportInstance(operationVersion, payload, instance._solution.storeId));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ImportInstance(
+          operationVersion,
+          payload,
+          instance._solution.storeId
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.createWithHttpInfo = function createWithHttpInfo(params: CreateProfilesImportV2Request, headers?: any, callback?: (error: Error | null, items: ApiResponse<ImportInstance>) => any): Promise<ApiResponse<ImportInstance>> {
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: CreateProfilesImportV2Request,
+    headers?: any,
+    callback?: (error: Error | null, items: ApiResponse<ImportInstance>) => any
+  ): Promise<ApiResponse<ImportInstance>> {
     if (params === null || params === undefined) {
       throw new Error('Required parameter "params" missing.');
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<ImportResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ImportInstance> => ({
-      ...response,
-      body: new ImportInstance(operationVersion, response.body, instance._solution.storeId)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ImportResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ImportInstance> => ({
+          ...response,
+          body: new ImportInstance(
+            operationVersion,
+            response.body,
+            instance._solution.storeId
+          ),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
+  };
 
-
-    }
-
-  instance.page = function page(params?: ImportListInstancePageOptions | ((error: Error | null, items: ImportPage) => any), callback?: (error: Error | null, items: ImportPage) => any): Promise<ImportPage> {
+  instance.page = function page(
+    params?:
+      | ImportListInstancePageOptions
+      | ((error: Error | null, items: ImportPage) => any),
+    callback?: (error: Error | null, items: ImportPage) => any
+  ): Promise<ImportPage> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -689,34 +804,45 @@ export function ImportListInstance(version: V1, storeId: string): ImportListInst
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["pageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-    data["pageToken"] = params["pageToken"];
-    if (params["orderBy"] !== undefined)
-    data["orderBy"] = params["orderBy"];
+      data["pageToken"] = params["pageToken"];
+    if (params["orderBy"] !== undefined) data["orderBy"] = params["orderBy"];
 
-    
-    
-    
-
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version,
-        operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers});
-    
-    
-    operationPromise = operationPromise.then(payload => new ImportPage(operationVersion, payload, instance._uri, data, instance._solution));
-    
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
 
-  }
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ImportPage(
+          operationVersion,
+          payload,
+          instance._uri,
+          data,
+          instance._solution
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
   instance.each = instance._version.each;
 
-  instance.list = function list(params?: any, callback?: (error: Error | null, items: string[]) => any): Promise<string[]> {
+  instance.list = function list(
+    params?: any,
+    callback?: (error: Error | null, items: string[]) => any
+  ): Promise<string[]> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -727,8 +853,8 @@ export function ImportListInstance(version: V1, storeId: string): ImportListInst
 
     function fetchNextPage(nextPageParams: any): Promise<string[]> {
       return instance.page(nextPageParams).then((page: any) => {
-        const payload = page['_payload'];
-        const records = payload && payload['imports'] ? payload['imports'] : [];
+        const payload = page["_payload"];
+        const records = payload && payload["imports"] ? payload["imports"] : [];
         allRecords = allRecords.concat(records);
 
         if (params.limit && allRecords.length >= params.limit) {
@@ -736,7 +862,9 @@ export function ImportListInstance(version: V1, storeId: string): ImportListInst
           return allRecords;
         }
 
-        const nextToken = page.nextPageUrl ? new URL(page.nextPageUrl).searchParams.get('PageToken') : null;
+        const nextToken = page.nextPageUrl
+          ? new URL(page.nextPageUrl).searchParams.get("PageToken")
+          : null;
         if (nextToken) {
           return fetchNextPage({ ...nextPageParams, pageToken: nextToken });
         }
@@ -747,17 +875,35 @@ export function ImportListInstance(version: V1, storeId: string): ImportListInst
     const promise = fetchNextPage(params);
     return instance._version.setPromiseCallback(promise, callback);
   };
-    
 
-  instance.getPage = function getPage(targetUrl: string, callback?: (error: Error | null, items: ImportPage) => any): Promise<ImportPage> {
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
-    let pagePromise = operationPromise.then(payload => new ImportPage(instance._version, payload, instance._uri, {}, instance._solution));
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ImportPage) => any
+  ): Promise<ImportPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new ImportPage(
+          instance._version,
+          payload,
+          instance._uri,
+          {},
+          instance._solution
+        )
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
+  };
 
-
-  instance.pageWithHttpInfo = function pageWithHttpInfo(params?: ImportListInstancePageOptions | ((error: Error | null, items: ApiResponse<ImportPage>) => any), callback?: (error: Error | null, items: ApiResponse<ImportPage>) => any): Promise<ApiResponse<ImportPage>> {
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | ImportListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<ImportPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<ImportPage>) => any
+  ): Promise<ApiResponse<ImportPage>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -767,39 +913,47 @@ export function ImportListInstance(version: V1, storeId: string): ImportListInst
 
     let data: any = {};
 
-        if (params["pageSize"] !== undefined)
-    data["pageSize"] = params["pageSize"];
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
     if (params["pageToken"] !== undefined)
-    data["pageToken"] = params["pageToken"];
-    if (params["orderBy"] !== undefined)
-    data["orderBy"] = params["orderBy"];
+      data["pageToken"] = params["pageToken"];
+    if (params["orderBy"] !== undefined) data["orderBy"] = params["orderBy"];
 
-    
-    
-    
-
-    
     const headers: any = {};
-    headers["Accept"] = "application/json"
+    headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    
+
     // For page operations, use page() directly as it already returns { statusCode, body, headers }
     // IMPORTANT: Pass full response to Page constructor, not response.body
-    let operationPromise = operationVersion.page({ uri: instance._uri, method: "get", params: data, headers}).then((response) : ApiResponse<ImportPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ImportPage(operationVersion, response, instance._uri, data, instance._solution)
-    }));
-    
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
-    return operationPromise;
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<ImportPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new ImportPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
+        })
+      );
 
-  }
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
   instance.each = instance._version.each;
   instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
 
-  instance.listWithHttpInfo = function listWithHttpInfo(params?: any, callback?: (error: Error | null, items: ApiResponse<string[]>) => any): Promise<ApiResponse<string[]>> {
+  instance.listWithHttpInfo = function listWithHttpInfo(
+    params?: any,
+    callback?: (error: Error | null, items: ApiResponse<string[]>) => any
+  ): Promise<ApiResponse<string[]>> {
     if (params instanceof Function) {
       callback = params;
       params = {};
@@ -809,93 +963,125 @@ export function ImportListInstance(version: V1, storeId: string): ImportListInst
     let allRecords: string[] = [];
     let lastResponse: any;
 
-    function fetchNextPage(nextPageParams: any): Promise<ApiResponse<string[]>> {
-      return instance.pageWithHttpInfo(nextPageParams).then((response: ApiResponse<any>) => {
-        lastResponse = response;
-        const page = response.body;
-        // For primitive arrays, directly access the records array from the payload
-        // Access _payload using bracket notation to bypass TypeScript protected access
-        const payload = page['_payload'];
-        const records = payload && payload['imports'] ? payload['imports'] : [];
-        allRecords = allRecords.concat(records);
+    function fetchNextPage(
+      nextPageParams: any
+    ): Promise<ApiResponse<string[]>> {
+      return instance
+        .pageWithHttpInfo(nextPageParams)
+        .then((response: ApiResponse<any>) => {
+          lastResponse = response;
+          const page = response.body;
+          // For primitive arrays, directly access the records array from the payload
+          // Access _payload using bracket notation to bypass TypeScript protected access
+          const payload = page["_payload"];
+          const records =
+            payload && payload["imports"] ? payload["imports"] : [];
+          allRecords = allRecords.concat(records);
 
-        if (params.limit && allRecords.length >= params.limit) {
-          allRecords = allRecords.slice(0, params.limit);
+          if (params.limit && allRecords.length >= params.limit) {
+            allRecords = allRecords.slice(0, params.limit);
+            return {
+              statusCode: lastResponse.statusCode,
+              headers: lastResponse.headers,
+              body: allRecords,
+            };
+          }
+
+          const nextToken = page.nextPageUrl
+            ? new URL(page.nextPageUrl).searchParams.get("PageToken")
+            : null;
+          if (nextToken) {
+            return fetchNextPage({ ...nextPageParams, pageToken: nextToken });
+          }
           return {
             statusCode: lastResponse.statusCode,
             headers: lastResponse.headers,
-            body: allRecords
+            body: allRecords,
           };
-        }
-
-        const nextToken = page.nextPageUrl ? new URL(page.nextPageUrl).searchParams.get('PageToken') : null;
-        if (nextToken) {
-          return fetchNextPage({ ...nextPageParams, pageToken: nextToken });
-        }
-        return {
-          statusCode: lastResponse.statusCode,
-          headers: lastResponse.headers,
-          body: allRecords
-        };
-      });
+        });
     }
 
     const promise = fetchNextPage(params);
     return instance._version.setPromiseCallback(promise, callback);
   };
-  
 
-  instance.getPageWithHttpInfo = function getPageWithHttpInfo(targetUrl: string, callback?: (error: Error | null, items?: ApiResponse<ImportPage>) => any): Promise<ApiResponse<ImportPage>> {
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<ImportPage>) => any
+  ): Promise<ApiResponse<ImportPage>> {
     // Use request() directly as it already returns { statusCode, body, headers }
-    const operationPromise = instance._version._domain.twilio.request({method: "get", uri: targetUrl});
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
 
-    let pagePromise = operationPromise.then((response): ApiResponse<ImportPage> => ({
-      statusCode: response.statusCode,
-      headers: response.headers,
-      body: new ImportPage(instance._version, response, instance._uri, {}, instance._solution)
-    }));
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<ImportPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new ImportPage(
+          instance._version,
+          response,
+          instance._uri,
+          {},
+          instance._solution
+        ),
+      })
+    );
     pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
     return pagePromise;
-  }
-
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
 
-export class ImportPage extends TokenPage<V1, ImportPayload, ImportResource, string> {
-/**
-* Initialize the ImportPage
-*
-* @param version - Version of the resource
-* @param response - Response from the API
-* @param uri - URI of the resource
-* @param params - Query parameters
-* @param solution - Path solution
-*/
-constructor(version: V1, response: Response<string>, uri: string, params: any, solution: ImportSolution) {
+export class ImportPage extends TokenPage<
+  V1,
+  ImportPayload,
+  ImportResource,
+  string
+> {
+  /**
+   * Initialize the ImportPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param uri - URI of the resource
+   * @param params - Query parameters
+   * @param solution - Path solution
+   */
+  constructor(
+    version: V1,
+    response: Response<string>,
+    uri: string,
+    params: any,
+    solution: ImportSolution
+  ) {
     super(version, response, uri, params, solution);
-    }
+  }
 
-    /**
-    * Build an instance of ImportInstance
-    *
-    * @param payload - Payload response from the API
-    */
-    getInstance(payload: ImportResource): string {
+  /**
+   * Build an instance of ImportInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ImportResource): string {
     // Array items are primitives (strings, numbers), return directly
     return payload as any;
-        }
+  }
 
-    [inspect.custom](depth: any, options: InspectOptions) {
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
-    }
-    }
-
+  }
+}

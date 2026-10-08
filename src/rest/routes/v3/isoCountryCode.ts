@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V3 from "../V3";
 const deserialize = require("../../../base/deserialize");
@@ -20,21 +19,17 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
-
 /**
  * Options to pass to update a IsoCountryCodeInstance
  */
 export interface IsoCountryCodeContextUpdateOptions {
   /** The Processing Region used for this short code for messaging */
-  "messagingRegion"?: string;
+  messagingRegion?: string;
   /** A human readable description of this resource, up to 64 characters. */
-  "friendlyName"?: string;
+  friendlyName?: string;
 }
 
 export interface IsoCountryCodeContext {
-
   /**
    * Fetch a IsoCountryCodeInstance
    *
@@ -42,7 +37,9 @@ export interface IsoCountryCodeContext {
    *
    * @returns Resolves to processed IsoCountryCodeInstance
    */
-  fetch(callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any): Promise<IsoCountryCodeInstance>
+  fetch(
+    callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any
+  ): Promise<IsoCountryCodeInstance>;
 
   /**
    * Fetch a IsoCountryCodeInstance and return HTTP info
@@ -51,7 +48,12 @@ export interface IsoCountryCodeContext {
    *
    * @returns Resolves to processed IsoCountryCodeInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<IsoCountryCodeInstance>) => any): Promise<ApiResponse<IsoCountryCodeInstance>>
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IsoCountryCodeInstance>
+    ) => any
+  ): Promise<ApiResponse<IsoCountryCodeInstance>>;
 
   /**
    * Update a IsoCountryCodeInstance
@@ -60,7 +62,9 @@ export interface IsoCountryCodeContext {
    *
    * @returns Resolves to processed IsoCountryCodeInstance
    */
-  update(callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any): Promise<IsoCountryCodeInstance>;
+  update(
+    callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any
+  ): Promise<IsoCountryCodeInstance>;
   /**
    * Update a IsoCountryCodeInstance
    *
@@ -69,7 +73,10 @@ export interface IsoCountryCodeContext {
    *
    * @returns Resolves to processed IsoCountryCodeInstance
    */
-  update(params: IsoCountryCodeContextUpdateOptions, callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any): Promise<IsoCountryCodeInstance>;
+  update(
+    params: IsoCountryCodeContextUpdateOptions,
+    callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any
+  ): Promise<IsoCountryCodeInstance>;
 
   /**
    * Update a IsoCountryCodeInstance and return HTTP info
@@ -78,7 +85,12 @@ export interface IsoCountryCodeContext {
    *
    * @returns Resolves to processed IsoCountryCodeInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<IsoCountryCodeInstance>) => any): Promise<ApiResponse<IsoCountryCodeInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IsoCountryCodeInstance>
+    ) => any
+  ): Promise<ApiResponse<IsoCountryCodeInstance>>;
   /**
    * Update a IsoCountryCodeInstance and return HTTP info
    *
@@ -87,7 +99,13 @@ export interface IsoCountryCodeContext {
    *
    * @returns Resolves to processed IsoCountryCodeInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: IsoCountryCodeContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<IsoCountryCodeInstance>) => any): Promise<ApiResponse<IsoCountryCodeInstance>>;
+  updateWithHttpInfo(
+    params: IsoCountryCodeContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IsoCountryCodeInstance>
+    ) => any
+  ): Promise<ApiResponse<IsoCountryCodeInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -97,134 +115,206 @@ export interface IsoCountryCodeContext {
 }
 
 export interface IsoCountryCodeContextSolution {
-  "isoCountryCode": string;
-  "shortCode": string;
+  isoCountryCode: string;
+  shortCode: string;
 }
 
 export class IsoCountryCodeContextImpl implements IsoCountryCodeContext {
   protected _solution: IsoCountryCodeContextSolution;
   protected _uri: string;
 
-
-  constructor(protected _version: V3, isoCountryCode: string, shortCode: string) {
+  constructor(
+    protected _version: V3,
+    isoCountryCode: string,
+    shortCode: string
+  ) {
     if (!isValidPathParam(isoCountryCode)) {
-      throw new Error('Parameter \'isoCountryCode\' is not valid.');
+      throw new Error("Parameter 'isoCountryCode' is not valid.");
     }
 
     if (!isValidPathParam(shortCode)) {
-      throw new Error('Parameter \'shortCode\' is not valid.');
+      throw new Error("Parameter 'shortCode' is not valid.");
     }
 
-    this._solution = { isoCountryCode, shortCode,  };
+    this._solution = { isoCountryCode, shortCode };
     this._uri = `/ShortCodes/${isoCountryCode}/${shortCode}`;
   }
 
-  fetch(callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any): Promise<IsoCountryCodeInstance> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetch(
+    callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any
+  ): Promise<IsoCountryCodeInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.fetch({ uri: instance._uri, method: "get", headers});
-    
-    operationPromise = operationPromise.then(payload => new IsoCountryCodeInstance(operationVersion, payload, instance._solution.isoCountryCode, instance._solution.shortCode));
-    
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IsoCountryCodeInstance(
+          operationVersion,
+          payload,
+          instance._solution.isoCountryCode,
+          instance._solution.shortCode
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<IsoCountryCodeInstance>) => any): Promise<ApiResponse<IsoCountryCodeInstance>> {
-      const headers: any = {};
-    headers["Accept"] = "application/json"
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IsoCountryCodeInstance>
+    ) => any
+  ): Promise<ApiResponse<IsoCountryCodeInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.fetchWithResponseInfo<IsoCountryCodeResource>({ uri: instance._uri, method: "get", headers}).then((response) : ApiResponse<IsoCountryCodeInstance> => ({
-      ...response,
-      body: new IsoCountryCodeInstance(operationVersion, response.body, instance._solution.isoCountryCode, instance._solution.shortCode)
-    }));
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<IsoCountryCodeResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<IsoCountryCodeInstance> => ({
+          ...response,
+          body: new IsoCountryCodeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.isoCountryCode,
+            instance._solution.shortCode
+          ),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  update(params?: IsoCountryCodeContextUpdateOptions | ((error: Error | null, item?: IsoCountryCodeInstance) => any),callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any): Promise<IsoCountryCodeInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | IsoCountryCodeContextUpdateOptions
+      | ((error: Error | null, item?: IsoCountryCodeInstance) => any),
+    callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any
+  ): Promise<IsoCountryCodeInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["messagingRegion"] !== undefined)
-    data["messagingRegion"] = params["messagingRegion"];
+    if (params["messagingRegion"] !== undefined)
+      data["messagingRegion"] = params["messagingRegion"];
     if (params["friendlyName"] !== undefined)
-    data["friendlyName"] = params["friendlyName"];
+      data["friendlyName"] = params["friendlyName"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new IsoCountryCodeInstance(operationVersion, payload, instance._solution.isoCountryCode, instance._solution.shortCode));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new IsoCountryCodeInstance(
+          operationVersion,
+          payload,
+          instance._solution.isoCountryCode,
+          instance._solution.shortCode
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: IsoCountryCodeContextUpdateOptions | ((error: Error | null, item?: ApiResponse<IsoCountryCodeInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<IsoCountryCodeInstance>) => any): Promise<ApiResponse<IsoCountryCodeInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | IsoCountryCodeContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<IsoCountryCodeInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IsoCountryCodeInstance>
+    ) => any
+  ): Promise<ApiResponse<IsoCountryCodeInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["messagingRegion"] !== undefined)
-    data["messagingRegion"] = params["messagingRegion"];
+    if (params["messagingRegion"] !== undefined)
+      data["messagingRegion"] = params["messagingRegion"];
     if (params["friendlyName"] !== undefined)
-    data["friendlyName"] = params["friendlyName"];
+      data["friendlyName"] = params["friendlyName"];
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<IsoCountryCodeResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<IsoCountryCodeInstance> => ({
-      ...response,
-      body: new IsoCountryCodeInstance(operationVersion, response.body, instance._solution.isoCountryCode, instance._solution.shortCode)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<IsoCountryCodeResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<IsoCountryCodeInstance> => ({
+          ...response,
+          body: new IsoCountryCodeInstance(
+            operationVersion,
+            response.body,
+            instance._solution.isoCountryCode,
+            instance._solution.shortCode
+          ),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -241,9 +331,6 @@ export class IsoCountryCodeContextImpl implements IsoCountryCodeContext {
   }
 }
 
-
-
-
 interface IsoCountryCodeResource {
   isoCountryCode: string;
   shortCode: string;
@@ -259,18 +346,23 @@ export class IsoCountryCodeInstance {
   protected _solution: IsoCountryCodeContextSolution;
   protected _context?: IsoCountryCodeContext;
 
-  constructor(protected _version: V3, _payload: IsoCountryCodeResource, isoCountryCode?: string, shortCode?: string) {
+  constructor(
+    protected _version: V3,
+    _payload: IsoCountryCodeResource,
+    isoCountryCode?: string,
+    shortCode?: string
+  ) {
     const payload = _payload;
-    this.isoCountryCode = (payload.isoCountryCode);
-    this.shortCode = (payload.shortCode);
-    this.url = (payload.url);
-    this.accountSid = (payload.accountSid);
-    this.friendlyName = (payload.friendlyName);
-    this.messagingRegion = (payload.messagingRegion);
+    this.isoCountryCode = payload.isoCountryCode;
+    this.shortCode = payload.shortCode;
+    this.url = payload.url;
+    this.accountSid = payload.accountSid;
+    this.friendlyName = payload.friendlyName;
+    this.messagingRegion = payload.messagingRegion;
     this.dateCreated = deserialize.iso8601DateTime(payload.dateCreated);
     this.dateUpdated = deserialize.iso8601DateTime(payload.dateUpdated);
 
-    this._solution = { isoCountryCode: isoCountryCode, shortCode: shortCode,  };
+    this._solution = { isoCountryCode: isoCountryCode, shortCode: shortCode };
   }
 
   /**
@@ -307,7 +399,13 @@ export class IsoCountryCodeInstance {
   dateUpdated: Date;
 
   private get _proxy(): IsoCountryCodeContext {
-    this._context = this._context || new IsoCountryCodeContextImpl(this._version, this._solution.isoCountryCode, this._solution.shortCode);
+    this._context =
+      this._context ||
+      new IsoCountryCodeContextImpl(
+        this._version,
+        this._solution.isoCountryCode,
+        this._solution.shortCode
+      );
     return this._context;
   }
 
@@ -318,9 +416,9 @@ export class IsoCountryCodeInstance {
    *
    * @returns Resolves to processed IsoCountryCodeInstance
    */
-  fetch(callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any): Promise<IsoCountryCodeInstance>
-
-    {
+  fetch(
+    callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any
+  ): Promise<IsoCountryCodeInstance> {
     return this._proxy.fetch(callback);
   }
 
@@ -331,9 +429,12 @@ export class IsoCountryCodeInstance {
    *
    * @returns Resolves to processed IsoCountryCodeInstance with HTTP metadata
    */
-  fetchWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<IsoCountryCodeInstance>) => any): Promise<ApiResponse<IsoCountryCodeInstance>>
-
-    {
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IsoCountryCodeInstance>
+    ) => any
+  ): Promise<ApiResponse<IsoCountryCodeInstance>> {
     return this._proxy.fetchWithHttpInfo(callback);
   }
 
@@ -344,7 +445,9 @@ export class IsoCountryCodeInstance {
    *
    * @returns Resolves to processed IsoCountryCodeInstance
    */
-  update(callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any): Promise<IsoCountryCodeInstance>;
+  update(
+    callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any
+  ): Promise<IsoCountryCodeInstance>;
   /**
    * Update a IsoCountryCodeInstance
    *
@@ -353,10 +456,15 @@ export class IsoCountryCodeInstance {
    *
    * @returns Resolves to processed IsoCountryCodeInstance
    */
-  update(params: IsoCountryCodeContextUpdateOptions, callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any): Promise<IsoCountryCodeInstance>;
+  update(
+    params: IsoCountryCodeContextUpdateOptions,
+    callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any
+  ): Promise<IsoCountryCodeInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any): Promise<IsoCountryCodeInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: IsoCountryCodeInstance) => any
+  ): Promise<IsoCountryCodeInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -367,7 +475,12 @@ export class IsoCountryCodeInstance {
    *
    * @returns Resolves to processed IsoCountryCodeInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<IsoCountryCodeInstance>) => any): Promise<ApiResponse<IsoCountryCodeInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IsoCountryCodeInstance>
+    ) => any
+  ): Promise<ApiResponse<IsoCountryCodeInstance>>;
   /**
    * Update a IsoCountryCodeInstance and return HTTP info
    *
@@ -376,10 +489,21 @@ export class IsoCountryCodeInstance {
    *
    * @returns Resolves to processed IsoCountryCodeInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: IsoCountryCodeContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<IsoCountryCodeInstance>) => any): Promise<ApiResponse<IsoCountryCodeInstance>>;
+  updateWithHttpInfo(
+    params: IsoCountryCodeContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IsoCountryCodeInstance>
+    ) => any
+  ): Promise<ApiResponse<IsoCountryCodeInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<IsoCountryCodeInstance>) => any): Promise<ApiResponse<IsoCountryCodeInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<IsoCountryCodeInstance>
+    ) => any
+  ): Promise<ApiResponse<IsoCountryCodeInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -406,22 +530,15 @@ export class IsoCountryCodeInstance {
   }
 }
 
-
-export interface IsoCountryCodeSolution {
-}
+export interface IsoCountryCodeSolution {}
 
 export interface IsoCountryCodeListInstance {
   _version: V3;
   _solution: IsoCountryCodeSolution;
   _uri: string;
 
-  (isoCountryCode: string, shortCode: string, ): IsoCountryCodeContext;
-  get(isoCountryCode: string, shortCode: string, ): IsoCountryCodeContext;
-
-
-
-
-
+  (isoCountryCode: string, shortCode: string): IsoCountryCodeContext;
+  get(isoCountryCode: string, shortCode: string): IsoCountryCodeContext;
 
   /**
    * Provide a user-friendly representation
@@ -430,26 +547,33 @@ export interface IsoCountryCodeListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function IsoCountryCodeListInstance(version: V3): IsoCountryCodeListInstance {
-  const instance = ((isoCountryCode, shortCode, ) => instance.get(isoCountryCode, shortCode, )) as IsoCountryCodeListInstance;
+export function IsoCountryCodeListInstance(
+  version: V3
+): IsoCountryCodeListInstance {
+  const instance = ((isoCountryCode, shortCode) =>
+    instance.get(isoCountryCode, shortCode)) as IsoCountryCodeListInstance;
 
-  instance.get = function get(isoCountryCode, shortCode, ): IsoCountryCodeContext {
+  instance.get = function get(
+    isoCountryCode,
+    shortCode
+  ): IsoCountryCodeContext {
     return new IsoCountryCodeContextImpl(version, isoCountryCode, shortCode);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

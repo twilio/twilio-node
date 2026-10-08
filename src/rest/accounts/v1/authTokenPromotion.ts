@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -20,18 +19,15 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
-
-
 /**
  * Options to pass to update a AuthTokenPromotionInstance
  */
 export interface AuthTokenPromotionContextUpdateOptions {
   /** Whether to suppress the email notification that Twilio sends to the owners and administrators of the account about this Auth Token change. Defaults to `false`, so Twilio sends the email. Set to `true` when rotating Auth Tokens across many subaccounts. */
-  "suppressEmailNotification"?: boolean;
+  suppressEmailNotification?: boolean;
 }
 
 export interface AuthTokenPromotionContext {
-
   /**
    * Update a AuthTokenPromotionInstance
    *
@@ -39,7 +35,9 @@ export interface AuthTokenPromotionContext {
    *
    * @returns Resolves to processed AuthTokenPromotionInstance
    */
-  update(callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any): Promise<AuthTokenPromotionInstance>;
+  update(
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+  ): Promise<AuthTokenPromotionInstance>;
   /**
    * Update a AuthTokenPromotionInstance
    *
@@ -48,7 +46,10 @@ export interface AuthTokenPromotionContext {
    *
    * @returns Resolves to processed AuthTokenPromotionInstance
    */
-  update(params: AuthTokenPromotionContextUpdateOptions, callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any): Promise<AuthTokenPromotionInstance>;
+  update(
+    params: AuthTokenPromotionContextUpdateOptions,
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+  ): Promise<AuthTokenPromotionInstance>;
 
   /**
    * Update a AuthTokenPromotionInstance and return HTTP info
@@ -57,7 +58,12 @@ export interface AuthTokenPromotionContext {
    *
    * @returns Resolves to processed AuthTokenPromotionInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AuthTokenPromotionInstance>) => any): Promise<ApiResponse<AuthTokenPromotionInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>>;
   /**
    * Update a AuthTokenPromotionInstance and return HTTP info
    *
@@ -66,7 +72,13 @@ export interface AuthTokenPromotionContext {
    *
    * @returns Resolves to processed AuthTokenPromotionInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: AuthTokenPromotionContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<AuthTokenPromotionInstance>) => any): Promise<ApiResponse<AuthTokenPromotionInstance>>;
+  updateWithHttpInfo(
+    params: AuthTokenPromotionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -75,86 +87,115 @@ export interface AuthTokenPromotionContext {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export interface AuthTokenPromotionContextSolution {
-}
+export interface AuthTokenPromotionContextSolution {}
 
-export class AuthTokenPromotionContextImpl implements AuthTokenPromotionContext {
+export class AuthTokenPromotionContextImpl
+  implements AuthTokenPromotionContext
+{
   protected _solution: AuthTokenPromotionContextSolution;
   protected _uri: string;
 
-
   constructor(protected _version: V1) {
-    this._solution = {  };
+    this._solution = {};
     this._uri = `/AuthTokens/Promote`;
   }
 
-  update(params?: AuthTokenPromotionContextUpdateOptions | ((error: Error | null, item?: AuthTokenPromotionInstance) => any),callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any): Promise<AuthTokenPromotionInstance> {
-      if (params instanceof Function) {
+  update(
+    params?:
+      | AuthTokenPromotionContextUpdateOptions
+      | ((error: Error | null, item?: AuthTokenPromotionInstance) => any),
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+  ): Promise<AuthTokenPromotionInstance> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["suppressEmailNotification"] !== undefined)
-    data["SuppressEmailNotification"] = serialize.bool(params["suppressEmailNotification"]);
+    if (params["suppressEmailNotification"] !== undefined)
+      data["SuppressEmailNotification"] = serialize.bool(
+        params["suppressEmailNotification"]
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.update({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new AuthTokenPromotionInstance(operationVersion, payload));
-    
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) => new AuthTokenPromotionInstance(operationVersion, payload)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  updateWithHttpInfo(params?: AuthTokenPromotionContextUpdateOptions | ((error: Error | null, item?: ApiResponse<AuthTokenPromotionInstance>) => any),callback?: (error: Error | null, item?: ApiResponse<AuthTokenPromotionInstance>) => any): Promise<ApiResponse<AuthTokenPromotionInstance>> {
-      if (params instanceof Function) {
+  updateWithHttpInfo(
+    params?:
+      | AuthTokenPromotionContextUpdateOptions
+      | ((
+          error: Error | null,
+          item?: ApiResponse<AuthTokenPromotionInstance>
+        ) => any),
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>> {
+    if (params instanceof Function) {
       callback = params;
       params = {} as any;
     } else {
-      params = params || {} as any;
+      params = params || ({} as any);
     }
 
     let data: any = {};
 
-    
-        if (params["suppressEmailNotification"] !== undefined)
-    data["SuppressEmailNotification"] = serialize.bool(params["suppressEmailNotification"]);
+    if (params["suppressEmailNotification"] !== undefined)
+      data["SuppressEmailNotification"] = serialize.bool(
+        params["suppressEmailNotification"]
+      );
 
-    
-    
-    
     const headers: any = {};
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.updateWithResponseInfo<AuthTokenPromotionResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<AuthTokenPromotionInstance> => ({
-      ...response,
-      body: new AuthTokenPromotionInstance(operationVersion, response.body)
-    }));
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<AuthTokenPromotionResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<AuthTokenPromotionInstance> => ({
+          ...response,
+          body: new AuthTokenPromotionInstance(operationVersion, response.body),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -171,8 +212,7 @@ export class AuthTokenPromotionContextImpl implements AuthTokenPromotionContext 
   }
 }
 
-
-  interface AuthTokenPromotionPayload extends AuthTokenPromotionResource {}
+interface AuthTokenPromotionPayload extends AuthTokenPromotionResource {}
 
 interface AuthTokenPromotionResource {
   account_sid: string;
@@ -187,14 +227,13 @@ export class AuthTokenPromotionInstance {
   protected _context?: AuthTokenPromotionContext;
 
   constructor(protected _version: V1, payload: AuthTokenPromotionResource) {
-    
-    this.accountSid = (payload.account_sid);
-    this.authToken = (payload.auth_token);
+    this.accountSid = payload.account_sid;
+    this.authToken = payload.auth_token;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.url = (payload.url);
+    this.url = payload.url;
 
-    this._solution = {  };
+    this._solution = {};
   }
 
   /**
@@ -219,7 +258,8 @@ export class AuthTokenPromotionInstance {
   url: string;
 
   private get _proxy(): AuthTokenPromotionContext {
-    this._context = this._context || new AuthTokenPromotionContextImpl(this._version);
+    this._context =
+      this._context || new AuthTokenPromotionContextImpl(this._version);
     return this._context;
   }
 
@@ -230,7 +270,9 @@ export class AuthTokenPromotionInstance {
    *
    * @returns Resolves to processed AuthTokenPromotionInstance
    */
-  update(callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any): Promise<AuthTokenPromotionInstance>;
+  update(
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+  ): Promise<AuthTokenPromotionInstance>;
   /**
    * Update a AuthTokenPromotionInstance
    *
@@ -239,10 +281,15 @@ export class AuthTokenPromotionInstance {
    *
    * @returns Resolves to processed AuthTokenPromotionInstance
    */
-  update(params: AuthTokenPromotionContextUpdateOptions, callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any): Promise<AuthTokenPromotionInstance>;
+  update(
+    params: AuthTokenPromotionContextUpdateOptions,
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+  ): Promise<AuthTokenPromotionInstance>;
 
-    update(params?: any, callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any): Promise<AuthTokenPromotionInstance>
-    {
+  update(
+    params?: any,
+    callback?: (error: Error | null, item?: AuthTokenPromotionInstance) => any
+  ): Promise<AuthTokenPromotionInstance> {
     return this._proxy.update(params, callback);
   }
 
@@ -253,7 +300,12 @@ export class AuthTokenPromotionInstance {
    *
    * @returns Resolves to processed AuthTokenPromotionInstance with HTTP metadata
    */
-  updateWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<AuthTokenPromotionInstance>) => any): Promise<ApiResponse<AuthTokenPromotionInstance>>;
+  updateWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>>;
   /**
    * Update a AuthTokenPromotionInstance and return HTTP info
    *
@@ -262,10 +314,21 @@ export class AuthTokenPromotionInstance {
    *
    * @returns Resolves to processed AuthTokenPromotionInstance with HTTP metadata
    */
-  updateWithHttpInfo(params: AuthTokenPromotionContextUpdateOptions, callback?: (error: Error | null, item?: ApiResponse<AuthTokenPromotionInstance>) => any): Promise<ApiResponse<AuthTokenPromotionInstance>>;
+  updateWithHttpInfo(
+    params: AuthTokenPromotionContextUpdateOptions,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>>;
 
-    updateWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<AuthTokenPromotionInstance>) => any): Promise<ApiResponse<AuthTokenPromotionInstance>>
-    {
+  updateWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<AuthTokenPromotionInstance>
+    ) => any
+  ): Promise<ApiResponse<AuthTokenPromotionInstance>> {
     return this._proxy.updateWithHttpInfo(params, callback);
   }
 
@@ -289,9 +352,7 @@ export class AuthTokenPromotionInstance {
   }
 }
 
-
-export interface AuthTokenPromotionSolution {
-}
+export interface AuthTokenPromotionSolution {}
 
 export interface AuthTokenPromotionListInstance {
   _version: V1;
@@ -301,9 +362,6 @@ export interface AuthTokenPromotionListInstance {
   (): AuthTokenPromotionContext;
   get(): AuthTokenPromotionContext;
 
-
-
-
   /**
    * Provide a user-friendly representation
    */
@@ -311,26 +369,29 @@ export interface AuthTokenPromotionListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function AuthTokenPromotionListInstance(version: V1): AuthTokenPromotionListInstance {
+export function AuthTokenPromotionListInstance(
+  version: V1
+): AuthTokenPromotionListInstance {
   const instance = (() => instance.get()) as AuthTokenPromotionListInstance;
 
   instance.get = function get(): AuthTokenPromotionContext {
     return new AuthTokenPromotionContextImpl(version);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

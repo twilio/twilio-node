@@ -71,7 +71,8 @@ export default class V1 extends Version {
 
   /** Getter for bulkEligibilities resource */
   get bulkEligibilities(): BulkEligibilityListInstance {
-    this._bulkEligibilities = this._bulkEligibilities || BulkEligibilityListInstance(this);
+    this._bulkEligibilities =
+      this._bulkEligibilities || BulkEligibilityListInstance(this);
     return this._bulkEligibilities;
   }
 
@@ -88,67 +89,82 @@ export default class V1 extends Version {
 
   /** Getter for portingAllPortIns resource */
   get portingAllPortIns(): PortingAllPortInListInstance {
-    this._portingAllPortIns = this._portingAllPortIns || PortingAllPortInListInstance(this);
+    this._portingAllPortIns =
+      this._portingAllPortIns || PortingAllPortInListInstance(this);
     return this._portingAllPortIns;
   }
 
   /** Getter for portingPortIns resource */
   get portingPortIns(): PortingPortInListInstance {
-    this._portingPortIns = this._portingPortIns || PortingPortInListInstance(this);
+    this._portingPortIns =
+      this._portingPortIns || PortingPortInListInstance(this);
     return this._portingPortIns;
   }
 
   /** Getter for portingPortInPhoneNumber resource */
   get portingPortInPhoneNumber(): PortingPortInPhoneNumberListInstance {
-    this._portingPortInPhoneNumber = this._portingPortInPhoneNumber || PortingPortInPhoneNumberListInstance(this);
+    this._portingPortInPhoneNumber =
+      this._portingPortInPhoneNumber ||
+      PortingPortInPhoneNumberListInstance(this);
     return this._portingPortInPhoneNumber;
   }
 
   /** Getter for portingPortabilities resource */
   get portingPortabilities(): PortingPortabilityListInstance {
-    this._portingPortabilities = this._portingPortabilities || PortingPortabilityListInstance(this);
+    this._portingPortabilities =
+      this._portingPortabilities || PortingPortabilityListInstance(this);
     return this._portingPortabilities;
   }
 
   /** Getter for portingWebhookConfigurations resource */
   get portingWebhookConfigurations(): PortingWebhookConfigurationListInstance {
-    this._portingWebhookConfigurations = this._portingWebhookConfigurations || PortingWebhookConfigurationListInstance(this);
+    this._portingWebhookConfigurations =
+      this._portingWebhookConfigurations ||
+      PortingWebhookConfigurationListInstance(this);
     return this._portingWebhookConfigurations;
   }
 
   /** Getter for portingWebhookConfigurationsDelete resource */
   get portingWebhookConfigurationsDelete(): PortingWebhookConfigurationDeleteListInstance {
-    this._portingWebhookConfigurationsDelete = this._portingWebhookConfigurationsDelete || PortingWebhookConfigurationDeleteListInstance(this);
+    this._portingWebhookConfigurationsDelete =
+      this._portingWebhookConfigurationsDelete ||
+      PortingWebhookConfigurationDeleteListInstance(this);
     return this._portingWebhookConfigurationsDelete;
   }
 
   /** Getter for senderIdRegistrations resource */
   get senderIdRegistrations(): SenderIdRegistrationListInstance {
-    this._senderIdRegistrations = this._senderIdRegistrations || SenderIdRegistrationListInstance(this);
+    this._senderIdRegistrations =
+      this._senderIdRegistrations || SenderIdRegistrationListInstance(this);
     return this._senderIdRegistrations;
   }
 
   /** Getter for signingRequestConfigurations resource */
   get signingRequestConfigurations(): SigningRequestConfigurationListInstance {
-    this._signingRequestConfigurations = this._signingRequestConfigurations || SigningRequestConfigurationListInstance(this);
+    this._signingRequestConfigurations =
+      this._signingRequestConfigurations ||
+      SigningRequestConfigurationListInstance(this);
     return this._signingRequestConfigurations;
   }
 
   /** Getter for smsVerifications resource */
   get smsVerifications(): SmsVerificationListInstance {
-    this._smsVerifications = this._smsVerifications || SmsVerificationListInstance(this);
+    this._smsVerifications =
+      this._smsVerifications || SmsVerificationListInstance(this);
     return this._smsVerifications;
   }
 
   /** Getter for smsVerificationChecks resource */
   get smsVerificationChecks(): SmsVerificationCheckListInstance {
-    this._smsVerificationChecks = this._smsVerificationChecks || SmsVerificationCheckListInstance(this);
+    this._smsVerificationChecks =
+      this._smsVerificationChecks || SmsVerificationCheckListInstance(this);
     return this._smsVerificationChecks;
   }
 
   /** Getter for voiceVerifications resource */
   get voiceVerifications(): VoiceVerificationListInstance {
-    this._voiceVerifications = this._voiceVerifications || VoiceVerificationListInstance(this);
+    this._voiceVerifications =
+      this._voiceVerifications || VoiceVerificationListInstance(this);
     return this._voiceVerifications;
   }
 
@@ -157,5 +173,4 @@ export default class V1 extends Version {
     this._webhook = this._webhook || WebhookListInstance(this);
     return this._webhook;
   }
-
 }

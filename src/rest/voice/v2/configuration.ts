@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V2 from "../V2";
 const deserialize = require("../../../base/deserialize");
@@ -20,7 +19,6 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 import { DefaultListInstance } from "./configuration/default";
-
 
 export class VoiceV2ConfigurationRequest {
   /**
@@ -40,14 +38,12 @@ export class VoiceV2ConfigurationRequest {
   }
 }
 
-
-
 /**
  * Options to pass to create a ConfigurationInstance
  */
 export interface ConfigurationContextCreateOptions {
   /**  */
-  "voiceV2ConfigurationRequest"?: VoiceV2ConfigurationRequest;
+  voiceV2ConfigurationRequest?: VoiceV2ConfigurationRequest;
 }
 
 export interface ConfigurationContext {
@@ -60,7 +56,9 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  create(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  create(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
   /**
    * Create a ConfigurationInstance
    *
@@ -70,7 +68,11 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  create(params: VoiceV2ConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  create(
+    params: VoiceV2ConfigurationRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
 
   /**
    * Create a ConfigurationInstance and return HTTP info
@@ -79,7 +81,12 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Create a ConfigurationInstance and return HTTP info
    *
@@ -89,7 +96,14 @@ export interface ConfigurationContext {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(params: VoiceV2ConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
+  createWithHttpInfo(
+    params: VoiceV2ConfigurationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -99,7 +113,7 @@ export interface ConfigurationContext {
 }
 
 export interface ConfigurationContextSolution {
-  "type": string;
+  type: string;
 }
 
 export class ConfigurationContextImpl implements ConfigurationContext {
@@ -110,85 +124,132 @@ export class ConfigurationContextImpl implements ConfigurationContext {
 
   constructor(protected _version: V2, type: string) {
     if (!isValidPathParam(type)) {
-      throw new Error('Parameter \'type\' is not valid.');
+      throw new Error("Parameter 'type' is not valid.");
     }
 
-    this._solution = { type,  };
+    this._solution = { type };
     this._uri = `/Configurations/${type}`;
   }
 
   get default(): DefaultListInstance {
-    this._default = this._default || DefaultListInstance(this._version, this._solution.type);
+    this._default =
+      this._default || DefaultListInstance(this._version, this._solution.type);
     return this._default;
   }
 
-  create(params?: VoiceV2ConfigurationRequest | ((error: Error | null, item?: ConfigurationInstance) => any), headers?: any,callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance> {
-      if (params instanceof Function) {
+  create(
+    params?:
+      | VoiceV2ConfigurationRequest
+      | ((error: Error | null, item?: ConfigurationInstance) => any),
+    headers?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
+      params =
+        {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
     } else {
-      params = params || {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version,
-        operationPromise = operationVersion.create({ uri: instance._uri, method: "post", data, headers});
-    
-    operationPromise = operationPromise.then(payload => new ConfigurationInstance(operationVersion, payload, instance._solution.type));
-    
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ConfigurationInstance(
+          operationVersion,
+          payload,
+          instance._solution.type
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
-  createWithHttpInfo(params?: VoiceV2ConfigurationRequest | ((error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any), headers?: any,callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>> {
-      if (params instanceof Function) {
+  createWithHttpInfo(
+    params?:
+      | VoiceV2ConfigurationRequest
+      | ((
+          error: Error | null,
+          item?: ApiResponse<ConfigurationInstance>
+        ) => any),
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>> {
+    if (params instanceof Function) {
       callback = params;
-      params = {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
+      params =
+        {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
     } else {
-      params = params || {} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest;
+      params =
+        params ||
+        ({} as Partial<VoiceV2ConfigurationRequest> as VoiceV2ConfigurationRequest);
     }
 
     let data: any = {};
 
-    
-    
-    data = params
-    
-    if(headers === null || headers === undefined) {
-        headers = {};
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
     }
-    
-    headers["Content-Type"] = "application/json"
-    headers["Accept"] = "application/json"
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
 
     const instance = this;
     let operationVersion = instance._version;
     // CREATE, FETCH, UPDATE operations
-    let operationPromise = operationVersion.createWithResponseInfo<ConfigurationResource>({ uri: instance._uri, method: "post", data, headers}).then((response) : ApiResponse<ConfigurationInstance> => ({
-      ...response,
-      body: new ConfigurationInstance(operationVersion, response.body, instance._solution.type)
-    }));
+    let operationPromise = operationVersion
+      .createWithResponseInfo<ConfigurationResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ConfigurationInstance> => ({
+          ...response,
+          body: new ConfigurationInstance(
+            operationVersion,
+            response.body,
+            instance._solution.type
+          ),
+        })
+      );
 
-    operationPromise = instance._version.setPromiseCallback(operationPromise,callback);
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
     return operationPromise;
-
-
   }
 
   /**
@@ -205,8 +266,7 @@ export class ConfigurationContextImpl implements ConfigurationContext {
   }
 }
 
-
-  interface ConfigurationPayload extends ConfigurationResource {}
+interface ConfigurationPayload extends ConfigurationResource {}
 
 interface ConfigurationResource {
   id: string;
@@ -222,17 +282,20 @@ export class ConfigurationInstance {
   protected _solution: ConfigurationContextSolution;
   protected _context?: ConfigurationContext;
 
-  constructor(protected _version: V2, payload: ConfigurationResource, type?: string) {
-    
-    this.id = (payload.id);
-    this.accountSid = (payload.account_sid);
-    this.uniqueName = (payload.unique_name);
-    this.description = (payload.description);
+  constructor(
+    protected _version: V2,
+    payload: ConfigurationResource,
+    type?: string
+  ) {
+    this.id = payload.id;
+    this.accountSid = payload.account_sid;
+    this.uniqueName = payload.unique_name;
+    this.description = payload.description;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
-    this.configuration = (payload.configuration);
+    this.configuration = payload.configuration;
 
-    this._solution = { type: type,  };
+    this._solution = { type: type };
   }
 
   /**
@@ -256,7 +319,9 @@ export class ConfigurationInstance {
   configuration: Record<string, object>;
 
   private get _proxy(): ConfigurationContext {
-    this._context = this._context || new ConfigurationContextImpl(this._version, this._solution.type);
+    this._context =
+      this._context ||
+      new ConfigurationContextImpl(this._version, this._solution.type);
     return this._context;
   }
 
@@ -267,7 +332,9 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  create(callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  create(
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
   /**
    * Create a ConfigurationInstance
    *
@@ -277,10 +344,16 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance
    */
-  create(params: VoiceV2ConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>;
+  create(
+    params: VoiceV2ConfigurationRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance>;
 
-    create(params?: any, callback?: (error: Error | null, item?: ConfigurationInstance) => any): Promise<ConfigurationInstance>
-    {
+  create(
+    params?: any,
+    callback?: (error: Error | null, item?: ConfigurationInstance) => any
+  ): Promise<ConfigurationInstance> {
     return this._proxy.create(params, callback);
   }
 
@@ -291,7 +364,12 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
+  createWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
   /**
    * Create a ConfigurationInstance and return HTTP info
    *
@@ -301,10 +379,22 @@ export class ConfigurationInstance {
    *
    * @returns Resolves to processed ConfigurationInstance with HTTP metadata
    */
-  createWithHttpInfo(params: VoiceV2ConfigurationRequest, headers?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>;
+  createWithHttpInfo(
+    params: VoiceV2ConfigurationRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>>;
 
-    createWithHttpInfo(params?: any, callback?: (error: Error | null, item?: ApiResponse<ConfigurationInstance>) => any): Promise<ApiResponse<ConfigurationInstance>>
-    {
+  createWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ConfigurationInstance>
+    ) => any
+  ): Promise<ApiResponse<ConfigurationInstance>> {
     return this._proxy.createWithHttpInfo(params, callback);
   }
 
@@ -337,20 +427,15 @@ export class ConfigurationInstance {
   }
 }
 
-
-export interface ConfigurationSolution {
-}
+export interface ConfigurationSolution {}
 
 export interface ConfigurationListInstance {
   _version: V2;
   _solution: ConfigurationSolution;
   _uri: string;
 
-  (type: string, ): ConfigurationContext;
-  get(type: string, ): ConfigurationContext;
-
-
-
+  (type: string): ConfigurationContext;
+  get(type: string): ConfigurationContext;
 
   /**
    * Provide a user-friendly representation
@@ -359,26 +444,29 @@ export interface ConfigurationListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function ConfigurationListInstance(version: V2): ConfigurationListInstance {
-  const instance = ((type, ) => instance.get(type, )) as ConfigurationListInstance;
+export function ConfigurationListInstance(
+  version: V2
+): ConfigurationListInstance {
+  const instance = ((type) => instance.get(type)) as ConfigurationListInstance;
 
-  instance.get = function get(type, ): ConfigurationContext {
+  instance.get = function get(type): ConfigurationContext {
     return new ConfigurationContextImpl(version, type);
-  }
+  };
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = ``;
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

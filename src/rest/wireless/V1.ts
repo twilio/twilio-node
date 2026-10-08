@@ -61,5 +61,4 @@ export default class V1 extends Version {
     this._usageRecords = this._usageRecords || UsageRecordListInstance(this);
     return this._usageRecords;
   }
-
 }

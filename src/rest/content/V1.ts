@@ -43,14 +43,15 @@ export default class V1 extends Version {
 
   /** Getter for contentAndApprovals resource */
   get contentAndApprovals(): ContentAndApprovalsListInstance {
-    this._contentAndApprovals = this._contentAndApprovals || ContentAndApprovalsListInstance(this);
+    this._contentAndApprovals =
+      this._contentAndApprovals || ContentAndApprovalsListInstance(this);
     return this._contentAndApprovals;
   }
 
   /** Getter for legacyContents resource */
   get legacyContents(): LegacyContentListInstance {
-    this._legacyContents = this._legacyContents || LegacyContentListInstance(this);
+    this._legacyContents =
+      this._legacyContents || LegacyContentListInstance(this);
     return this._legacyContents;
   }
-
 }

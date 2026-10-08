@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 import { inspect, InspectOptions } from "util";
 import V1 from "../V1";
 const deserialize = require("../../../base/deserialize");
@@ -22,17 +21,12 @@ import { ApiResponse } from "../../../base/ApiResponse";
 import { CountryListInstance } from "./voice/country";
 import { NumberListInstance } from "./voice/number";
 
-
-
-
-export interface VoiceSolution {
-}
+export interface VoiceSolution {}
 
 export interface VoiceListInstance {
   _version: V1;
   _solution: VoiceSolution;
   _uri: string;
-
 
   _countries?: CountryListInstance;
   countries: CountryListInstance;
@@ -50,7 +44,7 @@ export function VoiceListInstance(version: V1): VoiceListInstance {
   const instance = {} as VoiceListInstance;
 
   instance._version = version;
-  instance._solution = {  };
+  instance._solution = {};
   instance._uri = `/Voice`;
 
   Object.defineProperty(instance, "countries", {
@@ -59,7 +53,7 @@ export function VoiceListInstance(version: V1): VoiceListInstance {
         instance._countries = CountryListInstance(instance._version);
       }
       return instance._countries;
-    }
+    },
   });
 
   Object.defineProperty(instance, "numbers", {
@@ -68,18 +62,19 @@ export function VoiceListInstance(version: V1): VoiceListInstance {
         instance._numbers = NumberListInstance(instance._version);
       }
       return instance._numbers;
-    }
+    },
   });
 
   instance.toJSON = function toJSON() {
     return instance._solution;
-  }
+  };
 
-  instance[inspect.custom] = function inspectImpl(_depth: any, options: InspectOptions) {
+  instance[inspect.custom] = function inspectImpl(
+    _depth: any,
+    options: InspectOptions
+  ) {
     return inspect(instance.toJSON(), options);
-  }
+  };
 
   return instance;
 }
-
-

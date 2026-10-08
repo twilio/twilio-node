@@ -34,5 +34,4 @@ export default class V1 extends Version {
     this._flows = this._flows || FlowListInstance(this);
     return this._flows;
   }
-
 }

@@ -31,8 +31,8 @@ export default class V3 extends Version {
 
   /** Getter for transcriptions resource */
   get transcriptions(): TranscriptionListInstance {
-    this._transcriptions = this._transcriptions || TranscriptionListInstance(this);
+    this._transcriptions =
+      this._transcriptions || TranscriptionListInstance(this);
     return this._transcriptions;
   }
-
 }
