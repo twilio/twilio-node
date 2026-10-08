@@ -333,4 +333,16 @@ describe("create voice response TwiML", function () {
       '<?xml version="1.0" encoding="UTF-8"?><Response/><!-- Hello World -->'
     );
   });
+
+  it("should emit speechTimeout on ConversationRelay", function () {
+    var actual = new VoiceResponse();
+    actual.connect().conversationRelay({
+      url: "wss://example.test/ws",
+      speechTimeout: "2000",
+    });
+
+    expect(actual.toString()).toEqual(
+      '<?xml version="1.0" encoding="UTF-8"?><Response><Connect><ConversationRelay url="wss://example.test/ws" speechTimeout="2000"/></Connect></Response>'
+    );
+  });
 });
