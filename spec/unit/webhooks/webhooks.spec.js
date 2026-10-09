@@ -107,6 +107,134 @@ describe("webhooks", () => {
       });
     });
 
+    describe("when the url is validated as received, without re-encoding", () => {
+      const cases = [
+        [
+          "a space encoded as + and an unescaped single quote",
+          "/path?name=William+O'hara",
+        ],
+        [
+          "an encoded +, a space encoded as + and an unescaped single quote",
+          "/validation_test?phoneNumber=%2B17083787857&name=James+O'hara&accountSid=AC123",
+        ],
+        ["unescaped sub-delimiters", "/path?q=a+(b)!*'c"],
+        ["an unencoded question mark in the path", "/rtc/a?b?n=J+O'h"],
+      ];
+
+      cases.forEach(([description, pathAndQuery]) => {
+        describe(`with ${description}`, () => {
+          it("should return true when the target url is identical to the signed url", () => {
+            const url = "https://example.com" + pathAndQuery;
+
+            const signature = getExpectedTwilioSignature(authToken, url, {});
+
+            expect(validateRequest(authToken, signature, url, {})).toBe(true);
+          });
+
+          it("should return true when only the target url contains the port", () => {
+            const signature = getExpectedTwilioSignature(
+              authToken,
+              "https://example.com" + pathAndQuery,
+              {}
+            );
+            const targetUrl = "https://example.com:443" + pathAndQuery;
+
+            expect(validateRequest(authToken, signature, targetUrl, {})).toBe(
+              true
+            );
+          });
+
+          it("should return true when only the signed url contains the port", () => {
+            const signature = getExpectedTwilioSignature(
+              authToken,
+              "https://example.com:443" + pathAndQuery,
+              {}
+            );
+            const targetUrl = "https://example.com" + pathAndQuery;
+
+            expect(validateRequest(authToken, signature, targetUrl, {})).toBe(
+              true
+            );
+          });
+        });
+      });
+
+      it("should toggle the standard port for http urls", () => {
+        const pathAndQuery = "/path?name=William+O'hara";
+        const signature = getExpectedTwilioSignature(
+          authToken,
+          "http://example.com:80" + pathAndQuery,
+          {}
+        );
+
+        expect(
+          validateRequest(
+            authToken,
+            signature,
+            "http://example.com" + pathAndQuery,
+            {}
+          )
+        ).toBe(true);
+      });
+
+      it("should toggle the port after userinfo and on IPv6 hosts", () => {
+        const pathAndQuery = "/path?name=William+O'hara";
+        [
+          ["https://user:pw@example.com:443", "https://user:pw@example.com"],
+          ["https://[::1]:443", "https://[::1]"],
+        ].forEach(([signedOrigin, targetOrigin]) => {
+          const signature = getExpectedTwilioSignature(
+            authToken,
+            signedOrigin + pathAndQuery,
+            {}
+          );
+
+          expect(
+            validateRequest(
+              authToken,
+              signature,
+              targetOrigin + pathAndQuery,
+              {}
+            )
+          ).toBe(true);
+        });
+      });
+
+      it("should return false when a query value differs", () => {
+        const signature = getExpectedTwilioSignature(
+          authToken,
+          "https://example.com/path?name=William+O'hara",
+          {}
+        );
+
+        expect(
+          validateRequest(
+            authToken,
+            signature,
+            "https://example.com/path?name=William+O'hare",
+            {}
+          )
+        ).toBe(false);
+      });
+
+      it("should return false when the host differs", () => {
+        const signature = getExpectedTwilioSignature(
+          authToken,
+          "https://example.com/path?name=William+O'hara",
+          {}
+        );
+
+        expect(
+          validateRequest(
+            authToken,
+            signature,
+            "https://example.org/path?name=William+O'hara",
+            {}
+          )
+        ).toBe(false);
+      });
+    });
+
     describe("signature comparison", () => {
       const url = "https://example.com/path?test=param";
 

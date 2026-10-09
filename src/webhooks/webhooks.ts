@@ -58,62 +58,95 @@ export interface WebhookOptions {
   authToken?: string;
 }
 
-/**
- * Utility function to construct the URL string, since Node.js url library won't include standard port numbers
- *
- * @param parsedUrl - The parsed url object that Twilio requested on your server
- * @returns URL with standard port number included
- */
-function buildUrlWithStandardPort(parsedUrl: URL): string {
-  let url = "";
-  const port = parsedUrl.protocol === "https:" ? ":443" : ":80";
-
-  url += parsedUrl.protocol ? parsedUrl.protocol + "//" : "";
-  url += parsedUrl.username;
-  url += parsedUrl.password ? ":" + parsedUrl.password : "";
-  url += parsedUrl.username || parsedUrl.password ? "@" : "";
-  url += parsedUrl.host ? parsedUrl.host + port : "";
-  url += parsedUrl.pathname + parsedUrl.search + parsedUrl.hash;
-
-  return url;
+interface UrlParts {
+  scheme: string;
+  userInfo: string;
+  host: string;
+  port: string;
+  rest: string;
 }
 
 /**
- Utility function to add a port number to a URL
+ Utility function to split a URL into its parts without normalizing it. Unlike
+ `new URL()`, this keeps the path and query string exactly as received, since
+ that is the string Twilio signed (e.g. `'` stays `'` and `+` stays `+`)
 
- @param parsedUrl - The parsed url object that Twilio requested on your server
+ @param url - The URL that Twilio requested on your server
+ @returns URL parts, or null if the URL has no `scheme://` prefix
+ */
+function splitUrl(url: string): UrlParts | null {
+  const match = /^([a-z][a-z0-9+.-]*:\/\/)([^/?#]*)/i.exec(url);
+
+  if (!match) {
+    return null;
+  }
+
+  const [prefix, scheme, authority] = match;
+  const userInfoEnd = authority.lastIndexOf("@");
+  const hostAndPort = authority.slice(userInfoEnd + 1);
+
+  // A colon only starts the port after the closing bracket of an IPv6 literal
+  const portStart = hostAndPort.indexOf(":", hostAndPort.lastIndexOf("]") + 1);
+
+  return {
+    scheme,
+    userInfo: authority.slice(0, userInfoEnd + 1),
+    host: portStart === -1 ? hostAndPort : hostAndPort.slice(0, portStart),
+    port: portStart === -1 ? "" : hostAndPort.slice(portStart),
+    rest: url.slice(prefix.length),
+  };
+}
+
+/**
+ Utility function to add the standard port number to a URL if it has none
+
+ @param url - The URL that Twilio requested on your server
  @returns URL with port
  */
-function addPort(parsedUrl: URL): string {
-  if (!parsedUrl.port) {
-    return buildUrlWithStandardPort(parsedUrl);
+function addPort(url: string): string {
+  const parts = splitUrl(url);
+
+  if (!parts || parts.port) {
+    return url;
   }
-  return parsedUrl.toString();
+
+  const port = parts.scheme.toLowerCase() === "https://" ? ":443" : ":80";
+  return parts.scheme + parts.userInfo + parts.host + port + parts.rest;
 }
 
 /**
  Utility function to remove a port number from a URL
 
- @param parsedUrl - The parsed url object that Twilio requested on your server
+ @param url - The URL that Twilio requested on your server
  @returns URL without port
  */
-function removePort(parsedUrl: URL): string {
-  parsedUrl = new URL(parsedUrl); // prevent mutation of original URL object
+function removePort(url: string): string {
+  const parts = splitUrl(url);
 
-  parsedUrl.port = "";
-  return parsedUrl.toString();
-}
-
-function withLegacyQuerystring(url: string): string {
-  const parsedUrl = new URL(url);
-
-  if (parsedUrl.search) {
-    const qs = parse(parsedUrl.search.slice(1));
-    parsedUrl.search = "";
-    return parsedUrl.toString() + "?" + stringify(qs);
+  if (!parts) {
+    return url;
   }
 
-  return url;
+  return parts.scheme + parts.userInfo + parts.host + parts.rest;
+}
+
+/**
+ Utility function to re-encode the query string the way Node's legacy
+ `querystring` module does, for back ends that signed an escaped form of a
+ query value (e.g. `%27` for `'`)
+
+ @param url - The URL that Twilio requested on your server
+ @returns URL with a re-encoded query string
+ */
+function withLegacyQuerystring(url: string): string {
+  const queryStart = url.indexOf("?");
+
+  if (queryStart === -1 || queryStart === url.length - 1) {
+    return url;
+  }
+
+  const qs = parse(url.slice(queryStart + 1));
+  return url.slice(0, queryStart) + "?" + stringify(qs);
 }
 
 /**
@@ -192,56 +225,34 @@ export function validateRequest(
   params: Record<string, any>
 ): boolean {
   twilioHeader = twilioHeader || "";
-  const urlObject = new URL(url);
 
   /*
-   *  Check signature of the url with and without the port number
-   *  and with and without the legacy querystring (special chars are encoded when using `new URL()`)
-   *  since signature generation on the back end is inconsistent
+   *  Check signature of the url as received first, with and without the port
+   *  number, since that is the string Twilio signed. Only fall back to the url
+   *  as normalized by `new URL()` (special chars are encoded), with and without
+   *  the legacy querystring, for back ends that signed an escaped form
    */
-  const isValidSignatureWithoutPort = validateSignatureWithUrl(
-    authToken,
-    twilioHeader,
-    removePort(urlObject),
-    params
+  const isValidSignatureAsReceived = [removePort(url), addPort(url)].some(
+    (candidateUrl) =>
+      validateSignatureWithUrl(authToken, twilioHeader, candidateUrl, params)
   );
 
-  if (isValidSignatureWithoutPort) {
+  if (isValidSignatureAsReceived) {
     return true;
   }
 
-  const isValidSignatureWithPort = validateSignatureWithUrl(
-    authToken,
-    twilioHeader,
-    addPort(urlObject),
-    params
+  const normalizedUrl = new URL(url).toString();
+  const normalizedUrlWithoutPort = removePort(normalizedUrl);
+  const normalizedUrlWithPort = addPort(normalizedUrl);
+
+  return [
+    normalizedUrlWithoutPort,
+    normalizedUrlWithPort,
+    withLegacyQuerystring(normalizedUrlWithoutPort),
+    withLegacyQuerystring(normalizedUrlWithPort),
+  ].some((candidateUrl) =>
+    validateSignatureWithUrl(authToken, twilioHeader, candidateUrl, params)
   );
-
-  if (isValidSignatureWithPort) {
-    return true;
-  }
-
-  const isValidSignatureWithLegacyQuerystringWithoutPort =
-    validateSignatureWithUrl(
-      authToken,
-      twilioHeader,
-      withLegacyQuerystring(removePort(urlObject)),
-      params
-    );
-
-  if (isValidSignatureWithLegacyQuerystringWithoutPort) {
-    return true;
-  }
-
-  const isValidSignatureWithLegacyQuerystringWithPort =
-    validateSignatureWithUrl(
-      authToken,
-      twilioHeader,
-      withLegacyQuerystring(addPort(urlObject)),
-      params
-    );
-
-  return isValidSignatureWithLegacyQuerystringWithPort;
 }
 
 function validateSignatureWithUrl(
