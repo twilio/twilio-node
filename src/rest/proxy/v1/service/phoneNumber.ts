@@ -478,7 +478,7 @@ export class PhoneNumberInstance {
     this.isReserved = payload.is_reserved;
     this.inUse = deserialize.integer(payload.in_use);
 
-    this._solution = { serviceSid, sid: sid };
+    this._solution = { serviceSid, sid: sid || this.sid };
   }
 
   /**

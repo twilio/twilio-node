@@ -602,7 +602,7 @@ export class SyncMapItemInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, mapSid, key: key };
+    this._solution = { serviceSid, mapSid, key: key || this.key };
   }
 
   /**

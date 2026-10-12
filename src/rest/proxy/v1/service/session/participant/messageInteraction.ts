@@ -321,7 +321,12 @@ export class MessageInteractionInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { serviceSid, sessionSid, participantSid, sid: sid };
+    this._solution = {
+      serviceSid,
+      sessionSid,
+      participantSid,
+      sid: sid || this.sid,
+    };
   }
 
   /**

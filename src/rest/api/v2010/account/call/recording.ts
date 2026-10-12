@@ -532,7 +532,7 @@ export class RecordingInstance {
     this.errorCode = deserialize.integer(payload.error_code);
     this.track = payload.track;
 
-    this._solution = { accountSid, callSid, sid: sid };
+    this._solution = { accountSid, callSid, sid: sid || this.sid };
   }
 
   /**

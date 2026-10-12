@@ -326,7 +326,10 @@ export class ConfiguredPluginInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { configurationSid, pluginSid: pluginSid };
+    this._solution = {
+      configurationSid,
+      pluginSid: pluginSid || this.pluginSid,
+    };
   }
 
   /**

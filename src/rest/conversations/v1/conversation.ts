@@ -681,7 +681,7 @@ export class ConversationInstance {
     this.links = payload.links;
     this.bindings = payload.bindings;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

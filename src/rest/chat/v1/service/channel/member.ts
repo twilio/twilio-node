@@ -487,7 +487,7 @@ export class MemberInstance {
     );
     this.url = payload.url;
 
-    this._solution = { serviceSid, channelSid, sid: sid };
+    this._solution = { serviceSid, channelSid, sid: sid || this.sid };
   }
 
   /**

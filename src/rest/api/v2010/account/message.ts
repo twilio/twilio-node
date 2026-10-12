@@ -637,7 +637,7 @@ export class MessageInstance {
     this.apiVersion = payload.api_version;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

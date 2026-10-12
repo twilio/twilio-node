@@ -603,7 +603,7 @@ export class MessageInstance {
     this.media = payload.media;
     this.url = payload.url;
 
-    this._solution = { serviceSid, channelSid, sid: sid };
+    this._solution = { serviceSid, channelSid, sid: sid || this.sid };
   }
 
   sid: string;

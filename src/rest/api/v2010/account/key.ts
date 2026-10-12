@@ -434,7 +434,7 @@ export class KeyInstance {
     this.dateCreated = deserialize.rfc2822DateTime(payload.date_created);
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

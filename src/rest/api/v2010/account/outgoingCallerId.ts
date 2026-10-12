@@ -473,7 +473,7 @@ export class OutgoingCallerIdInstance {
     this.phoneNumber = payload.phone_number;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

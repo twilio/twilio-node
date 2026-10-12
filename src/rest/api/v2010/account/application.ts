@@ -622,7 +622,7 @@ export class ApplicationInstance {
     this.publicApplicationConnectEnabled =
       payload.public_application_connect_enabled;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

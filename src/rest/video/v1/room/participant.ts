@@ -484,7 +484,7 @@ export class ParticipantInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { roomSid, sid: sid };
+    this._solution = { roomSid, sid: sid || this.sid };
   }
 
   /**

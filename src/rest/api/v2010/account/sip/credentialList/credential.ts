@@ -478,7 +478,7 @@ export class CredentialInstance {
     this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated);
     this.uri = payload.uri;
 
-    this._solution = { accountSid, credentialListSid, sid: sid };
+    this._solution = { accountSid, credentialListSid, sid: sid || this.sid };
   }
 
   /**

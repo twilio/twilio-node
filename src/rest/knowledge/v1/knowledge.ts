@@ -586,7 +586,7 @@ export class KnowledgeInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { id: id };
+    this._solution = { id: id || this.id };
   }
 
   /**

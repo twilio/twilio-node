@@ -277,7 +277,10 @@ export class ChannelInstance {
     this.messagingServiceSid = payload.messaging_service_sid;
     this.url = payload.url;
 
-    this._solution = { serviceSid: serviceSid, sid: sid };
+    this._solution = {
+      serviceSid: serviceSid || this.serviceSid,
+      sid: sid || this.sid,
+    };
   }
 
   /**

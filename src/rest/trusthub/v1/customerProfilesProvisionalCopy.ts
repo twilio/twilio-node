@@ -292,7 +292,9 @@ export class CustomerProfilesProvisionalCopyInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { customerProfileSid: customerProfileSid };
+    this._solution = {
+      customerProfileSid: customerProfileSid || this.customerProfileSid,
+    };
   }
 
   /**

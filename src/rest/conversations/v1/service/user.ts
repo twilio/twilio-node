@@ -568,7 +568,7 @@ export class UserInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { chatServiceSid, sid: sid };
+    this._solution = { chatServiceSid, sid: sid || this.sid };
   }
 
   /**

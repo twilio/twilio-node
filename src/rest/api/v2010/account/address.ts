@@ -566,7 +566,7 @@ export class AddressInstance {
     this.verified = payload.verified;
     this.streetSecondary = payload.street_secondary;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

@@ -292,8 +292,8 @@ export class PortingPortInPhoneNumberInstance {
     this.portDate = deserialize.iso8601DateTime(payload.port_date);
 
     this._solution = {
-      portInRequestSid: portInRequestSid,
-      phoneNumberSid: phoneNumberSid,
+      portInRequestSid: portInRequestSid || this.portInRequestSid,
+      phoneNumberSid: phoneNumberSid || this.phoneNumberSid,
     };
   }
 

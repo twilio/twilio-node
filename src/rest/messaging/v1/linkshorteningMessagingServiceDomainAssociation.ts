@@ -183,7 +183,9 @@ export class LinkshorteningMessagingServiceDomainAssociationInstance {
     this.messagingServiceSid = payload.messaging_service_sid;
     this.url = payload.url;
 
-    this._solution = { messagingServiceSid: messagingServiceSid };
+    this._solution = {
+      messagingServiceSid: messagingServiceSid || this.messagingServiceSid,
+    };
   }
 
   /**

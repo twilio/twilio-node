@@ -524,7 +524,7 @@ export class ServiceInstance {
     this.version = deserialize.integer(payload.version);
     this.encryptionCredentialSid = payload.encryption_credential_sid;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

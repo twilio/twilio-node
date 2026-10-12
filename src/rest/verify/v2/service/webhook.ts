@@ -509,7 +509,7 @@ export class WebhookInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.url = payload.url;
 
-    this._solution = { serviceSid, sid: sid };
+    this._solution = { serviceSid, sid: sid || this.sid };
   }
 
   /**

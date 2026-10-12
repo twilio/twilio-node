@@ -422,7 +422,7 @@ export class TranscriptionsInstance {
     this.url = payload.url;
     this.configuration = payload.configuration;
 
-    this._solution = { roomSid, ttid: ttid };
+    this._solution = { roomSid, ttid: ttid || this.ttid };
   }
 
   /**

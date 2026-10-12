@@ -609,7 +609,7 @@ export class FlexFlowInstance {
     this.janitorEnabled = payload.janitor_enabled;
     this.url = payload.url;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

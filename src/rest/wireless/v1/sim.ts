@@ -616,7 +616,7 @@ export class SimInstance {
     this.links = payload.links;
     this.ipAddress = payload.ip_address;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

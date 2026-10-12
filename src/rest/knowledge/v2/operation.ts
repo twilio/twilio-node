@@ -20,15 +20,15 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 export class OperationResultResourceId {
-  "type": string;
   /**
    * The identifier of the created or affected resource.
    */
   "id": string;
+  "type": string;
 
   constructor(payload) {
-    this.type = payload["type"];
     this.id = payload["id"];
+    this.type = payload["type"];
   }
 }
 

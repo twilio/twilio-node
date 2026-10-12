@@ -96,7 +96,7 @@ export class MessagingV2ChannelsSenderOfflineReasonsItems {
  */
 export class MessagingV2ChannelsSenderProfile {
   /**
-   * The name of the sender. Required for WhatsApp senders and must follow [Meta\'s display name guidelines](https://www.facebook.com/business/help/757569725593362).
+   * The name of the sender. Required for WhatsApp senders and must follow [Meta\'s display name guidelines](https://www.facebook.com/business/help/757569725593362). On update, a WhatsApp sender\'s name is not changed synchronously: it is submitted to Meta for review, and `profile.name` continues to report the current active name until Meta approves the new one and the sender is automatically re-registered. Track progress with `pending_display_name_status` on Fetch Sender, and see `display_name_status` on the update response for the immediate outcome. Re-submitting the same name is how you retry applying a name Meta has already approved, for example after correcting the sender\'s two-step verification PIN. Meta permits a limited number of display name changes per 30-day period.
    */
   "name"?: string | null;
   /**
@@ -888,10 +888,14 @@ interface ChannelsSenderResource {
   configuration: MessagingV2ChannelsSenderConfiguration;
   webhook: MessagingV2ChannelsSenderWebhook;
   profile: MessagingV2ChannelsSenderProfileGenericResponse;
+  pending_display_name: string;
+  pending_display_name_status: string;
+  pending_display_name_status_date: Date;
   properties: MessagingV2ChannelsSenderProperties;
   offline_reasons: Array<MessagingV2ChannelsSenderOfflineReasonsItems>;
   compliance: MessagingV2RcsComplianceResponse;
   url: string;
+  display_name_status: string;
 }
 
 export class ChannelsSenderInstance {
@@ -919,6 +923,11 @@ export class ChannelsSenderInstance {
       payload.profile !== null && payload.profile !== undefined
         ? new MessagingV2ChannelsSenderProfileGenericResponse(payload.profile)
         : null;
+    this.pendingDisplayName = payload.pending_display_name;
+    this.pendingDisplayNameStatus = payload.pending_display_name_status;
+    this.pendingDisplayNameStatusDate = deserialize.iso8601DateTime(
+      payload.pending_display_name_status_date
+    );
     this.properties =
       payload.properties !== null && payload.properties !== undefined
         ? new MessagingV2ChannelsSenderProperties(payload.properties)
@@ -935,8 +944,9 @@ export class ChannelsSenderInstance {
         ? new MessagingV2RcsComplianceResponse(payload.compliance)
         : null;
     this.url = payload.url;
+    this.displayNameStatus = payload.display_name_status;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**
@@ -955,6 +965,18 @@ export class ChannelsSenderInstance {
   configuration: MessagingV2ChannelsSenderConfiguration;
   webhook: MessagingV2ChannelsSenderWebhook;
   profile: MessagingV2ChannelsSenderProfileGenericResponse;
+  /**
+   * WhatsApp only. The display name the most recent change applies to — awaiting Meta review, approved by Meta and awaiting re-registration, or, once `pending_display_name_status` is `COMPLETED`, the name now in effect (identical to `name`). Absent when no display name change has been made, and once a completed change stops being reported.
+   */
+  pendingDisplayName: string;
+  /**
+   * WhatsApp only. The status of the most recent display name change. `PENDING_REVIEW`, `APPROVED` and `DECLINED` are reported by Meta. `PIN_MISMATCH` and `REGISTRATION_FAILED` mean Meta approved the name but it could not be applied; `EXPIRED` means Meta\'s 14-day window to apply an approved name elapsed. In all three cases, re-submit the same `profile.name` to retry. `COMPLETED` means the name was approved and applied — `name` now returns it. A `COMPLETED` change is reported for 14 days after it completes and is absent afterwards, so treat its presence as \"recently completed\" rather than a permanent flag; use `pending_display_name_status_date` to tell how recent. Absent when no display name change has been made.
+   */
+  pendingDisplayNameStatus: string;
+  /**
+   * WhatsApp only. The date and time in UTC when `pending_display_name_status` last changed, specified in ISO 8601 format. Absent whenever `pending_display_name_status` is absent, so the three `pending_display_name*` fields are always present or absent together.
+   */
+  pendingDisplayNameStatusDate: Date;
   properties: MessagingV2ChannelsSenderProperties;
   /**
    * The reasons why the sender is offline.
@@ -965,6 +987,10 @@ export class ChannelsSenderInstance {
    * The URL of the resource.
    */
   url: string;
+  /**
+   * WhatsApp only. The outcome of the display name operation in this request. Present only when the request included `profile.name`. `updating` — accepted; either submitted to Meta for review, or, when Meta had already approved this exact name, routed straight to re-registration. `no_change` — the name already matches the sender\'s active display name; nothing was submitted to Meta. `pending_review` — the same name is already under review at Meta; the existing request continues unchanged. `error` — the display name could not be processed, while other profile fields in the same request were still applied. Returned with a 202 and carries no error code or message. This covers every failure mode, including the case where Meta accepted the name but tracking could not be started — poll `pending_display_name_status` to establish the real state rather than assuming the name was rejected. When `profile.name` is the only field in the request, the failure is returned as an error response with a specific code instead of this status.
+   */
+  displayNameStatus: string;
 
   private get _proxy(): ChannelsSenderContext {
     this._context =
@@ -1115,10 +1141,14 @@ export class ChannelsSenderInstance {
       configuration: this.configuration,
       webhook: this.webhook,
       profile: this.profile,
+      pendingDisplayName: this.pendingDisplayName,
+      pendingDisplayNameStatus: this.pendingDisplayNameStatus,
+      pendingDisplayNameStatusDate: this.pendingDisplayNameStatusDate,
       properties: this.properties,
       offlineReasons: this.offlineReasons,
       compliance: this.compliance,
       url: this.url,
+      displayNameStatus: this.displayNameStatus,
     };
   }
 

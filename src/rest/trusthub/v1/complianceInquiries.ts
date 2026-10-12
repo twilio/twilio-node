@@ -244,7 +244,7 @@ export class ComplianceInquiriesInstance {
     this.customerId = payload.customer_id;
     this.url = payload.url;
 
-    this._solution = { customerId: customerId };
+    this._solution = { customerId: customerId || this.customerId };
   }
 
   /**

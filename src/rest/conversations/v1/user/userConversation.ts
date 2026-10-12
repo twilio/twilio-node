@@ -517,7 +517,10 @@ export class UserConversationInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { userSid, conversationSid: conversationSid };
+    this._solution = {
+      userSid,
+      conversationSid: conversationSid || this.conversationSid,
+    };
   }
 
   /**

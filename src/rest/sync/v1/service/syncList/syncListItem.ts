@@ -603,7 +603,7 @@ export class SyncListItemInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, listSid, index: index };
+    this._solution = { serviceSid, listSid, index: index || this.index };
   }
 
   /**

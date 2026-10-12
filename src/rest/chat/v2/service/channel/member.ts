@@ -603,7 +603,7 @@ export class MemberInstance {
     this.url = payload.url;
     this.attributes = payload.attributes;
 
-    this._solution = { serviceSid, channelSid, sid: sid };
+    this._solution = { serviceSid, channelSid, sid: sid || this.sid };
   }
 
   /**
