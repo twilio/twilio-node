@@ -48,7 +48,7 @@ export class ObservationBase {
    */
   "occurredAt"?: Date;
   /**
-   * The source system that generated this observation. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+   * The source system that generated this observation. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
    */
   "source"?: string;
   /**
@@ -74,7 +74,7 @@ export class ObservationCreateRequest {
    */
   "occurredAt": Date;
   /**
-   * The source system that generated this observation. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+   * The source system that generated this observation. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
    */
   "source": string;
   /**
@@ -120,7 +120,7 @@ export interface ObservationListInstanceEachOptions {
   pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
   orderBy?: "ASC" | "DESC";
-  /** Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters. */
+  /** Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes. */
   source?: string;
   /** Filter observations created after this timestamp (inclusive). */
   createdAfter?: Date;
@@ -148,7 +148,7 @@ export interface ObservationListInstanceOptions {
   pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
   orderBy?: "ASC" | "DESC";
-  /** Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters. */
+  /** Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes. */
   source?: string;
   /** Filter observations created after this timestamp (inclusive). */
   createdAfter?: Date;
@@ -172,7 +172,7 @@ export interface ObservationListInstancePageOptions {
   pageToken?: string;
   /** Either \'ASC\' or \'DESC\' to sort results ascending or descending respectively. */
   orderBy?: "ASC" | "DESC";
-  /** Filter by source. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters. */
+  /** Filter by source. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes. */
   source?: string;
   /** Filter observations created after this timestamp (inclusive). */
   createdAfter?: Date;
@@ -671,7 +671,7 @@ export class ObservationInstance {
    */
   occurredAt?: Date;
   /**
-   * The source system that generated this observation. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+   * The source system that generated this observation. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
    */
   source?: string;
   /**

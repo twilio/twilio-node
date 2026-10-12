@@ -40,7 +40,7 @@ export class CreateSummariesRequest {
  */
 export class SummaryCore {
   /**
-   * The source system that generated the summary. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+   * The source system that generated the summary. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
    */
   "source"?: string;
   /**
@@ -69,7 +69,7 @@ export class SummaryCore {
  */
 export class SummaryCorePatch {
   /**
-   * The source system that generated the summary. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+   * The source system that generated the summary. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
    */
   "source"?: string;
   /**
@@ -583,6 +583,19 @@ interface SummariesCreatedResponse_ResponseResource {
 }
 
 /**
+ * Response model for SummaryInfo operations
+ */
+interface SummaryInfo_ResponseResource {
+  source?: string;
+  content: string;
+  occurredAt: Date;
+  conversationId: string;
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+/**
  * Response model for PatchProfileConversationSummary202Response operations
  */
 interface PatchProfileConversationSummary202Response_ResponseResource {
@@ -597,26 +610,13 @@ interface DeleteProfileConversationSummary202Response_ResponseResource {
 }
 
 /**
- * Response model for SummaryInfo operations
- */
-interface SummaryInfo_ResponseResource {
-  source?: string;
-  content: string;
-  occurredAt: Date;
-  conversationId: string;
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-/**
  * Union type for all possible response models
  */
 type ConversationSummaryResource =
   | SummariesCreatedResponse_ResponseResource
+  | SummaryInfo_ResponseResource
   | PatchProfileConversationSummary202Response_ResponseResource
-  | DeleteProfileConversationSummary202Response_ResponseResource
-  | SummaryInfo_ResponseResource;
+  | DeleteProfileConversationSummary202Response_ResponseResource;
 
 /**
  * Response for batch summary creation.
@@ -650,7 +650,7 @@ export class ConversationSummaryInstance {
    */
   message?: string;
   /**
-   * The source system that generated the summary. Allows letters, numbers, spaces, and URL-safe symbols. Excludes URL-unsafe characters like quotes, angle brackets, and control characters.
+   * The source system that generated the summary. Allows letters, numbers, spaces, periods, underscores, hyphens, and forward slashes.
    */
   source?: string;
   /**

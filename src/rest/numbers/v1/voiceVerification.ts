@@ -19,6 +19,60 @@ const serialize = require("../../../base/serialize");
 import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
+export class NumbersV1VoiceVerificationRequest {
+  /**
+   * The phone number to verify in E.164 format.
+   */
+  "phoneNumber": string;
+  /**
+   * A human-readable name for the caller ID.
+   */
+  "friendlyName"?: string;
+  /**
+   * A custom verification code to use instead of a generated one.
+   */
+  "customCode"?: string;
+  /**
+   * Number of seconds to delay the verification call (0-60).
+   */
+  "callDelay"?: string;
+  /**
+   * URL to receive status callback events.
+   */
+  "statusCallback"?: string;
+  /**
+   * HTTP method for status callback requests.
+   */
+  "statusCallbackMethod"?: string;
+  /**
+   * Phone extension to dial after connecting.
+   */
+  "extension"?: string;
+  /**
+   * Custom message to play after successful verification.
+   */
+  "customSuccessMessage"?: string;
+
+  constructor(payload) {
+    this.phoneNumber = payload["phone_number"];
+    this.friendlyName = payload["friendly_name"];
+    this.customCode = payload["custom_code"];
+    this.callDelay = payload["call_delay"];
+    this.statusCallback = payload["status_callback"];
+    this.statusCallbackMethod = payload["status_callback_method"];
+    this.extension = payload["extension"];
+    this.customSuccessMessage = payload["custom_success_message"];
+  }
+}
+
+/**
+ * Options to pass to create a VoiceVerificationInstance
+ */
+export interface VoiceVerificationListInstanceCreateOptions {
+  /**  */
+  numbersV1VoiceVerificationRequest: NumbersV1VoiceVerificationRequest;
+}
+
 export interface VoiceVerificationSolution {}
 
 export interface VoiceVerificationListInstance {
@@ -29,22 +83,30 @@ export interface VoiceVerificationListInstance {
   /**
    * Create a VoiceVerificationInstance
    *
+   * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed VoiceVerificationInstance
    */
   create(
+    params: NumbersV1VoiceVerificationRequest,
+    headers?: any,
     callback?: (error: Error | null, item?: VoiceVerificationInstance) => any
   ): Promise<VoiceVerificationInstance>;
 
   /**
    * Create a VoiceVerificationInstance and return HTTP info
    *
+   * @param params - Body for request
+   * @param headers - header params for request
    * @param callback - Callback to handle processed record
    *
    * @returns Resolves to processed VoiceVerificationInstance with HTTP metadata
    */
   createWithHttpInfo(
+    params: NumbersV1VoiceVerificationRequest,
+    headers?: any,
     callback?: (
       error: Error | null,
       item?: ApiResponse<VoiceVerificationInstance>
@@ -68,15 +130,30 @@ export function VoiceVerificationListInstance(
   instance._uri = `/CallerIds/VoiceVerifications`;
 
   instance.create = function create(
+    params: NumbersV1VoiceVerificationRequest,
+    headers?: any,
     callback?: (error: Error | null, items: VoiceVerificationInstance) => any
   ): Promise<VoiceVerificationInstance> {
-    const headers: any = {};
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
     headers["Accept"] = "application/json";
 
     let operationVersion = version,
       operationPromise = operationVersion.create({
         uri: instance._uri,
         method: "post",
+        data,
         headers,
       });
 
@@ -92,12 +169,26 @@ export function VoiceVerificationListInstance(
   };
 
   instance.createWithHttpInfo = function createWithHttpInfo(
+    params: NumbersV1VoiceVerificationRequest,
+    headers?: any,
     callback?: (
       error: Error | null,
       items: ApiResponse<VoiceVerificationInstance>
     ) => any
   ): Promise<ApiResponse<VoiceVerificationInstance>> {
-    const headers: any = {};
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
     headers["Accept"] = "application/json";
 
     let operationVersion = version;
@@ -106,6 +197,7 @@ export function VoiceVerificationListInstance(
       .createWithResponseInfo<VoiceVerificationResource>({
         uri: instance._uri,
         method: "post",
+        data,
         headers,
       })
       .then(
