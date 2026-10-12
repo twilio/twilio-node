@@ -244,7 +244,6 @@ twilio-node changelog
 - ## 2026-09-24
 - **Changed**: `GET /v1/Webhooks/Settings` now documents each item as the full `Setting` rather than `SettingSummary`, adding `auth`, `signature`, `connection` and `edgeZones` to the list response. The service already returned these fields; only the schema understated them. Additive for consumers — no field is removed or renamed. The now-unreferenced `SettingSummary` schema is removed.
 
-
 [2026-09-28] Version 6.1.2
 --------------------------
 **Library - Chore**
