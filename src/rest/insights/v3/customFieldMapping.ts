@@ -13,6 +13,8 @@
  */
 
 import { inspect, InspectOptions } from "util";
+import TokenPage, { TokenPaginationPayload } from "../../../base/TokenPage";
+import Response from "../../../http/response";
 import V3 from "../V3";
 const deserialize = require("../../../base/deserialize");
 const serialize = require("../../../base/serialize");
@@ -20,19 +22,19 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
- * Registration payload for a single custom field sourced from an upstream entity. The target account is supplied via the I-Twilio-Auth-Account header, not this body.
+ * Registration payload for a single custom field. The mapping is created in the account identified by the request\'s credentials.
  */
 export class CustomFieldMappingRequest {
   "category": MappingCategory;
   /**
-   * Customer-facing name for the field; becomes the ClickHouse Map key and the platform field alias. Unique per account across every `sourceType` — the Map key namespace is account-global.
+   * Name of the custom field, used to reference it in Insights queries. Contains only letters, digits and `_`, and must not be empty. Must be unique within the account across every `sourceType`; registering an existing name returns `409`. Cannot be changed after registration.
    */
   "name": string;
   /**
-   * Optional, free-text description of this custom field mapping. Display-only — not part of any uniqueness check.
+   * Optional, free-text description of this custom field mapping, up to 150 characters. Display-only — not part of any uniqueness check.
    */
   "description"?: string;
-  "entityMetadata": IntelligenceOperatorEntityMetadata;
+  "entityMetadata": EntityMetadata;
 
   constructor(payload) {
     this.category = payload["category"];
@@ -43,60 +45,60 @@ export class CustomFieldMappingRequest {
 }
 
 /**
- * A registered custom field mapping.
+ * Partial update of a custom field mapping. Only properties present in the body are changed; absent properties keep their current value. The body must contain at least one change: an empty body is rejected with `400`. Properties that cannot be updated (such as `name`, `category` or `operatorId`) are rejected with `400` rather than ignored.
  */
-export class CustomFieldMappingResponse {
-  /**
-   * TTID for conversation insights custom field mapping
-   */
-  "id"?: string;
-  "category": MappingCategory;
-  "name": string;
-  /**
-   * Optional, free-text description supplied at registration time. Display-only — not part of any uniqueness check.
-   */
-  "description"?: string;
-  "entityMetadata": IntelligenceOperatorEntityMetadata;
-  /**
-   * When the mapping was registered.
-   */
-  "createdAt"?: Date;
-  /**
-   * When the mapping was last materially modified in-place. Null until the first update-in-place.
-   */
-  "updatedAt"?: Date | null;
+export class CustomFieldMappingUpdateRequest {
+  "entityMetadata"?: EntityMetadataUpdate;
 
   constructor(payload) {
-    this.id = payload["id"];
-    this.category = payload["category"];
-    this.name = payload["name"];
-    this.description = payload["description"];
     this.entityMetadata = payload["entityMetadata"];
-    this.createdAt = payload["createdAt"];
-    this.updatedAt = payload["updatedAt"];
   }
 }
 
 /**
- * Entity reference for a custom field sourced from a Conversational Intelligence operator. `field` is required — Intelligence is the source of truth for resolving it against the operator\'s output schema.
+ * Identifies the entity that supplies this field\'s value. `sourceType` selects the source, and the property named for that source carries its details. Exactly that one source property must be present:  | `sourceType` | Required property | |---|---| | `INTELLIGENCE_OPERATOR` | `intelligenceOperator` |  A request whose `sourceType` doesn\'t match the source property it sends, or that sends any other property, is rejected with `400`.
  */
-export class IntelligenceOperatorEntityMetadata {
+export class EntityMetadata {
   "sourceType": SourceType;
+  "intelligenceOperator"?: IntelligenceOperatorSource;
+
+  constructor(payload) {
+    this.sourceType = payload["sourceType"];
+    this.intelligenceOperator = payload["intelligenceOperator"];
+  }
+}
+
+/**
+ * Updatable subset of `entityMetadata`. `sourceType` must equal the mapping\'s current `sourceType` (it cannot be changed), and the property named for that source carries the fields to update:  | `sourceType` | Update property | Updatable fields | |---|---|---| | `INTELLIGENCE_OPERATOR` | `intelligenceOperator` | `field` |
+ */
+export class EntityMetadataUpdate {
+  "sourceType": SourceType;
+  "intelligenceOperator"?: IntelligenceOperatorSourceUpdate;
+
+  constructor(payload) {
+    this.sourceType = payload["sourceType"];
+    this.intelligenceOperator = payload["intelligenceOperator"];
+  }
+}
+
+/**
+ * Details of a custom field whose value is read from a Conversational Intelligence operator\'s output. The operator must: - have an active version; - have `outputFormat` `JSON` (`TEXT` and `CLASSIFICATION` operators   are rejected).  Requests that reference an ineligible operator are rejected with `400`.
+ */
+export class IntelligenceOperatorSource {
   /**
-   * The Intelligence operator ID. Part of the owner check for idempotent upserts — a mismatch against the existing registration\'s `(sourceType, operatorId)` returns `409`.
+   * The ID of the Conversational Intelligence operator whose output supplies this field\'s value. Must match `^intelligence_operator_[0-7][0-9a-z]{25}$`. Cannot be changed after registration.
    */
   "operatorId": string;
   /**
-   * Optional, display-only name of the operator as supplied at registration time. Not part of any uniqueness or validation logic.
+   * Optional, display-only name of the operator. Stored as supplied and not validated against the operator.
    */
   "operatorName"?: string;
   /**
-   * Annotation fieldPath key; generic identifier that determines the output-schema field. Resolved against the operator identified by `operatorId`.
+   * Path to the property in the operator\'s output schema that supplies this field\'s value. Rules: - one or two segments separated by `.` — a top-level property   (`leadScore`) or one level of nesting (`scores.leadScore`); - each segment contains only letters, digits and `_`; array   indexing (such as `items[0]`) is not supported; - the path must exist in the output schema of the operator\'s   latest active version and resolve to a property of type `number`   or `integer`.
    */
   "field": string;
 
   constructor(payload) {
-    this.sourceType = payload["sourceType"];
     this.operatorId = payload["operatorId"];
     this.operatorName = payload["operatorName"];
     this.field = payload["field"];
@@ -104,14 +106,38 @@ export class IntelligenceOperatorEntityMetadata {
 }
 
 /**
- * The type of field being registered. Only `MEASURE` is supported.
+ * Updatable fields of a custom field mapping sourced from a Conversational Intelligence operator. At least one field must be present. Currently only `field` can be modified; `operatorId` and `operatorName` cannot be updated.
+ */
+export class IntelligenceOperatorSourceUpdate {
+  /**
+   * New path to the property in the operator\'s output schema. Follows the same rules as `field` at registration: one or two `.`-separated segments of letters, digits and `_`, resolving to a `number` or `integer` property on the operator\'s latest active version.
+   */
+  "field"?: string;
+
+  constructor(payload) {
+    this.field = payload["field"];
+  }
+}
+
+/**
+ * The category of the custom field. Supported values: - `MEASURE`: a numeric value that can be aggregated and queried as a   measure in Conversations Insights.
  */
 export type MappingCategory = "MEASURE";
 
 /**
- * The kind of upstream entity that sources this field. The value names the entity type itself, so the identifier carried in `entityMetadata` is unambiguous without a lookup (`INTELLIGENCE_OPERATOR` carries an `operatorId`).  Adding a new upstream means adding a value here plus its own `entityMetadata` variant — the request shape is unchanged.
+ * The kind of entity that supplies the custom field\'s value. Each value has a matching property on `entityMetadata` that carries that source\'s details. Supported values: - `INTELLIGENCE_OPERATOR`: the value is read from the output of a   Conversational Intelligence operator. Details go in   `entityMetadata.intelligenceOperator`.
  */
 export type SourceType = "INTELLIGENCE_OPERATOR";
+
+/**
+ * Options to pass to patch a CustomFieldMappingInstance
+ */
+export interface CustomFieldMappingContextPatchOptions {
+  /**  */
+  customFieldMappingUpdateRequest: CustomFieldMappingUpdateRequest;
+  /** ETag of the custom field mapping, as returned in the `ETag` response header. When supplied, the update is applied only if the mapping has not changed since that ETag was issued; otherwise `412` is returned.  */
+  ifMatch?: string;
+}
 
 /**
  * Options to pass to create a CustomFieldMappingInstance
@@ -121,12 +147,492 @@ export interface CustomFieldMappingListInstanceCreateOptions {
   customFieldMappingRequest: CustomFieldMappingRequest;
 }
 
+/**
+ * Options to pass to each
+ */
+export interface CustomFieldMappingListInstanceEachOptions {
+  /** The maximum number of resources to return */
+  pageSize?: number;
+  /** Token for pagination */
+  pageToken?: string;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
+  callback?: (
+    item: CustomFieldMappingInstance,
+    done: (err?: Error) => void
+  ) => void;
+  /** Function to be called upon completion of streaming */
+  done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
+  limit?: number;
+}
+
+/**
+ * Options to pass to list
+ */
+export interface CustomFieldMappingListInstanceOptions {
+  /** The maximum number of resources to return */
+  pageSize?: number;
+  /** Token for pagination */
+  pageToken?: string;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
+  limit?: number;
+}
+
+/**
+ * Options to pass to page
+ */
+export interface CustomFieldMappingListInstancePageOptions {
+  /** The maximum number of resources to return */
+  pageSize?: number;
+  /** Token for pagination */
+  pageToken?: string;
+}
+
+export interface CustomFieldMappingContext {
+  /**
+   * Fetch a CustomFieldMappingInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CustomFieldMappingInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: CustomFieldMappingInstance) => any
+  ): Promise<CustomFieldMappingInstance>;
+
+  /**
+   * Fetch a CustomFieldMappingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CustomFieldMappingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomFieldMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingInstance>>;
+
+  /**
+   * Patch a CustomFieldMappingInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CustomFieldMappingInstance
+   */
+  patch(
+    params: CustomFieldMappingUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: CustomFieldMappingInstance) => any
+  ): Promise<CustomFieldMappingInstance>;
+
+  /**
+   * Patch a CustomFieldMappingInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CustomFieldMappingInstance with HTTP metadata
+   */
+  patchWithHttpInfo(
+    params: CustomFieldMappingUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomFieldMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingInstance>>;
+
+  /**
+   * Provide a user-friendly representation
+   */
+  toJSON(): any;
+  [inspect.custom](_depth: any, options: InspectOptions): any;
+}
+
+export interface CustomFieldMappingContextSolution {
+  mappingId: string;
+}
+
+export class CustomFieldMappingContextImpl
+  implements CustomFieldMappingContext
+{
+  protected _solution: CustomFieldMappingContextSolution;
+  protected _uri: string;
+
+  constructor(protected _version: V3, mappingId: string) {
+    if (!isValidPathParam(mappingId)) {
+      throw new Error("Parameter 'mappingId' is not valid.");
+    }
+
+    this._solution = { mappingId };
+    this._uri = `/ControlPlane/ConversationInsights/CustomFieldMappings/${mappingId}`;
+  }
+
+  fetch(
+    callback?: (error: Error | null, item?: CustomFieldMappingInstance) => any
+  ): Promise<CustomFieldMappingInstance> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.fetch({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CustomFieldMappingInstance(
+          operationVersion,
+          payload,
+          instance._solution.mappingId
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomFieldMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingInstance>> {
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .fetchWithResponseInfo<CustomFieldMappingResource>({
+        uri: instance._uri,
+        method: "get",
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CustomFieldMappingInstance> => ({
+          ...response,
+          body: new CustomFieldMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.mappingId
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  patch(
+    params: CustomFieldMappingUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: CustomFieldMappingInstance) => any
+  ): Promise<CustomFieldMappingInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version,
+      operationPromise = operationVersion.patch({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new CustomFieldMappingInstance(
+          operationVersion,
+          payload,
+          instance._solution.mappingId
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  patchWithHttpInfo(
+    params: CustomFieldMappingUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomFieldMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    const instance = this;
+    let operationVersion = instance._version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .patchWithResponseInfo<CustomFieldMappingResource>({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<CustomFieldMappingInstance> => ({
+          ...response,
+          body: new CustomFieldMappingInstance(
+            operationVersion,
+            response.body,
+            instance._solution.mappingId
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return this._solution;
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
+interface CustomFieldMappingPayload extends TokenPaginationPayload {
+  items: CustomFieldMappingResource[];
+}
+
+interface CustomFieldMappingResource {
+  id: string;
+  category: MappingCategory;
+  name: string;
+  description: string;
+  entityMetadata: EntityMetadata;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+/**
+ * A registered custom field mapping.
+ */
+export class CustomFieldMappingInstance {
+  protected _solution: CustomFieldMappingContextSolution;
+  protected _context?: CustomFieldMappingContext;
+
+  constructor(
+    protected _version: V3,
+    _payload: CustomFieldMappingResource,
+    mappingId?: string
+  ) {
+    const payload = _payload;
+    this.id = payload.id;
+    this.category = payload.category;
+    this.name = payload.name;
+    this.description = payload.description;
+    this.entityMetadata =
+      payload.entityMetadata !== null && payload.entityMetadata !== undefined
+        ? new EntityMetadata(payload.entityMetadata)
+        : null;
+    this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
+    this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
+
+    this._solution = { mappingId: mappingId };
+  }
+
+  /**
+   * The unique identifier of the custom field mapping.
+   */
+  id: string;
+  category: MappingCategory;
+  /**
+   * Name of the custom field, unique within the account.
+   */
+  name: string;
+  /**
+   * Optional, free-text description supplied at registration time. Display-only — not part of any uniqueness check.
+   */
+  description: string;
+  entityMetadata: EntityMetadata;
+  /**
+   * When the mapping was registered.
+   */
+  createdAt: Date;
+  /**
+   * When the mapping was last modified via `PATCH`. Null until the first update.
+   */
+  updatedAt: Date;
+
+  private get _proxy(): CustomFieldMappingContext {
+    this._context =
+      this._context ||
+      new CustomFieldMappingContextImpl(
+        this._version,
+        this._solution.mappingId
+      );
+    return this._context;
+  }
+
+  /**
+   * Fetch a CustomFieldMappingInstance
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CustomFieldMappingInstance
+   */
+  fetch(
+    callback?: (error: Error | null, item?: CustomFieldMappingInstance) => any
+  ): Promise<CustomFieldMappingInstance> {
+    return this._proxy.fetch(callback);
+  }
+
+  /**
+   * Fetch a CustomFieldMappingInstance and return HTTP info
+   *
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CustomFieldMappingInstance with HTTP metadata
+   */
+  fetchWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomFieldMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingInstance>> {
+    return this._proxy.fetchWithHttpInfo(callback);
+  }
+
+  /**
+   * Patch a CustomFieldMappingInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CustomFieldMappingInstance
+   */
+  patch(
+    params: CustomFieldMappingUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: CustomFieldMappingInstance) => any
+  ): Promise<CustomFieldMappingInstance>;
+
+  patch(
+    params?: any,
+    callback?: (error: Error | null, item?: CustomFieldMappingInstance) => any
+  ): Promise<CustomFieldMappingInstance> {
+    return this._proxy.patch(params, callback);
+  }
+
+  /**
+   * Patch a CustomFieldMappingInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed CustomFieldMappingInstance with HTTP metadata
+   */
+  patchWithHttpInfo(
+    params: CustomFieldMappingUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomFieldMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingInstance>>;
+
+  patchWithHttpInfo(
+    params?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<CustomFieldMappingInstance>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingInstance>> {
+    return this._proxy.patchWithHttpInfo(params, callback);
+  }
+
+  /**
+   * Provide a user-friendly representation
+   *
+   * @returns Object
+   */
+  toJSON() {
+    return {
+      id: this.id,
+      category: this.category,
+      name: this.name,
+      description: this.description,
+      entityMetadata: this.entityMetadata,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
+  }
+
+  [inspect.custom](_depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
+}
+
 export interface CustomFieldMappingSolution {}
 
 export interface CustomFieldMappingListInstance {
   _version: V3;
   _solution: CustomFieldMappingSolution;
   _uri: string;
+
+  (mappingId: string): CustomFieldMappingContext;
+  get(mappingId: string): CustomFieldMappingContext;
 
   /**
    * Create a CustomFieldMappingInstance
@@ -162,29 +668,170 @@ export interface CustomFieldMappingListInstance {
   ): Promise<ApiResponse<CustomFieldMappingInstance>>;
 
   /**
-   * Fetch a CustomFieldMappingInstance
+   * Streams CustomFieldMappingInstance records from the API.
    *
-   * @param callback - Callback to handle processed record
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
    *
-   * @returns Resolves to processed CustomFieldMappingInstance
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CustomFieldMappingListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
    */
-  fetch(
-    callback?: (error: Error | null, item?: CustomFieldMappingInstance) => any
-  ): Promise<CustomFieldMappingInstance>;
-
+  each(
+    callback?: (
+      item: CustomFieldMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  each(
+    params: CustomFieldMappingListInstanceEachOptions,
+    callback?: (
+      item: CustomFieldMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
   /**
-   * Fetch a CustomFieldMappingInstance and return HTTP info
+   * Streams CustomFieldMappingInstance records from the API with HTTP metadata captured per page.
    *
-   * @param callback - Callback to handle processed record
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
    *
-   * @returns Resolves to processed CustomFieldMappingInstance with HTTP metadata
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CustomFieldMappingListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
    */
-  fetchWithHttpInfo(
+  eachWithHttpInfo(
+    callback?: (
+      item: CustomFieldMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  eachWithHttpInfo(
+    params: CustomFieldMappingListInstanceEachOptions,
+    callback?: (
+      item: CustomFieldMappingInstance,
+      done: (err?: Error) => void
+    ) => void
+  ): void;
+  /**
+   * Retrieve a single target page of CustomFieldMappingInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: CustomFieldMappingPage) => any
+  ): Promise<CustomFieldMappingPage>;
+  /**
+   * Retrieve a single target page of CustomFieldMappingInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CustomFieldMappingInstance>
+      items: ApiResponse<CustomFieldMappingPage>
     ) => any
-  ): Promise<ApiResponse<CustomFieldMappingInstance>>;
+  ): Promise<ApiResponse<CustomFieldMappingPage>>;
+  /**
+   * Lists CustomFieldMappingInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CustomFieldMappingListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(
+    callback?: (error: Error | null, items: CustomFieldMappingInstance[]) => any
+  ): Promise<CustomFieldMappingInstance[]>;
+  list(
+    params: CustomFieldMappingListInstanceOptions,
+    callback?: (error: Error | null, items: CustomFieldMappingInstance[]) => any
+  ): Promise<CustomFieldMappingInstance[]>;
+  /**
+   * Lists CustomFieldMappingInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CustomFieldMappingListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CustomFieldMappingInstance[]>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingInstance[]>>;
+  listWithHttpInfo(
+    params: CustomFieldMappingListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CustomFieldMappingInstance[]>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingInstance[]>>;
+  /**
+   * Retrieve a single page of CustomFieldMappingInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CustomFieldMappingListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(
+    callback?: (error: Error | null, items: CustomFieldMappingPage) => any
+  ): Promise<CustomFieldMappingPage>;
+  page(
+    params: CustomFieldMappingListInstancePageOptions,
+    callback?: (error: Error | null, items: CustomFieldMappingPage) => any
+  ): Promise<CustomFieldMappingPage>;
+  /**
+   * Retrieve a single page of CustomFieldMappingInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { CustomFieldMappingListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CustomFieldMappingPage>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingPage>>;
+  pageWithHttpInfo(
+    params: CustomFieldMappingListInstancePageOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<CustomFieldMappingPage>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -196,7 +843,12 @@ export interface CustomFieldMappingListInstance {
 export function CustomFieldMappingListInstance(
   version: V3
 ): CustomFieldMappingListInstance {
-  const instance = {} as CustomFieldMappingListInstance;
+  const instance = ((mappingId) =>
+    instance.get(mappingId)) as CustomFieldMappingListInstance;
+
+  instance.get = function get(mappingId): CustomFieldMappingContext {
+    return new CustomFieldMappingContextImpl(version, mappingId);
+  };
 
   instance._version = version;
   instance._solution = {};
@@ -287,21 +939,45 @@ export function CustomFieldMappingListInstance(
     return operationPromise;
   };
 
-  instance.fetch = function fetch(
-    callback?: (error: Error | null, items: CustomFieldMappingInstance) => any
-  ): Promise<CustomFieldMappingInstance> {
+  instance.page = function page(
+    params?:
+      | CustomFieldMappingListInstancePageOptions
+      | ((error: Error | null, items: CustomFieldMappingPage) => any),
+    callback?: (error: Error | null, items: CustomFieldMappingPage) => any
+  ): Promise<CustomFieldMappingPage> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
+    if (params["pageToken"] !== undefined)
+      data["pageToken"] = params["pageToken"];
+
     const headers: any = {};
     headers["Accept"] = "application/json";
 
     let operationVersion = version,
-      operationPromise = operationVersion.fetch({
+      operationPromise = operationVersion.page({
         uri: instance._uri,
         method: "get",
+        params: data,
         headers,
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CustomFieldMappingInstance(operationVersion, payload)
+      (payload) =>
+        new CustomFieldMappingPage(
+          operationVersion,
+          payload,
+          instance._uri,
+          data,
+          instance._solution
+        )
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -310,28 +986,77 @@ export function CustomFieldMappingListInstance(
     );
     return operationPromise;
   };
+  instance.each = instance._version.each;
 
-  instance.fetchWithHttpInfo = function fetchWithHttpInfo(
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: CustomFieldMappingPage) => any
+  ): Promise<CustomFieldMappingPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new CustomFieldMappingPage(
+          instance._version,
+          payload,
+          instance._uri,
+          {},
+          instance._solution
+        )
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | CustomFieldMappingListInstancePageOptions
+      | ((
+          error: Error | null,
+          items: ApiResponse<CustomFieldMappingPage>
+        ) => any),
     callback?: (
       error: Error | null,
-      items: ApiResponse<CustomFieldMappingInstance>
+      items: ApiResponse<CustomFieldMappingPage>
     ) => any
-  ): Promise<ApiResponse<CustomFieldMappingInstance>> {
+  ): Promise<ApiResponse<CustomFieldMappingPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["pageSize"] = params["pageSize"];
+    if (params["pageToken"] !== undefined)
+      data["pageToken"] = params["pageToken"];
+
     const headers: any = {};
     headers["Accept"] = "application/json";
 
     let operationVersion = version;
-    // CREATE, FETCH, UPDATE operations
+
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
     let operationPromise = operationVersion
-      .fetchWithResponseInfo<CustomFieldMappingResource>({
-        uri: instance._uri,
-        method: "get",
-        headers,
-      })
+      .page({ uri: instance._uri, method: "get", params: data, headers })
       .then(
-        (response): ApiResponse<CustomFieldMappingInstance> => ({
-          ...response,
-          body: new CustomFieldMappingInstance(operationVersion, response.body),
+        (response): ApiResponse<CustomFieldMappingPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new CustomFieldMappingPage(
+            operationVersion,
+            response,
+            instance._uri,
+            data,
+            instance._solution
+          ),
         })
       );
 
@@ -340,6 +1065,41 @@ export function CustomFieldMappingListInstance(
       callback
     );
     return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (
+      error: Error | null,
+      items?: ApiResponse<CustomFieldMappingPage>
+    ) => any
+  ): Promise<ApiResponse<CustomFieldMappingPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<CustomFieldMappingPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new CustomFieldMappingPage(
+          instance._version,
+          response,
+          instance._uri,
+          {},
+          instance._solution
+        ),
+      })
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
   };
 
   instance.toJSON = function toJSON() {
@@ -356,97 +1116,41 @@ export function CustomFieldMappingListInstance(
   return instance;
 }
 
-/**
- * Response model for CustomFieldMappingsList operations
- */
-interface CustomFieldMappingsList_ResponseResource {
-  mappings: Array<CustomFieldMappingResponse>;
-}
-
-/**
- * Response model for CustomFieldMappingResponse operations
- */
-interface CustomFieldMappingResponse_ResponseResource {
-  id?: string;
-  category: MappingCategory;
-  name: string;
-  description?: string;
-  entityMetadata: IntelligenceOperatorEntityMetadata;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-/**
- * Union type for all possible response models
- */
-type CustomFieldMappingResource =
-  | CustomFieldMappingsList_ResponseResource
-  | CustomFieldMappingResponse_ResponseResource;
-
-/**
- * A registered custom field mapping.
- */
-export class CustomFieldMappingInstance {
-  constructor(protected _version: V3, _payload: CustomFieldMappingResource) {
-    const payload: any = _payload;
-    this.mappings =
-      payload.mappings !== null && payload.mappings !== undefined
-        ? payload.mappings.map(
-            (payload: any) => new CustomFieldMappingResponse(payload)
-          )
-        : null;
-    this.id = payload.id;
-    this.category = payload.category;
-    this.name = payload.name;
-    this.description = payload.description;
-    this.entityMetadata =
-      payload.entityMetadata !== null && payload.entityMetadata !== undefined
-        ? new IntelligenceOperatorEntityMetadata(payload.entityMetadata)
-        : null;
-    this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
-    this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
-  }
-
-  mappings?: Array<CustomFieldMappingResponse>;
+export class CustomFieldMappingPage extends TokenPage<
+  V3,
+  CustomFieldMappingPayload,
+  CustomFieldMappingResource,
+  CustomFieldMappingInstance
+> {
   /**
-   * TTID for conversation insights custom field mapping
-   */
-  id?: string;
-  category?: MappingCategory;
-  name?: string;
-  /**
-   * Optional, free-text description supplied at registration time. Display-only — not part of any uniqueness check.
-   */
-  description?: string;
-  entityMetadata?: IntelligenceOperatorEntityMetadata;
-  /**
-   * When the mapping was registered.
-   */
-  createdAt?: Date;
-  /**
-   * When the mapping was last materially modified in-place. Null until the first update-in-place.
-   */
-  updatedAt?: Date;
-
-  /**
-   * Provide a user-friendly representation
+   * Initialize the CustomFieldMappingPage
    *
-   * @returns Object
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param uri - URI of the resource
+   * @param params - Query parameters
+   * @param solution - Path solution
    */
-  toJSON() {
-    return {
-      mappings: this.mappings,
-      id: this.id,
-      category: this.category,
-      name: this.name,
-      description: this.description,
-      entityMetadata: this.entityMetadata,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
-    };
+  constructor(
+    version: V3,
+    response: Response<string>,
+    uri: string,
+    params: any,
+    solution: CustomFieldMappingSolution
+  ) {
+    super(version, response, uri, params, solution);
   }
 
-  [inspect.custom](_depth: any, options: InspectOptions) {
+  /**
+   * Build an instance of CustomFieldMappingInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: CustomFieldMappingResource): CustomFieldMappingInstance {
+    return new CustomFieldMappingInstance(this._version, payload);
+  }
+
+  [inspect.custom](depth: any, options: InspectOptions) {
     return inspect(this.toJSON(), options);
   }
 }

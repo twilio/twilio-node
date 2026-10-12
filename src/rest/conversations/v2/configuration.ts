@@ -1298,6 +1298,8 @@ interface ListConfiguration200ResponseConfigurations_ResponseResource {
   channelSettings?: { [key: string]: ConversationsV2ChannelSetting };
   statusCallbacks?: Array<ConversationsV2StatusCallbackConfig>;
   intelligenceConfigurationIds?: Array<string>;
+  traitExtractionStrategyIds?: Array<string>;
+  observationExtractionStrategyIds?: Array<string>;
   memoryExtractionEnabled?: boolean;
   conversationsV1Bridge?: ConversationsV2ConversationsV1Bridge;
   createdAt?: Date;
@@ -1346,6 +1348,9 @@ export class ConfigurationInstance {
           )
         : null;
     this.intelligenceConfigurationIds = payload.intelligenceConfigurationIds;
+    this.traitExtractionStrategyIds = payload.traitExtractionStrategyIds;
+    this.observationExtractionStrategyIds =
+      payload.observationExtractionStrategyIds;
     this.memoryExtractionEnabled = payload.memoryExtractionEnabled;
     this.conversationsV1Bridge =
       payload.conversationsV1Bridge !== null &&
@@ -1392,6 +1397,14 @@ export class ConfigurationInstance {
    * A list of Conversational Intelligence configuration IDs.
    */
   intelligenceConfigurationIds?: Array<string>;
+  /**
+   * A list of Trait Extraction Strategy IDs.
+   */
+  traitExtractionStrategyIds?: Array<string>;
+  /**
+   * A list of Observation Extraction Strategy IDs.
+   */
+  observationExtractionStrategyIds?: Array<string>;
   /**
    * Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
    */
@@ -1684,6 +1697,8 @@ export class ConfigurationInstance {
       channelSettings: this.channelSettings,
       statusCallbacks: this.statusCallbacks,
       intelligenceConfigurationIds: this.intelligenceConfigurationIds,
+      traitExtractionStrategyIds: this.traitExtractionStrategyIds,
+      observationExtractionStrategyIds: this.observationExtractionStrategyIds,
       memoryExtractionEnabled: this.memoryExtractionEnabled,
       conversationsV1Bridge: this.conversationsV1Bridge,
       createdAt: this.createdAt,

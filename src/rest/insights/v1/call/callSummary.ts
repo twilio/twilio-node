@@ -449,7 +449,7 @@ export class CallSummaryInstance {
    */
   sipEdge: any;
   /**
-   * Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
+   * [Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags) that Voice Insights analysis applies to calls. They indicate a condition that may influence the subjective experience of call audio quality.
    */
   tags: Array<string>;
   /**

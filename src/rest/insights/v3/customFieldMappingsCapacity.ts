@@ -20,17 +20,17 @@ import { isValidPathParam } from "../../../base/utility";
 import { ApiResponse } from "../../../base/ApiResponse";
 
 /**
- * Slots consumed and remaining for the measure category. Empty when not applicable for the account.
+ * Slots consumed and remaining for the measure category. By default an account can register up to 3 custom measures, so `consumed + remaining` is the account\'s limit. Registering a new mapping when `remaining` is `0` returns `403`.
  */
 export class CategoryCapacity {
   /**
    * Number of custom field mapping slots already registered.
    */
-  "consumed"?: number;
+  "consumed": number;
   /**
    * Number of custom field mapping slots still available.
    */
-  "remaining"?: number;
+  "remaining": number;
 
   constructor(payload) {
     this.consumed = payload["consumed"];
@@ -38,37 +38,40 @@ export class CategoryCapacity {
   }
 }
 
-export interface CapacitySolution {}
+export interface CustomFieldMappingsCapacitySolution {}
 
-export interface CapacityListInstance {
+export interface CustomFieldMappingsCapacityListInstance {
   _version: V3;
-  _solution: CapacitySolution;
+  _solution: CustomFieldMappingsCapacitySolution;
   _uri: string;
 
   /**
-   * Fetch a CapacityInstance
+   * Fetch a CustomFieldMappingsCapacityInstance
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed CapacityInstance
+   * @returns Resolves to processed CustomFieldMappingsCapacityInstance
    */
   fetch(
-    callback?: (error: Error | null, item?: CapacityInstance) => any
-  ): Promise<CapacityInstance>;
+    callback?: (
+      error: Error | null,
+      item?: CustomFieldMappingsCapacityInstance
+    ) => any
+  ): Promise<CustomFieldMappingsCapacityInstance>;
 
   /**
-   * Fetch a CapacityInstance and return HTTP info
+   * Fetch a CustomFieldMappingsCapacityInstance and return HTTP info
    *
    * @param callback - Callback to handle processed record
    *
-   * @returns Resolves to processed CapacityInstance with HTTP metadata
+   * @returns Resolves to processed CustomFieldMappingsCapacityInstance with HTTP metadata
    */
   fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      item?: ApiResponse<CapacityInstance>
+      item?: ApiResponse<CustomFieldMappingsCapacityInstance>
     ) => any
-  ): Promise<ApiResponse<CapacityInstance>>;
+  ): Promise<ApiResponse<CustomFieldMappingsCapacityInstance>>;
 
   /**
    * Provide a user-friendly representation
@@ -77,16 +80,21 @@ export interface CapacityListInstance {
   [inspect.custom](_depth: any, options: InspectOptions): any;
 }
 
-export function CapacityListInstance(version: V3): CapacityListInstance {
-  const instance = {} as CapacityListInstance;
+export function CustomFieldMappingsCapacityListInstance(
+  version: V3
+): CustomFieldMappingsCapacityListInstance {
+  const instance = {} as CustomFieldMappingsCapacityListInstance;
 
   instance._version = version;
   instance._solution = {};
-  instance._uri = `/ControlPlane/ConversationInsights/CustomFieldMappings/Capacity`;
+  instance._uri = `/ControlPlane/ConversationInsights/CustomFieldMappingsCapacity`;
 
   instance.fetch = function fetch(
-    callback?: (error: Error | null, items: CapacityInstance) => any
-  ): Promise<CapacityInstance> {
+    callback?: (
+      error: Error | null,
+      items: CustomFieldMappingsCapacityInstance
+    ) => any
+  ): Promise<CustomFieldMappingsCapacityInstance> {
     const headers: any = {};
     headers["Accept"] = "application/json";
 
@@ -98,7 +106,8 @@ export function CapacityListInstance(version: V3): CapacityListInstance {
       });
 
     operationPromise = operationPromise.then(
-      (payload) => new CapacityInstance(operationVersion, payload)
+      (payload) =>
+        new CustomFieldMappingsCapacityInstance(operationVersion, payload)
     );
 
     operationPromise = instance._version.setPromiseCallback(
@@ -111,24 +120,27 @@ export function CapacityListInstance(version: V3): CapacityListInstance {
   instance.fetchWithHttpInfo = function fetchWithHttpInfo(
     callback?: (
       error: Error | null,
-      items: ApiResponse<CapacityInstance>
+      items: ApiResponse<CustomFieldMappingsCapacityInstance>
     ) => any
-  ): Promise<ApiResponse<CapacityInstance>> {
+  ): Promise<ApiResponse<CustomFieldMappingsCapacityInstance>> {
     const headers: any = {};
     headers["Accept"] = "application/json";
 
     let operationVersion = version;
     // CREATE, FETCH, UPDATE operations
     let operationPromise = operationVersion
-      .fetchWithResponseInfo<CapacityResource>({
+      .fetchWithResponseInfo<CustomFieldMappingsCapacityResource>({
         uri: instance._uri,
         method: "get",
         headers,
       })
       .then(
-        (response): ApiResponse<CapacityInstance> => ({
+        (response): ApiResponse<CustomFieldMappingsCapacityInstance> => ({
           ...response,
-          body: new CapacityInstance(operationVersion, response.body),
+          body: new CustomFieldMappingsCapacityInstance(
+            operationVersion,
+            response.body
+          ),
         })
       );
 
@@ -153,15 +165,18 @@ export function CapacityListInstance(version: V3): CapacityListInstance {
   return instance;
 }
 
-interface CapacityResource {
+interface CustomFieldMappingsCapacityResource {
   measure: CategoryCapacity;
 }
 
 /**
- * Custom field mapping slot capacity for the account. Only the `measure` category is supported for now; it is an empty object when custom measures are not applicable for the account.
+ * Custom field mapping slot capacity for the account, by category. Only the `measure` category is supported for now; the object is empty when custom measures are not available for the account.
  */
-export class CapacityInstance {
-  constructor(protected _version: V3, _payload: CapacityResource) {
+export class CustomFieldMappingsCapacityInstance {
+  constructor(
+    protected _version: V3,
+    _payload: CustomFieldMappingsCapacityResource
+  ) {
     const payload = _payload;
     this.measure =
       payload.measure !== null && payload.measure !== undefined

@@ -399,7 +399,7 @@ export class TwilioSchedule {
   constructor(payload) {
     this.id = payload["id"];
     this.title = payload["title"];
-    this.timeSlots = payload["timeSlots"];
+    this.timeSlots = payload["time_slots"];
   }
 }
 

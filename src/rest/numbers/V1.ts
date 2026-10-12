@@ -28,7 +28,6 @@ import { SigningRequestConfigurationListInstance } from "./v1/signingRequestConf
 import { SmsVerificationListInstance } from "./v1/smsVerification";
 import { SmsVerificationCheckListInstance } from "./v1/smsVerificationCheck";
 import { VoiceVerificationListInstance } from "./v1/voiceVerification";
-import { VoiceVerificationCheckListInstance } from "./v1/voiceVerificationCheck";
 import { WebhookListInstance } from "./v1/webhook";
 
 export default class V1 extends Version {
@@ -67,8 +66,6 @@ export default class V1 extends Version {
   protected _smsVerificationChecks?: SmsVerificationCheckListInstance;
   /** voiceVerifications - { Twilio.Numbers.V1.VoiceVerificationListInstance } resource */
   protected _voiceVerifications?: VoiceVerificationListInstance;
-  /** voiceVerificationChecks - { Twilio.Numbers.V1.VoiceVerificationCheckListInstance } resource */
-  protected _voiceVerificationChecks?: VoiceVerificationCheckListInstance;
   /** webhook - { Twilio.Numbers.V1.WebhookListInstance } resource */
   protected _webhook?: WebhookListInstance;
 
@@ -169,13 +166,6 @@ export default class V1 extends Version {
     this._voiceVerifications =
       this._voiceVerifications || VoiceVerificationListInstance(this);
     return this._voiceVerifications;
-  }
-
-  /** Getter for voiceVerificationChecks resource */
-  get voiceVerificationChecks(): VoiceVerificationCheckListInstance {
-    this._voiceVerificationChecks =
-      this._voiceVerificationChecks || VoiceVerificationCheckListInstance(this);
-    return this._voiceVerificationChecks;
   }
 
   /** Getter for webhook resource */
