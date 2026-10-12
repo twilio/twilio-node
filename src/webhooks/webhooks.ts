@@ -67,9 +67,9 @@ interface UrlParts {
 }
 
 /**
- Utility function to split a URL into its parts without normalizing it. Unlike
- `new URL()`, this keeps the path and query string exactly as received, since
- that is the string Twilio signed (e.g. `'` stays `'` and `+` stays `+`)
+ Utility function to split a URL into its parts without normalizing it, so the
+ path and query string keep the exact characters Twilio signed. `new URL()`
+ would percent-encode some of them (e.g. `'` becomes `%27`)
 
  @param url - The URL that Twilio requested on your server
  @returns URL parts, or null if the URL has no `scheme://` prefix
