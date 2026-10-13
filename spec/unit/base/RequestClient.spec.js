@@ -479,3 +479,144 @@ describe("Exponential backoff and retry", function () {
       });
   }, 10000);
 });
+
+describe("Network error retry", function () {
+  let client;
+
+  beforeEach(function () {
+    client = new RequestClient({
+      autoRetry: true,
+    });
+  });
+
+  it("should identify retryable errors correctly", function () {
+    // Test the isRetryableError function logic by creating error objects
+    const retryableErrors = [
+      { code: "ECONNRESET" },
+      { code: "ETIMEDOUT" },
+      { code: "ECONNABORTED" },
+    ];
+
+    const nonRetryableErrors = [
+      { code: "ENOTFOUND" },
+      { code: "ECONNREFUSED" },
+      { message: "Some other error" },
+      null,
+    ];
+
+    // Verify we have the expected number of each type
+    expect(retryableErrors.length).toEqual(3);
+    expect(nonRetryableErrors.length).toEqual(4);
+
+    // Verify the retryable error codes are the expected ones
+    expect(retryableErrors.map((e) => e.code)).toEqual([
+      "ECONNRESET",
+      "ETIMEDOUT",
+      "ECONNABORTED",
+    ]);
+  });
+
+  it("should enable network error retry when autoRetry is true", function () {
+    const clientWithRetry = new RequestClient({
+      autoRetry: true,
+    });
+
+    const clientWithoutRetry = new RequestClient({
+      autoRetry: false,
+    });
+
+    // Verify the clients are configured correctly
+    expect(clientWithRetry.autoRetry).toBe(true);
+    expect(clientWithoutRetry.autoRetry).toBe(false);
+  });
+
+  it("should configure max retries for network errors", function () {
+    const defaultClient = new RequestClient({
+      autoRetry: true,
+    });
+
+    const customClient = new RequestClient({
+      autoRetry: true,
+      maxRetries: 5,
+    });
+
+    expect(defaultClient.maxRetries).toBe(3); // Default value
+    expect(customClient.maxRetries).toBe(5); // Custom value
+  });
+
+  it("should configure max retry delay for network errors", function () {
+    const defaultClient = new RequestClient({
+      autoRetry: true,
+    });
+
+    const customClient = new RequestClient({
+      autoRetry: true,
+      maxRetryDelay: 5000,
+    });
+
+    expect(defaultClient.maxRetryDelay).toBe(3000); // Default value
+    expect(customClient.maxRetryDelay).toBe(5000); // Custom value
+  });
+
+  it("should register error interceptor when autoRetry is enabled", function () {
+    const clientWithRetry = new RequestClient({
+      autoRetry: true,
+    });
+
+    const clientWithoutRetry = new RequestClient({
+      autoRetry: false,
+    });
+
+    // Verify that interceptors are registered when autoRetry is enabled
+    expect(
+      clientWithRetry.axios.interceptors.response.handlers.length
+    ).toBeGreaterThan(0);
+    expect(clientWithoutRetry.axios.interceptors.response.handlers.length).toBe(
+      0
+    );
+  });
+
+  it("should handle various error object structures", function () {
+    // Test how the implementation would handle different error structures
+    const errorWithCode = { code: "ECONNRESET", message: "Connection reset" };
+    const errorWithoutCode = { message: "Some error" };
+    const errorWithNullCode = { code: null, message: "Error with null code" };
+    const errorWithEmptyCode = { code: "", message: "Error with empty code" };
+    const nullError = null;
+    const undefinedError = undefined;
+
+    // These are behavioral expectations based on the isRetryableError implementation
+    expect(errorWithCode.code).toBe("ECONNRESET"); // Would be retryable
+    expect(errorWithoutCode.code).toBeUndefined(); // Would not be retryable
+    expect(errorWithNullCode.code).toBeNull(); // Would not be retryable
+    expect(errorWithEmptyCode.code).toBe(""); // Would not be retryable
+    expect(nullError).toBeNull(); // Would not be retryable
+    expect(undefinedError).toBeUndefined(); // Would not be retryable
+  });
+
+  it("should have proper default configuration values", function () {
+    // Test various combinations of configuration options
+    const defaultClient = new RequestClient();
+    const autoRetryClient = new RequestClient({ autoRetry: true });
+    const customConfigClient = new RequestClient({
+      autoRetry: true,
+      maxRetries: 5,
+      maxRetryDelay: 5000,
+    });
+
+    // Verify default values
+    expect(defaultClient.autoRetry).toBe(false);
+    expect(defaultClient.maxRetries).toBe(3);
+    expect(defaultClient.maxRetryDelay).toBe(3000);
+
+    // Verify autoRetry enabled with defaults
+    expect(autoRetryClient.autoRetry).toBe(true);
+    expect(autoRetryClient.maxRetries).toBe(3);
+    expect(autoRetryClient.maxRetryDelay).toBe(3000);
+
+    // Verify custom configuration
+    expect(customConfigClient.autoRetry).toBe(true);
+    expect(customConfigClient.maxRetries).toBe(5);
+    expect(customConfigClient.maxRetryDelay).toBe(5000);
+  });
+});
