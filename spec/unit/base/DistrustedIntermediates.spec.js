@@ -56,6 +56,15 @@ describe("DistrustedIntermediates", function () {
   });
 });
 
+describe("public export", function () {
+  it("exposes checkServerIdentity for custom HTTP clients", function () {
+    const twilio = require("../../../src/index");
+    expect(twilio.DistrustedIntermediates.checkServerIdentity).toBe(
+      checkServerIdentity
+    );
+  });
+});
+
 describe("RequestClient distrusted intermediates", function () {
   const initialHttpProxyValue = process.env.HTTP_PROXY;
 

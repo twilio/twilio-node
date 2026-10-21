@@ -327,6 +327,8 @@ Additional documentation can be found on [Public Key Client Validation Quickstar
 
 To use a custom HTTP client with this helper library, please see the [advanced example of how to do so](./advanced-examples/custom-http-client.md).
 
+The default HTTP client refuses TLS connections whose certificate chain contains one of eight compromised eMudhra intermediate certificates. A custom HTTP client doesn't get this check automatically; the example above shows how to add it with `twilio.DistrustedIntermediates.checkServerIdentity`.
+
 ### Use webhook validation
 
 See [example](examples/express.js) for a code sample for incoming Twilio request validation.

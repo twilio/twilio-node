@@ -1,6 +1,7 @@
 import ITwilio from "./rest/Twilio";
 import * as webhooks from "./webhooks/webhooks";
 import IRequestClient from "./base/RequestClient";
+import { checkServerIdentity as distrustedIntermediatesCheck } from "./base/DistrustedIntermediates";
 import type { ClientOpts as IClientOpts } from "./base/BaseTwilio";
 import IRestException from "./base/RestException";
 import type { ApiResponse as IApiResponse } from "./base/ApiResponse";
@@ -52,6 +53,11 @@ namespace TwilioSDK {
   }
   export type RequestClient = IRequestClient;
   export const RequestClient = IRequestClient;
+  // For custom HTTP clients: pass as the `checkServerIdentity` option of an https.Agent to refuse chains that
+  // contain a distrusted intermediate certificate, as the default RequestClient does.
+  export const DistrustedIntermediates = {
+    checkServerIdentity: distrustedIntermediatesCheck,
+  };
   export type RestException = IRestException;
   export const RestException = IRestException;
   export type ApiResponse<T> = IApiResponse<T>;
