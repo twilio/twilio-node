@@ -18,6 +18,7 @@ import Request, {
 import AuthStrategy from "../auth_strategy/AuthStrategy";
 import ValidationToken from "../jwt/validation/ValidationToken";
 import { ValidationClientOptions } from "./ValidationClient";
+import { checkServerIdentity } from "./DistrustedIntermediates";
 
 const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 const DEFAULT_TIMEOUT = 30000;
@@ -120,6 +121,7 @@ class RequestClient {
       maxFreeSockets: opts.maxFreeSockets || DEFAULT_MAX_FREE_SOCKETS, // no of free sockets open per host
       scheduling: opts.scheduling,
       ca: opts.ca,
+      checkServerIdentity,
     };
 
     // sets https agent CA bundle if defined in CA bundle filepath env variable
@@ -134,6 +136,11 @@ class RequestClient {
       // Note: if process.env.HTTP_PROXY is set, we're not able to apply the given
       // socket timeout. See: https://github.com/TooTallNate/node-https-proxy-agent/pull/96
       agent = HttpsProxyAgent(process.env.HTTP_PROXY);
+      // The proxy agent builds its TLS socket from the request options, not the agent options, so inject the
+      // distrusted-intermediate check into those.
+      const connect = agent.callback.bind(agent);
+      agent.callback = (req: any, connectOpts: any) =>
+        connect(req, { ...connectOpts, checkServerIdentity });
     } else {
       agent = new https.Agent(agentOpts);
     }
