@@ -60,7 +60,7 @@ export function checkServerIdentity(
 ): Error | undefined {
   if (containsDistrusted(cert as tls.DetailedPeerCertificate)) {
     const error = new Error(
-      `Certificate chain for ${hostname} contains a distrusted intermediate certificate`
+      "Your certificate chain contains a distrusted intermediate certificate"
     ) as NodeJS.ErrnoException;
     error.code = "ERR_TLS_CERT_DISTRUSTED";
     return error;
