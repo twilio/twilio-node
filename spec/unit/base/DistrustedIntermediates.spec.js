@@ -47,7 +47,7 @@ describe("DistrustedIntermediates", function () {
     const error = checkServerIdentity("example.com", { raw });
     expect(error.code).toBe("ERR_TLS_CERT_DISTRUSTED");
     expect(error.message).toBe(
-      "Your certificate chain contains a distrusted intermediate certificate"
+      "Certificate chain which you are using contains a distrusted intermediate certificate"
     );
   });
 
