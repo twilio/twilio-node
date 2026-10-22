@@ -60,6 +60,13 @@ Now that you can see how all the components fit together, you can create our own
 const _ = require('lodash');
 const qs = require('qs');
 const axios = require('axios');
+const https = require('https');
+const twilio = require('twilio');
+
+// Refuse certificate chains that contain a distrusted intermediate, as the default client does.
+const httpsAgent = new https.Agent({
+  checkServerIdentity: twilio.DistrustedIntermediates.checkServerIdentity,
+});
 
 /**
  * Custom HTTP Client
@@ -96,6 +103,7 @@ class MyRequestClient {
       headers: opts.headers,
       auth: this.auth,
       timeout: this.timeout,
+      httpsAgent,
     };
 
     // Use 'qs' to support x-www-form-urlencoded with axios
@@ -134,6 +142,12 @@ class MyRequestClient {
 
 module.exports = MyRequestClient;
 ```
+
+## Keep the distrusted-intermediate check
+
+The default `RequestClient` refuses TLS connections whose certificate chain contains one of eight eMudhra intermediate certificates with compromised keys (CVE-2026-111943, the same list Go distrusts as of Go 1.27.3 and 1.26.10). Until your Node.js release distrusts them itself, a custom `httpClient` only gets this check if you add it: pass `twilio.DistrustedIntermediates.checkServerIdentity` as the `checkServerIdentity` option of the `https.Agent` your client uses, as `MyRequestClient` does above. It rejects those chains with `ERR_TLS_CERT_DISTRUSTED` and otherwise applies Node's default hostname verification.
+
+The check runs wherever your client performs the TLS handshake itself. It doesn't apply if a proxy terminates TLS on your behalf.
 
 ## Add a custom timeout
 
