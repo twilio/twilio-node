@@ -1,8 +1,16 @@
+import crypto from "crypto";
 import {
   getExpectedBodyHash,
   getExpectedTwilioSignature,
+  getSignatureAlgorithm,
   validateBody,
   validateRequest,
+  validateRequestWithBody,
+  validateIncomingRequest,
+  HMAC_SHA1,
+  HMAC_SHA256,
+  SIGNATURE_HEADER,
+  SIGNATURE_SETTINGS_HEADER,
 } from "../../../src";
 
 describe("webhooks", () => {
@@ -296,6 +304,167 @@ describe("webhooks", () => {
     it("should accept the hash as a Buffer", () => {
       expect(validateBody(body, Buffer.from(getExpectedBodyHash(body)))).toBe(
         true
+      );
+    });
+  });
+  describe("HMAC-SHA256 signatures", () => {
+    const url = "https://example.com/path?test=param";
+    const params = { From: "+14155551212", CallSid: "CA123" };
+    const sha256 = (data) =>
+      crypto.createHmac("sha256", authToken).update(data).digest("base64");
+
+    it("should match an independently computed HMAC-SHA256 signature", () => {
+      const expected = sha256(url + "CallSidCA123From+14155551212");
+
+      expect(
+        getExpectedTwilioSignature(authToken, url, params, HMAC_SHA256)
+      ).toBe(expected);
+    });
+
+    it("should validate an HMAC-SHA256 signature when the algorithm is passed", () => {
+      const signature = getExpectedTwilioSignature(
+        authToken,
+        url,
+        params,
+        HMAC_SHA256
+      );
+
+      expect(
+        validateRequest(authToken, signature, url, params, HMAC_SHA256)
+      ).toBe(true);
+      expect(
+        validateRequest(authToken, signature, url, params, "hmac_sha256")
+      ).toBe(true);
+    });
+
+    it("should not validate an HMAC-SHA256 signature as HMAC-SHA1, or the reverse", () => {
+      const sha256Signature = getExpectedTwilioSignature(
+        authToken,
+        url,
+        params,
+        HMAC_SHA256
+      );
+      const sha1Signature = getExpectedTwilioSignature(authToken, url, params);
+
+      expect(validateRequest(authToken, sha256Signature, url, params)).toBe(
+        false
+      );
+      expect(
+        validateRequest(authToken, sha1Signature, url, params, HMAC_SHA256)
+      ).toBe(false);
+    });
+
+    it("should default to HMAC-SHA1 when the algorithm is missing or empty", () => {
+      const signature = getExpectedTwilioSignature(authToken, url, params);
+
+      expect(
+        validateRequest(authToken, signature, url, params, undefined)
+      ).toBe(true);
+      expect(validateRequest(authToken, signature, url, params, "")).toBe(true);
+      expect(
+        validateRequest(authToken, signature, url, params, HMAC_SHA1)
+      ).toBe(true);
+    });
+
+    it("should return false and warn for an unsupported algorithm", () => {
+      const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
+      const signature = getExpectedTwilioSignature(authToken, url, params);
+
+      expect(
+        validateRequest(authToken, signature, url, params, "HMAC_SHA512")
+      ).toBe(false);
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining("HMAC_SHA512"));
+      warn.mockRestore();
+    });
+
+    it("should throw from getExpectedTwilioSignature for an unsupported algorithm", () => {
+      expect(() =>
+        getExpectedTwilioSignature(authToken, url, params, "MD5")
+      ).toThrow("Unsupported webhook signature algorithm: MD5");
+    });
+
+    it("should validate a JSON body signed with HMAC-SHA256", () => {
+      const body = '{"a":1}';
+      const bodyUrl = `https://example.com/events?bodySHA256=${getExpectedBodyHash(
+        body
+      )}`;
+      const signature = getExpectedTwilioSignature(
+        authToken,
+        bodyUrl,
+        {},
+        HMAC_SHA256
+      );
+
+      expect(
+        validateRequestWithBody(
+          authToken,
+          signature,
+          bodyUrl,
+          body,
+          HMAC_SHA256
+        )
+      ).toBe(true);
+      expect(
+        validateRequestWithBody(
+          authToken,
+          signature,
+          bodyUrl,
+          "{}",
+          HMAC_SHA256
+        )
+      ).toBe(false);
+      expect(validateRequestWithBody(authToken, signature, bodyUrl, body)).toBe(
+        false
+      );
+    });
+
+    it("should validate an incoming request with the algorithm option", () => {
+      const signature = getExpectedTwilioSignature(
+        authToken,
+        url,
+        params,
+        HMAC_SHA256
+      );
+      const request = {
+        protocol: "https",
+        headers: { host: "example.com" },
+        originalUrl: "/path?test=param",
+        body: params,
+        header: (name) => (name === SIGNATURE_HEADER ? signature : undefined),
+      };
+
+      expect(
+        validateIncomingRequest(request, authToken, { algorithm: HMAC_SHA256 })
+      ).toBe(true);
+      expect(validateIncomingRequest(request, authToken)).toBe(false);
+    });
+  });
+
+  describe("getSignatureAlgorithm()", () => {
+    it("should read the algorithm from the settings header", () => {
+      expect(
+        getSignatureAlgorithm("key=webhooks_sharedkey_1,algorithm=HMAC_SHA256")
+      ).toBe("HMAC_SHA256");
+      expect(getSignatureAlgorithm("algorithm=HMAC_SHA1,key=k")).toBe(
+        "HMAC_SHA1"
+      );
+      expect(getSignatureAlgorithm(" key=k , algorithm = HMAC_SHA256 ")).toBe(
+        "HMAC_SHA256"
+      );
+    });
+
+    it("should return HMAC_SHA1 when the header is missing, empty or has no algorithm", () => {
+      expect(getSignatureAlgorithm(undefined)).toBe(HMAC_SHA1);
+      expect(getSignatureAlgorithm(null)).toBe(HMAC_SHA1);
+      expect(getSignatureAlgorithm("")).toBe(HMAC_SHA1);
+      expect(getSignatureAlgorithm("key=k")).toBe(HMAC_SHA1);
+      expect(getSignatureAlgorithm("key=k,algorithm=")).toBe(HMAC_SHA1);
+    });
+
+    it("should expose the header names", () => {
+      expect(SIGNATURE_HEADER).toBe("X-Twilio-Signature");
+      expect(SIGNATURE_SETTINGS_HEADER).toBe(
+        "X-Twilio-Webhooks-Signature-Settings"
       );
     });
   });
