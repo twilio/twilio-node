@@ -1,8 +1,13 @@
-import mockfs from "mock-fs";
+import fs from "fs";
 import axios from "axios";
 import RequestClient from "../../../src/base/RequestClient";
 import HttpsProxyAgent from "https-proxy-agent";
 import http from "http";
+
+jest.mock("fs", () => {
+  const actualFs = jest.requireActual("fs");
+  return { ...actualFs, readFileSync: jest.fn(actualFs.readFileSync) };
+});
 
 function createMockAxios(promiseHandler) {
   let instance = function () {
@@ -301,16 +306,17 @@ describe("User specified CA bundle", function () {
     createSpy = jest.spyOn(axios, "create");
     createSpy.mockReturnValue(createMockAxios(Promise.resolve()));
 
-    mockfs({
-      "/path/to/ca": {
-        "test-ca.pem": "test ca data",
-      },
-    });
+    const actualReadFileSync = jest.requireActual("fs").readFileSync;
+    fs.readFileSync.mockImplementation((path, ...args) =>
+      path === "/path/to/ca/test-ca.pem"
+        ? Buffer.from("test ca data")
+        : actualReadFileSync(path, ...args)
+    );
   });
 
   afterEach(function () {
     createSpy.mockRestore();
-    mockfs.restore();
+    fs.readFileSync.mockImplementation(jest.requireActual("fs").readFileSync);
   });
 
   it("should use CA if it is specified", function () {
