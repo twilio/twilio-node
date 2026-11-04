@@ -329,7 +329,7 @@ To use a custom HTTP client with this helper library, please see the [advanced e
 
 ### Use webhook validation
 
-See [example](examples/express.js) for a code sample for incoming Twilio request validation.
+See [example](examples/express.js) for a code sample for incoming Twilio request validation. For SharedKey (HMAC-SHA256) signatures, see the [webhook validation guide](examples/WebhookSignatureValidation.md).
 
 ## Docker image
 

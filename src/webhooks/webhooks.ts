@@ -70,6 +70,12 @@ export interface WebhookOptions {
    * Authentication token
    */
   authToken?: string;
+  /**
+   * SharedKey secret, used instead of the auth token for webhooks that carry the
+   * X-Twilio-Webhooks-Signature-Settings header (signed with a SharedKey). The signing
+   * algorithm is read from that header.
+   */
+  sharedKeySecret?: string;
 }
 
 interface UrlParts {
@@ -479,6 +485,8 @@ Options:
 - host: manually specify the host name used by Twilio in a number's webhook config
 - protocol: manually specify the protocol used by Twilio in a number's webhook config
 - url: The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
+- sharedKeySecret: the SharedKey secret, used for webhooks signed with a SharedKey (those carry the
+    X-Twilio-Webhooks-Signature-Settings header). The algorithm, HMAC_SHA1 or HMAC_SHA256, is read from the header.
 
 Returns a middleware function.
 
@@ -491,6 +499,9 @@ var webhookMiddleware = twilio.webhook({
 var webhookMiddleware = twilio.webhook({
     host: 'hook.twilio.com',
     protocol: 'https'
+});
+var webhookMiddleware = twilio.webhook('asdha9dhjasd', {
+    sharedKeySecret: 'shared key secret' // for webhooks signed with a SharedKey
 });
  */
 export function webhook(
@@ -551,23 +562,31 @@ export function webhook(
             "No signature header error - X-Twilio-Signature header does not exist, maybe this request is not coming from Twilio."
           );
       }
-      // Check for a valid auth token
-      if (!options?.authToken) {
+      // A settings header means Twilio signed with a SharedKey, using the algorithm named in it
+      const signatureSettings = request.header(SIGNATURE_SETTINGS_HEADER);
+      const secret = signatureSettings
+        ? options?.sharedKeySecret
+        : options?.authToken;
+
+      // Check for a valid auth token (or SharedKey secret)
+      if (!secret) {
+        const missing = signatureSettings ? "SharedKey secret" : "auth token";
         console.error(
-          "[Twilio]: Error - Twilio auth token is required for webhook request validation."
+          `[Twilio]: Error - Twilio ${missing} is required for webhook request validation.`
         );
         response
           .type("text/plain")
           .status(500)
           .send(
-            "Webhook Error - we attempted to validate this request without first configuring our auth token."
+            `Webhook Error - we attempted to validate this request without first configuring our ${missing}.`
           );
       } else {
         // Check that the request originated from Twilio
-        var valid = validateExpressRequest(request, options?.authToken, {
+        var valid = validateExpressRequest(request, secret, {
           url: options?.url,
           host: options?.host,
           protocol: options?.protocol,
+          algorithm: getSignatureAlgorithm(signatureSettings),
         });
 
         if (valid) {
