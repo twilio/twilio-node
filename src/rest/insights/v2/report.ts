@@ -811,7 +811,7 @@ export class ReportInstance {
         ? new AccountReport(payload.report)
         : null;
 
-    this._solution = { reportId: reportId };
+    this._solution = { reportId: reportId || this.reportId };
   }
 
   /**

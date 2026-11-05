@@ -532,7 +532,7 @@ export class ChannelInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, sid: sid };
+    this._solution = { serviceSid, sid: sid || this.sid };
   }
 
   sid: string;

@@ -40,6 +40,7 @@ export type ConversationsV2Channel =
   | "VOICE"
   | "SMS"
   | "RCS"
+  | "EMAIL"
   | "WHATSAPP"
   | "CHAT"
   | "VIDEO";

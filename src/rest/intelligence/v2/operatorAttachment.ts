@@ -246,7 +246,10 @@ export class OperatorAttachmentInstance {
     this.operatorSid = payload.operator_sid;
     this.url = payload.url;
 
-    this._solution = { serviceSid: serviceSid, operatorSid: operatorSid };
+    this._solution = {
+      serviceSid: serviceSid || this.serviceSid,
+      operatorSid: operatorSid || this.operatorSid,
+    };
   }
 
   /**

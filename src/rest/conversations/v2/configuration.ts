@@ -1287,6 +1287,14 @@ interface ConfigurationPayload extends TokenPaginationPayload {
 }
 
 /**
+ * Response model for CreateConfiguration202Response operations
+ */
+interface CreateConfiguration202Response_ResponseResource {
+  statusUrl: string;
+  related?: { [key: string]: string };
+}
+
+/**
  * Response model for ListConfiguration200ResponseConfigurations operations
  */
 interface ListConfiguration200ResponseConfigurations_ResponseResource {
@@ -1301,6 +1309,7 @@ interface ListConfiguration200ResponseConfigurations_ResponseResource {
   traitExtractionStrategyIds?: Array<string>;
   observationExtractionStrategyIds?: Array<string>;
   memoryExtractionEnabled?: boolean;
+  redactionConfigurationId?: string;
   conversationsV1Bridge?: ConversationsV2ConversationsV1Bridge;
   createdAt?: Date;
   updatedAt?: Date;
@@ -1308,19 +1317,11 @@ interface ListConfiguration200ResponseConfigurations_ResponseResource {
 }
 
 /**
- * Response model for CreateConfiguration202Response operations
- */
-interface CreateConfiguration202Response_ResponseResource {
-  statusUrl: string;
-  related?: { [key: string]: string };
-}
-
-/**
  * Union type for all possible response models
  */
 type ConfigurationResource =
-  | ListConfiguration200ResponseConfigurations_ResponseResource
-  | CreateConfiguration202Response_ResponseResource;
+  | CreateConfiguration202Response_ResponseResource
+  | ListConfiguration200ResponseConfigurations_ResponseResource;
 
 /**
  * Slim response for an accepted long-running operation.
@@ -1335,6 +1336,8 @@ export class ConfigurationInstance {
     id?: string
   ) {
     const payload: any = _payload;
+    this.statusUrl = payload.statusUrl;
+    this.related = payload.related;
     this.id = payload.id;
     this.displayName = payload.displayName;
     this.description = payload.description;
@@ -1352,6 +1355,7 @@ export class ConfigurationInstance {
     this.observationExtractionStrategyIds =
       payload.observationExtractionStrategyIds;
     this.memoryExtractionEnabled = payload.memoryExtractionEnabled;
+    this.redactionConfigurationId = payload.redactionConfigurationId;
     this.conversationsV1Bridge =
       payload.conversationsV1Bridge !== null &&
       payload.conversationsV1Bridge !== undefined
@@ -1362,12 +1366,18 @@ export class ConfigurationInstance {
     this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
     this.version = payload.version;
-    this.statusUrl = payload.statusUrl;
-    this.related = payload.related;
 
     this._solution = { id: id };
   }
 
+  /**
+   * URL to poll for operation status.
+   */
+  statusUrl?: string;
+  /**
+   * Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId
+   */
+  related?: { [key: string]: string };
   /**
    * Configuration ID.
    */
@@ -1409,6 +1419,10 @@ export class ConfigurationInstance {
    * Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
    */
   memoryExtractionEnabled?: boolean;
+  /**
+   * The ID of the redaction configuration applied to communications in this configuration\'s conversations.
+   */
+  redactionConfigurationId?: string;
   conversationsV1Bridge?: ConversationsV2ConversationsV1Bridge;
   /**
    * Timestamp when this Configuration was created.
@@ -1422,14 +1436,6 @@ export class ConfigurationInstance {
    * Version number used for optimistic locking.
    */
   version?: number;
-  /**
-   * URL to poll for operation status.
-   */
-  statusUrl?: string;
-  /**
-   * Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId
-   */
-  related?: { [key: string]: string };
 
   private get _proxy(): ConfigurationContext {
     this._context =
@@ -1689,6 +1695,8 @@ export class ConfigurationInstance {
    */
   toJSON() {
     return {
+      statusUrl: this.statusUrl,
+      related: this.related,
       id: this.id,
       displayName: this.displayName,
       description: this.description,
@@ -1700,12 +1708,11 @@ export class ConfigurationInstance {
       traitExtractionStrategyIds: this.traitExtractionStrategyIds,
       observationExtractionStrategyIds: this.observationExtractionStrategyIds,
       memoryExtractionEnabled: this.memoryExtractionEnabled,
+      redactionConfigurationId: this.redactionConfigurationId,
       conversationsV1Bridge: this.conversationsV1Bridge,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       version: this.version,
-      statusUrl: this.statusUrl,
-      related: this.related,
     };
   }
 

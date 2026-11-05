@@ -380,7 +380,7 @@ export class OAuthAppInstance {
     this.message = payload.message;
     this.moreInfo = payload.more_info;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   type: string;

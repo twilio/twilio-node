@@ -432,7 +432,10 @@ export class BucketInstance {
     this.owner = payload.owner;
     this.ttl = payload.ttl;
 
-    this._solution = { field: field, bucket: bucket };
+    this._solution = {
+      field: field || this.field,
+      bucket: bucket || this.bucket,
+    };
   }
 
   /**

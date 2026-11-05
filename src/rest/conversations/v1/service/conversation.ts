@@ -705,7 +705,7 @@ export class ConversationInstance {
     this.links = payload.links;
     this.bindings = payload.bindings;
 
-    this._solution = { chatServiceSid, sid: sid };
+    this._solution = { chatServiceSid, sid: sid || this.sid };
   }
 
   /**

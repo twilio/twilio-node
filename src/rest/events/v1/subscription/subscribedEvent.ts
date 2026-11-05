@@ -467,7 +467,7 @@ export class SubscribedEventInstance {
     this.subscriptionSid = payload.subscription_sid;
     this.url = payload.url;
 
-    this._solution = { subscriptionSid, type: type };
+    this._solution = { subscriptionSid, type: type || this.type };
   }
 
   /**

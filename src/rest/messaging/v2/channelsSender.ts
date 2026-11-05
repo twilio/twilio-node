@@ -946,7 +946,7 @@ export class ChannelsSenderInstance {
     this.url = payload.url;
     this.displayNameStatus = payload.display_name_status;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

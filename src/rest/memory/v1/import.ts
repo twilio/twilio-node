@@ -322,6 +322,17 @@ interface ImportPayload extends TokenPaginationPayload {
 }
 
 /**
+ * Response model for ProfileImportCreatedResponse operations
+ */
+interface ProfileImportCreatedResponse_ResponseResource {
+  importId: string;
+  url: string;
+  operationId?: string;
+  createdAt?: Date;
+  statusUrl?: string;
+}
+
+/**
  * Response model for FetchProfileImportV2200Response operations
  */
 interface FetchProfileImportV2200Response_ResponseResource {
@@ -343,21 +354,16 @@ interface ListProfileImportsV2200Response_ResponseResource {
 }
 
 /**
- * Response model for CreateProfilesImportV2201Response operations
- */
-interface CreateProfilesImportV2201Response_ResponseResource {
-  importId: string;
-  url: string;
-}
-
-/**
  * Union type for all possible response models
  */
 type ImportResource =
+  | ProfileImportCreatedResponse_ResponseResource
   | FetchProfileImportV2200Response_ResponseResource
-  | ListProfileImportsV2200Response_ResponseResource
-  | CreateProfilesImportV2201Response_ResponseResource;
+  | ListProfileImportsV2200Response_ResponseResource;
 
+/**
+ * Response for a successfully created profile import task.
+ */
 export class ImportInstance {
   protected _solution: ImportContextSolution;
   protected _context?: ImportContext;
@@ -369,9 +375,13 @@ export class ImportInstance {
     importId?: string
   ) {
     const payload: any = _payload;
+    this.importId = payload.importId;
+    this.url = payload.url;
+    this.operationId = payload.operationId;
+    this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
+    this.statusUrl = payload.statusUrl;
     this.status = payload.status;
     this.filename = payload.filename;
-    this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
     this.updatedAt = deserialize.iso8601DateTime(payload.updatedAt);
     this.fileSize = deserialize.integer(payload.fileSize);
     this.columnMappings =
@@ -389,12 +399,30 @@ export class ImportInstance {
       payload.meta !== null && payload.meta !== undefined
         ? new ListProfileImportsV2200ResponseMeta(payload.meta)
         : null;
-    this.importId = payload.importId;
-    this.url = payload.url;
 
     this._solution = { storeId, importId: importId };
   }
 
+  /**
+   * ID of the import task.
+   */
+  importId?: string;
+  /**
+   * Pre-signed URL to upload the CSV via a single PUT request.
+   */
+  url?: string;
+  /**
+   * The ID of an asynchronous profile domain operation.
+   */
+  operationId?: string;
+  /**
+   * ISO 8601 timestamp when the operation was created.
+   */
+  createdAt?: Date;
+  /**
+   * URL to query the operation status.
+   */
+  statusUrl?: string;
   /**
    * Current processing status of the import task
    */
@@ -403,10 +431,6 @@ export class ImportInstance {
    * Original filename of the uploaded CSV
    */
   filename?: string;
-  /**
-   * Timestamp when the import was created
-   */
-  createdAt?: Date;
   /**
    * Timestamp when the import was last updated
    */
@@ -422,14 +446,6 @@ export class ImportInstance {
   summary?: FetchProfileImportV2200ResponseSummary;
   imports?: Array<string>;
   meta?: ListProfileImportsV2200ResponseMeta;
-  /**
-   * ID of the import task.
-   */
-  importId?: string;
-  /**
-   * Pre-signed URL to upload the CSV via a single PUT request.
-   */
-  url?: string;
 
   private get _proxy(): ImportContext {
     this._context =
@@ -475,17 +491,19 @@ export class ImportInstance {
    */
   toJSON() {
     return {
+      importId: this.importId,
+      url: this.url,
+      operationId: this.operationId,
+      createdAt: this.createdAt,
+      statusUrl: this.statusUrl,
       status: this.status,
       filename: this.filename,
-      createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       fileSize: this.fileSize,
       columnMappings: this.columnMappings,
       summary: this.summary,
       imports: this.imports,
       meta: this.meta,
-      importId: this.importId,
-      url: this.url,
     };
   }
 

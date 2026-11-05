@@ -346,7 +346,7 @@ export class BuildInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, sid: sid };
+    this._solution = { serviceSid, sid: sid || this.sid };
   }
 
   /**

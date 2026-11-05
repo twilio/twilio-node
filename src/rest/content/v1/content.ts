@@ -64,12 +64,13 @@ export type CallToActionActionType =
 
 export class CardAction {
   "type": CardActionType;
-  "title": string;
+  "title"?: string;
   "url"?: string;
   "phone"?: string;
   "id"?: string;
   "code"?: string;
   "webviewSize"?: WebviewSizeType;
+  "digitableLine"?: string;
 
   constructor(payload) {
     this.type = payload["type"];
@@ -79,6 +80,7 @@ export class CardAction {
     this.id = payload["id"];
     this.code = payload["code"];
     this.webviewSize = payload["webview_size"];
+    this.digitableLine = payload["digitable_line"];
   }
 }
 
@@ -87,7 +89,10 @@ export type CardActionType =
   | "PHONE_NUMBER"
   | "QUICK_REPLY"
   | "COPY_CODE"
-  | "VOICE_CALL";
+  | "VOICE_CALL"
+  | "PIX"
+  | "BOLETO"
+  | "PAYMENT_LINK";
 
 export class CarouselAction {
   "type": CarouselActionType;
@@ -922,7 +927,7 @@ export class ContentInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

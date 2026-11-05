@@ -661,7 +661,7 @@ export class ServiceInstance {
     this.usAppToPersonRegistered = payload.us_app_to_person_registered;
     this.useInboundWebhookOnNumber = payload.use_inbound_webhook_on_number;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

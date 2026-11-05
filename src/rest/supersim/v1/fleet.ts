@@ -439,7 +439,7 @@ export class FleetInstance {
     this.ipCommandsUrl = payload.ip_commands_url;
     this.ipCommandsMethod = payload.ip_commands_method;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

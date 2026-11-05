@@ -271,7 +271,7 @@ export class PortingPortabilityInstance {
     this.country = payload.country;
     this.url = payload.url;
 
-    this._solution = { phoneNumber: phoneNumber };
+    this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
   }
 
   /**

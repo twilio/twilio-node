@@ -506,7 +506,7 @@ export class ChallengeInstance {
     this.url = payload.url;
     this.links = payload.links;
 
-    this._solution = { serviceSid, identity, sid: sid };
+    this._solution = { serviceSid, identity, sid: sid || this.sid };
   }
 
   /**

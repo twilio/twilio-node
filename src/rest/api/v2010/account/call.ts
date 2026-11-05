@@ -764,6 +764,7 @@ interface CallResource {
   group_sid: string;
   caller_name: string;
   queue_time: string;
+  stir_verstat: string;
   trunk_sid: string;
   uri: string;
   subresource_uris: Record<string, string>;
@@ -802,11 +803,12 @@ export class CallInstance {
     this.groupSid = payload.group_sid;
     this.callerName = payload.caller_name;
     this.queueTime = payload.queue_time;
+    this.stirVerstat = payload.stir_verstat;
     this.trunkSid = payload.trunk_sid;
     this.uri = payload.uri;
     this.subresourceUris = payload.subresource_uris;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**
@@ -898,6 +900,10 @@ export class CallInstance {
    * The wait time in milliseconds before the call is placed.
    */
   queueTime: string;
+  /**
+   * The STIR/SHAKEN verification status of the call, for example `TN-Validation-Passed-A`. Empty if the incoming call had no STIR/SHAKEN information.
+   */
+  stirVerstat: string;
   /**
    * The unique identifier of the trunk resource that was used for this call. The field is empty if the call was not made using a SIP trunk or if the call is not terminated.
    */
@@ -1127,6 +1133,7 @@ export class CallInstance {
       groupSid: this.groupSid,
       callerName: this.callerName,
       queueTime: this.queueTime,
+      stirVerstat: this.stirVerstat,
       trunkSid: this.trunkSid,
       uri: this.uri,
       subresourceUris: this.subresourceUris,

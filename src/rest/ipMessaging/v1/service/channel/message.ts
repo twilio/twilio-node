@@ -491,7 +491,7 @@ export class MessageInstance {
     this.index = deserialize.integer(payload.index);
     this.url = payload.url;
 
-    this._solution = { serviceSid, channelSid, sid: sid };
+    this._solution = { serviceSid, channelSid, sid: sid || this.sid };
   }
 
   sid: string;

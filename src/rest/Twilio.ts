@@ -47,6 +47,7 @@ import Trusthub from "./Trusthub";
 import Verify from "./Verify";
 import Video from "./Video";
 import Voice from "./Voice";
+import Webhooks from "./Webhooks";
 import Wireless from "./Wireless";
 import { AddressListInstance } from "./api/v2010/account/address";
 import { ApplicationListInstance } from "./api/v2010/account/application";
@@ -154,6 +155,8 @@ class Twilio extends Client {
   _video?: Video;
   /** (Twilio.Voice) - voice domain */
   _voice?: Voice;
+  /** (Twilio.Webhooks) - webhooks domain */
+  _webhooks?: Webhooks;
   /** (Twilio.Wireless) - wireless domain */
   _wireless?: Wireless;
 
@@ -211,6 +214,7 @@ class Twilio extends Client {
       this.verify;
       this.video;
       this.voice;
+      this.webhooks;
       this.wireless;
     }
   }
@@ -404,6 +408,12 @@ class Twilio extends Client {
   /** Getter for (Twilio.Voice) domain */
   get voice(): Voice {
     return this._voice ?? (this._voice = new (require("./Voice"))(this));
+  }
+  /** Getter for (Twilio.Webhooks) domain */
+  get webhooks(): Webhooks {
+    return (
+      this._webhooks ?? (this._webhooks = new (require("./Webhooks"))(this))
+    );
   }
   /** Getter for (Twilio.Wireless) domain */
   get wireless(): Wireless {

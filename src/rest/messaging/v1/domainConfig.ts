@@ -363,7 +363,7 @@ export class DomainConfigInstance {
     this.url = payload.url;
     this.disableHttps = payload.disable_https;
 
-    this._solution = { domainSid: domainSid };
+    this._solution = { domainSid: domainSid || this.domainSid };
   }
 
   /**

@@ -269,7 +269,7 @@ export class PhoneNumberInstance {
     this.addOns = payload.add_ons;
     this.url = payload.url;
 
-    this._solution = { phoneNumber: phoneNumber };
+    this._solution = { phoneNumber: phoneNumber || this.phoneNumber };
   }
 
   /**

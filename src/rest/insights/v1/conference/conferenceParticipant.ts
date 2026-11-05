@@ -414,7 +414,10 @@ export class ConferenceParticipantInstance {
     this.metrics = payload.metrics;
     this.url = payload.url;
 
-    this._solution = { conferenceSid, participantSid: participantSid };
+    this._solution = {
+      conferenceSid,
+      participantSid: participantSid || this.participantSid,
+    };
   }
 
   /**

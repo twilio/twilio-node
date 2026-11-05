@@ -526,6 +526,7 @@ interface Store_ResponseResource {
   status: string;
   intelligenceServiceId: string;
   version: number;
+  dataAsOf?: Date;
 }
 
 /**
@@ -561,6 +562,7 @@ export class StoreInstance {
     this.status = payload.status;
     this.intelligenceServiceId = payload.intelligenceServiceId;
     this.version = deserialize.integer(payload.version);
+    this.dataAsOf = deserialize.iso8601DateTime(payload.dataAsOf);
 
     this._solution = { storeId: storeId };
   }
@@ -599,6 +601,10 @@ export class StoreInstance {
    * The current version number of the Memory Store. Incremented on each successful update.
    */
   version?: number;
+  /**
+   * The time up to which data sent to this Memory Store has been processed by downstream systems. Equals the time the Memory Store was created when no data has been processed yet. Omitted when no value is available. Represents a high water mark for ingested data.
+   */
+  dataAsOf?: Date;
 
   private get _proxy(): StoreContext {
     this._context =
@@ -720,6 +726,7 @@ export class StoreInstance {
       status: this.status,
       intelligenceServiceId: this.intelligenceServiceId,
       version: this.version,
+      dataAsOf: this.dataAsOf,
     };
   }
 

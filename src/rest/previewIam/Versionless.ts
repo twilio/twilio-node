@@ -14,7 +14,10 @@
 
 import PreviewIamBase from "../PreviewIamBase";
 import Version from "../../base/Version";
+import { AccountListInstance } from "./versionless/account";
 import { OrganizationListInstance } from "./versionless/organization";
+import { RoleAssignmentListInstance } from "./versionless/roleAssignment";
+import { UserListInstance } from "./versionless/user";
 
 export default class Versionless extends Version {
   /**
@@ -29,9 +32,24 @@ export default class Versionless extends Version {
   /** organization - { Twilio.PreviewIam.Versionless.OrganizationListInstance } resource */
   protected _organization?: OrganizationListInstance;
 
+  /** Accessor for accounts resource */
+  accounts(OrganizationSid: string): AccountListInstance {
+    return AccountListInstance(this, OrganizationSid);
+  }
+
   /** Getter for organization resource */
   get organization(): OrganizationListInstance {
     this._organization = this._organization || OrganizationListInstance(this);
     return this._organization;
+  }
+
+  /** Accessor for roleAssignments resource */
+  roleAssignments(OrganizationSid: string): RoleAssignmentListInstance {
+    return RoleAssignmentListInstance(this, OrganizationSid);
+  }
+
+  /** Accessor for users resource */
+  users(OrganizationSid: string): UserListInstance {
+    return UserListInstance(this, OrganizationSid);
   }
 }

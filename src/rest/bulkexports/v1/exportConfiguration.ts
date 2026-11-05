@@ -351,7 +351,7 @@ export class ExportConfigurationInstance {
     this.resourceType = payload.resource_type;
     this.url = payload.url;
 
-    this._solution = { resourceType: resourceType };
+    this._solution = { resourceType: resourceType || this.resourceType };
   }
 
   /**

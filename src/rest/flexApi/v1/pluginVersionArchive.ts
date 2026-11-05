@@ -262,7 +262,10 @@ export class PluginVersionArchiveInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
 
-    this._solution = { pluginSid: pluginSid, sid: sid };
+    this._solution = {
+      pluginSid: pluginSid || this.pluginSid,
+      sid: sid || this.sid,
+    };
   }
 
   /**

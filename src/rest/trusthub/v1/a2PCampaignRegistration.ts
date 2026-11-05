@@ -21,11 +21,11 @@ import { ApiResponse } from "../../../base/ApiResponse";
 
 export class TrusthubV1A2pCampaignRegistrationRequest {
   /**
-   * The legacy Twilio A2P Brand SID (BN-prefixed) for the brand this campaign is registered under. This is a different identifier from the `id` returned by the Initialize Brand endpoint (which is formatted as `tri1.us1.account.AC.../registration.BU...`). Retrieve the BN brand SID via [GET /v1/a2p/BrandRegistrations/{Sid}](https://www.twilio.com/docs/messaging/api/brand-registration-resource) on `messaging.twilio.com`.
+   * The legacy Twilio A2P Brand SID (BN-prefixed) for the brand this campaign is registered under. This is a different identifier from the `id` returned by the Initialize Brand endpoint (which is formatted as `tri1.us1.account.AC.../registration.BU...`). Retrieve the BN brand SID via [GET /v1/a2p/BrandRegistrations/{Sid}](https://www.twilio.com/docs/messaging/api/brand-registration-resource) on `messaging.twilio.com`. This field keeps the legacy Sid name because it carries a legacy Twilio SID (BN prefix) from messaging.twilio.com.
    */
   "a2pBrandRegistrationSid": string;
   /**
-   * The SID of the Messaging Service.
+   * The SID of the Messaging Service. This field keeps the legacy Sid name because it carries a legacy Twilio SID (MG prefix) from messaging.twilio.com.
    */
   "messagingServiceSid"?: string;
   /**
@@ -33,7 +33,7 @@ export class TrusthubV1A2pCampaignRegistrationRequest {
    */
   "themeSetId"?: string;
   /**
-   * The categories of the messaging use case.
+   * The categories of the messaging use case. The value is validated by the service; see the Twilio docs for accepted values.
    */
   "useCaseCategories"?: Array<string>;
   /**
@@ -61,7 +61,7 @@ export class TrusthubV1A2pCampaignRegistrationRequest {
    */
   "useCaseSampleMessage5"?: string;
   /**
-   * The opt-in methods for the use case.
+   * The opt-in methods for the use case. The value is validated by the service; see the Twilio docs for accepted values.
    */
   "useCaseOptInTypes"?: Array<string>;
   /**

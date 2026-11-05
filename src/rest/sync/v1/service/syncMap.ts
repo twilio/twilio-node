@@ -494,7 +494,7 @@ export class SyncMapInstance {
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
     this.createdBy = payload.created_by;
 
-    this._solution = { serviceSid, sid: sid };
+    this._solution = { serviceSid, sid: sid || this.sid };
   }
 
   /**

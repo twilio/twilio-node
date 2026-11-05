@@ -35,11 +35,30 @@ export class ContentApprovalRequest {
    * Time-to-live in seconds for attempting to send a message with this Content
    */
   "sendTtlSeconds"?: number;
+  /**
+   * Maximum price per 1,000 message deliveries, expressed in the WABA currency\'s smallest unit (cents for USD). Only valid for MARKETING templates onboarded to Max Pricing.
+   */
+  "bidAmount"?: number;
 
   constructor(payload) {
     this.name = payload["name"];
     this.category = payload["category"];
     this.sendTtlSeconds = payload["send_ttl_seconds"];
+    this.bidAmount = payload["bid_amount"];
+  }
+}
+
+/**
+ * Content approval update request body. Only bid_amount can be updated.
+ */
+export class ContentApprovalUpdateRequest {
+  /**
+   * Maximum price per 1,000 message deliveries, expressed in the WABA currency\'s smallest unit (cents for USD). Only valid for MARKETING templates onboarded to Max Pricing.
+   */
+  "bidAmount": number;
+
+  constructor(payload) {
+    this.bidAmount = payload["bid_amount"];
   }
 }
 
@@ -49,6 +68,14 @@ export class ContentApprovalRequest {
 export interface ApprovalCreateListInstanceCreateOptions {
   /**  */
   contentApprovalRequest: ContentApprovalRequest;
+}
+
+/**
+ * Options to pass to update a ApprovalCreateInstance
+ */
+export interface ApprovalCreateListInstanceUpdateOptions {
+  /**  */
+  contentApprovalUpdateRequest: ContentApprovalUpdateRequest;
 }
 
 export interface ApprovalCreateSolution {
@@ -86,6 +113,39 @@ export interface ApprovalCreateListInstance {
    */
   createWithHttpInfo(
     params: ContentApprovalRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      item?: ApiResponse<ApprovalCreateInstance>
+    ) => any
+  ): Promise<ApiResponse<ApprovalCreateInstance>>;
+
+  /**
+   * Update a ApprovalCreateInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApprovalCreateInstance
+   */
+  update(
+    params: ContentApprovalUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApprovalCreateInstance) => any
+  ): Promise<ApprovalCreateInstance>;
+
+  /**
+   * Update a ApprovalCreateInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed ApprovalCreateInstance with HTTP metadata
+   */
+  updateWithHttpInfo(
+    params: ContentApprovalUpdateRequest,
     headers?: any,
     callback?: (
       error: Error | null,
@@ -208,6 +268,100 @@ export function ApprovalCreateListInstance(
     return operationPromise;
   };
 
+  instance.update = function update(
+    params: ContentApprovalUpdateRequest,
+    headers?: any,
+    callback?: (error: Error | null, items: ApprovalCreateInstance) => any
+  ): Promise<ApprovalCreateInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version,
+      operationPromise = operationVersion.update({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new ApprovalCreateInstance(
+          operationVersion,
+          payload,
+          instance._solution.contentSid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.updateWithHttpInfo = function updateWithHttpInfo(
+    params: ContentApprovalUpdateRequest,
+    headers?: any,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<ApprovalCreateInstance>
+    ) => any
+  ): Promise<ApiResponse<ApprovalCreateInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .updateWithResponseInfo<ApprovalCreateResource>({
+        uri: instance._uri,
+        method: "patch",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<ApprovalCreateInstance> => ({
+          ...response,
+          body: new ApprovalCreateInstance(
+            operationVersion,
+            response.body,
+            instance._solution.contentSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
   instance.toJSON = function toJSON() {
     return instance._solution;
   };
@@ -232,6 +386,7 @@ interface ApprovalCreateResource {
   rejection_reason: string;
   allow_category_change: boolean;
   send_ttl_seconds: number;
+  bid_amount: number;
 }
 
 export class ApprovalCreateInstance {
@@ -247,6 +402,7 @@ export class ApprovalCreateInstance {
     this.rejectionReason = payload.rejection_reason;
     this.allowCategoryChange = payload.allow_category_change;
     this.sendTtlSeconds = payload.send_ttl_seconds;
+    this.bidAmount = payload.bid_amount;
   }
 
   name: string;
@@ -259,6 +415,10 @@ export class ApprovalCreateInstance {
    * Time-to-live in seconds for attempting to send a message with this Content
    */
   sendTtlSeconds: number;
+  /**
+   * Maximum price per 1,000 message deliveries, expressed in the WABA currency\'s smallest unit (cents for USD). Only set for MARKETING templates onboarded to Max Pricing.
+   */
+  bidAmount: number;
 
   /**
    * Provide a user-friendly representation
@@ -274,6 +434,7 @@ export class ApprovalCreateInstance {
       rejectionReason: this.rejectionReason,
       allowCategoryChange: this.allowCategoryChange,
       sendTtlSeconds: this.sendTtlSeconds,
+      bidAmount: this.bidAmount,
     };
   }
 
