@@ -13,6 +13,9 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
+import Response from "../../../../http/response";
 import Versionless from "../../Versionless";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
@@ -155,6 +158,26 @@ export class ScimUser {
    */
   "schemas"?: Array<string>;
   "meta"?: ScimMeta;
+  /**
+   * A human-readable description of the error
+   */
+  "detail"?: string;
+  /**
+   * A scimType error code as defined in RFC7644
+   */
+  "scimType"?: string;
+  /**
+   * Http status code
+   */
+  "status"?: string;
+  /**
+   * Twilio-specific error code
+   */
+  "code"?: number;
+  /**
+   * Link to Error Code References
+   */
+  "moreInfo"?: string;
 
   constructor(payload) {
     this.id = payload["id"];
@@ -168,6 +191,11 @@ export class ScimUser {
     this.timezone = payload["timezone"];
     this.schemas = payload["schemas"];
     this.meta = payload["meta"];
+    this.detail = payload["detail"];
+    this.scimType = payload["scimType"];
+    this.status = payload["status"];
+    this.code = payload["code"];
+    this.moreInfo = payload["moreInfo"];
   }
 }
 
@@ -189,6 +217,50 @@ export interface UserContextUpdateOptions {
   scimUser: ScimUser;
   /**  */
   ifMatch?: string;
+}
+
+/**
+ * Options to pass to create a UserInstance
+ */
+export interface UserListInstanceCreateOptions {
+  /**  */
+  scimUser: ScimUser;
+}
+
+/**
+ * Options to pass to each
+ */
+export interface UserListInstanceEachOptions {
+  /**  */
+  filter?: string;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
+  callback?: (item: UserInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
+  done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
+  limit?: number;
+}
+
+/**
+ * Options to pass to list
+ */
+export interface UserListInstanceOptions {
+  /**  */
+  filter?: string;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
+  limit?: number;
+}
+
+/**
+ * Options to pass to page
+ */
+export interface UserListInstancePageOptions {
+  /**  */
+  filter?: string;
+  /** Page Number, this value is simply for client state */
+  pageNumber?: number;
+  /** PageToken provided by the API */
+  pageToken?: string;
 }
 
 export interface UserContext {
@@ -642,15 +714,11 @@ export class UserContextImpl implements UserContext {
   }
 }
 
-interface UserPayload extends UserResource {}
+interface UserPayload extends TwilioResponsePayload {
+  Resources: UserResource[];
+}
 
 interface UserResource {
-  schemas: Array<string>;
-  detail: string;
-  scimType: string;
-  status: string;
-  code: number;
-  moreInfo: string;
   id: string;
   externalId: string;
   userName: string;
@@ -660,7 +728,13 @@ interface UserResource {
   active: boolean;
   locale: string;
   timezone: string;
+  schemas: Array<string>;
   meta: ScimMeta;
+  detail: string;
+  scimType: string;
+  status: string;
+  code: number;
+  moreInfo: string;
 }
 
 export class UserInstance {
@@ -673,12 +747,6 @@ export class UserInstance {
     organizationSid: string,
     id?: string
   ) {
-    this.schemas = payload.schemas;
-    this.detail = payload.detail;
-    this.scimType = payload.scimType;
-    this.status = payload.status;
-    this.code = payload.code;
-    this.moreInfo = payload.moreInfo;
     this.id = payload.id;
     this.externalId = payload.externalId;
     this.userName = payload.userName;
@@ -694,38 +762,20 @@ export class UserInstance {
     this.active = payload.active;
     this.locale = payload.locale;
     this.timezone = payload.timezone;
+    this.schemas = payload.schemas;
     this.meta =
       payload.meta !== null && payload.meta !== undefined
         ? new ScimMeta(payload.meta)
         : null;
+    this.detail = payload.detail;
+    this.scimType = payload.scimType;
+    this.status = payload.status;
+    this.code = payload.code;
+    this.moreInfo = payload.moreInfo;
 
     this._solution = { organizationSid, id: id || this.id };
   }
 
-  /**
-   * Schema URIs that define the contents of the error structure
-   */
-  schemas: Array<string>;
-  /**
-   * A human-readable description of the error
-   */
-  detail: string;
-  /**
-   * A scimType error code as defined in RFC7644
-   */
-  scimType: string;
-  /**
-   * Http status code
-   */
-  status: string;
-  /**
-   * Twilio-specific error code
-   */
-  code: number;
-  /**
-   * Link to Error Code References
-   */
-  moreInfo: string;
   /**
    * Unique Twilio user sid
    */
@@ -759,7 +809,31 @@ export class UserInstance {
    * User\'s time zone
    */
   timezone: string;
+  /**
+   * An array of URIs that indicate the schemas supported for this user resource
+   */
+  schemas: Array<string>;
   meta: ScimMeta;
+  /**
+   * A human-readable description of the error
+   */
+  detail: string;
+  /**
+   * A scimType error code as defined in RFC7644
+   */
+  scimType: string;
+  /**
+   * Http status code
+   */
+  status: string;
+  /**
+   * Twilio-specific error code
+   */
+  code: number;
+  /**
+   * Link to Error Code References
+   */
+  moreInfo: string;
 
   private get _proxy(): UserContext {
     this._context =
@@ -919,12 +993,6 @@ export class UserInstance {
    */
   toJSON() {
     return {
-      schemas: this.schemas,
-      detail: this.detail,
-      scimType: this.scimType,
-      status: this.status,
-      code: this.code,
-      moreInfo: this.moreInfo,
       id: this.id,
       externalId: this.externalId,
       userName: this.userName,
@@ -934,7 +1002,13 @@ export class UserInstance {
       active: this.active,
       locale: this.locale,
       timezone: this.timezone,
+      schemas: this.schemas,
       meta: this.meta,
+      detail: this.detail,
+      scimType: this.scimType,
+      status: this.status,
+      code: this.code,
+      moreInfo: this.moreInfo,
     };
   }
 
@@ -954,6 +1028,175 @@ export interface UserListInstance {
 
   (id: string): UserContext;
   get(id: string): UserContext;
+
+  /**
+   * Create a UserInstance
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance
+   */
+  create(
+    params: ScimUser,
+    headers?: any,
+    callback?: (error: Error | null, item?: UserInstance) => any
+  ): Promise<UserInstance>;
+
+  /**
+   * Create a UserInstance and return HTTP info
+   *
+   * @param params - Body for request
+   * @param headers - header params for request
+   * @param callback - Callback to handle processed record
+   *
+   * @returns Resolves to processed UserInstance with HTTP metadata
+   */
+  createWithHttpInfo(
+    params: ScimUser,
+    headers?: any,
+    callback?: (error: Error | null, item?: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>>;
+
+  /**
+   * Streams UserInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: UserListInstanceEachOptions,
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
+   * Streams UserInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: UserListInstanceEachOptions,
+    callback?: (item: UserInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
+   * Retrieve a single target page of UserInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: UserPage) => any
+  ): Promise<UserPage>;
+  /**
+   * Retrieve a single target page of UserInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+  ): Promise<ApiResponse<UserPage>>;
+  /**
+   * Lists UserInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(
+    callback?: (error: Error | null, items: UserInstance[]) => any
+  ): Promise<UserInstance[]>;
+  list(
+    params: UserListInstanceOptions,
+    callback?: (error: Error | null, items: UserInstance[]) => any
+  ): Promise<UserInstance[]>;
+  /**
+   * Lists UserInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any
+  ): Promise<ApiResponse<UserInstance[]>>;
+  listWithHttpInfo(
+    params: UserListInstanceOptions,
+    callback?: (error: Error | null, items: ApiResponse<UserInstance[]>) => any
+  ): Promise<ApiResponse<UserInstance[]>>;
+  /**
+   * Retrieve a single page of UserInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(
+    callback?: (error: Error | null, items: UserPage) => any
+  ): Promise<UserPage>;
+  page(
+    params: UserListInstancePageOptions,
+    callback?: (error: Error | null, items: UserPage) => any
+  ): Promise<UserPage>;
+  /**
+   * Retrieve a single page of UserInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { UserListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+  ): Promise<ApiResponse<UserPage>>;
+  pageWithHttpInfo(
+    params: UserListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+  ): Promise<ApiResponse<UserPage>>;
 
   /**
    * Provide a user-friendly representation
@@ -978,7 +1221,228 @@ export function UserListInstance(
 
   instance._version = version;
   instance._solution = { organizationSid };
-  instance._uri = ``;
+  instance._uri = `/${organizationSid}/scim/Users`;
+
+  instance.create = function create(
+    params: ScimUser,
+    headers?: any,
+    callback?: (error: Error | null, items: UserInstance) => any
+  ): Promise<UserInstance> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/scim+json";
+
+    let operationVersion = version,
+      operationPromise = operationVersion.create({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new UserInstance(
+          operationVersion,
+          payload,
+          instance._solution.organizationSid
+        )
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.createWithHttpInfo = function createWithHttpInfo(
+    params: ScimUser,
+    headers?: any,
+    callback?: (error: Error | null, items: ApiResponse<UserInstance>) => any
+  ): Promise<ApiResponse<UserInstance>> {
+    if (params === null || params === undefined) {
+      throw new Error('Required parameter "params" missing.');
+    }
+
+    let data: any = {};
+
+    data = params;
+
+    if (headers === null || headers === undefined) {
+      headers = {};
+    }
+
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/scim+json";
+
+    let operationVersion = version;
+    // CREATE, FETCH, UPDATE operations
+    let operationPromise = operationVersion
+      .createWithResponseInfo<UserResource>({
+        uri: instance._uri,
+        method: "post",
+        data,
+        headers,
+      })
+      .then(
+        (response): ApiResponse<UserInstance> => ({
+          ...response,
+          body: new UserInstance(
+            operationVersion,
+            response.body,
+            instance._solution.organizationSid
+          ),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+
+  instance.page = function page(
+    params?:
+      | UserListInstancePageOptions
+      | ((error: Error | null, items: UserPage) => any),
+    callback?: (error: Error | null, items: UserPage) => any
+  ): Promise<UserPage> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["filter"] !== undefined) data["filter"] = params["filter"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/scim+json";
+
+    let operationVersion = version,
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) => new UserPage(operationVersion, payload, instance._solution)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: UserPage) => any
+  ): Promise<UserPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) => new UserPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | UserListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<UserPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<UserPage>) => any
+  ): Promise<ApiResponse<UserPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["filter"] !== undefined) data["filter"] = params["filter"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/scim+json";
+
+    let operationVersion = version;
+
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<UserPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new UserPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<UserPage>) => any
+  ): Promise<ApiResponse<UserPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<UserPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new UserPage(instance._version, response, instance._solution),
+      })
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
@@ -992,4 +1456,43 @@ export function UserListInstance(
   };
 
   return instance;
+}
+
+export class UserPage extends Page<
+  Versionless,
+  UserPayload,
+  UserResource,
+  UserInstance
+> {
+  /**
+   * Initialize the UserPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: Versionless,
+    response: Response<string>,
+    solution: UserSolution
+  ) {
+    super(version, response, solution);
+  }
+
+  /**
+   * Build an instance of UserInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: UserResource): UserInstance {
+    return new UserInstance(
+      this._version,
+      payload,
+      this._solution.organizationSid
+    );
+  }
+
+  [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
 }

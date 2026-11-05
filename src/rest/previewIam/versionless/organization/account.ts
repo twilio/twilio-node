@@ -13,11 +13,50 @@
  */
 
 import { inspect, InspectOptions } from "util";
+
+import Page, { TwilioResponsePayload } from "../../../../base/Page";
+import Response from "../../../../http/response";
 import Versionless from "../../Versionless";
 const deserialize = require("../../../../base/deserialize");
 const serialize = require("../../../../base/serialize");
 import { isValidPathParam } from "../../../../base/utility";
 import { ApiResponse } from "../../../../base/ApiResponse";
+
+/**
+ * Options to pass to each
+ */
+export interface AccountListInstanceEachOptions {
+  /**  */
+  pageSize?: number;
+  /** Function to process each record. If this and a positional callback are passed, this one will be used */
+  callback?: (item: AccountInstance, done: (err?: Error) => void) => void;
+  /** Function to be called upon completion of streaming */
+  done?: Function;
+  /** Upper limit for the number of records to return. each() guarantees never to return more than limit. Default is no limit */
+  limit?: number;
+}
+
+/**
+ * Options to pass to list
+ */
+export interface AccountListInstanceOptions {
+  /**  */
+  pageSize?: number;
+  /** Upper limit for the number of records to return. list() guarantees never to return more than limit. Default is no limit */
+  limit?: number;
+}
+
+/**
+ * Options to pass to page
+ */
+export interface AccountListInstancePageOptions {
+  /**  */
+  pageSize?: number;
+  /** Page Number, this value is simply for client state */
+  pageNumber?: number;
+  /** PageToken provided by the API */
+  pageToken?: string;
+}
 
 export interface AccountContext {
   /**
@@ -154,7 +193,9 @@ export class AccountContextImpl implements AccountContext {
   }
 }
 
-interface AccountPayload extends AccountResource {}
+interface AccountPayload extends TwilioResponsePayload {
+  content: AccountResource[];
+}
 
 interface AccountResource {
   account_sid: string;
@@ -280,6 +321,151 @@ export interface AccountListInstance {
   get(accountSid: string): AccountContext;
 
   /**
+   * Streams AccountInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AccountListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  each(
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
+  ): void;
+  each(
+    params: AccountListInstanceEachOptions,
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
+   * Streams AccountInstance records from the API with HTTP metadata captured per page.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached. HTTP metadata (status code, headers) is captured for each page request.
+   *
+   * The results are passed into the callback function, so this operation is memory
+   * efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AccountListInstanceEachOptions } [params] - Options for request
+   * @param { function } [callback] - Function to process each record
+   */
+  eachWithHttpInfo(
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
+  ): void;
+  eachWithHttpInfo(
+    params: AccountListInstanceEachOptions,
+    callback?: (item: AccountInstance, done: (err?: Error) => void) => void
+  ): void;
+  /**
+   * Retrieve a single target page of AccountInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: AccountPage) => any
+  ): Promise<AccountPage>;
+  /**
+   * Retrieve a single target page of AccountInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * @param { string } [targetUrl] - API-generated URL for the requested results page
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
+  ): Promise<ApiResponse<AccountPage>>;
+  /**
+   * Lists AccountInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AccountListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  list(
+    callback?: (error: Error | null, items: AccountInstance[]) => any
+  ): Promise<AccountInstance[]>;
+  list(
+    params: AccountListInstanceOptions,
+    callback?: (error: Error | null, items: AccountInstance[]) => any
+  ): Promise<AccountInstance[]>;
+  /**
+   * Lists AccountInstance records from the API as a list with HTTP metadata.
+   *
+   * Returns all records along with HTTP metadata from the first page fetched.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AccountListInstanceOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  listWithHttpInfo(
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AccountInstance[]>
+    ) => any
+  ): Promise<ApiResponse<AccountInstance[]>>;
+  listWithHttpInfo(
+    params: AccountListInstanceOptions,
+    callback?: (
+      error: Error | null,
+      items: ApiResponse<AccountInstance[]>
+    ) => any
+  ): Promise<ApiResponse<AccountInstance[]>>;
+  /**
+   * Retrieve a single page of AccountInstance records from the API.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AccountListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records
+   */
+  page(
+    callback?: (error: Error | null, items: AccountPage) => any
+  ): Promise<AccountPage>;
+  page(
+    params: AccountListInstancePageOptions,
+    callback?: (error: Error | null, items: AccountPage) => any
+  ): Promise<AccountPage>;
+  /**
+   * Retrieve a single page of AccountInstance records from the API with HTTP metadata.
+   *
+   * The request is executed immediately.
+   *
+   * If a function is passed as the first argument, it will be used as the callback
+   * function.
+   *
+   * @param { AccountListInstancePageOptions } [params] - Options for request
+   * @param { function } [callback] - Callback to handle list of records with metadata
+   */
+  pageWithHttpInfo(
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
+  ): Promise<ApiResponse<AccountPage>>;
+  pageWithHttpInfo(
+    params: AccountListInstancePageOptions,
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
+  ): Promise<ApiResponse<AccountPage>>;
+
+  /**
    * Provide a user-friendly representation
    */
   toJSON(): any;
@@ -303,7 +489,139 @@ export function AccountListInstance(
 
   instance._version = version;
   instance._solution = { organizationSid };
-  instance._uri = ``;
+  instance._uri = `/${organizationSid}/Accounts`;
+
+  instance.page = function page(
+    params?:
+      | AccountListInstancePageOptions
+      | ((error: Error | null, items: AccountPage) => any),
+    callback?: (error: Error | null, items: AccountPage) => any
+  ): Promise<AccountPage> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version,
+      operationPromise = operationVersion.page({
+        uri: instance._uri,
+        method: "get",
+        params: data,
+        headers,
+      });
+
+    operationPromise = operationPromise.then(
+      (payload) =>
+        new AccountPage(operationVersion, payload, instance._solution)
+    );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+
+  instance.list = instance._version.list;
+
+  instance.getPage = function getPage(
+    targetUrl: string,
+    callback?: (error: Error | null, items: AccountPage) => any
+  ): Promise<AccountPage> {
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+    let pagePromise = operationPromise.then(
+      (payload) =>
+        new AccountPage(instance._version, payload, instance._solution)
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
+
+  instance.pageWithHttpInfo = function pageWithHttpInfo(
+    params?:
+      | AccountListInstancePageOptions
+      | ((error: Error | null, items: ApiResponse<AccountPage>) => any),
+    callback?: (error: Error | null, items: ApiResponse<AccountPage>) => any
+  ): Promise<ApiResponse<AccountPage>> {
+    if (params instanceof Function) {
+      callback = params;
+      params = {};
+    } else {
+      params = params || {};
+    }
+
+    let data: any = {};
+
+    if (params["pageSize"] !== undefined) data["PageSize"] = params["pageSize"];
+
+    if (params.pageNumber !== undefined) data["Page"] = params.pageNumber;
+    if (params.pageToken !== undefined) data["PageToken"] = params.pageToken;
+
+    const headers: any = {};
+    headers["Accept"] = "application/json";
+
+    let operationVersion = version;
+
+    // For page operations, use page() directly as it already returns { statusCode, body, headers }
+    // IMPORTANT: Pass full response to Page constructor, not response.body
+    let operationPromise = operationVersion
+      .page({ uri: instance._uri, method: "get", params: data, headers })
+      .then(
+        (response): ApiResponse<AccountPage> => ({
+          statusCode: response.statusCode,
+          headers: response.headers,
+          body: new AccountPage(operationVersion, response, instance._solution),
+        })
+      );
+
+    operationPromise = instance._version.setPromiseCallback(
+      operationPromise,
+      callback
+    );
+    return operationPromise;
+  };
+  instance.each = instance._version.each;
+  instance.eachWithHttpInfo = instance._version.eachWithHttpInfo;
+
+  instance.list = instance._version.list;
+  instance.listWithHttpInfo = instance._version.listWithHttpInfo;
+
+  instance.getPageWithHttpInfo = function getPageWithHttpInfo(
+    targetUrl: string,
+    callback?: (error: Error | null, items?: ApiResponse<AccountPage>) => any
+  ): Promise<ApiResponse<AccountPage>> {
+    // Use request() directly as it already returns { statusCode, body, headers }
+    const operationPromise = instance._version._domain.twilio.request({
+      method: "get",
+      uri: targetUrl,
+    });
+
+    let pagePromise = operationPromise.then(
+      (response): ApiResponse<AccountPage> => ({
+        statusCode: response.statusCode,
+        headers: response.headers,
+        body: new AccountPage(instance._version, response, instance._solution),
+      })
+    );
+    pagePromise = instance._version.setPromiseCallback(pagePromise, callback);
+    return pagePromise;
+  };
 
   instance.toJSON = function toJSON() {
     return instance._solution;
@@ -317,4 +635,43 @@ export function AccountListInstance(
   };
 
   return instance;
+}
+
+export class AccountPage extends Page<
+  Versionless,
+  AccountPayload,
+  AccountResource,
+  AccountInstance
+> {
+  /**
+   * Initialize the AccountPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(
+    version: Versionless,
+    response: Response<string>,
+    solution: AccountSolution
+  ) {
+    super(version, response, solution);
+  }
+
+  /**
+   * Build an instance of AccountInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: AccountResource): AccountInstance {
+    return new AccountInstance(
+      this._version,
+      payload,
+      this._solution.organizationSid
+    );
+  }
+
+  [inspect.custom](depth: any, options: InspectOptions) {
+    return inspect(this.toJSON(), options);
+  }
 }
