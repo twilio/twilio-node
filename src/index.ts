@@ -87,6 +87,12 @@ namespace TwilioSDK {
   export type getExpectedTwilioSignature =
     typeof webhooks.getExpectedTwilioSignature;
   export const getExpectedTwilioSignature = webhooks.getExpectedTwilioSignature;
+  export type getSignatureAlgorithm = typeof webhooks.getSignatureAlgorithm;
+  export const getSignatureAlgorithm = webhooks.getSignatureAlgorithm;
+  export const SIGNATURE_HEADER = webhooks.SIGNATURE_HEADER;
+  export const SIGNATURE_SETTINGS_HEADER = webhooks.SIGNATURE_SETTINGS_HEADER;
+  export const HMAC_SHA1 = webhooks.HMAC_SHA1;
+  export const HMAC_SHA256 = webhooks.HMAC_SHA256;
   export type webhook = typeof webhooks.webhook;
   export const webhook = webhooks.webhook;
   // Export the client options type for convenience

@@ -3,6 +3,16 @@ import urllib from "url";
 import { IncomingHttpHeaders } from "http2";
 import { parse, stringify } from "querystring";
 
+/** Header that carries the webhook signature. */
+export const SIGNATURE_HEADER = "X-Twilio-Signature";
+/**
+ * Header Twilio adds to webhooks signed with a SharedKey:
+ * `key=<sharedKeyId>,algorithm=<algorithm>`
+ */
+export const SIGNATURE_SETTINGS_HEADER = "X-Twilio-Webhooks-Signature-Settings";
+export const HMAC_SHA1 = "HMAC_SHA1";
+export const HMAC_SHA256 = "HMAC_SHA256";
+
 export interface Request {
   protocol: string;
   header(name: string): string | undefined;
@@ -25,6 +35,10 @@ export interface RequestValidatorOptions {
    * Manually specify the protocol used by Twilio in a number's webhook config
    */
   protocol?: string;
+  /**
+   * Signing algorithm: HMAC_SHA1 (default) or HMAC_SHA256. See getSignatureAlgorithm()
+   */
+  algorithm?: string;
 }
 
 export interface WebhookOptions {
@@ -56,6 +70,12 @@ export interface WebhookOptions {
    * Authentication token
    */
   authToken?: string;
+  /**
+   * SharedKey secret, used instead of the auth token for webhooks that carry the
+   * X-Twilio-Webhooks-Signature-Settings header (signed with a SharedKey). The signing
+   * algorithm is read from that header.
+   */
+  sharedKeySecret?: string;
 }
 
 interface UrlParts {
@@ -170,19 +190,64 @@ function toFormUrlEncodedParam(
 }
 
 /**
+ Utility function to get the signing algorithm named in the
+ X-Twilio-Webhooks-Signature-Settings header. A missing or empty header (or one
+ without `algorithm=`) means the legacy Auth Token signature, HMAC_SHA1.
+
+ @param signatureSettingsHeader - The header value, e.g. `key=webhooks_sharedkey_...,algorithm=HMAC_SHA256`
+ @returns the algorithm name
+ */
+export function getSignatureAlgorithm(
+  signatureSettingsHeader?: string | null
+): string {
+  for (const part of (signatureSettingsHeader || "").split(",")) {
+    const separator = part.indexOf("=");
+    if (separator !== -1 && part.slice(0, separator).trim() === "algorithm") {
+      const algorithm = part.slice(separator + 1).trim();
+      if (algorithm) {
+        return algorithm;
+      }
+    }
+  }
+  return HMAC_SHA1;
+}
+
+/**
+ Maps a Twilio algorithm name to a Node hash name, or null when unsupported.
+ Missing or empty means HMAC_SHA1.
+ */
+function toHashName(algorithm?: string | null): "sha1" | "sha256" | null {
+  if (!algorithm || algorithm.toUpperCase() === HMAC_SHA1) {
+    return "sha1";
+  }
+  if (algorithm.toUpperCase() === HMAC_SHA256) {
+    return "sha256";
+  }
+  return null;
+}
+
+/**
  Utility function to get the expected signature for a given request
 
- @param authToken - The auth token, as seen in the Twilio portal
+ @param authToken - The auth token, as seen in the Twilio portal, or the SharedKey secret
  @param url - The full URL (with query string) you configured to handle
  this request
  @param params - the parameters sent with this request
+ @param algorithm - HMAC_SHA1 (default) or HMAC_SHA256
  @returns signature
+ @throws Error if the algorithm is not supported
  */
 export function getExpectedTwilioSignature(
   authToken: string,
   url: string,
-  params: Record<string, any>
+  params: Record<string, any>,
+  algorithm?: string
 ): string {
+  const hashName = toHashName(algorithm);
+  if (!hashName) {
+    throw new Error(`Unsupported webhook signature algorithm: ${algorithm}`);
+  }
+
   if (url.indexOf("bodySHA256") !== -1 && params === null) {
     params = {};
   }
@@ -192,7 +257,7 @@ export function getExpectedTwilioSignature(
     .reduce((acc, key) => acc + toFormUrlEncodedParam(key, params[key]), url);
 
   return crypto
-    .createHmac("sha1", authToken)
+    .createHmac(hashName, authToken)
     .update(Buffer.from(data, "utf-8"))
     .digest("base64");
 }
@@ -212,19 +277,30 @@ export function getExpectedBodyHash(body: string): string {
 /**
  Utility function to validate an incoming request is indeed from Twilio
 
- @param authToken - The auth token, as seen in the Twilio portal
+ @param authToken - The auth token, as seen in the Twilio portal, or the SharedKey secret
  @param twilioHeader - The value of the X-Twilio-Signature header from the request
  @param url - The full URL (with query string) you configured to handle this request
  @param params - the parameters sent with this request
+ @param algorithm - HMAC_SHA1 (default) or HMAC_SHA256. See getSignatureAlgorithm().
+ An unsupported algorithm fails validation and logs a warning.
  @returns valid
  */
 export function validateRequest(
   authToken: string,
   twilioHeader: string,
   url: string,
-  params: Record<string, any>
+  params: Record<string, any>,
+  algorithm?: string
 ): boolean {
   twilioHeader = twilioHeader || "";
+
+  if (!toHashName(algorithm)) {
+    console.warn(
+      `[Twilio]: Unsupported webhook signature algorithm '${algorithm}'. ` +
+        `Supported: ${HMAC_SHA1}, ${HMAC_SHA256}. Upgrade twilio if Twilio added a new one.`
+    );
+    return false;
+  }
 
   /*
    *  Check signature of the url as received first, with and without the port
@@ -234,7 +310,13 @@ export function validateRequest(
    */
   const isValidSignatureAsReceived = [removePort(url), addPort(url)].some(
     (candidateUrl) =>
-      validateSignatureWithUrl(authToken, twilioHeader, candidateUrl, params)
+      validateSignatureWithUrl(
+        authToken,
+        twilioHeader,
+        candidateUrl,
+        params,
+        algorithm
+      )
   );
 
   if (isValidSignatureAsReceived) {
@@ -251,7 +333,13 @@ export function validateRequest(
     withLegacyQuerystring(normalizedUrlWithoutPort),
     withLegacyQuerystring(normalizedUrlWithPort),
   ].some((candidateUrl) =>
-    validateSignatureWithUrl(authToken, twilioHeader, candidateUrl, params)
+    validateSignatureWithUrl(
+      authToken,
+      twilioHeader,
+      candidateUrl,
+      params,
+      algorithm
+    )
   );
 }
 
@@ -259,12 +347,14 @@ function validateSignatureWithUrl(
   authToken: string,
   twilioHeader: string,
   url: string,
-  params: Record<string, any>
+  params: Record<string, any>,
+  algorithm?: string
 ): boolean {
   const signatureWithoutPort = getExpectedTwilioSignature(
     authToken,
     url,
-    params
+    params,
+    algorithm
   );
 
   return safeCompare(
@@ -294,21 +384,23 @@ function safeCompare(a: Buffer, b: Buffer): boolean {
  Utility function to validate an incoming request is indeed from Twilio. This also validates
  the request body against the bodySHA256 post parameter.
 
- @param authToken - The auth token, as seen in the Twilio portal
+ @param authToken - The auth token, as seen in the Twilio portal, or the SharedKey secret
  @param twilioHeader - The value of the X-Twilio-Signature header from the request
  @param url - The full URL (with query string) you configured to handle this request
  @param body - The body of the request
+ @param algorithm - HMAC_SHA1 (default) or HMAC_SHA256. See getSignatureAlgorithm().
  @returns valid
  */
 export function validateRequestWithBody(
   authToken: string,
   twilioHeader: string,
   url: string,
-  body: string
+  body: string,
+  algorithm?: string
 ): boolean {
   const urlObject = new URL(url);
   return (
-    validateRequest(authToken, twilioHeader, url, {}) &&
+    validateRequest(authToken, twilioHeader, url, {}, algorithm) &&
     validateBody(body, urlObject.searchParams.get("bodySHA256") || "")
   );
 }
@@ -323,6 +415,7 @@ export function validateRequestWithBody(
     -> url: The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
     -> host: manually specify the host name used by Twilio in a number's webhook config
     -> protocol: manually specify the protocol used by Twilio in a number's webhook config
+    -> algorithm: HMAC_SHA1 (default) or HMAC_SHA256; pass the result of getSignatureAlgorithm() for SharedKey webhooks
  */
 export function validateIncomingRequest(
   request: Request,
@@ -353,16 +446,18 @@ export function validateIncomingRequest(
   if (webhookUrl.indexOf("bodySHA256") > 0) {
     return validateRequestWithBody(
       authToken,
-      request.header("X-Twilio-Signature") || "",
+      request.header(SIGNATURE_HEADER) || "",
       webhookUrl,
-      request.rawBody || "{}"
+      request.rawBody || "{}",
+      options.algorithm
     );
   } else {
     return validateRequest(
       authToken,
-      request.header("X-Twilio-Signature") || "",
+      request.header(SIGNATURE_HEADER) || "",
       webhookUrl,
-      request.body || {}
+      request.body || {},
+      options.algorithm
     );
   }
 }
@@ -390,6 +485,8 @@ Options:
 - host: manually specify the host name used by Twilio in a number's webhook config
 - protocol: manually specify the protocol used by Twilio in a number's webhook config
 - url: The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
+- sharedKeySecret: the SharedKey secret, used for webhooks signed with a SharedKey (those carry the
+    X-Twilio-Webhooks-Signature-Settings header). The algorithm, HMAC_SHA1 or HMAC_SHA256, is read from the header.
 
 Returns a middleware function.
 
@@ -402,6 +499,9 @@ var webhookMiddleware = twilio.webhook({
 var webhookMiddleware = twilio.webhook({
     host: 'hook.twilio.com',
     protocol: 'https'
+});
+var webhookMiddleware = twilio.webhook('asdha9dhjasd', {
+    sharedKeySecret: 'shared key secret' // for webhooks signed with a SharedKey
 });
  */
 export function webhook(
@@ -462,23 +562,31 @@ export function webhook(
             "No signature header error - X-Twilio-Signature header does not exist, maybe this request is not coming from Twilio."
           );
       }
-      // Check for a valid auth token
-      if (!options?.authToken) {
+      // A settings header means Twilio signed with a SharedKey, using the algorithm named in it
+      const signatureSettings = request.header(SIGNATURE_SETTINGS_HEADER);
+      const secret = signatureSettings
+        ? options?.sharedKeySecret
+        : options?.authToken;
+
+      // Check for a valid auth token (or SharedKey secret)
+      if (!secret) {
+        const missing = signatureSettings ? "SharedKey secret" : "auth token";
         console.error(
-          "[Twilio]: Error - Twilio auth token is required for webhook request validation."
+          `[Twilio]: Error - Twilio ${missing} is required for webhook request validation.`
         );
         response
           .type("text/plain")
           .status(500)
           .send(
-            "Webhook Error - we attempted to validate this request without first configuring our auth token."
+            `Webhook Error - we attempted to validate this request without first configuring our ${missing}.`
           );
       } else {
         // Check that the request originated from Twilio
-        var valid = validateExpressRequest(request, options?.authToken, {
+        var valid = validateExpressRequest(request, secret, {
           url: options?.url,
           host: options?.host,
           protocol: options?.protocol,
+          algorithm: getSignatureAlgorithm(signatureSettings),
         });
 
         if (valid) {

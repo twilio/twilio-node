@@ -1,4 +1,5 @@
 import {
+  getExpectedTwilioSignature,
   validateRequest,
   validateRequestWithBody,
   validateBody,
@@ -476,5 +477,89 @@ describe("Request validation middleware", () => {
     });
 
     expect(response.statusCode).toEqual(400);
+  });
+
+  describe("with a SharedKey (HMAC-SHA256)", () => {
+    const sharedKeySecret = "sharedKeySecret";
+    const settingsHeader = "key=webhooks_sharedkey_1,algorithm=HMAC_SHA256";
+    const sha256Signature = getExpectedTwilioSignature(
+      sharedKeySecret,
+      requestUrl,
+      defaultParams,
+      "HMAC_SHA256"
+    );
+    const sharedKeyRequest = (headers = {}) =>
+      httpMocks.createRequest(
+        Object.assign({}, defaultRequest, {
+          headers: Object.assign({}, defaultRequest.headers, {
+            "X-Twilio-Signature": sha256Signature,
+            "X-Twilio-Webhooks-Signature-Settings": settingsHeader,
+            ...headers,
+          }),
+        })
+      );
+
+    it("should validate with the SharedKey secret and the header's algorithm", (done) => {
+      webhook(token, { sharedKeySecret })(sharedKeyRequest(), response, () =>
+        done()
+      );
+
+      expect(response.statusCode).toEqual(200);
+    });
+
+    it("should send 403 when the request was signed with a different secret", () => {
+      webhook(token, { sharedKeySecret })(
+        sharedKeyRequest({
+          "X-Twilio-Signature": getExpectedTwilioSignature(
+            token,
+            requestUrl,
+            defaultParams,
+            "HMAC_SHA256"
+          ),
+        }),
+        response,
+        () => expect(true).toBeFalsy()
+      );
+
+      expect(response.statusCode).toEqual(403);
+    });
+
+    it("should send 403 for an unsupported algorithm in the header", () => {
+      const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
+
+      webhook(token, { sharedKeySecret })(
+        sharedKeyRequest({
+          "X-Twilio-Webhooks-Signature-Settings":
+            "key=webhooks_sharedkey_1,algorithm=HMAC_SHA512",
+        }),
+        response,
+        () => expect(true).toBeFalsy()
+      );
+
+      expect(response.statusCode).toEqual(403);
+      warn.mockRestore();
+    });
+
+    it("should send 500 when the SharedKey secret is not configured", () => {
+      const error = jest.spyOn(console, "error").mockImplementation(() => {});
+
+      webhook(token)(sharedKeyRequest(), response, () =>
+        expect(true).toBeFalsy()
+      );
+
+      expect(response.statusCode).toEqual(500);
+      expect(response._getData()).toContain("SharedKey secret");
+      error.mockRestore();
+    });
+
+    it("should keep validating requests without the settings header with the auth token", (done) => {
+      webhook(token, { sharedKeySecret })(
+        httpMocks.createRequest(defaultRequest),
+        response,
+        () => done()
+      );
+
+      expect(response.statusCode).toEqual(200);
+    });
   });
 });
