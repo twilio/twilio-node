@@ -41,7 +41,7 @@ export class TrusthubV1A2pBrandRegistrationRequest {
    */
   "businessName"?: string;
   /**
-   * The authority with which the business is registered.
+   * The authority with which the business is registered. The value is validated by the service; see the Twilio docs for accepted values.
    */
   "businessRegistrationAuthority"?: string;
   /**
@@ -49,7 +49,7 @@ export class TrusthubV1A2pBrandRegistrationRequest {
    */
   "businessRegistrationNumber"?: string;
   /**
-   * The industry of the business.
+   * The industry of the business. The value is validated by the service; see the Twilio docs for accepted values.
    */
   "businessIndustry"?: string;
   /**
@@ -57,7 +57,7 @@ export class TrusthubV1A2pBrandRegistrationRequest {
    */
   "businessWebsite"?: string;
   /**
-   * The type of business entity.
+   * The type of business entity. The value is validated by the service; see the Twilio docs for accepted values.
    */
   "businessType"?: string;
   /**
@@ -65,11 +65,11 @@ export class TrusthubV1A2pBrandRegistrationRequest {
    */
   "businessStockSymbol"?: string;
   /**
-   * The stock exchange where the business is listed.
+   * The stock exchange where the business is listed. The value is validated by the service; see the Twilio docs for accepted values.
    */
   "businessStockExchange"?: string;
   /**
-   * Nonprofit/political organization tax-exempt status per the U.S. tax code (e.g. 501c3, 501c1, 527). A value of 527 (political organization) requires a Campaign Verify token in brandExternalVettingToken.
+   * Nonprofit/political organization tax-exempt status per the U.S. tax code (e.g. 501c3, 501c1, 527). A value of 527 (political organization) requires a Campaign Verify token in brandExternalVettingToken. The value is validated by the service; see the Twilio docs for accepted values.
    */
   "businessTaxExemptStatus"?: string;
   /**

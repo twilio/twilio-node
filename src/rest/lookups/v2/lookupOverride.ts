@@ -636,7 +636,10 @@ export class LookupOverrideInstance {
     this.owner = payload.owner;
     this.ttl = payload.ttl;
 
-    this._solution = { field: field, phoneNumber: phoneNumber };
+    this._solution = {
+      field: field || this.field,
+      phoneNumber: phoneNumber || this.phoneNumber,
+    };
   }
 
   /**

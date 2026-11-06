@@ -60,6 +60,7 @@ export type ConversationsV2Channel =
   | "VOICE"
   | "SMS"
   | "RCS"
+  | "EMAIL"
   | "WHATSAPP"
   | "CHAT"
   | "VIDEO";
@@ -173,9 +174,9 @@ export class ConversationsV2StatusCallbackConfig {
 
 export class CreateConversationWithConfigRequest {
   /**
-   * The ID of an existing configuration.
+   * The ID of an existing configuration. Omit it to define the configuration inline in `configuration`.
    */
-  "configurationId": string;
+  "configurationId"?: string;
   /**
    * The name of the conversation.
    */
@@ -200,9 +201,29 @@ export class CreateConversationWithConfigRequest {
 }
 
 /**
- * Conversation configuration settings.
+ * Conversation configuration settings. Without `configurationId`, `conversationGroupingType` and `memoryStoreId` are required. With `configurationId`, these settings override the Configuration\'s own for this Conversation only.
  */
 export class CreateConversationWithConfigRequestConfiguration {
+  /**
+   * Type of Conversation grouping strategy: - `GROUP_BY_PROFILE`: Groups Communications by resolved Profile from the Memory Store.   A Profile is looked up or created for `CUSTOMER` Participant types. All Communications from the same Profile are in the same Conversation, regardless of address or channel. - `GROUP_BY_PARTICIPANT_ADDRESSES`: Groups Communications by Participant addresses across all channels.   A customer using +18005550100 will be in the same Conversation whether they contact by SMS, WhatsApp, or RCS. - `GROUP_BY_PARTICIPANT_ADDRESSES_AND_CHANNEL_TYPE`: Groups Communications by both Participant addresses AND channel.   A customer using +18005550100 by SMS will be in a different Conversation than the same customer by Voice.
+   */
+  "conversationGroupingType"?: string;
+  /**
+   * The memory store ID that Conversation Orchestrator uses for profile resolution.
+   */
+  "memoryStoreId"?: string;
+  /**
+   * Status timeouts by channel type. Capture rules can only be set on a Configuration.
+   */
+  "channelSettings"?: {
+    [
+      key: string
+    ]: CreateConversationWithConfigRequestConfigurationChannelSettingsValue;
+  };
+  /**
+   * Whether memory extraction is enabled for this Conversation. Without `configurationId`, defaults to false; with it, defaults to the Configuration\'s value.
+   */
+  "memoryExtractionEnabled"?: boolean;
   /**
    * A list of Conversational Intelligence configuration IDs.
    */
@@ -216,16 +237,71 @@ export class CreateConversationWithConfigRequestConfiguration {
    */
   "observationExtractionStrategyIds"?: Array<string>;
   /**
+   * The webhook configurations for this Conversation. Overrides the Configuration\'s own.
+   */
+  "statusCallbacks"?: Array<CreateConversationWithConfigRequestConfigurationStatusCallbacks>;
+  /**
    * The Workflows to associate with this Conversation. Overrides the Configuration\'s own.
    */
   "workflows"?: Array<ConversationWorkflow>;
 
   constructor(payload) {
+    this.conversationGroupingType = payload["conversationGroupingType"];
+    this.memoryStoreId = payload["memoryStoreId"];
+    this.channelSettings = payload["channelSettings"];
+    this.memoryExtractionEnabled = payload["memoryExtractionEnabled"];
     this.intelligenceConfigurationIds = payload["intelligenceConfigurationIds"];
     this.traitExtractionStrategyIds = payload["traitExtractionStrategyIds"];
     this.observationExtractionStrategyIds =
       payload["observationExtractionStrategyIds"];
+    this.statusCallbacks = payload["statusCallbacks"];
     this.workflows = payload["workflows"];
+  }
+}
+
+export class CreateConversationWithConfigRequestConfigurationChannelSettingsValue {
+  "statusTimeouts"?: CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts;
+
+  constructor(payload) {
+    this.statusTimeouts = payload["statusTimeouts"];
+  }
+}
+
+/**
+ * Timeout settings for channel status transitions. `inactive` must be less than `closed`.
+ */
+export class CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts {
+  /**
+   * Inactivity timeout in minutes.
+   */
+  "inactive"?: number;
+  /**
+   * Close timeout in minutes.
+   */
+  "closed": number;
+
+  constructor(payload) {
+    this.inactive = payload["inactive"];
+    this.closed = payload["closed"];
+  }
+}
+
+/**
+ * Default webhook configuration for Conversation-level events under this Configuration.
+ */
+export class CreateConversationWithConfigRequestConfigurationStatusCallbacks {
+  /**
+   * Destination URL for webhooks.
+   */
+  "url": string;
+  /**
+   * HTTP method used to invoke the webhook URL.
+   */
+  "method"?: string;
+
+  constructor(payload) {
+    this.url = payload["url"];
+    this.method = payload["method"];
   }
 }
 
@@ -311,6 +387,10 @@ export class ListConversationByAccount200ResponseConversationsConfiguration {
    * Whether memory extraction is enabled for conversations under this configuration. Defaults to false.
    */
   "memoryExtractionEnabled"?: boolean;
+  /**
+   * The ID of the redaction configuration applied to communications in this configuration\'s conversations.
+   */
+  "redactionConfigurationId"?: string;
   "conversationsV1Bridge"?: ConversationsV2ConversationsV1Bridge;
 
   constructor(payload) {
@@ -325,6 +405,7 @@ export class ListConversationByAccount200ResponseConversationsConfiguration {
     this.observationExtractionStrategyIds =
       payload["observationExtractionStrategyIds"];
     this.memoryExtractionEnabled = payload["memoryExtractionEnabled"];
+    this.redactionConfigurationId = payload["redactionConfigurationId"];
     this.conversationsV1Bridge = payload["conversationsV1Bridge"];
   }
 }
@@ -1141,7 +1222,7 @@ export interface ConversationsV2StatusCallbackConfig {
  * Nested model for CreateConversationWithConfigRequest
  */
 export interface CreateConversationWithConfigRequest {
-  configurationId: string;
+  configurationId?: string;
   name?: string;
   configuration?: CreateConversationWithConfigRequestConfiguration;
   participants?: Array<CreateConversationWithConfigRequestParticipants>;
@@ -1152,10 +1233,42 @@ export interface CreateConversationWithConfigRequest {
  * Nested model for CreateConversationWithConfigRequestConfiguration
  */
 export interface CreateConversationWithConfigRequestConfiguration {
+  conversationGroupingType?: string;
+  memoryStoreId?: string;
+  channelSettings?: {
+    [
+      key: string
+    ]: CreateConversationWithConfigRequestConfigurationChannelSettingsValue;
+  };
+  memoryExtractionEnabled?: boolean;
   intelligenceConfigurationIds?: Array<string>;
   traitExtractionStrategyIds?: Array<string>;
   observationExtractionStrategyIds?: Array<string>;
+  statusCallbacks?: Array<CreateConversationWithConfigRequestConfigurationStatusCallbacks>;
   workflows?: Array<ConversationWorkflow>;
+}
+
+/**
+ * Nested model for CreateConversationWithConfigRequestConfigurationChannelSettingsValue
+ */
+export interface CreateConversationWithConfigRequestConfigurationChannelSettingsValue {
+  statusTimeouts?: CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts;
+}
+
+/**
+ * Nested model for CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts
+ */
+export interface CreateConversationWithConfigRequestConfigurationChannelSettingsValueStatusTimeouts {
+  inactive?: number;
+  closed: number;
+}
+
+/**
+ * Nested model for CreateConversationWithConfigRequestConfigurationStatusCallbacks
+ */
+export interface CreateConversationWithConfigRequestConfigurationStatusCallbacks {
+  url: string;
+  method?: string;
 }
 
 /**
@@ -1191,6 +1304,7 @@ export interface ListConversationByAccount200ResponseConversationsConfiguration 
   traitExtractionStrategyIds?: Array<string>;
   observationExtractionStrategyIds?: Array<string>;
   memoryExtractionEnabled?: boolean;
+  redactionConfigurationId?: string;
   conversationsV1Bridge?: ConversationsV2ConversationsV1Bridge;
 }
 
@@ -1225,20 +1339,12 @@ interface ConversationPayload extends TokenPaginationPayload {
 }
 
 /**
- * Response model for CreateConfiguration202Response operations
- */
-interface CreateConfiguration202Response_ResponseResource {
-  statusUrl: string;
-  related?: { [key: string]: string };
-}
-
-/**
  * Response model for ListConversationByAccount200ResponseConversations operations
  */
 interface ListConversationByAccount200ResponseConversations_ResponseResource {
   id: string;
   accountId: string;
-  configurationId: string;
+  configurationId?: string;
   status?: ConversationsV2ConversationStatus;
   name?: string;
   createdAt?: Date;
@@ -1250,11 +1356,19 @@ interface ListConversationByAccount200ResponseConversations_ResponseResource {
 }
 
 /**
+ * Response model for CreateConfiguration202Response operations
+ */
+interface CreateConfiguration202Response_ResponseResource {
+  statusUrl: string;
+  related?: { [key: string]: string };
+}
+
+/**
  * Union type for all possible response models
  */
 type ConversationResource =
-  | CreateConfiguration202Response_ResponseResource
-  | ListConversationByAccount200ResponseConversations_ResponseResource;
+  | ListConversationByAccount200ResponseConversations_ResponseResource
+  | CreateConfiguration202Response_ResponseResource;
 
 export class ConversationInstance {
   protected _solution: ConversationContextSolution;
@@ -1266,8 +1380,6 @@ export class ConversationInstance {
     id?: string
   ) {
     const payload: any = _payload;
-    this.statusUrl = payload.statusUrl;
-    this.related = payload.related;
     this.id = payload.id;
     this.accountId = payload.accountId;
     this.configurationId = payload.configurationId;
@@ -1289,18 +1401,12 @@ export class ConversationInstance {
           )
         : null;
     this.actionId = payload.actionId;
+    this.statusUrl = payload.statusUrl;
+    this.related = payload.related;
 
     this._solution = { id: id };
   }
 
-  /**
-   * URL to poll for operation status.
-   */
-  statusUrl?: string;
-  /**
-   * Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId
-   */
-  related?: { [key: string]: string };
   /**
    * Conversation ID.
    */
@@ -1310,7 +1416,7 @@ export class ConversationInstance {
    */
   accountId?: string;
   /**
-   * Configuration ID.
+   * Configuration ID. Null when the Conversation was created with an inline configuration.
    */
   configurationId?: string;
   status?: ConversationsV2ConversationStatus;
@@ -1339,6 +1445,14 @@ export class ConversationInstance {
    * The Action created for the request\'s `action`, present only on the create response that dispatched one. Poll `GET /v2/Conversations/{ConversationId}/Actions/{ActionId}` for its status.
    */
   actionId?: string;
+  /**
+   * URL to poll for operation status.
+   */
+  statusUrl?: string;
+  /**
+   * Named resource identifiers associated with this operation. Keys depend on the operation type: - config-create, config-update, config-delete: configurationId - conversation-delete: conversationId
+   */
+  related?: { [key: string]: string };
 
   private get _proxy(): ConversationContext {
     this._context =
@@ -1598,8 +1712,6 @@ export class ConversationInstance {
    */
   toJSON() {
     return {
-      statusUrl: this.statusUrl,
-      related: this.related,
       id: this.id,
       accountId: this.accountId,
       configurationId: this.configurationId,
@@ -1611,6 +1723,8 @@ export class ConversationInstance {
       metadata: this.metadata,
       participants: this.participants,
       actionId: this.actionId,
+      statusUrl: this.statusUrl,
+      related: this.related,
     };
   }
 

@@ -518,7 +518,7 @@ export class TriggerInstance {
     this.usageCategory = payload.usage_category;
     this.usageRecordUri = payload.usage_record_uri;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

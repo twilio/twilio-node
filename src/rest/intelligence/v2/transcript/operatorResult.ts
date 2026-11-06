@@ -340,7 +340,10 @@ export class OperatorResultInstance {
     this.transcriptSid = payload.transcript_sid;
     this.url = payload.url;
 
-    this._solution = { transcriptSid, operatorSid: operatorSid };
+    this._solution = {
+      transcriptSid,
+      operatorSid: operatorSid || this.operatorSid,
+    };
   }
 
   operatorType: OperatorResultOperatorType;

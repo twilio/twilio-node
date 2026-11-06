@@ -504,7 +504,7 @@ export class ConferenceInstance {
     this.reasonConferenceEnded = payload.reason_conference_ended;
     this.callSidEndingConference = payload.call_sid_ending_conference;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

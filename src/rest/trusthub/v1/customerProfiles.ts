@@ -560,7 +560,7 @@ export class CustomerProfilesInstance {
     this.links = payload.links;
     this.errors = payload.errors;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

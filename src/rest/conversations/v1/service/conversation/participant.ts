@@ -630,7 +630,7 @@ export class ParticipantInstance {
     );
     this.lastReadTimestamp = payload.last_read_timestamp;
 
-    this._solution = { chatServiceSid, conversationSid, sid: sid };
+    this._solution = { chatServiceSid, conversationSid, sid: sid || this.sid };
   }
 
   /**

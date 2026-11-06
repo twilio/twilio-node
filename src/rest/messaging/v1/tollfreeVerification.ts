@@ -948,7 +948,7 @@ export class TollfreeVerificationInstance {
       payload.vetting_id_expiration
     );
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

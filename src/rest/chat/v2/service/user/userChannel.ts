@@ -579,7 +579,11 @@ export class UserChannelInstance {
     this.url = payload.url;
     this.notificationLevel = payload.notification_level;
 
-    this._solution = { serviceSid, userSid, channelSid: channelSid };
+    this._solution = {
+      serviceSid,
+      userSid,
+      channelSid: channelSid || this.channelSid,
+    };
   }
 
   /**

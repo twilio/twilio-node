@@ -529,7 +529,7 @@ export class FactorInstance {
     this.metadata = payload.metadata;
     this.url = payload.url;
 
-    this._solution = { serviceSid, identity, sid: sid };
+    this._solution = { serviceSid, identity, sid: sid || this.sid };
   }
 
   /**

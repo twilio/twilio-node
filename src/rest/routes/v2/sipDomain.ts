@@ -346,7 +346,7 @@ export class SipDomainInstance {
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.dateUpdated = deserialize.iso8601DateTime(payload.date_updated);
 
-    this._solution = { sipDomain: sipDomain };
+    this._solution = { sipDomain: sipDomain || this.sipDomain };
   }
 
   sipDomain: string;

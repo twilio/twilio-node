@@ -364,7 +364,7 @@ export class InteractionInstance {
     this.interactionContextSid = payload.interaction_context_sid;
     this.webhookTtid = payload.webhook_ttid;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

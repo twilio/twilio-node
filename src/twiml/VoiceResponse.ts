@@ -1607,7 +1607,220 @@ namespace VoiceResponse {
     | "Polly.Ruth-Generative"
     | "Polly.Sergio-Generative"
     | "Polly.Stephen-Generative"
-    | "Polly.Vicki-Generative";
+    | "Polly.Vicki-Generative"
+    | "ElevenLabs.XA2bIQ92TabjGbpO2xRr"
+    | "ElevenLabs.DTKMou8ccj1ZaWGBiotd"
+    | "ElevenLabs.vBKc2FfBKJfcZNyEt1n6"
+    | "ElevenLabs.gs0tAILXbY5DNrJrsM6F"
+    | "ElevenLabs.qEq5B6ivvdkFRAcn7PdO"
+    | "ElevenLabs.h8RIq0ukSFDr6ipbAxd1"
+    | "ElevenLabs.TmNe0cCqkZBMwPWOd3RD"
+    | "ElevenLabs.c6SfcYrb2t09NHXiT80T"
+    | "ElevenLabs.2xwsH0780nkIQ684Jc5B"
+    | "ElevenLabs.DYkrAHD8iwork3YSUBbs"
+    | "ElevenLabs.L0Dsvb3SLTyegXwtm47J"
+    | "ElevenLabs.UgBBYS2sOqTuMpoF3BR0"
+    | "ElevenLabs.aMSt68OGf4xUZAnLpTU8"
+    | "ElevenLabs.eR40ATw9ArzDf9h3v7t7"
+    | "ElevenLabs.Kw9HMUes82uSa2hlywjI"
+    | "ElevenLabs.56AoDkrOh6qfVPDXZ7Pt"
+    | "ElevenLabs.tZTks1IADvTLcwxNsEQq"
+    | "ElevenLabs.Pyfg4UDJCrfJylNNFhjg"
+    | "ElevenLabs.9VdJV36lZCxPO8Ydgu3g"
+    | "ElevenLabs.g6xIsTj2HwM6VR4iXFCw"
+    | "ElevenLabs.FUfBrNit0NNZAwb58KWH"
+    | "ElevenLabs.X03mvPuTfprif8QBAVeJ"
+    | "ElevenLabs.qBDvhofpxp92JgXJxDjB"
+    | "ElevenLabs.lcMyyd2HUfFzxdCaC4Ta"
+    | "ElevenLabs.kdVjFjOXaqExaDvXZECX"
+    | "ElevenLabs.ZaZosYpkIGmSqOwAlfnk"
+    | "ElevenLabs.egTToTzW6GojvddLj0zd"
+    | "ElevenLabs.5kMbtRSEKIkRZSdXxrZg"
+    | "ElevenLabs.xKhbyU7E3bC6T89Kn26c"
+    | "ElevenLabs.kHhWB9Fw3aF6ly7JvltC"
+    | "ElevenLabs.vDchjyOZZytffNeZXfZK"
+    | "ElevenLabs.ePn9OncKq8KyJvrTRqTi"
+    | "ElevenLabs.GhkQkxbimoIykF4iGYqh"
+    | "ElevenLabs.ChO6kqkVouUn0s7HMunx"
+    | "ElevenLabs.PjN1x5uqQvyU3DO0gdJz"
+    | "ElevenLabs.mkrzc6Zmz8alRK0wX5dd"
+    | "ElevenLabs.JAATlCsz6GCH2vUjFcLg"
+    | "ElevenLabs.w9rPM8AIZle60Nbpw7nl"
+    | "ElevenLabs.g4LbLXna3aySyQVdGvRW"
+    | "ElevenLabs.ys3XeJJA4ArWMhRpcX1D"
+    | "ElevenLabs.zubqz6JC54rePKNCKZLG"
+    | "ElevenLabs.C2BkQxlGNzBn7WD2bqfR"
+    | "ElevenLabs.5GZaeOOG7yqLdoTRsaa6"
+    | "ElevenLabs.OluJZCsIVfyg64DC1NPq"
+    | "ElevenLabs.hDCQ0elACClokHYB6RkC"
+    | "ElevenLabs.NIPHfiR4kB4aHfvaKvYb"
+    | "ElevenLabs.ucgJ8SdlW1CZr9MIm8BP"
+    | "ElevenLabs.t1myskmYQbiTpxXcDfBx"
+    | "ElevenLabs.IES4nrmZdUBHByLBde0P"
+    | "ElevenLabs.a1KZUXKFVFDOb33I1uqr"
+    | "ElevenLabs.mRdG9GYEjJmIzqbYTidv"
+    | "ElevenLabs.pCKbQ4EPGE06zpEPGNvS"
+    | "ElevenLabs.4wf10lgibMnboGJGCLrP"
+    | "ElevenLabs.s83SAGdFTflAwJcAV81K"
+    | "ElevenLabs.WuLq5z7nEcrhppO0ZQJw"
+    | "ElevenLabs.4VZIsMPtgggwNg7OXbPY"
+    | "ElevenLabs.bhJUNIXWQQ94l8eI2VUf"
+    | "ElevenLabs.hkfHEbBvdQFNX4uWHqRF"
+    | "ElevenLabs.9lHjugDhwqoxA5MhX0az"
+    | "ElevenLabs.uYFJyGaibp4N2VwYQshk"
+    | "ElevenLabs.daJ4gHLkIVFskWuoLuDX"
+    | "ElevenLabs.OAAjJsQDvpg3sVjiLgyl"
+    | "ElevenLabs.euwLQkcrNloJcqW5i9Mz"
+    | "ElevenLabs.bF7C2fCv7Zf30iT84wZ1"
+    | "ElevenLabs.6SjhOkgKPuHxm8q0eIyp"
+    | "ElevenLabs.ygiXC2Oa1BiHksD3WkJZ"
+    | "ElevenLabs.xj6X4BCUsv9oxohm1E8o"
+    | "ElevenLabs.j9jfwdrw7BRfcR43Qohk"
+    | "ElevenLabs.FVQMzxJGPUBtfz1Azdoy"
+    | "ElevenLabs.UNBIyLbtFB9k7FKW8wJv"
+    | "ElevenLabs.yO6w2xlECAQRFP6pX7Hw"
+    | "ElevenLabs.dLPO5AsXc3FZDbTh1IKa"
+    | "ElevenLabs.62klqbsYqbynbr66ypRt"
+    | "ElevenLabs.RhfuhuYldx2ApeAGj3zH"
+    | "ElevenLabs.uaUCJwO6D7PkgkB8ZcAr"
+    | "ElevenLabs.RnW8EXHv9GqGMgyP0sXG"
+    | "ElevenLabs.NEqPvTuKWuvwUMAEPBPR"
+    | "ElevenLabs.MUVOVB3VWCo7pumU3SIO"
+    | "ElevenLabs.P1K0rMb2NHP150zt1hjo"
+    | "ElevenLabs.dlbXHgJnwobU5JdZ8F5M"
+    | "ElevenLabs.JMfkzZiSsox62UXcXUqM"
+    | "ElevenLabs.fC33e0BIKA7wWK2MeARj"
+    | "ElevenLabs.1qEiC6qsybMkmnNdVMbK"
+    | "ElevenLabs.7eVMgwCnXydb3CikjV7a"
+    | "ElevenLabs.aQROLel5sQbj1vuIVi6B"
+    | "ElevenLabs.McVZB9hVxVSk3Equu8EH"
+    | "ElevenLabs.IPgYtHTNLjC7Bq7IPHrm"
+    | "ElevenLabs.hFgOzpmS0CMtL2to8sAl"
+    | "ElevenLabs.93nuHbke4dTER9x2pDwE"
+    | "ElevenLabs.FpvROcY4IGWevepmBWO2"
+    | "ElevenLabs.FTNCalFNG5bRnkkaP5Ug"
+    | "ElevenLabs.aTTiK3YzK3dXETpuDE2h"
+    | "ElevenLabs.MbbPUteESkJWr4IAaW35"
+    | "ElevenLabs.p2Wol3C7j3rHbfOrbL18"
+    | "ElevenLabs.yUy9CCX9brt8aPVvIWy3"
+    | "ElevenLabs.n0vzWypeCK1NlWPVwhOc"
+    | "ElevenLabs.5DAtyqt3LGjv9jkjNVFd"
+    | "ElevenLabs.0oYUKTNPbymIKVAkDQqh"
+    | "ElevenLabs.PaZ8laODC1yRxHTPYJFh"
+    | "ElevenLabs.SaqYcK3ZpDKBAImA8AdW"
+    | "ElevenLabs.gHu9GtaHOXcSqFTK06ux"
+    | "ElevenLabs.zT03pEAEi0VHKciJODfn"
+    | "ElevenLabs.zgqefOY5FPQ3bB7OZTVR"
+    | "ElevenLabs.H6QPv2pQZDcGqLwDTIJQ"
+    | "ElevenLabs.Sxk6njaoa7XLsAFT7WcN"
+    | "ElevenLabs.TumdjBNWanlT3ysvclWh"
+    | "ElevenLabs.M336tBVZHWWiWb4R54ui"
+    | "ElevenLabs.xjlfQQ3ynqiEyRpArrT8"
+    | "ElevenLabs.WYg5oajoUHxVa6ikQXec"
+    | "ElevenLabs.vPyfZcTRVuFmWwDgQRSd"
+    | "ElevenLabs.1k39YpzqXZn52BgyLyGO"
+    | "ElevenLabs.RWiGLY9uXI70QL540WNd"
+    | "ElevenLabs.X8n8hOy3e8VLQnHTUcc5"
+    | "ElevenLabs.d888tBvGmQT2u05J1xTv"
+    | "ElevenLabs.I7sakys8pBZ1Z5f0UhT9"
+    | "ElevenLabs.3mAVBNEqop5UbHtD8oxQ"
+    | "ElevenLabs.Lpe7uP03WRpCk9XkpFnf"
+    | "ElevenLabs.fzDFBB4mgvMlL36gPXcz"
+    | "ElevenLabs.W71zT1VwIFFx3mMGH2uZ"
+    | "ElevenLabs.3DPhHWXDY263XJ1d2EPN"
+    | "ElevenLabs.ByVILX2H5wPAwDiNVKAR"
+    | "ElevenLabs.t3hJ92dgZhDVtsff084B"
+    | "ElevenLabs.gfKKsLN1k0oYYN9n2dXX"
+    | "ElevenLabs.kAzI34nYjizE0zON6rXv"
+    | "ElevenLabs.Mv8AjrYZCBkdsmDHNwcB"
+    | "ElevenLabs.3JDquces8E8bkmvbh6Bc"
+    | "ElevenLabs.j210dv0vWm7fCknyQpbA"
+    | "ElevenLabs.WQz3clzUdMqvBf0jswZQ"
+    | "ElevenLabs.gARvXPexe5VF3cKZBian"
+    | "ElevenLabs.G3EZ8O36A0x9lmeOtr0f"
+    | "ElevenLabs.uyVNoMrnUku1dZyVEXwD"
+    | "ElevenLabs.ZJCNdZEjYwkOElxugmW2"
+    | "ElevenLabs.ETPP7D0aZVdEj12Aa7ho"
+    | "ElevenLabs.8jHHF8rMqMlg8if2mOUe"
+    | "ElevenLabs.pb3lVZVjdFWbkhPKlelB"
+    | "ElevenLabs.s07IwTCOrCDCaETjUVjx"
+    | "ElevenLabs.NpVSXJvYSdIbjOaMbShj"
+    | "ElevenLabs.BeIxObt4dYBRJLYoe1hU"
+    | "ElevenLabs.C1gMsiiE7sXAt59fmvYg"
+    | "ElevenLabs.qAJVXEQ6QgjOQ25KuoU8"
+    | "ElevenLabs.9pRpxWU0T7UFt2oEMH6n"
+    | "ElevenLabs.2dhHLsmg0MVma2t041qT"
+    | "ElevenLabs.s2xtA7B2CTXPPlJzch1v"
+    | "ElevenLabs.vUmLiNBm6MDcy1NUHaVr"
+    | "ElevenLabs.zzBTsLBFM6AOJtkr1e9b"
+    | "ElevenLabs.W0sqKm1Sfw1EzlCH14FQ"
+    | "ElevenLabs.N0GCuK2B0qwWozQNTS8F"
+    | "ElevenLabs.g8ZOdhoD9R6eYKPTjKbE"
+    | "ElevenLabs.mr1ubFaLs5xVrh1EqWtc"
+    | "ElevenLabs.0el4HQ5fH8KITMM7DKzD"
+    | "ElevenLabs.CstacWqMhJQlnfLPxRG4"
+    | "ElevenLabs.oJebhZNaPllxk6W0LSBA"
+    | "ElevenLabs.tS45q0QcrDHqHoaWdCDR"
+    | "ElevenLabs.4za2kOXGgUd57HRSQ1fn"
+    | "ElevenLabs.x3mAOLD9WzlmrFCwA1S3"
+    | "ElevenLabs.lWq4KDY8znfkV0DrK8Vb"
+    | "ElevenLabs.RROBrqjHiRb8zmRgGV11"
+    | "ElevenLabs.gbLy9ep70G3JW53cTzFC"
+    | "ElevenLabs.OlBp4oyr3FBAGEAtJOnU"
+    | "ElevenLabs.8nBBDfYxYXmDNaqTCxPH"
+    | "ElevenLabs.cD1j5eDqipyIUMIi7Q5e"
+    | "ElevenLabs.Q1khAM9K4Mi6p5TK0ueC"
+    | "ElevenLabs.GRHbHyXbUO8nF4YexVTa"
+    | "ElevenLabs.am5XuPVtut7uKJQKMja2"
+    | "ElevenLabs.kwajW3Xh5svCeKU5ky2S"
+    | "ElevenLabs.AB9XsbSA4eLG12t2myjN"
+    | "ElevenLabs.aG9q1I1wTbfHh5sbpJnp"
+    | "ElevenLabs.1REYVgkHGlaFX4Rz9cPZ"
+    | "ElevenLabs.grmBv5c5ZJVFgXpRWyp7"
+    | "ElevenLabs.oKxkBkm5a8Bmrd1Whf2c"
+    | "ElevenLabs.GN4wbsbejSnGSa1AzjH5"
+    | "ElevenLabs.d6IbhdqAKkXCCVuJjbie"
+    | "ElevenLabs.3K1lqsxxXFiTAXCO09Zv"
+    | "ElevenLabs.Uyx98Ek4uMNmWN7E28CD"
+    | "ElevenLabs.gUABw7pXQjhjt0kNFBTF"
+    | "ElevenLabs.Nh2zY9kknu6z4pZy6FhD"
+    | "ElevenLabs.x5IDPSl4ZUbhosMmVFTk"
+    | "ElevenLabs.dlGxemPxFMTY7iXagmOj"
+    | "ElevenLabs.2Lb1en5ujrODDIqmp7F3"
+    | "ElevenLabs.iDEmt5MnqUotdwCIVplo"
+    | "ElevenLabs.94zOad0g7T7K4oa7zhDq"
+    | "ElevenLabs.86V9x9hrQds83qf7zaGn"
+    | "ElevenLabs.RgXx32WYOGrd7gFNifSf"
+    | "ElevenLabs.eBthAb30UYbt2nojGXeA"
+    | "ElevenLabs.tomkxGQGz4b1kE0EM722"
+    | "ElevenLabs.aSLKtNoVBZlxQEMsnGL2"
+    | "ElevenLabs.e6OiUVixGLmvtdn2GJYE"
+    | "ElevenLabs.13Cuh3NuYvWOVQtLbRN8"
+    | "ElevenLabs.gqFUMFHCD2nbbcYVtPGB"
+    | "ElevenLabs.gCr8TeSJgJaeaIoV4RWH"
+    | "ElevenLabs.ZhJ5LanYnCmLKQUXvsV7"
+    | "ElevenLabs.8J24wCDJGSNy9xjbiMla"
+    | "ElevenLabs.1XNFRxE3WBB7iI0jnm7p"
+    | "ElevenLabs.Z0ocGS7BSRxFSMhV00nB"
+    | "ElevenLabs.Y2T2O1csKPgWgyuKcU0a"
+    | "ElevenLabs.GLHtjkeLJ9Rxcv9JhLmh"
+    | "ElevenLabs.DzLm9w4W54qdHK2xg6CY"
+    | "ElevenLabs.NNn9dv8zq2kUo7d3JSGG"
+    | "ElevenLabs.DsbR47WNEv8o9x37ib9X"
+    | "ElevenLabs.TASY7VCrU29rEMoYFTGG"
+    | "ElevenLabs.6GYyziau4Hk8qdg7od5c"
+    | "ElevenLabs.nCqaTnIbLdME87OuQaZY"
+    | "ElevenLabs.9Sj8ugvpK1DmcAXyvi3a"
+    | "ElevenLabs.GVRiwBELe0czFUAJj0nX"
+    | "ElevenLabs.Ntd0iVwICtUtA6Fvx27M"
+    | "ElevenLabs.2OXYbN1uGomXXJtv9Dq6"
+    | "ElevenLabs.2o2uQnlGaNuV3ObRpxXt"
+    | "ElevenLabs.XBDAUT8ybuJTTCoOLSUj"
+    | "ElevenLabs.foH7s9fX31wFFH2yqrFa"
+    | "ElevenLabs.RmcV9cAq1TByxNSgbii7"
+    | "ElevenLabs.7WNWm0yUcEolHsfg5Bhk"
+    | "ElevenLabs.UsgbMVmY3U59ijwK5mdh"
+    | "ElevenLabs.Wzj3w9OuQFcoiuKPnk3j";
 
   type SipEvent = "initiated" | "ringing" | "answered" | "completed";
 
@@ -3144,14 +3357,26 @@ namespace VoiceResponse {
    * Attributes to pass to conversationRelay
    */
   export interface ConversationRelayAttributes {
+    /** applicationReconnect - Whether the WebSocket connection to the application should be reconnected if it drops during the call. Defaults to false */
+    applicationReconnect?: boolean;
+    /** asrSmartFormat - Whether smart formatting should be applied to transcripts. Takes precedence over deepgramSmartFormat */
+    asrSmartFormat?: boolean;
     /** backgroundnoisereduction - This parameters enables background noise filtering on the audio stream before it reaches the STT engine, improving transcription accuracy in noisy environments */
     backgroundnoisereduction?: string;
+    /** customerName - Customer name sent to Conversations and Conversational Intelligence. Defaults to the caller ID */
+    customerName?: string;
     /** debug - Multiple debug options to be used for troubleshooting */
     debug?: string;
     /** deepgramsmartformat - This parameter enables Deepgram's smart formatting feature, which automatically applies punctuation, capitalization, and formatting (e.g. numbers, dates, currency) to transcripts */
     deepgramsmartformat?: string;
     /** dtmfDetection - Whether DTMF tones should be detected and reported in speech transcription */
     dtmfDetection?: boolean;
+    /** eagerEotThreshold - Eager end-of-turn confidence threshold, which fires before the end-of-turn threshold. The value can be between 0.3 and 0.9 */
+    eagerEotThreshold?: string;
+    /** echoPromptFiltering - Whether transcripts that echo the agent's own text-to-speech should be dropped. Defaults to false */
+    echoPromptFiltering?: boolean;
+    /** elevenlabsLanguageTextNormalization - Legacy alias of ttsLanguageTextNormalization */
+    elevenlabsLanguageTextNormalization?: boolean;
     /** elevenlabsTextNormalization - When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature */
     elevenlabsTextNormalization?: string;
     /** events - This parameter allows you to enable event subscriptions */
@@ -3160,6 +3385,8 @@ namespace VoiceResponse {
     hints?: string;
     /** ignorebackchannel - This parameter brief caller acknowledgments (e.g. "yeah", "uh-huh") are ignored and will not interrupt the agent while it is speaking. */
     ignorebackchannel?: string;
+    /** includeInPrompt - Extra fields to be included in prompt messages. The value can be turn-state or prompt-segments */
+    includeInPrompt?: string;
     /** intelligenceService - The Conversational Intelligence Service id or unique name to be used for the session */
     intelligenceService?: string;
     /** interruptSensitivity - Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high */
@@ -3168,6 +3395,8 @@ namespace VoiceResponse {
     interruptible?: string;
     /** language - Language to be used for both text-to-speech and transcription */
     language?: string;
+    /** partialPromptOnHangup - Whether the in-progress partial transcript should be reported as a prompt when the call hangs up */
+    partialPromptOnHangup?: boolean;
     /** partialPrompts - Whether partial prompts should be reported to WebSocket server before the caller finishes speaking */
     partialPrompts?: boolean;
     /** preemptible - Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media */
@@ -3186,8 +3415,14 @@ namespace VoiceResponse {
     transcriptionProvider?: string;
     /** ttsLanguage - Language to be used for text-to-speech */
     ttsLanguage?: string;
+    /** ttsLanguageTextNormalization - Whether language-specific text normalization should be applied for text-to-speech */
+    ttsLanguageTextNormalization?: boolean;
     /** ttsProvider - Provider to be used for text-to-speech */
     ttsProvider?: string;
+    /** ttsTextNormalization - Text normalization for text-to-speech. The value can be auto, on, or off. Takes precedence over elevenlabsTextNormalization */
+    ttsTextNormalization?: string;
+    /** turnDetection - Whether turn detection should be used to decide when the caller has finished speaking. Defaults to false */
+    turnDetection?: boolean;
     /** url - URL of the remote service where the session is connected to */
     url?: string;
     /** voice - Voice to be used for text-to-speech */
@@ -3222,14 +3457,22 @@ namespace VoiceResponse {
    * Attributes to pass to language
    */
   export interface LanguageAttributes {
+    /** asrSmartFormat - Whether smart formatting should be applied to transcripts of this language */
+    asrSmartFormat?: boolean;
     /** code - Language code of this language setting is for */
     code?: string;
+    /** hints - Phrases to help better accuracy in speech recognition of this language */
+    hints?: string;
     /** speechModel - Speech model to be used for transcription of this language */
     speechModel?: string;
     /** transcriptionProvider - Provider to be used for transcription of this language */
     transcriptionProvider?: string;
+    /** ttsLanguageTextNormalization - Whether language-specific text normalization should be applied for text-to-speech of this language */
+    ttsLanguageTextNormalization?: boolean;
     /** ttsProvider - Provider to be used for text-to-speech of this language */
     ttsProvider?: string;
+    /** ttsTextNormalization - Text normalization for text-to-speech of this language. The value can be auto, on, or off */
+    ttsTextNormalization?: string;
     /** voice - Voice to be used for text-to-speech of this language */
     voice?: string;
   }

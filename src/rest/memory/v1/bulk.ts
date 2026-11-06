@@ -212,15 +212,39 @@ export function BulkListInstance(
 
 interface BulkResource {
   message: string;
+  operationId: string;
+  createdAt: Date;
+  statusUrl: string;
 }
 
+/**
+ * Response for bulk profile operations.
+ */
 export class BulkInstance {
   constructor(protected _version: V1, _payload: BulkResource, storeId: string) {
     const payload = _payload;
     this.message = payload.message;
+    this.operationId = payload.operationId;
+    this.createdAt = deserialize.iso8601DateTime(payload.createdAt);
+    this.statusUrl = payload.statusUrl;
   }
 
+  /**
+   * Confirmation message for the operation.
+   */
   message: string;
+  /**
+   * The ID of an asynchronous profile domain operation.
+   */
+  operationId: string;
+  /**
+   * ISO 8601 timestamp when the operation was created.
+   */
+  createdAt: Date;
+  /**
+   * URL to query the operation status.
+   */
+  statusUrl: string;
 
   /**
    * Provide a user-friendly representation
@@ -230,6 +254,9 @@ export class BulkInstance {
   toJSON() {
     return {
       message: this.message,
+      operationId: this.operationId,
+      createdAt: this.createdAt,
+      statusUrl: this.statusUrl,
     };
   }
 

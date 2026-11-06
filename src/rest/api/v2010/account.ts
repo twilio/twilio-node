@@ -630,7 +630,7 @@ export class AccountInstance {
     this.type = payload.type;
     this.uri = payload.uri;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

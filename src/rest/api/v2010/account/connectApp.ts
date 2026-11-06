@@ -516,7 +516,7 @@ export class ConnectAppInstance {
     this.sid = payload.sid;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

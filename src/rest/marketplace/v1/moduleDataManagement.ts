@@ -379,7 +379,7 @@ export class ModuleDataManagementInstance {
     this.pricing = payload.pricing;
     this.listings = payload.listings;
 
-    this._solution = { sid: sid };
+    this._solution = { sid: sid || this.sid };
   }
 
   /**

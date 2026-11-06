@@ -468,7 +468,7 @@ export class InsightsQuestionnairesQuestionInstance {
     this.answerSet = payload.answer_set;
     this.url = payload.url;
 
-    this._solution = { questionSid: questionSid };
+    this._solution = { questionSid: questionSid || this.questionSid };
   }
 
   /**

@@ -604,7 +604,7 @@ export class MessageInstance {
     this.links = payload.links;
     this.contentSid = payload.content_sid;
 
-    this._solution = { conversationSid, sid: sid };
+    this._solution = { conversationSid, sid: sid || this.sid };
   }
 
   /**

@@ -618,7 +618,7 @@ export class DomainInstance {
     this.byocTrunkSid = payload.byoc_trunk_sid;
     this.emergencyCallerSid = payload.emergency_caller_sid;
 
-    this._solution = { accountSid, sid: sid };
+    this._solution = { accountSid, sid: sid || this.sid };
   }
 
   /**

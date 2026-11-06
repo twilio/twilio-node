@@ -252,7 +252,10 @@ export class BrandVettingInstance {
     this.vettingProvider = payload.vetting_provider;
     this.url = payload.url;
 
-    this._solution = { brandSid, brandVettingSid: brandVettingSid };
+    this._solution = {
+      brandSid,
+      brandVettingSid: brandVettingSid || this.brandVettingSid,
+    };
   }
 
   /**

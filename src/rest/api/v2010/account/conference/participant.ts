@@ -707,7 +707,11 @@ export class ParticipantInstance {
     this.queueTime = payload.queue_time;
     this.uri = payload.uri;
 
-    this._solution = { accountSid, conferenceSid, callSid: callSid };
+    this._solution = {
+      accountSid,
+      conferenceSid,
+      callSid: callSid || this.callSid,
+    };
   }
 
   /**
