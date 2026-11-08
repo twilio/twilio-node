@@ -46,6 +46,14 @@ interface ExponentialBackoffResponseHandlerOptions {
   maxRetries: number;
 }
 
+function isRetryableError(error: any): boolean {
+  // Check for network errors that are typically transient
+  if (error.code) {
+    return ["ECONNRESET", "ETIMEDOUT", "ECONNABORTED"].includes(error.code);
+  }
+  return false;
+}
+
 function getExponentialBackoffResponseHandler(
   axios: AxiosInstance,
   opts: ExponentialBackoffResponseHandlerOptions
@@ -77,6 +85,37 @@ function getExponentialBackoffResponseHandler(
   };
 }
 
+function getExponentialBackoffErrorHandler(
+  axios: AxiosInstance,
+  opts: ExponentialBackoffResponseHandlerOptions
+) {
+  const maxIntervalMillis = opts.maxIntervalMillis;
+  const maxRetries = opts.maxRetries;
+
+  return function (error: any) {
+    const config: BackoffAxiosRequestConfig = error.config;
+
+    if (!isRetryableError(error) || !config) {
+      return Promise.reject(error);
+    }
+
+    const retryCount = (config.retryCount || 0) + 1;
+    if (retryCount <= maxRetries) {
+      config.retryCount = retryCount;
+      const baseDelay = Math.min(
+        maxIntervalMillis,
+        DEFAULT_INITIAL_RETRY_INTERVAL_MILLIS * Math.pow(2, retryCount)
+      );
+      const delay = Math.floor(baseDelay * Math.random()); // Full jitter backoff
+
+      return new Promise((resolve: (value: Promise<AxiosResponse>) => void) => {
+        setTimeout(() => resolve(axios(config)), delay);
+      });
+    }
+    return Promise.reject(error);
+  };
+}
+
 class RequestClient {
   defaultTimeout: number;
   axios: AxiosInstance;
@@ -97,9 +136,9 @@ class RequestClient {
    * @param opts.maxTotalSockets - https.Agent maxTotalSockets option
    * @param opts.maxFreeSockets - https.Agent maxFreeSockets option
    * @param opts.scheduling - https.Agent scheduling option
-   * @param opts.autoRetry - Enable auto-retry requests with exponential backoff on 429 responses. Defaults to false.
-   * @param opts.maxRetryDelay - Max retry delay in milliseconds for 429 Too Many Request response retries. Defaults to 3000.
-   * @param opts.maxRetries - Max number of request retries for 429 Too Many Request responses. Defaults to 3.
+   * @param opts.autoRetry - Enable auto-retry requests with exponential backoff on 429 responses and network errors. Defaults to false.
+   * @param opts.maxRetryDelay - Max retry delay in milliseconds for 429 Too Many Request response retries and network errors. Defaults to 3000.
+   * @param opts.maxRetries - Max number of request retries for 429 Too Many Request responses and network errors. Defaults to 3.
    * @param opts.validationClient - Validation client for PKCV
    */
   constructor(opts?: RequestClient.RequestClientOptions) {
@@ -145,6 +184,10 @@ class RequestClient {
     if (opts.autoRetry) {
       this.axios.interceptors.response.use(
         getExponentialBackoffResponseHandler(this.axios, {
+          maxIntervalMillis: this.maxRetryDelay,
+          maxRetries: this.maxRetries,
+        }),
+        getExponentialBackoffErrorHandler(this.axios, {
           maxIntervalMillis: this.maxRetryDelay,
           maxRetries: this.maxRetries,
         })
@@ -422,16 +465,17 @@ namespace RequestClient {
     ca?: string | Buffer;
     /**
      * Enable auto-retry with exponential backoff when receiving 429 Errors from
-     * the API. Disabled by default.
+     * the API or network errors (e.g. ECONNRESET). Disabled by default.
      */
     autoRetry?: boolean;
     /**
-     * Maximum retry delay in milliseconds for 429 Error response retries.
-     * Defaults to 3000.
+     * Maximum retry delay in milliseconds for 429 Error response retries
+     * and network errors. Defaults to 3000.
      */
     maxRetryDelay?: number;
     /**
-     * Maximum number of request retries for 429 Error responses. Defaults to 3.
+     * Maximum number of request retries for 429 Error responses and network
+     * errors. Defaults to 3.
      */
     maxRetries?: number;
     /**
