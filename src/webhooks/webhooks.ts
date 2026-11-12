@@ -433,14 +433,18 @@ export function validateIncomingRequest(
     var protocol = options.protocol || request.protocol;
     var host = options.host || request.headers.host;
 
+    // Pass the query string as `search`, so url.format keeps it as received
+    // (an encoded `%3F` in the path or query must not become a `?`)
+    var queryStart = request.originalUrl.indexOf("?");
     webhookUrl = urllib.format({
       protocol: protocol,
       host: host,
-      pathname: request.originalUrl,
+      pathname:
+        queryStart >= 0
+          ? request.originalUrl.slice(0, queryStart)
+          : request.originalUrl,
+      search: queryStart >= 0 ? request.originalUrl.slice(queryStart) : null,
     });
-    if (request.originalUrl.search(/\?/) >= 0) {
-      webhookUrl = webhookUrl.replace(/%3F/g, "?");
-    }
   }
 
   if (webhookUrl.indexOf("bodySHA256") > 0) {
