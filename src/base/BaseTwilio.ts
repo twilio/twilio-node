@@ -24,6 +24,7 @@ namespace Twilio {
     autoRetry?: boolean;
     maxRetryDelay?: number;
     maxRetries?: number;
+    onRetry?: (attempt: number, delayMillis: number) => boolean | void;
     validationClient?: ValidationClientOptions;
 
     /**
@@ -73,6 +74,7 @@ namespace Twilio {
     autoRetry?: boolean;
     maxRetryDelay?: number;
     maxRetries?: number;
+    onRetry?: (attempt: number, delayMillis: number) => boolean | void;
     validationClient?: ValidationClientOptions;
 
     /**
@@ -145,6 +147,7 @@ namespace Twilio {
       this.autoRetry = this.opts.autoRetry || false;
       this.maxRetryDelay = this.opts.maxRetryDelay;
       this.maxRetries = this.opts.maxRetries;
+      this.onRetry = this.opts.onRetry;
       this.validationClient = this.opts.validationClient;
       this.userAgentExtensions = this.opts.userAgentExtensions || [];
       this._httpClient = this.opts.httpClient;
@@ -195,6 +198,7 @@ namespace Twilio {
           autoRetry: this.autoRetry,
           maxRetryDelay: this.maxRetryDelay,
           maxRetries: this.maxRetries,
+          onRetry: this.onRetry,
           validationClient: this.validationClient,
         });
       }
