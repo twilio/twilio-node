@@ -547,6 +547,10 @@ namespace VoiceResponse {
     | "cmn-Hant-TW"
     | "zu-ZA";
 
+  type MediaFilterFilterType = "noise";
+
+  type MediaFilterTrack = "inbound_track" | "outbound_track" | "both_tracks";
+
   type NumberEvent = "initiated" | "ringing" | "answered" | "completed";
 
   type PayBankAccountType =
@@ -2267,6 +2271,10 @@ namespace VoiceResponse {
    * Attributes to pass to transcription
    */
   export interface TranscriptionAttributes {
+    /** conversationConfiguration - The ID or the unique name of the Conversation configuration to be used */
+    conversationConfiguration?: string;
+    /** conversationId - The ID of the Conversation */
+    conversationId?: string;
     /** enableAutomaticPunctuation - Enable Automatic Punctuation */
     enableAutomaticPunctuation?: boolean;
     /** hints - Hints to be provided to the transcription engine */
@@ -2295,6 +2303,30 @@ namespace VoiceResponse {
     track?: TranscriptionTrack;
     /** transcriptionEngine - Transcription Engine to be used */
     transcriptionEngine?: string;
+  }
+
+  /**
+   * Attributes to pass to mediaFilter
+   */
+  export interface MediaFilterAttributes {
+    /** filterType - Type of filter to be applied to the media */
+    filterType?: MediaFilterFilterType;
+    /** model - Model used by the media filter */
+    model?: string;
+    /** name - Friendly name given to the Media Filter */
+    name?: string;
+    /** track - Track to be filtered */
+    track?: MediaFilterTrack;
+  }
+
+  /**
+   * Attributes to pass to parameter
+   */
+  export interface ParameterAttributes {
+    /** name - The name of the custom parameter */
+    name?: string;
+    /** value - The value of the custom parameter */
+    value?: string;
   }
 
   /**
@@ -2379,6 +2411,10 @@ namespace VoiceResponse {
    * Attributes to pass to transcription
    */
   export interface TranscriptionAttributes {
+    /** conversationConfiguration - The ID or the unique name of the Conversation configuration to be used */
+    conversationConfiguration?: string;
+    /** conversationId - The ID of the Conversation */
+    conversationId?: string;
     /** enableAutomaticPunctuation - Enable Automatic Punctuation */
     enableAutomaticPunctuation?: boolean;
     /** hints - Hints to be provided to the transcription engine */
@@ -2407,6 +2443,20 @@ namespace VoiceResponse {
     track?: TranscriptionTrack;
     /** transcriptionEngine - Transcription Engine to be used */
     transcriptionEngine?: string;
+  }
+
+  /**
+   * Attributes to pass to mediaFilter
+   */
+  export interface MediaFilterAttributes {
+    /** filterType - Type of filter to be applied to the media */
+    filterType?: MediaFilterFilterType;
+    /** model - Model used by the media filter */
+    model?: string;
+    /** name - Friendly name given to the Media Filter */
+    name?: string;
+    /** track - Track to be filtered */
+    track?: MediaFilterTrack;
   }
 
   /**
@@ -3363,6 +3413,10 @@ namespace VoiceResponse {
     asrSmartFormat?: boolean;
     /** backgroundnoisereduction - This parameters enables background noise filtering on the audio stream before it reaches the STT engine, improving transcription accuracy in noisy environments */
     backgroundnoisereduction?: string;
+    /** conversationConfiguration - The ID or the unique name of the Conversation configuration to be used */
+    conversationConfiguration?: string;
+    /** conversationId - The ID of the Conversation */
+    conversationId?: string;
     /** customerName - Customer name sent to Conversations and Conversational Intelligence. Defaults to the caller ID */
     customerName?: string;
     /** debug - Multiple debug options to be used for troubleshooting */
@@ -4222,6 +4276,30 @@ namespace VoiceResponse {
       super();
       this.leave = leave;
       this._propertyName = "leave";
+    }
+  }
+
+  export class MediaFilter extends TwiML {
+    mediaFilter: XMLElement;
+    /**
+     * <MediaFilter> TwiML Noun
+     */
+    constructor(mediaFilter: XMLElement) {
+      super();
+      this.mediaFilter = mediaFilter;
+      this._propertyName = "mediaFilter";
+    }
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(
+      attributes?: VoiceResponse.ParameterAttributes
+    ): VoiceResponse.Parameter {
+      return new VoiceResponse.Parameter(
+        this.mediaFilter.ele("Parameter", attributes)
+      );
     }
   }
 
@@ -5994,6 +6072,18 @@ namespace VoiceResponse {
       this._propertyName = "start";
     }
     /**
+     * <MediaFilter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    mediaFilter(
+      attributes?: VoiceResponse.MediaFilterAttributes
+    ): VoiceResponse.MediaFilter {
+      return new VoiceResponse.MediaFilter(
+        this.start.ele("MediaFilter", attributes)
+      );
+    }
+    /**
      * <Recording> TwiML Noun
      *
      * @param attributes - TwiML attributes
@@ -6044,6 +6134,18 @@ namespace VoiceResponse {
       super();
       this.stop = stop;
       this._propertyName = "stop";
+    }
+    /**
+     * <MediaFilter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    mediaFilter(
+      attributes?: VoiceResponse.MediaFilterAttributes
+    ): VoiceResponse.MediaFilter {
+      return new VoiceResponse.MediaFilter(
+        this.stop.ele("MediaFilter", attributes)
+      );
     }
     /**
      * <Siprec> TwiML Noun
