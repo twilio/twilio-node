@@ -14,6 +14,7 @@
 
 import MessagingBase from "../MessagingBase";
 import Version from "../../base/Version";
+import { MessageCostEstimateListInstance } from "./v3/messageCostEstimate";
 import { TypingIndicatorListInstance } from "./v3/typingIndicator";
 
 export default class V3 extends Version {
@@ -26,8 +27,17 @@ export default class V3 extends Version {
     super(domain, "v3");
   }
 
+  /** messageCostEstimate - { Twilio.Messaging.V3.MessageCostEstimateListInstance } resource */
+  protected _messageCostEstimate?: MessageCostEstimateListInstance;
   /** typingIndicator - { Twilio.Messaging.V3.TypingIndicatorListInstance } resource */
   protected _typingIndicator?: TypingIndicatorListInstance;
+
+  /** Getter for messageCostEstimate resource */
+  get messageCostEstimate(): MessageCostEstimateListInstance {
+    this._messageCostEstimate =
+      this._messageCostEstimate || MessageCostEstimateListInstance(this);
+    return this._messageCostEstimate;
+  }
 
   /** Getter for typingIndicator resource */
   get typingIndicator(): TypingIndicatorListInstance {
