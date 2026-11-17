@@ -39,4 +39,3 @@ docker-push:
 	docker push twilio/twilio-node:${GITHUB_TAG}
 	docker push twilio/twilio-node:apidefs-${API_DEFINITIONS_SHA}
 	docker push twilio/twilio-node:${CURRENT_TAG}
-
