@@ -479,6 +479,50 @@ describe("Request validation middleware", () => {
     expect(response.statusCode).toEqual(400);
   });
 
+  it("should keep an encoded ? inside the query string", (done) => {
+    const query = "?next=%2Fcart%3Fstep%3D2&greeting=hello+world";
+    const request = httpMocks.createRequest(
+      Object.assign({}, defaultRequest, {
+        originalUrl: "/sms" + query,
+        headers: Object.assign({}, defaultRequest.headers, {
+          "X-Twilio-Signature": getExpectedTwilioSignature(
+            token,
+            "https://mycompany.com/sms" + query,
+            defaultParams
+          ),
+        }),
+      })
+    );
+
+    middleware(request, response, () => {
+      done();
+    });
+
+    expect(response.statusCode).toEqual(200);
+  });
+
+  it("should keep an encoded ? inside the path", (done) => {
+    const path = "/my%3Fapp?foo=1";
+    const request = httpMocks.createRequest(
+      Object.assign({}, defaultRequest, {
+        originalUrl: path,
+        headers: Object.assign({}, defaultRequest.headers, {
+          "X-Twilio-Signature": getExpectedTwilioSignature(
+            token,
+            "https://mycompany.com" + path,
+            defaultParams
+          ),
+        }),
+      })
+    );
+
+    middleware(request, response, () => {
+      done();
+    });
+
+    expect(response.statusCode).toEqual(200);
+  });
+
   describe("with a SharedKey (HMAC-SHA256)", () => {
     const sharedKeySecret = "sharedKeySecret";
     const settingsHeader = "key=webhooks_sharedkey_1,algorithm=HMAC_SHA256";
