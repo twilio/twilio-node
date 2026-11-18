@@ -307,6 +307,10 @@ interface CustomerProfilesChannelEndpointAssignmentResource {
   channel_endpoint_sid: string;
   date_created: Date;
   url: string;
+  code: number;
+  message: string;
+  more_info: string;
+  status: number;
 }
 
 export class CustomerProfilesChannelEndpointAssignmentInstance {
@@ -326,6 +330,10 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
     this.channelEndpointSid = payload.channel_endpoint_sid;
     this.dateCreated = deserialize.iso8601DateTime(payload.date_created);
     this.url = payload.url;
+    this.code = payload.code;
+    this.message = payload.message;
+    this.moreInfo = payload.more_info;
+    this.status = payload.status;
 
     this._solution = { customerProfileSid, sid: sid || this.sid };
   }
@@ -358,6 +366,22 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
    * The absolute URL of the Identity resource.
    */
   url: string;
+  /**
+   * Twilio-specific error code
+   */
+  code: number;
+  /**
+   * Error message
+   */
+  message: string;
+  /**
+   * Link to Error Code References
+   */
+  moreInfo: string;
+  /**
+   * HTTP response status code
+   */
+  status: number;
 
   private get _proxy(): CustomerProfilesChannelEndpointAssignmentContext {
     this._context =
@@ -442,6 +466,10 @@ export class CustomerProfilesChannelEndpointAssignmentInstance {
       channelEndpointSid: this.channelEndpointSid,
       dateCreated: this.dateCreated,
       url: this.url,
+      code: this.code,
+      message: this.message,
+      moreInfo: this.moreInfo,
+      status: this.status,
     };
   }
 
