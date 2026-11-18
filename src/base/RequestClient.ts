@@ -107,7 +107,7 @@ class RequestClient {
     this.defaultTimeout = opts.timeout || DEFAULT_TIMEOUT;
     this.autoRetry = opts.autoRetry || false;
     this.maxRetryDelay = opts.maxRetryDelay || DEFAULT_MAX_RETRY_DELAY;
-    this.maxRetries = opts.maxRetries || DEFAULT_MAX_RETRIES;
+    this.maxRetries = opts.maxRetries ?? DEFAULT_MAX_RETRIES;
     this.keepAlive = opts.keepAlive !== false;
 
     // construct an https agent

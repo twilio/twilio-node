@@ -466,6 +466,26 @@ describe("Exponential backoff and retry", function () {
       });
   });
 
+  it("should honor maxRetries of 0 and not retry", function (done) {
+    client = new RequestClient({
+      autoRetry: true,
+      maxRetries: 0,
+    });
+    expect(client.maxRetries).toBe(0);
+    startServer(getRequestListenerWithErrors(1))
+      .then((uri) => {
+        return client.request({
+          method: "GET",
+          uri,
+        });
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(429);
+        expect(res.body).toEqual("FAILED! Request #1");
+        done();
+      });
+  });
+
   it("should retry up to custom max retries allowed", function (done) {
     client = new RequestClient({
       autoRetry: true,
