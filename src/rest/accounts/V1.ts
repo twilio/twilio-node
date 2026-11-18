@@ -17,6 +17,7 @@ import Version from "../../base/Version";
 import { AuthTokenPromotionListInstance } from "./v1/authTokenPromotion";
 import { BulkConsentsListInstance } from "./v1/bulkConsents";
 import { BulkContactsListInstance } from "./v1/bulkContacts";
+import { ComplianceSignalsCheckListInstance } from "./v1/complianceSignalsCheck";
 import { CredentialListInstance } from "./v1/credential";
 import { MessagingGeopermissionsListInstance } from "./v1/messagingGeopermissions";
 import { SafelistListInstance } from "./v1/safelist";
@@ -38,6 +39,8 @@ export default class V1 extends Version {
   protected _bulkConsents?: BulkConsentsListInstance;
   /** bulkContacts - { Twilio.Accounts.V1.BulkContactsListInstance } resource */
   protected _bulkContacts?: BulkContactsListInstance;
+  /** complianceSignalsCheck - { Twilio.Accounts.V1.ComplianceSignalsCheckListInstance } resource */
+  protected _complianceSignalsCheck?: ComplianceSignalsCheckListInstance;
   /** credentials - { Twilio.Accounts.V1.CredentialListInstance } resource */
   protected _credentials?: CredentialListInstance;
   /** messagingGeopermissions - { Twilio.Accounts.V1.MessagingGeopermissionsListInstance } resource */
@@ -64,6 +67,13 @@ export default class V1 extends Version {
   get bulkContacts(): BulkContactsListInstance {
     this._bulkContacts = this._bulkContacts || BulkContactsListInstance(this);
     return this._bulkContacts;
+  }
+
+  /** Getter for complianceSignalsCheck resource */
+  get complianceSignalsCheck(): ComplianceSignalsCheckListInstance {
+    this._complianceSignalsCheck =
+      this._complianceSignalsCheck || ComplianceSignalsCheckListInstance(this);
+    return this._complianceSignalsCheck;
   }
 
   /** Getter for credentials resource */

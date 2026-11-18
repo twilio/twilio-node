@@ -429,6 +429,7 @@ interface TraitResource {
   value: any;
   traitGroup: string;
   timestamp: Date;
+  source: string;
 }
 
 /**
@@ -446,6 +447,7 @@ export class TraitInstance {
     this.value = payload.value;
     this.traitGroup = payload.traitGroup;
     this.timestamp = deserialize.iso8601DateTime(payload.timestamp);
+    this.source = payload.source;
   }
 
   /**
@@ -464,6 +466,10 @@ export class TraitInstance {
    * The time the trait was created or last updated.
    */
   timestamp: Date;
+  /**
+   * Caller-set, descriptive, untrusted provenance metadata. Must follow the {company}/{product}/{version}/_* convention. \"twilio\" is a reserved company name, only usable by authenticated internal callers.
+   */
+  source: string;
 
   /**
    * Provide a user-friendly representation
@@ -476,6 +482,7 @@ export class TraitInstance {
       value: this.value,
       traitGroup: this.traitGroup,
       timestamp: this.timestamp,
+      source: this.source,
     };
   }
 
