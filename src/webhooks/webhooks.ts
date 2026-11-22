@@ -543,11 +543,10 @@ export function webhook(
     }
   }
 
-  // set auth token from input or environment variable
+  // set auth token from the string argument, the options object or the environment variable
   if (options) {
-    options.authToken = tokenString
-      ? tokenString
-      : process.env.TWILIO_AUTH_TOKEN;
+    options.authToken =
+      tokenString || options.authToken || process.env.TWILIO_AUTH_TOKEN;
   }
   // Create middleware function
   return function hook(request, response, next) {
