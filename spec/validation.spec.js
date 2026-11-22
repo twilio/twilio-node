@@ -479,6 +479,69 @@ describe("Request validation middleware", () => {
     expect(response.statusCode).toEqual(400);
   });
 
+  describe("with the auth token in the options object", () => {
+    const envToken = process.env.TWILIO_AUTH_TOKEN;
+
+    afterEach(() => {
+      if (envToken === undefined) delete process.env.TWILIO_AUTH_TOKEN;
+      else process.env.TWILIO_AUTH_TOKEN = envToken;
+    });
+
+    it("validates with it when TWILIO_AUTH_TOKEN is not set", (done) => {
+      delete process.env.TWILIO_AUTH_TOKEN;
+      const request = httpMocks.createRequest(defaultRequest);
+
+      webhook({ authToken: token })(request, response, () => {
+        done();
+      });
+
+      expect(response.statusCode).toEqual(200);
+    });
+
+    it("prefers it to a different TWILIO_AUTH_TOKEN", (done) => {
+      process.env.TWILIO_AUTH_TOKEN = "another-token";
+      const request = httpMocks.createRequest(defaultRequest);
+
+      webhook({ authToken: token, validate: true })(request, response, () => {
+        done();
+      });
+
+      expect(response.statusCode).toEqual(200);
+    });
+
+    it("still rejects a request signed with another token", () => {
+      delete process.env.TWILIO_AUTH_TOKEN;
+      const request = httpMocks.createRequest(defaultRequest);
+
+      webhook({ authToken: "another-token" })(request, response, () => {
+        expect(true).toBeFalsy();
+      });
+
+      expect(response.statusCode).toEqual(403);
+    });
+
+    it("lets a string token win over the options object", (done) => {
+      const request = httpMocks.createRequest(defaultRequest);
+
+      webhook(token, { authToken: "another-token" })(request, response, () => {
+        done();
+      });
+
+      expect(response.statusCode).toEqual(200);
+    });
+
+    it("falls back to TWILIO_AUTH_TOKEN when no token is given", (done) => {
+      process.env.TWILIO_AUTH_TOKEN = token;
+      const request = httpMocks.createRequest(defaultRequest);
+
+      webhook({})(request, response, () => {
+        done();
+      });
+
+      expect(response.statusCode).toEqual(200);
+    });
+  });
+
   describe("with a SharedKey (HMAC-SHA256)", () => {
     const sharedKeySecret = "sharedKeySecret";
     const settingsHeader = "key=webhooks_sharedkey_1,algorithm=HMAC_SHA256";
