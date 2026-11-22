@@ -44,6 +44,14 @@ interface ExponentialBackoffResponseHandlerOptions {
    * Maximum number of request retries
    */
   maxRetries: number;
+  /**
+   * Optional callback invoked with the attempt number (1-indexed) and the
+   * computed delay in milliseconds before each retry of a 429 response.
+   * Returning `false` skips that retry and resolves with the 429 response
+   * as-is; any other return value (including `undefined`) lets the retry
+   * proceed.
+   */
+  onRetry?: RequestClient.RequestClientOptions["onRetry"];
 }
 
 function getExponentialBackoffResponseHandler(
@@ -52,6 +60,7 @@ function getExponentialBackoffResponseHandler(
 ) {
   const maxIntervalMillis = opts.maxIntervalMillis;
   const maxRetries = opts.maxRetries;
+  const onRetry = opts.onRetry;
 
   return function (res: AxiosResponse<any, any>) {
     const config: BackoffAxiosRequestConfig = res.config;
@@ -69,6 +78,14 @@ function getExponentialBackoffResponseHandler(
       );
       const delay = Math.floor(baseDelay * Math.random()); // Full jitter backoff
 
+      // Give the caller a chance to observe (e.g. log) or veto the retry
+      // before it is scheduled. Returning `false` opts out of this specific
+      // retry, leaving the 429 response to propagate as if autoRetry were
+      // disabled for this attempt.
+      if (onRetry && onRetry(retryCount, delay) === false) {
+        return res;
+      }
+
       return new Promise((resolve: (value: Promise<AxiosResponse>) => void) => {
         setTimeout(() => resolve(axios(config)), delay);
       });
@@ -85,6 +102,7 @@ class RequestClient {
   autoRetry: boolean;
   maxRetryDelay: number;
   maxRetries: number;
+  onRetry?: RequestClient.RequestClientOptions["onRetry"];
   keepAlive: boolean;
 
   /**
@@ -100,6 +118,7 @@ class RequestClient {
    * @param opts.autoRetry - Enable auto-retry requests with exponential backoff on 429 responses. Defaults to false.
    * @param opts.maxRetryDelay - Max retry delay in milliseconds for 429 Too Many Request response retries. Defaults to 3000.
    * @param opts.maxRetries - Max number of request retries for 429 Too Many Request responses. Defaults to 3.
+   * @param opts.onRetry - Optional callback invoked before each 429 retry with the attempt number and delay in milliseconds. Return false to skip that retry.
    * @param opts.validationClient - Validation client for PKCV
    */
   constructor(opts?: RequestClient.RequestClientOptions) {
@@ -108,6 +127,7 @@ class RequestClient {
     this.autoRetry = opts.autoRetry || false;
     this.maxRetryDelay = opts.maxRetryDelay || DEFAULT_MAX_RETRY_DELAY;
     this.maxRetries = opts.maxRetries || DEFAULT_MAX_RETRIES;
+    this.onRetry = opts.onRetry;
     this.keepAlive = opts.keepAlive !== false;
 
     // construct an https agent
@@ -147,6 +167,7 @@ class RequestClient {
         getExponentialBackoffResponseHandler(this.axios, {
           maxIntervalMillis: this.maxRetryDelay,
           maxRetries: this.maxRetries,
+          onRetry: this.onRetry,
         })
       );
     }
@@ -434,6 +455,16 @@ namespace RequestClient {
      * Maximum number of request retries for 429 Error responses. Defaults to 3.
      */
     maxRetries?: number;
+    /**
+     * Optional callback invoked before each automatic retry of a 429 Too
+     * Many Requests response. Called with the retry attempt number
+     * (1-indexed) and the delay in milliseconds before that retry will be
+     * issued, e.g. to log or monitor retries. Return `false` to skip that
+     * retry and resolve with the 429 response as-is instead of retrying it;
+     * any other return value (including no return value) lets the retry
+     * proceed as usual. Has no effect when `autoRetry` is not enabled.
+     */
+    onRetry?: (attempt: number, delayMillis: number) => boolean | void;
     /**
      * Validation client for Public Key Client Validation
      * On setting this with your credentials, Twilio validates:

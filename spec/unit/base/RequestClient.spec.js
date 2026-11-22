@@ -484,4 +484,75 @@ describe("Exponential backoff and retry", function () {
         done();
       });
   }, 10000);
+
+  it("should invoke onRetry with the attempt number and delay before each retry", function (done) {
+    const onRetry = jest.fn();
+    client = new RequestClient({
+      autoRetry: true,
+      maxRetryDelay: 3000,
+      onRetry,
+    });
+    startServer(getRequestListenerWithErrors(2))
+      .then((uri) => {
+        return client.request({
+          method: "GET",
+          uri,
+        });
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toEqual("OK! Request #3");
+        expect(onRetry).toHaveBeenCalledTimes(2);
+        expect(onRetry.mock.calls[0][0]).toEqual(1);
+        expect(onRetry.mock.calls[1][0]).toEqual(2);
+        onRetry.mock.calls.forEach((call) => {
+          const delay = call[1];
+          expect(typeof delay).toEqual("number");
+          expect(delay).toBeGreaterThanOrEqual(0);
+          expect(delay).toBeLessThanOrEqual(3000);
+        });
+        done();
+      });
+  });
+
+  it("should not invoke onRetry when there is no 429 response to retry", function (done) {
+    const onRetry = jest.fn();
+    client = new RequestClient({
+      autoRetry: true,
+      onRetry,
+    });
+    startServer(getRequestListenerWithErrors(0))
+      .then((uri) => {
+        return client.request({
+          method: "GET",
+          uri,
+        });
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(200);
+        expect(onRetry).not.toHaveBeenCalled();
+        done();
+      });
+  });
+
+  it("should skip the retry and return the 429 response when onRetry returns false", function (done) {
+    const onRetry = jest.fn().mockReturnValue(false);
+    client = new RequestClient({
+      autoRetry: true,
+      onRetry,
+    });
+    startServer(getRequestListenerWithErrors(99))
+      .then((uri) => {
+        return client.request({
+          method: "GET",
+          uri,
+        });
+      })
+      .then((res) => {
+        expect(res.statusCode).toEqual(429);
+        expect(res.body).toEqual("FAILED! Request #1");
+        expect(onRetry).toHaveBeenCalledTimes(1);
+        done();
+      });
+  });
 });
