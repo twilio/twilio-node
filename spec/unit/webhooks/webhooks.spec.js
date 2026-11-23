@@ -279,6 +279,35 @@ describe("webhooks", () => {
     });
   });
 
+  describe("duplicate or array-valued parameters", () => {
+    const url = "https://example.com/path";
+    const signature = getExpectedTwilioSignature(authToken, url, {
+      Body: "hello",
+    });
+
+    it("still validates a single value", () => {
+      expect(
+        validateRequest(authToken, signature, url, { Body: "hello" })
+      ).toBe(true);
+    });
+
+    it("rejects an array replayed under a single-value signature", () => {
+      expect(
+        validateRequest(authToken, signature, url, { Body: ["hello", "hello"] })
+      ).toBe(false);
+      expect(
+        validateRequest(authToken, signature, url, { Body: ["hello"] })
+      ).toBe(false);
+    });
+
+    it("rejects an array that collides with a delimiterless single value", () => {
+      const sig = getExpectedTwilioSignature(authToken, url, { a: "bac" });
+      expect(validateRequest(authToken, sig, url, { a: ["b", "c"] })).toBe(
+        false
+      );
+    });
+  });
+
   describe("validateBody()", () => {
     const body = '{"property": "value", "boolean": true}';
 
