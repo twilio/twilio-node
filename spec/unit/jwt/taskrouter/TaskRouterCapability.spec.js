@@ -1,4 +1,6 @@
-import TaskRouterCapability, { Policy } from "../../../../src/jwt/taskrouter/TaskRouterCapability";
+import TaskRouterCapability, {
+  Policy,
+} from "../../../../src/jwt/taskrouter/TaskRouterCapability";
 import * as util from "../../../../src/jwt/taskrouter/util";
 import jwt from "jsonwebtoken";
 
