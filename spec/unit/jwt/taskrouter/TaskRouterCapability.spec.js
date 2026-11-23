@@ -1,4 +1,6 @@
-import TaskRouterCapability from "../../../../src/jwt/taskrouter/TaskRouterCapability";
+import TaskRouterCapability, {
+  Policy,
+} from "../../../../src/jwt/taskrouter/TaskRouterCapability";
 import * as util from "../../../../src/jwt/taskrouter/util";
 import jwt from "jsonwebtoken";
 
@@ -109,5 +111,33 @@ describe("The TaskRouter Capability Token Object", function () {
       allow: true,
     };
     expect(decoded.policies[5]).toEqual(postPolicy);
+  });
+
+  describe("Policy allow", function () {
+    it("should default to true when omitted or undefined", function () {
+      expect(new Policy().allow).toBe(true);
+      expect(new Policy({ url: "u" }).allow).toBe(true);
+      expect(new Policy({ allow: undefined }).allow).toBe(true);
+    });
+
+    it("should preserve allow: true", function () {
+      expect(new Policy({ allow: true }).payload().allow).toBe(true);
+    });
+
+    it("should preserve allow: false in payload and signed token", function () {
+      var policy = new Policy({ url: "u", method: "POST", allow: false });
+      expect(policy.allow).toBe(false);
+      expect(policy.payload().allow).toBe(false);
+
+      var c = new TaskRouterCapability({
+        accountSid: "AC123",
+        authToken: "foobar",
+        workspaceSid: "WS456",
+        channelId: "WK789",
+      });
+      c.addPolicy(policy);
+      var decoded = jwt.decode(c.toJwt());
+      expect(decoded.policies[0].allow).toBe(false);
+    });
   });
 });

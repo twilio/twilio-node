@@ -190,6 +190,22 @@ function toFormUrlEncodedParam(
 }
 
 /**
+ Whether any parameter value is an array or object. Twilio signs each parameter
+ name once, and array values can collapse to the same signed string as a single
+ value, so such requests must not validate.
+
+ @param params - The parameters sent with the request
+ */
+function hasMultiValuedParams(params: Record<string, any> | null): boolean {
+  if (!params || typeof params !== "object") {
+    return false;
+  }
+  return Object.keys(params).some(
+    (key) => params[key] !== null && typeof params[key] === "object"
+  );
+}
+
+/**
  Utility function to get the signing algorithm named in the
  X-Twilio-Webhooks-Signature-Settings header. A missing or empty header (or one
  without `algorithm=`) means the legacy Auth Token signature, HMAC_SHA1.
@@ -298,6 +314,13 @@ export function validateRequest(
     console.warn(
       `[Twilio]: Unsupported webhook signature algorithm '${algorithm}'. ` +
         `Supported: ${HMAC_SHA1}, ${HMAC_SHA256}. Upgrade twilio if Twilio added a new one.`
+    );
+    return false;
+  }
+
+  if (hasMultiValuedParams(params)) {
+    console.warn(
+      "[Twilio]: Rejecting webhook with duplicate or array-valued parameters: Twilio signs each parameter once."
     );
     return false;
   }

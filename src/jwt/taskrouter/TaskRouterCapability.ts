@@ -49,7 +49,7 @@ export class Policy {
    * @param options.method - HTTP Method
    * @param options.queryFilter - Request query filter allowances
    * @param options.postFilter - Request post filter allowances
-   * @param options.allowed - Allow the policy
+   * @param options.allow - Allow (true, default) or deny (false) the policy
    */
   constructor(options?: PolicyOptions) {
     options = options || {};
@@ -57,7 +57,7 @@ export class Policy {
     this.method = options.method || "GET";
     this.queryFilter = options.queryFilter || {};
     this.postFilter = options.postFilter || {};
-    this.allow = options.allow || true;
+    this.allow = options.allow !== undefined ? options.allow : true;
   }
 
   payload(): PolicyPayload {

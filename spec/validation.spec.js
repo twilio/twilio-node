@@ -228,7 +228,7 @@ describe("Request validation", () => {
     expect(isValid).toBeTruthy();
   });
 
-  it("should validate request body with an array parameter", () => {
+  it("should reject request body with an array parameter", () => {
     const paramsWithArray = {
       "MessagingBinding.Address": ["+1325xxxxxxx", "+1415xxxxxxx"],
     };
@@ -240,10 +240,11 @@ describe("Request validation", () => {
       paramsWithArray
     );
 
-    expect(isValid).toBeTruthy();
+    // Twilio signs each parameter once; arrays can collide with a single signed value
+    expect(isValid).toBe(false);
   });
 
-  it("should validate request body with an array parameter regardless of the position of values in the array", () => {
+  it("should reject request body with an array parameter regardless of the position of values in the array", () => {
     const paramsWithArray = {
       "MessagingBinding.Address": ["+1415xxxxxxx", "+1325xxxxxxx"],
     };
@@ -255,10 +256,11 @@ describe("Request validation", () => {
       paramsWithArray
     );
 
-    expect(isValid).toBeTruthy();
+    // Twilio signs each parameter once; arrays can collide with a single signed value
+    expect(isValid).toBe(false);
   });
 
-  it("should validate request body with multiple params and values", () => {
+  it("should reject request body with multiple params and values", () => {
     const paramsWithArray = {
       Sid: "CA123",
       SidAccount: "AC123",
@@ -272,7 +274,8 @@ describe("Request validation", () => {
       paramsWithArray
     );
 
-    expect(isValid).toBeTruthy();
+    // Twilio signs each parameter once; arrays can collide with a single signed value
+    expect(isValid).toBe(false);
   });
 });
 
