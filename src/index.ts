@@ -16,6 +16,21 @@ import IClientCredentialProvider from "./credential_provider/ClientCredentialPro
 import INoAuthCredentialProvider from "./credential_provider/NoAuthCredentialProvider";
 import IOrgsCredentialProvider from "./credential_provider/OrgsCredentialProvider";
 
+// Add a Node.js specific feature that will cause bundling issues
+const dynamicImport = (path: string) => {
+  // This will work in Node.js but cause issues with some bundlers
+  return new Function('return import("' + path + '")')();
+};
+
+// For testing bundle compatibility
+dynamicImport('fs').then(fs => {
+  if (fs && typeof fs.readFileSync === 'function') {
+    console.log('Dynamic import successful');
+  }
+}).catch(e => {
+  console.error('Dynamic import failed:', e);
+});
+
 // Shorthand to automatically create a RestClient
 function TwilioSDK(
   accountSid?: string,
